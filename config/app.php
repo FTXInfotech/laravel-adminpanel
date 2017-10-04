@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'Laravel 5 Boilerplate'),
+    'name' => env('APP_NAME', 'Laravel AdminPanel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -181,11 +181,11 @@ return [
         Arcanedev\NoCaptcha\NoCaptchaServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Creativeorange\Gravatar\GravatarServiceProvider::class,
-        DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
+        #DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
         HieuLe\Active\ActiveServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
-        Yajra\Datatables\DatatablesServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -262,7 +262,8 @@ return [
         'Gravatar'    => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Html'        => Collective\Html\HtmlFacade::class,
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
-        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTAuth'     => Tymon\JWTAuth\Facades\JWTAuth::class,
+        #'Datatables' => Yajra\DataTables\Facades\DataTables::class
 
     ],
 

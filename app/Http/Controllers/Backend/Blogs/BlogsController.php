@@ -6,7 +6,7 @@ use App\Models\Blogs\Blog;
 use App\Models\BlogTags\BlogTag;
 use App\Models\BlogCategories\BlogCategory;
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\Blogs\BlogsRepository;
 use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
 use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
@@ -38,9 +38,9 @@ class BlogsController extends Controller
     public function index(ManageBlogsRequest $request)
     {
         $status = [
-            "Published" => "Published", 
-            "Draft" => "Draft", 
-            "Inactive" => "Inactive", 
+            "Published" => "Published",
+            "Draft" => "Draft",
+            "Inactive" => "Inactive",
             "Scheduled" => "Scheduled"
         ];
 
@@ -57,9 +57,9 @@ class BlogsController extends Controller
         $blogCategories = BlogCategory::where('status', 1)->pluck('name', 'id');
         $blogTags = BlogTag::where('status', 1)->pluck('name', 'id');
         $status = [
-            "Published" => "Published", 
-            "Draft" => "Draft", 
-            "Inactive" => "Inactive", 
+            "Published" => "Published",
+            "Draft" => "Draft",
+            "Inactive" => "Inactive",
             "Scheduled" => "Scheduled"
         ];
 
@@ -92,17 +92,17 @@ class BlogsController extends Controller
         $blogCategories = BlogCategory::where('status', 1)->pluck('name', 'id');
         $blogTags = BlogTag::where('status', 1)->pluck('name', 'id');
         $status = [
-            "Published" => "Published", 
-            "Draft" => "Draft", 
-            "InActive" => "InActive", 
+            "Published" => "Published",
+            "Draft" => "Draft",
+            "InActive" => "InActive",
             "Scheduled" => "Scheduled"
         ];
         $selectedCategories = $blog->categories->pluck('id')->toArray();
         $selectedtags       = $blog->tags->pluck('id')->toArray();
-        
+
         return view('backend.blogs.edit', compact(
-                "blogCategories", 
-                "blogTags", 
+                "blogCategories",
+                "blogTags",
                 "status",
                 "selectedCategories",
                 "selectedtags")

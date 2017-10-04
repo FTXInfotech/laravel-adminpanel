@@ -8,7 +8,9 @@
 
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg">
-            @php $settings = settings(); @endphp
+            @php
+                 $settings = settings();
+            @endphp
             @if($settings->logo)
                 <img height="48" width="226" class="navbar-brand" src="{{route('frontend.index')}}/img/site_logo/{{$settings->logo}}">
             @else

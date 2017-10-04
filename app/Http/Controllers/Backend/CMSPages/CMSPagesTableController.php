@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\CMSPages;
 
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\CMSPages\CMSPagesRepository;
 use App\Http\Requests\Backend\CMSPages\ManageCMSPagesRequest;
 use Carbon\Carbon;

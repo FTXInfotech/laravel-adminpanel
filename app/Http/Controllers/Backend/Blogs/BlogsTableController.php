@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Blogs;
 
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\Blogs\BlogsRepository;
 use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
 use Carbon\Carbon;

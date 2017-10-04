@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\EmailTemplates;
 
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository;
 use App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest;
 use Carbon\Carbon;

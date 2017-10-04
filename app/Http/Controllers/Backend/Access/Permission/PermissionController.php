@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\Access\Permission;
 
 use App\Models\Access\Permission\Permission;
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\Access\Permission\PermissionRepository;
 use App\Http\Requests\Backend\Access\Permission\StorePermissionRequest;
 use App\Http\Requests\Backend\Access\Permission\ManagePermissionRequest;

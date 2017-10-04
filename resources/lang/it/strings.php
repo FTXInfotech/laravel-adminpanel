@@ -30,7 +30,7 @@ return [
         'general' => [
             'all_rights_reserved' => 'Tutti i diritti riservati.',
             'are_you_sure'        => 'Sei sicuro?',
-            'boilerplate_link'    => 'Laravel 5 Boilerplate',
+            'boilerplate_link'    => 'Laravel AdminPanel',
             'continue'            => 'Continua',
             'member_since'        => 'Membro dal',
             'minutes'             => ' minutes',
@@ -73,7 +73,7 @@ return [
     Per cortesia vai su <a href="https://github.com/rappasoft/laravel-5-boilerplate" target="_blank">GitHub</a>
     per ulteriori informazioni e per segnalare qualsiasi <a href="https://github.com/rappasoft/Laravel-5-Boilerplate/issues" target="_blank">problema</a>.</p>
 <p><strong>This project is very demanding to keep up with given the rate at which the master Laravel branch changes, so any help is appreciated.</strong></p>
-<p>- Anthony Rappa</p>',
+<p>- Viral Solani</p>',
     ],
 
     'emails' => [

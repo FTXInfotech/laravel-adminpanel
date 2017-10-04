@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\Menu;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\Menu\MenuRepository;
 use App\Http\Requests\Backend\Menu\ManageMenuRequest;
 use Carbon\Carbon;

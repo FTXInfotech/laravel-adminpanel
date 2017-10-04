@@ -6,7 +6,7 @@ use App\Models\EmailTemplates\EmailTemplate;
 use App\Models\EmailTemplateTypes\EmailTemplateType;
 use App\Models\EmailTemplatePlaceholders\EmailTemplatePlaceholder;
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository;
 use App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest;
 use App\Http\Requests\Backend\EmailTemplates\EditEmailTemplatesRequest;
@@ -34,7 +34,7 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * Use to load index view of EmailTmplates 
+     * Use to load index view of EmailTmplates
      *
      * @param ManageEmailTemplatesRequest $request
      *
@@ -53,7 +53,7 @@ class EmailTemplatesController extends Controller
      *
      * @return mixed
      */
-    public function edit(EmailTemplate $emailtemplate, EditEmailTemplatesRequest 
+    public function edit(EmailTemplate $emailtemplate, EditEmailTemplatesRequest
         $request)
     {
         $emailtemplateTypes         = EmailTemplateType::pluck('name', 'id');
@@ -72,7 +72,7 @@ class EmailTemplatesController extends Controller
      *
      * @return mixed
      */
-    public function update(EmailTemplate $emailtemplate, UpdateEmailTemplatesRequest 
+    public function update(EmailTemplate $emailtemplate, UpdateEmailTemplatesRequest
         $request)
     {
         $this->emailtemplates->update($emailtemplate, $request->all());
@@ -88,7 +88,7 @@ class EmailTemplatesController extends Controller
      *
      * @return mixed
      */
-    public function destroy(EmailTemplate $emailtemplate, DeleteEmailTemplatesRequest 
+    public function destroy(EmailTemplate $emailtemplate, DeleteEmailTemplatesRequest
         $request)
     {
         $this->emailtemplates->delete($emailtemplate);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\CMSPages;
 
 use App\Models\CMSPages\CMSPage;
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\CMSPages\CMSPagesRepository;
 use App\Http\Requests\Backend\CMSPages\StoreCMSPagesRequest;
 use App\Http\Requests\Backend\CMSPages\ManageCMSPagesRequest;

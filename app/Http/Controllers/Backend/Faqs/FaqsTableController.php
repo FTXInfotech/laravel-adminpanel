@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\Faqs;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\Faqs\FaqsRepository;
 use App\Http\Requests\Backend\Faqs\ManageFaqsRequest;
 use Carbon\Carbon;

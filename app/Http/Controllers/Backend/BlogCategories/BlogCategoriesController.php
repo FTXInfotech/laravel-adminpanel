@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\BlogCategories;
 
 use App\Models\BlogCategories\BlogCategory;
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\BlogCategories\BlogCategoriesRepository;
 use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;

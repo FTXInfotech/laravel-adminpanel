@@ -12,8 +12,8 @@
         <title>@yield('title', app_name())</title>
 
         <!-- Meta -->
-        <meta name="description" content="@yield('meta_description', 'Laravel 5 Boilerplate')">
-        <meta name="author" content="@yield('meta_author', 'Anthony Rappa')">
+        <meta name="description" content="@yield('meta_description', 'Laravel AdminPanel')">
+        <meta name="author" content="@yield('meta_author', 'Viral Solani')">
         @yield('meta')
 
         <!-- Styles -->
@@ -59,6 +59,7 @@
         {{ Html::script('js/jquerysession.js') }}
         {{ Html::script('js/frontend/frontend.js') }}
         {!! Html::script('js/select2/select2.js') !!}
+
         <script type="text/javascript">
             if("{{Route::currentRouteName()}}" !== "frontend.user.account")
             {

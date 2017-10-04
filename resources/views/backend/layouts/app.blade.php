@@ -10,7 +10,7 @@
 
         <!-- Meta -->
         <meta name="description" content="@yield('meta_description', 'Default Description')">
-        <meta name="author" content="@yield('meta_author', 'Anthony Rappa')">
+        <meta name="author" content="@yield('meta_author', 'Viral Solani')">
         <!--Lato Fonts Included-->
         <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
         @yield('meta')
@@ -60,7 +60,7 @@
                     @yield('page-header')
 
                     {{-- Change to Breadcrumbs::render() if you want it to error to remind you to create the breadcrumbs for the given route --}}
-                    {!! Breadcrumbs::renderIfExists() !!}
+                  {{--   {!! Breadcrumbs::render() !!} --}}
                 </section>
 
                 <!-- Main content -->

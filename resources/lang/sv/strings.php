@@ -30,7 +30,7 @@ return [
         'general' => [
             'all_rights_reserved' => 'Alla rättigheter förbehålls.',
             'are_you_sure'        => 'Är du säker?',
-            'boilerplate_link'    => 'Laravel 5 Boilerplate',
+            'boilerplate_link'    => 'Laravel AdminPanel',
             'continue'            => 'Fortsätt',
             'member_since'        => 'Registrerad',
             'minutes'             => ' minutes',
@@ -70,7 +70,7 @@ Denna boilerplate kommer med fullt funktionerande <em>Access Control Library</em
 <p>Tänk på att detta repo fortfarande utvecklas och att det kan förekomma buggar och fel som ännu inte upptäckts. Jag ska göra mitt bästa för att förebygga detta.</p>
 <p>Hoppas att du tycker om detta projekt som jag lagt ner så mycket tid i. Besök repots <a href="https://github.com/rappasoft/laravel-5-boilerplate" target="_blank">GitHub</a> för att få mer information och rapportera gärna dina tankar/fel som <a href="https://github.com/rappasoft/Laravel-5-Boilerplate/issues" target="_blank">"issues" här</a>.</p>
 <p><strong>This project is very demanding to keep up with given the rate at which the master Laravel branch changes, so any help is appreciated.</strong></p>
-<p>- Anthony Rappa</p>',
+<p>- Viral Solani</p>',
     ],
     'emails' => [
         'auth' => [

@@ -30,7 +30,7 @@ return [
         'general' => [
             'all_rights_reserved' => 'Hak Cipta Dilindungi.',
             'are_you_sure'        => 'Anda yakin?',
-            'boilerplate_link'    => 'Laravel 5 Boilerplate',
+            'boilerplate_link'    => 'Laravel AdminPanel',
             'continue'            => 'Lanjutjan',
             'member_since'        => 'Anggota sejak',
             'minutes'             => ' menit',
@@ -67,7 +67,7 @@ return [
 <p>Perlu diingat ini adalah sebuah pekerjaan yang sedang berjalan dan mungkin ada bug atau masalah lain yang saya belum temukan. Saya akan melakukan yang terbaik untuk memperbaikinya saat saya menemukannya.</p>
 <p>Harap Anda menikmati semua pekerjaan yang saya telah lakukan disini. Silakan kunjungi ke halaman <a href="https://github.com/rappasoft/laravel-5-boilerplate" target="_blank">GitHub</a> untuk informasi lebih lanjut dan melaporkan masalah apapun <a href="https://github.com/rappasoft/Laravel-5-Boilerplate/issues" target="_blank">di sini</a>.</p>
 <p><strong>Proyek ini sangat menuntut untuk menjaga kelangsungan dengan perubahan yang diberikan branch master Laravel, sehingga bantuan dihargai.</strong></p>
-<p>- Anthony Rappa</p>',
+<p>- Viral Solani</p>',
     ],
 
     'emails' => [

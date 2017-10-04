@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\BlogTags;
 
 use App\Models\BlogTags\BlogTag;
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\BlogTags\BlogTagsRepository;
 use App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest;

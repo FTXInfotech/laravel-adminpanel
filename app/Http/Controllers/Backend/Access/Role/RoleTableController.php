@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Access\Role;
 
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\Access\Role\RoleRepository;
 use App\Http\Requests\Backend\Access\Role\ManageRoleRequest;
 

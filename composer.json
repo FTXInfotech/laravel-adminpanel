@@ -9,27 +9,29 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
-        "arcanedev/log-viewer": "~4.0",
-        "arcanedev/no-captcha": "~3.0",
+        "php": ">=7.0.0",
+        "arcanedev/log-viewer": "^4.4",
+        "arcanedev/no-captcha": "^5.0",
         "creativeorange/gravatar": "~1.0",
-        "davejamesmiller/laravel-breadcrumbs": "^3.0",
-        "dingo/api": "1.0.x@dev",
-        "doctrine/dbal": "^2.5",
-        "hieu-le/active": "~3.0",
-        "laravel/framework": "5.4.*",
+        "davejamesmiller/laravel-breadcrumbs": "^4.1",
+        "fideloper/proxy": "~3.3",
+        "hieu-le/active": "^3.5",
+        "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "5.4.*",
-        "tymon/jwt-auth": "^0.5.11",
-        "yajra/laravel-datatables-oracle": "^7.0"
+        "laravelcollective/html": "^5.5.0",
+        "doctrine/dbal": "^2.5",
+        "tymon/jwt-auth": "0.5.12",
+        "yajra/laravel-datatables-oracle":"~8.0",
+        "dingo/api":"v1.0.0-beta8"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.7",
-        "barryvdh/laravel-debugbar": "^2.1",
-        "laravel/browser-kit-testing": "^1.0"
+        "phpunit/phpunit": "~6.0",
+        "barryvdh/laravel-debugbar": "^3.0",
+        "laravel/browser-kit-testing": "^1.0",
+        "filp/whoops":"~2.0"
     },
     "autoload": {
         "classmap": [
@@ -65,6 +67,10 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover"
         ]
     },
     "config": {
