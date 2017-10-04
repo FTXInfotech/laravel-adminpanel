@@ -1,0 +1,11 @@
+{{ Html::script("js/plugin/datatables/jquery.dataTables.min.js") }}
+{{ Html::script("js/plugin/datatables/dataTables.bootstrap.min.js") }}
+{{ Html::script("js/plugin/datatables/dataTables.buttons.min.js") }}
+{{ Html::script("js/plugin/datatables/buttons.flash.min.js") }}
+{{ Html::script("js/plugin/datatables/jszip.min.js") }}
+{{ Html::script("js/plugin/datatables/pdfmake.min.js") }}
+{{ Html::script("js/plugin/datatables/vfs_fonts.js") }}
+{{ Html::script("js/plugin/datatables/buttons.html5.min.js") }}
+{{ Html::script("js/plugin/datatables/buttons.print.min.js") }}
+{{ Html::style("css/plugin/datatables/buttons.dataTables.min.css") }}
+{{ Html::style("css/plugin/datatables/jquery.dataTables.min.css") }}

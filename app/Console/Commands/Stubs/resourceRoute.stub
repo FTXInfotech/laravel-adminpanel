@@ -1,0 +1,16 @@
+<?php
+/**
+ * DummyModuleName
+ *
+ */
+@startNamespace
+Route::group( ['namespace' => 'DummyModel'], function () {
+    Route::resource('dummy_name', 'DummyController');
+    //For Datatable
+    Route::post('dummy_name/get', 'DummyTableController')->name('dummy_name.get');
+});
+@endNamespace@startWithoutNamespace
+Route::resource('dummy_name', 'DummyController');
+//For Datatable
+Route::post('dummy_name/get', 'DummyTableController')->name('dummy_name.get');
+@endWithoutNamespace
