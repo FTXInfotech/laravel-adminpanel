@@ -2,4 +2,4 @@
 
 ### License
 
-[MIT LICENSE](https://github.com/bvipul/laravel-adminpanel/blob/vs_license/LICENSE.txt)
+[MIT LICENSE](https://github.com/viralsolani/laravel-adminpanel/blob/vs_license/LICENSE.txt)
