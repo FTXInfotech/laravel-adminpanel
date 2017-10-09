@@ -1,9 +1,9 @@
 <?php
 
-use Database\TruncateTable;
-use Illuminate\Database\Seeder;
 use App\Models\Access\Role\Role;
 use Database\DisableForeignKeys;
+use Database\TruncateTable;
+use Illuminate\Database\Seeder;
 
 /**
  * Class PermissionRoleSeeder.
@@ -25,7 +25,7 @@ class PermissionRoleSeeder extends Seeder
         /*
          * Assign permission to executive role
         */
-        $executivePermission = [ 1, 3, 4, 5, 6, 7, 8,16, 20,
+        $executivePermission = [1, 3, 4, 5, 6, 7, 8, 16, 20,
             24, 25, 26, 27, // CMS Pages
             28, 29, 30, 31, // Email template
             33, 34, 35, 36, // Blog Category

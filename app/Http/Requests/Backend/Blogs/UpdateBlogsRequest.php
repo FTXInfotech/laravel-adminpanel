@@ -27,10 +27,10 @@ class UpdateBlogsRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:191',
-            'content' => 'required',
+            'name'       => 'required|max:191',
+            'content'    => 'required',
             'categories' => 'required',
-            'tags' => 'required',
+            'tags'       => 'required',
         ];
     }
 
@@ -43,7 +43,7 @@ class UpdateBlogsRequest extends Request
     {
         return [
             'name.required' => 'Please insert Blog Title',
-            'name.max' => 'Blog Title may not be greater than 191 characters.',
+            'name.max'      => 'Blog Title may not be greater than 191 characters.',
         ];
     }
 }

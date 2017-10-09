@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Backend\EmailTemplates;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\EmailTemplates\DeleteEmailTemplatesRequest;
+use App\Http\Requests\Backend\EmailTemplates\EditEmailTemplatesRequest;
+use App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest;
+use App\Http\Requests\Backend\EmailTemplates\UpdateEmailTemplatesRequest;
+use App\Models\EmailTemplatePlaceholders\EmailTemplatePlaceholder;
 use App\Models\EmailTemplates\EmailTemplate;
 use App\Models\EmailTemplateTypes\EmailTemplateType;
-use App\Models\EmailTemplatePlaceholders\EmailTemplatePlaceholder;
-use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository;
-use App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest;
-use App\Http\Requests\Backend\EmailTemplates\EditEmailTemplatesRequest;
-use App\Http\Requests\Backend\EmailTemplates\DeleteEmailTemplatesRequest;
-use App\Http\Requests\Backend\EmailTemplates\UpdateEmailTemplatesRequest;
 
 /**
  * Class EmailTemplatesController.
@@ -24,7 +23,7 @@ class EmailTemplatesController extends Controller
     protected $emailtemplates;
 
     /**
-     * Setting the EmailTemplatesRepository instance to class variable
+     * Setting the EmailTemplatesRepository instance to class variable.
      *
      * @param EmailTemplatesRepository $emailtemplates
      */
@@ -34,7 +33,7 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * Use to load index view of EmailTmplates
+     * Use to load index view of EmailTmplates.
      *
      * @param ManageEmailTemplatesRequest $request
      *
@@ -46,9 +45,9 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * Use to load edit form of Emailtemplate
+     * Use to load edit form of Emailtemplate.
      *
-     * @param EmailTemplate          $emailtemplate
+     * @param EmailTemplate             $emailtemplate
      * @param EditEmailTemplatesRequest $request
      *
      * @return mixed
@@ -56,18 +55,19 @@ class EmailTemplatesController extends Controller
     public function edit(EmailTemplate $emailtemplate, EditEmailTemplatesRequest
         $request)
     {
-        $emailtemplateTypes         = EmailTemplateType::pluck('name', 'id');
-        $emailtemplatePlaceholders  = EmailTemplatePlaceholder::pluck('name', 'id');
+        $emailtemplateTypes = EmailTemplateType::pluck('name', 'id');
+        $emailtemplatePlaceholders = EmailTemplatePlaceholder::pluck('name', 'id');
+
         return view('backend.emailtemplates.edit')
             ->withEmailtemplate($emailtemplate)
             ->withEmailtemplatetypes($emailtemplateTypes)
             ->withEmailtemplateplaceholders($emailtemplatePlaceholders);
-        }
+    }
 
     /**
-     * Use to update an Emailtemplate
+     * Use to update an Emailtemplate.
      *
-     * @param EmailTemplate              $emailtemplate
+     * @param EmailTemplate               $emailtemplate
      * @param UpdateEmailTemplatesRequest $request
      *
      * @return mixed
@@ -76,14 +76,15 @@ class EmailTemplatesController extends Controller
         $request)
     {
         $this->emailtemplates->update($emailtemplate, $request->all());
+
         return redirect()->route('admin.emailtemplates.index')
             ->withFlashSuccess(trans('alerts.backend.emailtemplates.updated'));
     }
 
     /**
-     * Use to delete an Emailtemplate
+     * Use to delete an Emailtemplate.
      *
-     * @param EmailTemplate              $emailtemplate
+     * @param EmailTemplate               $emailtemplate
      * @param DeleteEmailTemplatesRequest $request
      *
      * @return mixed
@@ -92,6 +93,7 @@ class EmailTemplatesController extends Controller
         $request)
     {
         $this->emailtemplates->delete($emailtemplate);
+
         return redirect()->route('admin.emailtemplates.index')
             ->withFlashSuccess(trans('alerts.backend.emailtemplates.deleted'));
     }

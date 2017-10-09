@@ -2,16 +2,15 @@
 
 namespace App\Repositories\Frontend\Access\User;
 
-use App\Models\Access\User\User;
-use Illuminate\Support\Facades\DB;
-use App\Exceptions\GeneralException;
-use App\Repositories\BaseRepository;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Access\User\SocialLogin;
 use App\Events\Frontend\Auth\UserConfirmed;
-use App\Repositories\Backend\Access\Role\RoleRepository;
+use App\Exceptions\GeneralException;
+use App\Models\Access\User\SocialLogin;
+use App\Models\Access\User\User;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
-use App\Http\Utilities\SendEmail;
+use App\Repositories\Backend\Access\Role\RoleRepository;
+use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class UserRepository.
@@ -86,14 +85,13 @@ class UserRepository extends BaseRepository
      */
     public function create(array $data, $provider = false)
     {
-        
         $user = self::MODEL;
         $user = new $user();
         $user->first_name = $data['first_name'];
         $user->last_name = $data['last_name'];
         $user->address = $data['address'];
         $user->state_id = $data['state_id'];
-        $user->country_id = config("access.constants.default_country");
+        $user->country_id = config('access.constants.default_country');
         $user->city_id = $data['city_id'];
         $user->zip_code = $data['zip_code'];
         $user->ssn = $data['ssn'];
@@ -142,8 +140,9 @@ class UserRepository extends BaseRepository
      * @param $data
      * @param $provider
      *
-     * @return UserRepository|bool
      * @throws GeneralException
+     *
+     * @return UserRepository|bool
      */
     public function findOrCreateSocial($data, $provider)
     {
@@ -158,9 +157,9 @@ class UserRepository extends BaseRepository
          * The true flag indicate that it is a social account
          * Which triggers the script to use some default values in the create method
          */
-        if (! $user) {
+        if (!$user) {
             // Registration is not enabled
-            if (! config('access.users.registration')) {
+            if (!config('access.users.registration')) {
                 throw new GeneralException(trans('exceptions.frontend.auth.registration_disabled'));
             }
 
@@ -171,7 +170,7 @@ class UserRepository extends BaseRepository
         }
 
         // See if the user has logged in with this social account before
-        if (! $user->hasProvider($provider)) {
+        if (!$user->hasProvider($provider)) {
             // Gather the provider data for saving and associate it with the user
             $user->providers()->save(new SocialLogin([
                 'provider'    => $provider,
@@ -232,7 +231,7 @@ class UserRepository extends BaseRepository
         $user->last_name = $input['last_name'];
         $user->address = $input['address'];
         $user->state_id = $input['state_id'];
-        $user->country_id = config("access.constants.default_country");
+        $user->country_id = config('access.constants.default_country');
         $user->city_id = $input['city_id'];
         $user->zip_code = $input['zip_code'];
         $user->ssn = $input['ssn'];
@@ -256,7 +255,7 @@ class UserRepository extends BaseRepository
                 $user->notify(new UserNeedsConfirmation($user->confirmation_code));
 
                 return [
-                    'success' => $updated,
+                    'success'       => $updated,
                     'email_changed' => true,
                 ];
             }
@@ -283,10 +282,10 @@ class UserRepository extends BaseRepository
                 $input['email'] = $user->email;
                 // Send email to the user
                 $options = [
-                        'data' => $input,
-                        'email_template_type' => 4
+                        'data'                => $input,
+                        'email_template_type' => 4,
                     ];
-                createNotification("", $user->id, 2, $options);
+                createNotification('', $user->id, 2, $options);
 
                 return true;
             }

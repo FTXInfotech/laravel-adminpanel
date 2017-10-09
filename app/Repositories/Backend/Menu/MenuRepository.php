@@ -2,21 +2,21 @@
 
 namespace App\Repositories\Backend\Menu;
 
-use App\Repositories\BaseRepository;
 use App\Exceptions\GeneralException;
 use App\Models\Menu\Menu;
-use Illuminate\Database\Eloquent\Model;
+use App\Repositories\BaseRepository;
+use DB;
 //use App\Events\Backend\CMSPages\CMSPageCreated;
 //use App\Events\Backend\CMSPages\CMSPageDeleted;
 //use App\Events\Backend\CMSPages\CMSPageUpdated;
-use DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class MenuRepository.
  */
 class MenuRepository extends BaseRepository
 {
-	/**
+    /**
      * Associated Repository Model.
      */
     const MODEL = Menu::class;
@@ -73,10 +73,9 @@ class MenuRepository extends BaseRepository
      *
      * return bool
      */
-     
     public function update(Model $menu, array $input)
     {
-        if ($this->query()->where('name', $input['name'])->where("id", '!=', $menu->id)->first()) {
+        if ($this->query()->where('name', $input['name'])->where('id', '!=', $menu->id)->first()) {
             throw new GeneralException(trans('exceptions.backend.menus.already_exists'));
         }
         $menu->name = $input['name'];
@@ -85,7 +84,7 @@ class MenuRepository extends BaseRepository
         $menu->updated_by = access()->user()->id;
 
         DB::transaction(function () use ($menu, $input) {
-        	if ($menu->save()) {
+            if ($menu->save()) {
                 //event(new CMSPageUpdated($menu));
                 return true;
             }
@@ -104,7 +103,6 @@ class MenuRepository extends BaseRepository
     public function delete(Model $menu)
     {
         DB::transaction(function () use ($menu) {
-
             if ($menu->delete()) {
                 //event(new CMSPageDeleted($menu));
                 return true;

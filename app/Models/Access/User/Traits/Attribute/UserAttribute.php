@@ -20,7 +20,7 @@ trait UserAttribute
      */
     public function canChangePassword()
     {
-        return ! app('session')->has(config('access.socialite_session_name'));
+        return !app('session')->has(config('access.socialite_session_name'));
     }
 
     /**
@@ -62,7 +62,7 @@ trait UserAttribute
      */
     public function getPicture($size = false)
     {
-        if (! $size) {
+        if (!$size) {
             $size = config('gravatar.default.size');
         }
 
@@ -105,9 +105,8 @@ trait UserAttribute
      * @return string
      */
     public function getShowButtonAttribute($class)
-    {   
-        if(access()->allow('show-user'))
-        {
+    {
+        if (access()->allow('show-user')) {
             return '<a class="'.$class.'" href="'.route('admin.access.user.show', $this).'">
                     <i data-toggle="tooltip" data-placement="top" title="View" class="fa fa-eye"></i>
                 </a>';
@@ -119,8 +118,7 @@ trait UserAttribute
      */
     public function getEditButtonAttribute($class)
     {
-        if(access()->allow('edit-user'))
-        {
+        if (access()->allow('edit-user')) {
             return '<a class="'.$class.'" href="'.route('admin.access.user.edit', $this).'">
                     <i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-pencil"></i>
                 </a>';
@@ -132,8 +130,7 @@ trait UserAttribute
      */
     public function getChangePasswordButtonAttribute($class)
     {
-        if(access()->user()->id == $this->id && access()->allow('edit-user'))
-        {
+        if (access()->user()->id == $this->id && access()->allow('edit-user')) {
             return '<a class="'.$class.'" href="'.route('admin.access.user.change-password', $this).'">
                         <i class="fa fa-refresh" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.change_password').'">
                         </i>
@@ -146,22 +143,21 @@ trait UserAttribute
      */
     public function getStatusButtonAttribute($class)
     {
-
         if ($this->id != access()->id()) {
             switch ($this->status) {
                 case 0:
-                    if(access()->allow('activate-user'))
-                    {
+                    if (access()->allow('activate-user')) {
                         $name = $class == '' ? 'Active' : '';
-                        return '<a class="'.$class.'" href="'.route('admin.access.user.mark', [$this, 1,]).'"><i class="fa fa-check-square" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.activate').'"></i>'. $name .'</a>';
+
+                        return '<a class="'.$class.'" href="'.route('admin.access.user.mark', [$this, 1]).'"><i class="fa fa-check-square" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.activate').'"></i>'.$name.'</a>';
                     }
                 // No break
 
                 case 1:
-                    if(access()->allow('deactivate-user'))
-                    {   
+                    if (access()->allow('deactivate-user')) {
                         $name = ($class == '') ? 'Deactive' : '';
-                        return '<a class="'.$class.'" href="'.route('admin.access.user.mark', [$this, 0, ]).'"><i class="fa fa-square" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.deactivate').'"></i>'. $name .'</a>';
+
+                        return '<a class="'.$class.'" href="'.route('admin.access.user.mark', [$this, 0]).'"><i class="fa fa-square" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.deactivate').'"></i>'.$name.'</a>';
                     }
                 // No break
 
@@ -179,8 +175,7 @@ trait UserAttribute
      */
     public function getConfirmedButtonAttribute($class)
     {
-        if (! $this->isConfirmed() && access()->allow('edit-user'))
-        {
+        if (!$this->isConfirmed() && access()->allow('edit-user')) {
             return '<a class="'.$class.'" href="'.route('admin.access.user.account.confirm.resend', $this).'"><i class="fa fa-refresh" data-toggle="tooltip" data-placement="top" title='.trans('buttons.backend.access.users.resend_email').'"></i></a> ';
         }
 
@@ -192,9 +187,9 @@ trait UserAttribute
      */
     public function getDeleteButtonAttribute($class)
     {
-        if ($this->id != access()->id() && access()->allow('delete-user'))
-        {
+        if ($this->id != access()->id() && access()->allow('delete-user')) {
             $name = $class == '' ? 'Delete' : '';
+
             return '<a class="'.$class.'" href="'.route('admin.access.user.destroy', $this).'"
                  data-method="delete"
                  data-trans-button-cancel="'.trans('buttons.general.cancel').'"
@@ -209,9 +204,8 @@ trait UserAttribute
      * @return string
      */
     public function getRestoreButtonAttribute($class)
-    {   
-        if (access()->allow('delete-user'))
-        {
+    {
+        if (access()->allow('delete-user')) {
             return '<a class="'.$class.'" href="'.route('admin.access.user.restore', $this).'" name="restore_user"><i class="fa fa-refresh" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.restore_user').'"></i></a> ';
         }
     }
@@ -233,11 +227,9 @@ trait UserAttribute
         /*
          * If the admin is currently NOT spoofing a user
          */
-        if (access()->allow('login-as-user') && (! session()->has('admin_user_id') || ! session()->has('temp_user_id')))
-        {
+        if (access()->allow('login-as-user') && (!session()->has('admin_user_id') || !session()->has('temp_user_id'))) {
             //Won't break, but don't let them "Login As" themselves
-            if ($this->id != access()->id())
-            {
+            if ($this->id != access()->id()) {
                 return '<a class="'.$class.'" href="'.route('admin.access.user.login-as',
                     $this).'"><i class="fa fa-lock" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.login_as',
                     ['user' => $this->name]).'"></i>'.$name.'</a>';
@@ -254,8 +246,7 @@ trait UserAttribute
     {
         $name = $class == '' ? 'Clear Session' : '';
 
-        if ($this->id != access()->id() && config('session.driver') == 'database' && access()->allow('clear-user-session'))
-        {
+        if ($this->id != access()->id() && config('session.driver') == 'database' && access()->allow('clear-user-session')) {
             return '<a class="'.$class.'" href="'.route('admin.access.user.clear-session', $this).'"
 			 	 data-trans-button-cancel="'.trans('buttons.general.cancel').'"
                  data-trans-button-confirm="'.trans('buttons.general.continue').'"
@@ -266,39 +257,34 @@ trait UserAttribute
         return '';
     }
 
-    /**
-     * 
-     */
     public function checkAdmin()
     {
-        if($this->id != 1){
+        if ($this->id != 1) {
             return '<div class="btn-group dropup">
                         <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-option-vertical"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
-                        <li>' .$this->getStatusButtonAttribute(''). '</li>
-                        <li>' .$this->getClearSessionButtonAttribute(''). '</li>
-                        <li>' .$this->getDeleteButtonAttribute(''). '</li>
-                        <li>' .$this->getLoginAsButtonAttribute(''). '</li>
+                        <li>'.$this->getStatusButtonAttribute('').'</li>
+                        <li>'.$this->getClearSessionButtonAttribute('').'</li>
+                        <li>'.$this->getDeleteButtonAttribute('').'</li>
+                        <li>'.$this->getLoginAsButtonAttribute('').'</li>
                         </ul>
-                    </div>'; 
+                    </div>';
         }
-       
     }
 
     /**
-     * Get logged in user permission related to user management grid
+     * Get logged in user permission related to user management grid.
+     *
      * @return array
      */
     public function getUserPermission()
     {
         $userPermission = [];
         $attributePermission = ['8', '10', '11', '12', '13', '14', '15'];
-        foreach (access()->user()->permissions as $permission)
-        {
-            if(in_array($permission->id, $attributePermission))
-            {
+        foreach (access()->user()->permissions as $permission) {
+            if (in_array($permission->id, $attributePermission)) {
                 $userPermission[] = $permission->name;
             }
         }
@@ -307,9 +293,11 @@ trait UserAttribute
     }
 
     /**
-     * Get action button attribute by permission name
+     * Get action button attribute by permission name.
+     *
      * @param string $permissionName
-     * @param integer $counter
+     * @param int    $counter
+     *
      * @return string
      */
     public function getActionButtonsByPermissionName($permissionName, $counter)
@@ -317,78 +305,62 @@ trait UserAttribute
         // check if counter is less then 3 then apply button client
         $class = ($counter <= 3) ? 'btn btn-default btn-flat' : '';
 
-        switch ($permissionName)
-        {
+        switch ($permissionName) {
             case 'show-user':
                 $button = ($counter <= 3) ? $this->getShowButtonAttribute($class) : '<li>'
-                    . $this->getShowButtonAttribute($class) .
+                    .$this->getShowButtonAttribute($class).
                     '</li>';
                 break;
             case 'edit-user':
-                $button = ($counter <= 3) ? $this->getEditButtonAttribute($class): '<li>'
-                    . $this->getEditButtonAttribute($class) .
+                $button = ($counter <= 3) ? $this->getEditButtonAttribute($class) : '<li>'
+                    .$this->getEditButtonAttribute($class).
                     '</li>';
-                $button .= ($counter <= 3) ? $this->getChangePasswordButtonAttribute($class): '<li>'
-                    . $this->getChangePasswordButtonAttribute($class) .
+                $button .= ($counter <= 3) ? $this->getChangePasswordButtonAttribute($class) : '<li>'
+                    .$this->getChangePasswordButtonAttribute($class).
                     '</li>';
                 break;
             case 'activate-user':
-                if(\Route::currentRouteName() == 'admin.access.user.deactivated.get')
-                {
-                    $button = ($counter <= 3) ? $this->getStatusButtonAttribute($class): '<li>'
-                    . $this->getStatusButtonAttribute($class) .
+                if (\Route::currentRouteName() == 'admin.access.user.deactivated.get') {
+                    $button = ($counter <= 3) ? $this->getStatusButtonAttribute($class) : '<li>'
+                    .$this->getStatusButtonAttribute($class).
                     '</li>';
-                }
-                else
-                {
+                } else {
                     $button = '';
                 }
                 break;
             case 'deactivate-user':
-                if(\Route::currentRouteName() == 'admin.access.user.get')
-                {
-                    $button = ($counter <= 3) ? $this->getStatusButtonAttribute($class): '<li>'
-                    . $this->getStatusButtonAttribute($class) .
+                if (\Route::currentRouteName() == 'admin.access.user.get') {
+                    $button = ($counter <= 3) ? $this->getStatusButtonAttribute($class) : '<li>'
+                    .$this->getStatusButtonAttribute($class).
                     '</li>';
-                }
-                else
-                {
+                } else {
                     $button = '';
                 }
                 break;
             case 'delete-user':
-                if(access()->user()->id != $this->id)
-                {
-                    $button = ($counter <= 3) ? $this->getDeleteButtonAttribute($class): '<li>'
-                        . $this->getDeleteButtonAttribute($class) .
+                if (access()->user()->id != $this->id) {
+                    $button = ($counter <= 3) ? $this->getDeleteButtonAttribute($class) : '<li>'
+                        .$this->getDeleteButtonAttribute($class).
                         '</li>';
-                }
-                else
-                {
+                } else {
                     $button = '';
                 }
                 break;
             case 'login-as-user':
-                if(access()->user()->id != $this->id)
-                {
-                    $button = ($counter <= 3) ? $this->getLoginAsButtonAttribute($class): '<li>'
-                        . $this->getLoginAsButtonAttribute($class) .
+                if (access()->user()->id != $this->id) {
+                    $button = ($counter <= 3) ? $this->getLoginAsButtonAttribute($class) : '<li>'
+                        .$this->getLoginAsButtonAttribute($class).
                         '</li>';
-                }
-                else
-                {
+                } else {
                     $button = '';
                 }
                 break;
             case 'clear-user-session':
-                if(access()->user()->id != $this->id)
-                {
-                    $button = ($counter <= 3) ? $this->getClearSessionButtonAttribute($class): '<li>'
-                        . $this->getClearSessionButtonAttribute($class) .
+                if (access()->user()->id != $this->id) {
+                    $button = ($counter <= 3) ? $this->getClearSessionButtonAttribute($class) : '<li>'
+                        .$this->getClearSessionButtonAttribute($class).
                         '</li>';
-                }
-                else
-                {
+                } else {
                     $button = '';
                 }
                 break;
@@ -406,63 +378,51 @@ trait UserAttribute
     public function getActionButtonsAttribute()
     {
         if ($this->trashed()) {
-            return '<div class="btn-group action-btn">'. $this->getRestoreButtonAttribute('btn btn-default btn-flat') .'</div>';
+            return '<div class="btn-group action-btn">'.$this->getRestoreButtonAttribute('btn btn-default btn-flat').'</div>';
         }
-        
+
         // Check if role have all permission
-        if(access()->user()->roles[0]->all)
-        {
+        if (access()->user()->roles[0]->all) {
             return '<div class="btn-group action-btn">
-                    ' .$this->getShowButtonAttribute('btn btn-default btn-flat'). '
-                    ' .$this->getEditButtonAttribute('btn btn-default btn-flat'). '
-                    ' .$this->getChangePasswordButtonAttribute('btn btn-default btn-flat').'
-                    ' .$this->checkAdmin(). '
-                </div>';    
-        }
-        else
-        {
+                    '.$this->getShowButtonAttribute('btn btn-default btn-flat').'
+                    '.$this->getEditButtonAttribute('btn btn-default btn-flat').'
+                    '.$this->getChangePasswordButtonAttribute('btn btn-default btn-flat').'
+                    '.$this->checkAdmin().'
+                </div>';
+        } else {
             $userPermission = $this->getUserPermission();
             $permissionCounter = count($userPermission);
             $actionButton = '<div class="btn-group action-btn">';
             $i = 1;
 
-            if(access()->user()->id == $this->id)
-            {
-                if(in_array('clear-user-session',$userPermission))
-                {
-                    $permissionCounter = $permissionCounter-1;
+            if (access()->user()->id == $this->id) {
+                if (in_array('clear-user-session', $userPermission)) {
+                    $permissionCounter = $permissionCounter - 1;
                 }
 
-                if(in_array('login-as-user',$userPermission))
-                {
-                    $permissionCounter = $permissionCounter-1;
+                if (in_array('login-as-user', $userPermission)) {
+                    $permissionCounter = $permissionCounter - 1;
                 }
 
-                if(in_array('delete-user',$userPermission))
-                {
-                    $permissionCounter = $permissionCounter-1;
+                if (in_array('delete-user', $userPermission)) {
+                    $permissionCounter = $permissionCounter - 1;
                 }
 
-                if(in_array('deactivate-user',$userPermission))
-                {
-                    $permissionCounter = $permissionCounter-1;
+                if (in_array('deactivate-user', $userPermission)) {
+                    $permissionCounter = $permissionCounter - 1;
                 }
             }
-            
-            foreach ($userPermission as $value)
-            {
-                if($i != 3)
-                {
-                    $actionButton = $actionButton .''. $this->getActionButtonsByPermissionName($value,$i);
-                }
-                
-                if($i == 3)
-                {
-                    $actionButton = $actionButton .''. $this->getActionButtonsByPermissionName($value,$i);
 
-                    if($permissionCounter > 3)
-                    {
-                        $actionButton = $actionButton. '
+            foreach ($userPermission as $value) {
+                if ($i != 3) {
+                    $actionButton = $actionButton.''.$this->getActionButtonsByPermissionName($value, $i);
+                }
+
+                if ($i == 3) {
+                    $actionButton = $actionButton.''.$this->getActionButtonsByPermissionName($value, $i);
+
+                    if ($permissionCounter > 3) {
+                        $actionButton = $actionButton.'
                             <div class="btn-group dropup">
                             <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-option-vertical"></span>

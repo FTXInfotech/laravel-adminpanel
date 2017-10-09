@@ -14,7 +14,7 @@ trait ModuleAttribute
     {
         // if(access()->allow('edit-blog'))
         // {
-            return '<a href="'.route('admin.modules.edit', $this).'" class="btn btn-flat btn-default">
+        return '<a href="'.route('admin.modules.edit', $this).'" class="btn btn-flat btn-default">
                     <i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-pencil"></i>
                 </a>';
         // }
@@ -27,7 +27,7 @@ trait ModuleAttribute
     {
         // if(access()->allow('delete-blog'))
         // {
-            return '<a href="'.route('admin.blogs.destroy', $this).'" 
+        return '<a href="'.route('admin.blogs.destroy', $this).'" 
                     class="btn btn-flat btn-default" data-method="delete"
                     data-trans-button-cancel="'.trans('buttons.general.cancel').'"
                     data-trans-button-confirm="'.trans('buttons.general.crud.delete').'"

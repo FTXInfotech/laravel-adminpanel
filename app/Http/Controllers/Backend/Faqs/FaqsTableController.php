@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Backend\Faqs;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\Faqs\FaqsRepository;
 use App\Http\Requests\Backend\Faqs\ManageFaqsRequest;
+use App\Repositories\Backend\Faqs\FaqsRepository;
 use Carbon\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 class FaqsTableController extends Controller
 {
@@ -33,7 +32,7 @@ class FaqsTableController extends Controller
     {
         return Datatables::of($this->faqs->getForDataTable())
             ->escapeColumns(['question'])
-            ->addColumn('answer', function($faqs) {
+            ->addColumn('answer', function ($faqs) {
                 return $faqs->answer;
             })
             ->addColumn('status', function ($faqs) {

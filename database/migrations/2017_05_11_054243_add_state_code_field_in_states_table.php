@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddStateCodeFieldInStatesTable extends Migration
 {
@@ -14,7 +14,7 @@ class AddStateCodeFieldInStatesTable extends Migration
     public function up()
     {
         Schema::table('states', function (Blueprint $table) {
-            $table->string("state_code")->after("state");
+            $table->string('state_code')->after('state');
         });
     }
 
@@ -26,7 +26,7 @@ class AddStateCodeFieldInStatesTable extends Migration
     public function down()
     {
         Schema::table('states', function (Blueprint $table) {
-            $table->dropColumn("state_code");
+            $table->dropColumn('state_code');
         });
     }
 }

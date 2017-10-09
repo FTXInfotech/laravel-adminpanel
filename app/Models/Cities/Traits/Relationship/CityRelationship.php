@@ -5,13 +5,12 @@ namespace App\Models\Cities\Traits\Relationship;
 use App\Models\States\State;
 
 /**
- * Class CityRelationship
+ * Class CityRelationship.
  */
 trait CityRelationship
 {
-
     /**
-     * Cities belongs to relationship with state
+     * Cities belongs to relationship with state.
      */
     public function state()
     {

@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Frontend\Auth;
 
-use App\Helpers\Auth\Auth;
-use Illuminate\Http\Request;
-use App\Exceptions\GeneralException;
-use App\Http\Controllers\Controller;
-use App\Helpers\Frontend\Auth\Socialite;
 use App\Events\Frontend\Auth\UserLoggedIn;
 use App\Events\Frontend\Auth\UserLoggedOut;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Exceptions\GeneralException;
+use App\Helpers\Auth\Auth;
+use App\Helpers\Frontend\Auth\Socialite;
+use App\Http\Controllers\Controller;
 use App\Http\Utilities\NotificationIos;
 use App\Http\Utilities\PushNotification;
-
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 /**
  * Class LoginController.
@@ -33,6 +32,7 @@ class LoginController extends Controller
     {
         $this->notification = $notification;
     }
+
     /**
      * Where to redirect users after login.
      *
@@ -71,18 +71,20 @@ class LoginController extends Controller
         /*
          * Check to see if the users account is confirmed and active
          */
-        if (! $user->isConfirmed()) {
+        if (!$user->isConfirmed()) {
             access()->logout();
+
             throw new GeneralException(trans('exceptions.frontend.auth.confirmation.resend', ['user_id' => $user->id]));
-        } elseif (! $user->isActive()) {
+        } elseif (!$user->isActive()) {
             access()->logout();
+
             throw new GeneralException(trans('exceptions.frontend.auth.deactivated'));
         }
 
         event(new UserLoggedIn($user));
         /*
         // Push notification implementation
-        
+
         $deviceToken    =   "3694d3a6b7258dd6653c6ec0d8488e5fc38577a164af4365b12e5fc0106cc705";
         $message        =   "Testing from php department";
         $sendOption     =   array('Type' => 'Quote');
@@ -137,7 +139,7 @@ class LoginController extends Controller
     public function logoutAs()
     {
         //If for some reason route is getting hit without someone already logged in
-        if (! access()->user()) {
+        if (!access()->user()) {
             return redirect()->route('frontend.auth.login');
         }
 

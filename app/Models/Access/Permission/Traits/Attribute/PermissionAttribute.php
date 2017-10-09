@@ -12,8 +12,7 @@ trait PermissionAttribute
      */
     public function getEditButtonAttribute()
     {
-        if(access()->allow('edit-permission'))
-        {
+        if (access()->allow('edit-permission')) {
             return '<a class="btn btn-flat btn-default" href="'.route('admin.access.permission.edit', $this).'">
                         <i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-pencil"></i>
                     </a>';
@@ -25,8 +24,7 @@ trait PermissionAttribute
      */
     public function getDeleteButtonAttribute()
     {
-        if(access()->allow('delete-permission'))
-        {
+        if (access()->allow('delete-permission')) {
             return '<a class="btn btn-flat btn-default" href="'.route('admin.access.permission.destroy', $this).'" data-method="delete"
                     data-trans-button-cancel="'.trans('buttons.general.cancel').'"
                     data-trans-button-confirm="'.trans('buttons.general.crud.delete').'"
@@ -42,8 +40,8 @@ trait PermissionAttribute
     public function getActionButtonsAttribute()
     {
         return '<div class="btn-group action-btn">
-                    ' .$this->getEditButtonAttribute(). '
-                    ' .$this->getDeleteButtonAttribute(). '
+                    '.$this->getEditButtonAttribute().'
+                    '.$this->getDeleteButtonAttribute().'
                     
                 </div>';
     }

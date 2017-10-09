@@ -2,11 +2,11 @@
 
 namespace App\Models\Access\User\Traits\Relationship;
 
-use App\Models\System\Session;
 use App\Models\Access\User\SocialLogin;
-use App\Models\States\State;
 use App\Models\Cities\City;
 use App\Models\Countries\Country;
+use App\Models\States\State;
+use App\Models\System\Session;
 
 /**
  * Class UserRelationship.
@@ -25,7 +25,7 @@ trait UserRelationship
 
     /**
      * Many-to-Many relations with Permission.
-     * ONLY GETS PERMISSIONS ARE NOT ASSOCIATED WITH A ROLE
+     * ONLY GETS PERMISSIONS ARE NOT ASSOCIATED WITH A ROLE.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -51,28 +51,32 @@ trait UserRelationship
     }
 
     /**
-     * Has-One relationship with state
+     * Has-One relationship with state.
+     *
      * @return mixed
      */
     public function state()
     {
         return $this->hasOne(State::class, 'id', 'state_id');
-    }    
+    }
 
     /**
-     * Has-One relationship with cty
+     * Has-One relationship with cty.
+     *
      * @return mixed
      */
     public function city()
     {
-        return $this->hasOne(City::class,'id', 'city_id');
+        return $this->hasOne(City::class, 'id', 'city_id');
     }
+
     /**
-     * Has-One relationship with country
+     * Has-One relationship with country.
+     *
      * @return mixed
      */
     public function country()
     {
-        return $this->hasOne(Country::class,'id', 'country_id');
+        return $this->hasOne(Country::class, 'id', 'country_id');
     }
 }

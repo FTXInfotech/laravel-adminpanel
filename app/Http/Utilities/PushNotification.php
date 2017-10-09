@@ -5,23 +5,28 @@ namespace App\Http\Utilities;
 /**
  * Created By : Umang Soni
  * Created at : 26/05/2017
- * Push Notification Class
+ * Push Notification Class.
  */
-class PushNotification {
+class PushNotification
+{
     /**
-     * PushNotification
-     * @param  array $msg
-     * @param  string $type
-     * @param  array $devicetoken
-     * @param  array  $params
-     * @param  string $user_id
+     * PushNotification.
+     *
+     * @param array  $msg
+     * @param string $type
+     * @param array  $devicetoken
+     * @param array  $params
+     * @param string $user_id
+     *
      * @return bool
      */
-    public function _pushNotification($msg, $type, $devicetoken) {
+    public function _pushNotification($msg, $type, $devicetoken)
+    {
         if ($devicetoken) {
             switch ($type) {
                 case 'ios':
                     return $this->_pushToIos($devicetoken, $msg);
+
                     return true;
                     break;
 
@@ -32,11 +37,13 @@ class PushNotification {
                 default:
                     echo 'Invalid Type Passed';
             }
+
             return false;
         } else {
             $status = 500;
             $response['status'] = false;
             $response['message'] = 'No device found';
+
             return false;
         }
     }
@@ -44,25 +51,28 @@ class PushNotification {
     /**
      * Created By : Umang Soni
      * Created at : 26/05/2017
-	 * PushNotification for android
-	 * @param  array $devicetoken
-	 * @param  array $msg
-	 * @param  array  $params
-	 * @return bool
-	 */
-    public function _pushToAndroid($registrationIds, $msg) {
-        if(!is_array($registrationIds)){
-            $registrationIds = array($registrationIds);
+     * PushNotification for android.
+     *
+     * @param array $devicetoken
+     * @param array $msg
+     * @param array $params
+     *
+     * @return bool
+     */
+    public function _pushToAndroid($registrationIds, $msg)
+    {
+        if (!is_array($registrationIds)) {
+            $registrationIds = [$registrationIds];
         }
-        $fields = array(
+        $fields = [
             'registration_ids' => $registrationIds,
-            'data' => $msg
-        );
+            'data'             => $msg,
+        ];
 
-        $headers = array(
-            'Authorization: key=' . config('access.AccessKey'),
-            'Content-Type: application/json'
-        );
+        $headers = [
+            'Authorization: key='.config('access.AccessKey'),
+            'Content-Type: application/json',
+        ];
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
@@ -80,36 +90,40 @@ class PushNotification {
     /**
      * Created By : Umang Soni
      * Created at : 26/05/2017
-	 * PushNotification for IOS
-	 * @param  array $devicetoken
-	 * @param  array $msg
-	 * @param  array  $params
-	 * @param  string  $user_id
-	 * @return bool
-	 */
-    public function _pushtoios($devicetoken, $message) {
-        $passphrase = 'apple';//pwd: Infowelt@123
+     * PushNotification for IOS.
+     *
+     * @param array  $devicetoken
+     * @param array  $msg
+     * @param array  $params
+     * @param string $user_id
+     *
+     * @return bool
+     */
+    public function _pushtoios($devicetoken, $message)
+    {
+        $passphrase = 'apple'; //pwd: Infowelt@123
         $ctx = stream_context_create();
         //stream_context_set_option($ctx, 'ssl', 'local_cert', TMP . 'pem/apns_baseproject_dev.pem');
-        stream_context_set_option($ctx, 'ssl', 'local_cert', public_path() . '/pem/Push_Infowelt.pem');
+        stream_context_set_option($ctx, 'ssl', 'local_cert', public_path().'/pem/Push_Infowelt.pem');
         stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
         $fp = stream_socket_client('ssl://gateway.sandbox.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
-        
+
         //$fp = stream_socket_client('ssl://gateway.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
 
-        if (!$fp)
-            exit("Failed to connect amarnew: $err $errstr" . PHP_EOL);
+        if (!$fp) {
+            exit("Failed to connect amarnew: $err $errstr".PHP_EOL);
+        }
 
-        $body['aps'] = array(
+        $body['aps'] = [
             'badge' => +1,
             'alert' => $message,
-            'sound' => 'default'
-        );
+            'sound' => 'default',
+        ];
         $payload = json_encode($body);
-        $msg = chr(0) . pack('n', 32) . pack('H*', $devicetoken) . pack('n', strlen($payload)) . $payload;
+        $msg = chr(0).pack('n', 32).pack('H*', $devicetoken).pack('n', strlen($payload)).$payload;
 
         $result = fwrite($fp, $msg, strlen($msg));
-        
+
         if (!$result) {
             return false;
         } else {
@@ -117,5 +131,4 @@ class PushNotification {
         }
         fclose($fp);
     }
-
 }

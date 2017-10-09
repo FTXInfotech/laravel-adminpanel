@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend\Access\Permission;
 
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\Access\Permission\PermissionRepository;
 use App\Http\Requests\Backend\Access\Permission\ManagePermissionRequest;
+use App\Repositories\Backend\Access\Permission\PermissionRepository;
+use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Class PermissionTableController.

@@ -4,7 +4,6 @@ use Carbon\Carbon as Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-
 class EmailTemplatePlaceholderTableSeeder extends Seeder
 {
     /**
@@ -13,7 +12,7 @@ class EmailTemplatePlaceholderTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {        
+    {
         if (env('DB_CONNECTION') == 'mysql') {
             DB::table(config('access.email_template_placeholders_table'))->truncate();
         }
@@ -25,12 +24,12 @@ class EmailTemplatePlaceholderTableSeeder extends Seeder
                 'updated_at'        => Carbon::now(),
             ],
             [
-                'name'              => 'name',               
+                'name'              => 'name',
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],
             [
-                'name'              => 'email',               
+                'name'              => 'email',
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],
@@ -40,20 +39,20 @@ class EmailTemplatePlaceholderTableSeeder extends Seeder
                 'updated_at'        => Carbon::now(),
             ],
             [
-                'name'              => 'contact-details',               
+                'name'              => 'contact-details',
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],
             [
-                'name'              => 'confirmation_link',               
+                'name'              => 'confirmation_link',
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],
             [
-                'name'              => 'password_reset_link',               
+                'name'              => 'password_reset_link',
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
-            ],            
+            ],
             [
                 'name'              => 'header_logo',
                 'created_at'        => Carbon::now(),
@@ -76,6 +75,6 @@ class EmailTemplatePlaceholderTableSeeder extends Seeder
             ],
         ];
 
-         DB::table(config('access.email_template_placeholders_table'))->insert($data);
+        DB::table(config('access.email_template_placeholders_table'))->insert($data);
     }
 }

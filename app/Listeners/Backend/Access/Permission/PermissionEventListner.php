@@ -5,7 +5,7 @@ namespace App\Listeners\Backend\Access\Permission;
 /**
  * Class PermissionEventListener.
  */
-class PermissionEventListener
+class PermissionEventListner
 {
     /**
      * @var string

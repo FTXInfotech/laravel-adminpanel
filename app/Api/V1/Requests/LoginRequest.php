@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Api\V1\Requests;
+
 use Config;
 use Dingo\Api\Http\FormRequest;
 
@@ -24,16 +26,18 @@ class LoginRequest extends FormRequest
     {
         return Config::get('api_validation.login.rules');
     }
+
     /**
      * Get the messages for validation rules.
      *
      * @return array
      */
-    public function messages(){
-         return[
-            'email.required' =>  trans('validation.api.login.email_required'),
-            'email.email' =>  trans('validation.api.login.valid_email'),
-            'password.required' =>  trans('validation.api.login.password_required'),
-         ]; 
+    public function messages()
+    {
+        return[
+            'email.required'    => trans('validation.api.login.email_required'),
+            'email.email'       => trans('validation.api.login.valid_email'),
+            'password.required' => trans('validation.api.login.password_required'),
+         ];
     }
 }

@@ -124,8 +124,8 @@ return [
                     'display_name'     => 'Display Name',
                     'group'            => 'Group',
                     'group_sort'       => 'Group Sort',
-                    'name'          => 'Name',
-                    'sort'          => 'Sort',
+                    'name'             => 'Name',
+                    'sort'             => 'Sort',
 
                     'groups' => [
                         'name' => 'Group Name',
@@ -156,52 +156,52 @@ return [
                 ],
             ],
             'cmspages' => [
-                'title' => 'Title',
-                'description' => 'Description',
+                'title'           => 'Title',
+                'description'     => 'Description',
                 'cannonical_link' => 'Cannonical Link',
-                'seo_title' => 'SEO Title',
-                'seo_keyword' => 'SEO Keyword',
+                'seo_title'       => 'SEO Title',
+                'seo_keyword'     => 'SEO Keyword',
                 'seo_description' => 'SEO Description',
-                'is_active' => 'Active',
+                'is_active'       => 'Active',
             ],
 
             'emailtemplates' => [
-                'title' => 'Title',
-                'type' => 'Type',
-                'subject' => 'Subject',
-                'body' => 'Body',
+                'title'       => 'Title',
+                'type'        => 'Type',
+                'subject'     => 'Subject',
+                'body'        => 'Body',
                 'placeholder' => 'Placeholder',
-                'is_active' => 'Active',
+                'is_active'   => 'Active',
             ],
 
             'blogcategories' => [
-                'title' => 'Blog Category',
+                'title'     => 'Blog Category',
                 'is_active' => 'Active',
             ],
 
             'blogtags' => [
-                'title' => 'Blog Tag',
+                'title'     => 'Blog Tag',
                 'is_active' => 'Active',
             ],
 
             'blogs' => [
-                'title' => 'Blog Title',
-                'category' => 'Blog Category',
-                'publish' => 'Publich Date & Time',
-                'image' => 'Featured Image',
-                'content' => 'Content',
-                'tags' => 'Tags',
-                'meta-title' => 'Meta Title',
-                'slug' => 'Slug',
-                'cannonical_link' => 'Cannonical Link',
-                'meta_keyword' => 'Meta Keyword',
+                'title'            => 'Blog Title',
+                'category'         => 'Blog Category',
+                'publish'          => 'Publich Date & Time',
+                'image'            => 'Featured Image',
+                'content'          => 'Content',
+                'tags'             => 'Tags',
+                'meta-title'       => 'Meta Title',
+                'slug'             => 'Slug',
+                'cannonical_link'  => 'Cannonical Link',
+                'meta_keyword'     => 'Meta Keyword',
                 'meta_description' => 'Meta Description',
-                'status' => 'Status',
+                'status'           => 'Status',
             ],
 
             'settings' => [
                 'sitelogo'          => 'Site Logo',
-                'favicon'          => 'Fav Icon',
+                'favicon'           => 'Fav Icon',
                 'metatitle'         => 'Meta Title',
                 'metakeyword'       => 'Meta Keyawords',
                 'metadescription'   => 'Meta Description',
@@ -227,8 +227,8 @@ return [
             ],
             'faqs' => [
                     'question' => 'Question',
-                    'answer' => 'Answer',
-                    'status' => 'Status',
+                    'answer'   => 'Answer',
+                    'status'   => 'Status',
             ],
         ],
 
@@ -248,43 +248,43 @@ return [
                 'old_password'              => 'Old Password',
                 'new_password'              => 'New Password',
                 'new_password_confirmation' => 'New Password Confirmation',
-                'terms_and_conditions'      => 'terms and conditions'
+                'terms_and_conditions'      => 'terms and conditions',
             ],
         ],
     ],
 
     'api' => [
         'login' => [
-            'email_required' => 'Please enter email',
-            'valid_email' => 'Please enter valid email address.',
-            'password_required' => 'Please enter passsword.',
-            'username_password_didnt_match' => 'Please enter valid credentials.'
+            'email_required'                => 'Please enter email',
+            'valid_email'                   => 'Please enter valid email address.',
+            'password_required'             => 'Please enter passsword.',
+            'username_password_didnt_match' => 'Please enter valid credentials.',
         ],
 
         'forgotpassword' => [
-            'email_required' => 'Please enter email',
-            'valid_email' => 'Please enter valid email address.',
-            'email_not_valid' => 'Email you entered is not register with fin builders.'
+            'email_required'  => 'Please enter email',
+            'valid_email'     => 'Please enter valid email address.',
+            'email_not_valid' => 'Email you entered is not register with fin builders.',
         ],
 
         'resetpassword' => [
-            'email_required' => 'Please enter email',
-            'valid_email' => 'Please enter valid email address.',
-            'password_required' => 'Please enter passsword.',
-            'password_confirmed' => 'passsword and confirm passsword do not match.',
-            'token_required' => 'Please enter token.',
+            'email_required'            => 'Please enter email',
+            'valid_email'               => 'Please enter valid email address.',
+            'password_required'         => 'Please enter passsword.',
+            'password_confirmed'        => 'passsword and confirm passsword do not match.',
+            'token_required'            => 'Please enter token.',
             'confirm_password_required' => 'Please enter confirm password.',
-            'token_not_valid' => 'Given token is invalid.',
-            'email_not_valid' => 'Email you entered is not register with fin builders.'
+            'token_not_valid'           => 'Given token is invalid.',
+            'email_not_valid'           => 'Email you entered is not register with fin builders.',
         ],
         'register' => [
             'state_required' => 'Please enter state.',
-            'city_required' => 'Please enter city.'
+            'city_required'  => 'Please enter city.',
         ],
         'confirmaccount' => [
            'already_confirmed' => 'Account is already confirmed.',
-           'invalid_otp' => 'Please enter valid otp.',
-            'invalid_email' => 'Email is not register with fin builders'
+           'invalid_otp'       => 'Please enter valid otp.',
+            'invalid_email'    => 'Email is not register with fin builders',
         ],
     ],
 

@@ -4,7 +4,6 @@ use Carbon\Carbon as Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-
 class EmailTemplateTableSeeder extends Seeder
 {
     /**
@@ -13,11 +12,11 @@ class EmailTemplateTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {        
+    {
         if (env('DB_CONNECTION') == 'mysql') {
             DB::table(config('access.email_templates_table'))->truncate();
         }
-    
+
         $data = [
             [
                 'title'             => 'User Registration',

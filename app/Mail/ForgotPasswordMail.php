@@ -1,10 +1,10 @@
 <?php
+
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ForgotPasswordMail extends Mailable
 {
@@ -17,7 +17,7 @@ class ForgotPasswordMail extends Mailable
      */
     public function __construct($otp)
     {
-        $this->otp=$otp;
+        $this->otp = $otp;
     }
 
     /**
@@ -27,6 +27,6 @@ class ForgotPasswordMail extends Mailable
      */
     public function build()
     {
-        return $this->view('api.mail.forgotpassword')->with('otp',$this->otp);
+        return $this->view('api.mail.forgotpassword')->with('otp', $this->otp);
     }
 }

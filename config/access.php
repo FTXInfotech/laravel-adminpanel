@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Access\Role\Role;
 use App\Models\Access\Permission\Permission;
+use App\Models\Access\Role\Role;
 
 return [
     /*
@@ -123,7 +123,7 @@ return [
     /*
      * Menus table used to store Menu and menu items
      */
-    'menus_table' => 'menus',
+    'menus_table'      => 'menus',
     'menu_items_table' => 'menu_items',
 
     /*
@@ -179,10 +179,10 @@ return [
         'registration' => env('REGISTRATION_CAPTCHA_STATUS', false),
     ],
 
-    /**
+    /*
      * System constatnt
      */
     'constants' => [
-        "default_country" => 1,
+        'default_country' => 1,
     ],
 ];

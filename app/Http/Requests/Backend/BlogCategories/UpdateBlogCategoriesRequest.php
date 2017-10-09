@@ -40,7 +40,7 @@ class UpdateBlogCategoriesRequest extends Request
     {
         return [
             'name.required' => 'Blog category name must required',
-            'name.max' => 'Blog category may not be greater than 191 characters.',
+            'name.max'      => 'Blog category may not be greater than 191 characters.',
         ];
     }
 }

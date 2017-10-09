@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Backend\BlogTags;
 
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\BlogTags\BlogTagsRepository;
 use App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest;
+use App\Repositories\Backend\BlogTags\BlogTagsRepository;
 use Carbon\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Class BlogTagsTableController.
@@ -39,6 +39,7 @@ class BlogTagsTableController extends Controller
                 if ($blogtags->status) {
                     return '<span class="label label-success">Active</span>';
                 }
+
                 return '<span class="label label-danger">Inactive</span>';
             })
             ->addColumn('created_by', function ($blogtags) {

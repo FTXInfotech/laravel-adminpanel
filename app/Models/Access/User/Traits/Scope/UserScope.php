@@ -26,6 +26,6 @@ trait UserScope
      */
     public function scopeActive($query, $status = true)
     {
-        return $query->where(config('access.users_table') . '.status', $status);
+        return $query->where(config('access.users_table').'.status', $status);
     }
 }

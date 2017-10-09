@@ -33,7 +33,7 @@ return [
 
     'backend' => [
         'profile_updated' => 'Your profile has been updated.',
-        'access' => [
+        'access'          => [
             'roles' => [
                 'create'     => 'Create Role',
                 'edit'       => 'Edit Role',
@@ -119,7 +119,7 @@ return [
             'create'     => 'Create CMS Page',
             'edit'       => 'Edit CMS Page',
             'management' => 'CMS Page Management',
-            'title' => 'CMS Pages',
+            'title'      => 'CMS Pages',
 
             'table' => [
                 'title'          => 'Title',
@@ -134,7 +134,7 @@ return [
             'create'     => 'Create Blog Category',
             'edit'       => 'Edit Blog Category',
             'management' => 'Blog Category Management',
-            'title' => 'Blog Category',
+            'title'      => 'Blog Category',
 
             'table' => [
                 'title'          => 'Blog Category',
@@ -149,7 +149,7 @@ return [
             'create'     => 'Create Blog Tag',
             'edit'       => 'Edit Blog Tag',
             'management' => 'Blog Tag Management',
-            'title' => 'Blog Tags',
+            'title'      => 'Blog Tags',
 
             'table' => [
                 'title'          => 'Blog Tag',
@@ -164,7 +164,7 @@ return [
             'create'     => 'Create Blog',
             'edit'       => 'Edit Blog',
             'management' => 'Blog Management',
-            'title' => 'Blogs',
+            'title'      => 'Blogs',
 
             'table' => [
                 'title'          => 'Blog',
@@ -188,7 +188,7 @@ return [
                 'status'         => 'Status',
                 'createdat'      => 'Created At',
                 'updatedat'      => 'Updated At',
-                'all'            => 'All'
+                'all'            => 'All',
             ],
         ],
 
@@ -210,7 +210,6 @@ return [
             'management' => 'FAQ Management',
             'title'      => 'FAQ',
 
-
             'table' => [
                 'title'          => 'FAQs',
                 'publish'        => 'PublishDateTime',
@@ -228,29 +227,29 @@ return [
             'create'     => 'Create Menu',
             'edit'       => 'Edit Menu',
             'management' => 'Menu Management',
-            'title' => 'Menus',
+            'title'      => 'Menus',
 
             'table' => [
-                'name'          => 'Name',
-                'type'          => 'Type',
+                'name'           => 'Name',
+                'type'           => 'Type',
                 'createdat'      => 'Created At',
                 'createdby'      => 'Created By',
                 'all'            => 'All',
             ],
             'field' => [
-                'name' => 'Name',
-                'type' => 'Type',
-                'items' => 'Menu Items',
-                'url' => 'URL',
-                'url_type' => 'URL Type',
+                'name'      => 'Name',
+                'type'      => 'Type',
+                'items'     => 'Menu Items',
+                'url'       => 'URL',
+                'url_type'  => 'URL Type',
                 'url_types' => [
-                  'route' => 'Route',
-                  'static' => 'Static'
+                  'route'  => 'Route',
+                  'static' => 'Static',
                 ],
-                'open_in_new_tab' => 'Open URL in new tab',
+                'open_in_new_tab'    => 'Open URL in new tab',
                 'view_permission_id' => 'Permission',
-                'icon' => 'Icon Class',
-                'icon_title' => 'Font Awesome Class. eg. fa-edit'
+                'icon'               => 'Icon Class',
+                'icon_title'         => 'Font Awesome Class. eg. fa-edit',
             ],
         ],
 
@@ -258,13 +257,13 @@ return [
             'create'     => 'Create Module',
             'management' => 'Module Management',
             'title'      => 'Module',
-            'edit' => 'Edit Module',
+            'edit'       => 'Edit Module',
 
             'table' => [
-                'name' => 'Module Name',
-                'url'   => 'Module View Route',
+                'name'               => 'Module Name',
+                'url'                => 'Module View Route',
                 'view_permission_id' => 'View Permission',
-                'created_by' => 'Created By'
+                'created_by'         => 'Created By',
             ],
 
             'form' => [
@@ -288,7 +287,7 @@ return [
                 'form_file'             => 'Form',
                 'repo_name'             => 'Repository Name',
                 'event'                 => 'Event Name',
-            ]
+            ],
         ],
     ],
 

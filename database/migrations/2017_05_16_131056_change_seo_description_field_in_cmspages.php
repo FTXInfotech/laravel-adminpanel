@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class ChangeSeoDescriptionFieldInCmspages extends Migration
 {
@@ -22,7 +22,7 @@ class ChangeSeoDescriptionFieldInCmspages extends Migration
     public function up()
     {
         Schema::table('cms_pages', function (Blueprint $table) {
-             $table->text('seo_description')->nullable()->change();
+            $table->text('seo_description')->nullable()->change();
         });
     }
 
@@ -34,7 +34,7 @@ class ChangeSeoDescriptionFieldInCmspages extends Migration
     public function down()
     {
         Schema::table('cms_pages', function (Blueprint $table) {
-             $table->string('seo_description')->nullable()->change();
+            $table->string('seo_description')->nullable()->change();
         });
     }
 }

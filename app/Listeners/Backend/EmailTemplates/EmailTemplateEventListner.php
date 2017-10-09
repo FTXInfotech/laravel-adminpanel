@@ -5,7 +5,7 @@ namespace App\Listeners\Backend\EmailTemplates;
 /**
  * Class EmailTemplateEventListener.
  */
-class EmailTemplateEventListener
+class EmailTemplateEventListner
 {
     /**
      * @var string

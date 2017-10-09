@@ -1,4 +1,5 @@
 <?php
+
 return [
 
     /*
@@ -34,25 +35,25 @@ return [
             ],
 
             'users' => [
-                'cant_deactivate_self'  => 'You can not do that to yourself.',
-                'cant_delete_self'      => 'You can not delete yourself.',
+                'cant_deactivate_self'    => 'You can not do that to yourself.',
+                'cant_delete_self'        => 'You can not delete yourself.',
                 'cant_delete_own_session' => 'You can not delete your own session.',
                 'cant_delete_own_session' => 'You can not delete your own session.',
-                'cant_restore'          => 'This user is not deleted so it can not be restored.',
-                'create_error'          => 'There was a problem creating this user. Please try again.',
-                'delete_error'          => 'There was a problem deleting this user. Please try again.',
-                'delete_first'          => 'This user must be deleted first before it can be destroyed permanently.',
-                'email_error'           => 'That email address belongs to a different user.',
-                'mark_error'            => 'There was a problem updating this user. Please try again.',
-                'not_found'             => 'That user does not exist.',
-                'restore_error'         => 'There was a problem restoring this user. Please try again.',
-                'role_needed_create'    => 'You must choose at lease one role.',
-                'role_needed'           => 'You must choose at least one role.',
-                'session_wrong_driver'  => 'Your session driver must be set to database to use this feature.',
-                'session_wrong_driver'  => 'Your session driver must be set to database to use this feature.',
-                'change_mismatch'    => 'That is not your old password.',
-                'update_error'          => 'There was a problem updating this user. Please try again.',
-                'update_password_error' => 'There was a problem changing this users password. Please try again.',
+                'cant_restore'            => 'This user is not deleted so it can not be restored.',
+                'create_error'            => 'There was a problem creating this user. Please try again.',
+                'delete_error'            => 'There was a problem deleting this user. Please try again.',
+                'delete_first'            => 'This user must be deleted first before it can be destroyed permanently.',
+                'email_error'             => 'That email address belongs to a different user.',
+                'mark_error'              => 'There was a problem updating this user. Please try again.',
+                'not_found'               => 'That user does not exist.',
+                'restore_error'           => 'There was a problem restoring this user. Please try again.',
+                'role_needed_create'      => 'You must choose at lease one role.',
+                'role_needed'             => 'You must choose at least one role.',
+                'session_wrong_driver'    => 'Your session driver must be set to database to use this feature.',
+                'session_wrong_driver'    => 'Your session driver must be set to database to use this feature.',
+                'change_mismatch'         => 'That is not your old password.',
+                'update_error'            => 'There was a problem updating this user. Please try again.',
+                'update_password_error'   => 'There was a problem changing this users password. Please try again.',
             ],
         ],
         'cmspages' => [
@@ -98,7 +99,7 @@ return [
             'not_found'         => 'That Menu does not exist.',
             'update_error'      => 'There was a problem updating this Menu. Please try again.',
         ],
-        
+
         'modules' => [
             'already_exists'    => 'That Module already exists. Please choose a different name.',
             'create_error'      => 'There was a problem creating this Module. Please try again.',
@@ -133,7 +134,7 @@ return [
     ],
     'api' => [
          'cmspage' => [
-              'not_found' => 'given cms page is not found.'
+              'not_found' => 'given cms page is not found.',
          ],
     ],
 ];

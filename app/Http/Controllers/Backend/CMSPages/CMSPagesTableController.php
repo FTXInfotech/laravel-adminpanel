@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Backend\CMSPages;
 
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\CMSPages\CMSPagesRepository;
 use App\Http\Requests\Backend\CMSPages\ManageCMSPagesRequest;
+use App\Repositories\Backend\CMSPages\CMSPagesRepository;
 use Carbon\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Class CMSPagesTableController.
@@ -39,6 +39,7 @@ class CMSPagesTableController extends Controller
                 if ($cmspages->status) {
                     return '<span class="label label-success">Active</span>';
                 }
+
                 return '<span class="label label-danger">Inactive</span>';
             })
             ->addColumn('created_at', function ($cmspages) {

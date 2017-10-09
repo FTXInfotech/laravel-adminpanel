@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Backend\Access\Role;
 
-use App\Models\Access\Role\Role;
 use App\Http\Controllers\Controller;
-use App\Repositories\Backend\Access\Role\RoleRepository;
-use App\Http\Requests\Backend\Access\Role\StoreRoleRequest;
-use App\Http\Requests\Backend\Access\Role\ManageRoleRequest;
 use App\Http\Requests\Backend\Access\Role\CreateRoleRequest;
-use App\Http\Requests\Backend\Access\Role\EditRoleRequest;
-use App\Http\Requests\Backend\Access\Role\UpdateRoleRequest;
 use App\Http\Requests\Backend\Access\Role\DeleteRoleRequest;
+use App\Http\Requests\Backend\Access\Role\EditRoleRequest;
+use App\Http\Requests\Backend\Access\Role\ManageRoleRequest;
+use App\Http\Requests\Backend\Access\Role\StoreRoleRequest;
+use App\Http\Requests\Backend\Access\Role\UpdateRoleRequest;
+use App\Models\Access\Role\Role;
 use App\Repositories\Backend\Access\Permission\PermissionRepository;
+use App\Repositories\Backend\Access\Role\RoleRepository;
 
 /**
  * Class RoleController.
@@ -73,7 +73,7 @@ class RoleController extends Controller
     }
 
     /**
-     * @param Role              $role
+     * @param Role            $role
      * @param EditRoleRequest $request
      *
      * @return mixed

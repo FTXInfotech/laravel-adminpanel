@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Frontend\Auth;
 
-use Illuminate\Http\Request;
-use App\Exceptions\GeneralException;
-use App\Http\Controllers\Controller;
-use Laravel\Socialite\Facades\Socialite;
 use App\Events\Frontend\Auth\UserLoggedIn;
-use App\Repositories\Frontend\Access\User\UserRepository;
+use App\Exceptions\GeneralException;
 use App\Helpers\Frontend\Auth\Socialite as SocialiteHelper;
+use App\Http\Controllers\Controller;
+use App\Repositories\Frontend\Access\User\UserRepository;
+use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
 
 /**
  * Class SocialLoginController.
@@ -51,7 +51,7 @@ class SocialLoginController extends Controller
         $user = null;
 
         // If the provider is not an acceptable third party than kick back
-        if (! in_array($provider, $this->helper->getAcceptedProviders())) {
+        if (!in_array($provider, $this->helper->getAcceptedProviders())) {
             return redirect()->route('frontend.index')->withFlashDanger(trans('auth.socialite.unacceptable', ['provider' => $provider]));
         }
 
@@ -60,7 +60,7 @@ class SocialLoginController extends Controller
          * It's redirected to the provider and then back here, where request is populated
          * So it then continues creating the user
          */
-        if (! $request->all()) {
+        if (!$request->all()) {
             return $this->getAuthorizationFirst($provider);
         }
 
@@ -71,12 +71,12 @@ class SocialLoginController extends Controller
             return redirect()->route('frontend.index')->withFlashDanger($e->getMessage());
         }
 
-        if (is_null($user) || ! isset($user)) {
+        if (is_null($user) || !isset($user)) {
             return redirect()->route('frontend.index')->withFlashDanger(trans('exceptions.frontend.auth.unknown'));
         }
 
         // Check to see if they are active.
-        if (! $user->isActive()) {
+        if (!$user->isActive()) {
             throw new GeneralException(trans('exceptions.frontend.auth.deactivated'));
         }
 

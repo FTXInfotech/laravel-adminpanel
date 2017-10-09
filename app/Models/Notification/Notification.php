@@ -15,6 +15,6 @@ class Notification extends Model
 
     public function __construct()
     {
-        $this->table = config("access.notifications_table");
+        $this->table = config('access.notifications_table');
     }
 }

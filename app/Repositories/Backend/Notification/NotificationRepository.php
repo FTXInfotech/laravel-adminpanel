@@ -3,33 +3,37 @@
 namespace App\Repositories\Backend\Notification;
 
 use App\Exceptions\GeneralException;
-use Illuminate\Support\Facades\Auth;
-use App\Repositories\BaseRepository;
 use App\Models\Notification\Notification;
+use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\Auth;
 
 /**
- * Class NotificationRepository
- * @package App\Repositories\Backend\Notification
+ * Class NotificationRepository.
  */
 class NotificationRepository extends BaseRepository
 {
     /**
-     * related model of this repositery
+     * related model of this repositery.
+     *
      * @var object
      */
     public $model;
     public $timestamps = false;
 
-    public function __construct(Notification $model) {
+    public function __construct(Notification $model)
+    {
         $this->model = $model;
     }
 
     /**
-     * [create description]
-     * @param  [type] $result [description]
-     * @return [type]         [description]
+     * [create description].
+     *
+     * @param [type] $result [description]
+     *
+     * @return [type] [description]
      */
-    public function create($message, $userId, $type = 'success', $createdBy = NULL) {
+    public function create($message, $userId, $type = 'success', $createdBy = null)
+    {
         $this->model->message = $message;
         $this->model->user_id = $userId;
         $this->model->type = $type;
@@ -48,10 +52,13 @@ class NotificationRepository extends BaseRepository
     /**
      * @param  $id
      * @param  $input
+     *
      * @throws GeneralException
+     *
      * @return bool
      */
-    public function update($id, $request) {
+    public function update($id, $request)
+    {
         $notification = $this->findOrThrowException($id);
         $input = $request->all();
         $notification->name = $input['name'];
@@ -62,16 +69,20 @@ class NotificationRepository extends BaseRepository
         if ($notification->save()) {
             return true;
         }
+
         throw new GeneralException(trans('exceptions.backend.notification.update_error'));
     }
 
     /**
      * @param  $id
      * @param  $is_active
+     *
      * @throws GeneralException
+     *
      * @return bool
      */
-    public function mark($id, $status) {
+    public function mark($id, $status)
+    {
         $notification = $this->findOrThrowException($id);
         $notification->is_read = $status;
         if ($notification->save()) {
@@ -82,20 +93,23 @@ class NotificationRepository extends BaseRepository
     }
 
     /**
-     * [display description]
-     * @param  [type] $result [description]
-     * @return [type]         [description]
+     * [display description].
+     *
+     * @param [type] $result [description]
+     *
+     * @return [type] [description]
      */
-    public function getNotification($where, $type = 'count', $limit = NULL) {
+    public function getNotification($where, $type = 'count', $limit = null)
+    {
         $query = $this->model;
 
         foreach ($where as $k => $v) {
-            $query = $query->where($k, "=", $v);
+            $query = $query->where($k, '=', $v);
         }
         if ($limit) {
             $query = $query->take($limit);
         }
-        $query = $query->where('user_id',auth()->user()->id);
+        $query = $query->where('user_id', auth()->user()->id);
 //        $query = $query->orderBy('is_read', 'desc');
         $query = $query->orderBy('created_at', 'desc');
         $count = $query->$type();
@@ -104,11 +118,14 @@ class NotificationRepository extends BaseRepository
     }
 
     /**
-     * [clear description]
-     * @param  [type] $result [description]
-     * @return [type]         [null]
+     * [clear description].
+     *
+     * @param [type] $result [description]
+     *
+     * @return [type] [null]
      */
-    public function clearNotifications($limit = 'all') {
+    public function clearNotifications($limit = 'all')
+    {
         $query = $this->model;
         if ($limit != 'all') {
             $query->where('is_read', '=', 0);
@@ -117,7 +134,7 @@ class NotificationRepository extends BaseRepository
             $query = $query->limit($limit);
         }
 
-        $query->where('user_id',auth()->user()->id)->orderBy('created_at', 'desc');
+        $query->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc');
 
         if ($query->update(['is_read' => 1])) {
             return true;
@@ -125,5 +142,4 @@ class NotificationRepository extends BaseRepository
             return false;
         }
     }
-
 }

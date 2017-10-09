@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Backend\CMSPages;
 
-use App\Models\CMSPages\CMSPage;
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\CMSPages\CMSPagesRepository;
-use App\Http\Requests\Backend\CMSPages\StoreCMSPagesRequest;
-use App\Http\Requests\Backend\CMSPages\ManageCMSPagesRequest;
 use App\Http\Requests\Backend\CMSPages\CreateCMSPagesRequest;
-use App\Http\Requests\Backend\CMSPages\EditCMSPagesRequest;
 use App\Http\Requests\Backend\CMSPages\DeleteCMSPagesRequest;
+use App\Http\Requests\Backend\CMSPages\EditCMSPagesRequest;
+use App\Http\Requests\Backend\CMSPages\ManageCMSPagesRequest;
+use App\Http\Requests\Backend\CMSPages\StoreCMSPagesRequest;
 use App\Http\Requests\Backend\CMSPages\UpdateCMSPagesRequest;
+use App\Models\CMSPages\CMSPage;
+use App\Repositories\Backend\CMSPages\CMSPagesRepository;
 
 /**
  * Class CMSPagesController.
@@ -64,7 +63,7 @@ class CMSPagesController extends Controller
     }
 
     /**
-     * @param CMSPage              $cmspage
+     * @param CMSPage             $cmspage
      * @param EditCMSPagesRequest $request
      *
      * @return mixed
@@ -76,7 +75,7 @@ class CMSPagesController extends Controller
     }
 
     /**
-     * @param CMSPage              $cmspage
+     * @param CMSPage             $cmspage
      * @param EditCMSPagesRequest $request
      *
      * @return mixed
@@ -89,7 +88,7 @@ class CMSPagesController extends Controller
     }
 
     /**
-     * @param Permission              $permission
+     * @param Permission            $permission
      * @param DeleteCMSPagesRequest $request
      *
      * @return mixed

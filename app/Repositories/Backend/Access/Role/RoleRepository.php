@@ -2,14 +2,14 @@
 
 namespace App\Repositories\Backend\Access\Role;
 
-use App\Models\Access\Role\Role;
-use Illuminate\Support\Facades\DB;
-use App\Exceptions\GeneralException;
-use App\Repositories\BaseRepository;
-use Illuminate\Database\Eloquent\Model;
 use App\Events\Backend\Access\Role\RoleCreated;
 use App\Events\Backend\Access\Role\RoleDeleted;
 use App\Events\Backend\Access\Role\RoleUpdated;
+use App\Exceptions\GeneralException;
+use App\Models\Access\Role\Role;
+use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class RoleRepository.
@@ -51,9 +51,9 @@ class RoleRepository extends BaseRepository
                 config('access.roles_table').'.all',
                 config('access.roles_table').'.sort',
                 DB::raw("GROUP_CONCAT( DISTINCT permissions.display_name SEPARATOR '<br/>') as permission_name"),
-                DB::raw("(SELECT COUNT(role_user.id) FROM role_user LEFT JOIN users ON role_user.user_id = users.id WHERE role_user.role_id = roles.id AND users.deleted_at IS NULL) AS userCount"),
+                DB::raw('(SELECT COUNT(role_user.id) FROM role_user LEFT JOIN users ON role_user.user_id = users.id WHERE role_user.role_id = roles.id AND users.deleted_at IS NULL) AS userCount'),
             ])
-            ->groupBy("roles.id");
+            ->groupBy('roles.id');
     }
 
     /**
@@ -72,12 +72,12 @@ class RoleRepository extends BaseRepository
         //See if the role has all access
         $all = $input['associated-permissions'] == 'all' ? true : false;
 
-        if (! isset($input['permissions'])) {
+        if (!isset($input['permissions'])) {
             $input['permissions'] = [];
         }
 
         //This config is only required if all is false
-        if (! $all) {
+        if (!$all) {
             //See if the role must contain a permission as per config
             if (config('access.roles.role_must_contain_permission') && count($input['permissions']) == 0) {
                 throw new GeneralException(trans('exceptions.backend.access.roles.needs_permission'));
@@ -97,7 +97,7 @@ class RoleRepository extends BaseRepository
             $role->created_by = access()->user()->id;
 
             if ($role->save()) {
-                if (! $all) {
+                if (!$all) {
                     $permissions = [];
 
                     if (is_array($input['permissions']) && count($input['permissions'])) {
@@ -137,12 +137,12 @@ class RoleRepository extends BaseRepository
             $all = $input['associated-permissions'] == 'all' ? true : false;
         }
 
-        if (! isset($input['permissions'])) {
+        if (!isset($input['permissions'])) {
             $input['permissions'] = [];
         }
 
         //This config is only required if all is false
-        if (! $all) {
+        if (!$all) {
             //See if the role must contain a permission as per config
             if (config('access.roles.role_must_contain_permission') && count($input['permissions']) == 0) {
                 throw new GeneralException(trans('exceptions.backend.access.roles.needs_permission'));

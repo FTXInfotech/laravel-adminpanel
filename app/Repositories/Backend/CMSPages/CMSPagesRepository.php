@@ -2,14 +2,14 @@
 
 namespace App\Repositories\Backend\CMSPages;
 
-use App\Repositories\BaseRepository;
-use App\Exceptions\GeneralException;
-use App\Models\CMSPages\CMSPage;
-use Illuminate\Database\Eloquent\Model;
 use App\Events\Backend\CMSPages\CMSPageCreated;
 use App\Events\Backend\CMSPages\CMSPageDeleted;
 use App\Events\Backend\CMSPages\CMSPageUpdated;
+use App\Exceptions\GeneralException;
+use App\Models\CMSPages\CMSPage;
+use App\Repositories\BaseRepository;
 use DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class CMSPagesRepository.
@@ -63,7 +63,6 @@ class CMSPagesRepository extends BaseRepository
             $cmspages->created_by = access()->user()->id;
 
             if ($cmspages->save()) {
-
                 event(new CMSPageCreated($cmspages));
 
                 return true;
@@ -81,10 +80,9 @@ class CMSPagesRepository extends BaseRepository
      *
      * return bool
      */
-     
     public function update(Model $cmspages, array $input)
     {
-        if ($this->query()->where('title', $input['title'])->where("id", '!=', $cmspages->id)->first()) {
+        if ($this->query()->where('title', $input['title'])->where('id', '!=', $cmspages->id)->first()) {
             throw new GeneralException(trans('exceptions.backend.cmspages.already_exists'));
         }
         $cmspages->title = $input['title'];
@@ -98,7 +96,7 @@ class CMSPagesRepository extends BaseRepository
         $cmspages->updated_by = access()->user()->id;
 
         DB::transaction(function () use ($cmspages, $input) {
-        	if ($cmspages->save()) {
+            if ($cmspages->save()) {
                 event(new CMSPageUpdated($cmspages));
 
                 return true;
@@ -118,7 +116,6 @@ class CMSPagesRepository extends BaseRepository
     public function delete(Model $cmspage)
     {
         DB::transaction(function () use ($cmspage) {
-
             if ($cmspage->delete()) {
                 event(new CMSPageDeleted($cmspage));
 

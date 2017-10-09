@@ -2,8 +2,8 @@
 
 namespace App\Models\Module;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Module\Traits\Attribute\ModuleAttribute;
+use Illuminate\Database\Eloquent\Model;
 
 class Module extends Model
 {

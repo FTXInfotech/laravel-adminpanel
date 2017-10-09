@@ -27,10 +27,10 @@ class UpdateEmailTemplatesRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'required|max:191',
+            'title'   => 'required|max:191',
             'type_id' => 'required',
             'subject' => 'required|max:191',
-            'body' => 'required',
+            'body'    => 'required',
         ];
     }
 }

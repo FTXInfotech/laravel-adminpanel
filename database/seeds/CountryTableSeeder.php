@@ -1,9 +1,9 @@
 <?php
 
-use Database\TruncateTable;
 use Carbon\Carbon as Carbon;
-use Illuminate\Database\Seeder;
 use Database\DisableForeignKeys;
+use Database\TruncateTable;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -21,7 +21,7 @@ class CountryTableSeeder extends Seeder
     public function run()
     {
         $this->disableForeignKeys();
-        $this->truncate(config("access.countries_table"));
+        $this->truncate(config('access.countries_table'));
 
         $types = [
             [
@@ -32,7 +32,7 @@ class CountryTableSeeder extends Seeder
             ],
         ];
 
-        DB::table(config("access.countries_table"))->insert($types);
+        DB::table(config('access.countries_table'))->insert($types);
 
         $this->enableForeignKeys();
     }

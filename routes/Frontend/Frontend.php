@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
         /*
          * User Profile Picture
          */
-        Route::patch('profile-picture/update', 'ProfileController@updateProfilePicture')->name('profile-picture.update');        
+        Route::patch('profile-picture/update', 'ProfileController@updateProfilePicture')->name('profile-picture.update');
     });
 });
 

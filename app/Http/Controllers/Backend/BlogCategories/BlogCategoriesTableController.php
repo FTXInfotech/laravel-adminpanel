@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Backend\BlogCategories;
 
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\BlogCategories\BlogCategoriesRepository;
 use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;
+use App\Repositories\Backend\BlogCategories\BlogCategoriesRepository;
 use Carbon\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Class BlogCategoriesTableController.
@@ -39,6 +39,7 @@ class BlogCategoriesTableController extends Controller
                 if ($blogcategories->status) {
                     return '<span class="label label-success">Active</span>';
                 }
+
                 return '<span class="label label-danger">Inactive</span>';
             })
             ->addColumn('created_by', function ($blogcategories) {
