@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Backend\Blogs;
 
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\Blogs\BlogsRepository;
 use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
+use App\Repositories\Backend\Blogs\BlogsRepository;
 use Carbon\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Class BlogsTableController.
@@ -39,7 +39,7 @@ class BlogsTableController extends Controller
                 return $blogs->status;
             })
             ->addColumn('publish_datetime', function ($blogs) {
-                return Carbon::parse($blogs->publish_datetime)->format("d/m/Y h:i A");
+                return Carbon::parse($blogs->publish_datetime)->format('d/m/Y h:i A');
             })
             ->addColumn('created_by', function ($blogs) {
                 return $blogs->user_name;

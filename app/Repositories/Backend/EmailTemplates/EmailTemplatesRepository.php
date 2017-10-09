@@ -2,13 +2,13 @@
 
 namespace App\Repositories\Backend\EmailTemplates;
 
-use App\Repositories\BaseRepository;
-use App\Exceptions\GeneralException;
-use App\Models\EmailTemplates\EmailTemplate;
-use Illuminate\Database\Eloquent\Model;
 use App\Events\Backend\EmailTemplates\EmailTemplateDeleted;
 use App\Events\Backend\EmailTemplates\EmailTemplateUpdated;
+use App\Exceptions\GeneralException;
+use App\Models\EmailTemplates\EmailTemplate;
+use App\Repositories\BaseRepository;
 use DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class EmailTemplatesRepository.
@@ -44,7 +44,6 @@ class EmailTemplatesRepository extends BaseRepository
      *
      * return bool
      */
-     
     public function update(Model $emailtemplate, array $input)
     {
         $emailtemplate->title = $input['title'];
@@ -55,7 +54,7 @@ class EmailTemplatesRepository extends BaseRepository
         $emailtemplate->updated_by = access()->user()->id;
 
         DB::transaction(function () use ($emailtemplate, $input) {
-        	if ($emailtemplate->save()) {
+            if ($emailtemplate->save()) {
                 event(new EmailTemplateUpdated($emailtemplate));
 
                 return true;
@@ -75,7 +74,6 @@ class EmailTemplatesRepository extends BaseRepository
     public function delete(Model $emailtemplate)
     {
         DB::transaction(function () use ($emailtemplate) {
-
             if ($emailtemplate->delete()) {
                 event(new EmailTemplateDeleted($emailtemplate));
 

@@ -22,18 +22,18 @@ class PermissionUserSeeder extends Seeder
         $this->truncate(config('access.permission_user_table'));
 
         // Attach executive user permission
-        $user_model  = config('auth.providers.users.model');
-        $user        = new $user_model();
-        $user        = $user::find(2);
+        $user_model = config('auth.providers.users.model');
+        $user = new $user_model();
+        $user = $user::find(2);
         $permissions = $user->roles->first()->permissions->pluck('id');
         if (!empty($permissions)) {
             $user->permissions()->sync($permissions);
         }
 
         // Attach frontend user permission
-        $user_model  = config('auth.providers.users.model');
-        $user        = new $user_model();
-        $user        = $user::find(3);
+        $user_model = config('auth.providers.users.model');
+        $user = new $user_model();
+        $user = $user::find(3);
         $permissions = $user->roles->first()->permissions->pluck('id');
         if (!empty($permissions)) {
             $user->permissions()->sync($permissions);

@@ -2,7 +2,6 @@
 
 namespace App\Listeners\Frontend\Auth;
 
-use App\Http\Utilities\SendEmail;
 /**
  * Class UserEventListener.
  */
@@ -36,10 +35,10 @@ class UserEventListener
 
         // Send email to the user
         $options = [
-                'data' => $event->user,
-                'email_template_type' => 1
+                'data'                => $event->user,
+                'email_template_type' => 1,
             ];
-        createNotification("", 1, 2, $options);
+        createNotification('', 1, 2, $options);
     }
 
     /**

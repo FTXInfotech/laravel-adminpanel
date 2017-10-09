@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Backend\Access\User;
 
-use App\Models\Access\User\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Access\User\ManageUserRequest;
+use App\Models\Access\User\User;
 use App\Repositories\Backend\Access\User\UserSessionRepository;
 
 /**

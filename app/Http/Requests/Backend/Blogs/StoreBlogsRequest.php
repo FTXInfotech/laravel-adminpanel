@@ -27,11 +27,11 @@ class StoreBlogsRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:191',
+            'name'           => 'required|max:191',
             'featured_image' => 'required',
-            'content' => 'required',
-            'categories' => 'required',
-            'tags' => 'required',
+            'content'        => 'required',
+            'categories'     => 'required',
+            'tags'           => 'required',
         ];
     }
 
@@ -44,7 +44,7 @@ class StoreBlogsRequest extends Request
     {
         return [
             'name.required' => 'Please insert Blog Title',
-            'name.max' => 'Blog Title may not be greater than 191 characters.',
+            'name.max'      => 'Blog Title may not be greater than 191 characters.',
         ];
     }
 }

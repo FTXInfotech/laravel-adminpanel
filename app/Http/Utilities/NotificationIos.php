@@ -2,10 +2,8 @@
 
 namespace App\Http\Utilities;
 
-use App\Http\Utilities\Notification;
-
-Class NotificationIos extends Notification {
-
+class NotificationIos extends Notification
+{
     const BADGE_ID = 0;
 
     protected $_passPhrase = null;            // for authentication of .pem file or password of .pem file
@@ -19,11 +17,11 @@ Class NotificationIos extends Notification {
     protected $sendNotification = 1;          // exception error for connection failed
 
     /**
-     * send push notification 
+     * send push notification.
      */
-
-    public function pushNotification($msg, $deviceToken, $sendData) {
-        $obj = new NotificationIos();
+    public function pushNotification($msg, $deviceToken, $sendData)
+    {
+        $obj = new self();
         $obj->setPassPhrase('Infowelt@123');
         $obj->setPemFile();
         $deviceId = $deviceToken;
@@ -41,8 +39,8 @@ Class NotificationIos extends Notification {
      * @return boolean
      */
 
-    protected function _send($deviceId, $message, $sendOptions = array()) {
-
+    protected function _send($deviceId, $message, $sendOptions = [])
+    {
         if (is_null($this->_passPhrase)) {
             $this->raiseerror(self::ERROR_PASSPHRASE_EMPTY);
         }
@@ -52,8 +50,9 @@ Class NotificationIos extends Notification {
         stream_context_set_option($ctx, 'ssl', 'passphrase', $this->_passPhrase);
         $fp = stream_socket_client(self::$_url, $err, $errstr, 60, STREAM_CLIENT_CONNECT, $ctx);
 
-        if (!$fp)
+        if (!$fp) {
             $this->raiseerror(self::ERROR_CONNECTION_FAILED);
+        }
         //return 'Connected to APNS' . PHP_EOL;
         // Create the payload body
         $body['aps'] = $this->_prepareBody($message, $sendOptions);
@@ -64,38 +63,43 @@ Class NotificationIos extends Notification {
 
         foreach ($deviceId as $singleId) {
             // Build the binary notification
-            $msg = chr(0) . pack('n', 32) . pack('H*', $singleId) . pack('n', strlen($payload)) . $payload;
+            $msg = chr(0).pack('n', 32).pack('H*', $singleId).pack('n', strlen($payload)).$payload;
             // Send it to the server
             $result = fwrite($fp, $msg, strlen($msg));
         }
         //echo "<br>-------<br>";
-        if (!$result)
-            return 'Message not delivered' . PHP_EOL;
-        else
-            return 'Message successfully delivered' . PHP_EOL;
+        if (!$result) {
+            return 'Message not delivered'.PHP_EOL;
+        } else {
+            return 'Message successfully delivered'.PHP_EOL;
+        }
 
         // Close the connection to the server
         fclose($fp);
     }
 
-    protected function _prepareBody($message, $sendOptions) {
+    protected function _prepareBody($message, $sendOptions)
+    {
         if ($this->sendNotification == 1) {
-            return array('alert' => $message, 'sound' => 'default', 'badge' => self::BADGE_ID);
+            return ['alert' => $message, 'sound' => 'default', 'badge' => self::BADGE_ID];
         } else {
-            return array('badge' => 0);
+            return ['badge' => 0];
         }
     }
 
-    public function sendNotification($sendNotification) {
+    public function sendNotification($sendNotification)
+    {
         $this->sendNotification = $sendNotification;
     }
 
-    public function setPassPhrase($passPhrase) {
+    public function setPassPhrase($passPhrase)
+    {
         $this->_passPhrase = $passPhrase;
     }
 
-    public function setPemFile($pemFile = 'apns_baseproject_dev.pem') {
-        $newPemFilePath = dirname(__FILE__) . '/' . $pemFile;
+    public function setPemFile($pemFile = 'apns_baseproject_dev.pem')
+    {
+        $newPemFilePath = dirname(__FILE__).'/'.$pemFile;
         // echo $_SERVER['DOCUMENT_ROOT'].'/app/Http/Controllers/Utilities/'.$pemFile;exit;
         //echo dirname(__FILE__); exit;
         // echo file_get_contents(dirname(__FILE__).'/'.$pemFile); exit;
@@ -105,14 +109,12 @@ Class NotificationIos extends Notification {
         $this->_pemFile = $newPemFilePath;
     }
 
-    public function getErrorMessages() {
-        return array(
+    public function getErrorMessages()
+    {
+        return [
             self::ERROR_PEM_NOTACCESSIBLE => 'Pem File Not Found',
-            self::ERROR_PASSPHRASE_EMPTY => 'Pass Phrase empty',
-            self::ERROR_CONNECTION_FAILED => 'Connect Failed'
-        );
+            self::ERROR_PASSPHRASE_EMPTY  => 'Pass Phrase empty',
+            self::ERROR_CONNECTION_FAILED => 'Connect Failed',
+        ];
     }
-
 }
-
-?>

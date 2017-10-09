@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Backend\Access\User;
 
-use App\Models\Access\User\User;
 use App\Http\Controllers\Controller;
-use App\Repositories\Backend\Access\User\UserRepository;
 use App\Http\Requests\Backend\Access\User\ManageUserRequest;
 use App\Http\Requests\Backend\Access\User\UpdateUserPasswordRequest;
+use App\Models\Access\User\User;
+use App\Repositories\Backend\Access\User\UserRepository;
 
 /**
  * Class UserPasswordController.
@@ -48,6 +48,6 @@ class UserPasswordController extends Controller
     {
         $this->users->updatePassword($user, $request->all());
 
-        return redirect()->route('admin.access.user.change-password',access()->user()->id)->withFlashSuccess(trans('alerts.backend.users.updated_password'));
+        return redirect()->route('admin.access.user.change-password', access()->user()->id)->withFlashSuccess(trans('alerts.backend.users.updated_password'));
     }
 }

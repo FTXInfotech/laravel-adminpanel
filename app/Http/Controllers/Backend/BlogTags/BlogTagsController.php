@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Backend\BlogTags;
 
-use App\Models\BlogTags\BlogTag;
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\BlogTags\BlogTagsRepository;
-use App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest;
-use App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest;
-use App\Http\Requests\Backend\BlogTags\DeleteBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\CreateBlogTagsRequest;
+use App\Http\Requests\Backend\BlogTags\DeleteBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\EditBlogTagsRequest;
+use App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest;
+use App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest;
+use App\Models\BlogTags\BlogTag;
+use App\Repositories\Backend\BlogTags\BlogTagsRepository;
 
 /**
  * Class BlogTagsController.
@@ -64,7 +63,7 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param BlogTag              $blogtag
+     * @param BlogTag             $blogtag
      * @param EditBlogTagsRequest $request
      *
      * @return mixed
@@ -76,7 +75,7 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param BlogTag              $blogtag
+     * @param BlogTag               $blogtag
      * @param UpdateblogtagsRequest $request
      *
      * @return mixed
@@ -89,7 +88,7 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param BlogTag              $blogtag
+     * @param BlogTag               $blogtag
      * @param DeleteBlogTagsRequest $request
      *
      * @return mixed

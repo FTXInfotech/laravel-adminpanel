@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Backend\Module;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\Module\ModuleRepository;
 use App\Http\Requests\Backend\Modules\ManageModuleRequest;
+use App\Repositories\Backend\Module\ModuleRepository;
+use Yajra\DataTables\Facades\DataTables;
 
 class ModuleTableController extends Controller
 {

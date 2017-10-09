@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Backend\Access\User;
 
-use App\Models\Access\User\User;
 use App\Http\Controllers\Controller;
-use App\Repositories\Backend\Access\User\UserRepository;
-use App\Http\Requests\Backend\Access\User\EditUserRequest;
 use App\Http\Requests\Backend\Access\User\DeleteUserRequest;
-use App\Http\Requests\Backend\Access\User\ManageDeletedRequest;
+use App\Http\Requests\Backend\Access\User\EditUserRequest;
 use App\Http\Requests\Backend\Access\User\ManageDeactivatedRequest;
+use App\Http\Requests\Backend\Access\User\ManageDeletedRequest;
+use App\Models\Access\User\User;
+use App\Repositories\Backend\Access\User\UserRepository;
 
 /**
  * Class UserStatusController.

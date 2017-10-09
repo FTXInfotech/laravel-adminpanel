@@ -2,23 +2,21 @@
 
 namespace App\Repositories\Backend\Access\User;
 
-use App\Models\Access\User\User;
-use Illuminate\Support\Facades\DB;
+use App\Events\Backend\Access\User\UserCreated;
+use App\Events\Backend\Access\User\UserDeactivated;
+use App\Events\Backend\Access\User\UserDeleted;
+use App\Events\Backend\Access\User\UserPasswordChanged;
+use App\Events\Backend\Access\User\UserPermanentlyDeleted;
+use App\Events\Backend\Access\User\UserReactivated;
+use App\Events\Backend\Access\User\UserRestored;
+use App\Events\Backend\Access\User\UserUpdated;
 use App\Exceptions\GeneralException;
+use App\Models\Access\User\User;
+use App\Repositories\Backend\Access\Role\RoleRepository;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
-use App\Events\Backend\Access\User\UserCreated;
-use App\Events\Backend\Access\User\UserDeleted;
-use App\Events\Backend\Access\User\UserUpdated;
-use App\Events\Backend\Access\User\UserRestored;
-use App\Events\Backend\Access\User\UserDeactivated;
-use App\Events\Backend\Access\User\UserReactivated;
-use App\Events\Backend\Access\User\UserPasswordChanged;
-use App\Repositories\Backend\Access\Role\RoleRepository;
-use App\Events\Backend\Access\User\UserPermanentlyDeleted;
-use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Utilities\SendEmail;
 
 /**
  * Class UserRepository.
@@ -51,7 +49,7 @@ class UserRepository extends BaseRepository
      */
     public function getByPermission($permissions, $by = 'name')
     {
-        if (! is_array($permissions)) {
+        if (!is_array($permissions)) {
             $permissions = [$permissions];
         }
 
@@ -68,9 +66,10 @@ class UserRepository extends BaseRepository
      */
     public function getByRole($roles, $by = 'name')
     {
-        if (! is_array($roles)) {
+        if (!is_array($roles)) {
             $roles = [$roles];
         }
+
         return $this->query()->whereHas('roles', function ($query) use ($roles, $by) {
             $query->whereIn('roles.'.$by, $roles);
         })->get();
@@ -101,9 +100,9 @@ class UserRepository extends BaseRepository
                 config('access.users_table').'.created_at',
                 config('access.users_table').'.updated_at',
                 config('access.users_table').'.deleted_at',
-                DB::raw("GROUP_CONCAT(roles.name) as roles")
+                DB::raw('GROUP_CONCAT(roles.name) as roles'),
             ])
-            ->groupBy("users.id");
+            ->groupBy('users.id');
 
         if ($trashed == 'true') {
             return $dataTableQuery->onlyTrashed();
@@ -121,7 +120,7 @@ class UserRepository extends BaseRepository
         $data = $input['data'];
         $roles = $input['roles'];
 
-        $permissions = isset($data['permissions']) ? $data['permissions'] : array();
+        $permissions = isset($data['permissions']) ? $data['permissions'] : [];
         unset($data['permissions']);
 
         $user = $this->createUserStub($data);
@@ -149,13 +148,13 @@ class UserRepository extends BaseRepository
 
                 event(new UserCreated($user));
 
-                $arrUserPermissions = array();
+                $arrUserPermissions = [];
                 if (isset($permissions) && count($permissions) > 0) {
                     foreach ($permissions as $permission) {
-                        $arrUserPermissions[] = array(
+                        $arrUserPermissions[] = [
                             'permission_id' => $permission,
-                            'user_id' => $user->id
-                        );
+                            'user_id'       => $user->id,
+                        ];
                     }
 
                     // Insert multiple rows at once
@@ -164,10 +163,10 @@ class UserRepository extends BaseRepository
 
                 // Send email to the user
                 $options = [
-                        'data' => $input['data'],
-                        'email_template_type' => $email_type
+                        'data'                => $input['data'],
+                        'email_template_type' => $email_type,
                     ];
-                createNotification("", 1, 2, $options);
+                createNotification('', 1, 2, $options);
 
                 return true;
             }
@@ -180,15 +179,16 @@ class UserRepository extends BaseRepository
      * @param Model $user
      * @param array $input
      *
-     * @return bool
      * @throws GeneralException
+     *
+     * @return bool
      */
     public function update(Model $user, array $input)
     {
         $data = $input['data'];
         $roles = $input['roles'];
 
-        $permissions = isset($data['permissions']) ? $data['permissions'] : array();
+        $permissions = isset($data['permissions']) ? $data['permissions'] : [];
         unset($data['permissions']);
 
         $this->checkUserByEmail($data, $user);
@@ -205,13 +205,13 @@ class UserRepository extends BaseRepository
 
                 event(new UserUpdated($user));
 
-                $arrUserPermissions = array();
+                $arrUserPermissions = [];
                 if (isset($permissions) && count($permissions) > 0) {
                     foreach ($permissions as $permission) {
-                        $arrUserPermissions[] = array(
+                        $arrUserPermissions[] = [
                             'permission_id' => $permission,
-                            'user_id' => $user->id
-                        );
+                            'user_id'       => $user->id,
+                        ];
                     }
 
                     // Insert multiple rows at once
@@ -237,26 +237,27 @@ class UserRepository extends BaseRepository
     public function updatePassword(Model $user, $input)
     {
         $user = $this->find(access()->id());
-        if (Hash::check($input['old_password'], $user->password))
-        {
-             $user->password = bcrypt($input['password']);
-                if ($user->save()) {
-                    $input['email'] = $user->email;
+        if (Hash::check($input['old_password'], $user->password)) {
+            $user->password = bcrypt($input['password']);
+            if ($user->save()) {
+                $input['email'] = $user->email;
 
-                    // Send email to the user
-                    $options = [
-                            'data' => $input,
-                            'email_template_type' => 4
+                // Send email to the user
+                $options = [
+                            'data'                => $input,
+                            'email_template_type' => 4,
                         ];
-                    createNotification("", $user->id, 2, $options);
+                createNotification('', $user->id, 2, $options);
 
-                    event(new UserPasswordChanged($user));
+                event(new UserPasswordChanged($user));
 
-                    return true;
-                }
+                return true;
+            }
+
             throw new GeneralException(trans('exceptions.backend.access.users.update_password_error'));
-         }
-         throw new GeneralException(trans('exceptions.backend.access.users.change_mismatch'));
+        }
+
+        throw new GeneralException(trans('exceptions.backend.access.users.change_mismatch'));
     }
 
     /**
@@ -351,14 +352,13 @@ class UserRepository extends BaseRepository
             break;
         }
 
-        if ($user->save())
-        {
+        if ($user->save()) {
             // Send email to the user
             $options = [
-                    'data' => $user,
-                    'email_template_type' => 3
+                    'data'                => $user,
+                    'email_template_type' => 3,
                 ];
-            createNotification("", $user->id, 2, $options);
+            createNotification('', $user->id, 2, $options);
 
             return true;
         }

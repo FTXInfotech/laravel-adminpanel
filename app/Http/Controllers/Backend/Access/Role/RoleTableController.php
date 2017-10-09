@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend\Access\Role;
 
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\Access\Role\RoleRepository;
 use App\Http\Requests\Backend\Access\Role\ManageRoleRequest;
+use App\Repositories\Backend\Access\Role\RoleRepository;
+use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Class RoleTableController.
@@ -38,6 +38,7 @@ class RoleTableController extends Controller
                 if ($role->all) {
                     return '<span class="label label-success">'.trans('labels.general.all').'</span>';
                 }
+
                 return $role->permission_name;
             })
             ->addColumn('users', function ($role) {

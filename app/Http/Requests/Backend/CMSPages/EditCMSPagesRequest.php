@@ -5,7 +5,7 @@ namespace App\Http\Requests\Backend\CMSPages;
 use App\Http\Requests\Request;
 
 /**
- * Class EditCMSPagesRequest
+ * Class EditCMSPagesRequest.
  */
 class EditCMSPagesRequest extends Request
 {

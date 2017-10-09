@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddIsTermAcceptedInUsersTable extends Migration
 {
@@ -14,7 +14,7 @@ class AddIsTermAcceptedInUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('is_term_accept')->default(0)->after('confirmed')->comment = " 0 = not accepted,1 = accepted";
+            $table->tinyInteger('is_term_accept')->default(0)->after('confirmed')->comment = ' 0 = not accepted,1 = accepted';
         });
     }
 

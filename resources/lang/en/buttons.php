@@ -16,14 +16,14 @@ return [
     'backend' => [
         'access' => [
             'users' => [
-                'activate'           => 'Activate',
-                'change_password'    => 'Change Password',
+                'activate'              => 'Activate',
+                'change_password'       => 'Change Password',
                 'clear_session'         => 'Clear Session',
-                'deactivate'         => 'Deactivate',
-                'delete_permanently' => 'Delete Permanently',
-                'login_as'           => 'Login As :user',
-                'resend_email'       => 'Resend Confirmation E-mail',
-                'restore_user'       => 'Restore User',
+                'deactivate'            => 'Deactivate',
+                'delete_permanently'    => 'Delete Permanently',
+                'login_as'              => 'Login As :user',
+                'resend_email'          => 'Resend Confirmation E-mail',
+                'restore_user'          => 'Restore User',
             ],
         ],
     ],
@@ -36,9 +36,9 @@ return [
     ],
 
     'general' => [
-        'cancel' => 'Cancel',
+        'cancel'   => 'Cancel',
         'continue' => 'Continue',
-        'preview' => 'Preview',
+        'preview'  => 'Preview',
 
         'crud' => [
             'create'  => 'Create',

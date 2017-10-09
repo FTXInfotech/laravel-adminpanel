@@ -16,6 +16,6 @@ class EmailTemplatePlaceholder extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-    	$this->table = config("access.email_template_placeholders_table");
+        $this->table = config('access.email_template_placeholders_table');
     }
 }

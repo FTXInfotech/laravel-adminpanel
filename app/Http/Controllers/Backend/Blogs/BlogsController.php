@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Backend\Blogs;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
+use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
+use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
+use App\Models\BlogCategories\BlogCategory;
 use App\Models\Blogs\Blog;
 use App\Models\BlogTags\BlogTag;
-use App\Models\BlogCategories\BlogCategory;
-use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\Blogs\BlogsRepository;
-use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
-use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
-use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
 
 /**
  * Class BlogsController.
@@ -38,10 +37,10 @@ class BlogsController extends Controller
     public function index(ManageBlogsRequest $request)
     {
         $status = [
-            "Published" => "Published",
-            "Draft" => "Draft",
-            "Inactive" => "Inactive",
-            "Scheduled" => "Scheduled"
+            'Published' => 'Published',
+            'Draft'     => 'Draft',
+            'Inactive'  => 'Inactive',
+            'Scheduled' => 'Scheduled',
         ];
 
         return view('backend.blogs.index', compact('status'));
@@ -57,13 +56,13 @@ class BlogsController extends Controller
         $blogCategories = BlogCategory::where('status', 1)->pluck('name', 'id');
         $blogTags = BlogTag::where('status', 1)->pluck('name', 'id');
         $status = [
-            "Published" => "Published",
-            "Draft" => "Draft",
-            "Inactive" => "Inactive",
-            "Scheduled" => "Scheduled"
+            'Published' => 'Published',
+            'Draft'     => 'Draft',
+            'Inactive'  => 'Inactive',
+            'Scheduled' => 'Scheduled',
         ];
 
-        return view('backend.blogs.create', compact("blogCategories", "blogTags", "status"));
+        return view('backend.blogs.create', compact('blogCategories', 'blogTags', 'status'));
     }
 
     /**
@@ -82,7 +81,7 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param Blog              $blog
+     * @param Blog               $blog
      * @param ManageBlogsRequest $request
      *
      * @return mixed
@@ -92,26 +91,26 @@ class BlogsController extends Controller
         $blogCategories = BlogCategory::where('status', 1)->pluck('name', 'id');
         $blogTags = BlogTag::where('status', 1)->pluck('name', 'id');
         $status = [
-            "Published" => "Published",
-            "Draft" => "Draft",
-            "InActive" => "InActive",
-            "Scheduled" => "Scheduled"
+            'Published' => 'Published',
+            'Draft'     => 'Draft',
+            'InActive'  => 'InActive',
+            'Scheduled' => 'Scheduled',
         ];
         $selectedCategories = $blog->categories->pluck('id')->toArray();
-        $selectedtags       = $blog->tags->pluck('id')->toArray();
+        $selectedtags = $blog->tags->pluck('id')->toArray();
 
         return view('backend.blogs.edit', compact(
-                "blogCategories",
-                "blogTags",
-                "status",
-                "selectedCategories",
-                "selectedtags")
+                'blogCategories',
+                'blogTags',
+                'status',
+                'selectedCategories',
+                'selectedtags')
             )
             ->withBlog($blog);
     }
 
     /**
-     * @param Blog              $blog
+     * @param Blog               $blog
      * @param UpdateBlogsRequest $request
      *
      * @return mixed
@@ -128,7 +127,7 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param Blog              $blog
+     * @param Blog               $blog
      * @param ManageBlogsRequest $request
      *
      * @return mixed
@@ -141,25 +140,22 @@ class BlogsController extends Controller
     }
 
     /**
-     * Creating Tags Array
+     * Creating Tags Array.
      *
      * @param Array($tags)
-     * @return Array
+     *
+     * @return array
      */
     public function createTagsArray($tags)
     {
         //Creating a new array for tags (newly created)
         $tags_array = [];
 
-        foreach($tags as $tag)
-        {
-            if(is_numeric($tag))
-            {
+        foreach ($tags as $tag) {
+            if (is_numeric($tag)) {
                 $tags_array[] = $tag;
-            }
-            else
-            {
-                $newTag = BlogTag::create(['name'=>$tag,'status'=>1,'created_by'=>1]);
+            } else {
+                $newTag = BlogTag::create(['name'=>$tag, 'status'=>1, 'created_by'=>1]);
                 $tags_array[] = $newTag->id;
             }
         }
@@ -167,26 +163,23 @@ class BlogsController extends Controller
         return $tags_array;
     }
 
-     /**
-     * Creating Tags Array
+    /**
+     * Creating Tags Array.
      *
      * @param Array($tags)
-     * @return Array
+     *
+     * @return array
      */
     public function createCategoriesArray($categories)
     {
         //Creating a new array for categories (newly created)
         $categories_array = [];
 
-        foreach($categories as $category)
-        {
-            if(is_numeric($category))
-            {
+        foreach ($categories as $category) {
+            if (is_numeric($category)) {
                 $categories_array[] = $category;
-            }
-            else
-            {
-                $newCategory = BlogCategory::create(['name' => $category,'status' => 1,'created_by' => 1]);
+            } else {
+                $newCategory = BlogCategory::create(['name' => $category, 'status' => 1, 'created_by' => 1]);
 
                 $categories_array[] = $newCategory->id;
             }

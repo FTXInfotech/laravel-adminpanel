@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Api\V1\Requests;
+
 use Config;
 use Dingo\Api\Http\FormRequest;
 
@@ -24,15 +26,17 @@ class ForgotPasswordRequest extends FormRequest
     {
         return Config::get('api_validation.forgotpassword.rules');
     }
+
     /**
      * Get the messages for validation rules.
      *
      * @return array
      */
-    public function messages(){
-         return[
-            'email.required' =>  trans('validation.api.login.email_required'),
-            'email.email' =>  trans('validation.api.login.valid_email'),
-         ]; 
+    public function messages()
+    {
+        return[
+            'email.required' => trans('validation.api.login.email_required'),
+            'email.email'    => trans('validation.api.login.valid_email'),
+         ];
     }
 }

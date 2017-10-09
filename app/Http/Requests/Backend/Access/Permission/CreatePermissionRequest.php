@@ -27,7 +27,7 @@ class CreatePermissionRequest extends Request
     public function rules()
     {
         return [
-        
+
         ];
     }
 }

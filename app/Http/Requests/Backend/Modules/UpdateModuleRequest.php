@@ -28,9 +28,9 @@ class UpdateModuleRequest extends Request
     public function rules()
     {
         return [
-            'name'  => 'required|max:191|unique:modules,name,'.$this->segment(3).',id',
-            'url'   => 'required',
-            'view_permission_id' => 'required'
+            'name'               => 'required|max:191|unique:modules,name,'.$this->segment(3).',id',
+            'url'                => 'required',
+            'view_permission_id' => 'required',
         ];
     }
 

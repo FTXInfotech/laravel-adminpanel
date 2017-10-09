@@ -12,8 +12,7 @@ trait BlogCategoryAttribute
      */
     public function getEditButtonAttribute()
     {
-        if(access()->allow('edit-blog-category'))
-        {
+        if (access()->allow('edit-blog-category')) {
             return '<a class="btn btn-flat btn-default" href="'.route('admin.blogcategories.edit', $this).'">
                     <i data-toggle="tooltip" data-placement="top" title="'.trans('buttons.general.crud.edit').'" class="fa fa-pencil"></i>
                 </a>';
@@ -25,8 +24,7 @@ trait BlogCategoryAttribute
      */
     public function getDeleteButtonAttribute()
     {
-        if(access()->allow('delete-blog-category'))
-        {
+        if (access()->allow('delete-blog-category')) {
             return '<a class="btn btn-flat btn-default" href="'.route('admin.blogcategories.destroy', $this).'" data-method="delete"
                     data-trans-button-cancel="'.trans('buttons.general.cancel').'"
                     data-trans-button-confirm="'.trans('buttons.general.crud.delete').'"
@@ -42,8 +40,8 @@ trait BlogCategoryAttribute
     public function getActionButtonsAttribute()
     {
         return '<div class="btn-group action-btn">
-                    ' .$this->getEditButtonAttribute(). '
-                    ' .$this->getDeleteButtonAttribute(). '
+                    '.$this->getEditButtonAttribute().'
+                    '.$this->getDeleteButtonAttribute().'
                 </div>';
     }
 }

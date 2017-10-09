@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Frontend\Auth;
 
-use App\Models\Access\User\User;
 use App\Http\Controllers\Controller;
-use App\Repositories\Frontend\Access\User\UserRepository;
+use App\Models\Access\User\User;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
+use App\Repositories\Frontend\Access\User\UserRepository;
 
 /**
  * Class ConfirmAccountController.

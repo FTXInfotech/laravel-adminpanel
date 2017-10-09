@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatAllBlogTables extends Migration
 {
@@ -13,14 +13,13 @@ class CreatAllBlogTables extends Migration
      */
     public function up()
     {
-        Schema::create('blogs', function (Blueprint $table)
-        {
+        Schema::create('blogs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->dateTime('publish_datetime');
             $table->string('featured_image');
             $table->longText('content');
-            $table->integer("domain_id")->unsigned()->index();
+            $table->integer('domain_id')->unsigned()->index();
             $table->string('meta_title');
             $table->string('cannonical_link');
             $table->string('slug');
@@ -33,8 +32,7 @@ class CreatAllBlogTables extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('blog_tags', function (Blueprint $table)
-        {
+        Schema::create('blog_tags', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->tinyInteger('status')->default(1)->unsigned();
@@ -54,16 +52,13 @@ class CreatAllBlogTables extends Migration
             $table->softDeletes();
         });
 
-
-        Schema::create('blog_map_categories', function (Blueprint $table)
-        {
+        Schema::create('blog_map_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('blog_id')->unsigned()->index();
             $table->integer('category_id')->unsigned()->index();
         });
 
-        Schema::create('blog_map_tags', function (Blueprint $table)
-        {
+        Schema::create('blog_map_tags', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('blog_id')->unsigned()->index();
             $table->integer('tag_id')->unsigned()->index();

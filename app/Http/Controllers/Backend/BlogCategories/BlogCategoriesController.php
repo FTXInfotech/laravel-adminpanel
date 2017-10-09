@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Backend\BlogCategories;
 
-use App\Models\BlogCategories\BlogCategory;
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\BlogCategories\BlogCategoriesRepository;
-use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
-use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;
-use App\Http\Requests\Backend\BlogCategories\EditBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\CreateBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\DeleteBlogCategoriesRequest;
+use App\Http\Requests\Backend\BlogCategories\EditBlogCategoriesRequest;
+use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;
+use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest;
+use App\Models\BlogCategories\BlogCategory;
+use App\Repositories\Backend\BlogCategories\BlogCategoriesRepository;
 
 /**
  * Class BlogCategoriesController.
@@ -76,7 +75,7 @@ class BlogCategoriesController extends Controller
     }
 
     /**
-     * @param BlogCategory              $blogcategory
+     * @param BlogCategory                $blogcategory
      * @param UpdateBlogCategoriesRequest $request
      *
      * @return mixed
@@ -89,7 +88,7 @@ class BlogCategoriesController extends Controller
     }
 
     /**
-     * @param BlogCategory              $blogcategory
+     * @param BlogCategory                $blogcategory
      * @param DeleteBlogCategoriesRequest $request
      *
      * @return mixed

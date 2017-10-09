@@ -2,9 +2,9 @@
 
 namespace App\Models\Access\Permission;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Access\Permission\Traits\Relationship\PermissionRelationship;
 use App\Models\Access\Permission\Traits\Attribute\PermissionAttribute;
+use App\Models\Access\Permission\Traits\Relationship\PermissionRelationship;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -29,8 +29,9 @@ class Permission extends Model
     protected $fillable = ['name', 'display_name', 'sort'];
 
     protected $attributes = [
-        'created_by' => 1
+        'created_by' => 1,
     ];
+
     /**
      * @param array $attributes
      */

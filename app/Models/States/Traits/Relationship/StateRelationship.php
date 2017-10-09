@@ -11,7 +11,7 @@ use App\Models\Countries\Country;
 trait StateRelationship
 {
     /**
-     * States belongs to relationship with country
+     * States belongs to relationship with country.
      */
     public function country()
     {
@@ -19,7 +19,7 @@ trait StateRelationship
     }
 
     /**
-     * States has many relationship with cities
+     * States has many relationship with cities.
      */
     public function cities()
     {

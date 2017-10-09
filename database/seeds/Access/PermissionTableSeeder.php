@@ -1,9 +1,9 @@
 <?php
 
 use Carbon\Carbon;
+use Database\DisableForeignKeys;
 use Database\TruncateTable;
 use Illuminate\Database\Seeder;
-use Database\DisableForeignKeys;
 
 /**
  * Class PermissionTableSeeder.
@@ -71,7 +71,7 @@ class PermissionTableSeeder extends Seeder
 
         /**
          * User Management.
-        */
+         */
         $permission_model = config('access.permission');
         $viewBackend = new $permission_model();
         $viewBackend->name = 'view-user-management';
@@ -218,7 +218,7 @@ class PermissionTableSeeder extends Seeder
 
         /**
          * Role Management.
-        */
+         */
         $permission_model = config('access.permission');
         $viewBackend = new $permission_model();
         $viewBackend->name = 'view-role-management';
@@ -269,7 +269,7 @@ class PermissionTableSeeder extends Seeder
 
         /**
          * Permission Management.
-        */
+         */
         $permission_model = config('access.permission');
         $viewBackend = new $permission_model();
         $viewBackend->name = 'view-permission-management';
@@ -319,8 +319,8 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->save();
 
         /**
-         * CMS Pages
-        */
+         * CMS Pages.
+         */
         $permission_model = config('access.permission');
         $viewBackend = new $permission_model();
         $viewBackend->name = 'view-cms-pages';
@@ -370,8 +370,8 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->save();
 
         /**
-         * Email Templates
-        */
+         * Email Templates.
+         */
         $permission_model = config('access.permission');
         $viewBackend = new $permission_model();
         $viewBackend->name = 'view-email-template';
@@ -421,8 +421,8 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->save();
 
         /**
-         * Settings
-        */
+         * Settings.
+         */
         $permission_model = config('access.permission');
         $viewBackend = new $permission_model();
         $viewBackend->name = 'edit-settings';
@@ -436,8 +436,8 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->save();
 
         /**
-         * Blog Categories Management
-        */
+         * Blog Categories Management.
+         */
         $permission_model = config('access.permission');
         $viewBackend = new $permission_model();
         $viewBackend->name = 'view-blog-category';
@@ -487,8 +487,8 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->save();
 
         /**
-         * Blog Tags Management
-        */
+         * Blog Tags Management.
+         */
         $permission_model = config('access.permission');
         $viewBackend = new $permission_model();
         $viewBackend->name = 'view-blog-tag';
@@ -538,8 +538,8 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->save();
 
         /**
-         * Blogs Management
-        */
+         * Blogs Management.
+         */
         $permission_model = config('access.permission');
         $viewBackend = new $permission_model();
         $viewBackend->name = 'view-blog';
@@ -589,8 +589,8 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->save();
 
         /**
-         * FAQs
-        */
+         * FAQs.
+         */
         $permission_model = config('access.permission');
         $viewBackend = new $permission_model();
         $viewBackend->name = 'view-faq';

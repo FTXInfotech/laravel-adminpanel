@@ -2,18 +2,17 @@
 
 namespace App\Models\Blogs\Traits\Relationship;
 
+use App\Models\Access\User\User;
 use App\Models\BlogCategories\BlogCategory;
 use App\Models\BlogTags\BlogTag;
-use App\Models\Access\User\User;
 
 /**
- * Class BlogRelationship
+ * Class BlogRelationship.
  */
 trait BlogRelationship
 {
-
     /**
-     * Blogs has many relationship with categories
+     * Blogs has many relationship with categories.
      */
     public function categories()
     {
@@ -21,7 +20,7 @@ trait BlogRelationship
     }
 
     /**
-     * Blogs has many relationship with tags
+     * Blogs has many relationship with tags.
      */
     public function tags()
     {
@@ -29,10 +28,10 @@ trait BlogRelationship
     }
 
     /**
-     * Blogs belongsTo with User
+     * Blogs belongsTo with User.
      */
     public function createdBy()
     {
-        return $this->belongsTo(User::class,'created_by', 'id');
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 }

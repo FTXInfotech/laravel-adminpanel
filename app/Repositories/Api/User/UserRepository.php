@@ -1,25 +1,25 @@
 <?php
+
 namespace App\Repositories\Api\User;
-use App\Repositories\BaseRepository;
-use App\Exceptions\GeneralException;
-use App\Models\Access\User\User;
-use Illuminate\Database\Eloquent\Model;
-use App\Repositories\Backend\Access\Role\RoleRepository;
-use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
+
 use App\Mail\ConfirmAcoountMail;
+use App\Models\Access\User\User;
+use App\Repositories\Backend\Access\Role\RoleRepository;
+use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Model;
 
 /**
-* Class PermissionRepository.
-*/
+ * Class PermissionRepository.
+ */
 class UserRepository extends BaseRepository
 {
     /**
-    * Associated Repository Model.
-    */
+     * Associated Repository Model.
+     */
     const MODEL = User::class;
     /**
-    *   Protected rolerepository
-    */
+     *   Protected rolerepository.
+     */
     protected $role;
 
     /**
@@ -29,54 +29,65 @@ class UserRepository extends BaseRepository
     {
         $this->role = $role;
     }
+
     /**
-    * Check given user is exist or not 
-    * @return mixed
-    */
+     * Check given user is exist or not.
+     *
+     * @return mixed
+     */
     public function checkUser($email)
     {
-        return $this->query()->where('email',$email)->get()->toArray();
-    } 
+        return $this->query()->where('email', $email)->get()->toArray();
+    }
+
     /**
-    * Generate OTP when forgot password
-    * @return mixed
-    */
+     * Generate OTP when forgot password.
+     *
+     * @return mixed
+     */
     public function generateOTP()
     {
         return mt_rand(100000, 999999);
     }
+
     /**
-    * Reset password
-    * @return mixed
-    */
+     * Reset password.
+     *
+     * @return mixed
+     */
     public function resetpassword($data)
-    {   
-        $pass=array('password'=>bcrypt($data['password']));
-        return $this->query()->where('email',$data['email'])->update($pass);
+    {
+        $pass = ['password'=>bcrypt($data['password'])];
+
+        return $this->query()->where('email', $data['email'])->update($pass);
     }
+
     /**
-    * Get user details by  id
-    * @return mixed
-    */
-    public  function getById($id)
+     * Get user details by  id.
+     *
+     * @return mixed
+     */
+    public function getById($id)
     {
         return $this->query()
-                    ->select('first_name','last_name','email','address','country_id','state_id','city_id','zip_code','ssn','status','created_at','updated_at')
-                    ->where('id',$id)
-                    ->with(array('country'=>function($query){
-                        $query->select('id','country');
-                    }))
-                    ->with(array('state'=>function($query){
-		        $query->select('id','state');
-		    }))
-                    ->with(array('city'=>function($query){
-		        $query->select('id','city');
-		    }))
+                    ->select('first_name', 'last_name', 'email', 'address', 'country_id', 'state_id', 'city_id', 'zip_code', 'ssn', 'status', 'created_at', 'updated_at')
+                    ->where('id', $id)
+                    ->with(['country'=> function ($query) {
+                        $query->select('id', 'country');
+                    }])
+                    ->with(['state'=> function ($query) {
+                        $query->select('id', 'state');
+                    }])
+                    ->with(['city'=> function ($query) {
+                        $query->select('id', 'city');
+                    }])
                     ->get()
                     ->toArray();
     }
+
     /**
-     * Create user account
+     * Create user account.
+     *
      * @param array $data
      * @param bool  $provider
      *
@@ -84,14 +95,14 @@ class UserRepository extends BaseRepository
      */
     public function create(array $data, $provider = false)
     {
-        $otp=$this->generateOTP();
+        $otp = $this->generateOTP();
         $user = self::MODEL;
         $user = new $user();
         $user->first_name = $data['first_name'];
         $user->last_name = $data['last_name'];
         $user->address = $data['address'];
         $user->state_id = $data['state_id'];
-        $user->country_id = config("access.constants.default_country");
+        $user->country_id = config('access.constants.default_country');
         $user->city_id = $data['city_id'];
         $user->zip_code = $data['zip_code'];
         $user->ssn = $data['ssn'];
@@ -117,7 +128,7 @@ class UserRepository extends BaseRepository
          * If this is a social account they are confirmed through the social provider by default
          */
         if (config('access.users.confirm_email') && $provider === false) {
-            $Confirmation_mail=\Mail::to($data['email'])->send(new ConfirmAcoountMail($otp));
+            $Confirmation_mail = \Mail::to($data['email'])->send(new ConfirmAcoountMail($otp));
         }
 
         /*
@@ -125,18 +136,22 @@ class UserRepository extends BaseRepository
         */
         return $user;
     }
+
     /*
     * Check user is already confirmed or not
     */
-    public function checkconfirmation($email) {
-        return $this->query()->where('email',$email)->get()->toArray();
+    public function checkconfirmation($email)
+    {
+        return $this->query()->where('email', $email)->get()->toArray();
     }
+
     /**
-    * Confirm user's account
-    **/
+     * Confirm user's account.
+     **/
     public function confirmUser($email)
     {
-        $confirmed=array('confirmed'=>'1');
-        return $this->query()->where('email',$email)->update($confirmed);
+        $confirmed = ['confirmed'=>'1'];
+
+        return $this->query()->where('email', $email)->update($confirmed);
     }
 }

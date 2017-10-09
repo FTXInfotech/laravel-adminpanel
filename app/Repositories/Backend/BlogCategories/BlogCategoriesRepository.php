@@ -2,14 +2,14 @@
 
 namespace App\Repositories\Backend\BlogCategories;
 
-use App\Repositories\BaseRepository;
-use App\Exceptions\GeneralException;
-use App\Models\BlogCategories\BlogCategory;
-use Illuminate\Database\Eloquent\Model;
 use App\Events\Backend\BlogCategories\BlogCategoryCreated;
 use App\Events\Backend\BlogCategories\BlogCategoryDeleted;
 use App\Events\Backend\BlogCategories\BlogCategoryUpdated;
+use App\Exceptions\GeneralException;
+use App\Models\BlogCategories\BlogCategory;
+use App\Repositories\BaseRepository;
 use DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class BlogCategoriesRepository.
@@ -27,7 +27,7 @@ class BlogCategoriesRepository extends BaseRepository
     public function getForDataTable()
     {
         return $this->query()
-            ->leftjoin(config('access.users_table'),config('access.users_table').'.id','=',config('access.blog_categories_table').'.created_by')
+            ->leftjoin(config('access.users_table'), config('access.users_table').'.id', '=', config('access.blog_categories_table').'.created_by')
             ->select([
                 config('access.blog_categories_table').'.id',
                 config('access.blog_categories_table').'.name',
@@ -59,10 +59,11 @@ class BlogCategoriesRepository extends BaseRepository
             $blogcategories->created_by = access()->user()->id;
 
             if ($blogcategories->save()) {
-
                 event(new BlogCategoryCreated($blogcategories));
+
                 return true;
             }
+
             throw new GeneralException(trans('exceptions.backend.blogcategories.create_error'));
         });
     }
@@ -75,7 +76,6 @@ class BlogCategoriesRepository extends BaseRepository
      *
      * return bool
      */
-     
     public function update(Model $blogcategories, array $input)
     {
         if ($this->query()->where('name', $input['name'])->where('id', '!=', $blogcategories->id)->first()) {
@@ -87,7 +87,7 @@ class BlogCategoriesRepository extends BaseRepository
         $blogcategories->updated_by = access()->user()->id;
 
         DB::transaction(function () use ($blogcategories, $input) {
-        	if ($blogcategories->save()) {
+            if ($blogcategories->save()) {
                 event(new BlogCategoryUpdated($blogcategories));
 
                 return true;
@@ -109,7 +109,6 @@ class BlogCategoriesRepository extends BaseRepository
     public function delete(Model $blogcategory)
     {
         DB::transaction(function () use ($blogcategory) {
-
             if ($blogcategory->delete()) {
                 event(new BlogCategoryDeleted($blogcategory));
 

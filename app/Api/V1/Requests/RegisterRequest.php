@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Api\V1\Requests;
+
 use Config;
 use Dingo\Api\Http\FormRequest;
 
@@ -22,9 +23,10 @@ class RegisterRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {    
+    {
         return Config::get('api_validation.register.rules');
     }
+
     /**
      * Get the validation massages that apply to the rules.
      *
@@ -34,7 +36,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'state_id.required' => trans('validation.api.register.state_required'),
-            'city_id.required' => trans('validation.api.register.city_required'),
+            'city_id.required'  => trans('validation.api.register.city_required'),
         ];
     }
 }

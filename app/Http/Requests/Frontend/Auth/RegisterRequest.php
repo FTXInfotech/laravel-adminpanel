@@ -36,7 +36,7 @@ class RegisterRequest extends Request
             'city_id'               => 'required',
             'zip_code'              => 'required',
             'ssn'                   => 'required',
-            'is_term_accept'      => 'required',
+            'is_term_accept'        => 'required',
             'g-recaptcha-response'  => 'required_if:captcha_status,true|captcha',
         ];
     }
@@ -48,9 +48,9 @@ class RegisterRequest extends Request
     {
         return [
             'g-recaptcha-response.required_if' => trans('validation.required', ['attribute' => 'captcha']),
-            'state_id.required' => 'The state field is required.',
-            'city_id.required' => 'The city field is required.',
-            'password.regex' => 'Password must contain at least 1 uppercase letter and 1 number.',
+            'state_id.required'                => 'The state field is required.',
+            'city_id.required'                 => 'The city field is required.',
+            'password.regex'                   => 'Password must contain at least 1 uppercase letter and 1 number.',
         ];
     }
 }

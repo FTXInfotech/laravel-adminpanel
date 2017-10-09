@@ -12,8 +12,7 @@ trait BlogAttribute
      */
     public function getEditButtonAttribute()
     {
-        if(access()->allow('edit-blog'))
-        {
+        if (access()->allow('edit-blog')) {
             return '<a href="'.route('admin.blogs.edit', $this).'" class="btn btn-flat btn-default">
                     <i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-pencil"></i>
                 </a>';
@@ -25,8 +24,7 @@ trait BlogAttribute
      */
     public function getDeleteButtonAttribute()
     {
-        if(access()->allow('delete-blog'))
-        {
+        if (access()->allow('delete-blog')) {
             return '<a href="'.route('admin.blogs.destroy', $this).'" 
                     class="btn btn-flat btn-default" data-method="delete"
                     data-trans-button-cancel="'.trans('buttons.general.cancel').'"

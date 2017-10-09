@@ -2,8 +2,8 @@
 
 namespace App\Models\States;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\States\Traits\Relationship\StateRelationship;
+use Illuminate\Database\Eloquent\Model;
 
 class State extends Model
 {
@@ -17,6 +17,6 @@ class State extends Model
 
     public function __construct()
     {
-    	$this->table = config("access.states_table");
+        $this->table = config('access.states_table');
     }
 }

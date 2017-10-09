@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateEmailTemplateTypesTable extends Migration
 {
@@ -15,7 +15,7 @@ class CreateEmailTemplateTypesTable extends Migration
     {
         Schema::create('email_template_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("name");
+            $table->string('name');
             $table->timestamps();
         });
     }

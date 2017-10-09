@@ -4,10 +4,10 @@ namespace Tests;
 
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\DB;
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
 /**

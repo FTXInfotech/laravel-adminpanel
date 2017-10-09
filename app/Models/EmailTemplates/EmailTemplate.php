@@ -2,8 +2,8 @@
 
 namespace App\Models\EmailTemplates;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\EmailTemplates\Traits\Attribute\EmailTemplateAttribute;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EmailTemplate extends Model
@@ -21,6 +21,6 @@ class EmailTemplate extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-    	$this->table = config("access.email_templates_table");
+        $this->table = config('access.email_templates_table');
     }
 }

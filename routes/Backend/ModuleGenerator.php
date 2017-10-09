@@ -1,9 +1,8 @@
 <?php
 
 /**
- * Module Generator Routes
+ * Module Generator Routes.
  */
-
 Route::group(['namespace' => 'Module'], function () {
     Route::resource('modules', 'ModuleController');
 

@@ -51,7 +51,7 @@ trait UserAccess
     public function hasRoles($roles, $needsAll = false)
     {
         //If not an array, make a one item array
-        if (! is_array($roles)) {
+        if (!is_array($roles)) {
             $roles = [$roles];
         }
 
@@ -88,7 +88,7 @@ trait UserAccess
      */
     public function allow($nameOrId)
     {
-        /**
+        /*
          * Author : Vaishal Gandhi
          *
          * Update for this function due to issue of user custom permission
@@ -116,7 +116,7 @@ trait UserAccess
                 return true;
             }
 
-            /**
+            /*
              * Author : Vaishal Gandhi
              *
              * below code is commented due to issue of user custom permisssion
@@ -155,7 +155,7 @@ trait UserAccess
     public function allowMultiple($permissions, $needsAll = false)
     {
         //If not an array, make a one item array
-        if (! is_array($permissions)) {
+        if (!is_array($permissions)) {
             $permissions = [$permissions];
         }
 

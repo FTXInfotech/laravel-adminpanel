@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Backend\Access\Permission;
 
-use App\Models\Access\Permission\Permission;
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\Access\Permission\PermissionRepository;
-use App\Http\Requests\Backend\Access\Permission\StorePermissionRequest;
-use App\Http\Requests\Backend\Access\Permission\ManagePermissionRequest;
 use App\Http\Requests\Backend\Access\Permission\CreatePermissionRequest;
-use App\Http\Requests\Backend\Access\Permission\EditPermissionRequest;
 use App\Http\Requests\Backend\Access\Permission\DeletePermissionRequest;
+use App\Http\Requests\Backend\Access\Permission\EditPermissionRequest;
+use App\Http\Requests\Backend\Access\Permission\ManagePermissionRequest;
+use App\Http\Requests\Backend\Access\Permission\StorePermissionRequest;
 use App\Http\Requests\Backend\Access\Permission\UpdatePermissionRequest;
+use App\Models\Access\Permission\Permission;
+use App\Repositories\Backend\Access\Permission\PermissionRepository;
 
 /**
  * Class PermissionController.
@@ -65,7 +64,7 @@ class PermissionController extends Controller
     }
 
     /**
-     * @param Permission              $permission
+     * @param Permission            $permission
      * @param EditPermissionRequest $request
      *
      * @return mixed

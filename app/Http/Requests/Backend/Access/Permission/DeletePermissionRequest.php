@@ -5,7 +5,7 @@ namespace App\Http\Requests\Backend\Access\Permission;
 use App\Http\Requests\Request;
 
 /**
- * Class DeletePermissionRequest
+ * Class DeletePermissionRequest.
  */
 class DeletePermissionRequest extends Request
 {
@@ -27,7 +27,7 @@ class DeletePermissionRequest extends Request
     public function rules()
     {
         return [
-        
+
         ];
     }
 }

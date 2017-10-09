@@ -1,4 +1,5 @@
 <?php
+
 return [
-    'table' => 'modules'
+    'table' => 'modules',
 ];

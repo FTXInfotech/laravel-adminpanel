@@ -15,6 +15,6 @@ class Country extends Model
 
     public function __construct()
     {
-    	$this->table = config("access.countries_table");
+        $this->table = config('access.countries_table');
     }
 }

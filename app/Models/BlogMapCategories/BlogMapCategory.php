@@ -16,6 +16,6 @@ class BlogMapCategory extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-    	$this->table = config("access.blog_map_categories_table");
+        $this->table = config('access.blog_map_categories_table');
     }
 }

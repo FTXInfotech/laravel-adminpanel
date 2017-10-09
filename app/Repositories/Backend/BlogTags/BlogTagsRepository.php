@@ -2,14 +2,14 @@
 
 namespace App\Repositories\Backend\BlogTags;
 
-use App\Repositories\BaseRepository;
-use App\Exceptions\GeneralException;
-use App\Models\BlogTags\BlogTag;
-use Illuminate\Database\Eloquent\Model;
 use App\Events\Backend\BlogTags\BlogTagCreated;
 use App\Events\Backend\BlogTags\BlogTagDeleted;
 use App\Events\Backend\BlogTags\BlogTagUpdated;
+use App\Exceptions\GeneralException;
+use App\Models\BlogTags\BlogTag;
+use App\Repositories\BaseRepository;
 use DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class BlogTagsRepository.
@@ -27,7 +27,7 @@ class BlogTagsRepository extends BaseRepository
     public function getForDataTable()
     {
         return $this->query()
-            ->leftjoin(config('access.users_table'),config('access.users_table').'.id','=',config('access.blog_tags_table').'.created_by')
+            ->leftjoin(config('access.users_table'), config('access.users_table').'.id', '=', config('access.blog_tags_table').'.created_by')
             ->select([
                 config('access.blog_tags_table').'.id',
                 config('access.blog_tags_table').'.name',
@@ -59,10 +59,11 @@ class BlogTagsRepository extends BaseRepository
             $blogtags->created_by = access()->user()->id;
 
             if ($blogtags->save()) {
-
                 event(new BlogTagCreated($blogtags));
+
                 return true;
             }
+
             throw new GeneralException(trans('exceptions.backend.blogtags.create_error'));
         });
     }
@@ -75,7 +76,6 @@ class BlogTagsRepository extends BaseRepository
      *
      * return bool
      */
-     
     public function update(Model $blogtags, array $input)
     {
         if ($this->query()->where('name', $input['name'])->where('id', '!=', $blogtags->id)->first()) {
@@ -88,7 +88,7 @@ class BlogTagsRepository extends BaseRepository
         $blogtags->updated_by = access()->user()->id;
 
         DB::transaction(function () use ($blogtags, $input) {
-        	if ($blogtags->save()) {
+            if ($blogtags->save()) {
                 event(new BlogTagUpdated($blogtags));
 
                 return true;
@@ -110,7 +110,6 @@ class BlogTagsRepository extends BaseRepository
     public function delete(Model $blogtag)
     {
         DB::transaction(function () use ($blogtag) {
-
             if ($blogtag->delete()) {
                 event(new BlogTagDeleted($blogtag));
 

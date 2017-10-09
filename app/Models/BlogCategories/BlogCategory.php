@@ -2,9 +2,9 @@
 
 namespace App\Models\BlogCategories;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\BlogCategories\Traits\Attribute\BlogCategoryAttribute;
 use App\Models\BlogCategories\Traits\Relationship\BlogCategoryRelationship;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BlogCategory extends Model
@@ -20,11 +20,11 @@ class BlogCategory extends Model
      */
     protected $table;
 
-    protected $fillable = ["name", "status", "created_by", "updated_by"];
+    protected $fillable = ['name', 'status', 'created_by', 'updated_by'];
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-    	$this->table = config("access.blog_categories_table");
+        $this->table = config('access.blog_categories_table');
     }
 }

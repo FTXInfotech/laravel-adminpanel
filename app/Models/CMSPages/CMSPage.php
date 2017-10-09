@@ -2,8 +2,8 @@
 
 namespace App\Models\CMSPages;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\CMSPages\Traits\Attribute\CMSPageAttribute;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CMSPage extends Model
@@ -21,6 +21,6 @@ class CMSPage extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-    	$this->table = config("access.cms_pages_table");
+        $this->table = config('access.cms_pages_table');
     }
 }

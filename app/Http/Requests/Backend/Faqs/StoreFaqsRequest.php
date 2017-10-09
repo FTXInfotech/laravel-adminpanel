@@ -25,12 +25,12 @@ class StoreFaqsRequest extends FormRequest
     {
         return [
             'question'  => 'required|max:191',
-            'answer'    => 'required'
+            'answer'    => 'required',
         ];
     }
 
     /**
-     * Show the Messages for rules above
+     * Show the Messages for rules above.
      *
      * @return array
      */
@@ -38,8 +38,8 @@ class StoreFaqsRequest extends FormRequest
     {
         return [
             'question.required'  => 'Question field is required.',
-            'question.max'  => 'Question may not be grater than 191 character.',
-            'answer.required'    => 'Answer field is required.'
+            'question.max'       => 'Question may not be grater than 191 character.',
+            'answer.required'    => 'Answer field is required.',
         ];
     }
 }

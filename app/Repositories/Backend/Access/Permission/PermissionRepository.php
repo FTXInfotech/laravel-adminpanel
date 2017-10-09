@@ -2,14 +2,14 @@
 
 namespace App\Repositories\Backend\Access\Permission;
 
-use App\Repositories\BaseRepository;
+use App\Events\Backend\Access\Permission\PermissionCreated;
+use App\Events\Backend\Access\Permission\PermissionDeleted;
+use App\Events\Backend\Access\Permission\PermissionUpdated;
 use App\Exceptions\GeneralException;
 use App\Models\Access\Permission\Permission;
-use Illuminate\Database\Eloquent\Model;
-use App\Events\Backend\Access\Permission\PermissionCreated;
-use App\Events\Backend\Access\Permission\PermissionUpdated;
-use App\Events\Backend\Access\Permission\PermissionDeleted;
+use App\Repositories\BaseRepository;
 use DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class PermissionRepository.
@@ -58,7 +58,6 @@ class PermissionRepository extends BaseRepository
             $permission->created_by = access()->user()->id;
 
             if ($permission->save()) {
-
                 event(new PermissionCreated($permission));
 
                 return true;
@@ -89,7 +88,7 @@ class PermissionRepository extends BaseRepository
         $permission->updated_by = access()->user()->id;
 
         DB::transaction(function () use ($permission, $input) {
-        	if ($permission->save()) {
+            if ($permission->save()) {
                 event(new PermissionUpdated($permission));
 
                 return true;
@@ -109,7 +108,6 @@ class PermissionRepository extends BaseRepository
     public function delete(Model $permission)
     {
         DB::transaction(function () use ($permission) {
-
             if ($permission->delete()) {
                 event(new PermissionDeleted($permission));
 

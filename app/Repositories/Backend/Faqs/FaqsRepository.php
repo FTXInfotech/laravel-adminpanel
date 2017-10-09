@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Backend\Faqs;
 
-use App\Repositories\BaseRepository;
 use App\Exceptions\GeneralException;
 use App\Models\Faqs\Faq;
+use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -51,6 +51,7 @@ class FaqsRepository extends BaseRepository
         if ($faq->save()) {
             return true;
         }
+
         throw new GeneralException(trans('exceptions.backend.faqs.create_error'));
     }
 
@@ -62,7 +63,6 @@ class FaqsRepository extends BaseRepository
      *
      * return bool
      */
-     
     public function update(Model $faq, array $input)
     {
         $faq->question = $input['question'];
@@ -73,6 +73,7 @@ class FaqsRepository extends BaseRepository
         if ($faq->save()) {
             return true;
         }
+
         throw new GeneralException(trans('exceptions.backend.faqs.update_error'));
     }
 

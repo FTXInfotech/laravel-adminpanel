@@ -5,7 +5,7 @@ namespace App\Listeners\Backend\CMSPages;
 /**
  * Class CMSPageEventListener.
  */
-class CMSPageEventListener
+class CMSPageEventListner
 {
     /**
      * @var string

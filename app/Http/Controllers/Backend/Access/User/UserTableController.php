@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Backend\Access\User;
 
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\Access\User\UserRepository;
 use App\Http\Requests\Backend\Access\User\ManageUserRequest;
+use App\Repositories\Backend\Access\User\UserRepository;
 use Carbon\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Class UserTableController.

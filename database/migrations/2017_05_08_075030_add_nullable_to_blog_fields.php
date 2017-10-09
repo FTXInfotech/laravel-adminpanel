@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddNullableToBlogFields extends Migration
 {
@@ -13,7 +13,7 @@ class AddNullableToBlogFields extends Migration
     {
         DB::getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
     }
-    
+
     /**
      * Run the migrations.
      *
@@ -22,7 +22,7 @@ class AddNullableToBlogFields extends Migration
     public function up()
     {
         Schema::table('blogs', function (Blueprint $table) {
-            $table->dropColumn("domain_id");
+            $table->dropColumn('domain_id');
             $table->string('meta_title')->nullable()->change();
             $table->string('cannonical_link')->nullable()->change();
             $table->string('slug')->nullable()->change();
@@ -39,7 +39,7 @@ class AddNullableToBlogFields extends Migration
     public function down()
     {
         Schema::table('blogs', function (Blueprint $table) {
-            $table->integer("domain_id")->unsigned()->index()->after("featured_image");
+            $table->integer('domain_id')->unsigned()->index()->after('featured_image');
             $table->string('meta_title')->change();
             $table->string('cannonical_link')->change();
             $table->string('slug')->change();

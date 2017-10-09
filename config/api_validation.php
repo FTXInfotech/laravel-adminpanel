@@ -1,29 +1,29 @@
 <?php
 
 return [
-    /**
+    /*
     *  Validation rules for all api.
     */
     'login' => [
         'rules' => [
-            'email' => 'required|email',
-            'password' => 'required'
-        ]
+            'email'    => 'required|email',
+            'password' => 'required',
+        ],
     ],
 
     'forgotpassword' => [
         'rules' => [
             'email' => 'required|email',
-        ]
+        ],
     ],
 
     'resetpassword' => [
         'rules' => [
-            'email' => 'required|email',
+            'email'                 => 'required|email',
             'password_confirmation' => 'required',
-            'password' => 'required|confirmed',
-            'token' =>  'required',
-        ]
+            'password'              => 'required|confirmed',
+            'token'                 => 'required',
+        ],
     ],
 
     'register' => [
@@ -36,15 +36,14 @@ return [
             'city_id'       => 'required',
             'zip_code'      => 'required',
             'ssn'           => 'required',
-        ]
+        ],
     ],
 
     'confirmaccount' => [
          'rules' => [
              'email' => 'required|email',
-             'otp' => 'required'
-         ]
+             'otp'   => 'required',
+         ],
     ],
 
 ];
-

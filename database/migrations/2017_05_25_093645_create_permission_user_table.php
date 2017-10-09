@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePermissionUserTable extends Migration
 {
@@ -18,7 +18,7 @@ class CreatePermissionUserTable extends Migration
             $table->integer('permission_id')->unsigned();
             $table->integer('user_id')->unsigned();
 
-            /**
+            /*
              * Add Foreign/Unique/Index
              */
             $table->foreign('permission_id')
@@ -41,8 +41,8 @@ class CreatePermissionUserTable extends Migration
     public function down()
     {
         Schema::table(config('access.permission_user_table'), function (Blueprint $table) {
-            $table->dropForeign(config('access.permission_user_table') . '_permission_id_foreign');
-            $table->dropForeign(config('access.permission_user_table') . '_user_id_foreign');
+            $table->dropForeign(config('access.permission_user_table').'_permission_id_foreign');
+            $table->dropForeign(config('access.permission_user_table').'_user_id_foreign');
         });
 
         Schema::drop(config('access.permission_user_table'));

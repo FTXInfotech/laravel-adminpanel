@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Backend\EmailTemplates;
 
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository;
 use App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest;
+use App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository;
 use Carbon\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Class EmailTemplatesTableController.
@@ -39,6 +39,7 @@ class EmailTemplatesTableController extends Controller
                 if ($emailtemplates->status) {
                     return '<span class="label label-success">Active</span>';
                 }
+
                 return '<span class="label label-danger">Inactive</span>';
             })
             ->addColumn('created_at', function ($emailtemplates) {

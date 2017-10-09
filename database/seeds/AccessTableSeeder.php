@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Database\DisableForeignKeys;
+use Illuminate\Database\Seeder;
 
 /**
  * Class AccessTableSeeder.

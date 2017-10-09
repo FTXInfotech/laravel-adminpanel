@@ -12,8 +12,7 @@ trait MenuAttribute
      */
     public function getEditButtonAttribute()
     {
-        if(access()->allow('edit-menu'))
-        {
+        if (access()->allow('edit-menu')) {
             return '<a class="btn btn-flat btn-default" href="'.route('admin.menus.edit', $this).'">
                     <i data-toggle="tooltip" data-placement="top" title="'.trans('buttons.general.crud.edit').'" class="fa fa-pencil"></i>
                 </a>';
@@ -25,8 +24,7 @@ trait MenuAttribute
      */
     public function getDeleteButtonAttribute()
     {
-        if(access()->allow('delete-menu'))
-        {
+        if (access()->allow('delete-menu')) {
             return '<a class="btn btn-flat btn-default" href="'.route('admin.menus.destroy', $this).'" data-method="delete"
                     data-trans-button-cancel="'.trans('buttons.general.cancel').'"
                     data-trans-button-confirm="'.trans('buttons.general.crud.delete').'"
@@ -42,8 +40,8 @@ trait MenuAttribute
     public function getActionButtonsAttribute()
     {
         return '<div class="btn-group action-btn">
-                    ' .$this->getEditButtonAttribute(). '
-                    ' .$this->getDeleteButtonAttribute(). '
+                    '.$this->getEditButtonAttribute().'
+                    '.$this->getDeleteButtonAttribute().'
                 </div>';
     }
 }
