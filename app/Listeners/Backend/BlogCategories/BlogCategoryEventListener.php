@@ -5,7 +5,7 @@ namespace App\Listeners\Backend\BlogCategories;
 /**
  * Class BlogCategoryEventListener.
  */
-class BlogCategoryEventListner
+class BlogCategoryEventListener
 {
     /**
      * @var string

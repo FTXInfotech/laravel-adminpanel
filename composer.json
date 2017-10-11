@@ -22,8 +22,7 @@
         "laravelcollective/html": "^5.5.0",
         "doctrine/dbal": "^2.5",
         "tymon/jwt-auth": "0.5.12",
-        "yajra/laravel-datatables-oracle":"~8.0",
-        "dingo/api":"v1.0.0-beta8"
+        "yajra/laravel-datatables-oracle":"~8.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

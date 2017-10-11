@@ -5,7 +5,7 @@ namespace App\Listeners\Backend\BlogTags;
 /**
  * Class BlogTagEventListener.
  */
-class BlogTagEventListner
+class BlogTagEventListener
 {
     /**
      * @var string
