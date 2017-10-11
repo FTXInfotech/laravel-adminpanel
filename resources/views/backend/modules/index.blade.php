@@ -2,10 +2,6 @@
 
 @section ('title', trans('labels.backend.modules.management'))
 
-@section('after-styles')
-    {{ Html::style("css/backend/plugin/datatables/dataTables.bootstrap.min.css") }}
-@endsection
-
 @section('page-header')
     <h1>{{ trans('labels.backend.modules.management') }}</h1>
 @endsection
@@ -71,7 +67,7 @@
 
 @section('after-scripts')
     {{-- For DataTables --}}
-    @include('includes.datatables')
+    {{ Html::script(mix('js/dataTable.js')) }}
     
     <script>
         $(function() {
