@@ -46,3 +46,8 @@ window.axios.defaults.headers.common = {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+// 
+// var glob = require( 'glob' )
+//   , path = require( 'path' );
+
+require('tinymce/tinymce');

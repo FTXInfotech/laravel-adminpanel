@@ -25,11 +25,7 @@
         @else
             {{ Html::style(mix('css/backend.css')) }}
         @endif
-        {{ Html::style("css/backend/plugin/datatables/dataTables.bootstrap.min.css") }}
-        {!! Html::style('js/select2/select2.css') !!}
-        {!! Html::style('css/bootstrap.min.css') !!}
-        {!! Html::style('css/custom-style.css') !!}
-        {!! Html::style('css/bootstrap-datetimepicker.min.css') !!}
+        {{ Html::style(mix('css/backend-custom.css')) }}
         @yield('after-styles')
 
         <!-- Html5 Shim and Respond.js IE8 support of Html5 elements and media queries -->
@@ -74,14 +70,8 @@
 
         <!-- JavaScripts -->
         @yield('before-scripts')
-        {{ Html::script("js/moment.min.js") }}
         {{ Html::script(mix('js/backend.js')) }}
-        {!! Html::script('js/backend/notification.js') !!}
-        {{ Html::script('js/backend/admin.js') }}
-        {!! Html::script('js/select2/select2.js') !!}
-        {{ Html::script("js/tinymce/tinymce.min.js") }}
-        {{ Html::script("js/bootstrap-datetimepicker.min.js") }}
-        {{ Html::script('js/backend/custom-file-input.js') }}
+        {{ Html::script(mix('js/backend-custom.js')) }}
         @yield('after-scripts')
     </body>
 </html>
