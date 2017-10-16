@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Backend\Module;
 
-use Illuminate\Http\Request;
-use App\Models\Module\Module;
-use App\Http\Utilities\Generator;
 use App\Http\Controllers\Controller;
-use App\Models\Access\Permission\Permission;
-use App\Repositories\Backend\Module\ModuleRepository;
-use App\Http\Requests\Backend\Modules\StoreModuleRequest;
 use App\Http\Requests\Backend\Modules\CreateModuleRequest;
 use App\Http\Requests\Backend\Modules\ManageModuleRequest;
+use App\Http\Requests\Backend\Modules\StoreModuleRequest;
+use App\Http\Utilities\Generator;
+use App\Models\Access\Permission\Permission;
+use App\Models\Module\Module;
+use App\Repositories\Backend\Module\ModuleRepository;
+use Illuminate\Http\Request;
 
 /**
- * Class ModuleController
+ * Class ModuleController.
  *
  * @author Vipul Basapati <basapativipulkumar@gmail.com | https://github.com/bvipul>
  */
@@ -82,7 +82,7 @@ class ModuleController extends Controller
         $this->generator->createViewFiles();
         $this->generator->createEvents();
         //Creating the Module
-        $this->repository->create( $request->all(), $this->generator->getPermissions() );
+        $this->repository->create($request->all(), $this->generator->getPermissions());
 
         return redirect()->route('admin.modules.index')->withFlashSuccess('Module Generated Successfully!');
     }

@@ -58,8 +58,8 @@ class ModuleRepository extends BaseRepository
 
             foreach ($permissions as $permission) {
                 $perm = [
-                    'name' => $permission,
-                    'display_name' => title_case( str_replace( '-', ' ', $permission ) ) . " Permission"
+                    'name'         => $permission,
+                    'display_name' => title_case(str_replace('-', ' ', $permission)).' Permission',
                 ];
                 //Creating Permission
                 $per = Permission::firstOrCreate($perm);
@@ -68,7 +68,7 @@ class ModuleRepository extends BaseRepository
             $mod = [
                 'view_permission_id'    => "view-$model-permission",
                 'name'                  => $input['name'],
-                'url'                   => 'admin.' . str_plural( $model ) . '.index',
+                'url'                   => 'admin.'.str_plural($model).'.index',
                 'created_by'            => access()->user()->id,
             ];
 

@@ -3,28 +3,28 @@
 namespace App\Http\Utilities;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
 
 /**
- * Class Generator
+ * Class Generator.
  *
  * @author Vipul Basapati <basapativipulkumar@gmail.com | https://github.com/bvipul>
  */
-class Generator 
+class Generator
 {
     /**
-     * Module Name
+     * Module Name.
      */
     protected $module;
 
     /**
-     * Files Object
+     * Files Object.
      */
     protected $files;
 
     /**
-     * Directory Name
+     * Directory Name.
      */
     protected $directory;
 
@@ -38,7 +38,7 @@ class Generator
      * 4. Attribute Namespace
      * 5. Relationship Namespace
      * 6. Traits directory
-     * 7. Model Namespace
+     * 7. Model Namespace.
      */
     protected $model;
     protected $attribute;
@@ -53,7 +53,7 @@ class Generator
      * 1. Controlller Name
      * 2. Table Controller Name
      * 3. Controller Namespace
-     * 4. Table Controller Namespace
+     * 4. Table Controller Namespace.
      */
     protected $controller;
     protected $table_controller;
@@ -74,7 +74,7 @@ class Generator
      * 10. Create Request Namespace
      * 11. Update Request Namespace
      * 12. Delete Request Namespace
-     * 13. Request Namespace
+     * 13. Request Namespace.
      */
     protected $edit_request;
     protected $store_request;
@@ -97,7 +97,7 @@ class Generator
      * 3. Manage Permission
      * 4. Create Permission
      * 5. Update Permission
-     * 6. Delete Permission
+     * 6. Delete Permission.
      */
     protected $edit_permission;
     protected $store_permission;
@@ -109,34 +109,35 @@ class Generator
     /**
      * Repository
      * 1. Repository Name
-     * 2. Repository Namespace
+     * 2. Repository Namespace.
      */
     protected $repository;
     protected $repo_namespace = 'App\\Repositories\\Backend\\';
-    
+
     /**
-     * Table Name
+     * Table Name.
      */
     protected $table;
 
     /**
-     * Events
+     * Events.
+     *
      * @var array
      */
     protected $events = [];
-    
+
     /**
-     * Route Path
+     * Route Path.
      */
     protected $route_path = 'routes\\Backend\\';
 
     /**
-     * View Path
+     * View Path.
      */
     protected $view_path = 'resources\\views\\backend\\';
 
     /**
-     * Event Namespace
+     * Event Namespace.
      */
     protected $event_namespace = 'Backend\\';
 
@@ -145,67 +146,68 @@ class Generator
      */
     public function __construct()
     {
-        $this->files = new Filesystem;
+        $this->files = new Filesystem();
     }
 
     /**
-     * Initialization
-     * @param  array $input
+     * Initialization.
+     *
+     * @param array $input
      */
-    public function initialize( $input )
+    public function initialize($input)
     {
         //Module
-        $this->module = title_case( $input['name'] );
-        
+        $this->module = title_case($input['name']);
+
         //Directory
-        $this->directory = str_singular( title_case( $input['directory_name'] ) );
-        
+        $this->directory = str_singular(title_case($input['directory_name']));
+
         //Model
-        $this->model = str_singular( title_case( $input['model_name'] ) );
-        
+        $this->model = str_singular(title_case($input['model_name']));
+
         //Table
-        $this->table = str_plural( strtolower( $input['table_name'] ) );
-        
+        $this->table = str_plural(strtolower($input['table_name']));
+
         //Controller
-        $this->controller = str_plural( $this->model ) . "Controller";
-        
+        $this->controller = str_plural($this->model).'Controller';
+
         //Table Controller
-        $this->table_controller = str_plural( $this->model ) . "TableController";
-        
+        $this->table_controller = str_plural($this->model).'TableController';
+
         //Attributes
-        $this->attribute = $this->model . "Attribute";
+        $this->attribute = $this->model.'Attribute';
         $this->attribute_namespace = $this->model_namespace;
-        
+
         //Relationship
-        $this->relationship = $this->model . "Relationship";
+        $this->relationship = $this->model.'Relationship';
         $this->relationship_namespace = $this->model_namespace;
-        
+
         //Repository
-        $this->repository = $this->model . "Repository";
-        
+        $this->repository = $this->model.'Repository';
+
         //Requests
-        $this->edit_request = "Edit" . $this->model . "Request";
-        $this->store_request = "Store" . $this->model . "Request";
-        $this->create_request = "Create" . $this->model . "Request";
-        $this->update_request = "Update" . $this->model . "Request";
-        $this->delete_request = "Delete" . $this->model . "Request";
-        $this->manage_request = "Manage" . $this->model . "Request";
-        
+        $this->edit_request = 'Edit'.$this->model.'Request';
+        $this->store_request = 'Store'.$this->model.'Request';
+        $this->create_request = 'Create'.$this->model.'Request';
+        $this->update_request = 'Update'.$this->model.'Request';
+        $this->delete_request = 'Delete'.$this->model.'Request';
+        $this->manage_request = 'Manage'.$this->model.'Request';
+
         //CRUD Options
-        $this->edit = !empty( $input['model_edit'] ) ? true : false;
-        $this->create = !empty( $input['model_create'] ) ? true : false;
-        $this->delete = !empty( $input['model_delete'] ) ? true : false;
+        $this->edit = !empty($input['model_edit']) ? true : false;
+        $this->create = !empty($input['model_create']) ? true : false;
+        $this->delete = !empty($input['model_delete']) ? true : false;
 
         //Permissions
-        $this->edit_permission = "edit-" . strtolower( str_singular( $this->model ) );
-        $this->store_permission = "store-" . strtolower( str_singular( $this->model ) );
-        $this->manage_permission = "manage-" . strtolower( str_singular( $this->model ) );
-        $this->create_permission = "create-" . strtolower( str_singular( $this->model ) );
-        $this->update_permission = "update-" . strtolower( str_singular( $this->model ) );
-        $this->delete_permission = "delete-" . strtolower( str_singular( $this->model ) );
+        $this->edit_permission = 'edit-'.strtolower(str_singular($this->model));
+        $this->store_permission = 'store-'.strtolower(str_singular($this->model));
+        $this->manage_permission = 'manage-'.strtolower(str_singular($this->model));
+        $this->create_permission = 'create-'.strtolower(str_singular($this->model));
+        $this->update_permission = 'update-'.strtolower(str_singular($this->model));
+        $this->delete_permission = 'delete-'.strtolower(str_singular($this->model));
 
         //Events
-        $this->events = array_filter( $input['event'] );
+        $this->events = array_filter($input['event']);
 
         //Generate Namespaces
         $this->createNamespacesAndValues();
@@ -214,36 +216,36 @@ class Generator
     /**
      * @return void
      */
-    private function createNamespacesAndValues() 
+    private function createNamespacesAndValues()
     {
         //Model Namespace
-        $this->model_namespace .= $this->getFullNamespace( $this->model );
+        $this->model_namespace .= $this->getFullNamespace($this->model);
 
         //Controller Namespace
-        $this->controller_namespace .= $this->getFullNamespace( $this->controller );
+        $this->controller_namespace .= $this->getFullNamespace($this->controller);
 
         //Table Controller Namespace
-        $this->table_controller_namespace .= $this->getFullNamespace( $this->table_controller );
+        $this->table_controller_namespace .= $this->getFullNamespace($this->table_controller);
 
         //Attribute Namespace
-        $this->attribute_namespace .= $this->getFullNamespace( $this->attribute, $this->trait_directory );
+        $this->attribute_namespace .= $this->getFullNamespace($this->attribute, $this->trait_directory);
 
         //Relationship Namespace
-        $this->relationship_namespace .= $this->getFullNamespace( $this->relationship, $this->trait_directory );
+        $this->relationship_namespace .= $this->getFullNamespace($this->relationship, $this->trait_directory);
 
         //View Path
         $this->view_path .= $this->getFullNamespace('');
 
         //Requests
-        $this->edit_request_namespace = $this->request_namespace . $this->getFullNamespace( $this->edit_request );
-        $this->store_request_namespace = $this->request_namespace . $this->getFullNamespace( $this->store_request );
-        $this->manage_request_namespace = $this->request_namespace . $this->getFullNamespace( $this->manage_request );
-        $this->create_request_namespace = $this->request_namespace . $this->getFullNamespace( $this->create_request );
-        $this->update_request_namespace = $this->request_namespace . $this->getFullNamespace( $this->update_request );
-        $this->delete_request_namespace = $this->request_namespace . $this->getFullNamespace( $this->delete_request );
+        $this->edit_request_namespace = $this->request_namespace.$this->getFullNamespace($this->edit_request);
+        $this->store_request_namespace = $this->request_namespace.$this->getFullNamespace($this->store_request);
+        $this->manage_request_namespace = $this->request_namespace.$this->getFullNamespace($this->manage_request);
+        $this->create_request_namespace = $this->request_namespace.$this->getFullNamespace($this->create_request);
+        $this->update_request_namespace = $this->request_namespace.$this->getFullNamespace($this->update_request);
+        $this->delete_request_namespace = $this->request_namespace.$this->getFullNamespace($this->delete_request);
 
         //Repository Namespace
-        $this->repo_namespace .= $this->getFullNamespace( $this->repository );
+        $this->repo_namespace .= $this->getFullNamespace($this->repository);
 
         //Events Namespace
         $this->event_namespace .= $this->getFullNamespace('');
@@ -298,22 +300,23 @@ class Generator
     }
 
     /**
-     * Return the permissions used in the module
+     * Return the permissions used in the module.
+     *
      * @return array
      */
     public function getPermissions()
     {
         $permissions = [];
 
-        if( $this->create ) {
+        if ($this->create) {
             $permissions[] = $this->create_permission;
             $permissions[] = $this->store_permission;
         }
-        if( $this->edit ) {
+        if ($this->edit) {
             $permissions[] = $this->edit_permission;
             $permissions[] = $this->update_permission;
         }
-        if( $this->delete ) {
+        if ($this->delete) {
             $permissions[] = $this->delete_permission;
         }
 
@@ -323,14 +326,15 @@ class Generator
     /**
      * @return string
      */
-    public function getFullNamespace( $name, $inside_directory = null )
+    public function getFullNamespace($name, $inside_directory = null)
     {
-        if( empty( $name ) )
+        if (empty($name)) {
             return $this->directory;
-        else if( $inside_directory )
-            return $this->directory . '\\' . $inside_directory . '\\'. $name;
-        else
-            return $this->directory . '\\' . $name;
+        } elseif ($inside_directory) {
+            return $this->directory.'\\'.$inside_directory.'\\'.$name;
+        } else {
+            return $this->directory.'\\'.$name;
+        }
     }
 
     /**
@@ -338,37 +342,37 @@ class Generator
      */
     public function createModel()
     {
-        $this->createDirectory( $this->getBasePath( $this->attribute_namespace ) );
+        $this->createDirectory($this->getBasePath($this->attribute_namespace));
         //Generate Attribute File
-        $this->generateFile( 'Attribute', [
-            'AttributeNamespace' => ucfirst( $this->removeFileNameFromEndOfNamespace( $this->attribute_namespace ) ),
+        $this->generateFile('Attribute', [
+            'AttributeNamespace' => ucfirst($this->removeFileNameFromEndOfNamespace($this->attribute_namespace)),
             'AttributeClass'     => $this->attribute,
-        ], lcfirst( $this->attribute_namespace ) );
+        ], lcfirst($this->attribute_namespace));
 
         //Generate Relationship File
-        $this->generateFile( 'Relationship', [
-            'RelationshipNamespace' => ucfirst( $this->removeFileNameFromEndOfNamespace( $this->relationship_namespace ) ),
+        $this->generateFile('Relationship', [
+            'RelationshipNamespace' => ucfirst($this->removeFileNameFromEndOfNamespace($this->relationship_namespace)),
             'RelationshipClass'     => $this->relationship,
-        ], lcfirst( $this->relationship_namespace ) );
+        ], lcfirst($this->relationship_namespace));
 
         //Generate Model File
-        $this->generateFile( 'Model', [
-            'DummyNamespace'    => ucfirst( $this->removeFileNameFromEndOfNamespace( $this->model_namespace ) ),
+        $this->generateFile('Model', [
+            'DummyNamespace'    => ucfirst($this->removeFileNameFromEndOfNamespace($this->model_namespace)),
             'DummyAttribute'    => $this->attribute_namespace,
             'DummyRelationship' => $this->relationship_namespace,
             'AttributeName'     => $this->attribute,
             'RelationshipName'  => $this->relationship,
             'DummyModel'        => $this->model,
             'table_name'        => $this->table,
-        ], lcfirst( $this->model_namespace ) );
+        ], lcfirst($this->model_namespace));
     }
 
     /**
      * @return void
      */
-    public function createDirectory( $path )
+    public function createDirectory($path)
     {
-        $this->files->makeDirectory( $path, 0777, true, true );
+        $this->files->makeDirectory($path, 0777, true, true);
     }
 
     /**
@@ -377,54 +381,54 @@ class Generator
     public function createRequests()
     {
         $this->request_namespace .= $this->getFullNamespace('');
-        $this->createDirectory( $this->getBasePath( $this->request_namespace ) );
+        $this->createDirectory($this->getBasePath($this->request_namespace));
         // dd('here');
         //Generate Manage Request File
         $this->generateFile('Request', [
-                'DummyNamespace' => ucfirst( $this->removeFileNameFromEndOfNamespace( $this->manage_request_namespace ) ),
-                'DummyClass' => $this->manage_request,
-                'permission' => $this->manage_permission
-            ], lcfirst( $this->manage_request_namespace ) );
+                'DummyNamespace' => ucfirst($this->removeFileNameFromEndOfNamespace($this->manage_request_namespace)),
+                'DummyClass'     => $this->manage_request,
+                'permission'     => $this->manage_permission,
+            ], lcfirst($this->manage_request_namespace));
 
-        if( $this->create ) {
+        if ($this->create) {
             //Generate Create Request File
             $this->generateFile('Request', [
-                    'DummyNamespace' => ucfirst( $this->removeFileNameFromEndOfNamespace( $this->create_request_namespace ) ),
-                    'DummyClass' => $this->create_request,
-                    'permission' => $this->create_permission
-                ], lcfirst( $this->create_request_namespace ) );
+                    'DummyNamespace' => ucfirst($this->removeFileNameFromEndOfNamespace($this->create_request_namespace)),
+                    'DummyClass'     => $this->create_request,
+                    'permission'     => $this->create_permission,
+                ], lcfirst($this->create_request_namespace));
 
             //Generate Store Request File
             $this->generateFile('Request', [
-                    'DummyNamespace' => ucfirst( $this->removeFileNameFromEndOfNamespace( $this->store_request_namespace ) ),
-                    'DummyClass' => $this->store_request,
-                    'permission' => $this->store_permission
-                ], lcfirst( $this->store_request_namespace ) );
+                    'DummyNamespace' => ucfirst($this->removeFileNameFromEndOfNamespace($this->store_request_namespace)),
+                    'DummyClass'     => $this->store_request,
+                    'permission'     => $this->store_permission,
+                ], lcfirst($this->store_request_namespace));
         }
 
-        if( $this->edit ) {
+        if ($this->edit) {
             //Generate Edit Request File
             $this->generateFile('Request', [
-                    'DummyNamespace' => ucfirst( $this->removeFileNameFromEndOfNamespace( $this->edit_request_namespace ) ),
-                    'DummyClass' => $this->edit_request,
-                    'permission' => $this->edit_permission
-                ], lcfirst( $this->edit_request_namespace ) );
+                    'DummyNamespace' => ucfirst($this->removeFileNameFromEndOfNamespace($this->edit_request_namespace)),
+                    'DummyClass'     => $this->edit_request,
+                    'permission'     => $this->edit_permission,
+                ], lcfirst($this->edit_request_namespace));
 
             //Generate Update Request File
             $this->generateFile('Request', [
-                    'DummyNamespace' => ucfirst( $this->removeFileNameFromEndOfNamespace( $this->update_request_namespace ) ),
-                    'DummyClass' => $this->update_request,
-                    'permission' => $this->update_permission
-                ], lcfirst( $this->update_request_namespace ) );
+                    'DummyNamespace' => ucfirst($this->removeFileNameFromEndOfNamespace($this->update_request_namespace)),
+                    'DummyClass'     => $this->update_request,
+                    'permission'     => $this->update_permission,
+                ], lcfirst($this->update_request_namespace));
         }
 
-        if( $this->delete ) {
+        if ($this->delete) {
             //Generate Delete Request File
             $this->generateFile('Request', [
-                    'DummyNamespace' => ucfirst( $this->removeFileNameFromEndOfNamespace( $this->delete_request_namespace ) ),
-                    'DummyClass' => $this->delete_request,
-                    'permission' => $this->delete_permission
-                ], lcfirst( $this->delete_request_namespace ) );
+                    'DummyNamespace' => ucfirst($this->removeFileNameFromEndOfNamespace($this->delete_request_namespace)),
+                    'DummyClass'     => $this->delete_request,
+                    'permission'     => $this->delete_permission,
+                ], lcfirst($this->delete_request_namespace));
         }
     }
 
@@ -433,42 +437,42 @@ class Generator
      */
     public function createRepository()
     {
-        $this->createDirectory( $this->getBasePath( $this->repo_namespace ) );
+        $this->createDirectory($this->getBasePath($this->repo_namespace));
         //Getting stub file content
-        $file_contents = $this->files->get( $this->getStubPath() . 'Repository.stub' );
+        $file_contents = $this->files->get($this->getStubPath().'Repository.stub');
         //If Model Create is checked
-        if (! $this->create ) {
-            $file_contents = $this->delete_all_between( '@startCreate', '@endCreate', $file_contents );
+        if (!$this->create) {
+            $file_contents = $this->delete_all_between('@startCreate', '@endCreate', $file_contents);
         } else {//If it isn't
-            $file_contents = $this->delete_all_between( '@startCreate', '@startCreate', $file_contents );
-            $file_contents = $this->delete_all_between( '@endCreate', '@endCreate', $file_contents );
+            $file_contents = $this->delete_all_between('@startCreate', '@startCreate', $file_contents);
+            $file_contents = $this->delete_all_between('@endCreate', '@endCreate', $file_contents);
         }
         //If Model Edit is Checked
-        if (! $this->edit ) {
-            $file_contents = $this->delete_all_between( '@startEdit', '@endEdit', $file_contents );
+        if (!$this->edit) {
+            $file_contents = $this->delete_all_between('@startEdit', '@endEdit', $file_contents);
         } else {//If it isn't
-            $file_contents = $this->delete_all_between( '@startEdit', '@startEdit', $file_contents );
-            $file_contents = $this->delete_all_between( '@endEdit', '@endEdit', $file_contents );
+            $file_contents = $this->delete_all_between('@startEdit', '@startEdit', $file_contents);
+            $file_contents = $this->delete_all_between('@endEdit', '@endEdit', $file_contents);
         }
         //If Model Delete is Checked
-        if (! $this->delete ) {
-            $file_contents = $this->delete_all_between( '@startDelete', '@endDelete', $file_contents );
+        if (!$this->delete) {
+            $file_contents = $this->delete_all_between('@startDelete', '@endDelete', $file_contents);
         } else {//If it isn't
-            $file_contents = $this->delete_all_between( '@startDelete', '@startDelete', $file_contents );
-            $file_contents = $this->delete_all_between( '@endDelete', '@endDelete', $file_contents );
+            $file_contents = $this->delete_all_between('@startDelete', '@startDelete', $file_contents);
+            $file_contents = $this->delete_all_between('@endDelete', '@endDelete', $file_contents);
         }
         //Replacements to be done in repository stub file
         $replacements = [
-                'DummyNamespace'                => ucfirst( $this->removeFileNameFromEndOfNamespace( $this->repo_namespace ) ),
+                'DummyNamespace'                => ucfirst($this->removeFileNameFromEndOfNamespace($this->repo_namespace)),
                 'DummyModelNamespace'           => $this->model_namespace,
                 'DummyRepoName'                 => $this->repository,
                 'dummy_model_name'              => $this->model,
-                'dummy_small_model_name'        => strtolower( $this->model ),
-                'model_small_plural'            => strtolower( str_plural( $this->model ) ),
-                'dummy_small_plural_model_name' => strtolower( str_plural( $this->model ) ),
+                'dummy_small_model_name'        => strtolower($this->model),
+                'model_small_plural'            => strtolower(str_plural($this->model)),
+                'dummy_small_plural_model_name' => strtolower(str_plural($this->model)),
         ];
         //Generating the repo file
-        $this->generateFile(false, $replacements, lcfirst( $this->repo_namespace ), $file_contents);
+        $this->generateFile(false, $replacements, lcfirst($this->repo_namespace), $file_contents);
     }
 
     /**
@@ -477,61 +481,61 @@ class Generator
     public function createController()
     {
         // dd($this->controller_namespace);
-        $this->createDirectory( $this->getBasePath( $this->controller_namespace, true ) );
+        $this->createDirectory($this->getBasePath($this->controller_namespace, true));
         //Getting stub file content
-        $file_contents = $this->files->get( $this->getStubPath() . 'Controller.stub' );
+        $file_contents = $this->files->get($this->getStubPath().'Controller.stub');
         //Replacements to be done in controller stub
         $replacements = [
             'DummyModelNamespace'         => $this->model_namespace,
             'DummyModel'                  => $this->model,
-            'DummyArgumentName'           => strtolower( $this->model ),
+            'DummyArgumentName'           => strtolower($this->model),
             'DummyManageRequestNamespace' => $this->manage_request_namespace,
             'DummyManageRequest'          => $this->manage_request,
             'DummyController'             => $this->controller,
-            'DummyNamespace'              => ucfirst( $this->removeFileNameFromEndOfNamespace( $this->controller_namespace ) ),
+            'DummyNamespace'              => ucfirst($this->removeFileNameFromEndOfNamespace($this->controller_namespace)),
             'DummyRepositoryNamespace'    => $this->repo_namespace,
             'dummy_repository'            => $this->repository,
-            'dummy_small_plural_model'    => strtolower( str_plural( $this->model ) ),
+            'dummy_small_plural_model'    => strtolower(str_plural($this->model)),
         ];
         $namespaces = '';
-        if(! $this->create ) {
+        if (!$this->create) {
             $file_contents = $this->delete_all_between('@startCreate', '@endCreate', $file_contents);
         } else {
             $file_contents = $this->delete_all_between('@startCreate', '@startCreate', $file_contents);
             $file_contents = $this->delete_all_between('@endCreate', '@endCreate', $file_contents);
 
             //replacements
-            $namespaces .= "use " . $this->create_request_namespace . ";\n";
-            $namespaces .= "use  " . $this->store_request_namespace . ";\n";
+            $namespaces .= 'use '.$this->create_request_namespace.";\n";
+            $namespaces .= 'use  '.$this->store_request_namespace.";\n";
             $replacements['DummyCreateRequest'] = $this->create_request;
             $replacements['DummyStoreRequest'] = $this->store_request;
         }
 
-        if(! $this->edit ) {
+        if (!$this->edit) {
             $file_contents = $this->delete_all_between('@startEdit', '@endEdit', $file_contents);
         } else {
             $file_contents = $this->delete_all_between('@startEdit', '@startEdit', $file_contents);
             $file_contents = $this->delete_all_between('@endEdit', '@endEdit', $file_contents);
             //replacements
-            $namespaces .= "use " . $this->edit_request_namespace . ";\n";
-            $namespaces .= "use  " . $this->update_request_namespace . ";\n";
+            $namespaces .= 'use '.$this->edit_request_namespace.";\n";
+            $namespaces .= 'use  '.$this->update_request_namespace.";\n";
             $replacements['DummyEditRequest'] = $this->edit_request;
             $replacements['DummyUpdateRequest'] = $this->update_request;
         }
 
-        if(! $this->delete ) {
+        if (!$this->delete) {
             $file_contents = $this->delete_all_between('@startDelete', '@endDelete', $file_contents);
         } else {
             $file_contents = $this->delete_all_between('@startDelete', '@startDelete', $file_contents);
             $file_contents = $this->delete_all_between('@endDelete', '@endDelete', $file_contents);
             //replacements
-            $namespaces .= "use " . $this->delete_request_namespace . ";\n";
+            $namespaces .= 'use '.$this->delete_request_namespace.";\n";
             $replacements['DummyDeleteRequest'] = $this->delete_request;
         }
         //Putting Namespaces in Controller
         $file_contents = str_replace('@Namespaces', $namespaces, $file_contents);
 
-        $this->generateFile(false, $replacements, lcfirst( $this->controller_namespace ), $file_contents);
+        $this->generateFile(false, $replacements, lcfirst($this->controller_namespace), $file_contents);
     }
 
     /**
@@ -539,19 +543,19 @@ class Generator
      */
     public function createTableController()
     {
-        $this->createDirectory( $this->getBasePath( $this->table_controller_namespace, true ) );
+        $this->createDirectory($this->getBasePath($this->table_controller_namespace, true));
         //replacements to be done in table controller stub
         $replacements = [
-            'DummyNamespace'                => ucfirst( $this->removeFileNameFromEndOfNamespace( $this->table_controller_namespace ) ),
+            'DummyNamespace'                => ucfirst($this->removeFileNameFromEndOfNamespace($this->table_controller_namespace)),
             'DummyRepositoryNamespace'      => $this->repo_namespace,
             'DummyManageRequestNamespace'   => $this->manage_request_namespace,
             'DummyTableController'          => $this->table_controller,
             'dummy_repository'              => $this->repository,
-            'dummy_small_repo_name'         => strtolower( $this->model ),
+            'dummy_small_repo_name'         => strtolower($this->model),
             'dummy_manage_request_name'     => $this->manage_request,
         ];
         //generating the file
-        $this->generateFile( 'TableController', $replacements, lcfirst( $this->table_controller_namespace ) );
+        $this->generateFile('TableController', $replacements, lcfirst($this->table_controller_namespace));
     }
 
     /**
@@ -559,51 +563,51 @@ class Generator
      */
     public function createRouteFiles()
     {
-        $this->createDirectory( $this->getBasePath( $this->route_path ) );
+        $this->createDirectory($this->getBasePath($this->route_path));
 
-        if ( $this->create && $this->edit && $this->delete ) {//Then get the resourceRoute stub
+        if ($this->create && $this->edit && $this->delete) {//Then get the resourceRoute stub
             //Getting stub file content
-            $file_contents = $this->files->get( $this->getStubPath() . 'resourceRoute.stub' );
-            $file_contents = $this->delete_all_between( '@startNamespace', '@startNamespace', $file_contents );
-            $file_contents = $this->delete_all_between( '@endNamespace', '@endNamespace', $file_contents );
-            $file_contents = $this->delete_all_between( '@startWithoutNamespace', '@endWithoutNamespace', $file_contents );
+            $file_contents = $this->files->get($this->getStubPath().'resourceRoute.stub');
+            $file_contents = $this->delete_all_between('@startNamespace', '@startNamespace', $file_contents);
+            $file_contents = $this->delete_all_between('@endNamespace', '@endNamespace', $file_contents);
+            $file_contents = $this->delete_all_between('@startWithoutNamespace', '@endWithoutNamespace', $file_contents);
         } else {//Get the basic route stub
             //Getting stub file content
-            $file_contents = $this->files->get( $this->getStubPath() . 'route.stub' );
-            $file_contents = $this->delete_all_between( '@startNamespace', '@startNamespace', $file_contents );
-            $file_contents = $this->delete_all_between( '@endNamespace', '@endNamespace', $file_contents );
-            $file_contents = $this->delete_all_between( '@startWithoutNamespace', '@endWithoutNamespace', $file_contents );
+            $file_contents = $this->files->get($this->getStubPath().'route.stub');
+            $file_contents = $this->delete_all_between('@startNamespace', '@startNamespace', $file_contents);
+            $file_contents = $this->delete_all_between('@endNamespace', '@endNamespace', $file_contents);
+            $file_contents = $this->delete_all_between('@startWithoutNamespace', '@endWithoutNamespace', $file_contents);
             //If create is checked
             if ($this->create) {
-                $file_contents = $this->delete_all_between( '@startCreate', '@startCreate', $file_contents );
-                $file_contents = $this->delete_all_between( '@endCreate', '@endCreate', $file_contents );
+                $file_contents = $this->delete_all_between('@startCreate', '@startCreate', $file_contents);
+                $file_contents = $this->delete_all_between('@endCreate', '@endCreate', $file_contents);
             } else {//If it isn't
-                $file_contents = $this->delete_all_between( '@startCreate', '@endCreate', $file_contents );
+                $file_contents = $this->delete_all_between('@startCreate', '@endCreate', $file_contents);
             }
             //If Edit is checked
             if ($this->edit) {
-                $file_contents = $this->delete_all_between( '@startEdit', '@startEdit', $file_contents );
-                $file_contents = $this->delete_all_between( '@endEdit', '@endEdit', $file_contents );
+                $file_contents = $this->delete_all_between('@startEdit', '@startEdit', $file_contents);
+                $file_contents = $this->delete_all_between('@endEdit', '@endEdit', $file_contents);
             } else {//if it isn't
-                $file_contents = $this->delete_all_between( '@startEdit', '@endEdit', $file_contents );
+                $file_contents = $this->delete_all_between('@startEdit', '@endEdit', $file_contents);
             }
             //If delete is checked
             if ($this->delete) {
-                $file_contents = $this->delete_all_between( '@startDelete', '@startDelete', $file_contents );
-                $file_contents = $this->delete_all_between( '@endDelete', '@endDelete', $file_contents );
+                $file_contents = $this->delete_all_between('@startDelete', '@startDelete', $file_contents);
+                $file_contents = $this->delete_all_between('@endDelete', '@endDelete', $file_contents);
             } else {//If it isn't
-                $file_contents = $this->delete_all_between( '@startDelete', '@endDelete', $file_contents );
+                $file_contents = $this->delete_all_between('@startDelete', '@endDelete', $file_contents);
             }
         }
         //Generate the Route file
-        $this->generateFile( false, [
+        $this->generateFile(false, [
             'DummyModuleName'      => $this->module,
             'DummyModel'           => $this->directory,
-            'dummy_name'           => strtolower( str_plural( $this->model ) ),
+            'dummy_name'           => strtolower(str_plural($this->model)),
             'DummyController'      => $this->controller,
             'DummyTableController' => $this->table_controller,
-            'dummy_argument_name'  => strtolower( $this->model ),
-        ], $this->route_path . $this->model, $file_contents );
+            'dummy_argument_name'  => strtolower($this->model),
+        ], $this->route_path.$this->model, $file_contents);
     }
 
     /**
@@ -614,19 +618,19 @@ class Generator
     public function insertToLanguageFiles()
     {
         //Model singular version
-        $model_singular = ucfirst( str_singular( $this->model ) );
+        $model_singular = ucfirst(str_singular($this->model));
         //Model Plural version
-        $model_plural = strtolower( str_plural( $this->model ) );
+        $model_plural = strtolower(str_plural($this->model));
         //Model plural with capitalize
-        $model_plural_capital = ucfirst( $model_plural );
+        $model_plural_capital = ucfirst($model_plural);
         //Findind which locale is being used
-        $locale = config( 'app.locale' );
+        $locale = config('app.locale');
         //Path to that language files
-        $path = resource_path( 'lang' . DIRECTORY_SEPARATOR . $locale );
+        $path = resource_path('lang'.DIRECTORY_SEPARATOR.$locale);
         //config folder path
-        $config_path = config_path( 'module.php' );
+        $config_path = config_path('module.php');
         //Creating directory if it isn't
-        $this->createDirectory( $path );
+        $this->createDirectory($path);
         //Labels file
         $labels = [
             'create'        => "Create $model_singular",
@@ -640,7 +644,7 @@ class Generator
             ],
         ];
         //Pushing values to labels
-        add_key_value_in_file( $path.'/labels.php', array( $model_plural => $labels ), 'backend' );
+        add_key_value_in_file($path.'/labels.php', [$model_plural => $labels], 'backend');
         //Menus file
         $menus = [
             'all'        => "All $model_plural_capital",
@@ -650,7 +654,7 @@ class Generator
             'main'       => "$model_plural_capital",
         ];
         //Pushing to menus file
-        add_key_value_in_file( $path.'/menus.php', array( $model_plural => $menus ), 'backend' );
+        add_key_value_in_file($path.'/menus.php', [$model_plural => $menus], 'backend');
         //Exceptions file
         $exceptions = [
             'already_exists'    => "That $model_singular already exists. Please choose a different name.",
@@ -666,9 +670,9 @@ class Generator
             'updated' => "The $model_singular was successfully updated.",
         ];
         //Pushing to menus file
-        add_key_value_in_file( $path.'/alerts.php', array( $model_plural => $alerts ), 'backend' );
+        add_key_value_in_file($path.'/alerts.php', [$model_plural => $alerts], 'backend');
         //Pushing to exceptions file
-        add_key_value_in_file( $path.'/exceptions.php', array( $model_plural => $exceptions ), 'backend' );
+        add_key_value_in_file($path.'/exceptions.php', [$model_plural => $exceptions], 'backend');
         //config file "module.php"
         $config = [
             $model_plural => [
@@ -676,7 +680,7 @@ class Generator
             ],
         ];
         //Pushing to config file
-        add_key_value_in_file( $config_path, $config );
+        add_key_value_in_file($config_path, $config);
     }
 
     /**
@@ -695,16 +699,16 @@ class Generator
         //View folder name
         $view_folder_name = $model_lower_plural;
         //View path
-        $path = escapeSlashes( strtolower( str_plural( $this->view_path ) ) );
+        $path = escapeSlashes(strtolower(str_plural($this->view_path)));
         //Header buttons folder
-        $header_button_path = $path . DIRECTORY_SEPARATOR . 'partials';
+        $header_button_path = $path.DIRECTORY_SEPARATOR.'partials';
         //This would create both the directory name as well as partials inside of that directory
-        $this->createDirectory( base_path( $header_button_path ) );
+        $this->createDirectory(base_path($header_button_path));
         //Header button full path
-        $header_button_file_path = $header_button_path . DIRECTORY_SEPARATOR."$model_lower_plural-header-buttons.blade";
+        $header_button_file_path = $header_button_path.DIRECTORY_SEPARATOR."$model_lower_plural-header-buttons.blade";
         //Getting stub file content
-        $header_button_contents = $this->files->get( $this->getStubPath() . 'header-buttons.stub' );
-        if (! $this->create ) {
+        $header_button_contents = $this->files->get($this->getStubPath().'header-buttons.stub');
+        if (!$this->create) {
             $header_button_contents = $this->delete_all_between('@create', '@endCreate', $header_button_contents);
         } else {
             $header_button_contents = $this->delete_all_between('@create', '@create', $header_button_contents);
@@ -713,46 +717,47 @@ class Generator
         //Generate Header buttons file
         $this->generateFile(false, ['dummy_small_plural_model' => $model_lower_plural, 'dummy_small_model' => $model_lower], $header_button_file_path, $header_button_contents);
         //Index blade
-        $index_path = $path . DIRECTORY_SEPARATOR . 'index.blade';
+        $index_path = $path.DIRECTORY_SEPARATOR.'index.blade';
         //Generate the Index blade file
         $this->generateFile('index_view', ['dummy_small_plural_model' => $model_lower_plural], $index_path);
         //Create Blade
-        if ( $this->create ) {
+        if ($this->create) {
             //Create Blade
-            $create_path = $path . DIRECTORY_SEPARATOR . 'create.blade';
+            $create_path = $path.DIRECTORY_SEPARATOR.'create.blade';
             //Generate Create Blade
             $this->generateFile('create_view', ['dummy_small_plural_model' => $model_lower_plural, 'dummy_small_model' => $model_lower], $create_path);
         }
         //Edit Blade
-        if ( $this->edit ) {
+        if ($this->edit) {
             //Edit Blade
             $edit_path = $path.DIRECTORY_SEPARATOR.'edit.blade';
             //Generate Edit Blade
             $this->generateFile('edit_view', ['dummy_small_plural_model' => $model_lower_plural, 'dummy_small_model' => $model_lower], $edit_path);
         }
         //Form Blade
-        if ( $this->create || $this->edit ) {
+        if ($this->create || $this->edit) {
             //Form Blade
-            $form_path = $path . DIRECTORY_SEPARATOR . 'form.blade';
+            $form_path = $path.DIRECTORY_SEPARATOR.'form.blade';
             //Generate Form Blade
             $this->generateFile('form_view', [], $form_path);
         }
         //BreadCrumbs Folder Path
         $breadcrumbs_path = escapeSlashes('app\\Http\\Breadcrumbs\\Backend');
         //Breadcrumb File path
-        $breadcrumb_file_path = $breadcrumbs_path . DIRECTORY_SEPARATOR . $this->model;
+        $breadcrumb_file_path = $breadcrumbs_path.DIRECTORY_SEPARATOR.$this->model;
         //Generate BreadCrumb File
         $this->generateFile('Breadcrumbs', ['dummy_small_plural_model' => $model_lower_plural], $breadcrumb_file_path);
         //Backend File of Breadcrumb
-        $breadcrumb_backend_file = $breadcrumbs_path . DIRECTORY_SEPARATOR . 'Backend.php';
+        $breadcrumb_backend_file = $breadcrumbs_path.DIRECTORY_SEPARATOR.'Backend.php';
         //file_contents of Backend.php
-        $file_contents = file_get_contents( base_path( $breadcrumb_backend_file ) );
+        $file_contents = file_get_contents(base_path($breadcrumb_backend_file));
         //If this is already not there, then only append
-        if ( !strpos($file_contents, "require __DIR__.'/$this->model.php';") ) {
+        if (!strpos($file_contents, "require __DIR__.'/$this->model.php';")) {
             //Appending into BreadCrumb backend file
-            file_put_contents( base_path( $breadcrumb_backend_file ), "\nrequire __DIR__.'/$this->model.php';", FILE_APPEND );
+            file_put_contents(base_path($breadcrumb_backend_file), "\nrequire __DIR__.'/$this->model.php';", FILE_APPEND);
         }
     }
+
     /**
      * Creating Table File.
      *
@@ -762,11 +767,11 @@ class Generator
     {
         $table = $this->table;
 
-        if ( Schema::hasTable( $table ) ) {
+        if (Schema::hasTable($table)) {
             return 'Table Already Exists!';
         } else {
             //Calling Artisan command to create table
-            Artisan::call( 'make:migration', [
+            Artisan::call('make:migration', [
                 'name'      => 'create_'.$table.'_table',
                 '--create'  => $table,
             ]);
@@ -808,22 +813,22 @@ class Generator
      * @param $file [string] full path of the file
      * @param $contents [string][optional] file contents
      */
-    public function generateFile( $stub_name, $replacements, $file, $contents = null )
+    public function generateFile($stub_name, $replacements, $file, $contents = null)
     {
-        if ( $stub_name ) {
+        if ($stub_name) {
             //Getting the Stub Files Content
-            $file_contents = $this->files->get( $this->getStubPath() . $stub_name .'.stub' );
+            $file_contents = $this->files->get($this->getStubPath().$stub_name.'.stub');
         } else {
             //Getting the Stub Files Content
             $file_contents = $contents;
         }
         //Replacing the stub
         $file_contents = str_replace(
-            array_keys( $replacements ),
-            array_values( $replacements ),
+            array_keys($replacements),
+            array_values($replacements),
             $file_contents
         );
-        $this->files->put( base_path( escapeSlashes( $file ) ) . '.php', $file_contents );
+        $this->files->put(base_path(escapeSlashes($file)).'.php', $file_contents);
     }
 
     /**
@@ -833,29 +838,30 @@ class Generator
      */
     public function getStubPath()
     {
-        return app_path( 'Console' . DIRECTORY_SEPARATOR . 'Commands' . DIRECTORY_SEPARATOR . 'Stubs' . DIRECTORY_SEPARATOR );
+        return app_path('Console'.DIRECTORY_SEPARATOR.'Commands'.DIRECTORY_SEPARATOR.'Stubs'.DIRECTORY_SEPARATOR);
     }
 
-    public function getBasePath( $namespace, $status = false)
+    public function getBasePath($namespace, $status = false)
     {
-        if( $status ) {
-            return base_path( escapeSlashes( $this->removeFileNameFromEndOfNamespace( $namespace, $status ) ) );
+        if ($status) {
+            return base_path(escapeSlashes($this->removeFileNameFromEndOfNamespace($namespace, $status)));
         }
-        return base_path( lcfirst( escapeSlashes( $namespace ) ) );
+
+        return base_path(lcfirst(escapeSlashes($namespace)));
     }
 
-    public function removeFileNameFromEndOfNamespace( $namespace )
+    public function removeFileNameFromEndOfNamespace($namespace)
     {
-        $namespace = explode( "\\", $namespace );
+        $namespace = explode('\\', $namespace);
 
-        unset( $namespace[count( $namespace ) - 1] );
-        
-        return lcfirst( implode( "\\", $namespace ) );
+        unset($namespace[count($namespace) - 1]);
+
+        return lcfirst(implode('\\', $namespace));
     }
 
-    public function appendFileNameToEndOfNamespace( $namespace , $file )
+    public function appendFileNameToEndOfNamespace($namespace, $file)
     {
-        return escapeSlashes( $namespace . DIRECTORY_SEPARATOR . $file );
+        return escapeSlashes($namespace.DIRECTORY_SEPARATOR.$file);
     }
 
     /**
