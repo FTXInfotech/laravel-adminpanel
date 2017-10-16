@@ -13,6 +13,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
+use App\Http\Utilities\Generator;
 
 class ModuleController extends Controller
 {
@@ -21,6 +22,7 @@ class ModuleController extends Controller
     public $table;
     public $repository;
     public $directory;
+    public $generator;
     public $attribute = 'Attribute';
     public $trait_directory = 'Traits';
     public $relationship = 'Relationship';
@@ -42,6 +44,7 @@ class ModuleController extends Controller
     {
         $this->files = $files;
         $this->repository = $repository;
+        $this->generator = new Generator();
     }
 
     /**
@@ -80,37 +83,19 @@ class ModuleController extends Controller
      */
     public function store(StoreModuleRequest $request)
     {
-        //If Directory Name is available
-        if (!empty($request->directory_name)) {
-            $this->directory = $request->directory_name;
-            $this->model_namespace .= $this->directory;
-            $this->controller_namespace .= $this->directory;
-            $this->event_namespace .= $this->directory;
-            $this->view_path .= $this->directory;
-            $this->repo_namespace .= $this->directory;
-            $this->request_namespace .= $this->directory;
-        }
-        //If Model name is given
-        if (!empty($request->model_name)) {
-            $this->model = ucfirst($request->model_name);
-        }
-        $input = $request->all();
-        //If table name is given
-        if (!empty($request->table_name)) {
-            $this->table = $request->table_name;
-            //Creating Migration
-            $this->createMigration($input);
-        } else {
-            $this->table = strtolower(str_plural($this->model));
-        }
-        //Creating Model
-        $model = $this->createModel($input);
-        //Creating Controller
-        $this->createController($input, $model);
-        // //Creating Event And Listeners
-        $this->createEvents($input);
+        $this->generator->initialize($request->all());
+        $this->generator->createMigration();
+        $this->generator->createModel();
+        $this->generator->createRequests();
+        $this->generator->createRepository();
+        $this->generator->createController();
+        $this->generator->createTableController();
+        $this->generator->createRouteFiles();
+        $this->generator->insertToLanguageFiles();
+        $this->generator->createViewFiles();
+        $this->generator->createEvents();
         //Creating the Module
-        $this->repository->create($input);
+        $this->repository->create( $request->all(), $this->generator->getPermissions() );
 
         return redirect()->route('admin.modules.index')->withFlashSuccess('Module Generated Successfully!');
     }

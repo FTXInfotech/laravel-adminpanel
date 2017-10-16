@@ -22,3 +22,5 @@ Todo.rtf
 npm-debug.log
 yarn-error.log
 phpunit.txt
+public/css
+public/js

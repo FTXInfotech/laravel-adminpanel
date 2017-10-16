@@ -45,7 +45,7 @@ class DummyRepoName extends BaseRepository
     public function create(array $input)
     {
         $dummy_small_model_name = self::MODEL;
-        if ($dummy_small_model_name->save()) {
+        if ($dummy_small_model_name->save($input)) {
             return true;
         }
         throw new GeneralException(trans('exceptions.backend.dummy_small_plural_model_name.create_error'));
@@ -61,7 +61,7 @@ class DummyRepoName extends BaseRepository
      */
     public function update(dummy_model_name $dummy_small_model_name, array $input)
     {
-    	if ($dummy_small_model_name->update())
+    	if ($dummy_small_model_name->update($input))
             return true;
 
         throw new GeneralException(trans('exceptions.backend.dummy_small_plural_model_name.update_error'));
