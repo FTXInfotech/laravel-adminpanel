@@ -178,6 +178,10 @@
             $(document).on('blur', "input[name=table_name]", function(e){
                 checkTableExists($(this));
             });
+            //Events Change Event
+            $(document).on('change', "input[name='event[]']", function(e){
+                getFilesGenerated();
+            });
         });
 
         function checkModelExists(model) {

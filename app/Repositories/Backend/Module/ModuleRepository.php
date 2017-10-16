@@ -42,29 +42,33 @@ class ModuleRepository extends BaseRepository
      *
      * @return bool
      */
-    public function create(array $input)
+    public function create(array $input, array $permissions)
     {
         $module = Module::where('name', $input['name'])->first();
         if (!$module) {
             $name = $input['model_name'];
             $model = strtolower($name);
-            $permissions =
-            [
-                ['name' => "view-$model-permission", 'display_name' => 'View '.ucwords($model).' Permission'],
-                ['name' => "create-$model-permission", 'display_name' => 'Create '.ucwords($model).' Permission'],
-                ['name' => "edit-$model-permission", 'display_name' => 'Edit '.ucwords($model).' Permission'],
-                ['name' => "delete-$model-permission", 'display_name' => 'Delete '.ucwords($model).' Permission'],
-            ];
+            // $permissions =
+            // [
+            //     ['name' => "view-$model-permission", 'display_name' => 'View '.ucwords($model).' Permission'],
+            //     ['name' => "create-$model-permission", 'display_name' => 'Create '.ucwords($model).' Permission'],
+            //     ['name' => "edit-$model-permission", 'display_name' => 'Edit '.ucwords($model).' Permission'],
+            //     ['name' => "delete-$model-permission", 'display_name' => 'Delete '.ucwords($model).' Permission'],
+            // ];
 
             foreach ($permissions as $permission) {
+                $perm = [
+                    'name' => $permission,
+                    'display_name' => title_case( str_replace( '-', ' ', $permission ) ) . " Permission"
+                ];
                 //Creating Permission
-                $per = Permission::firstOrCreate($permission);
+                $per = Permission::firstOrCreate($perm);
             }
 
             $mod = [
                 'view_permission_id'    => "view-$model-permission",
                 'name'                  => $input['name'],
-                'url'                   => 'admin.'.str_plural($model).'.index',
+                'url'                   => 'admin.' . str_plural( $model ) . '.index',
                 'created_by'            => access()->user()->id,
             ];
 
