@@ -43,7 +43,7 @@ trait RoleAttribute
     public function getActionButtonsAttribute()
     {
         return '<div class="btn-group action-btn">
-                    '.$this->getEditButtonAttribute().'
+                    '.$this->getEditButtonAttribute('edit-role', 'admin.access.role.edit').'
                     '.$this->getDeleteButtonAttribute().'
                 </div>';
     }

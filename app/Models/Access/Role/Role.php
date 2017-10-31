@@ -2,12 +2,13 @@
 
 namespace App\Models\Access\Role;
 
-use App\Models\Access\Role\Traits\Attribute\RoleAttribute;
-use App\Models\Access\Role\Traits\Relationship\RoleRelationship;
-use App\Models\Access\Role\Traits\RoleAccess;
-use App\Models\Access\Role\Traits\Scope\RoleScope;
+use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Access\Role\Traits\RoleAccess;
+use App\Models\Access\Role\Traits\Scope\RoleScope;
+use App\Models\Access\Role\Traits\Attribute\RoleAttribute;
+use App\Models\Access\Role\Traits\Relationship\RoleRelationship;
 
 /**
  * Class Role.
@@ -15,10 +16,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Role extends Model
 {
     use RoleScope,
+        ModelTrait,
         RoleAccess,
         RoleAttribute,
         RoleRelationship,
-        SoftDeletes;
+        SoftDeletes {
+            RoleAttribute::getEditButtonAttribute insteadof ModelTrait;
+            RoleAttribute::getDeleteButtonAttribute insteadof ModelTrait;
+        }
 
     /**
      * The database table used by the model.

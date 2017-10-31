@@ -2,13 +2,18 @@
 
 namespace App\Models\Faqs;
 
-use App\Models\Faqs\Traits\Attribute\FaqAttribute;
+use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Faqs\Traits\Attribute\FaqAttribute;
 
 class Faq extends Model
 {
-    use FaqAttribute, SoftDeletes;
+    use ModelTrait,
+        SoftDeletes,
+        FaqAttribute {
+            // FaqAttribute::getEditButtonAttribute insteadof ModelTrait;
+        }
 
     /**
      * The database table used by the model.

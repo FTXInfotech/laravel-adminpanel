@@ -2,17 +2,23 @@
 
 namespace App\Models\Access\Permission;
 
-use App\Models\Access\Permission\Traits\Attribute\PermissionAttribute;
-use App\Models\Access\Permission\Traits\Relationship\PermissionRelationship;
+use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Access\Permission\Traits\Attribute\PermissionAttribute;
+use App\Models\Access\Permission\Traits\Relationship\PermissionRelationship;
 
 /**
  * Class Permission.
  */
 class Permission extends Model
 {
-    use PermissionRelationship, PermissionAttribute, SoftDeletes;
+    use ModelTrait,
+        SoftDeletes,
+        PermissionAttribute,
+        PermissionRelationship {
+            // PermissionAttribute::getEditButtonAttribute insteadof ModelTrait;
+        }
 
     /**
      * The database table used by the model.
