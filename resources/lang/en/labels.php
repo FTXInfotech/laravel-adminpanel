@@ -54,11 +54,11 @@ return [
                 'management' => 'Permission Management',
 
                 'table' => [
-                    'permission'      => 'Permission',
-                    'display_name'    => 'Display Name',
-                    'sort'            => 'Sort',
-                    'status'          => 'Status',
-                    'total'           => 'role total|roles total',
+                    'permission'   => 'Permission',
+                    'display_name' => 'Display Name',
+                    'sort'         => 'Sort',
+                    'status'       => 'Status',
+                    'total'        => 'role total|roles total',
                 ],
             ],
 
@@ -122,11 +122,11 @@ return [
             'title'      => 'CMS Pages',
 
             'table' => [
-                'title'          => 'Title',
-                'status'         => 'Status',
-                'createdat'      => 'Created At',
-                'updatedat'      => 'Updated At',
-                'all'            => 'All',
+                'title'     => 'Title',
+                'status'    => 'Status',
+                'createdat' => 'Created At',
+                'updatedat' => 'Updated At',
+                'all'       => 'All',
             ],
         ],
 
@@ -137,11 +137,11 @@ return [
             'title'      => 'Blog Category',
 
             'table' => [
-                'title'          => 'Blog Category',
-                'status'         => 'Status',
-                'createdat'      => 'Created At',
-                'createdby'      => 'Created By',
-                'all'            => 'All',
+                'title'     => 'Blog Category',
+                'status'    => 'Status',
+                'createdat' => 'Created At',
+                'createdby' => 'Created By',
+                'all'       => 'All',
             ],
         ],
 
@@ -152,11 +152,11 @@ return [
             'title'      => 'Blog Tags',
 
             'table' => [
-                'title'          => 'Blog Tag',
-                'status'         => 'Status',
-                'createdat'      => 'Created At',
-                'createdby'      => 'Created By',
-                'all'            => 'All',
+                'title'     => 'Blog Tag',
+                'status'    => 'Status',
+                'createdat' => 'Created At',
+                'createdby' => 'Created By',
+                'all'       => 'All',
             ],
         ],
 
@@ -167,12 +167,12 @@ return [
             'title'      => 'Blogs',
 
             'table' => [
-                'title'          => 'Blog',
-                'publish'        => 'PublishDateTime',
-                'status'         => 'Status',
-                'createdat'      => 'Created At',
-                'createdby'      => 'Created By',
-                'all'            => 'All',
+                'title'     => 'Blog',
+                'publish'   => 'PublishDateTime',
+                'status'    => 'Status',
+                'createdat' => 'Created At',
+                'createdby' => 'Created By',
+                'all'       => 'All',
             ],
         ],
 
@@ -183,25 +183,25 @@ return [
             'title'      => 'Email Templates',
 
             'table' => [
-                'title'          => 'Title',
-                'subject'        => 'Subject',
-                'status'         => 'Status',
-                'createdat'      => 'Created At',
-                'updatedat'      => 'Updated At',
-                'all'            => 'All',
+                'title'     => 'Title',
+                'subject'   => 'Subject',
+                'status'    => 'Status',
+                'createdat' => 'Created At',
+                'updatedat' => 'Updated At',
+                'all'       => 'All',
             ],
         ],
 
         'settings' => [
-            'edit'              => 'Edit Settings',
-            'management'        => 'Settings Management',
-            'title'             => 'Settings',
-            'seo'               => 'SEO Settings',
-            'companydetails'    => 'Company Contact Details',
-            'mail'              => 'Mail Settings',
-            'footer'            => 'Footer Settings',
-            'terms'             => 'Terms & Condition Settings',
-            'google'            => 'Google Analytics Track Code',
+            'edit'           => 'Edit Settings',
+            'management'     => 'Settings Management',
+            'title'          => 'Settings',
+            'seo'            => 'SEO Settings',
+            'companydetails' => 'Company Contact Details',
+            'mail'           => 'Mail Settings',
+            'footer'         => 'Footer Settings',
+            'terms'          => 'Terms & Condition Settings',
+            'google'         => 'Google Analytics Track Code',
         ],
 
         'faqs' => [
@@ -211,15 +211,15 @@ return [
             'title'      => 'FAQ',
 
             'table' => [
-                'title'          => 'FAQs',
-                'publish'        => 'PublishDateTime',
-                'status'         => 'Status',
-                'createdat'      => 'Created At',
-                'createdby'      => 'Created By',
-                'answer'         => 'Answer',
-                'question'       => 'Question',
-                'updatedat'      => 'Updated At',
-                'all'            => 'All',
+                'title'     => 'FAQs',
+                'publish'   => 'PublishDateTime',
+                'status'    => 'Status',
+                'createdat' => 'Created At',
+                'createdby' => 'Created By',
+                'answer'    => 'Answer',
+                'question'  => 'Question',
+                'updatedat' => 'Updated At',
+                'all'       => 'All',
             ],
         ],
 
@@ -230,11 +230,11 @@ return [
             'title'      => 'Menus',
 
             'table' => [
-                'name'           => 'Name',
-                'type'           => 'Type',
-                'createdat'      => 'Created At',
-                'createdby'      => 'Created By',
-                'all'            => 'All',
+                'name'      => 'Name',
+                'type'      => 'Type',
+                'createdat' => 'Created At',
+                'createdby' => 'Created By',
+                'all'       => 'All',
             ],
             'field' => [
                 'name'      => 'Name',

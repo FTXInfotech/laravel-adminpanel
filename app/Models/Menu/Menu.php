@@ -2,10 +2,10 @@
 
 namespace App\Models\Menu;
 
+use App\Models\Menu\Traits\Attribute\MenuAttribute;
 use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Menu\Traits\Attribute\MenuAttribute;
 
 class Menu extends Model
 {

@@ -28,14 +28,14 @@ class StoreUserRequest extends Request
     public function rules()
     {
         return [
-            'first_name'    => 'required|max:255',
-            'last_name'     => 'required|max:255',
-            'email'         => ['required', 'email', 'max:255', Rule::unique('users')],
-            'password'      => 'required|min:6|confirmed',
-            'state_id'      => 'required',
-            'city_id'       => 'required',
-            'zip_code'      => 'required|regex:/^[0-9]+$/',
-            'ssn'           => 'required|regex:/^[0-9]+$/|max:9|min:9',
+            'first_name' => 'required|max:255',
+            'last_name'  => 'required|max:255',
+            'email'      => ['required', 'email', 'max:255', Rule::unique('users')],
+            'password'   => 'required|min:6|confirmed',
+            'state_id'   => 'required',
+            'city_id'    => 'required',
+            'zip_code'   => 'required|regex:/^[0-9]+$/',
+            'ssn'        => 'required|regex:/^[0-9]+$/|max:9|min:9',
         ];
     }
 

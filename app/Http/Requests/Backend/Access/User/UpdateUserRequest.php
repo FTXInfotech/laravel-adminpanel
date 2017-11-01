@@ -27,13 +27,13 @@ class UpdateUserRequest extends Request
     public function rules()
     {
         return [
-            'email'         => 'required|email',
-            'first_name'    => 'required',
-            'last_name'     => 'required',
-            'state_id'      => 'required',
-            'city_id'       => 'required',
-            'zip_code'      => 'required|regex:/^[0-9]+$/',
-            'ssn'           => 'required|regex:/^[0-9]+$/|max:9|min:9',
+            'email'      => 'required|email',
+            'first_name' => 'required',
+            'last_name'  => 'required',
+            'state_id'   => 'required',
+            'city_id'    => 'required',
+            'zip_code'   => 'required|regex:/^[0-9]+$/',
+            'ssn'        => 'required|regex:/^[0-9]+$/|max:9|min:9',
         ];
     }
 

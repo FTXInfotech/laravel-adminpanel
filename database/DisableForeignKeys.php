@@ -13,7 +13,7 @@ trait DisableForeignKeys
      * @var array
      */
     private $commands = [
-        'mysql'  => [
+        'mysql' => [
           'enable'  => 'SET FOREIGN_KEY_CHECKS=1;',
           'disable' => 'SET FOREIGN_KEY_CHECKS=0;',
         ],

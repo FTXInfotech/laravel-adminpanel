@@ -101,7 +101,7 @@ abstract class Notification
     */
     public function setOptions(array $options)
     {
-        foreach ($options as $optionKey=>$option) {
+        foreach ($options as $optionKey => $option) {
             $methodName = 'set'.ucfirst($optionKey);
             $propertyName = '_'.$optionKey;
             if (method_exists($methodName, $this)) {

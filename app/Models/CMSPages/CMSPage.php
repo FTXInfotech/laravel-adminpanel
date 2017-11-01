@@ -2,10 +2,10 @@
 
 namespace App\Models\CMSPages;
 
+use App\Models\CMSPages\Traits\Attribute\CMSPageAttribute;
 use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\CMSPages\Traits\Attribute\CMSPageAttribute;
 
 class CMSPage extends Model
 {

@@ -181,8 +181,8 @@ class UserRepository extends BaseRepository
         } else {
             // Update the users information, token and avatar can be updated.
             $user->providers()->update([
-                'token'       => $data->token,
-                'avatar'      => $data->avatar,
+                'token'  => $data->token,
+                'avatar' => $data->avatar,
             ]);
         }
 

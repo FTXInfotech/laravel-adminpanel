@@ -28,14 +28,14 @@ return [
 
     'register' => [
         'rules' => [
-            'first_name'    => 'required|max:255',
-            'last_name'     => 'required|max:255',
-            'email'         => 'required|email|max:255|unique:users',
-            'password'      => 'required|min:6|confirmed',
-            'state_id'      => 'required',
-            'city_id'       => 'required',
-            'zip_code'      => 'required',
-            'ssn'           => 'required',
+            'first_name' => 'required|max:255',
+            'last_name'  => 'required|max:255',
+            'email'      => 'required|email|max:255|unique:users',
+            'password'   => 'required|min:6|confirmed',
+            'state_id'   => 'required',
+            'city_id'    => 'required',
+            'zip_code'   => 'required',
+            'ssn'        => 'required',
         ],
     ],
 

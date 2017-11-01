@@ -27,11 +27,11 @@ return [
             ],
 
             'permissions' => [
-                'already_exists'    => 'That permission already exists. Please choose a different name.',
-                'create_error'      => 'There was a problem creating this permission. Please try again.',
-                'delete_error'      => 'There was a problem deleting this permission. Please try again.',
-                'not_found'         => 'That permission does not exist.',
-                'update_error'      => 'There was a problem updating this permission. Please try again.',
+                'already_exists' => 'That permission already exists. Please choose a different name.',
+                'create_error'   => 'There was a problem creating this permission. Please try again.',
+                'delete_error'   => 'There was a problem deleting this permission. Please try again.',
+                'not_found'      => 'That permission does not exist.',
+                'update_error'   => 'There was a problem updating this permission. Please try again.',
             ],
 
             'users' => [
@@ -57,55 +57,55 @@ return [
             ],
         ],
         'cmspages' => [
-            'already_exists'    => 'That CMS Page already exists. Please choose a different name.',
-            'create_error'      => 'There was a problem creating this CMS Page. Please try again.',
-            'delete_error'      => 'There was a problem deleting this CMS Page. Please try again.',
-            'not_found'         => 'That CMS Page does not exist.',
-            'update_error'      => 'There was a problem updating this CMS Page. Please try again.',
+            'already_exists' => 'That CMS Page already exists. Please choose a different name.',
+            'create_error'   => 'There was a problem creating this CMS Page. Please try again.',
+            'delete_error'   => 'There was a problem deleting this CMS Page. Please try again.',
+            'not_found'      => 'That CMS Page does not exist.',
+            'update_error'   => 'There was a problem updating this CMS Page. Please try again.',
         ],
 
         'blogcategories' => [
-            'already_exists'    => 'That Blog Category already exists. Please choose a different name.',
-            'create_error'      => 'There was a problem creating this Blog Category. Please try again.',
-            'delete_error'      => 'There was a problem deleting this Blog Category. Please try again.',
-            'not_found'         => 'That Blog Category does not exist.',
-            'update_error'      => 'There was a problem updating this Blog Category. Please try again.',
+            'already_exists' => 'That Blog Category already exists. Please choose a different name.',
+            'create_error'   => 'There was a problem creating this Blog Category. Please try again.',
+            'delete_error'   => 'There was a problem deleting this Blog Category. Please try again.',
+            'not_found'      => 'That Blog Category does not exist.',
+            'update_error'   => 'There was a problem updating this Blog Category. Please try again.',
         ],
 
         'blogtags' => [
-            'already_exists'    => 'That Blog Tag already exists. Please choose a different name.',
-            'create_error'      => 'There was a problem creating this Blog Tag. Please try again.',
-            'delete_error'      => 'There was a problem deleting this Blog Tag. Please try again.',
-            'not_found'         => 'That Blog Tag does not exist.',
-            'update_error'      => 'There was a problem updating this Blog Tag. Please try again.',
+            'already_exists' => 'That Blog Tag already exists. Please choose a different name.',
+            'create_error'   => 'There was a problem creating this Blog Tag. Please try again.',
+            'delete_error'   => 'There was a problem deleting this Blog Tag. Please try again.',
+            'not_found'      => 'That Blog Tag does not exist.',
+            'update_error'   => 'There was a problem updating this Blog Tag. Please try again.',
         ],
 
         'emailtemplates' => [
-            'already_exists'    => 'That Email Template already exists. Please choose a different name.',
-            'create_error'      => 'There was a problem creating this Email Template. Please try again.',
-            'delete_error'      => 'There was a problem deleting this Email Template. Please try again.',
-            'not_found'         => 'That Email Template does not exist.',
-            'update_error'      => 'There was a problem updating this Email Template. Please try again.',
+            'already_exists' => 'That Email Template already exists. Please choose a different name.',
+            'create_error'   => 'There was a problem creating this Email Template. Please try again.',
+            'delete_error'   => 'There was a problem deleting this Email Template. Please try again.',
+            'not_found'      => 'That Email Template does not exist.',
+            'update_error'   => 'There was a problem updating this Email Template. Please try again.',
         ],
 
         'settings' => [
-            'update_error'      => 'There was a problem updating this Settings. Please try again.',
+            'update_error' => 'There was a problem updating this Settings. Please try again.',
         ],
 
         'menus' => [
-            'already_exists'    => 'That Menu already exists. Please choose a different name.',
-            'create_error'      => 'There was a problem creating this Menu. Please try again.',
-            'delete_error'      => 'There was a problem deleting this Menu. Please try again.',
-            'not_found'         => 'That Menu does not exist.',
-            'update_error'      => 'There was a problem updating this Menu. Please try again.',
+            'already_exists' => 'That Menu already exists. Please choose a different name.',
+            'create_error'   => 'There was a problem creating this Menu. Please try again.',
+            'delete_error'   => 'There was a problem deleting this Menu. Please try again.',
+            'not_found'      => 'That Menu does not exist.',
+            'update_error'   => 'There was a problem updating this Menu. Please try again.',
         ],
 
         'modules' => [
-            'already_exists'    => 'That Module already exists. Please choose a different name.',
-            'create_error'      => 'There was a problem creating this Module. Please try again.',
-            'delete_error'      => 'There was a problem deleting this Module. Please try again.',
-            'not_found'         => 'That Module does not exist.',
-            'update_error'      => 'There was a problem updating this Module. Please try again.',
+            'already_exists' => 'That Module already exists. Please choose a different name.',
+            'create_error'   => 'There was a problem creating this Module. Please try again.',
+            'delete_error'   => 'There was a problem deleting this Module. Please try again.',
+            'not_found'      => 'That Module does not exist.',
+            'update_error'   => 'There was a problem updating this Module. Please try again.',
         ],
     ],
 

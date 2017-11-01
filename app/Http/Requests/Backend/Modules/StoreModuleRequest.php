@@ -42,11 +42,11 @@ class StoreModuleRequest extends Request
     public function messages()
     {
         return [
-            'name.required'             => 'Module Name field is required to be filled',
-            'name.max'                  => 'Module Name should not exceed 191 characters',
-            'name.unique'               => 'Module Name is already taken',
-            'directory_name.required'   => 'Directory Name field is required to be filled',
-            'model_name.required'       => 'Model Name field is required to be filled',
+            'name.required'           => 'Module Name field is required to be filled',
+            'name.max'                => 'Module Name should not exceed 191 characters',
+            'name.unique'             => 'Module Name is already taken',
+            'directory_name.required' => 'Directory Name field is required to be filled',
+            'model_name.required'     => 'Model Name field is required to be filled',
         ];
     }
 }

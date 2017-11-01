@@ -19,7 +19,7 @@ class SettingsTableSeeder extends Seeder
         $data = [
 
             [
-                'seo_title'             => env('APP_NAME'),
+                'seo_title' => env('APP_NAME'),
             ],
         ];
 

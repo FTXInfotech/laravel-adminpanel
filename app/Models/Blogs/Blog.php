@@ -2,11 +2,11 @@
 
 namespace App\Models\Blogs;
 
+use App\Models\Blogs\Traits\Attribute\BlogAttribute;
+use App\Models\Blogs\Traits\Relationship\BlogRelationship;
 use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Blogs\Traits\Attribute\BlogAttribute;
-use App\Models\Blogs\Traits\Relationship\BlogRelationship;
 
 class Blog extends Model
 {
