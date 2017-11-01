@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-trait ModelTrait {
-	/**
+trait ModelTrait
+{
+    /**
      * @return string
      */
     public function getEditButtonAttribute($permission, $route)

@@ -7,7 +7,7 @@ namespace App\Models\BlogCategories\Traits\Attribute;
  */
 trait BlogCategoryAttribute
 {
-   /**
+    /**
      * @return string
      */
     public function getActionButtonsAttribute()

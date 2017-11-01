@@ -4,9 +4,9 @@
  * All route names are prefixed with 'admin.access'.
  */
 Route::group([
-    'prefix'     => 'access',
-    'as'         => 'access.',
-    'namespace'  => 'Access',
+    'prefix'    => 'access',
+    'as'        => 'access.',
+    'namespace' => 'Access',
 ], function () {
 
     /*

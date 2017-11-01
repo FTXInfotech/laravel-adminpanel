@@ -19,10 +19,10 @@ class EmailTemplateTableSeeder extends Seeder
 
         $data = [
             [
-                'title'             => 'User Registration',
-                'type_id'           => '1',
-                'subject'           => 'You have succesfully registerd',
-                'body'              => '<center>
+                'title'   => 'User Registration',
+                'type_id' => '1',
+                'subject' => 'You have succesfully registerd',
+                'body'    => '<center>
 <table id="bodyTable" border="0" width="100%" cellspacing="0" cellpadding="0" align="center">
 <tbody>
 <tr>
@@ -75,18 +75,18 @@ class EmailTemplateTableSeeder extends Seeder
 </tbody>
 </table>
 </center>',
-                'status'            => '1',
-                'created_by'        => '1',
-                'updated_by'        => null,
-                'created_at'        => Carbon::now(),
-                'updated_at'        => Carbon::now(),
+                'status'     => '1',
+                'created_by' => '1',
+                'updated_by' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
 
             [
-                'title'             => 'Create User',
-                'type_id'           => '2',
-                'subject'           => 'Congratulations! your account has been created',
-                'body'              => '<center>
+                'title'   => 'Create User',
+                'type_id' => '2',
+                'subject' => 'Congratulations! your account has been created',
+                'body'    => '<center>
 <table id="bodyTable" border="0" width="100%" cellspacing="0" cellpadding="0" align="center">
 <tbody>
 <tr>
@@ -147,18 +147,18 @@ class EmailTemplateTableSeeder extends Seeder
 </tbody>
 </table>
 </center>',
-                'status'            => '1',
-                'created_by'        => '1',
-                'updated_by'        => null,
-                'created_at'        => Carbon::now(),
-                'updated_at'        => Carbon::now(),
+                'status'     => '1',
+                'created_by' => '1',
+                'updated_by' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
 
             [
-                'title'             => 'Activate / Deactivate User',
-                'type_id'           => '3',
-                'subject'           => 'Your account has been [status]',
-                'body'              => '<center>
+                'title'   => 'Activate / Deactivate User',
+                'type_id' => '3',
+                'subject' => 'Your account has been [status]',
+                'body'    => '<center>
 <table id="bodyTable" border="0" width="100%" cellspacing="0" cellpadding="0" align="center">
 <tbody>
 <tr>
@@ -211,18 +211,18 @@ class EmailTemplateTableSeeder extends Seeder
 </tbody>
 </table>
 </center>',
-                'status'            => '1',
-                'created_by'        => '1',
-                'updated_by'        => null,
-                'created_at'        => Carbon::now(),
-                'updated_at'        => Carbon::now(),
+                'status'     => '1',
+                'created_by' => '1',
+                'updated_by' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
 
             [
-                'title'             => 'Change Password',
-                'type_id'           => '4',
-                'subject'           => 'Your passwprd has been changed successfully',
-                'body'              => '<center>
+                'title'   => 'Change Password',
+                'type_id' => '4',
+                'subject' => 'Your passwprd has been changed successfully',
+                'body'    => '<center>
 <table id="bodyTable" border="0" width="100%" cellspacing="0" cellpadding="0" align="center">
 <tbody>
 <tr>
@@ -277,11 +277,11 @@ class EmailTemplateTableSeeder extends Seeder
 </tbody>
 </table>
 </center>',
-                'status'            => '1',
-                'created_by'        => '1',
-                'updated_by'        => null,
-                'created_at'        => Carbon::now(),
-                'updated_at'        => Carbon::now(),
+                'status'     => '1',
+                'created_by' => '1',
+                'updated_by' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
         ];
 

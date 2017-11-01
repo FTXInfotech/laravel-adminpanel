@@ -53,7 +53,7 @@ class PasswordResetRepository extends BaseRepository
      */
     public function update($attributes)
     {
-        $token = ['token'=>$attributes['token']];
+        $token = ['token' => $attributes['token']];
 
         return $this->query()->where('email', $attributes['email'])->update($attributes);
     }

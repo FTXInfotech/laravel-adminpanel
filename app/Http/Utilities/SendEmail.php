@@ -91,7 +91,7 @@ class SendEmail
               break;
           }
             // Send email code
-            $message = ['data'=>$content];
+            $message = ['data' => $content];
 
             return Mail::send(['html' => 'emails.template'], $message, function ($message) use ($data) {
                 $message->to($data['to']);
