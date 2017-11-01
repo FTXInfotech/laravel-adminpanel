@@ -45,6 +45,7 @@ class DummyRepoName extends BaseRepository
     public function create(array $input)
     {
         $dummy_small_model_name = self::MODEL;
+        $dummy_small_model_name = new $dummy_small_model_name();
         if ($dummy_small_model_name->save($input)) {
             return true;
         }

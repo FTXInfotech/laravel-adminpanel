@@ -107,6 +107,22 @@ class Generator
     protected $delete_permission;
 
     /**
+     * Routes
+     * 1. Edit Route
+     * 2. Store Route
+     * 3. Manage Route
+     * 4. Create Route
+     * 5. Update Route
+     * 6. Delete Route.
+     */
+    protected $edit_route;
+    protected $store_route;
+    protected $index_route;
+    protected $create_route;
+    protected $update_route;
+    protected $delete_route;
+
+    /**
      * Repository
      * 1. Repository Name
      * 2. Repository Namespace.
@@ -205,6 +221,14 @@ class Generator
         $this->create_permission = 'create-'.strtolower(str_singular($this->model));
         $this->update_permission = 'update-'.strtolower(str_singular($this->model));
         $this->delete_permission = 'delete-'.strtolower(str_singular($this->model));
+
+        //Routes
+        $this->index_route = 'admin.'.strtolower(str_plural($this->model)).'.index';
+        $this->create_route = 'admin.'.strtolower(str_plural($this->model)).'.create';
+        $this->store_route = 'admin.'.strtolower(str_plural($this->model)).'.store';
+        $this->edit_route = 'admin.'.strtolower(str_plural($this->model)).'.edit';
+        $this->update_route = 'admin.'.strtolower(str_plural($this->model)).'.update';
+        $this->delete_route = 'admin.'.strtolower(str_plural($this->model)).'.destroy';
 
         //Events
         $this->events = array_filter($input['event']);
@@ -342,11 +366,15 @@ class Generator
      */
     public function createModel()
     {
-        $this->createDirectory($this->getBasePath($this->attribute_namespace));
+        $this->createDirectory($this->getBasePath($this->removeFileNameFromEndOfNamespace($this->attribute_namespace)));
         //Generate Attribute File
         $this->generateFile('Attribute', [
             'AttributeNamespace' => ucfirst($this->removeFileNameFromEndOfNamespace($this->attribute_namespace)),
             'AttributeClass'     => $this->attribute,
+            'editPermission'     => $this->edit_permission,
+            'editRoute'          => $this->edit_route,
+            'deletePermission'   => $this->delete_permission,
+            'deleteRoute'        => $this->delete_route,
         ], lcfirst($this->attribute_namespace));
 
         //Generate Relationship File
@@ -546,13 +574,13 @@ class Generator
         $this->createDirectory($this->getBasePath($this->table_controller_namespace, true));
         //replacements to be done in table controller stub
         $replacements = [
-            'DummyNamespace'                => ucfirst($this->removeFileNameFromEndOfNamespace($this->table_controller_namespace)),
-            'DummyRepositoryNamespace'      => $this->repo_namespace,
-            'DummyManageRequestNamespace'   => $this->manage_request_namespace,
-            'DummyTableController'          => $this->table_controller,
-            'dummy_repository'              => $this->repository,
-            'dummy_small_repo_name'         => strtolower($this->model),
-            'dummy_manage_request_name'     => $this->manage_request,
+            'DummyNamespace'              => ucfirst($this->removeFileNameFromEndOfNamespace($this->table_controller_namespace)),
+            'DummyRepositoryNamespace'    => $this->repo_namespace,
+            'DummyManageRequestNamespace' => $this->manage_request_namespace,
+            'DummyTableController'        => $this->table_controller,
+            'dummy_repository'            => $this->repository,
+            'dummy_small_repo_name'       => strtolower($this->model),
+            'dummy_manage_request_name'   => $this->manage_request,
         ];
         //generating the file
         $this->generateFile('TableController', $replacements, lcfirst($this->table_controller_namespace));
@@ -633,14 +661,14 @@ class Generator
         $this->createDirectory($path);
         //Labels file
         $labels = [
-            'create'        => "Create $model_singular",
-            'edit'          => "Edit $model_singular",
-            'management'    => "$model_singular Management",
-            'title'         => "$model_plural_capital",
+            'create'     => "Create $model_singular",
+            'edit'       => "Edit $model_singular",
+            'management' => "$model_singular Management",
+            'title'      => "$model_plural_capital",
 
-            'table'         => [
-                'id'             => 'Id',
-                'createdat'      => 'Created At',
+            'table' => [
+                'id'        => 'Id',
+                'createdat' => 'Created At',
             ],
         ];
         //Pushing values to labels
@@ -657,11 +685,11 @@ class Generator
         add_key_value_in_file($path.'/menus.php', [$model_plural => $menus], 'backend');
         //Exceptions file
         $exceptions = [
-            'already_exists'    => "That $model_singular already exists. Please choose a different name.",
-            'create_error'      => "There was a problem creating this $model_singular. Please try again.",
-            'delete_error'      => "There was a problem deleting this $model_singular. Please try again.",
-            'not_found'         => "That $model_singular does not exist.",
-            'update_error'      => "There was a problem updating this $model_singular. Please try again.",
+            'already_exists' => "That $model_singular already exists. Please choose a different name.",
+            'create_error'   => "There was a problem creating this $model_singular. Please try again.",
+            'delete_error'   => "There was a problem deleting this $model_singular. Please try again.",
+            'not_found'      => "That $model_singular does not exist.",
+            'update_error'   => "There was a problem updating this $model_singular. Please try again.",
         ];
         //Alerts File
         $alerts = [
@@ -772,8 +800,8 @@ class Generator
         } else {
             //Calling Artisan command to create table
             Artisan::call('make:migration', [
-                'name'      => 'create_'.$table.'_table',
-                '--create'  => $table,
+                'name'     => 'create_'.$table.'_table',
+                '--create' => $table,
             ]);
 
             return Artisan::output();

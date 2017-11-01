@@ -66,10 +66,10 @@ class ModuleRepository extends BaseRepository
             }
 
             $mod = [
-                'view_permission_id'    => "view-$model-permission",
-                'name'                  => $input['name'],
-                'url'                   => 'admin.'.str_plural($model).'.index',
-                'created_by'            => access()->user()->id,
+                'view_permission_id' => "view-$model-permission",
+                'name'               => $input['name'],
+                'url'                => 'admin.'.str_plural($model).'.index',
+                'created_by'         => access()->user()->id,
             ];
 
             $create = Module::create($mod);

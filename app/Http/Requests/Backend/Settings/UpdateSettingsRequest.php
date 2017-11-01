@@ -57,12 +57,12 @@ class UpdateSettingsRequest extends Request
     public function messages()
     {
         return [
-            'logo.dimensions'        => 'Invalid logo - should be minimum 226*48',
-            'favicon.dimensions'     => 'Invalid icon - should be 16*16',
-            'logo.required'          => 'The logo field is required in seo settings.',
-            'favicon.required'       => 'The favicon field is required in seo settings.',
-            'from_name.required'     => 'The from name field is required in mail settings.',
-            'from_email.required'    => 'The from email field is required in mail settings.',
+            'logo.dimensions'     => 'Invalid logo - should be minimum 226*48',
+            'favicon.dimensions'  => 'Invalid icon - should be 16*16',
+            'logo.required'       => 'The logo field is required in seo settings.',
+            'favicon.required'    => 'The favicon field is required in seo settings.',
+            'from_name.required'  => 'The from name field is required in mail settings.',
+            'from_email.required' => 'The from email field is required in mail settings.',
         ];
     }
 }

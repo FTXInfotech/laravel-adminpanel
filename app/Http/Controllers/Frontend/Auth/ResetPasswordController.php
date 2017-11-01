@@ -63,9 +63,9 @@ class ResetPasswordController extends Controller
     protected function rules()
     {
         return [
-            'token'     => 'required',
-            'email'     => 'required|email',
-            'password'  => 'required|min:8|confirmed|regex:"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"',
+            'token'    => 'required',
+            'email'    => 'required|email',
+            'password' => 'required|min:8|confirmed|regex:"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"',
         ];
     }
 

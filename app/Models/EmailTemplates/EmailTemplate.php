@@ -3,13 +3,17 @@
 namespace App\Models\EmailTemplates;
 
 use App\Models\EmailTemplates\Traits\Attribute\EmailTemplateAttribute;
+use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EmailTemplate extends Model
 {
-    use EmailTemplateAttribute,
-        SoftDeletes;
+    use ModelTrait,
+        SoftDeletes,
+        EmailTemplateAttribute {
+            // EmailTemplateAttribute::getEditButtonAttribute insteadof ModelTrait;
+        }
 
     /**
      * The database table used by the model.

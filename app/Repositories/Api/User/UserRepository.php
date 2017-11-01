@@ -57,7 +57,7 @@ class UserRepository extends BaseRepository
      */
     public function resetpassword($data)
     {
-        $pass = ['password'=>bcrypt($data['password'])];
+        $pass = ['password' => bcrypt($data['password'])];
 
         return $this->query()->where('email', $data['email'])->update($pass);
     }
@@ -72,13 +72,13 @@ class UserRepository extends BaseRepository
         return $this->query()
                     ->select('first_name', 'last_name', 'email', 'address', 'country_id', 'state_id', 'city_id', 'zip_code', 'ssn', 'status', 'created_at', 'updated_at')
                     ->where('id', $id)
-                    ->with(['country'=> function ($query) {
+                    ->with(['country' => function ($query) {
                         $query->select('id', 'country');
                     }])
-                    ->with(['state'=> function ($query) {
+                    ->with(['state' => function ($query) {
                         $query->select('id', 'state');
                     }])
-                    ->with(['city'=> function ($query) {
+                    ->with(['city' => function ($query) {
                         $query->select('id', 'city');
                     }])
                     ->get()
@@ -150,7 +150,7 @@ class UserRepository extends BaseRepository
      **/
     public function confirmUser($email)
     {
-        $confirmed = ['confirmed'=>'1'];
+        $confirmed = ['confirmed' => '1'];
 
         return $this->query()->where('email', $email)->update($confirmed);
     }

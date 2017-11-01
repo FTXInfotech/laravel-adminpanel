@@ -4,14 +4,18 @@ namespace App\Models\Blogs;
 
 use App\Models\Blogs\Traits\Attribute\BlogAttribute;
 use App\Models\Blogs\Traits\Relationship\BlogRelationship;
+use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Blog extends Model
 {
-    use BlogAttribute,
-        BlogRelationship,
-        SoftDeletes;
+    use ModelTrait,
+        SoftDeletes,
+        BlogAttribute,
+        BlogRelationship {
+            // BlogAttribute::getEditButtonAttribute insteadof ModelTrait;
+        }
 
     /**
      * The database table used by the model.

@@ -3,13 +3,17 @@
 namespace App\Models\CMSPages;
 
 use App\Models\CMSPages\Traits\Attribute\CMSPageAttribute;
+use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CMSPage extends Model
 {
-    use CMSPageAttribute,
-        SoftDeletes;
+    use ModelTrait,
+        SoftDeletes,
+        CMSPageAttribute {
+            // CMSPageAttribute::getEditButtonAttribute insteadof ModelTrait;
+        }
 
     /**
      * The database table used by the model.
