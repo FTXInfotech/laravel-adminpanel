@@ -107,6 +107,22 @@ class Generator
     protected $delete_permission;
 
     /**
+     * Routes
+     * 1. Edit Route
+     * 2. Store Route
+     * 3. Manage Route
+     * 4. Create Route
+     * 5. Update Route
+     * 6. Delete Route.
+     */
+    protected $edit_route;
+    protected $store_route;
+    protected $index_route;
+    protected $create_route;
+    protected $update_route;
+    protected $delete_route;
+
+    /**
      * Repository
      * 1. Repository Name
      * 2. Repository Namespace.
@@ -205,6 +221,14 @@ class Generator
         $this->create_permission = 'create-'.strtolower(str_singular($this->model));
         $this->update_permission = 'update-'.strtolower(str_singular($this->model));
         $this->delete_permission = 'delete-'.strtolower(str_singular($this->model));
+
+        //Routes
+        $this->index_route = 'admin.'.strtolower(str_plural($this->model)).'.index';
+        $this->create_route = 'admin.'.strtolower(str_plural($this->model)).'.create';
+        $this->store_route = 'admin.'.strtolower(str_plural($this->model)).'.store';
+        $this->edit_route = 'admin.'.strtolower(str_plural($this->model)).'.edit';
+        $this->update_route = 'admin.'.strtolower(str_plural($this->model)).'.update';
+        $this->delete_route = 'admin.'.strtolower(str_plural($this->model)).'.destroy';
 
         //Events
         $this->events = array_filter($input['event']);
@@ -342,11 +366,15 @@ class Generator
      */
     public function createModel()
     {
-        $this->createDirectory($this->getBasePath($this->attribute_namespace));
+        $this->createDirectory($this->getBasePath($this->removeFileNameFromEndOfNamespace($this->attribute_namespace)));
         //Generate Attribute File
         $this->generateFile('Attribute', [
             'AttributeNamespace' => ucfirst($this->removeFileNameFromEndOfNamespace($this->attribute_namespace)),
             'AttributeClass'     => $this->attribute,
+            'editPermission'     => $this->edit_permission,
+            'editRoute'          => $this->edit_route,
+            'deletePermission'   => $this->delete_permission,
+            'deleteRoute'        => $this->delete_route
         ], lcfirst($this->attribute_namespace));
 
         //Generate Relationship File

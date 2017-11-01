@@ -2,16 +2,20 @@
 
 namespace App\Models\BlogTags;
 
-use App\Models\BlogTags\Traits\Attribute\BlogTagAttribute;
-use App\Models\BlogTags\Traits\Relationship\BlogTagRelationship;
+use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\BlogTags\Traits\Attribute\BlogTagAttribute;
+use App\Models\BlogTags\Traits\Relationship\BlogTagRelationship;
 
 class BlogTag extends Model
 {
-    use BlogTagAttribute,
+    use ModelTrait,
         SoftDeletes,
-        BlogTagRelationship;
+        BlogTagAttribute,
+        BlogTagRelationship{
+            // BlogTagAttribute::getEditButtonAttribute insteadof ModelTrait;
+        }
 
     /**
      * The database table used by the model.

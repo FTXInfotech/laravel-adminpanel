@@ -2,14 +2,18 @@
 
 namespace DummyNamespace;
 
+use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use DummyAttribute;
 use DummyRelationship;
 
 class DummyModel extends Model
 {
-    use AttributeName,
-    	RelationshipName;
+    use ModelTrait,
+        AttributeName,
+    	RelationshipName {
+            // AttributeName::getEditButtonAttribute insteadof ModelTrait;
+        }
 
     /**
      * NOTE : If you want to implement Soft Deletes in this model,
