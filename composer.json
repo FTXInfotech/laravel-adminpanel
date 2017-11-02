@@ -25,12 +25,13 @@
         "yajra/laravel-datatables-oracle":"~8.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.0",
+        "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
+        "laravel/browser-kit-testing": "^1.0",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~6.0",
-        "barryvdh/laravel-debugbar": "^3.0",
-        "laravel/browser-kit-testing": "^1.0",
-        "filp/whoops":"~2.0"
+        "xethron/migrations-generator": "2.0.2"
     },
     "autoload": {
         "classmap": [
