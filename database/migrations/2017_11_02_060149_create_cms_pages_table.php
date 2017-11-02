@@ -3,42 +3,39 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCmsPagesTable extends Migration {
+class CreateCmsPagesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('cms_pages', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 191);
+            $table->string('page_slug', 191)->unique();
+            $table->text('description', 65535)->nullable();
+            $table->string('cannonical_link', 191)->nullable();
+            $table->string('seo_title', 191)->nullable();
+            $table->string('seo_keyword', 191)->nullable();
+            $table->text('seo_description', 65535)->nullable();
+            $table->boolean('status')->default(1);
+            $table->integer('created_by')->unsigned();
+            $table->integer('updated_by')->unsigned()->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('cms_pages', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->string('title', 191);
-			$table->string('page_slug', 191)->unique();
-			$table->text('description', 65535)->nullable();
-			$table->string('cannonical_link', 191)->nullable();
-			$table->string('seo_title', 191)->nullable();
-			$table->string('seo_keyword', 191)->nullable();
-			$table->text('seo_description', 65535)->nullable();
-			$table->boolean('status')->default(1);
-			$table->integer('created_by')->unsigned();
-			$table->integer('updated_by')->unsigned()->nullable();
-			$table->timestamps();
-			$table->softDeletes();
-		});
-	}
-
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('cms_pages');
-	}
-
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('cms_pages');
+    }
 }
