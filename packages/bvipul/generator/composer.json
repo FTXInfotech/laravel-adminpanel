@@ -1,0 +1,16 @@
+{
+    "name": "bvipul/generator",
+    "description": "To create a whole module with all related files like model, controller, repository, routes, views etc with a simple GUI.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vipul Basapati",
+            "email": "basapativipulkumar@gmail.com"
+        }
+    ],
+    "autoload": {
+    },
+    "require": {
+    }
+}

@@ -50,14 +50,6 @@
                 </ul>
             </li>
             @endauth
-            @role(1)
-            <li class="{{ active_class(Active::checkUriPattern('admin/modules*')) }}">
-                <a href="{{ route('admin.modules.index') }}">
-                    <i class="fa fa-file-text"></i>
-                    <span>{{ trans('labels.backend.modules.title') }}</span>
-                </a>
-            </li>
-            @endauth
             @permission('view-cms-pages')
             <li class="{{ active_class(Active::checkUriPattern('admin/cmspages*')) }}">
                 <a href="{{ route('admin.cmspages.index') }}">
@@ -118,14 +110,6 @@
                 <a href="{{ route('admin.faqs.index')}}">
                     <i class="fa fa-question-circle"></i>
                     <span>{{ trans('labels.backend.faqs.title') }}</span>
-                </a>
-                </li>
-                @endauth
-                @permission('view-menu')
-                <li class="{{ active_class(Active::checkUriPattern('admin/menus*')) }}">
-                <a href="{{ route('admin.menus.index')}}">
-                    <i class="fa fa-align-right"></i>
-                    <span>{{ trans('labels.backend.menus.management') }}</span>
                 </a>
                 </li>
                 @endauth

@@ -1,5 +1,7 @@
 <?php
-
 return [
-    'table' => 'modules',
+	"table" => "modules",
+	"brands" => [
+	"table" => "brands",
+	],
 ];
