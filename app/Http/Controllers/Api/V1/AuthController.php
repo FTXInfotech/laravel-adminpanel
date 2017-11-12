@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use JWTAuth;
-use Validator;
-use Illuminate\Http\Request;
 use App\Models\Access\User\User;
 use App\Notifications\Activated;
 use App\Notifications\Activation;
 use App\Notifications\PasswordReset;
 use App\Notifications\PasswordResetted;
+use Illuminate\Http\Request;
+use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Validator;
 
 /**
  * AuthController.
@@ -18,9 +18,10 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 class AuthController extends APIController
 {
     /**
-     * Authenticate User
+     * Authenticate User.
      *
-     * @param  Request $request
+     * @param Request $request
+     *
      * @return {mix}
      */
     public function authenticate(Request $request)
@@ -92,10 +93,10 @@ class AuthController extends APIController
 
         $user->activation_token = generateUuid();
         $user->save();
-       /* $profile = new Profile();
-        $profile->first_name = request('first_name');
-        $profile->last_name = request('last_name');
-        $user->profile()->save($profile);*/
+        /* $profile = new Profile();
+         $profile->first_name = request('first_name');
+         $profile->last_name = request('last_name');
+         $user->profile()->save($profile);*/
 
         $user->notify(new Activation($user));
 
