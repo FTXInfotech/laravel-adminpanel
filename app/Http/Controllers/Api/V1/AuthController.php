@@ -44,7 +44,7 @@ class AuthController extends APIController
 
         return $this->respond([
             'message'   => 'You are successfully logged in!',
-            'token'     => $token
+            'token'     => $token,
         ]);
     }
 
@@ -60,7 +60,7 @@ class AuthController extends APIController
     }
 
     /**
-     * Log Out
+     * Log Out.
      *
      * @return JSON Response
      */
@@ -77,7 +77,7 @@ class AuthController extends APIController
         }
 
         return $this->respond([
-            'message'   => 'You are successfully logged out!'
+            'message'   => 'You are successfully logged out!',
         ]);
     }
 
