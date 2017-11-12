@@ -42,7 +42,10 @@ class AuthController extends APIController
             return $this->throwValidation('Your account hasn\'t been activated. Please check your email & activate account.');
         }
 
-        return response()->json(['message' => 'You are successfully logged in!', 'token' => $token]);
+        return $this->respond([
+            'message'   => 'You are successfully logged in!',
+            'token'     => $token
+        ]);
     }
 
     public function check()
@@ -56,6 +59,11 @@ class AuthController extends APIController
         return response(['authenticated' => true]);
     }
 
+    /**
+     * Log Out
+     *
+     * @return JSON Response
+     */
     public function logout()
     {
         try {
@@ -65,10 +73,12 @@ class AuthController extends APIController
                 JWTAuth::invalidate($token);
             }
         } catch (JWTException $e) {
-            return response()->json($e->getMessage(), 500);
+            return $this->respondInternalError('This is something wrong. Please try again!');
         }
 
-        return response()->json(['message' => 'You are successfully logged out!']);
+        return $this->respond([
+            'message'   => 'You are successfully logged out!'
+        ]);
     }
 
     public function register(Request $request)
