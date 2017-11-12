@@ -21,7 +21,7 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.5.0",
         "doctrine/dbal": "^2.5",
-        "tymon/jwt-auth": "0.5.12",
+        "tymon/jwt-auth": "^0.5.12",
         "yajra/laravel-datatables-oracle":"~8.0"
     },
     "require-dev": {
