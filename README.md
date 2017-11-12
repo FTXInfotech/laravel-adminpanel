@@ -16,6 +16,7 @@ For Laravel 5 Boilerplate Features : [Features](https://github.com/rappasoft/lar
 * Email Template Module
 * Blog Module
 * FAQ Module
+* API Boilerplate - Coming Soon.
 
 Give your project a Head Start by using [laravel-adminpanel](https://github.com/viralsolani/laravel-adminpanel).
 
