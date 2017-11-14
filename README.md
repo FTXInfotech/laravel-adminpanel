@@ -1,5 +1,6 @@
 # laravel-adminpanel
 [![License](https://img.shields.io/badge/License-MIT-red.svg)](https://github.com/viralsolani/laravel-adminpanel/blob/master/LICENSE.txtl)
+[![StyleCI](https://styleci.io/repos/30171828/shield?style=plastic)](https://styleci.io/repos/105789824/shield?style=plastic)
 
 
 ## Introduction
@@ -16,6 +17,7 @@ For Laravel 5 Boilerplate Features : [Features](https://github.com/rappasoft/lar
 * Email Template Module
 * Blog Module
 * FAQ Module
+* API Boilerplate - Coming Soon.
 
 Give your project a Head Start by using [laravel-adminpanel](https://github.com/viralsolani/laravel-adminpanel).
 
