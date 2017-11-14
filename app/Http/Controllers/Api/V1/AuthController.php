@@ -21,8 +21,7 @@ class AuthController extends APIController
      * Authenticate User.
      *
      * @param Request $request
-     *
-     * @return {mix}
+     * @return \Illuminate\Http\JsonResponse
      */
     public function authenticate(Request $request)
     {
@@ -62,7 +61,7 @@ class AuthController extends APIController
     /**
      * Log Out.
      *
-     * @return JSON Response
+     *  @return \Illuminate\Http\JsonResponse
      */
     public function logout()
     {
@@ -81,6 +80,12 @@ class AuthController extends APIController
         ]);
     }
 
+    /**
+     * Register User
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(Request $request)
     {
         $validation = Validator::make($request->all(), [
@@ -92,25 +97,31 @@ class AuthController extends APIController
         ]);
 
         if ($validation->fails()) {
-            return response()->json(['message' => $validation->messages()->first()], 422);
+            return $this->throwValidation($validation->messages()->first());
         }
 
         $user = User::create([
-            'email'    => request('email'),
-            'status'   => 'pending_activation',
-            'password' => bcrypt(request('password')),
+            'first_name'    => request('first_name'),
+            'last_name'     => request('last_name'),
+            'email'         => request('email'),
+            'status'        => '0',
+            'password'      => bcrypt(request('password')),
+            'country_id'    => 1,
+            'state_id'      => 1,
+            'city_id'       => 1,
+            'zip_code'      => 1,
+            'ssn'           => 123456789,
+            'created_by'    => 1,
         ]);
 
-        $user->activation_token = generateUuid();
+        $user->confirmation_code = generateUuid();
         $user->save();
-        /* $profile = new Profile();
-         $profile->first_name = request('first_name');
-         $profile->last_name = request('last_name');
-         $user->profile()->save($profile);*/
 
         $user->notify(new Activation($user));
 
-        return response()->json(['message' => 'You have registered successfully. Please check your email for activation!']);
+        return $this->respondCreated([
+           'You have registered successfully. Please check your email for activation!'
+        ]);
     }
 
     public function activate($activation_token)
