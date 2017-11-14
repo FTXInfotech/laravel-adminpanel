@@ -21,6 +21,7 @@ class AuthController extends APIController
      * Authenticate User.
      *
      * @param Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function authenticate(Request $request)
@@ -81,9 +82,10 @@ class AuthController extends APIController
     }
 
     /**
-     * Register User
+     * Register User.
      *
      * @param Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function register(Request $request)
@@ -120,7 +122,7 @@ class AuthController extends APIController
         $user->notify(new Activation($user));
 
         return $this->respondCreated([
-           'You have registered successfully. Please check your email for activation!'
+           'You have registered successfully. Please check your email for activation!',
         ]);
     }
 
