@@ -18,8 +18,8 @@ trait AttributeClass
     public function getActionButtonsAttribute()
     {
         return '<div class="btn-group action-btn">
-                '.$this->getEditButtonAttribute(editPermission, editRoute).'
-                '.$this->getDeleteButtonAttribute(deletePermission, deleteRoute).'
+                '.$this->getEditButtonAttribute("editPermission", "editRoute").'
+                '.$this->getDeleteButtonAttribute("deletePermission", "deleteRoute").'
                 </div>';
     }
 }

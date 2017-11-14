@@ -26,8 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CountryTableSeeder::class);
         $this->call(StateTableSeeder::class);
         $this->call(CmsPagesTableSeeder::class);
-        $this->call(ModulesTableSeeder::class);
-        $this->call(MenuTableSeeder::class);
 
         Model::reguard();
     }

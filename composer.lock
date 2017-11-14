@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0db0856ef828bbe877e49a03cca1cd4",
+    "content-hash": "be8a1de45aed74fa6a71da13ab19b395",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -3648,6 +3648,39 @@
                 "webprofiler"
             ],
             "time": "2017-09-18T13:32:46+00:00"
+        },
+        {
+            "name": "bvipul/generator",
+            "version": "0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bvipul/generator.git",
+                "reference": "c72ff9d734c353e06b46c3248d7797aacbb5cc31"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bvipul/generator/zipball/c72ff9d734c353e06b46c3248d7797aacbb5cc31",
+                "reference": "c72ff9d734c353e06b46c3248d7797aacbb5cc31",
+                "shasum": ""
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "Bvipul\\Generator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vipul Basapati",
+                    "email": "basapativipulkumar@gmail.com"
+                }
+            ],
+            "description": "To create a whole module with all related files like model, controller, repository, routes, views etc with a simple GUI.",
+            "time": "2017-11-14T15:50:43+00:00"
         },
         {
             "name": "doctrine/instantiator",

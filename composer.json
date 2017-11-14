@@ -14,18 +14,19 @@
         "arcanedev/no-captcha": "^5.0",
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^4.1",
+        "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
         "hieu-le/active": "^3.5",
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.5.0",
-        "doctrine/dbal": "^2.5",
         "tymon/jwt-auth": "0.5.12",
-        "yajra/laravel-datatables-oracle":"~8.0"
+        "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.0",
+        "bvipul/generator": "0.9",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "laravel/browser-kit-testing": "^1.0",
