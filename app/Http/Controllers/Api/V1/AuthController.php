@@ -59,12 +59,12 @@ class AuthController extends APIController
             JWTAuth::parseToken()->authenticate();
         } catch (JWTException $e) {
             return $this->respond([
-                'authenticated'  => false
+                'authenticated'  => false,
             ]);
         }
 
         return $this->respond([
-            'authenticated'  => true
+            'authenticated'  => true,
         ]);
     }
 
@@ -136,7 +136,7 @@ class AuthController extends APIController
     }
 
     /**
-     * Activate User
+     * Activate User.
      *
      * @param  $activation_token [description]
      *
@@ -154,13 +154,13 @@ class AuthController extends APIController
             return $this->throwValidation('Your account has already been activated!');
         }
 
-        $user->confirmed    = 1;
-        $user->status       = 1;
+        $user->confirmed = 1;
+        $user->status = 1;
         $user->save();
         $user->notify(new Activated($user));
 
         return $this->respond([
-            'message'  => 'Your account has been activated!'
+            'message'  => 'Your account has been activated!',
         ]);
     }
 
