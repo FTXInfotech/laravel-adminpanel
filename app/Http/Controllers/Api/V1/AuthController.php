@@ -48,15 +48,24 @@ class AuthController extends APIController
         ]);
     }
 
+    /**
+     * Check if user is authenticated or not.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function check()
     {
         try {
             JWTAuth::parseToken()->authenticate();
         } catch (JWTException $e) {
-            return response(['authenticated' => false]);
+            return $this->respond([
+                'authenticated'  => false
+            ]);
         }
 
-        return response(['authenticated' => true]);
+        return $this->respond([
+            'authenticated'  => true
+        ]);
     }
 
     /**
@@ -126,27 +135,33 @@ class AuthController extends APIController
         ]);
     }
 
+    /**
+     * Activate User
+     *
+     * @param  $activation_token [description]
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function activate($activation_token)
     {
-        $user = User::whereActivationToken($activation_token)->first();
+        $user = User::whereConfirmationCode($activation_token)->first();
 
         if (!$user) {
-            return response()->json(['message' => 'Invalid activation token!'], 422);
+            return $this->throwValidation('Invalid activation token!');
         }
 
-        if ($user->status == 'activated') {
-            return response()->json(['message' => 'Your account has already been activated!'], 422);
+        if ($user->status == 1) {
+            return $this->throwValidation('Your account has already been activated!');
         }
 
-        if ($user->status != 'pending_activation') {
-            return response()->json(['message' => 'Invalid activation token!'], 422);
-        }
-
-        $user->status = 'activated';
+        $user->confirmed    = 1;
+        $user->status       = 1;
         $user->save();
         $user->notify(new Activated($user));
 
-        return response()->json(['message' => 'Your account has been activated!']);
+        return $this->respond([
+            'message'  => 'Your account has been activated!'
+        ]);
     }
 
     public function password(Request $request)
