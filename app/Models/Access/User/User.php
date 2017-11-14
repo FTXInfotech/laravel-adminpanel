@@ -49,7 +49,7 @@ class User extends Authenticatable
         'status',
         'confirmation_code',
         'confirmed',
-        'created_by'
+        'created_by',
     ];
 
     /**
