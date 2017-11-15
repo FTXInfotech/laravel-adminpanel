@@ -201,6 +201,7 @@ return [
         App\Providers\MacroServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Bvipul\Generator\Provider\CrudGeneratorServiceProvider::class
     ],
 
     /*

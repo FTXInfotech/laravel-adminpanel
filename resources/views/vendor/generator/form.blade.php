@@ -8,7 +8,7 @@
     </div>
     <!-- Module Name -->
     <div class="form-group">
-        {{ Form::label('name', trans('labels.backend.modules.form.name'), ['class' => 'col-lg-2 control-label required']) }}
+        {{ Form::label('name', trans('generator::labels.modules.form.name'), ['class' => 'col-lg-2 control-label required']) }}
 
         <div class="col-lg-10">
             {{ Form::text('name', null, ['class' => 'form-control box-size', 'placeholder' => 'e.g., Blog', 'required' => 'required']) }}
@@ -17,7 +17,7 @@
 
     <!-- Directory -->
     <div class="form-group">
-        {{ Form::label('directory_name', trans('labels.backend.modules.form.directory_name'), ['class' => 'col-lg-2 control-label required']) }}
+        {{ Form::label('directory_name', trans('generator::labels.modules.form.directory_name'), ['class' => 'col-lg-2 control-label required']) }}
 
         <div class="col-lg-10">
             {{ Form::text('directory_name', null, ['class' => 'form-control box-size', 'placeholder' => 'e.g., Blog', 'required' => true]) }}
@@ -27,7 +27,7 @@
 
     <!-- Model Name -->
     <div class="form-group">
-        {{ Form::label('model_name', trans('labels.backend.modules.form.model_name'), ['class' => 'col-lg-2 control-label required']) }}
+        {{ Form::label('model_name', trans('generator::labels.modules.form.model_name'), ['class' => 'col-lg-2 control-label required']) }}
 
         <div class="col-lg-10">
             {{ Form::text('model_name', null, ['class' => 'form-control box-size only-text', 'placeholder' => 'e.g., Blog', 'required' => true]) }}
@@ -38,7 +38,7 @@
 
     <!-- Table Name -->
     <div class="form-group">
-        {{ Form::label('table_name', trans('labels.backend.modules.form.table_name'), ['class' => 'col-lg-2 control-label']) }}
+        {{ Form::label('table_name', trans('generator::labels.modules.form.table_name'), ['class' => 'col-lg-2 control-label']) }}
 
         <div class="col-lg-10">
             {{ Form::text('table_name', null, ['class' => 'form-control box-size', 'placeholder' => 'e.g., Blog']) }}
@@ -77,10 +77,10 @@
     <!-- Events --> 
     <div class="events-div">
         <div class="form-group event clearfix">
-            {{ Form::label('event[]', trans('labels.backend.modules.form.event'), ['class' => 'col-lg-2 control-label']) }}
+            {{ Form::label('event[]', trans('generator::labels.modules.form.event'), ['class' => 'col-lg-2 control-label']) }}
 
             <div class="col-lg-6">
-                {{ Form::text('event[]', null, ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.modules.form.event'), 'style' => 'width:100%']) }}
+                {{ Form::text('event[]', null, ['class' => 'form-control box-size', 'placeholder' => trans('generator::labels.modules.form.event'), 'style' => 'width:100%']) }}
             </div><!--col-lg-10-->
             <a href="#" class="btn btn-danger btn-md remove-field hidden">Remove Event</a>
             <a href="#" class="btn btn-primary btn-md add-field">Add Event</a>
@@ -107,16 +107,9 @@
 
     <!-- Override CheckBox -->
     <div class="form-group">
-        {{-- {{ Form::label('override', trans('validation.attributes.backend.blogtags.is_active'), ['class' => 'col-lg-2 control-label']) }} --}}
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
             <p><strong>Note : </strong> The Files would be overwritten, if already exists. Please look at files (and their respective paths) carefully before creating.</p>
-            {{-- <div class="control-group">
-                <label class="control control--checkbox">
-                    {{ Form::checkbox('override', 1, false) }}&nbsp; You want to Override the files to be generated if the files are already present ?
-                    <div class="control__indicator"></div>
-                </label>
-            </div><!--col-lg-3--> --}}
         </div><!--form control-->
     </div>
     <!-- end Override Checkbox -->

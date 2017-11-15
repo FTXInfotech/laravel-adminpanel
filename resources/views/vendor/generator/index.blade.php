@@ -12,7 +12,7 @@
             <h3 class="box-title">{{ trans('labels.backend.modules.management') }}</h3>
 
             <div class="box-tools pull-right">
-                @include('backend.includes.partials.modules-header-buttons')
+                @include('generator::partials.modules-header-buttons')
             </div>
         </div><!-- /.box-header -->
 
