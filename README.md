@@ -1,5 +1,5 @@
 # laravel-adminpanel
-[![License](https://img.shields.io/badge/License-MIT-red.svg)](https://github.com/viralsolani/laravel-adminpanel/blob/master/LICENSE.txtl)
+[![License](https://img.shields.io/badge/License-MIT-red.svg)](https://github.com/viralsolani/laravel-adminpanel/blob/master/LICENSE.txt)
 [![StyleCI](https://styleci.io/repos/30171828/shield?style=plastic)](https://styleci.io/repos/105789824/shield?style=plastic)
 
 
@@ -21,15 +21,67 @@ For Laravel 5 Boilerplate Features : [Features](https://github.com/rappasoft/lar
 
 Give your project a Head Start by using [laravel-adminpanel](https://github.com/viralsolani/laravel-adminpanel).
 
-### How do I get set up?
+## Installation
 
-* After taking clone first create a database for the project.
-* Rename the the .env.example file as .env and setup your enviornment configuration settings there e.g Database details.
-* Run `composer install` command from the root directory.(For this command, make sure you have composer installed, https://getcomposer.org/download)
-* Run `npm install` command from the root directory.(For this command, make sure you have npm installed, https://docs.npmjs.com/cli/install)
-* Now run the commands `php artisan migrate` and then `php artisan db:seed`.
-* Now run the commands `npm run prod` if on production environment or use `npm run dev` for development purposes.
-* Run command `php artisan serve` and you can check website from `http://localhost:8000/`.
+Please check the official laravel installation guide for server requirements before you start. [Official Documentation](https://laravel.com/docs/5.4/installation#installation)
+
+
+Clone the repository
+
+    git clone https://github.com/viralsolani/laravel-adminpanel.git
+
+Switch to the repo folder
+
+    cd laravel-adminpanel
+
+Install all the dependencies using composer
+
+    composer install
+
+Copy the example env file and make the required configuration changes in the .env file
+
+    cp .env.example .env
+
+Generate a new application key
+
+    php artisan key:generate
+
+Generate a new JWT authentication secret key
+
+    php artisan jwt:generate
+
+Run the database migrations (**Set the database connection in .env before migrating**)
+
+    php artisan migrate
+
+Run the database seeders
+
+    php artisan db:seed
+
+Install the javascript dependencies using npm
+
+    npm install
+
+Compile the dependencies
+
+    npm run dev
+
+Start the local development server
+
+    php artisan serve
+
+You can now access the server at http://localhost:8000
+
+**TL;DR command list**
+
+    git clone https://github.com/viralsolani/laravel-adminpanel.git
+    cd laravel-adminpanel
+    composer install
+    npm install
+    npm run dev
+    cp .env.example .env
+    php artisan key:generate
+    php artisan jwt:generate
 
 ## Issues
 
