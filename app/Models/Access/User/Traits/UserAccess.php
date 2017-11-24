@@ -89,7 +89,6 @@ trait UserAccess
     public function allow($nameOrId)
     {
         /*
-         * Author : Vaishal Gandhi
          *
          * Update for this function due to issue of user custom permission
          */
@@ -117,7 +116,6 @@ trait UserAccess
             }
 
             /*
-             * Author : Vaishal Gandhi
              *
              * below code is commented due to issue of user custom permisssion
              * if this code is not commented then if user dont have permission of one module but role which is assigned to that user have that permission than allow() method return true

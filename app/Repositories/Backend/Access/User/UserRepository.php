@@ -113,19 +113,19 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param Model $input
+     * Create User
+     *
+     * @param Model $request
+     *
      */
-    public function create($input)
+    public function create($request)
     {
-        $data = $input['data'];
-        $roles = $input['roles'];
+        $data           = $request->except('assignees_roles','permissions');
+        $roles          = $request->all('assignees_roles');
+        $permissions    = $request->all('permissions') ? $request->all('permissions') : [];
+        $user           = $this->createUserStub($data);
 
-        $permissions = isset($data['permissions']) ? $data['permissions'] : [];
-        unset($data['permissions']);
-
-        $user = $this->createUserStub($data);
-
-        DB::transaction(function () use ($user, $data, $roles, $permissions, $input) {
+        DB::transaction(function () use ($user, $data, $roles, $permissions) {
             // Set email type 2
             $email_type = 2;
 
@@ -139,26 +139,21 @@ class UserRepository extends BaseRepository
                 //Attach new roles
                 $user->attachRoles($roles['assignees_roles']);
 
-                //Send confirmation email if requested
-                if (isset($data['confirmation_email']) && $user->confirmed == 0) {
-                    // If user needs confirmation then set email type 1
-                    $email_type = 1;
-                    $input['data']['confirmation_code'] = $user->confirmation_code;
+                // Attach Permissions
+                $this->attachPermissions($permissions);
+
+                //Send confirmation email if requested and account approval is off
+                if (isset($data['confirmation_email']) && $user->confirmed == 0 ) {
+                    $user->notify(new UserNeedsConfirmation($user->confirmation_code));
                 }
 
                 event(new UserCreated($user));
 
-                $arrUserPermissions = [];
-                if (isset($permissions) && count($permissions) > 0) {
-                    foreach ($permissions as $permission) {
-                        $arrUserPermissions[] = [
-                            'permission_id' => $permission,
-                            'user_id'       => $user->id,
-                        ];
-                    }
-
-                    // Insert multiple rows at once
-                    DB::table('permission_user')->insert($arrUserPermissions);
+                //Send confirmation email if requested
+                /*if (isset($data['confirmation_email']) && $user->confirmed == 0) {
+                    // If user needs confirmation then set email type 1
+                    $email_type = 1;
+                    $input['data']['confirmation_code'] = $user->confirmation_code;
                 }
 
                 // Send email to the user
@@ -166,7 +161,8 @@ class UserRepository extends BaseRepository
                         'data'                => $input['data'],
                         'email_template_type' => $email_type,
                     ];
-                createNotification('', 1, 2, $options);
+
+                //createNotification('', 1, 2, $options);*/
 
                 return true;
             }
@@ -415,24 +411,40 @@ class UserRepository extends BaseRepository
      */
     protected function createUserStub($input)
     {
-        $user = self::MODEL;
-        $user = new $user();
-        // $user->name = $input['name'];
-        $user->first_name = $input['first_name'];
-        $user->last_name = $input['last_name'];
-        $user->address = $input['address'];
-        $user->country_id = 1;
-        $user->state_id = $input['state_id'];
-        $user->city_id = $input['city_id'];
-        $user->zip_code = $input['zip_code'];
-        $user->ssn = $input['ssn'];
-        $user->email = $input['email'];
-        $user->password = bcrypt($input['password']);
-        $user->status = isset($input['status']) ? 1 : 0;
-        $user->confirmation_code = md5(uniqid(mt_rand(), true));
-        $user->confirmed = isset($input['confirmed']) ? 1 : 0;
-        $user->created_by = access()->user()->id;
+        $user                       = self::MODEL;
+        $user                       = new $user();
+        $user->first_name           = $input['first_name'];
+        $user->last_name            = $input['last_name'];
+        $user->email                = $input['email'];
+        $user->password             = bcrypt($input['password']);
+        $user->status               = isset($input['status']) ? 1 : 0;
+        $user->confirmation_code    = md5(uniqid(mt_rand(), true));
+        $user->confirmed            = isset($input['confirmed']) ? 1 : 0;
+        $user->created_by           = access()->user()->id;
 
         return $user;
+    }
+
+    /**
+     * Attach Permission
+     *
+     * @param  $permissions
+     * @todo  attach permission like role
+     * @return mix
+     */
+    public function attachPermissions($value='')
+    {
+        $arrUserPermissions = [];
+        if (isset($permissions) && count($permissions) > 0) {
+            foreach ($permissions as $permission) {
+                $arrUserPermissions[] = [
+                    'permission_id' => $permission,
+                    'user_id'       => $user->id,
+                ];
+            }
+
+            // Insert multiple rows at once
+            DB::table('permission_user')->insert($arrUserPermissions);
+        }
     }
 }
