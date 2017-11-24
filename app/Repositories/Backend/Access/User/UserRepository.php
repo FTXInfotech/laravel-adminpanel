@@ -124,22 +124,24 @@ class UserRepository extends BaseRepository
         $permissions = $request->all('permissions') ? $request->all('permissions') : [];
         $user = $this->createUserStub($data);
 
-        DB::transaction(function () use ($user, $data, $roles, $permissions) {
+
+        DB::transaction(function () use ($user, $data, $request) {
             // Set email type 2
             $email_type = 2;
 
             if ($user->save()) {
 
                 //User Created, Validate Roles
-                if (!count($roles['assignees_roles'])) {
+                if (!count($request->get('assignees_roles'))) {
                     throw new GeneralException(trans('exceptions.backend.access.users.role_needed_create'));
                 }
 
                 //Attach new roles
-                $user->attachRoles($roles['assignees_roles']);
+                $user->attachRoles($request->get('assignees_roles'));
 
-                // Attach Permissions
-                $this->attachPermissions($permissions);
+                // Attach New Permissions
+                $user->attachPermissions($request->get('permissions'));
+                //$this->attachPermissions($permissions);
 
                 //Send confirmation email if requested and account approval is off
                 if (isset($data['confirmation_email']) && $user->confirmed == 0) {
@@ -147,6 +149,9 @@ class UserRepository extends BaseRepository
                 }
 
                 event(new UserCreated($user));
+
+                //@todo if it is require it can go to event to send notfication
+                //or user laravel 5.5 notification
 
                 //Send confirmation email if requested
                 /*if (isset($data['confirmation_email']) && $user->confirmed == 0) {
@@ -422,30 +427,5 @@ class UserRepository extends BaseRepository
         $user->created_by = access()->user()->id;
 
         return $user;
-    }
-
-    /**
-     * Attach Permission.
-     *
-     * @param  $permissions
-     *
-     * @todo  attach permission like role
-     *
-     * @return mix
-     */
-    public function attachPermissions($value = '')
-    {
-        $arrUserPermissions = [];
-        if (isset($permissions) && count($permissions) > 0) {
-            foreach ($permissions as $permission) {
-                $arrUserPermissions[] = [
-                    'permission_id' => $permission,
-                    'user_id'       => $user->id,
-                ];
-            }
-
-            // Insert multiple rows at once
-            DB::table('permission_user')->insert($arrUserPermissions);
-        }
     }
 }

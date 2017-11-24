@@ -269,4 +269,58 @@ trait UserAccess
             $this->detachRole($role);
         }
     }
+
+    /**
+     * Attach multiple Permissions to a user.
+     *
+     * @param mixed $permissions
+     *
+     * @return void
+     */
+    public function attachPermissions($permissions)
+    {
+        foreach ($permissions as $permission) {
+            $this->attachPermission($permission);
+        }
+    }
+
+    /**
+     * Alias to eloquent many-to-many relation's attach() method.
+     *
+     * @param mixed $permission
+     *
+     * @return void
+     */
+    public function attachPermission($permission)
+    {
+        if (is_object($permission)) {
+            $permission = $permission->getKey();
+        }
+
+        if (is_array($permission)) {
+            $permission = $permission['id'];
+        }
+
+        $this->permissions()->attach($permission);
+    }
+
+    /**
+     * Alias to eloquent many-to-many relation's detach() method.
+     *
+     * @param mixed $permission
+     *
+     * @return void
+     */
+    public function detachPermission($permission)
+    {
+        if (is_object($permission)) {
+            $permission = $permission->getKey();
+        }
+
+        if (is_array($permission)) {
+            $permission = $permission['id'];
+        }
+
+        $this->permission()->detach($permission);
+    }
 }
