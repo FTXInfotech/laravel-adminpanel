@@ -124,7 +124,6 @@ class UserRepository extends BaseRepository
         $permissions = $request->all('permissions') ? $request->all('permissions') : [];
         $user = $this->createUserStub($data);
 
-
         DB::transaction(function () use ($user, $data, $request) {
             // Set email type 2
             $email_type = 2;
