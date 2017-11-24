@@ -58,7 +58,7 @@ class UserController extends Controller
     public function create(CreateUserRequest $request)
     {
         return view('backend.access.create')->with([
-            'roles' => $this->roles->getAll()
+            'roles' => $this->roles->getAll(),
         ]);
     }
 
@@ -99,7 +99,6 @@ class UserController extends Controller
         $permissions = DB::table('permissions')->pluck('display_name', 'id')->toArray();
         ksort($userPermissions);
         ksort($permissions);
-
 
         /*return view('backend.access.edit')->with([
             'user'              => $user,
