@@ -57,8 +57,9 @@ class UserController extends Controller
      */
     public function create(CreateUserRequest $request)
     {
-        return view('backend.access.create')
-            ->withRoles($this->roles->getAll());
+        return view('backend.access.create')->with([
+            'roles' => $this->roles->getAll()
+        ]);
     }
 
     /**
@@ -93,10 +94,20 @@ class UserController extends Controller
      */
     public function edit(User $user, EditUserRequest $request)
     {
+        //@todo move queries in to repositery
         $userPermissions = DB::table('permission_user')->where('user_id', $user->id)->pluck('permission_id', 'permission_id')->toArray();
         $permissions = DB::table('permissions')->pluck('display_name', 'id')->toArray();
         ksort($userPermissions);
         ksort($permissions);
+
+
+        /*return view('backend.access.edit')->with([
+            'user'              => $user,
+            'userRoles'         => $user->roles->pluck('id')->all(),
+            'roles'             => $this->roles->getAll(),
+            'userPermissions'   => $userPermissions,
+            'permissions'       => $permissions
+        ]);*/
 
         return view('backend.access.edit', compact('userPermissions', 'permissions'))
             ->withUser($user)

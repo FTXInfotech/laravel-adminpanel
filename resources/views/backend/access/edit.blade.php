@@ -161,7 +161,7 @@
                                     <div class="col-xs-12 get-available-permissions">
                                         @if ($permissions)
                                             @foreach ($permissions as $id => $display_name)
-                                            <div class="control-group">                            
+                                            <div class="control-group">
                                             <label class="control control--checkbox" for="perm_{{ $id }}">
                                                 <input type="checkbox" name="permissions[{{ $id }}]" value="{{ $id }}" id="perm_{{ $id }}" {{ isset($userPermissions[$id]) && in_array($id, $userPermissions) ? 'checked' : '' }} /> <label for="perm_{{ $id }}">{{ $display_name }}</label>
                                                 <div class="control__indicator"></div>
@@ -203,7 +203,7 @@
             //Getting States of default contry
             ajaxCall("{{route('admin.get.states')}}");
 
-            FinBuilders.Access.init();
+            Backend.Access.init();
 
             //Getting Cities of select State
             $("#state").on("change", function() {

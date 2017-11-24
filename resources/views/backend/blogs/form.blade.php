@@ -125,8 +125,8 @@
 
 @section("after-scripts")
     <script type="text/javascript">
-        FinBuilders.Blog.init();
-        
+        Backend.Blog.init();
+
         //For Blog datetimepicker for publish_datetime
         $('#datetimepicker1').datetimepicker();
 

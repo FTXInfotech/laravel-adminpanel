@@ -68,7 +68,7 @@
                     {{ Form::input('name', 'ssn', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.frontend.register-user.ssn')]) }}
                 </div><!--col-lg-10-->
             </div><!--form-group-->
-                            
+
             <div class="form-group">
                 <div class="col-lg-10 col-md-offset-4">
                     {{ Form::submit(trans('labels.general.buttons.update'), ['class' => 'btn btn-primary', 'id' => 'update-profile']) }}
@@ -82,11 +82,11 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        FinBuilders.Profile.init();
+        Backend.Profile.init();
         //Getting States of default contry
         ajaxCall("{{route('admin.get.states')}}");
 
-    
+
 
         //Getting Cities of select State
         $("#state").on("change", function() {

@@ -190,7 +190,7 @@
                         <div id="available-permissions" class="hidden mt-20" style="width: 700px; height: 200px; overflow-x: hidden; overflow-y: scroll;">
                             <div class="row">
                                 <div class="col-xs-12 get-available-permissions">
-                                
+
                                 </div><!--col-lg-6-->
                             </div><!--row-->
                         </div><!--available permissions-->
@@ -211,45 +211,8 @@
     {{ Html::script('js/backend/access/users/script.js') }}
     <script type="text/javascript">
         $(document).ready(function() {
-            
-            FinBuilders.Access.init();
 
-            //Getting States of default contry
-            ajaxCall("{{route('admin.get.states')}}");
-
-            //Getting Cities of select State
-            $("#state").on("change", function() {
-                var stateId = $(this).val();
-                var url = "{{route('admin.get.cities')}}";
-                ajaxCall(url, stateId);
-            });
-
-            function ajaxCall(url, data = null)
-            {
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: {stateId: data},
-                    success: function(result) {
-                        if(result != null)
-                        {
-                            var options;
-                            $.each(result.data, function(key, value) {
-                                options += "<option value='" + key + "'>" + value + "</option>";
-                            });
-                            if(result.status == "city")
-                            {
-                                $("#city").html('');
-                                $("#city").append(options);
-                            }
-                            else
-                            {
-                                $("#state").append(options);
-                            }
-                        }
-                    }
-                });
-            }
+            Backend.Access.init();
 
             /**
              * This function is used to get clicked element role id and return required result

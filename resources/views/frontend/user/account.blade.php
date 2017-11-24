@@ -66,8 +66,8 @@
     $(document).ready(function() {
 
         // To Use Select2
-        FinBuilders.Select2.init();
-        
+        Backend.Select2.init();
+
         if($.session.get("tab") == "edit")
         {
             $("#li-password").removeClass("active");
@@ -92,7 +92,7 @@
         //Getting States of default contry
         ajaxCall("{{route('frontend.get.states')}}");
 
-    
+
 
         //Getting Cities of select State
         $("#state").on("change", function() {

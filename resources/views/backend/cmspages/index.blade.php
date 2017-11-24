@@ -57,13 +57,13 @@
         <div class="box-body">
             {{-- {!! history()->renderType('CMSpage') !!} --}}
         </div><!-- /.box-body -->
-    </div><!--box box-success--> 
+    </div><!--box box-success-->
 @endsection
 
 @section('after-scripts')
     {{-- For DataTables --}}
     {{ Html::script(mix('js/dataTable.js')) }}
-    
+
     <script>
         $(function() {
             var dataTable = $('#cmspages-table').dataTable({
@@ -94,7 +94,7 @@
                 }
             });
 
-            FinBuilders.DataTableSearch.init(dataTable);
+            Backend.DataTableSearch.init(dataTable);
         });
     </script>
 @endsection

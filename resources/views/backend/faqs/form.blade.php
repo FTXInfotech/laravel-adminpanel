@@ -34,6 +34,6 @@
 </div>
 @section('after-scripts')
     <script type="text/javascript">
-        FinBuilders.Faq.init();
+        Backend.Faq.init();
     </script>
 @endsection
