@@ -31,7 +31,7 @@ class StoreUserRequest extends Request
             'first_name' => 'required|max:255',
             'last_name'  => 'required|max:255',
             'email'      => ['required', 'email', 'max:255', Rule::unique('users')],
-            'password'   => 'required|min:6|confirmed'
+            'password'   => 'required|min:6|confirmed',
         ];
     }
 
