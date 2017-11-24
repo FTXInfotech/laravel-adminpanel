@@ -34,13 +34,13 @@ Switch to the repo folder
 
     cd laravel-adminpanel
 
-Install all the dependencies using composer
-
-    composer install
-
 Copy the example env file and make the required configuration changes in the .env file
 
     cp .env.example .env
+
+Install all the dependencies using composer
+
+    composer install
 
 Generate a new application key
 
@@ -64,7 +64,7 @@ Install the javascript dependencies using npm
 
 Compile the dependencies
 
-    npm run dev
+   npm run development
 
 Start the local development server
 
@@ -76,10 +76,10 @@ You can now access the server at http://localhost:8000
 
     git clone https://github.com/viralsolani/laravel-adminpanel.git
     cd laravel-adminpanel
+    cp .env.example .env
     composer install
     npm install
-    npm run dev
-    cp .env.example .env
+    npm run development
     php artisan key:generate
     php artisan jwt:generate
 
