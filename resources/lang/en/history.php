@@ -28,7 +28,7 @@ return [
             'deleted' => 'deleted permission',
             'updated' => 'updated permission',
         ],
-        'cmspages' => [
+        'pages' => [
             'created' => 'created CMS Page',
             'deleted' => 'deleted CMS Page',
             'updated' => 'updated CMS Page',

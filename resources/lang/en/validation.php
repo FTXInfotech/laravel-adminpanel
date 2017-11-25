@@ -155,7 +155,7 @@ return [
                     'send_confirmation_email' => 'Send Confirmation E-mail',
                 ],
             ],
-            'cmspages' => [
+            'pages' => [
                 'title'           => 'Title',
                 'description'     => 'Description',
                 'cannonical_link' => 'Cannonical Link',

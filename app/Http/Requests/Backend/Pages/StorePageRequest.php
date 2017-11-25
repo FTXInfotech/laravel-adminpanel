@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Backend\CMSPages;
+namespace App\Http\Requests\Backend\Pages;
 
 use App\Http\Requests\Request;
 
 /**
- * Class UpdateCMSPagesRequest.
+ * Class StorePageRequest.
  */
-class UpdateCMSPagesRequest extends Request
+class StorePageRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,7 @@ class UpdateCMSPagesRequest extends Request
      */
     public function authorize()
     {
-        return access()->allow('edit-cms-pages');
+        return access()->allow('create-page');
     }
 
     /**

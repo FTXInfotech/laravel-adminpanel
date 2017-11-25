@@ -63,7 +63,7 @@ return [
     /*
      * cmspages table used to store cmspages
      */
-    'cms_pages_table' => 'cms_pages',
+    'pages_table' => 'pages',
 
     /*
      * email template placeholders table used to store email template placeholders

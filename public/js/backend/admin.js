@@ -2,10 +2,10 @@ var FinBuilders = {
 
     
     /**
-     * Cmspage
+     * Pages
      *
      */
-    Cmspage:
+    Pages:
     {
         init: function()
         {

@@ -1,41 +1,41 @@
 @extends ('backend.layouts.app')
 
-@section ('title', trans('labels.backend.cmspages.management'))
+@section ('title', trans('labels.backend.pages.management'))
 
 @section('page-header')
-    <h1>{{ trans('labels.backend.cmspages.management') }}</h1>
+    <h1>{{ trans('labels.backend.pages.management') }}</h1>
 @endsection
 
 @section('content')
     <div class="box box-success">
         <div class="box-header with-border">
-            <h3 class="box-title">{{ trans('labels.backend.cmspages.management') }}</h3>
+            <h3 class="box-title">{{ trans('labels.backend.pages.management') }}</h3>
 
             <div class="box-tools pull-right">
-                @include('backend.includes.partials.cmspages-header-buttons')
+                @include('backend.includes.partials.pages-header-buttons')
             </div>
         </div><!-- /.box-header -->
 
         <div class="box-body">
             <div class="table-responsive data-table-wrapper">
-                <table id="cmspages-table" class="table table-condensed table-hover table-bordered">
+                <table id="pages-table" class="table table-condensed table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th>{{ trans('labels.backend.cmspages.table.title') }}</th>
-                            <th>{{ trans('labels.backend.cmspages.table.status') }}</th>
-                            <th>{{ trans('labels.backend.cmspages.table.createdat') }}</th>
-                            <th>{{ trans('labels.backend.cmspages.table.updatedat') }}</th>
+                            <th>{{ trans('labels.backend.pages.table.title') }}</th>
+                            <th>{{ trans('labels.backend.pages.table.status') }}</th>
+                            <th>{{ trans('labels.backend.pages.table.createdat') }}</th>
+                            <th>{{ trans('labels.backend.pages.table.updatedat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
                     </thead>
                     <thead class="transparent-bg">
                         <tr>
                             <th>
-                                {!! Form::text('first_name', null, ["class" => "search-input-text form-control", "data-column" => 0, "placeholder" => trans('labels.backend.cmspages.table.title')]) !!}
+                                {!! Form::text('first_name', null, ["class" => "search-input-text form-control", "data-column" => 0, "placeholder" => trans('labels.backend.pages.table.title')]) !!}
                                     <a class="reset-data" href="javascript:void(0)"><i class="fa fa-times"></i></a>
                             </th>
                             <th>
-                                {!! Form::select('status', [0 => "InActive", 1 => "Active"], null, ["class" => "search-input-select form-control", "data-column" => 1, "placeholder" => trans('labels.backend.cmspages.table.all')]) !!}
+                                {!! Form::select('status', [0 => "InActive", 1 => "Active"], null, ["class" => "search-input-select form-control", "data-column" => 1, "placeholder" => trans('labels.backend.pages.table.all')]) !!}
                             </th>
                             <th></th>
                             <th></th>
@@ -66,18 +66,18 @@
     
     <script>
         $(function() {
-            var dataTable = $('#cmspages-table').dataTable({
+            var dataTable = $('#pages-table').dataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route("admin.cmspages.get") }}',
+                    url: '{{ route("admin.pages.get") }}',
                     type: 'post'
                 },
                 columns: [
-                    {data: 'title', name: '{{config('access.cms_page_table')}}.title'},
-                    {data: 'status', name: '{{config('access.cms_page_table')}}.status'},
-                    {data: 'created_at', name: '{{config('access.cms_page_table')}}.created_at'},
-                    {data: 'updated_at', name: '{{config('access.cms_page_table')}}.updated_at'},
+                    {data: 'title', name: '{{config('access.pages_table')}}.title'},
+                    {data: 'status', name: '{{config('access.pages_table')}}.status'},
+                    {data: 'created_at', name: '{{config('access.pages_table')}}.created_at'},
+                    {data: 'updated_at', name: '{{config('access.pages_table')}}.updated_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],
                 order: [[3, "asc"]],
