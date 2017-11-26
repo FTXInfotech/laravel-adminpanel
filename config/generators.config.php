@@ -22,7 +22,6 @@ return [
 
     'view_template_path' => base_path('vendor/xethron/laravel-4-generators/src/Way/Generators/templates/view.txt'),
 
-
     /*
     |--------------------------------------------------------------------------
     | Where the generated files will be saved...
@@ -37,6 +36,6 @@ return [
 
     'seed_target_path'   => base_path('database/seeds'),
 
-    'view_target_path'   => base_path('resources/views')
+    'view_target_path'   => base_path('resources/views'),
 
 ];
