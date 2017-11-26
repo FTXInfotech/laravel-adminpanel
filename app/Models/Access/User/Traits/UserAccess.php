@@ -337,5 +337,4 @@ trait UserAccess
 
         $this->permissions()->detach($permission);
     }
-
 }
