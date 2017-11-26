@@ -3,10 +3,10 @@
 namespace App\Models\BlogCategories;
 
 use App\Models\BaseModel;
-use App\Models\ModelTrait;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\BlogCategories\Traits\Attribute\BlogCategoryAttribute;
 use App\Models\BlogCategories\Traits\Relationship\BlogCategoryRelationship;
+use App\Models\ModelTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BlogCategory extends BaseModel
 {

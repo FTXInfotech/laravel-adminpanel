@@ -9,7 +9,6 @@ use App\Exceptions\GeneralException;
 use App\Models\Access\Permission\Permission;
 use App\Repositories\BaseRepository;
 use DB;
-use App\Models\BaseModel;
 
 /**
  * Class PermissionRepository.

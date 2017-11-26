@@ -2,9 +2,9 @@
 
 namespace App\Models\EmailTemplates;
 
+use App\Models\BaseModel;
 use App\Models\EmailTemplates\Traits\Attribute\EmailTemplateAttribute;
 use App\Models\ModelTrait;
-use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EmailTemplate extends BaseModel

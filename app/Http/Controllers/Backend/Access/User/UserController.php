@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers\Backend\Access\User;
 
-use App\Models\Access\User\User;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Access\Permission\Permission;
-use App\Repositories\Backend\Access\Role\RoleRepository;
-use App\Repositories\Backend\Access\User\UserRepository;
-use App\Http\Requests\Backend\Access\User\EditUserRequest;
-use App\Http\Requests\Backend\Access\User\ShowUserRequest;
-use App\Http\Requests\Backend\Access\User\StoreUserRequest;
 use App\Http\Requests\Backend\Access\User\CreateUserRequest;
 use App\Http\Requests\Backend\Access\User\DeleteUserRequest;
+use App\Http\Requests\Backend\Access\User\EditUserRequest;
 use App\Http\Requests\Backend\Access\User\ManageUserRequest;
+use App\Http\Requests\Backend\Access\User\ShowUserRequest;
+use App\Http\Requests\Backend\Access\User\StoreUserRequest;
 use App\Http\Requests\Backend\Access\User\UpdateUserRequest;
+use App\Models\Access\User\User;
+use App\Repositories\Backend\Access\Role\RoleRepository;
+use App\Repositories\Backend\Access\User\UserRepository;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class UserController.

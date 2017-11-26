@@ -9,7 +9,6 @@ use App\Models\Access\User\Traits\UserAccess;
 use App\Models\Access\User\Traits\UserSendPasswordReset;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Notifications\Notifiable;
 
 /**

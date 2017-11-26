@@ -2,9 +2,9 @@
 
 namespace App\Models\Faqs;
 
+use App\Models\BaseModel;
 use App\Models\Faqs\Traits\Attribute\FaqAttribute;
 use App\Models\ModelTrait;
-use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Faq extends BaseModel
