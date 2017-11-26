@@ -2,8 +2,8 @@
 
 namespace App\Models\States;
 
-use App\Models\States\Traits\Relationship\StateRelationship;
 use App\Models\BaseModel;
+use App\Models\States\Traits\Relationship\StateRelationship;
 
 class State extends BaseModel
 {

@@ -5,7 +5,6 @@ namespace App\Repositories\Api\CmsPage;
 use App\Exceptions\GeneralException;
 use App\Models\CMSPages\CMSPage;
 use App\Repositories\BaseRepository;
-use App\Models\BaseModel;
 
 /**
  * Class CmsPageRepository.

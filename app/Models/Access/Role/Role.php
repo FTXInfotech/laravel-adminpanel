@@ -6,8 +6,8 @@ use App\Models\Access\Role\Traits\Attribute\RoleAttribute;
 use App\Models\Access\Role\Traits\Relationship\RoleRelationship;
 use App\Models\Access\Role\Traits\RoleAccess;
 use App\Models\Access\Role\Traits\Scope\RoleScope;
-use App\Models\ModelTrait;
 use App\Models\BaseModel;
+use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**

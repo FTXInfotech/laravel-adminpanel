@@ -2,8 +2,8 @@
 
 namespace App\Models\Cities;
 
-use App\Models\Cities\Traits\Relationship\CityRelationship;
 use App\Models\BaseModel;
+use App\Models\Cities\Traits\Relationship\CityRelationship;
 
 class City extends BaseModel
 {

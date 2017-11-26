@@ -4,8 +4,8 @@ namespace App\Models\Page;
 
 use App\Models\BaseModel;
 use App\Models\ModelTrait;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Page\Traits\Attribute\PageAttribute;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Page extends BaseModel
 {

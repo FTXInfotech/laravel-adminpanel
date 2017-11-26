@@ -4,7 +4,6 @@ namespace App\Repositories\Api\User;
 
 use App\Models\Access\PasswordReset\PasswordReset;
 use App\Repositories\BaseRepository;
-use App\Models\BaseModel;
 
 /**
  * Class PermissionRepository.

@@ -2,10 +2,10 @@
 
 namespace App\Models\BlogTags;
 
+use App\Models\BaseModel;
 use App\Models\BlogTags\Traits\Attribute\BlogTagAttribute;
 use App\Models\BlogTags\Traits\Relationship\BlogTagRelationship;
 use App\Models\ModelTrait;
-use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BlogTag extends BaseModel

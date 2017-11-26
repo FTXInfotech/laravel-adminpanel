@@ -2,8 +2,8 @@
 
 namespace App\Models\History;
 
-use App\Models\History\Traits\Relationship\HistoryRelationship;
 use App\Models\BaseModel;
+use App\Models\History\Traits\Relationship\HistoryRelationship;
 
 /**
  * Class History
