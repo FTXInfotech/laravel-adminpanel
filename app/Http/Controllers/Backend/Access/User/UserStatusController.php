@@ -35,7 +35,7 @@ class UserStatusController extends Controller
      */
     public function getDeactivated(ManageDeactivatedRequest $request)
     {
-        return view('backend.access.deactivated');
+        return view('backend.access.users.deactivated');
     }
 
     /**
@@ -45,7 +45,7 @@ class UserStatusController extends Controller
      */
     public function getDeleted(ManageDeletedRequest $request)
     {
-        return view('backend.access.deleted');
+        return view('backend.access.users.deleted');
     }
 
     /**

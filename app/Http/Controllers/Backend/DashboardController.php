@@ -64,7 +64,7 @@ class DashboardController extends Controller
      */
     public function editProfile(Request $request)
     {
-        return view('backend.access.profile-edit')
+        return view('backend.access.users.profile-edit')
             ->withLoggedInUser(access()->user());
     }
 

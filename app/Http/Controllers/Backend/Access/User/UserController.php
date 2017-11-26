@@ -47,7 +47,7 @@ class UserController extends Controller
      */
     public function index(ManageUserRequest $request)
     {
-        return view('backend.access.index');
+        return view('backend.access.users.index');
     }
 
     /**
@@ -57,7 +57,7 @@ class UserController extends Controller
      */
     public function create(CreateUserRequest $request)
     {
-        return view('backend.access.create')->with([
+        return view('backend.access.users.create')->with([
             'roles' => $this->roles->getAll(),
         ]);
     }
@@ -82,7 +82,7 @@ class UserController extends Controller
      */
     public function show(User $user, ShowUserRequest $request)
     {
-        return view('backend.access.show')
+        return view('backend.access.users.show')
             ->withUser($user);
     }
 
@@ -100,15 +100,7 @@ class UserController extends Controller
         ksort($userPermissions);
         ksort($permissions);
 
-        /*return view('backend.access.edit')->with([
-            'user'              => $user,
-            'userRoles'         => $user->roles->pluck('id')->all(),
-            'roles'             => $this->roles->getAll(),
-            'userPermissions'   => $userPermissions,
-            'permissions'       => $permissions
-        ]);*/
-
-        return view('backend.access.edit', compact('userPermissions', 'permissions'))
+        return view('backend.access.users.edit', compact('userPermissions', 'permissions'))
             ->withUser($user)
             ->withUserRoles($user->roles->pluck('id')->all())
             ->withRoles($this->roles->getAll());
