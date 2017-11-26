@@ -173,7 +173,6 @@ class UserRepository extends BaseRepository
 
         DB::transaction(function () use ($user, $data, $roles, $permissions) {
             if ($user->update($data)) {
-
                 $user->status = isset($data['status']) ? 1 : 0;
                 $user->confirmed = isset($data['confirmed']) ? 1 : 0;
                 $user->save();
@@ -183,6 +182,7 @@ class UserRepository extends BaseRepository
 
                 $this->flushPermissions($permissions, $user);
                 event(new UserUpdated($user));
+
                 return true;
             }
 
@@ -348,7 +348,7 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * Flush roles out, then add array of new ones
+     * Flush roles out, then add array of new ones.
      *
      * @param $roles
      * @param $user
@@ -361,7 +361,7 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * Flush Permissions out, then add array of new ones
+     * Flush Permissions out, then add array of new ones.
      *
      * @param $permissions
      * @param $user
