@@ -86,17 +86,17 @@
                             {{ Form::input('name', 'ssn', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.register-user.ssn')]) }}
                         </div><!--col-md-6-->
                     </div><!--form-group-->
-                    
+
                     <div class="form-group">
-                              
-                           
+
+
                             <div class="col-xs-7">
-                               
+
 
                                <label class="col-md-12 control-label">
                                  {!! Form::checkbox('is_term_accept',1,false) !!}
                                  I accept {!! link_to_route('frontend.cmspages.show', trans('validation.attributes.frontend.register-user.terms_and_conditions').'*', ['page_slug'=>'terms-and-conditions']) !!} </label>
-                            
+
                          </div><!--form-group-->
                     </div><!--col-md-6-->
 
@@ -135,8 +135,8 @@
 
         $(document).ready(function() {
             // To Use Select2
-            FinBuilders.Select2.init();
-            
+            Backend.Select2.init();
+
             //Getting States of default contry
             ajaxCall("{{route('frontend.get.states')}}");
 

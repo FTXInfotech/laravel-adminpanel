@@ -10,7 +10,7 @@
     <div class="box box-success">
         <div class="box-header with-border">
             <h3 class="box-title">{{ trans('labels.backend.emailtemplates.management') }}</h3>
-            
+
             <div class="box-tools pull-right">
                 <div class="btn-group">
                   <button type="button" class="btn btn-warning btn-flat dropdown-toggle" data-toggle="dropdown">Export
@@ -81,7 +81,7 @@
 @section('after-scripts')
     {{-- For DataTables --}}
     {{ Html::script(mix('js/dataTable.js')) }}
-    
+
     <script>
         $(function() {
             var dataTable = $('#emailtemplates-table').dataTable({
@@ -113,7 +113,7 @@
                 }
             });
 
-            FinBuilders.DataTableSearch.init(dataTable);
+            Backend.DataTableSearch.init(dataTable);
         });
     </script>
 @endsection

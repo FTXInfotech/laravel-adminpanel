@@ -9,7 +9,7 @@ namespace App\Http\Utilities;
  *
  * Notification class is a abstract class for send push notification in Android and iPhone mobile
  *
- * Author  Sandip P. Joshi
+ * Author  Viral Solani
  *
  * Version 1.0
  *

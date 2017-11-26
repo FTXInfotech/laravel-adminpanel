@@ -1,6 +1,6 @@
-var FinBuilders = {
+var Backend = {
 
-    
+
     /**
      * Pages
      *
@@ -9,7 +9,7 @@ var FinBuilders = {
     {
         init: function()
         {
-            FinBuilders.tinyMCE.init();
+            Backend.tinyMCE.init();
         },
     },
 
@@ -51,7 +51,7 @@ var FinBuilders = {
         init: function ()
         {
             this.addHandlers();
-            FinBuilders.tinyMCE.init();
+            Backend.tinyMCE.init();
         },
 
         addHandlers: function ()
@@ -115,29 +115,29 @@ var FinBuilders = {
     },
 
     emailTemplate: {
-        
+
         selectors: {
             emailtemplateSelection: jQuery(".select2")
         },
 
         init: function () {
-            FinBuilders.emailTemplate.addHandlers();
-            FinBuilders.tinyMCE.init();
+            Backend.emailTemplate.addHandlers();
+            Backend.tinyMCE.init();
         },
 
-        // ! FinBuilders.emailTemplate.addHandlers
+        // ! Backend.emailTemplate.addHandlers
         addHandlers: function () {
             // to add placeholder in to active textarea
             $("#addPlaceHolder").on('click', function (event) {
-                FinBuilders.emailTemplate.addPlaceHolder(event);
+                Backend.emailTemplate.addPlaceHolder(event);
             });
             $("#showPreview").on('click', function (event) {
-                FinBuilders.emailTemplate.showPreview(event);
+                Backend.emailTemplate.showPreview(event);
             });
             this.selectors.emailtemplateSelection.select2();
         },
 
-        // ! FinBuilders.emailTemplate.addPlaceHolder
+        // ! Backend.emailTemplate.addPlaceHolder
         addPlaceHolder: function (event) {
             var placeHolder = $('#placeHolder').val();
             if (placeHolder != '') {
@@ -145,7 +145,7 @@ var FinBuilders = {
             }
         },
 
-        // ! FinBuilders.emailTemplate.showPreview
+        // ! Backend.emailTemplate.showPreview
         showPreview: function (event) {
             jQuery( ".modal-body" ).html(tinyMCE.get('txtBody').getContent());
             $(".model-wrapper").modal('show');
@@ -158,14 +158,14 @@ var FinBuilders = {
      */
     Faq:
     {
-        selectors: 
+        selectors:
         {
         },
 
         init: function ()
         {
             // this.addHandlers();
-            FinBuilders.tinyMCE.init();
+            Backend.tinyMCE.init();
         },
 
         addHandlers: function ()
@@ -198,7 +198,7 @@ var FinBuilders = {
 
     DataTableSearch: {
         init: function (dataTable) {
-            
+
             // Header All search columns
             $("div.dataTables_filter input").unbind();
             $("div.dataTables_filter input").keypress( function (e)
@@ -210,7 +210,7 @@ var FinBuilders = {
             });
 
             // Individual columns search
-            $('.search-input-text').on( 'keypress', function (e) {   
+            $('.search-input-text').on( 'keypress', function (e) {
                 // for text boxes
                 if (e.keyCode == 13)
                 {
@@ -221,7 +221,7 @@ var FinBuilders = {
             });
 
             // Individual columns search
-            $('.search-input-select').on( 'change', function (e) {   
+            $('.search-input-select').on( 'change', function (e) {
                 // for dropdown
                 var i =$(this).attr('data-column');  // getting column index
                 var v =$(this).val();  // getting search input value
@@ -229,13 +229,13 @@ var FinBuilders = {
             });
 
             // Individual columns reset
-            $('.reset-data').on( 'click', function (e) { 
+            $('.reset-data').on( 'click', function (e) {
                 var textbox = $(this).prev('input'); // Getting closest input field
                 var i =textbox.attr('data-column');  // Getting column index
                 $(this).prev('input').val(''); // Blank the serch value
                 dataTable.api().columns(i).search("").draw();
             });
-            
+
              //Copy button
             $('#copyButton').click(function(){
                 $('.copyButton').trigger('click');

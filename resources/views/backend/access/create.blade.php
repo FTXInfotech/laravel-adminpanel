@@ -22,22 +22,25 @@
             </div><!-- /.box-header -->
 
             <div class="box-body">
+                {{-- First Name --}}
                 <div class="form-group">
-                    {{ Form::label('name', trans('validation.attributes.backend.access.users.firstName'), ['class' => 'col-lg-2 control-label required']) }}
+                    {{ Form::label('First Name', trans('validation.attributes.backend.access.users.firstName'), ['class' => 'col-lg-2 control-label required']) }}
 
                     <div class="col-lg-10">
                         {{ Form::text('first_name', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.backend.access.users.firstName'), 'required' => 'required']) }}
                     </div><!--col-lg-10-->
                 </div><!--form control-->
 
+                {{-- Last Name --}}
                 <div class="form-group">
-                    {{ Form::label('name', trans('validation.attributes.backend.access.users.lastName'), ['class' => 'col-lg-2 control-label required']) }}
+                    {{ Form::label('Last Name', trans('validation.attributes.backend.access.users.lastName'), ['class' => 'col-lg-2 control-label required']) }}
 
                     <div class="col-lg-10">
                         {{ Form::text('last_name', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.backend.access.users.lastName'), 'required' => 'required']) }}
                     </div><!--col-lg-10-->
                 </div><!--form control-->
 
+                {{-- Email --}}
                 <div class="form-group">
                     {{ Form::label('email', trans('validation.attributes.backend.access.users.email'), ['class' => 'col-lg-2 control-label required']) }}
 
@@ -46,6 +49,7 @@
                     </div><!--col-lg-10-->
                 </div><!--form control-->
 
+                {{-- Password --}}
                 <div class="form-group">
                     {{ Form::label('password', trans('validation.attributes.backend.access.users.password'), ['class' => 'col-lg-2 control-label required']) }}
 
@@ -54,6 +58,7 @@
                     </div><!--col-lg-10-->
                 </div><!--form control-->
 
+                {{-- Password Confirmation --}}
                 <div class="form-group">
                     {{ Form::label('password_confirmation', trans('validation.attributes.backend.access.users.password_confirmation'), ['class' => 'col-lg-2 control-label required']) }}
 
@@ -62,46 +67,7 @@
                     </div><!--col-lg-10-->
                 </div><!--form control-->
 
-                {{-- address --}}
-                <div class="form-group">
-                    {{ Form::label('address', trans('validation.attributes.frontend.register-user.address'), ['class' => 'col-lg-2 control-label']) }}
-                    <div class="col-lg-10">
-                        {{ Form::text('address', null, ['class' => 'form-control tinymce box-size', 'placeholder' => trans('validation.attributes.frontend.register-user.address')]) }}
-                    </div><!--col-lg-10-->
-                </div><!--form-group-->
-
-                {{-- state --}}
-                <div class="form-group">
-                    {{ Form::label('state_id', trans('validation.attributes.frontend.register-user.state'), ['class' => 'col-lg-2 control-label required']) }}
-                    <div class="col-lg-10">
-                        {{ Form::select('state_id', [] , null, ['class' => 'form-control select2 box-size', 'placeholder' => trans('validation.attributes.frontend.register-user.state'), 'id' => 'state', 'required' => 'required']) }}
-                    </div><!--col-lg-10-->
-                </div><!--form-group-->
-
-                {{-- city --}}
-                <div class="form-group">
-                    {{ Form::label('city_id', trans('validation.attributes.frontend.register-user.city'), ['class' => 'col-lg-2 control-label required']) }}
-                    <div class="col-lg-10">
-                        {{ Form::select('city_id', [], null, ['class' => 'form-control select2 box-size', 'placeholder' => trans('validation.attributes.frontend.register-user.city'), 'id' => 'city', 'required' => 'required']) }}
-                    </div><!--col-lg-10-->
-                </div><!--form-group-->
-
-                {{-- zipcode --}}
-                <div class="form-group">
-                    {{ Form::label('zip_code', trans('validation.attributes.frontend.register-user.zipcode'), ['class' => 'col-lg-2 control-label required']) }}
-                    <div class="col-lg-10">
-                        {{ Form::input('name', 'zip_code', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.frontend.register-user.zipcode'), 'required' => 'required']) }}
-                    </div><!--col-lg-6-->
-                </div><!--form-group-->
-
-                {{-- SSN --}}
-                <div class="form-group">
-                    {{ Form::label('ssn', trans('validation.attributes.frontend.register-user.ssn'), ['class' => 'col-lg-2 control-label required']) }}
-                    <div class="col-lg-10">
-                        {{ Form::input('name', 'ssn', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.frontend.register-user.ssn'), 'required' => 'required']) }}
-                    </div><!--col-lg-6-->
-                </div><!--form-group-->
-
+                {{-- Status --}}
                 <div class="form-group">
                     {{ Form::label('status', trans('validation.attributes.backend.access.users.active'), ['class' => 'col-lg-2 control-label']) }}
 
@@ -115,6 +81,7 @@
                     </div><!--col-lg-1-->
                 </div><!--form control-->
 
+                {{-- Confirmed --}}
                 <div class="form-group">
                     {{ Form::label('confirmed', trans('validation.attributes.backend.access.users.confirmed'), ['class' => 'col-lg-2 control-label']) }}
 
@@ -128,6 +95,7 @@
                     </div><!--col-lg-1-->
                 </div><!--form control-->
 
+                {{-- Confirmation Email --}}
                 <div class="form-group">
                     <label class="col-lg-2 control-label">{{ trans('validation.attributes.backend.access.users.send_confirmation_email') }}<br/>
                         <small>{{ trans('strings.backend.access.users.if_confirmed_off') }}</small>
@@ -143,6 +111,7 @@
                     </div><!--col-lg-1-->
                 </div><!--form control-->
 
+                {{-- Associated Roles --}}
                 <div class="form-group">
                     {{ Form::label('status', trans('validation.attributes.backend.access.users.associated_roles'), ['class' => 'col-lg-2 control-label']) }}
 
@@ -184,19 +153,21 @@
                     </div><!--col-lg-3-->
                 </div><!--form control-->
 
+                {{-- Associated Permissions --}}
                 <div class="form-group">
                     {{ Form::label('associated-permissions', trans('validation.attributes.backend.access.roles.associated_permissions'), ['class' => 'col-lg-2 control-label']) }}
                     <div class="col-lg-10">
                         <div id="available-permissions" class="hidden mt-20" style="width: 700px; height: 200px; overflow-x: hidden; overflow-y: scroll;">
                             <div class="row">
                                 <div class="col-xs-12 get-available-permissions">
-                                
+
                                 </div><!--col-lg-6-->
                             </div><!--row-->
                         </div><!--available permissions-->
                     </div><!--col-lg-3-->
                 </div><!--form control-->
 
+                {{-- Buttons --}}
                 <div class="edit-form-btn">
                     {{ link_to_route('admin.access.user.index', trans('buttons.general.cancel'), [], ['class' => 'btn btn-danger btn-md']) }}
                     {{ Form::submit(trans('buttons.general.crud.create'), ['class' => 'btn btn-primary btn-md']) }}
@@ -211,45 +182,8 @@
     {{ Html::script('js/backend/access/users/script.js') }}
     <script type="text/javascript">
         $(document).ready(function() {
-            
-            FinBuilders.Access.init();
 
-            //Getting States of default contry
-            ajaxCall("{{route('admin.get.states')}}");
-
-            //Getting Cities of select State
-            $("#state").on("change", function() {
-                var stateId = $(this).val();
-                var url = "{{route('admin.get.cities')}}";
-                ajaxCall(url, stateId);
-            });
-
-            function ajaxCall(url, data = null)
-            {
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: {stateId: data},
-                    success: function(result) {
-                        if(result != null)
-                        {
-                            var options;
-                            $.each(result.data, function(key, value) {
-                                options += "<option value='" + key + "'>" + value + "</option>";
-                            });
-                            if(result.status == "city")
-                            {
-                                $("#city").html('');
-                                $("#city").append(options);
-                            }
-                            else
-                            {
-                                $("#state").append(options);
-                            }
-                        }
-                    }
-                });
-            }
+            Backend.Access.init();
 
             /**
              * This function is used to get clicked element role id and return required result

@@ -49,8 +49,6 @@ class PushNotification
     }
 
     /**
-     * Created By : Umang Soni
-     * Created at : 26/05/2017
      * PushNotification for android.
      *
      * @param array $devicetoken
@@ -88,8 +86,6 @@ class PushNotification
     }
 
     /**
-     * Created By : Umang Soni
-     * Created at : 26/05/2017
      * PushNotification for IOS.
      *
      * @param array  $devicetoken

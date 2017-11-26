@@ -40,16 +40,11 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
-        'address',
-        'country_id',
-        'state_id',
-        'city_id',
-        'zip_code',
-        'ssn',
         'status',
         'confirmation_code',
         'confirmed',
         'created_by',
+        'updated_by',
     ];
 
     /**

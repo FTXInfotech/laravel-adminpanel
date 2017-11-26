@@ -101,7 +101,7 @@
                 }
             });
 
-            FinBuilders.DataTableSearch.init(dataTable);
+            Backend.DataTableSearch.init(dataTable);
         });
     </script>
 @endsection

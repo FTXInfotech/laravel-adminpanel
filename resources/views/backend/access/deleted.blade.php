@@ -101,7 +101,7 @@
                 }
             });
 
-            FinBuilders.DataTableSearch.init(dataTable);
+            Backend.DataTableSearch.init(dataTable);
 
             $("body").on("click", "a[name='delete_user_perm']", function(e) {
                 e.preventDefault();

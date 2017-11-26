@@ -22,6 +22,7 @@
             </div><!-- /.box-header -->
 
             <div class="box-body">
+                {{-- First Name --}}
                 <div class="form-group">
                     {{ Form::label('name', trans('validation.attributes.backend.access.users.firstName'), ['class' => 'col-lg-2 control-label required']) }}
 
@@ -30,6 +31,7 @@
                     </div><!--col-lg-10-->
                 </div><!--form control-->
 
+                {{-- Last Name --}}
                 <div class="form-group">
                     {{ Form::label('name', trans('validation.attributes.backend.access.users.lastName'), ['class' => 'col-lg-2 control-label required']) }}
 
@@ -38,6 +40,7 @@
                     </div><!--col-lg-10-->
                 </div><!--form control-->
 
+                {{-- Email --}}
                 <div class="form-group">
                     {{ Form::label('email', trans('validation.attributes.backend.access.users.email'), ['class' => 'col-lg-2 control-label required']) }}
 
@@ -46,46 +49,7 @@
                     </div><!--col-lg-10-->
                 </div><!--form control-->
 
-                {{-- address --}}
-                <div class="form-group">
-                    {{ Form::label('address', trans('validation.attributes.frontend.register-user.address'), ['class' => 'col-lg-2 control-label']) }}
-                    <div class="col-lg-10">
-                        {{ Form::input('textarea', 'address', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.frontend.register-user.address'), 'rows' => '3']) }}
-                    </div><!--col-lg-10-->
-                </div><!--form-group-->
-
-                {{-- state --}}
-                <div class="form-group">
-                    {{ Form::label('state_id', trans('validation.attributes.frontend.register-user.state'), ['class' => 'col-lg-2 control-label required']) }}
-                    <div class="col-lg-10">
-                        {{ Form::select('state_id', [] , null, ['class' => 'form-control select2 box-size', 'placeholder' => trans('validation.attributes.frontend.register-user.state'), 'id' => 'state', 'required' => 'required']) }}
-                    </div><!--col-lg-10-->
-                </div><!--form-group-->
-
-                {{-- city --}}
-                <div class="form-group">
-                    {{ Form::label('city_id', trans('validation.attributes.frontend.register-user.city'), ['class' => 'col-lg-2 control-label required']) }}
-                    <div class="col-lg-10">
-                        {{ Form::select('city_id', [], null, ['class' => 'form-control select2 box-size', 'placeholder' => trans('validation.attributes.frontend.register-user.city'), 'id' => 'city', 'required' => 'required']) }}
-                    </div><!--col-lg-10-->
-                </div><!--form-group-->
-
-                {{-- zipcode --}}
-                <div class="form-group">
-                    {{ Form::label('zip_code', trans('validation.attributes.frontend.register-user.zipcode'), ['class' => 'col-lg-2 control-label required']) }}
-                    <div class="col-lg-10">
-                        {{ Form::input('name', 'zip_code', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.frontend.register-user.zipcode'), 'required' => 'required']) }}
-                    </div><!--col-lg-6-->
-                </div><!--form-group-->
-
-                {{-- SSN --}}
-                <div class="form-group">
-                    {{ Form::label('ssn', trans('validation.attributes.frontend.register-user.ssn'), ['class' => 'col-lg-2 control-label required']) }}
-                    <div class="col-lg-10">
-                        {{ Form::input('name', 'ssn', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.frontend.register-user.ssn'), 'required' => 'required']) }}
-                    </div><!--col-lg-6-->
-                </div><!--form-group-->
-
+                {{-- Status --}}
                 @if ($user->id != 1)
                     <div class="form-group">
                         {{ Form::label('status', trans('validation.attributes.backend.access.users.active'), ['class' => 'col-lg-2 control-label']) }}
@@ -99,6 +63,7 @@
                         </div><!--col-lg-1-->
                     </div><!--form control-->
 
+                    {{-- Confirmed --}}
                     <div class="form-group">
                         {{ Form::label('confirmed', trans('validation.attributes.backend.access.users.confirmed'), ['class' => 'col-lg-2 control-label']) }}
 
@@ -112,6 +77,7 @@
                         </div><!--col-lg-1-->
                     </div><!--form control-->
 
+                    {{-- Associated Roles --}}
                     <div class="form-group">
                         {{ Form::label('status', trans('validation.attributes.backend.access.users.associated_roles'), ['class' => 'col-lg-2 control-label']) }}
 
@@ -153,6 +119,7 @@
                         </div><!--col-lg-3-->
                     </div><!--form control-->
 
+                    {{-- Associated Permissions --}}
                     <div class="form-group">
                         {{ Form::label('associated-permissions', trans('validation.attributes.backend.access.roles.associated_permissions'), ['class' => 'col-lg-2 control-label']) }}
                         <div class="col-lg-10">
@@ -161,7 +128,7 @@
                                     <div class="col-xs-12 get-available-permissions">
                                         @if ($permissions)
                                             @foreach ($permissions as $id => $display_name)
-                                            <div class="control-group">                            
+                                            <div class="control-group">
                                             <label class="control control--checkbox" for="perm_{{ $id }}">
                                                 <input type="checkbox" name="permissions[{{ $id }}]" value="{{ $id }}" id="perm_{{ $id }}" {{ isset($userPermissions[$id]) && in_array($id, $userPermissions) ? 'checked' : '' }} /> <label for="perm_{{ $id }}">{{ $display_name }}</label>
                                                 <div class="control__indicator"></div>
@@ -199,63 +166,12 @@
     {{ Html::script('js/backend/access/users/script.js') }}
 
     <script type="text/javascript">
-        $(document).ready(function() {
-            //Getting States of default contry
-            ajaxCall("{{route('admin.get.states')}}");
-
-            FinBuilders.Access.init();
-
-            //Getting Cities of select State
-            $("#state").on("change", function() {
-                var stateId = $(this).val();
-                var url = "{{route('admin.get.cities')}}";
-                ajaxCall(url, stateId);
-            });
-
-            function ajaxCall(url, data = null)
-            {
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: {stateId: data},
-                    success: function(result) {
-                        if(result != null)
-                        {
-                            if(result.status == "city")
-                            {
-                                var userCity = "{{ $user->city_id }}";
-                                var options;
-                                $.each(result.data, function(key, value) {
-                                    if(key == userCity)
-                                        options += "<option value='" + key + "' selected>" + value + "</option>";
-                                    else
-                                        options += "<option value='" + key + "'>" + value + "</option>";
-                                });
-                                $("#city").html('');
-                                $("#city").append(options);
-                            }
-                            else
-                            {
-                                var userState = "{{ $user->state_id }}";
-                                var options;
-                                $.each(result.data, function(key, value) {
-                                    if(key == userState)
-                                        options += "<option value='" + key + "' selected>" + value + "</option>";
-                                    else
-                                        options += "<option value='" + key + "'>" + value + "</option>";
-                                });
-                                $("#state").append(options);
-                                $("#state").trigger('change');
-                            }
-                        }
-                    }
-                });
-            }
-
+        jQuery(document).ready(function() {
+            Backend.Access.init();
             /**
              * This function is used to get clicked element role id and return required result
              */
-            $('.get-role-for-permissions').click(function () {
+            jQuery('.get-role-for-permissions').click(function () {
                 $.ajax({
                     type: "POST",
                     url: "{{ route('admin.get.permission') }}",
