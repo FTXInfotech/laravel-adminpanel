@@ -28,6 +28,11 @@ class UserRepository extends BaseRepository
     const MODEL = User::class;
 
     /**
+     * @var User Model
+     */
+    protected $model;
+
+    /**
      * @var RoleRepository
      */
     protected $role;
@@ -35,43 +40,10 @@ class UserRepository extends BaseRepository
     /**
      * @param RoleRepository $role
      */
-    public function __construct(RoleRepository $role)
+    public function __construct(User $model, RoleRepository $role)
     {
-        $this->role = $role;
-    }
-
-    /**
-     * @param        $permissions
-     * @param string $by
-     *
-     * @return mixed
-     */
-    public function getByPermission($permissions, $by = 'name')
-    {
-        if (!is_array($permissions)) {
-            $permissions = [$permissions];
-        }
-
-        return $this->query()->whereHas('roles.permissions', function ($query) use ($permissions, $by) {
-            $query->whereIn('permissions.'.$by, $permissions);
-        })->get();
-    }
-
-    /**
-     * @param        $roles
-     * @param string $by
-     *
-     * @return mixed
-     */
-    public function getByRole($roles, $by = 'name')
-    {
-        if (!is_array($roles)) {
-            $roles = [$roles];
-        }
-
-        return $this->query()->whereHas('roles', function ($query) use ($roles, $by) {
-            $query->whereIn('roles.'.$by, $roles);
-        })->get();
+        $this->model = $model;
+        $this->role  = $role;
     }
 
     /**
@@ -162,7 +134,7 @@ class UserRepository extends BaseRepository
      *
      * @return bool
      */
-    public function update(Model $user, $request)
+    public function update($user, $request)
     {
         $data = $request->except('assignees_roles', 'permissions');
         $roles = $request->get('assignees_roles');
@@ -405,5 +377,39 @@ class UserRepository extends BaseRepository
         $user->created_by = access()->user()->id;
 
         return $user;
+    }
+
+    /**
+     * @param $permissions
+     * @param string $by
+     *
+     * @return mixed
+     */
+    public function getByPermission($permissions, $by = 'name')
+    {
+        if (!is_array($permissions)) {
+            $permissions = [$permissions];
+        }
+
+        return $this->query()->whereHas('roles.permissions', function ($query) use ($permissions, $by) {
+            $query->whereIn('permissions.'.$by, $permissions);
+        })->get();
+    }
+
+    /**
+     * @param $roles
+     * @param string $by
+     *
+     * @return mixed
+     */
+    public function getByRole($roles, $by = 'name')
+    {
+        if (!is_array($roles)) {
+            $roles = [$roles];
+        }
+
+        return $this->query()->whereHas('roles', function ($query) use ($roles, $by) {
+            $query->whereIn('roles.'.$by, $roles);
+        })->get();
     }
 }

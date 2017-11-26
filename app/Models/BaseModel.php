@@ -14,11 +14,11 @@ class BaseModel extends Model
      *
      * @return array
      */
-    public static function getSelectData($id = null, $val = null)
+    public static function getSelectData($field_name = 'name')
     {
         $collection = parent::all();
 
-        return self::getItems($collection);
+        return self::getItems($collection, $field_name);
     }
 
     /**
@@ -28,24 +28,20 @@ class BaseModel extends Model
      *
      * @return array
      */
-    public static function getItems($collection)
+    public static function getItems($collection,$field_name)
     {
         $items = [];
 
         foreach ($collection as $model) {
             $items[$model->id] = [
                 'id'    => $model->id,
-                'name'  => $model->name,
+                'name'  => $model->$field_name,
                 'model' => $model,
             ];
         }
 
         foreach ($items as $id => $item) {
-            if (isset(static::$selectHTMLFormat) && static::$selectHTMLFormat !== '') {
-                $items[$item['id']] = static::generateSelectName($item['model'], static::$selectHTMLFormat);
-            } else {
                 $items[$item['id']] = $item['name'];
-            }
         }
 
         return $items;

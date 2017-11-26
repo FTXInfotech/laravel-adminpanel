@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Backend\Access\User;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Access\User\CreateUserRequest;
-use App\Http\Requests\Backend\Access\User\DeleteUserRequest;
-use App\Http\Requests\Backend\Access\User\EditUserRequest;
-use App\Http\Requests\Backend\Access\User\ManageUserRequest;
-use App\Http\Requests\Backend\Access\User\ShowUserRequest;
-use App\Http\Requests\Backend\Access\User\StoreUserRequest;
-use App\Http\Requests\Backend\Access\User\UpdateUserRequest;
 use App\Models\Access\User\User;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\Access\Permission\Permission;
 use App\Repositories\Backend\Access\Role\RoleRepository;
 use App\Repositories\Backend\Access\User\UserRepository;
-use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Backend\Access\User\EditUserRequest;
+use App\Http\Requests\Backend\Access\User\ShowUserRequest;
+use App\Http\Requests\Backend\Access\User\StoreUserRequest;
+use App\Http\Requests\Backend\Access\User\CreateUserRequest;
+use App\Http\Requests\Backend\Access\User\DeleteUserRequest;
+use App\Http\Requests\Backend\Access\User\ManageUserRequest;
+use App\Http\Requests\Backend\Access\User\UpdateUserRequest;
 
 /**
  * Class UserController.
@@ -94,15 +95,16 @@ class UserController extends Controller
      */
     public function edit(User $user, EditUserRequest $request)
     {
-        $userPermissions = DB::table('permission_user')->where('user_id', $user->id)->pluck('permission_id', 'permission_id')->toArray();
-        $permissions = DB::table('permissions')->pluck('display_name', 'id')->toArray();
-        ksort($userPermissions);
-        ksort($permissions);
+        $permissions = Permission::getSelectData('display_name');
+        $userPermissions = $user->permissions()->get()->pluck('id')->toArray();
 
-        return view('backend.access.users.edit', compact('userPermissions', 'permissions'))
-            ->withUser($user)
-            ->withUserRoles($user->roles->pluck('id')->all())
-            ->withRoles($this->roles->getAll());
+        return view('backend.access.users.edit')->with([
+            'user' => $user,
+            'userRoles'=> $user->roles->pluck('id')->all(),
+            'roles' => $this->roles->getAll(),
+            'userPermissions' => $userPermissions ,
+            'permissions' => $permissions
+        ]);
     }
 
     /**

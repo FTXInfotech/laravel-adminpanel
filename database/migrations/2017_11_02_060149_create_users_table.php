@@ -18,12 +18,6 @@ class CreateUsersTable extends Migration
             $table->string('last_name', 191);
             $table->string('email', 191)->unique();
             $table->string('password', 191)->nullable();
-            $table->text('address', 65535)->nullable();
-            $table->integer('country_id')->unsigned()->index();
-            $table->integer('state_id')->unsigned()->index();
-            $table->integer('city_id')->unsigned()->index();
-            $table->string('zip_code', 191);
-            $table->string('ssn', 191);
             $table->boolean('status')->default(1);
             $table->string('confirmation_code', 191)->nullable();
             $table->boolean('confirmed')->default(0);
