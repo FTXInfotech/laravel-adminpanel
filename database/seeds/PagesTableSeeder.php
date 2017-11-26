@@ -1,12 +1,12 @@
 <?php
 
-use Carbon\Carbon as Carbon;
+use Carbon\Carbon;
 use Database\DisableForeignKeys;
 use Database\TruncateTable;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CmsPagesTableSeeder extends Seeder
+class PagesTableSeeder extends Seeder
 {
     use DisableForeignKeys, TruncateTable;
 
@@ -18,9 +18,9 @@ class CmsPagesTableSeeder extends Seeder
     public function run()
     {
         $this->disableForeignKeys();
-        $this->truncate(config('access.cms_pages_table'));
+        $this->truncate(config('access.pages_table'));
 
-        $cmspage = [
+        $page = [
             [
                 'title'       => 'Terms and conditions',
                 'page_slug'   => 'terms-and-conditions',
@@ -32,7 +32,7 @@ class CmsPagesTableSeeder extends Seeder
             ],
         ];
 
-        DB::table(config('access.cms_pages_table'))->insert($cmspage);
+        DB::table(config('access.pages_table'))->insert($page);
 
         $this->enableForeignKeys();
     }

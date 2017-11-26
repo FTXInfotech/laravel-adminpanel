@@ -2,10 +2,10 @@ var Backend = {
 
 
     /**
-     * Cmspage
+     * Pages
      *
      */
-    Cmspage:
+    Pages:
     {
         init: function()
         {

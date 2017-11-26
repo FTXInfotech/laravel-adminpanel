@@ -57,12 +57,12 @@ return [
             'system'    => 'System',
         ],
 
-        'cmspages' => [
-            'all'        => 'All CMS Page',
-            'create'     => 'Create CMS Page',
-            'edit'       => 'Edit CMS Page',
-            'management' => 'CMS Page Management',
-            'main'       => 'CMS Pages',
+        'pages' => [
+            'all'        => 'All Pages',
+            'create'     => 'Create Page',
+            'edit'       => 'Edit Page',
+            'management' => 'Page Management',
+            'main'       => 'Pages',
         ],
 
         'blogs' => [

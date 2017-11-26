@@ -23,16 +23,6 @@ Route::any('generateSlug', function (\Illuminate\Http\Request $request) {
 })->name('generate.slug');
 
 /*
- * CMS Pages Management
- */
-Route::group(['namespace' => 'CMSPages'], function () {
-    Route::resource('cmspages', 'CMSPagesController', ['except' => ['show']]);
-
-    //For DataTables
-    Route::post('cmspages/get', 'CMSPagesTableController')->name('cmspages.get');
-});
-
-/*
  * Email Templates Management
  */
 Route::group(['namespace' => 'EmailTemplates'], function () {
