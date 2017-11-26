@@ -3,9 +3,6 @@
 namespace App\Models\Access\User\Traits\Relationship;
 
 use App\Models\Access\User\SocialLogin;
-use App\Models\Cities\City;
-use App\Models\Countries\Country;
-use App\Models\States\State;
 use App\Models\System\Session;
 
 /**
@@ -48,35 +45,5 @@ trait UserRelationship
     public function sessions()
     {
         return $this->hasMany(Session::class);
-    }
-
-    /**
-     * Has-One relationship with state.
-     *
-     * @return mixed
-     */
-    public function state()
-    {
-        return $this->hasOne(State::class, 'id', 'state_id');
-    }
-
-    /**
-     * Has-One relationship with cty.
-     *
-     * @return mixed
-     */
-    public function city()
-    {
-        return $this->hasOne(City::class, 'id', 'city_id');
-    }
-
-    /**
-     * Has-One relationship with country.
-     *
-     * @return mixed
-     */
-    public function country()
-    {
-        return $this->hasOne(Country::class, 'id', 'country_id');
     }
 }

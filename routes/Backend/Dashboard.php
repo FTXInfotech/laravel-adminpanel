@@ -4,8 +4,6 @@
  * All route names are prefixed with 'admin.'.
  */
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-Route::post('/get/states', 'DashboardController@getStates')->name('get.states');
-Route::post('/get/cities', 'DashboardController@getCities')->name('get.cities');
 Route::post('get-permission', 'DashboardController@getPermissionByRole')->name('get.permission');
 
 /*
