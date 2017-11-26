@@ -43,7 +43,7 @@ class UserRepository extends BaseRepository
     public function __construct(User $model, RoleRepository $role)
     {
         $this->model = $model;
-        $this->role  = $role;
+        $this->role = $role;
     }
 
     /**

@@ -28,7 +28,7 @@ class BaseModel extends Model
      *
      * @return array
      */
-    public static function getItems($collection,$field_name)
+    public static function getItems($collection, $field_name)
     {
         $items = [];
 
@@ -41,7 +41,7 @@ class BaseModel extends Model
         }
 
         foreach ($items as $id => $item) {
-                $items[$item['id']] = $item['name'];
+            $items[$item['id']] = $item['name'];
         }
 
         return $items;
