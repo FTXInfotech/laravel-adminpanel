@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCmsPagesTable extends Migration
+class CreatePagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateCmsPagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cms_pages', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title', 191);
             $table->string('page_slug', 191)->unique();
@@ -36,6 +36,6 @@ class CreateCmsPagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('cms_pages');
+        Schema::drop('pages');
     }
 }

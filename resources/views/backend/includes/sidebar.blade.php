@@ -50,11 +50,11 @@
                 </ul>
             </li>
             @endauth
-            @permission('view-cms-pages')
-            <li class="{{ active_class(Active::checkUriPattern('admin/cmspages*')) }}">
-                <a href="{{ route('admin.cmspages.index') }}">
+            @permission('view-page')
+            <li class="{{ active_class(Active::checkUriPattern('admin/pages*')) }}">
+                <a href="{{ route('admin.pages.index') }}">
                     <i class="fa fa-file-text"></i>
-                    <span>{{ trans('labels.backend.cmspages.title') }}</span>
+                    <span>{{ trans('labels.backend.pages.title') }}</span>
                 </a>
             </li>
             @endauth

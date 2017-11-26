@@ -319,12 +319,12 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->save();
 
         /**
-         * CMS Pages.
+         * Pages.
          */
         $permission_model = config('access.permission');
         $viewBackend = new $permission_model();
-        $viewBackend->name = 'view-cms-pages';
-        $viewBackend->display_name = 'View CMS Pages';
+        $viewBackend->name = 'view-page';
+        $viewBackend->display_name = 'View Page';
         $viewBackend->sort = 23;
         $viewBackend->created_by = 1;
         $viewBackend->updated_by = null;
@@ -335,8 +335,8 @@ class PermissionTableSeeder extends Seeder
 
         $permission_model = config('access.permission');
         $viewBackend = new $permission_model();
-        $viewBackend->name = 'create-cms-pages';
-        $viewBackend->display_name = 'Create CMS Pages';
+        $viewBackend->name = 'create-page';
+        $viewBackend->display_name = 'Create Page';
         $viewBackend->sort = 24;
         $viewBackend->created_by = 1;
         $viewBackend->updated_by = null;
@@ -347,8 +347,8 @@ class PermissionTableSeeder extends Seeder
 
         $permission_model = config('access.permission');
         $viewBackend = new $permission_model();
-        $viewBackend->name = 'edit-cms-pages';
-        $viewBackend->display_name = 'Edit CMS Pages';
+        $viewBackend->name = 'edit-page';
+        $viewBackend->display_name = 'Edit Page';
         $viewBackend->sort = 25;
         $viewBackend->created_by = 1;
         $viewBackend->updated_by = null;
@@ -359,8 +359,8 @@ class PermissionTableSeeder extends Seeder
 
         $permission_model = config('access.permission');
         $viewBackend = new $permission_model();
-        $viewBackend->name = 'delete-cms-pages';
-        $viewBackend->display_name = 'Delete CMS Pages';
+        $viewBackend->name = 'delete-page';
+        $viewBackend->display_name = 'Delete Page';
         $viewBackend->sort = 26;
         $viewBackend->created_by = 1;
         $viewBackend->updated_by = null;

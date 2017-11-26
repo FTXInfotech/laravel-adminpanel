@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Backend\CMSPages;
+namespace App\Http\Requests\Backend\Pages;
 
 use App\Http\Requests\Request;
 
 /**
- * Class StoreCMSPagesRequest.
+ * Class ManagePageRequest.
  */
-class StoreCMSPagesRequest extends Request
+class ManagePageRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,7 @@ class StoreCMSPagesRequest extends Request
      */
     public function authorize()
     {
-        return access()->allow('create-cms-pages');
+        return access()->allow('view-page');
     }
 
     /**
@@ -27,8 +27,7 @@ class StoreCMSPagesRequest extends Request
     public function rules()
     {
         return [
-            'title'       => 'required|max:191',
-            'description' => 'required',
+            //
         ];
     }
 }

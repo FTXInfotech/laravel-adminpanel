@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Models\CMSPages;
+namespace App\Models\Page;
 
-use App\Models\CMSPages\Traits\Attribute\CMSPageAttribute;
 use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Page\Traits\Attribute\PageAttribute;
 
-class CMSPage extends Model
+class Page extends Model
 {
     use ModelTrait,
         SoftDeletes,
-        CMSPageAttribute {
-            // CMSPageAttribute::getEditButtonAttribute insteadof ModelTrait;
+        PageAttribute {
+            // PageAttribute::getEditButtonAttribute insteadof ModelTrait;
         }
 
     /**

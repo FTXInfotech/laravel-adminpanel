@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Backend\CMSPages;
+namespace App\Http\Requests\Backend\Pages;
 
 use App\Http\Requests\Request;
 
 /**
- * Class DeleteCMSPagesRequest.
+ * Class UpdatePageRequest.
  */
-class DeleteCMSPagesRequest extends Request
+class UpdatePageRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,7 @@ class DeleteCMSPagesRequest extends Request
      */
     public function authorize()
     {
-        return access()->allow('delete-cms-pages');
+        return access()->allow('edit-page');
     }
 
     /**
@@ -27,7 +27,8 @@ class DeleteCMSPagesRequest extends Request
     public function rules()
     {
         return [
-            //
+            'title'       => 'required|max:191',
+            'description' => 'required',
         ];
     }
 }
