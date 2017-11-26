@@ -305,9 +305,23 @@ trait UserAccess
     }
 
     /**
-     * Alias to eloquent many-to-many relation's detach() method.
+     * Detach multiple permissions from current role.
      *
-     * @param mixed $permission
+     * @param mixed $permissions
+     *
+     * @return void
+     */
+    public function detachPermissions($permissions)
+    {
+        foreach ($permissions as $permission) {
+            $this->detachPermission($permission);
+        }
+    }
+
+    /**
+     * Detach permission form current User.
+     *
+     * @param object|array $permission
      *
      * @return void
      */
@@ -321,6 +335,7 @@ trait UserAccess
             $permission = $permission['id'];
         }
 
-        $this->permission()->detach($permission);
+        $this->permissions()->detach($permission);
     }
+
 }

@@ -120,27 +120,26 @@ class UserRepository extends BaseRepository
     public function create($request)
     {
         $data = $request->except('assignees_roles', 'permissions');
-        $roles = $request->all('assignees_roles');
-        $permissions = $request->all('permissions') ? $request->all('permissions') : [];
+        $roles = $request->get('assignees_roles');
+        $permissions = $request->get('permissions');
         $user = $this->createUserStub($data);
 
-        DB::transaction(function () use ($user, $data, $request) {
+        DB::transaction(function () use ($user, $data, $roles, $permissions) {
             // Set email type 2
             $email_type = 2;
 
             if ($user->save()) {
 
                 //User Created, Validate Roles
-                if (!count($request->get('assignees_roles'))) {
+                if (!count($roles)) {
                     throw new GeneralException(trans('exceptions.backend.access.users.role_needed_create'));
                 }
 
                 //Attach new roles
-                $user->attachRoles($request->get('assignees_roles'));
+                $user->attachRoles($roles);
 
                 // Attach New Permissions
-                $user->attachPermissions($request->get('permissions'));
-                //$this->attachPermissions($permissions);
+                $user->attachPermissions($permissions);
 
                 //Send confirmation email if requested and account approval is off
                 if (isset($data['confirmation_email']) && $user->confirmed == 0) {
@@ -148,24 +147,6 @@ class UserRepository extends BaseRepository
                 }
 
                 event(new UserCreated($user));
-
-                //@todo if it is require it can go to event to send notfication
-                //or user laravel 5.5 notification
-
-                //Send confirmation email if requested
-                /*if (isset($data['confirmation_email']) && $user->confirmed == 0) {
-                    // If user needs confirmation then set email type 1
-                    $email_type = 1;
-                    $input['data']['confirmation_code'] = $user->confirmation_code;
-                }
-
-                // Send email to the user
-                $options = [
-                        'data'                => $input['data'],
-                        'email_template_type' => $email_type,
-                    ];
-
-                //createNotification('', 1, 2, $options);*/
 
                 return true;
             }
@@ -176,25 +157,23 @@ class UserRepository extends BaseRepository
 
     /**
      * @param Model $user
-     * @param array $input
+     * @param $request
      *
      * @throws GeneralException
      *
      * @return bool
      */
-    public function update(Model $user, array $input)
+    public function update(Model $user, $request)
     {
-        $data = $input['data'];
-        $roles = $input['roles'];
-
-        $permissions = isset($data['permissions']) ? $data['permissions'] : [];
-        unset($data['permissions']);
+        $data = $request->except('assignees_roles', 'permissions');
+        $roles = $request->get('assignees_roles');
+        $permissions = $request->get('permissions');
 
         $this->checkUserByEmail($data, $user);
 
         DB::transaction(function () use ($user, $data, $roles, $permissions) {
             if ($user->update($data)) {
-                //For whatever reason this just wont work in the above call, so a second is needed for now
+
                 $user->status = isset($data['status']) ? 1 : 0;
                 $user->confirmed = isset($data['confirmed']) ? 1 : 0;
                 $user->save();
@@ -202,22 +181,8 @@ class UserRepository extends BaseRepository
                 $this->checkUserRolesCount($roles);
                 $this->flushRoles($roles, $user);
 
+                $this->flushPermissions($permissions, $user);
                 event(new UserUpdated($user));
-
-                $arrUserPermissions = [];
-                if (isset($permissions) && count($permissions) > 0) {
-                    foreach ($permissions as $permission) {
-                        $arrUserPermissions[] = [
-                            'permission_id' => $permission,
-                            'user_id'       => $user->id,
-                        ];
-                    }
-
-                    // Insert multiple rows at once
-                    DB::table('permission_user')->where('user_id', $user->id)->delete();
-                    DB::table('permission_user')->insert($arrUserPermissions);
-                }
-
                 return true;
             }
 
@@ -383,6 +348,8 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * Flush roles out, then add array of new ones
+     *
      * @param $roles
      * @param $user
      */
@@ -390,7 +357,20 @@ class UserRepository extends BaseRepository
     {
         //Flush roles out, then add array of new ones
         $user->detachRoles($user->roles);
-        $user->attachRoles($roles['assignees_roles']);
+        $user->attachRoles($roles);
+    }
+
+    /**
+     * Flush Permissions out, then add array of new ones
+     *
+     * @param $permissions
+     * @param $user
+     */
+    protected function flushPermissions($permissions, $user)
+    {
+        //Flush roles out, then add array of new ones
+        $user->detachPermissions($user->roles);
+        $user->attachPermissions($permissions);
     }
 
     /**
@@ -402,7 +382,7 @@ class UserRepository extends BaseRepository
     {
         //User Updated, Update Roles
         //Validate that there's at least one role chosen
-        if (count($roles['assignees_roles']) == 0) {
+        if (count($roles) == 0) {
             throw new GeneralException(trans('exceptions.backend.access.users.role_needed'));
         }
     }
