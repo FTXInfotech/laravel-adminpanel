@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Settings\Setting;
 use App\Repositories\Frontend\CMSPages\CMSPagesRepository;
-use Illuminate\Http\Request;
 
 /**
  * Class FrontendController.
