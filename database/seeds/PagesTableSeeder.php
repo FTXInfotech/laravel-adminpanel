@@ -1,9 +1,9 @@
 <?php
 
 use Carbon\Carbon;
+use Database\DisableForeignKeys;
 use Database\TruncateTable;
 use Illuminate\Database\Seeder;
-use Database\DisableForeignKeys;
 use Illuminate\Support\Facades\DB;
 
 class PagesTableSeeder extends Seeder
