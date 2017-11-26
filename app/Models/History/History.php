@@ -3,13 +3,13 @@
 namespace App\Models\History;
 
 use App\Models\History\Traits\Relationship\HistoryRelationship;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 /**
  * Class History
  * package App.
  */
-class History extends Model
+class History extends BaseModel
 {
     use HistoryRelationship;
 

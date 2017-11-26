@@ -3,9 +3,9 @@
 namespace App\Models\Cities;
 
 use App\Models\Cities\Traits\Relationship\CityRelationship;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
-class City extends Model
+class City extends BaseModel
 {
     use CityRelationship;
     /**

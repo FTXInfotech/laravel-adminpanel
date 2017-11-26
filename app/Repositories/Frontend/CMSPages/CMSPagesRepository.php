@@ -5,7 +5,7 @@ namespace App\Repositories\Frontend\CMSPages;
 use App\Exceptions\GeneralException;
 use App\Models\CMSPages\CMSPage;
 use App\Repositories\BaseRepository;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 /**
  * Class CMSPagesRepository.

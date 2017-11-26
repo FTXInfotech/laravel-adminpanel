@@ -3,9 +3,9 @@
 namespace App\Models\States;
 
 use App\Models\States\Traits\Relationship\StateRelationship;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
-class State extends Model
+class State extends BaseModel
 {
     use StateRelationship;
     /**

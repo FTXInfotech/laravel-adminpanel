@@ -2,9 +2,9 @@
 
 namespace App\Models\Notification;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
-class Notification extends Model
+class Notification extends BaseModel
 {
     /**
      * The database table used by the model.

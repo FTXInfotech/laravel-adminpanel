@@ -5,10 +5,10 @@ namespace App\Models\BlogTags;
 use App\Models\BlogTags\Traits\Attribute\BlogTagAttribute;
 use App\Models\BlogTags\Traits\Relationship\BlogTagRelationship;
 use App\Models\ModelTrait;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BlogTag extends Model
+class BlogTag extends BaseModel
 {
     use ModelTrait,
         SoftDeletes,

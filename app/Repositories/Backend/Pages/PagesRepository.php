@@ -9,7 +9,7 @@ use App\Exceptions\GeneralException;
 use App\Models\Page\Page;
 use App\Repositories\BaseRepository;
 use DB;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 /**
  * Class PagesRepository.

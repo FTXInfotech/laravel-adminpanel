@@ -2,9 +2,9 @@
 
 namespace App\Models\Countries;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
-class Country extends Model
+class Country extends BaseModel
 {
     /**
      * The database table used by the model.

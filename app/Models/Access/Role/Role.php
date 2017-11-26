@@ -7,13 +7,13 @@ use App\Models\Access\Role\Traits\Relationship\RoleRelationship;
 use App\Models\Access\Role\Traits\RoleAccess;
 use App\Models\Access\Role\Traits\Scope\RoleScope;
 use App\Models\ModelTrait;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Role.
  */
-class Role extends Model
+class Role extends BaseModel
 {
     use RoleScope,
         ModelTrait,

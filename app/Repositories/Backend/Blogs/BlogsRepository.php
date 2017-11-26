@@ -13,7 +13,7 @@ use App\Models\Blogs\Blog;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
 use DB;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 /**
  * Class BlogsRepository.

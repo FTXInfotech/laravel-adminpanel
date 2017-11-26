@@ -9,7 +9,7 @@ use App\Exceptions\GeneralException;
 use App\Models\BlogCategories\BlogCategory;
 use App\Repositories\BaseRepository;
 use DB;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 /**
  * Class BlogCategoriesRepository.

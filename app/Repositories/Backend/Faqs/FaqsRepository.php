@@ -5,7 +5,7 @@ namespace App\Repositories\Backend\Faqs;
 use App\Exceptions\GeneralException;
 use App\Models\Faqs\Faq;
 use App\Repositories\BaseRepository;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 /**
  * Class FaqsRepository.

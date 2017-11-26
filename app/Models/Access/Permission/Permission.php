@@ -5,13 +5,13 @@ namespace App\Models\Access\Permission;
 use App\Models\Access\Permission\Traits\Attribute\PermissionAttribute;
 use App\Models\Access\Permission\Traits\Relationship\PermissionRelationship;
 use App\Models\ModelTrait;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Permission.
  */
-class Permission extends Model
+class Permission extends BaseModel
 {
     use ModelTrait,
         SoftDeletes,

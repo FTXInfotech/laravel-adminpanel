@@ -2,13 +2,13 @@
 
 namespace App\Models\System;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 /**
  * Class Session
  * package App.
  */
-class Session extends Model
+class Session extends BaseModel
 {
     /**
      * The database table used by the model.

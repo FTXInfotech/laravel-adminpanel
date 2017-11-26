@@ -14,7 +14,7 @@ use App\Exceptions\GeneralException;
 use App\Models\Access\User\User;
 use App\Repositories\Backend\Access\Role\RoleRepository;
 use App\Repositories\BaseRepository;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
