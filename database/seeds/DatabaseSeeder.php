@@ -23,8 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EmailTemplatePlaceholderTableSeeder::class);
         $this->call(EmailTemplateTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
-        $this->call(CountryTableSeeder::class);
-        $this->call(StateTableSeeder::class);
         $this->call(PagesTableSeeder::class);
 
         Model::reguard();
