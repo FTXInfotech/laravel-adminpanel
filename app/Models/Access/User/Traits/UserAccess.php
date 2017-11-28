@@ -89,7 +89,6 @@ trait UserAccess
     public function allow($nameOrId)
     {
         /*
-         * Author : Vaishal Gandhi
          *
          * Update for this function due to issue of user custom permission
          */
@@ -117,7 +116,6 @@ trait UserAccess
             }
 
             /*
-             * Author : Vaishal Gandhi
              *
              * below code is commented due to issue of user custom permisssion
              * if this code is not commented then if user dont have permission of one module but role which is assigned to that user have that permission than allow() method return true
@@ -270,5 +268,73 @@ trait UserAccess
         foreach ($roles as $role) {
             $this->detachRole($role);
         }
+    }
+
+    /**
+     * Attach multiple Permissions to a user.
+     *
+     * @param mixed $permissions
+     *
+     * @return void
+     */
+    public function attachPermissions($permissions)
+    {
+        foreach ($permissions as $permission) {
+            $this->attachPermission($permission);
+        }
+    }
+
+    /**
+     * Alias to eloquent many-to-many relation's attach() method.
+     *
+     * @param mixed $permission
+     *
+     * @return void
+     */
+    public function attachPermission($permission)
+    {
+        if (is_object($permission)) {
+            $permission = $permission->getKey();
+        }
+
+        if (is_array($permission)) {
+            $permission = $permission['id'];
+        }
+
+        $this->permissions()->attach($permission);
+    }
+
+    /**
+     * Detach multiple permissions from current role.
+     *
+     * @param mixed $permissions
+     *
+     * @return void
+     */
+    public function detachPermissions($permissions)
+    {
+        foreach ($permissions as $permission) {
+            $this->detachPermission($permission);
+        }
+    }
+
+    /**
+     * Detach permission form current User.
+     *
+     * @param object|array $permission
+     *
+     * @return void
+     */
+    public function detachPermission($permission)
+    {
+        if (is_object($permission)) {
+            $permission = $permission->getKey();
+        }
+
+        if (is_array($permission)) {
+            $permission = $permission['id'];
+        }
+
+        $this->permissions()->detach($permission);
     }
 }

@@ -4,8 +4,6 @@
  * All route names are prefixed with 'admin.'.
  */
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-Route::post('/get/states', 'DashboardController@getStates')->name('get.states');
-Route::post('/get/cities', 'DashboardController@getCities')->name('get.cities');
 Route::post('get-permission', 'DashboardController@getPermissionByRole')->name('get.permission');
 
 /*
@@ -21,16 +19,6 @@ Route::patch('profile/update', 'DashboardController@updateProfile')
 Route::any('generateSlug', function (\Illuminate\Http\Request $request) {
     return str_slug($request['text']);
 })->name('generate.slug');
-
-/*
- * CMS Pages Management
- */
-Route::group(['namespace' => 'CMSPages'], function () {
-    Route::resource('cmspages', 'CMSPagesController', ['except' => ['show']]);
-
-    //For DataTables
-    Route::post('cmspages/get', 'CMSPagesTableController')->name('cmspages.get');
-});
 
 /*
  * Email Templates Management

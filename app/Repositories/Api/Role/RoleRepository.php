@@ -4,7 +4,6 @@ namespace App\Repositories\Api\Role;
 
 use App\Models\Access\Role\Role;
 use App\Repositories\BaseRepository;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class RoleRepository.

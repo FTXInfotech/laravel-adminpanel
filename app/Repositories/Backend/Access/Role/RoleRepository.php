@@ -8,7 +8,6 @@ use App\Events\Backend\Access\Role\RoleUpdated;
 use App\Exceptions\GeneralException;
 use App\Models\Access\Role\Role;
 use App\Repositories\BaseRepository;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 /**

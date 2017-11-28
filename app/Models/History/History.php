@@ -2,14 +2,14 @@
 
 namespace App\Models\History;
 
+use App\Models\BaseModel;
 use App\Models\History\Traits\Relationship\HistoryRelationship;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class History
  * package App.
  */
-class History extends Model
+class History extends BaseModel
 {
     use HistoryRelationship;
 

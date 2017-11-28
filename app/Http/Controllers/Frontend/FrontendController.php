@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cities\City;
 use App\Models\Settings\Setting;
-use App\Models\States\State;
 use App\Repositories\Frontend\CMSPages\CMSPagesRepository;
-use Illuminate\Http\Request;
 
 /**
  * Class FrontendController.
@@ -31,42 +28,6 @@ class FrontendController extends Controller
     public function macros()
     {
         return view('frontend.macros');
-    }
-
-    /**
-     * Used to get the states of default country.
-     *
-     * @param Request $request
-     *
-     * @return JSON
-     */
-    public function getStates(Request $request)
-    {
-        $states = State::where('country_id', config('access.constants.default_country'))
-            ->pluck('state', 'id')->toArray();
-
-        return [
-            'status' => 'state',
-            'data'   => $states,
-        ];
-    }
-
-    /**
-     * Used to get the cities of selected state.
-     *
-     * @param Request $request
-     *
-     * @return JSON
-     */
-    public function getCities(Request $request)
-    {
-        $cities = City::where('state_id', $request->stateId)->pluck('city', 'id')
-            ->toArray();
-
-        return [
-            'status' => 'city',
-            'data'   => $cities,
-        ];
     }
 
     /**

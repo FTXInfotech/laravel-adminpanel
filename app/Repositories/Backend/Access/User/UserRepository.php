@@ -14,7 +14,6 @@ use App\Exceptions\GeneralException;
 use App\Models\Access\User\User;
 use App\Repositories\Backend\Access\Role\RoleRepository;
 use App\Repositories\BaseRepository;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -29,6 +28,11 @@ class UserRepository extends BaseRepository
     const MODEL = User::class;
 
     /**
+     * @var User Model
+     */
+    protected $model;
+
+    /**
      * @var RoleRepository
      */
     protected $role;
@@ -36,43 +40,10 @@ class UserRepository extends BaseRepository
     /**
      * @param RoleRepository $role
      */
-    public function __construct(RoleRepository $role)
+    public function __construct(User $model, RoleRepository $role)
     {
+        $this->model = $model;
         $this->role = $role;
-    }
-
-    /**
-     * @param        $permissions
-     * @param string $by
-     *
-     * @return mixed
-     */
-    public function getByPermission($permissions, $by = 'name')
-    {
-        if (!is_array($permissions)) {
-            $permissions = [$permissions];
-        }
-
-        return $this->query()->whereHas('roles.permissions', function ($query) use ($permissions, $by) {
-            $query->whereIn('permissions.'.$by, $permissions);
-        })->get();
-    }
-
-    /**
-     * @param        $roles
-     * @param string $by
-     *
-     * @return mixed
-     */
-    public function getByRole($roles, $by = 'name')
-    {
-        if (!is_array($roles)) {
-            $roles = [$roles];
-        }
-
-        return $this->query()->whereHas('roles', function ($query) use ($roles, $by) {
-            $query->whereIn('roles.'.$by, $roles);
-        })->get();
     }
 
     /**
@@ -113,60 +84,40 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param Model $input
+     * Create User.
+     *
+     * @param Model $request
      */
-    public function create($input)
+    public function create($request)
     {
-        $data = $input['data'];
-        $roles = $input['roles'];
-
-        $permissions = isset($data['permissions']) ? $data['permissions'] : [];
-        unset($data['permissions']);
-
+        $data = $request->except('assignees_roles', 'permissions');
+        $roles = $request->get('assignees_roles');
+        $permissions = $request->get('permissions');
         $user = $this->createUserStub($data);
 
-        DB::transaction(function () use ($user, $data, $roles, $permissions, $input) {
+        DB::transaction(function () use ($user, $data, $roles, $permissions) {
             // Set email type 2
             $email_type = 2;
 
             if ($user->save()) {
 
                 //User Created, Validate Roles
-                if (!count($roles['assignees_roles'])) {
+                if (!count($roles)) {
                     throw new GeneralException(trans('exceptions.backend.access.users.role_needed_create'));
                 }
 
                 //Attach new roles
-                $user->attachRoles($roles['assignees_roles']);
+                $user->attachRoles($roles);
 
-                //Send confirmation email if requested
+                // Attach New Permissions
+                $user->attachPermissions($permissions);
+
+                //Send confirmation email if requested and account approval is off
                 if (isset($data['confirmation_email']) && $user->confirmed == 0) {
-                    // If user needs confirmation then set email type 1
-                    $email_type = 1;
-                    $input['data']['confirmation_code'] = $user->confirmation_code;
+                    $user->notify(new UserNeedsConfirmation($user->confirmation_code));
                 }
 
                 event(new UserCreated($user));
-
-                $arrUserPermissions = [];
-                if (isset($permissions) && count($permissions) > 0) {
-                    foreach ($permissions as $permission) {
-                        $arrUserPermissions[] = [
-                            'permission_id' => $permission,
-                            'user_id'       => $user->id,
-                        ];
-                    }
-
-                    // Insert multiple rows at once
-                    DB::table('permission_user')->insert($arrUserPermissions);
-                }
-
-                // Send email to the user
-                $options = [
-                        'data'                => $input['data'],
-                        'email_template_type' => $email_type,
-                    ];
-                createNotification('', 1, 2, $options);
 
                 return true;
             }
@@ -177,25 +128,22 @@ class UserRepository extends BaseRepository
 
     /**
      * @param Model $user
-     * @param array $input
+     * @param $request
      *
      * @throws GeneralException
      *
      * @return bool
      */
-    public function update(Model $user, array $input)
+    public function update($user, $request)
     {
-        $data = $input['data'];
-        $roles = $input['roles'];
-
-        $permissions = isset($data['permissions']) ? $data['permissions'] : [];
-        unset($data['permissions']);
+        $data = $request->except('assignees_roles', 'permissions');
+        $roles = $request->get('assignees_roles');
+        $permissions = $request->get('permissions');
 
         $this->checkUserByEmail($data, $user);
 
         DB::transaction(function () use ($user, $data, $roles, $permissions) {
             if ($user->update($data)) {
-                //For whatever reason this just wont work in the above call, so a second is needed for now
                 $user->status = isset($data['status']) ? 1 : 0;
                 $user->confirmed = isset($data['confirmed']) ? 1 : 0;
                 $user->save();
@@ -203,21 +151,8 @@ class UserRepository extends BaseRepository
                 $this->checkUserRolesCount($roles);
                 $this->flushRoles($roles, $user);
 
+                $this->flushPermissions($permissions, $user);
                 event(new UserUpdated($user));
-
-                $arrUserPermissions = [];
-                if (isset($permissions) && count($permissions) > 0) {
-                    foreach ($permissions as $permission) {
-                        $arrUserPermissions[] = [
-                            'permission_id' => $permission,
-                            'user_id'       => $user->id,
-                        ];
-                    }
-
-                    // Insert multiple rows at once
-                    DB::table('permission_user')->where('user_id', $user->id)->delete();
-                    DB::table('permission_user')->insert($arrUserPermissions);
-                }
 
                 return true;
             }
@@ -384,6 +319,8 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * Flush roles out, then add array of new ones.
+     *
      * @param $roles
      * @param $user
      */
@@ -391,7 +328,20 @@ class UserRepository extends BaseRepository
     {
         //Flush roles out, then add array of new ones
         $user->detachRoles($user->roles);
-        $user->attachRoles($roles['assignees_roles']);
+        $user->attachRoles($roles);
+    }
+
+    /**
+     * Flush Permissions out, then add array of new ones.
+     *
+     * @param $permissions
+     * @param $user
+     */
+    protected function flushPermissions($permissions, $user)
+    {
+        //Flush roles out, then add array of new ones
+        $user->detachPermissions($user->roles);
+        $user->attachPermissions($permissions);
     }
 
     /**
@@ -403,7 +353,7 @@ class UserRepository extends BaseRepository
     {
         //User Updated, Update Roles
         //Validate that there's at least one role chosen
-        if (count($roles['assignees_roles']) == 0) {
+        if (count($roles) == 0) {
             throw new GeneralException(trans('exceptions.backend.access.users.role_needed'));
         }
     }
@@ -417,15 +367,8 @@ class UserRepository extends BaseRepository
     {
         $user = self::MODEL;
         $user = new $user();
-        // $user->name = $input['name'];
         $user->first_name = $input['first_name'];
         $user->last_name = $input['last_name'];
-        $user->address = $input['address'];
-        $user->country_id = 1;
-        $user->state_id = $input['state_id'];
-        $user->city_id = $input['city_id'];
-        $user->zip_code = $input['zip_code'];
-        $user->ssn = $input['ssn'];
         $user->email = $input['email'];
         $user->password = bcrypt($input['password']);
         $user->status = isset($input['status']) ? 1 : 0;
@@ -434,5 +377,39 @@ class UserRepository extends BaseRepository
         $user->created_by = access()->user()->id;
 
         return $user;
+    }
+
+    /**
+     * @param $permissions
+     * @param string $by
+     *
+     * @return mixed
+     */
+    public function getByPermission($permissions, $by = 'name')
+    {
+        if (!is_array($permissions)) {
+            $permissions = [$permissions];
+        }
+
+        return $this->query()->whereHas('roles.permissions', function ($query) use ($permissions, $by) {
+            $query->whereIn('permissions.'.$by, $permissions);
+        })->get();
+    }
+
+    /**
+     * @param $roles
+     * @param string $by
+     *
+     * @return mixed
+     */
+    public function getByRole($roles, $by = 'name')
+    {
+        if (!is_array($roles)) {
+            $roles = [$roles];
+        }
+
+        return $this->query()->whereHas('roles', function ($query) use ($roles, $by) {
+            $query->whereIn('roles.'.$by, $roles);
+        })->get();
     }
 }

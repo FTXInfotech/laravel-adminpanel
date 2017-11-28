@@ -50,19 +50,11 @@
                 </ul>
             </li>
             @endauth
-            @role(1)
-            <li class="{{ active_class(Active::checkUriPattern('admin/modules*')) }}">
-                <a href="{{ route('admin.modules.index') }}">
+            @permission('view-page')
+            <li class="{{ active_class(Active::checkUriPattern('admin/pages*')) }}">
+                <a href="{{ route('admin.pages.index') }}">
                     <i class="fa fa-file-text"></i>
-                    <span>{{ trans('labels.backend.modules.title') }}</span>
-                </a>
-            </li>
-            @endauth
-            @permission('view-cms-pages')
-            <li class="{{ active_class(Active::checkUriPattern('admin/cmspages*')) }}">
-                <a href="{{ route('admin.cmspages.index') }}">
-                    <i class="fa fa-file-text"></i>
-                    <span>{{ trans('labels.backend.cmspages.title') }}</span>
+                    <span>{{ trans('labels.backend.pages.title') }}</span>
                 </a>
             </li>
             @endauth
@@ -82,6 +74,12 @@
                 </a>
             </li>
             @endauth
+            <li class="{{ active_class(Active::checkUriPattern('admin/modules*')) }}">
+                <a href="{{ route('admin.modules.index') }}">
+                    <i class="fa fa-gear"></i>
+                    <span>{{ trans('generator::menus.modules.management') }}</span>
+                </a>
+            </li>
             @permission('view-blog')
             <li class="{{ active_class(Active::checkUriPattern('admin/blog*')) }} treeview">
                 <a href="#">
@@ -118,14 +116,6 @@
                 <a href="{{ route('admin.faqs.index')}}">
                     <i class="fa fa-question-circle"></i>
                     <span>{{ trans('labels.backend.faqs.title') }}</span>
-                </a>
-                </li>
-                @endauth
-                @permission('view-menu')
-                <li class="{{ active_class(Active::checkUriPattern('admin/menus*')) }}">
-                <a href="{{ route('admin.menus.index')}}">
-                    <i class="fa fa-align-right"></i>
-                    <span>{{ trans('labels.backend.menus.management') }}</span>
                 </a>
                 </li>
                 @endauth

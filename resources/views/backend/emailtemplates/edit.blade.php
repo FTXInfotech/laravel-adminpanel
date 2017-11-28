@@ -107,6 +107,6 @@
 @endsection
 @section("after-scripts")
     <script type="text/javascript">
-        FinBuilders.emailTemplate.init();
+        Backend.emailTemplate.init();
     </script>
 @endsection

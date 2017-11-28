@@ -2,9 +2,9 @@
 
 namespace App\Models\BlogMapTags;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
-class BlogMapTag extends Model
+class BlogMapTag extends BaseModel
 {
     /**
      * The database table used by the model.

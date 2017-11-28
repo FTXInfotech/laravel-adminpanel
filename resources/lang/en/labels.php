@@ -115,11 +115,11 @@ return [
             ],
         ],
 
-        'cmspages' => [
-            'create'     => 'Create CMS Page',
-            'edit'       => 'Edit CMS Page',
-            'management' => 'CMS Page Management',
-            'title'      => 'CMS Pages',
+        'pages' => [
+            'create'     => 'Create Page',
+            'edit'       => 'Edit Page',
+            'management' => 'Page Management',
+            'title'      => 'Pages',
 
             'table' => [
                 'title'     => 'Title',

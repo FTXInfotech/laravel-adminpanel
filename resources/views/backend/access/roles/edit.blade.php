@@ -82,7 +82,7 @@
     {{ Html::script('js/backend/access/roles/script.js') }}
     <script type="text/javascript">
         $(document).ready(function() {
-            FinBuilders.Access.init();
+            Backend.Access.init();
         });
     </script>
 @endsection

@@ -34,7 +34,7 @@ class UserPasswordController extends Controller
      */
     public function edit(User $user, ManageUserRequest $request)
     {
-        return view('backend.access.change-password')
+        return view('backend.access.users.change-password')
             ->withUser($user);
     }
 

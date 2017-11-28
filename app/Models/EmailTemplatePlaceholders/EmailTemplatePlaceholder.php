@@ -2,9 +2,9 @@
 
 namespace App\Models\EmailTemplatePlaceholders;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
-class EmailTemplatePlaceholder extends Model
+class EmailTemplatePlaceholder extends BaseModel
 {
     /**
      * The database table used by the model.

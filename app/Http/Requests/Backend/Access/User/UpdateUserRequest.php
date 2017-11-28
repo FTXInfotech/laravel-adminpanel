@@ -30,10 +30,6 @@ class UpdateUserRequest extends Request
             'email'      => 'required|email',
             'first_name' => 'required',
             'last_name'  => 'required',
-            'state_id'   => 'required',
-            'city_id'    => 'required',
-            'zip_code'   => 'required|regex:/^[0-9]+$/',
-            'ssn'        => 'required|regex:/^[0-9]+$/|max:9|min:9',
         ];
     }
 
@@ -45,13 +41,6 @@ class UpdateUserRequest extends Request
     public function messages()
     {
         return [
-            'state_id.required' => 'The state field is required.',
-            'city_id.required'  => 'The city field is required.',
-            'ssn.regex'         => 'The SSN field must be 9 digits.',
-            'ssn.min'           => 'The SSN field must be 9 digits.',
-            'ssn.max'           => 'The SSN field must be 9 digits.',
-            'zip_code.regex'    => 'The zip code field must be digit.',
-
         ];
     }
 }

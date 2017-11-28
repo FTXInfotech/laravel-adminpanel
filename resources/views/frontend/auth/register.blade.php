@@ -47,56 +47,12 @@
                         </div><!--col-md-6-->
                     </div><!--form-group-->
 
-                    {{-- address --}}
                     <div class="form-group">
-                        {{ Form::label('address', trans('validation.attributes.frontend.register-user.address'), ['class' => 'col-md-4 control-label']) }}
-                        <div class="col-md-6">
-                            {{ Form::input('textarea', 'address', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.register-user.address'), 'rows' => '3']) }}
-                        </div><!--col-md-6-->
-                    </div><!--form-group-->
-
-                    {{-- state --}}
-                    <div class="form-group">
-                        {{ Form::label('state_id', trans('validation.attributes.frontend.register-user.state').'*', ['class' => 'col-md-4 control-label']) }}
-                        <div class="col-md-6">
-                            {{ Form::select('state_id', [] , null, ['class' => 'form-control select2', 'placeholder' => trans('validation.attributes.frontend.register-user.state'), 'id' => 'state']) }}
-                        </div><!--col-md-6-->
-                    </div><!--form-group-->
-
-                    {{-- city --}}
-                    <div class="form-group">
-                        {{ Form::label('city_id', trans('validation.attributes.frontend.register-user.city').'*', ['class' => 'col-md-4 control-label']) }}
-                        <div class="col-md-6">
-                            {{ Form::select('city_id', [], null, ['class' => 'form-control select2', 'placeholder' => trans('validation.attributes.frontend.register-user.city'), 'id' => 'city']) }}
-                        </div><!--col-md-6-->
-                    </div><!--form-group-->
-
-                    {{-- zipcode --}}
-                    <div class="form-group">
-                        {{ Form::label('zip_code', trans('validation.attributes.frontend.register-user.zipcode').'*', ['class' => 'col-md-4 control-label']) }}
-                        <div class="col-md-6">
-                            {{ Form::input('name', 'zip_code', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.register-user.zipcode')]) }}
-                        </div><!--col-md-6-->
-                    </div><!--form-group-->
-
-                    {{-- SSN --}}
-                    <div class="form-group">
-                        {{ Form::label('ssn', trans('validation.attributes.frontend.register-user.ssn').'*', ['class' => 'col-md-4 control-label']) }}
-                        <div class="col-md-6">
-                            {{ Form::input('name', 'ssn', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.register-user.ssn')]) }}
-                        </div><!--col-md-6-->
-                    </div><!--form-group-->
-                    
-                    <div class="form-group">
-                              
-                           
                             <div class="col-xs-7">
-                               
-
                                <label class="col-md-12 control-label">
                                  {!! Form::checkbox('is_term_accept',1,false) !!}
                                  I accept {!! link_to_route('frontend.cmspages.show', trans('validation.attributes.frontend.register-user.terms_and_conditions').'*', ['page_slug'=>'terms-and-conditions']) !!} </label>
-                            
+
                          </div><!--form-group-->
                     </div><!--col-md-6-->
 
@@ -135,62 +91,7 @@
 
         $(document).ready(function() {
             // To Use Select2
-            FinBuilders.Select2.init();
-            
-            //Getting States of default contry
-            ajaxCall("{{route('frontend.get.states')}}");
-
-            var old_state = "{{ old('state_id') }}";
-            var old_city = "{{ old('city_id') }}";
-
-            if(old_state != '')
-            {
-                ajaxCall("{{route('frontend.get.states')}}");
-            }
-
-            //Getting Cities of select State
-            $("#state").on("change", function() {
-                var stateId = $(this).val();
-                var url = "{{route('frontend.get.cities')}}";
-                ajaxCall(url, stateId);
-            });
-
-            function ajaxCall(url, data = null)
-            {
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: {stateId: data},
-                    success: function(result) {
-                        if(result != null)
-                        {
-                            var options;
-                            $.each(result.data, function(key, value) {
-                                options += "<option value='" + key + "'>" + value + "</option>";
-                            });
-                            if(result.status == "city")
-                            {
-                                $("#city").html('');
-                                $("#city").append(options);
-
-                                if(old_city != '')
-                                {
-                                    $("#city").val(old_city).trigger('change');
-                                }
-                            }
-                            else
-                            {
-                                $("#state").append(options);
-
-                                if(old_state != '')
-                                {
-                                    $("#state").val(old_state).trigger('change');
-                                }
-                            }
-                        }
-                    }
-                });
-            }
+            Backend.Select2.init();
         });
     </script>
 @endsection

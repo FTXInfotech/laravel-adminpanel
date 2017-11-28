@@ -89,12 +89,6 @@ class UserRepository extends BaseRepository
         $user = new $user();
         $user->first_name = $data['first_name'];
         $user->last_name = $data['last_name'];
-        $user->address = $data['address'];
-        $user->state_id = $data['state_id'];
-        $user->country_id = config('access.constants.default_country');
-        $user->city_id = $data['city_id'];
-        $user->zip_code = $data['zip_code'];
-        $user->ssn = $data['ssn'];
         $user->email = $data['email'];
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
         $user->status = 1;

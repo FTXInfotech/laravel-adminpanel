@@ -9,7 +9,6 @@ use App\Exceptions\GeneralException;
 use App\Models\BlogTags\BlogTag;
 use App\Repositories\BaseRepository;
 use DB;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class BlogTagsRepository.

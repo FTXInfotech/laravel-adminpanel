@@ -2,13 +2,13 @@
 
 namespace App\Models\History;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 /**
  * Class HistoryType
  * package App.
  */
-class HistoryType extends Model
+class HistoryType extends BaseModel
 {
     /**
      * The database table used by the model.

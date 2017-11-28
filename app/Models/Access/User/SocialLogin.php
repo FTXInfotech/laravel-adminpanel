@@ -2,12 +2,12 @@
 
 namespace App\Models\Access\User;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
 /**
  * Class SocialLogin.
  */
-class SocialLogin extends Model
+class SocialLogin extends BaseModel
 {
     /**
      * The database table used by the model.

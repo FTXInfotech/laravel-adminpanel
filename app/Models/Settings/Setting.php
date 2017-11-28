@@ -2,9 +2,9 @@
 
 namespace App\Models\Settings;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
-class Setting extends Model
+class Setting extends BaseModel
 {
     /**
      * The database table used by the model.
