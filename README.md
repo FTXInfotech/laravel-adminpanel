@@ -1,6 +1,9 @@
 # laravel-adminpanel
-[![License](https://img.shields.io/badge/License-MIT-red.svg)](https://github.com/viralsolani/laravel-adminpanel/blob/master/LICENSE.txt)
-[![StyleCI](https://styleci.io/repos/30171828/shield?style=plastic)](https://styleci.io/repos/105789824/shield?style=plastic)
+[![GitHub license](https://img.shields.io/github/license/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/blob/master/LICENSE.txt)
+[![GitHub stars](https://img.shields.io/github/stars/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/network)
+[![GitHub issues](https://img.shields.io/github/issues/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/issues)
+![StyleCI](https://img.shields.io/badge/styleCI-passed-brightgreen.svg?style=plastic)
 
 
 ## Introduction
