@@ -8,7 +8,7 @@ require __DIR__.'/Search.php';
 require __DIR__.'/Access/User.php';
 require __DIR__.'/Access/Role.php';
 require __DIR__.'/Access/Permission.php';
-require __DIR__.'/CMS_Page.php';
+require __DIR__.'/Page.php';
 require __DIR__.'/Email_Template.php';
 require __DIR__.'/Setting.php';
 require __DIR__.'/Blog_Category.php';
