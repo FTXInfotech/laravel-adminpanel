@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use Validator;
-use App\Models\User\User;
-use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
+use App\Models\User\User;
 use App\Repositories\Backend\Access\User\UserRepository;
+use Illuminate\Http\Request;
+use Validator;
 
 class UsersController extends APIController
 {
