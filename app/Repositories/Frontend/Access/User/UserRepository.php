@@ -5,13 +5,13 @@ namespace App\Repositories\Frontend\Access\User;
 use App\Events\Frontend\Auth\UserConfirmed;
 use App\Exceptions\GeneralException;
 use App\Models\Access\User\SocialLogin;
-use Illuminate\Support\Str;
 use App\Models\Access\User\User;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 use App\Repositories\Backend\Access\Role\RoleRepository;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 /**
  * Class UserRepository.

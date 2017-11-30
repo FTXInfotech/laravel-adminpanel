@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use Validator;
 use App\Models\User\User;
-use Illuminate\Http\Request;
-use App\Repositories\Frontend\Access\User\UserRepository;
 use App\Notifications\Frontend\Auth\UserNeedsPasswordReset;
-
+use App\Repositories\Frontend\Access\User\UserRepository;
+use Illuminate\Http\Request;
+use Validator;
 
 class ForgotPasswordController extends APIController
 {
