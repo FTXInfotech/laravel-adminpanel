@@ -61,11 +61,6 @@ return [
     'cities_table' => 'cities',
 
     /*
-     * cmspages table used to store cmspages
-     */
-    'pages_table' => 'pages',
-
-    /*
      * email template placeholders table used to store email template placeholders
      */
     'email_template_placeholders_table' => 'email_template_placeholders',

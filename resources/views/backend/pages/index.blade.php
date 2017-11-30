@@ -74,10 +74,10 @@
                     type: 'post'
                 },
                 columns: [
-                    {data: 'title', name: '{{config('access.pages_table')}}.title'},
-                    {data: 'status', name: '{{config('access.pages_table')}}.status'},
-                    {data: 'created_at', name: '{{config('access.pages_table')}}.created_at'},
-                    {data: 'updated_at', name: '{{config('access.pages_table')}}.updated_at'},
+                    {data: 'title', name: '{{config('module.pages.table')}}.title'},
+                    {data: 'status', name: '{{config('module.pages.table')}}.status'},
+                    {data: 'created_at', name: '{{config('module.pages.table')}}.created_at'},
+                    {data: 'updated_at', name: '{{config('module.pages.table')}}.updated_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],
                 order: [[3, "asc"]],

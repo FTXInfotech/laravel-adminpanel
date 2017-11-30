@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    {{ Form::model($cmspage, ['route' => ['admin.pages.update', $cmspage], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH', 'id' => 'edit-role']) }}
+    {{ Form::model($page, ['route' => ['admin.pages.update', $page], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH', 'id' => 'edit-role']) }}
 
         <div class="box box-success">
             <div class="box-header with-border">
@@ -76,7 +76,7 @@
                     <div class="col-lg-10">
                         <div class="control-group">
                             <label class="control control--checkbox">
-                                {{ Form::checkbox('status', 1, ($cmspage->status == 1) ? true : false ) }}
+                                {{ Form::checkbox('status', 1, ($page->status == 1) ? true : false ) }}
                                 <div class="control__indicator"></div>
                             </label>
                         </div>
