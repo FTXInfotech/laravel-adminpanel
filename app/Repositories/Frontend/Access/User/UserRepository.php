@@ -5,6 +5,7 @@ namespace App\Repositories\Frontend\Access\User;
 use App\Events\Frontend\Auth\UserConfirmed;
 use App\Exceptions\GeneralException;
 use App\Models\Access\User\SocialLogin;
+use Illuminate\Support\Str;
 use App\Models\Access\User\User;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 use App\Repositories\Backend\Access\Role\RoleRepository;
@@ -285,5 +286,22 @@ class UserRepository extends BaseRepository
         }
 
         throw new GeneralException(trans('exceptions.frontend.auth.password.change_mismatch'));
+    }
+
+    /**
+     * Create a new token for the user.
+     *
+     * @return string
+     */
+    public function createNewToken()
+    {
+        $token = hash_hmac('sha256', Str::random(40), 'hashKey');
+
+        \DB::table('password_resets')->insert([
+            'email' => request('email'),
+            'token' => $token,
+        ]);
+
+        return $token;
     }
 }
