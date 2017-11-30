@@ -33,7 +33,7 @@ class APIController extends Controller
      *
      * @param [type] $statusCode [description]
      *
-     * @return mix
+     * @return statuscode
      */
     public function setStatusCode($statusCode)
     {
@@ -43,36 +43,12 @@ class APIController extends Controller
     }
 
     /**
-     * responsd not found.
-     *
-     * @param string $message
-     *
-     * @return mix
-     */
-    public function respondNotFound($message = 'Not Found')
-    {
-        return $this->setStatusCode(IlluminateResponse::HTTP_NOT_FOUND)->respondWithError($message);
-    }
-
-    /**
-     * Respond with error.
-     *
-     * @param string $message
-     *
-     * @return mix
-     */
-    public function respondInternalError($message = 'Internal Error')
-    {
-        return $this->setStatusCode('500')->respondWithError($message);
-    }
-
-    /**
      * Respond.
      *
      * @param array $data
      * @param array $headers
      *
-     * @return mix
+     * @return \Illuminate\Http\JsonResponse
      */
     public function respond($data, $headers = [])
     {
@@ -85,7 +61,7 @@ class APIController extends Controller
      * @param Paginator $items
      * @param array     $data
      *
-     * @return mix
+     * @return \Illuminate\Http\JsonResponse
      */
     public function respondWithPagination($items, $data)
     {
@@ -102,11 +78,37 @@ class APIController extends Controller
     }
 
     /**
+     * Respond Created.
+     *
+     * @param string $message
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondCreated($data)
+    {
+        return $this->setStatusCode(201)->respond([
+            'data' => $data,
+        ]);
+    }
+
+    /**
+     * Respond Created with data.
+     *
+     * @param string $message
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondCreatedWithData($data)
+    {
+        return $this->setStatusCode(201)->respond($data);
+    }
+
+    /**
      * respond with error.
      *
      * @param $message
      *
-     * @return mix
+     * @return \Illuminate\Http\JsonResponse
      */
     public function respondWithError($message)
     {
@@ -119,17 +121,61 @@ class APIController extends Controller
     }
 
     /**
-     * Respond Created.
+     * responsd not found.
      *
      * @param string $message
      *
-     * @return mix
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function respondCreated($message)
+    public function respondNotFound($message = 'Not Found')
     {
-        return $this->setStatusCode(201)->respond([
-            'message' => $message,
-        ]);
+        return $this->setStatusCode(IlluminateResponse::HTTP_NOT_FOUND)->respondWithError($message);
+    }
+
+    /**
+     * Respond with error.
+     *
+     * @param string $message
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondInternalError($message = 'Internal Error')
+    {
+        return $this->setStatusCode(500)->respondWithError($message);
+    }
+
+    /**
+     * Respond with unauthorized.
+     *
+     * @param string $message
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondUnauthorized($message = 'Unauthorized')
+    {
+        return $this->setStatusCode(401)->respondWithError($message);
+    }
+
+    /**
+     * Respond with forbidden.
+     *
+     * @param string $message
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondForbidden($message = 'Forbidden')
+    {
+        return $this->setStatusCode(403)->respondWithError($message);
+    }
+
+    /**
+     * Respond with no content.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithNoContent()
+    {
+        return $this->setStatusCode(204)->respond(null);
     }
 
     /**
