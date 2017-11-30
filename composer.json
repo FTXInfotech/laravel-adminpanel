@@ -22,6 +22,7 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.5.0",
         "tymon/jwt-auth": "dev-develop",
+        "unisharp/laravel-filemanager": "~1.8",
         "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {

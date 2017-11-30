@@ -50,8 +50,17 @@ return [
             'charset'     => 'utf8mb4',
             'collation'   => 'utf8mb4_unicode_ci',
             'prefix'      => '',
-            'strict'      => true,
+            'strict'      => false, //If you set strict to true, then make sure to enable which modes you want to enable by looking at 'modes' key in this config
             'engine'      => null,
+            'modes'       => [
+                // "ONLY_FULL_GROUP_BY",
+                // "STRICT_TRANS_TABLES",
+                // "NO_ZERO_IN_DATE",
+                // "NO_ZERO_DATE",
+                // "ERROR_FOR_DIVISION_BY_ZERO",
+                // "NO_AUTO_CREATE_USER",
+                // "NO_ENGINE_SUBSTITUTION",   
+            ]
         ],
 
         'pgsql' => [
