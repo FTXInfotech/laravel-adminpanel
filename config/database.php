@@ -59,8 +59,8 @@ return [
                 // "NO_ZERO_DATE",
                 // "ERROR_FOR_DIVISION_BY_ZERO",
                 // "NO_AUTO_CREATE_USER",
-                // "NO_ENGINE_SUBSTITUTION",   
-            ]
+                // "NO_ENGINE_SUBSTITUTION",
+            ],
         ],
 
         'pgsql' => [
