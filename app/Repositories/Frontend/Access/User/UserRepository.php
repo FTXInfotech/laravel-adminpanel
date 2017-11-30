@@ -95,7 +95,6 @@ class UserRepository extends BaseRepository
         $user->password = $provider ? null : bcrypt($data['password']);
         $user->confirmed = $provider ? 1 : (config('access.users.confirm_email') ? 0 : 1);
         $user->is_term_accept = $data['is_term_accept'];
-        $user->created_by = 1;
 
         DB::transaction(function () use ($user) {
             if ($user->save()) {
