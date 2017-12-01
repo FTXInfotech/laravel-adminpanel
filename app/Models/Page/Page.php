@@ -4,8 +4,8 @@ namespace App\Models\Page;
 
 use App\Models\BaseModel;
 use App\Models\ModelTrait;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Page\Traits\Attribute\PageAttribute;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Page extends BaseModel
 {
@@ -26,7 +26,7 @@ class Page extends BaseModel
      * The guarded field which are not mass assignable.
      *
      * @var array
-    */
+     */
     protected $guarded = ['id'];
 
     public function __construct(array $attributes = [])

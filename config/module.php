@@ -1,7 +1,7 @@
 <?php
 
 return [
-	'pages' => [
-		'table' => 'pages'
-	]
+    'pages' => [
+        'table' => 'pages',
+    ],
 ];

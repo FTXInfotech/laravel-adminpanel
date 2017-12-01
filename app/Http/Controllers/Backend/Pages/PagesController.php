@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Backend\Pages;
 
-use App\Models\Page\Page;
 use App\Http\Controllers\Controller;
-use App\Repositories\Backend\Pages\PagesRepository;
-use App\Http\Requests\Backend\Pages\EditPageRequest;
-use App\Http\Requests\Backend\Pages\StorePageRequest;
 use App\Http\Requests\Backend\Pages\CreatePageRequest;
 use App\Http\Requests\Backend\Pages\DeletePageRequest;
+use App\Http\Requests\Backend\Pages\EditPageRequest;
 use App\Http\Requests\Backend\Pages\ManagePageRequest;
+use App\Http\Requests\Backend\Pages\StorePageRequest;
 use App\Http\Requests\Backend\Pages\UpdatePageRequest;
+use App\Models\Page\Page;
+use App\Repositories\Backend\Pages\PagesRepository;
 
 /**
  * Class PagesController.
@@ -63,7 +63,7 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \App\Models\Page\Page $page
+     * @param \App\Models\Page\Page                            $page
      * @param \App\Http\Requests\Backend\Pages\EditPageRequest $request
      *
      * @return mixed
@@ -75,7 +75,7 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \App\Models\Page\Page $page
+     * @param \App\Models\Page\Page                              $page
      * @param \App\Http\Requests\Backend\Pages\UpdatePageRequest $request
      *
      * @return mixed
@@ -88,7 +88,7 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \App\Models\Page\Page $page
+     * @param \App\Models\Page\Page                              $page
      * @param \App\Http\Requests\Backend\Pages\DeletePageRequest $request
      *
      * @return mixed
