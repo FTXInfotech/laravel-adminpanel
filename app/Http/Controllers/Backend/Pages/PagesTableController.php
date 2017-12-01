@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Backend\Pages;
 
-use Carbon\Carbon;
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\Pages\PagesRepository;
 use App\Http\Requests\Backend\Pages\ManagePageRequest;
+use App\Repositories\Backend\Pages\PagesRepository;
+use Carbon\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Class PagesTableController.

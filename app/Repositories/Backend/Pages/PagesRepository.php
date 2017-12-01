@@ -2,12 +2,12 @@
 
 namespace App\Repositories\Backend\Pages;
 
-use App\Models\Page\Page;
-use App\Exceptions\GeneralException;
-use App\Repositories\BaseRepository;
 use App\Events\Backend\Pages\PageCreated;
 use App\Events\Backend\Pages\PageDeleted;
 use App\Events\Backend\Pages\PageUpdated;
+use App\Exceptions\GeneralException;
+use App\Models\Page\Page;
+use App\Repositories\BaseRepository;
 
 /**
  * Class PagesRepository.
@@ -46,14 +46,15 @@ class PagesRepository extends BaseRepository
         if ($this->query()->where('title', $input['title'])->first()) {
             throw new GeneralException(trans('exceptions.backend.pages.already_exists'));
         }
-    
+
         //Making extra fields
         $input['page_slug'] = str_slug($input['title']);
         $input['status'] = isset($input['status']) ? 1 : 0;
         $input['created_by'] = access()->user()->id;
-    
-        if( $page = Page::create($input) ) {
+
+        if ($page = Page::create($input)) {
             event(new PageCreated($page));
+
             return true;
         }
 
@@ -62,7 +63,7 @@ class PagesRepository extends BaseRepository
 
     /**
      * @param \App\Models\Page\Page $page
-     * @param  array $input
+     * @param array                 $input
      *
      * @throws \App\Exceptions\GeneralException
      *
@@ -79,12 +80,12 @@ class PagesRepository extends BaseRepository
         $input['status'] = isset($input['status']) ? 1 : 0;
         $input['updated_by'] = access()->user()->id;
 
-        if ( $page->update($input) ) {
+        if ($page->update($input)) {
             event(new PageUpdated($page));
 
             return true;
         }
-        
+
         throw new GeneralException(trans('exceptions.backend.pages.update_error'));
     }
 
@@ -97,7 +98,7 @@ class PagesRepository extends BaseRepository
      */
     public function delete($page)
     {
-        if ( $page->delete() ) {
+        if ($page->delete()) {
             event(new PageDeleted($page));
 
             return true;
