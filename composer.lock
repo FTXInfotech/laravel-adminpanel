@@ -4915,16 +4915,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "6.4.4",
+            "version": "6.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "562f7dc75d46510a4ed5d16189ae57fbe45a9932"
+                "reference": "8eea3cfbfe3c8363f8111e24569bdb6ead71ea6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/562f7dc75d46510a4ed5d16189ae57fbe45a9932",
-                "reference": "562f7dc75d46510a4ed5d16189ae57fbe45a9932",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8eea3cfbfe3c8363f8111e24569bdb6ead71ea6e",
+                "reference": "8eea3cfbfe3c8363f8111e24569bdb6ead71ea6e",
                 "shasum": ""
             },
             "require": {
@@ -4938,12 +4938,12 @@
                 "phar-io/version": "^1.0",
                 "php": "^7.0",
                 "phpspec/prophecy": "^1.7",
-                "phpunit/php-code-coverage": "^5.2.2",
-                "phpunit/php-file-iterator": "^1.4.2",
+                "phpunit/php-code-coverage": "^5.2.3",
+                "phpunit/php-file-iterator": "^1.4.3",
                 "phpunit/php-text-template": "^1.2.1",
                 "phpunit/php-timer": "^1.0.9",
-                "phpunit/phpunit-mock-objects": "^4.0.3",
-                "sebastian/comparator": "^2.0.2",
+                "phpunit/phpunit-mock-objects": "^5.0",
+                "sebastian/comparator": "^2.1",
                 "sebastian/diff": "^2.0",
                 "sebastian/environment": "^3.1",
                 "sebastian/exporter": "^3.1",
@@ -4969,7 +4969,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.4.x-dev"
+                    "dev-master": "6.5.x-dev"
                 }
             },
             "autoload": {
@@ -4995,20 +4995,20 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-11-08T11:26:09+00:00"
+            "time": "2017-12-01T09:57:23+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "4.0.4",
+            "version": "5.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "2f789b59ab89669015ad984afa350c4ec577ade0"
+                "reference": "a58b8fc03ca12d8bf6122ea942bc72c99c7cda4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/2f789b59ab89669015ad984afa350c4ec577ade0",
-                "reference": "2f789b59ab89669015ad984afa350c4ec577ade0",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/a58b8fc03ca12d8bf6122ea942bc72c99c7cda4a",
+                "reference": "a58b8fc03ca12d8bf6122ea942bc72c99c7cda4a",
                 "shasum": ""
             },
             "require": {
@@ -5021,7 +5021,7 @@
                 "phpunit/phpunit": "<6.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.0"
+                "phpunit/phpunit": "^6.5"
             },
             "suggest": {
                 "ext-soap": "*"
@@ -5029,7 +5029,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0.x-dev"
+                    "dev-master": "5.0.x-dev"
                 }
             },
             "autoload": {
@@ -5044,7 +5044,7 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sb@sebastian-bergmann.de",
+                    "email": "sebastian@phpunit.de",
                     "role": "lead"
                 }
             ],
@@ -5054,7 +5054,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2017-08-03T14:08:16+00:00"
+            "time": "2017-12-01T16:12:08+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
