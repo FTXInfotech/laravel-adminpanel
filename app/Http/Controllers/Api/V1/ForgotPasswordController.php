@@ -43,7 +43,7 @@ class ForgotPasswordController extends APIController
             return $this->respondNotFound(trans('api.messages.forgot_password.validation.email_not_found'));
         }
 
-        $token = $this->repository->createNewToken();
+        $token = $this->repository->saveToken();
 
         $user->notify(new UserNeedsPasswordReset($token));
 
