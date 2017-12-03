@@ -15,7 +15,6 @@ trait EmailTemplateAttribute
         return '<div class="btn-group action-btn">'.$this->getEditButtonAttribute('edit-email-template', 'admin.emailtemplates.edit').'</div>';
     }
 
-    
     /**
      * @return string
      */
