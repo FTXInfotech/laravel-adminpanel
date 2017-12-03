@@ -19,7 +19,7 @@ class EmailTemplatesTableController extends Controller
     protected $emailtemplates;
 
     /**
-     * @param EmailTemplatesRepository $emailtemplates
+     * @param \App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository $emailtemplates
      */
     public function __construct(EmailTemplatesRepository $emailtemplates)
     {
@@ -27,7 +27,7 @@ class EmailTemplatesTableController extends Controller
     }
 
     /**
-     * @param ManageEmailTemplatesRequest $request
+     * @param \App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest $request
      *
      * @return mixed
      */
@@ -36,11 +36,7 @@ class EmailTemplatesTableController extends Controller
         return Datatables::of($this->emailtemplates->getForDataTable())
             ->escapeColumns(['title'])
             ->addColumn('status', function ($emailtemplates) {
-                if ($emailtemplates->status) {
-                    return '<span class="label label-success">Active</span>';
-                }
-
-                return '<span class="label label-danger">Inactive</span>';
+                return $emailtemplates->status_label;
             })
             ->addColumn('created_at', function ($emailtemplates) {
                 return Carbon::parse($emailtemplates->created_at)->toDateString();

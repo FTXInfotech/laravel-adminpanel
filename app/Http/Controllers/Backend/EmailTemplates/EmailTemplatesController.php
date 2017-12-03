@@ -23,9 +23,9 @@ class EmailTemplatesController extends Controller
     protected $emailtemplates;
 
     /**
-     * Setting the EmailTemplatesRepository instance to class variable.
+     * __construct
      *
-     * @param EmailTemplatesRepository $emailtemplates
+     * @param \App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository $emailtemplates
      */
     public function __construct(EmailTemplatesRepository $emailtemplates)
     {
@@ -33,9 +33,7 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * Use to load index view of EmailTmplates.
-     *
-     * @param ManageEmailTemplatesRequest $request
+     * @param \App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest $request
      *
      * @return mixed
      */
@@ -45,18 +43,16 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * Use to load edit form of Emailtemplate.
-     *
-     * @param EmailTemplate             $emailtemplate
-     * @param EditEmailTemplatesRequest $request
+     * @param \App\Models\EmailTemplates\EmailTemplate                              $emailtemplate
+     * @param \App\Http\Requests\Backend\EmailTemplates\EditEmailTemplatesRequest   $request
      *
      * @return mixed
      */
     public function edit(EmailTemplate $emailtemplate, EditEmailTemplatesRequest
         $request)
     {
-        $emailtemplateTypes = EmailTemplateType::pluck('name', 'id');
-        $emailtemplatePlaceholders = EmailTemplatePlaceholder::pluck('name', 'id');
+        $emailtemplateTypes = EmailTemplateType::getSelectData();
+        $emailtemplatePlaceholders = EmailTemplatePlaceholder::getSelectData();
 
         return view('backend.emailtemplates.edit')
             ->withEmailtemplate($emailtemplate)
@@ -65,27 +61,23 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * Use to update an Emailtemplate.
-     *
-     * @param EmailTemplate               $emailtemplate
-     * @param UpdateEmailTemplatesRequest $request
+     * @param \App\Models\EmailTemplates\EmailTemplate                              $emailtemplate
+     * @param \App\Http\Requests\Backend\EmailTemplates\UpdateEmailTemplatesRequest $request
      *
      * @return mixed
      */
     public function update(EmailTemplate $emailtemplate, UpdateEmailTemplatesRequest
         $request)
     {
-        $this->emailtemplates->update($emailtemplate, $request->all());
+        $this->emailtemplates->update($emailtemplate, $request->except(['_method', '_token', 'placeholder']));
 
         return redirect()->route('admin.emailtemplates.index')
             ->withFlashSuccess(trans('alerts.backend.emailtemplates.updated'));
     }
 
     /**
-     * Use to delete an Emailtemplate.
-     *
-     * @param EmailTemplate               $emailtemplate
-     * @param DeleteEmailTemplatesRequest $request
+     * @param \App\Models\EmailTemplates\EmailTemplate                              $emailtemplate
+     * @param \App\Http\Requests\Backend\EmailTemplates\DeleteEmailTemplatesRequest $request
      *
      * @return mixed
      */

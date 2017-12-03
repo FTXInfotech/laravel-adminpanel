@@ -61,21 +61,6 @@ return [
     'cities_table' => 'cities',
 
     /*
-     * email template placeholders table used to store email template placeholders
-     */
-    'email_template_placeholders_table' => 'email_template_placeholders',
-
-    /*
-     * email template types table used to store email template types
-     */
-    'email_template_types_table' => 'email_template_types',
-
-    /*
-     * Email templates table used to store Email templates
-     */
-    'email_templates_table' => 'email_templates',
-
-    /*
      * Email templates table used to store Email templates
      */
     'settings_table' => 'settings',

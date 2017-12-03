@@ -15,6 +15,8 @@ class EmailTemplate extends BaseModel
             // EmailTemplateAttribute::getEditButtonAttribute insteadof ModelTrait;
         }
 
+    protected $guarded = ['id'];
+
     /**
      * The database table used by the model.
      *
@@ -25,6 +27,6 @@ class EmailTemplate extends BaseModel
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('access.email_templates_table');
+        $this->table = config('module.email_templates.table');
     }
 }
