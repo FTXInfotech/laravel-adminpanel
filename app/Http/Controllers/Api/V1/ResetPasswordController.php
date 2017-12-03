@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Repositories\Frontend\Access\User\UserRepository;
-use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 
 /**
@@ -12,7 +10,8 @@ use Illuminate\Http\Request;
 class ResetPasswordController extends APIController
 {
     /**
-     * Reset Password
+     * Reset Password.
+     *
      * @param  ResetPasswordRequest
      * @param  JWTAuth
      *
@@ -26,11 +25,11 @@ class ResetPasswordController extends APIController
             }
         );
 
-        if($response !== Password::PASSWORD_RESET) {
+        if ($response !== Password::PASSWORD_RESET) {
             throw new HttpException(500);
         }
 
-        if(!Config::get('boilerplate.reset_password.release_token')) {
+        if (!Config::get('boilerplate.reset_password.release_token')) {
             return response()->json([
                 'status' => 'ok',
             ]);
@@ -40,7 +39,7 @@ class ResetPasswordController extends APIController
 
         return response()->json([
             'status' => 'ok',
-            'token' => $JWTAuth->fromUser($user)
+            'token'  => $JWTAuth->fromUser($user),
         ]);
     }
 
@@ -57,7 +56,8 @@ class ResetPasswordController extends APIController
     /**
      * Get the password reset credentials from the request.
      *
-     * @param  ResetPasswordRequest  $request
+     * @param ResetPasswordRequest $request
+     *
      * @return array
      */
     protected function credentials(ResetPasswordRequest $request)
@@ -70,8 +70,9 @@ class ResetPasswordController extends APIController
     /**
      * Reset the given user's password.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @param  string  $password
+     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
+     * @param string                                      $password
+     *
      * @return void
      */
     protected function reset($user, $password)
