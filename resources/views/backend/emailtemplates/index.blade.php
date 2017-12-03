@@ -92,11 +92,11 @@
                     type: 'post'
                 },
                 columns: [
-                    {data: 'title', name: '{{config('access.email_templates_table')}}.title'},
-                    {data: 'subject', name: '{{config('access.email_templates_table')}}.subject'},
-                    {data: 'status', name: '{{config('access.email_templates_table')}}.status'},
-                    {data: 'created_at', name: '{{config('access.email_templates_table')}}.created_at'},
-                    {data: 'updated_at', name: '{{config('access.email_templates_table')}}.updated_at'},
+                    {data: 'title', name: '{{config('module.email_templates.table')}}.title'},
+                    {data: 'subject', name: '{{config('module.email_templates.table')}}.subject'},
+                    {data: 'status', name: '{{config('module.email_templates.table')}}.status'},
+                    {data: 'created_at', name: '{{config('module.email_templates.table')}}.created_at'},
+                    {data: 'updated_at', name: '{{config('module.email_templates.table')}}.updated_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],
                 order: [[3, "asc"]],

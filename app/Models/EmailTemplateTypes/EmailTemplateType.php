@@ -16,6 +16,6 @@ class EmailTemplateType extends BaseModel
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('access.email_template_types_table');
+        $this->table = config('module.email_templates.types_table');
     }
 }

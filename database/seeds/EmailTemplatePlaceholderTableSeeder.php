@@ -14,7 +14,7 @@ class EmailTemplatePlaceholderTableSeeder extends Seeder
     public function run()
     {
         if (env('DB_CONNECTION') == 'mysql') {
-            DB::table(config('access.email_template_placeholders_table'))->truncate();
+            DB::table(config('module.email_templates.placeholder_table'))->truncate();
         }
 
         $data = [
@@ -75,6 +75,6 @@ class EmailTemplatePlaceholderTableSeeder extends Seeder
             ],
         ];
 
-        DB::table(config('access.email_template_placeholders_table'))->insert($data);
+        DB::table(config('module.email_templates.placeholder_table'))->insert($data);
     }
 }

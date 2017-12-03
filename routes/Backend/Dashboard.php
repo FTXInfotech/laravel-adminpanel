@@ -21,17 +21,6 @@ Route::any('generateSlug', function (\Illuminate\Http\Request $request) {
 })->name('generate.slug');
 
 /*
- * Email Templates Management
- */
-Route::group(['namespace' => 'EmailTemplates'], function () {
-    Route::resource('emailtemplates', 'EmailTemplatesController', ['except' => ['show', 'create', 'save']]);
-
-    //For DataTables
-    Route::post('emailtemplates/get', 'EmailTemplatesTableController')
-        ->name('emailtemplates.get');
-});
-
-/*
  * Settings Management
  */
 Route::group(['namespace' => 'Settings'], function () {
