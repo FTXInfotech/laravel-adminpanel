@@ -23,7 +23,7 @@ class EmailTemplatesController extends Controller
     protected $emailtemplates;
 
     /**
-     * __construct
+     * __construct.
      *
      * @param \App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository $emailtemplates
      */
@@ -43,8 +43,8 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * @param \App\Models\EmailTemplates\EmailTemplate                              $emailtemplate
-     * @param \App\Http\Requests\Backend\EmailTemplates\EditEmailTemplatesRequest   $request
+     * @param \App\Models\EmailTemplates\EmailTemplate                            $emailtemplate
+     * @param \App\Http\Requests\Backend\EmailTemplates\EditEmailTemplatesRequest $request
      *
      * @return mixed
      */

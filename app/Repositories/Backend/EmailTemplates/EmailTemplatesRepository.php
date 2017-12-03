@@ -7,7 +7,6 @@ use App\Events\Backend\EmailTemplates\EmailTemplateUpdated;
 use App\Exceptions\GeneralException;
 use App\Models\EmailTemplates\EmailTemplate;
 use App\Repositories\BaseRepository;
-use DB;
 
 /**
  * Class EmailTemplatesRepository.
