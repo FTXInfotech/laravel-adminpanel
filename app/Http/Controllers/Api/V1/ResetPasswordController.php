@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Repositories\Frontend\Access\User\UserRepository;
+use Tymon\JWTAuth\JWTAuth;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
+use Validator;
 
 /**
  * Class ResetPasswordController.
@@ -12,17 +15,47 @@ use Illuminate\Http\Request;
 class ResetPasswordController extends APIController
 {
     /**
+     * User Repository
+     * @var obj
+     */
+    protected $user;
+
+    /**
+     * Rest Password Constructor
+     *
+     * @param UserRepository $user
+     */
+    public function __construct(UserRepository $user)
+    {
+        $this->user = $user;
+    }
+
+
+    /**
      * Reset Password
-     * @param  ResetPasswordRequest
+     * @param  Request
      * @param  JWTAuth
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function resetPassword(ResetPasswordRequest $request, JWTAuth $JWTAuth)
+    public function reset(Request $request, JWTAuth $JWTAuth)
     {
+
+        $validation = Validator::make($request->all(), [
+            'token'    => 'required',
+            'email'    => 'required|email',
+            'password' => 'required|min:4|confirmed|regex:"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"',
+        ]);
+
+        if ($validation->fails()) {
+            return $this->throwValidation($validation->messages()->first());
+        }
+
+        dd('viral');
+
         $response = $this->broker()->reset(
             $this->credentials($request), function ($user, $password) {
-                $this->reset($user, $password);
+                $this->resetPassword($user, $password);
             }
         );
 
@@ -57,10 +90,10 @@ class ResetPasswordController extends APIController
     /**
      * Get the password reset credentials from the request.
      *
-     * @param  ResetPasswordRequest  $request
+     * @param  $request
      * @return array
      */
-    protected function credentials(ResetPasswordRequest $request)
+    protected function credentials($request)
     {
         return $request->only(
             'email', 'password', 'password_confirmation', 'token'
@@ -74,7 +107,7 @@ class ResetPasswordController extends APIController
      * @param  string  $password
      * @return void
      */
-    protected function reset($user, $password)
+    protected function resetPassword($user, $password)
     {
         $user->password = $password;
         $user->save();
