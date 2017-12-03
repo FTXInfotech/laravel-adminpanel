@@ -19,6 +19,7 @@ class UserResource extends Resource
             'id'            => $this->id,
             'name'          => $this->name,
             'email'         => $this->email,
+            'role'          => $this->roles()->first()->name,
             'registered_at' => $this->created_at->toIso8601String(),
         ];
     }

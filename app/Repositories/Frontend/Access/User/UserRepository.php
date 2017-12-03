@@ -293,7 +293,7 @@ class UserRepository extends BaseRepository
      *
      * @return string
      */
-    public function createNewToken()
+    public function saveToken()
     {
         $token = hash_hmac('sha256', Str::random(40), 'hashKey');
 
