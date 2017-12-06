@@ -86,6 +86,16 @@ You can now access the server at http://localhost:8000
     php artisan key:generate
     php artisan jwt:generate
 
+## Logging In
+
+`php artisan db:seed` adds three users with respective roles. The credentials are as follows:
+
+* Admin Istrator: `admin@admin.com`
+* Backend User: `executive@executive.com` 
+* Default User: `user@user.com`
+
+Password: `1234`
+
 ## Issues
 
 If you come across any issues please report them [here](https://github.com/viralsolani/laravel-adminpanel/issues).
