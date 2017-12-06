@@ -99,10 +99,10 @@ Password: `1234`
 ##ScreenShots
 
 #Dashboard
-https://user-images.githubusercontent.com/1780168/33644866-8f9e6a54-da6d-11e7-83ce-c4f2fb62ac33.png
+![Screenshot](dashboard.png)
 
 #User Listing
-https://user-images.githubusercontent.com/1780168/33644870-9700875a-da6d-11e7-859a-fadf7424f4d4.png
+![Screenshot](users.png)
 
 ## Issues
 
