@@ -67,7 +67,7 @@ Install the javascript dependencies using npm
 
 Compile the dependencies
 
-   npm run development
+    npm run development
 
 Start the local development server
 
