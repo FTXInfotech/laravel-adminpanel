@@ -55,7 +55,7 @@
                 <section class="content-header">
                     @yield('page-header')
                     <!-- Breadcrumbs would render from routes/breadcrumb.php -->
-                    {!! Breadcrumbs::render() !!}
+
                 </section>
 
                 <!-- Main content -->
