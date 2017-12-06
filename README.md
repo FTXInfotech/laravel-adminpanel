@@ -96,15 +96,15 @@ You can now access the server at http://localhost:8000
 
 Password: `1234`
 
-##ScreenShots
+## ScreenShots
 
-#Dashboard
+## Dashboard
 ![Screenshot](screenshots/dashboard.png)
 
-#User Listing
+## User Listing
 ![Screenshot](screenshots/users.png)
 
-#Settings
+## Settings
 ![Screenshot](screenshots/settings.png)
 
 ## Issues
