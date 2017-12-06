@@ -23,7 +23,7 @@ class PagesController extends Controller
     protected $pages;
 
     /**
-     * @param PagesRepository $pages
+     * @param \App\Repositories\Backend\Pages\PagesRepository $pages
      */
     public function __construct(PagesRepository $pages)
     {
@@ -31,7 +31,7 @@ class PagesController extends Controller
     }
 
     /**
-     * @param ManagePageRequest $request
+     * @param \App\Http\Requests\Backend\Pages\ManagePageRequest $request
      *
      * @return mixed
      */
@@ -41,7 +41,7 @@ class PagesController extends Controller
     }
 
     /**
-     * @param CreatePageRequest $request
+     * @param \App\Http\Requests\Backend\Pages\CreatePageRequest $request
      *
      * @return mixed
      */
@@ -51,45 +51,45 @@ class PagesController extends Controller
     }
 
     /**
-     * @param StorePageRequest $request
+     * @param \App\Http\Requests\Backend\Pages\StorePageRequest $request
      *
      * @return mixed
      */
     public function store(StorePageRequest $request)
     {
-        $this->pages->create($request->all());
+        $this->pages->create($request->except(['_token']));
 
         return redirect()->route('admin.pages.index')->withFlashSuccess(trans('alerts.backend.pages.created'));
     }
 
     /**
-     * @param Page            $page
-     * @param EditPageRequest $request
+     * @param \App\Models\Page\Page                            $page
+     * @param \App\Http\Requests\Backend\Pages\EditPageRequest $request
      *
      * @return mixed
      */
     public function edit(Page $page, EditPageRequest $request)
     {
         return view('backend.pages.edit')
-            ->withCmspage($page);
+            ->withPage($page);
     }
 
     /**
-     * @param Page              $page
-     * @param UpdatePageRequest $request
+     * @param \App\Models\Page\Page                              $page
+     * @param \App\Http\Requests\Backend\Pages\UpdatePageRequest $request
      *
      * @return mixed
      */
     public function update(Page $page, UpdatePageRequest $request)
     {
-        $this->pages->update($page, $request->all());
+        $this->pages->update($page, $request->except(['_method', '_token']));
 
         return redirect()->route('admin.pages.index')->withFlashSuccess(trans('alerts.backend.pages.updated'));
     }
 
     /**
-     * @param Page              $page
-     * @param DeletePageRequest $request
+     * @param \App\Models\Page\Page                              $page
+     * @param \App\Http\Requests\Backend\Pages\DeletePageRequest $request
      *
      * @return mixed
      */

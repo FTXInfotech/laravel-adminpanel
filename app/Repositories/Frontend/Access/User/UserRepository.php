@@ -11,6 +11,7 @@ use App\Repositories\Backend\Access\Role\RoleRepository;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 /**
  * Class UserRepository.
@@ -95,7 +96,6 @@ class UserRepository extends BaseRepository
         $user->password = $provider ? null : bcrypt($data['password']);
         $user->confirmed = $provider ? 1 : (config('access.users.confirm_email') ? 0 : 1);
         $user->is_term_accept = $data['is_term_accept'];
-        $user->created_by = 1;
 
         DB::transaction(function () use ($user) {
             if ($user->save()) {
@@ -286,5 +286,22 @@ class UserRepository extends BaseRepository
         }
 
         throw new GeneralException(trans('exceptions.frontend.auth.password.change_mismatch'));
+    }
+
+    /**
+     * Create a new token for the user.
+     *
+     * @return string
+     */
+    public function saveToken()
+    {
+        $token = hash_hmac('sha256', Str::random(40), 'hashKey');
+
+        \DB::table('password_resets')->insert([
+            'email' => request('email'),
+            'token' => $token,
+        ]);
+
+        return $token;
     }
 }

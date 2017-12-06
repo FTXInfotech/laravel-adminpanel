@@ -22,11 +22,12 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.5.0",
         "tymon/jwt-auth": "dev-develop",
+        "unisharp/laravel-filemanager": "~1.8",
         "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.0",
-        "bvipul/generator": "0.9",
+        "bvipul/generator": "v0.9.1",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "laravel/browser-kit-testing": "^1.0",

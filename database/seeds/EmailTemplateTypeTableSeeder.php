@@ -14,7 +14,7 @@ class EmailTemplateTypeTableSeeder extends Seeder
     public function run()
     {
         if (env('DB_CONNECTION') == 'mysql') {
-            DB::table(config('access.email_template_types_table'))->truncate();
+            DB::table(config('module.email_templates.types_table'))->truncate();
         }
 
         $data = [
@@ -43,6 +43,6 @@ class EmailTemplateTypeTableSeeder extends Seeder
             ],
         ];
 
-        DB::table(config('access.email_template_types_table'))->insert($data);
+        DB::table(config('module.email_templates.types_table'))->insert($data);
     }
 }

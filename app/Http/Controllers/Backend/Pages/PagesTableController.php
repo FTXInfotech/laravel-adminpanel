@@ -36,11 +36,7 @@ class PagesTableController extends Controller
         return Datatables::of($this->pages->getForDataTable())
             ->escapeColumns(['title'])
             ->addColumn('status', function ($pages) {
-                if ($pages->status) {
-                    return '<span class="label label-success">Active</span>';
-                }
-
-                return '<span class="label label-danger">Inactive</span>';
+                return $pages->status_label;
             })
             ->addColumn('created_at', function ($pages) {
                 return Carbon::parse($pages->created_at)->toDateString();

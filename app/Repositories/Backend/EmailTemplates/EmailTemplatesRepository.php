@@ -7,7 +7,6 @@ use App\Events\Backend\EmailTemplates\EmailTemplateUpdated;
 use App\Exceptions\GeneralException;
 use App\Models\EmailTemplates\EmailTemplate;
 use App\Repositories\BaseRepository;
-use DB;
 
 /**
  * Class EmailTemplatesRepository.
@@ -26,60 +25,53 @@ class EmailTemplatesRepository extends BaseRepository
     {
         return $this->query()
             ->select([
-                config('access.email_templates_table').'.id',
-                config('access.email_templates_table').'.title',
-                config('access.email_templates_table').'.subject',
-                config('access.email_templates_table').'.status',
-                config('access.email_templates_table').'.created_at',
-                config('access.email_templates_table').'.updated_at',
+                config('module.email_templates.table').'.id',
+                config('module.email_templates.table').'.title',
+                config('module.email_templates.table').'.subject',
+                config('module.email_templates.table').'.status',
+                config('module.email_templates.table').'.created_at',
+                config('module.email_templates.table').'.updated_at',
             ]);
     }
 
     /**
-     * @param Model $permission
+     * @param \App\Models\EmailTemplates\EmailTemplate $emailtemplate
      * @param  $input
      *
      * @throws GeneralException
      *
      * return bool
      */
-    public function update(Model $emailtemplate, array $input)
+    public function update(EmailTemplate $emailtemplate, array $input)
     {
-        $emailtemplate->title = $input['title'];
-        $emailtemplate->body = $input['body'];
-        $emailtemplate->type_id = $input['type_id'];
-        $emailtemplate->subject = $input['subject'];
-        $emailtemplate->status = (isset($input['is_active']) && $input['is_active'] == 1) ? 1 : 0;
-        $emailtemplate->updated_by = access()->user()->id;
+        $input['status'] = isset($input['is_active']) ? 1 : 0;
+        unset($input['is_active']);
+        $input['updated_by'] = access()->user()->id;
 
-        DB::transaction(function () use ($emailtemplate, $input) {
-            if ($emailtemplate->save()) {
-                event(new EmailTemplateUpdated($emailtemplate));
+        if ($emailtemplate->update($input)) {
+            event(new EmailTemplateUpdated($emailtemplate));
 
-                return true;
-            }
+            return true;
+        }
 
-            throw new GeneralException(trans('exceptions.backend.emailtemplates.update_error'));
-        });
+        throw new GeneralException(trans('exceptions.backend.emailtemplates.update_error'));
     }
 
     /**
-     * @param Model $emailtemplate
+     * @param \App\Models\EmailTemplates\EmailTemplate $emailtemplate
      *
      * @throws GeneralException
      *
      * @return bool
      */
-    public function delete(Model $emailtemplate)
+    public function delete(EmailTemplate $emailtemplate)
     {
-        DB::transaction(function () use ($emailtemplate) {
-            if ($emailtemplate->delete()) {
-                event(new EmailTemplateDeleted($emailtemplate));
+        if ($emailtemplate->delete()) {
+            event(new EmailTemplateDeleted($emailtemplate));
 
-                return true;
-            }
+            return true;
+        }
 
-            throw new GeneralException(trans('exceptions.backend.emailtemplates.delete_error'));
-        });
+        throw new GeneralException(trans('exceptions.backend.emailtemplates.delete_error'));
     }
 }

@@ -18,7 +18,7 @@ class PagesTableSeeder extends Seeder
     public function run()
     {
         $this->disableForeignKeys();
-        $this->truncate(config('access.pages_table'));
+        $this->truncate(config('module.pages.table'));
 
         $page = [
             [
@@ -32,7 +32,7 @@ class PagesTableSeeder extends Seeder
             ],
         ];
 
-        DB::table(config('access.pages_table'))->insert($page);
+        DB::table(config('module.pages.table'))->insert($page);
 
         $this->enableForeignKeys();
     }

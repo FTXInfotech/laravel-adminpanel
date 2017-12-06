@@ -22,9 +22,16 @@ class Page extends BaseModel
      */
     protected $table;
 
+    /**
+     * The guarded field which are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = ['id'];
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('access.cms_pages_table');
+        $this->table = config('module.pages.table');
     }
 }

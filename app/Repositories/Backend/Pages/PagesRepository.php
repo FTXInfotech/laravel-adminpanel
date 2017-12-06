@@ -8,7 +8,6 @@ use App\Events\Backend\Pages\PageUpdated;
 use App\Exceptions\GeneralException;
 use App\Models\Page\Page;
 use App\Repositories\BaseRepository;
-use DB;
 
 /**
  * Class PagesRepository.
@@ -27,18 +26,18 @@ class PagesRepository extends BaseRepository
     {
         return $this->query()
             ->select([
-                config('access.pages_table').'.id',
-                config('access.pages_table').'.title',
-                config('access.pages_table').'.status',
-                config('access.pages_table').'.created_at',
-                config('access.pages_table').'.updated_at',
+                config('module.pages.table').'.id',
+                config('module.pages.table').'.title',
+                config('module.pages.table').'.status',
+                config('module.pages.table').'.created_at',
+                config('module.pages.table').'.updated_at',
             ]);
     }
 
     /**
      * @param array $input
      *
-     * @throws GeneralException
+     * @throws \App\Exceptions\GeneralException
      *
      * @return bool
      */
@@ -48,80 +47,63 @@ class PagesRepository extends BaseRepository
             throw new GeneralException(trans('exceptions.backend.pages.already_exists'));
         }
 
-        DB::transaction(function () use ($input) {
-            $pages = self::MODEL;
-            $pages = new $pages();
-            $pages->title = $input['title'];
-            $pages->page_slug = str_slug($input['title']);
-            $pages->description = $input['description'];
-            $pages->cannonical_link = $input['cannonical_link'];
-            $pages->seo_title = $input['seo_title'];
-            $pages->seo_keyword = $input['seo_keyword'];
-            $pages->seo_description = $input['seo_description'];
-            $pages->status = (isset($input['status']) && $input['status'] == 1) ? 1 : 0;
-            $pages->created_by = access()->user()->id;
+        //Making extra fields
+        $input['page_slug'] = str_slug($input['title']);
+        $input['status'] = isset($input['status']) ? 1 : 0;
+        $input['created_by'] = access()->user()->id;
 
-            if ($pages->save()) {
-                event(new PageCreated($pages));
+        if ($page = Page::create($input)) {
+            event(new PageCreated($page));
 
-                return true;
-            }
+            return true;
+        }
 
-            throw new GeneralException(trans('exceptions.backend.pages.create_error'));
-        });
+        throw new GeneralException(trans('exceptions.backend.pages.create_error'));
     }
 
     /**
-     * @param Model $permission
-     * @param  $input
+     * @param \App\Models\Page\Page $page
+     * @param array                 $input
      *
-     * @throws GeneralException
+     * @throws \App\Exceptions\GeneralException
      *
-     * return bool
+     * @return bool
      */
-    public function update(Model $page, array $input)
+    public function update($page, array $input)
     {
         if ($this->query()->where('title', $input['title'])->where('id', '!=', $page->id)->first()) {
             throw new GeneralException(trans('exceptions.backend.pages.already_exists'));
         }
-        $page->title = $input['title'];
-        $page->page_slug = str_slug($input['title']);
-        $page->description = $input['description'];
-        $page->cannonical_link = $input['cannonical_link'];
-        $page->seo_title = $input['seo_title'];
-        $page->seo_keyword = $input['seo_keyword'];
-        $page->seo_description = $input['seo_description'];
-        $page->status = (isset($input['status']) && $input['status'] == 1) ? 1 : 0;
-        $page->updated_by = access()->user()->id;
 
-        DB::transaction(function () use ($page, $input) {
-            if ($page->save()) {
-                event(new PageUpdated($page));
+        //Making extra fields
+        $input['page_slug'] = str_slug($input['title']);
+        $input['status'] = isset($input['status']) ? 1 : 0;
+        $input['updated_by'] = access()->user()->id;
 
-                return true;
-            }
+        if ($page->update($input)) {
+            event(new PageUpdated($page));
 
-            throw new GeneralException(trans('exceptions.backend.pages.update_error'));
-        });
+            return true;
+        }
+
+        throw new GeneralException(trans('exceptions.backend.pages.update_error'));
     }
 
     /**
-     * @param Model $page
+     * @param \App\Models\Page\Page $page
      *
-     * @throws GeneralException
+     * @throws \App\Exceptions\GeneralException
      *
      * @return bool
      */
-    public function delete(Model $page)
+    public function delete($page)
     {
-        DB::transaction(function () use ($page) {
-            if ($page->delete()) {
-                event(new PageDeleted($page));
+        if ($page->delete()) {
+            event(new PageDeleted($page));
 
-                return true;
-            }
+            return true;
+        }
 
-            throw new GeneralException(trans('exceptions.backend.pages.delete_error'));
-        });
+        throw new GeneralException(trans('exceptions.backend.pages.delete_error'));
     }
 }

@@ -1,6 +1,9 @@
 # laravel-adminpanel
-[![License](https://img.shields.io/badge/License-MIT-red.svg)](https://github.com/viralsolani/laravel-adminpanel/blob/master/LICENSE.txt)
-[![StyleCI](https://styleci.io/repos/30171828/shield?style=plastic)](https://styleci.io/repos/105789824/shield?style=plastic)
+[![GitHub license](https://img.shields.io/github/license/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/blob/master/LICENSE.txt)
+[![GitHub stars](https://img.shields.io/github/stars/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/network)
+[![GitHub issues](https://img.shields.io/github/issues/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/issues)
+![StyleCI](https://img.shields.io/badge/styleCI-passed-brightgreen.svg?style=plastic)
 
 
 ## Introduction
@@ -17,7 +20,7 @@ For Laravel 5 Boilerplate Features : [Features](https://github.com/rappasoft/lar
 * Email Template Module
 * Blog Module
 * FAQ Module
-* API Boilerplate - Coming Soon.
+* API Boilerplate.
 
 Give your project a Head Start by using [laravel-adminpanel](https://github.com/viralsolani/laravel-adminpanel).
 
@@ -64,7 +67,7 @@ Install the javascript dependencies using npm
 
 Compile the dependencies
 
-   npm run development
+    npm run development
 
 Start the local development server
 
@@ -82,6 +85,27 @@ You can now access the server at http://localhost:8000
     npm run development
     php artisan key:generate
     php artisan jwt:generate
+
+## Logging In
+
+`php artisan db:seed` adds three users with respective roles. The credentials are as follows:
+
+* Admin Istrator: `admin@admin.com`
+* Backend User: `executive@executive.com`
+* Default User: `user@user.com`
+
+Password: `1234`
+
+## ScreenShots
+
+## Dashboard
+![Screenshot](screenshots/dashboard.png)
+
+## User Listing
+![Screenshot](screenshots/users.png)
+
+## Settings
+![Screenshot](screenshots/settings.png)
 
 ## Issues
 
