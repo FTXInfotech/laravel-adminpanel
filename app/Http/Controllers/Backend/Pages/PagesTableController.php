@@ -13,9 +13,6 @@ use Yajra\DataTables\Facades\DataTables;
  */
 class PagesTableController extends Controller
 {
-    /**
-     * @var PagesRepository
-     */
     protected $pages;
 
     /**

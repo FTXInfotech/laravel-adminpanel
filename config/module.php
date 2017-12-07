@@ -14,5 +14,8 @@ return [
     ],
     'blog_categories' => [
         'table' => 'blog_categories'
+    ],
+    'blogs' => [
+        'table' => 'blogs'
     ]
 ];

@@ -13,13 +13,10 @@ use Yajra\DataTables\Facades\DataTables;
  */
 class BlogsTableController extends Controller
 {
-    /**
-     * @var BlogsRepository
-     */
     protected $blogs;
 
     /**
-     * @param BlogsRepository $cmspages
+     * @param \App\Repositories\Backend\Blogs\BlogsRepository $cmspages
      */
     public function __construct(BlogsRepository $blogs)
     {
@@ -27,7 +24,7 @@ class BlogsTableController extends Controller
     }
 
     /**
-     * @param ManageBlogsRequest $request
+     * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
      * @return mixed
      */
@@ -39,13 +36,13 @@ class BlogsTableController extends Controller
                 return $blogs->status;
             })
             ->addColumn('publish_datetime', function ($blogs) {
-                return Carbon::parse($blogs->publish_datetime)->format('d/m/Y h:i A');
+                return $blogs->publish_datetime->format('d/m/Y h:i A');
             })
             ->addColumn('created_by', function ($blogs) {
                 return $blogs->user_name;
             })
             ->addColumn('created_at', function ($blogs) {
-                return Carbon::parse($blogs->created_at)->toDateString();
+                return $blogs->created_at->toDateString();
             })
             ->addColumn('actions', function ($blogs) {
                 return $blogs->action_buttons;
