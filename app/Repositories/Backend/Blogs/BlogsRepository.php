@@ -44,16 +44,16 @@ class BlogsRepository extends BaseRepository
 
     /**
      * @param array $input
-     * @param array $tagsArray
-     * @param array $categoriesArray
      *
      * @throws GeneralException
      *
      * @return bool
      */
-    public function create(array $input, array $tagsArray, array $categoriesArray)
+    public function create(array $input)
     {
-        // dd(Carbon::createFromFormat('d/m/Y h:i a',$input['publish_datetime']));
+        $tagsArray = $this->createTagsArray($input['tags']);
+        $categoriesArray = $this->createCategoriesArray($input['categories']);
+
         DB::transaction(function () use ($input, $tagsArray, $categoriesArray) {
             $blogs = self::MODEL;
             $blogs = new $blogs();
@@ -94,15 +94,16 @@ class BlogsRepository extends BaseRepository
     }
 
     /**
+     * Update Blog
+     *
      * @param $blogs
      * @param array $input
-     * @param array $tagsArray
-     * @param array $categoriesArray
      */
-    public function update($blogs, array $input, array $tagsArray, array $categoriesArray)
+    public function update($blogs, array $input)
     {
-        // dd( Carbon::parse($input['publish_datetime']));
-        // dd($input['publish_datetime']);
+        $tagsArray = $this->createTagsArray($input['tags']);
+        $categoriesArray = $this->createCategoriesArray($input['categories']);
+
         $blogs->name = $input['name'];
         $blogs->slug = str_slug($input['name']);
         $blogs->content = $input['content'];
@@ -143,6 +144,55 @@ class BlogsRepository extends BaseRepository
                 trans('exceptions.backend.blogs.update_error')
             );
         });
+    }
+
+    /**
+     * Creating Tags Array.
+     *
+     * @param Array($tags)
+     *
+     * @return array
+     */
+    public function createTagsArray($tags)
+    {
+        //Creating a new array for tags (newly created)
+        $tags_array = [];
+
+        foreach ($tags as $tag) {
+            if (is_numeric($tag)) {
+                $tags_array[] = $tag;
+            } else {
+                $newTag = BlogTag::create(['name' => $tag, 'status' => 1, 'created_by' => 1]);
+                $tags_array[] = $newTag->id;
+            }
+        }
+
+        return $tags_array;
+    }
+
+    /**
+     * Creating Tags Array.
+     *
+     * @param Array($tags)
+     *
+     * @return array
+     */
+    public function createCategoriesArray($categories)
+    {
+        //Creating a new array for categories (newly created)
+        $categories_array = [];
+
+        foreach ($categories as $category) {
+            if (is_numeric($category)) {
+                $categories_array[] = $category;
+            } else {
+                $newCategory = BlogCategory::create(['name' => $category, 'status' => 1, 'created_by' => 1]);
+
+                $categories_array[] = $newCategory->id;
+            }
+        }
+
+        return $categories_array;
     }
 
     /**
