@@ -75,24 +75,14 @@ class BlogsRepository extends BaseRepository
 
             if ($blogs->save()) {
                 // Inserting associated category's id in mapper table
-                for ($i = 0; $i < count($categoriesArray); $i++) {
-                    $blogMapCategory[] = [
-                        'blog_id'     => $blogs->id,
-                        'category_id' => $categoriesArray[$i],
-                    ];
+                if (count($categoriesArray)) {
+                    $blogs->categories()->sync($categoriesArray);
                 }
-
-                BlogMapCategory::insert($blogMapCategory);
 
                 // Inserting associated tag's id in mapper table
-                for ($i = 0; $i < count($tagsArray); $i++) {
-                    $blogMapTags[] = [
-                        'blog_id' => $blogs->id,
-                        'tag_id'  => $tagsArray[$i],
-                    ];
+                if (count($tagsArray)) {
+                    $blogs->tags()->sync($tagsArray);
                 }
-
-                BlogMapTag::insert($blogMapTags);
 
                 event(new BlogCreated($blogs));
 
@@ -104,14 +94,12 @@ class BlogsRepository extends BaseRepository
     }
 
     /**
-     * @param Model $permission
-     * @param  $input
-     *
-     * @throws GeneralException
-     *
-     * return bool
+     * @param $blogs
+     * @param array $input
+     * @param array $tagsArray
+     * @param array $categoriesArray
      */
-    public function update(Model $blogs, array $input, array $tagsArray, array $categoriesArray)
+    public function update($blogs, array $input, array $tagsArray, array $categoriesArray)
     {
         // dd( Carbon::parse($input['publish_datetime']));
         // dd($input['publish_datetime']);
@@ -137,26 +125,14 @@ class BlogsRepository extends BaseRepository
             if ($blogs->save()) {
 
                 // Updateing associated category's id in mapper table
-                BlogMapCategory::where('blog_id', $blogs->id)->delete();
-                for ($i = 0; $i < count($categoriesArray); $i++) {
-                    $blogMapCategory[] = [
-                        'blog_id'     => $blogs->id,
-                        'category_id' => $categoriesArray[$i],
-                    ];
+                if (count($categoriesArray)) {
+                    $blogs->categories()->sync($categoriesArray);
                 }
-
-                BlogMapCategory::insert($blogMapCategory);
 
                 // Updating associated tag's id in mapper table
-                BlogMapTag::where('blog_id', $blogs->id)->delete();
-                for ($i = 0; $i < count($tagsArray); $i++) {
-                    $blogMapTags[] = [
-                        'blog_id' => $blogs->id,
-                        'tag_id'  => $tagsArray[$i],
-                    ];
+                if (count($tagsArray)) {
+                    $blogs->tags()->sync($tagsArray);
                 }
-
-                BlogMapTag::insert($blogMapTags);
 
                 event(new BlogUpdated($blogs));
 
