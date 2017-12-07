@@ -78,11 +78,6 @@ return [
     /*
      * Blog Tags table used to store Blog Tag
      */
-    'blog_tags_table' => 'blog_tags',
-
-    /*
-     * Blog Tags table used to store Blog Tag
-     */
     'blogs_table' => 'blogs',
 
     /*

@@ -14,13 +14,13 @@ class BlogTagDeleted
     /**
      * @var
      */
-    public $blogtags;
+    public $blogtag;
 
     /**
-     * @param $blogtags
+     * @param $blogtag
      */
-    public function __construct($blogtags)
+    public function __construct($blogtag)
     {
-        $this->blogtags = $blogtags;
+        $this->blogtag = $blogtag;
     }
 }

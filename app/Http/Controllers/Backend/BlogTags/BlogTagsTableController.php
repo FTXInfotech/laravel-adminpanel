@@ -14,12 +14,12 @@ use Yajra\DataTables\Facades\DataTables;
 class BlogTagsTableController extends Controller
 {
     /**
-     * @var BlogTagsRepository
+     * @var \App\Repositories\Backend\BlogTags\BlogTagsRepository
      */
     protected $blogtags;
 
     /**
-     * @param BlogTagsRepository $cmspages
+     * @param \App\Repositories\Backend\BlogTags\BlogTagsRepository $blogtags
      */
     public function __construct(BlogTagsRepository $blogtags)
     {
@@ -27,7 +27,7 @@ class BlogTagsTableController extends Controller
     }
 
     /**
-     * @param ManageBlogTagsRequest $request
+     * @param \App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest $request
      *
      * @return mixed
      */
@@ -36,11 +36,7 @@ class BlogTagsTableController extends Controller
         return Datatables::of($this->blogtags->getForDataTable())
             ->escapeColumns(['name'])
             ->addColumn('status', function ($blogtags) {
-                if ($blogtags->status) {
-                    return '<span class="label label-success">Active</span>';
-                }
-
-                return '<span class="label label-danger">Inactive</span>';
+                return $blogtags->status_label;
             })
             ->addColumn('created_by', function ($blogtags) {
                 return $blogtags->user_name;
