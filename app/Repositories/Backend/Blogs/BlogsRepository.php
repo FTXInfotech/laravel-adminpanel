@@ -76,7 +76,7 @@ class BlogsRepository extends BaseRepository
             if ($blogs->save()) {
                 // Inserting associated category's id in mapper table
                 if (count($categoriesArray)) {
-                   $blogs->categories()->sync($categoriesArray);
+                    $blogs->categories()->sync($categoriesArray);
                 }
 
                 // Inserting associated tag's id in mapper table
