@@ -17,7 +17,7 @@ use App\Repositories\Backend\Blogs\BlogsRepository;
 class BlogsController extends Controller
 {
     /**
-     * Blog Status
+     * Blog Status.
      */
     protected $status = [
         'Published' => 'Published',
@@ -47,7 +47,7 @@ class BlogsController extends Controller
     public function index(ManageBlogsRequest $request)
     {
         return view('backend.blogs.index')->with([
-            'status'=> $this->status
+            'status'=> $this->status,
         ]);
     }
 
@@ -59,12 +59,12 @@ class BlogsController extends Controller
     public function create(ManageBlogsRequest $request)
     {
         $blogCategories = BlogCategory::getSelectData();
-        $blogTags       = BlogTag::getSelectData();
+        $blogTags = BlogTag::getSelectData();
 
         return view('backend.blogs.create')->with([
             'blogCategories' => $blogCategories,
-            'blogTags' => $blogTags,
-            'status'=> $this->status
+            'blogTags'       => $blogTags,
+            'status'         => $this->status,
         ]);
     }
 
@@ -91,18 +91,18 @@ class BlogsController extends Controller
     public function edit(Blog $blog, ManageBlogsRequest $request)
     {
         $blogCategories = BlogCategory::getSelectData();
-        $blogTags       = BlogTag::getSelectData();
+        $blogTags = BlogTag::getSelectData();
 
         $selectedCategories = $blog->categories->pluck('id')->toArray();
         $selectedtags = $blog->tags->pluck('id')->toArray();
 
-         return view('backend.blogs.edit')->with([
-            'blog' => $blog,
-            'blogCategories' => $blogCategories,
-            'blogTags' => $blogTags,
+        return view('backend.blogs.edit')->with([
+            'blog'               => $blog,
+            'blogCategories'     => $blogCategories,
+            'blogTags'           => $blogTags,
             'selectedCategories' => $selectedCategories,
-            'selectedtags' => $selectedtags,
-            'status'=> $this->status
+            'selectedtags'       => $selectedtags,
+            'status'             => $this->status,
         ]);
     }
 

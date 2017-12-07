@@ -94,7 +94,7 @@ class BlogsRepository extends BaseRepository
     }
 
     /**
-     * Update Blog
+     * Update Blog.
      *
      * @param $blogs
      * @param array $input
