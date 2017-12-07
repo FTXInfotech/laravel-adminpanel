@@ -10,5 +10,5 @@ Route::group(['namespace' => 'Faqs'], function () {
     Route::post('faqs/get', 'FaqsTableController')->name('faqs.get');
 
     // Status
-    Route::get('faqs/{id}/mark/{status}', 'FaqsController@mark')->name('faqs.mark')->where(['status' => '[0,1]']);
+    Route::get('faqs/{faq}/mark/{status}', 'FaqStatusController@store')->name('faqs.mark')->where(['status' => '[0,1]']);
 });

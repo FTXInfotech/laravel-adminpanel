@@ -17,5 +17,8 @@ return [
     ],
     'blogs' => [
         'table' => 'blogs'
+    ],
+    'faqs' => [
+        'table' => 'faqs'
     ]
 ];

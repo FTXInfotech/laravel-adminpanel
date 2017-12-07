@@ -23,31 +23,27 @@ class FaqsRepository extends BaseRepository
     {
         return $this->query()
             ->select([
-                config('access.faqs_table').'.id',
-                config('access.faqs_table').'.question',
-                config('access.faqs_table').'.answer',
-                config('access.faqs_table').'.status',
-                config('access.faqs_table').'.created_at',
+                config('mdule.faqs.able').'.id',
+                config('odule.faqs.table').'.question',
+                config('module.faqs.table').'.answer',
+                config('module.faqs.table').'.status',
+                config('module.faqs.table').'.created_at',
             ]);
     }
 
     /**
      * @param array $input
      *
-     * @throws GeneralException
+     * @throws \App\Exceptions\GeneralException
      *
      * @return bool
      */
     public function create(array $input)
     {
-        $faq = self::MODEL;
-        $faq = new $faq();
-        $faq->question = $input['question'];
-        $faq->answer = $input['answer'];
-        $faq->status = isset($input['status']) ? $input['status'] : 0;
+        $input['status'] = isset($input['status']) ? 1 : 0;
 
         //If faq saved successfully, then return true
-        if ($faq->save()) {
+        if (Faq::create($input)) {
             return true;
         }
 
@@ -55,21 +51,19 @@ class FaqsRepository extends BaseRepository
     }
 
     /**
-     * @param Model $permission
-     * @param  $input
+     * @param \App\Models\Faqs\Faq $faq
+     * @param array $input
      *
-     * @throws GeneralException
+     * @throws \App\Exceptions\GeneralException
      *
      * return bool
      */
-    public function update(Model $faq, array $input)
+    public function update(Faq $faq, array $input)
     {
-        $faq->question = $input['question'];
-        $faq->answer = $input['answer'];
-        $faq->status = isset($input['status']) ? $input['status'] : 0;
+        $input['status'] = isset($input['status']) ? 1 : 0;
 
         //If faq updated successfully
-        if ($faq->save()) {
+        if ($faq->update($input)) {
             return true;
         }
 
@@ -77,13 +71,13 @@ class FaqsRepository extends BaseRepository
     }
 
     /**
-     * @param Model $blog
+     * @param \App\Models\Faqs\Faq $faq
      *
-     * @throws GeneralException
+     * @throws \App\Exceptions\GeneralException
      *
      * @return bool
      */
-    public function delete(Model $faq)
+    public function delete(Faq $faq)
     {
         if ($faq->delete()) {
             return true;
@@ -93,14 +87,14 @@ class FaqsRepository extends BaseRepository
     }
 
     /**
-     * @param Model $faq
-     * @param $status
+     * @param \App\Models\Faqs\Faq $faq
+     * @param string $status
      *
-     * @throws GeneralException
+     * @throws \App\Exceptions\GeneralException
      *
      * @return bool
      */
-    public function mark(Model $faq, $status)
+    public function mark(Faq $faq, $status)
     {
         $faq->status = $status;
 
