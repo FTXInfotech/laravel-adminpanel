@@ -29,6 +29,6 @@ class BlogCategory extends BaseModel
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('access.blog_categories_table');
+        $this->table = config('module.blog_categories.table');
     }
 }

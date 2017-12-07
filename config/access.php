@@ -71,26 +71,6 @@ return [
     'history_types_table' => 'history_types',
 
     /*
-     * Blog Catagories table used to store Blog Catagory
-     */
-    'blog_categories_table' => 'blog_categories',
-
-    /*
-     * Blog Tags table used to store Blog Tag
-     */
-    'blogs_table' => 'blogs',
-
-    /*
-     * Blog Tags table used to store Blog Tag
-     */
-    'blog_map_categories_table' => 'blog_map_categories',
-
-    /*
-     * Blog Tags table used to store Blog Tag
-     */
-    'blog_map_tags_table' => 'blog_map_tags',
-
-    /*
      * Notifications table used to store user notification
      */
     'notifications_table' => 'notifications',
