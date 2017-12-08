@@ -30,14 +30,14 @@
         "bvipul/generator": "v0.9.1",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
-        "laravel/browser-kit-testing": "^1.0",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~6.0",
         "xethron/migrations-generator": "2.0.2"
     },
     "autoload": {
         "classmap": [
-            "database"
+            "database/seeds",
+            "database/factories"
         ],
         "psr-4": {
             "App\\": "app/"
