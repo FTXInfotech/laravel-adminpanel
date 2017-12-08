@@ -12,7 +12,7 @@
             <h3 class="box-title">{{ trans('labels.backend.blogcategories.management') }}</h3>
 
             <div class="box-tools pull-right">
-                @include('backend.includes.partials.blogcategories-header-buttons')
+                @include('backend.blogcategories.partials.blogcategories-header-buttons')
             </div>
         </div><!-- /.box-header -->
 
@@ -74,10 +74,10 @@
                     type: 'post'
                 },
                 columns: [
-                    {data: 'name', name: '{{config('access.blog_categories_table')}}.name'},
-                    {data: 'status', name: '{{config('access.blog_categories_table')}}.status'},
-                    {data: 'created_by', name: '{{config('access.blog_categories_table')}}.created_by'},
-                    {data: 'created_at', name: '{{config('access.blog_categories_table')}}.created_at'},
+                    {data: 'name', name: '{{config('module.blog_categories.table')}}.name'},
+                    {data: 'status', name: '{{config('module.blog_categories.table')}}.status'},
+                    {data: 'created_by', name: '{{config('module.blog_categories.table')}}.created_by'},
+                    {data: 'created_at', name: '{{config('module.blog_categories.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],
                 order: [[3, "asc"]],

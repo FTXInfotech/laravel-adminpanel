@@ -39,7 +39,7 @@
                                 <a class="reset-data" href="javascript:void(0)"><i class="fa fa-times"></i></a>
                             </th>
                             <th>
-                                {!! Form::select('status', $status, null, ["class" => "search-input-select form-control", "data-column" => 2, "placeholder" => trans('labels.backend.faqs.table.all')]) !!}
+                                {!! Form::select('status', [1 => 'Active', 0 => 'InActive'], null, ["class" => "search-input-select form-control", "data-column" => 2, "placeholder" => trans('labels.backend.faqs.table.all')]) !!}
                             </th>
                             {{-- <th></th> --}}
                             <th></th>
@@ -78,10 +78,10 @@
                     type: 'post'
                 },
                 columns: [
-                    {data: 'question', name: '{{config('access.faqs_table')}}.question'},
-                    {data: 'answer', name: '{{config('access.faqs_table')}}.answer'},
-                    {data: 'status', name: '{{config('access.faqs_table')}}.status'},
-                    {data: 'updated_at', name: '{{config('access.faqs_table')}}.updated_at'},
+                    {data: 'question', name: '{{config('module.faqs.table')}}.question'},
+                    {data: 'answer', name: '{{config('module.faqs.table')}}.answer'},
+                    {data: 'status', name: '{{config('module.faqs.table')}}.status'},
+                    {data: 'updated_at', name: '{{config('module.faqs.table')}}.updated_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],
                 order: [[1, "asc"]],

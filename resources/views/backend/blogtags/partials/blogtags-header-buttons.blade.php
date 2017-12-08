@@ -1,5 +1,5 @@
 <!--Action Button-->
-    @if(Active::checkUriPattern('admin/modules'))
+    @if(Active::checkUriPattern('admin/blogtags'))
         <div class="btn-group">
           <button type="button" class="btn btn-warning btn-flat dropdown-toggle" data-toggle="dropdown">Export
             <span class="caret"></span>
@@ -21,11 +21,10 @@
     <span class="sr-only">Toggle Dropdown</span>
   </button>
   <ul class="dropdown-menu" role="menu">
-    <li><a href="{{route('admin.modules.index')}}"><i class="fa fa-list-ul"></i> {{trans('menus.backend.modules.all')}}</a></li>
-    {{-- Will fill the permission later --}}
-    {{-- @permission('create-faq') --}}
-    <li><a href="{{route('admin.modules.create')}}"><i class="fa fa-plus"></i> {{trans('menus.backend.modules.create')}}</a></li>
-    {{-- @endauth --}}
+    <li><a href="{{route('admin.blogtags.index')}}"><i class="fa fa-list-ul"></i> {{trans('menus.backend.blogtags.all')}}</a></li>
+    @permission('create-blog-tag')
+    <li><a href="{{route('admin.blogtags.create')}}"><i class="fa fa-plus"></i> {{trans('menus.backend.blogtags.create')}}</a></li>
+    @endauth
   </ul>
 </div>
 

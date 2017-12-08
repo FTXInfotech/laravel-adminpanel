@@ -17,9 +17,6 @@ use App\Repositories\Backend\Pages\PagesRepository;
  */
 class PagesController extends Controller
 {
-    /**
-     * @var PagesRepository
-     */
     protected $pages;
 
     /**

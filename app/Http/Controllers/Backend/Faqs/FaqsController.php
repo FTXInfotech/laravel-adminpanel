@@ -14,34 +14,32 @@ use App\Repositories\Backend\Faqs\FaqsRepository;
 
 class FaqsController extends Controller
 {
-    /**
-     * @var FaqsRepository
-     */
-    protected $faqs;
+    protected $faq;
 
     /**
-     * @param FaqsRepository $faqs
+     * @param \App\Repositories\Backend\Faqs\FaqsRepository $faq
      */
-    public function __construct(FaqsRepository $faqs)
+    public function __construct(FaqsRepository $faq)
     {
-        $this->faqs = $faqs;
+        $this->faq = $faq;
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param \App\Http\Requests\Backend\Faqs\ManageFaqsRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(ManageFaqsRequest $request)
     {
-        //Status array
-        $status = [1 => 'Active', 0 => 'Inactive'];
-
-        return view('backend.faqs.index')->withStatus($status);
+        return view('backend.faqs.index');
     }
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @param \App\Http\Requests\Backend\Faqs\CreateFaqsRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -53,7 +51,7 @@ class FaqsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\Backend\Faqs\StoreFaqsRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -61,39 +59,32 @@ class FaqsController extends Controller
     {
         $input = $request->all();
 
-        $this->faqs->create($input);
+        $this->faq->create($input);
 
-        return redirect()->route('admin.faqs.index')->withFlashSuccess(trans('alerts.backend.faqs.created'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
+        return redirect()
+            ->route('admin.faqs.index')
+            ->with('flash_success', trans('alerts.backend.faqs.created'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param \App\Models\Faqs\Faq                            $faq
+     * @param \App\Http\Requests\Backend\Faqs\EditFaqsRequest $request
      *
      * @return \Illuminate\Http\Response
      */
     public function edit(Faq $faq, EditFaqsRequest $request)
     {
-        return view('backend.faqs.edit')->withItem($faq);
+        return view('backend.faqs.edit')
+            ->with('faq', $faq);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param \App\Http\Requests\Backend\Faqs\UpdateFaqsRequest $request
+     * @param \App\Models\Faqs\Faq                              $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -101,37 +92,27 @@ class FaqsController extends Controller
     {
         $input = $request->all();
 
-        $this->faqs->update($faq, $input);
+        $this->faq->update($faq, $input);
 
-        return redirect()->route('admin.faqs.index')->withFlashSuccess(trans('alerts.backend.faqs.updated'));
+        return redirect()
+            ->route('admin.faqs.index')
+            ->with('flash_success', trans('alerts.backend.faqs.updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param \App\Models\Faqs\Faq                              $faq
+     * @param \App\Http\Requests\Backend\Faqs\DeleteFaqsRequest $request
      *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Faq $faq, DeleteFaqsRequest $request)
     {
-        $this->faqs->delete($faq);
+        $this->faq->delete($faq);
 
-        return redirect()->route('admin.faqs.index')->withFlashSuccess(trans('alerts.backend.faqs.deleted'));
-    }
-
-    /**
-     * @param Faq $Faq
-     * @param $status
-     * @param ManageFaqRequest $request
-     *
-     * @return mixed
-     */
-    public function mark($id, $status, EditFaqsRequest $request)
-    {
-        $faq = Faq::find($id);
-        $this->faqs->mark($faq, $status);
-
-        return redirect()->route('admin.faqs.index')->withFlashSuccess(trans('alerts.backend.faqs.updated'));
+        return redirect()
+            ->route('admin.faqs.index')
+            ->with('flash_success', trans('alerts.backend.faqs.deleted'));
     }
 }

@@ -18,8 +18,8 @@ class BlogCategoryEventListener
     public function onCreated($event)
     {
         history()->withType($this->history_slug)
-            ->withEntity($event->blogcategories->id)
-            ->withText('trans("history.backend.blogcategories.created") <strong>'.$event->blogcategories->name.'</strong>')
+            ->withEntity($event->blogcategory->id)
+            ->withText('trans("history.backend.blogcategories.created") <strong>'.$event->blogcategory->name.'</strong>')
             ->withIcon('plus')
             ->withClass('bg-green')
             ->log();
@@ -31,8 +31,8 @@ class BlogCategoryEventListener
     public function onUpdated($event)
     {
         history()->withType($this->history_slug)
-            ->withEntity($event->blogcategories->id)
-            ->withText('trans("history.backend.blogcategories.updated") <strong>'.$event->blogcategories->name.'</strong>')
+            ->withEntity($event->blogcategory->id)
+            ->withText('trans("history.backend.blogcategories.updated") <strong>'.$event->blogcategory->name.'</strong>')
             ->withIcon('save')
             ->withClass('bg-aqua')
             ->log();
@@ -44,8 +44,8 @@ class BlogCategoryEventListener
     public function onDeleted($event)
     {
         history()->withType($this->history_slug)
-            ->withEntity($event->blogcategories->id)
-            ->withText('trans("history.backend.blogcategories.deleted") <strong>'.$event->blogcategories->name.'</strong>')
+            ->withEntity($event->blogcategory->id)
+            ->withText('trans("history.backend.blogcategories.deleted") <strong>'.$event->blogcategory->name.'</strong>')
             ->withIcon('trash')
             ->withClass('bg-maroon')
             ->log();

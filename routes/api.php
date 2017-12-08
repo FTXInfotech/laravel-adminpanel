@@ -25,7 +25,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
 
             // Password Reset Routes
             Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
-            Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
+            // Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
         });
 
         // Users

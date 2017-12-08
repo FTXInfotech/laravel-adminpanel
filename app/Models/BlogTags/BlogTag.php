@@ -29,6 +29,6 @@ class BlogTag extends BaseModel
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('access.blog_tags_table');
+        $this->table = config('module.blog_tags.table');
     }
 }

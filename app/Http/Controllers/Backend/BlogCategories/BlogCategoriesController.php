@@ -17,21 +17,18 @@ use App\Repositories\Backend\BlogCategories\BlogCategoriesRepository;
  */
 class BlogCategoriesController extends Controller
 {
-    /**
-     * @var BlogCategoriesRepository
-     */
-    protected $blogcategories;
+    protected $blogcategory;
 
     /**
-     * @param BlogCategoriesRepository $blogcategories
+     * @param BlogCategoriesRepository $blogcategory
      */
-    public function __construct(BlogCategoriesRepository $blogcategories)
+    public function __construct(BlogCategoriesRepository $blogcategory)
     {
-        $this->blogcategories = $blogcategories;
+        $this->blogcategory = $blogcategory;
     }
 
     /**
-     * @param ManageBlogCategoriesRequest $request
+     * @param \App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest $request
      *
      * @return mixed
      */
@@ -41,7 +38,7 @@ class BlogCategoriesController extends Controller
     }
 
     /**
-     * @param CreateBlogCategoriesRequest $request
+     * @param \App\Http\Requests\Backend\BlogCategories\CreateBlogCategoriesRequest $request
      *
      * @return mixed
      */
@@ -51,52 +48,58 @@ class BlogCategoriesController extends Controller
     }
 
     /**
-     * @param StoreBlogCategoriesRequest $request
+     * @param \App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest $request
      *
      * @return mixed
      */
     public function store(StoreBlogCategoriesRequest $request)
     {
-        $this->blogcategories->create($request->all());
+        $this->blogcategory->create($request->all());
 
-        return redirect()->route('admin.blogcategories.index')->withFlashSuccess(trans('alerts.backend.blogcategories.created'));
+        return redirect()
+            ->route('admin.blogcategories.index')
+            ->with('flash_success', trans('alerts.backend.blogcategories.created'));
     }
 
     /**
-     * @param BlogCategory              $blogcategory
-     * @param EditBlogCategoriesRequest $request
+     * @param \App\Models\BlogCategories\BlogCategory                             $blogcategory
+     * @param \App\Http\Requests\Backend\BlogCategories\EditBlogCategoriesRequest $request
      *
      * @return mixed
      */
     public function edit(BlogCategory $blogcategory, EditBlogCategoriesRequest $request)
     {
         return view('backend.blogcategories.edit')
-            ->withBlogcategory($blogcategory);
+            ->with('blogcategory', $blogcategory);
     }
 
     /**
-     * @param BlogCategory                $blogcategory
-     * @param UpdateBlogCategoriesRequest $request
+     * @param \App\Models\BlogCategories\BlogCategory                               $blogcategory
+     * @param \App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest $request
      *
      * @return mixed
      */
     public function update(BlogCategory $blogcategory, UpdateBlogCategoriesRequest $request)
     {
-        $this->blogcategories->update($blogcategory, $request->all());
+        $this->blogcategory->update($blogcategory, $request->all());
 
-        return redirect()->route('admin.blogcategories.index')->withFlashSuccess(trans('alerts.backend.blogcategories.updated'));
+        return redirect()
+            ->route('admin.blogcategories.index')
+            ->with('flash_success', trans('alerts.backend.blogcategories.updated'));
     }
 
     /**
-     * @param BlogCategory                $blogcategory
-     * @param DeleteBlogCategoriesRequest $request
+     * @param \App\Models\BlogCategories\BlogCategory                               $blogcategory
+     * @param \App\Http\Requests\Backend\BlogCategories\DeleteBlogCategoriesRequest $request
      *
      * @return mixed
      */
     public function destroy(BlogCategory $blogcategory, DeleteBlogCategoriesRequest $request)
     {
-        $this->blogcategories->delete($blogcategory);
+        $this->blogcategory->delete($blogcategory);
 
-        return redirect()->route('admin.blogcategories.index')->withFlashSuccess(trans('alerts.backend.blogcategories.deleted'));
+        return redirect()
+            ->route('admin.blogcategories.index')
+            ->with('flash_success', trans('alerts.backend.blogcategories.deleted'));
     }
 }
