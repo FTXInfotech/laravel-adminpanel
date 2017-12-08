@@ -29,18 +29,18 @@ class BlogsController extends Controller
     /**
      * @var BlogsRepository
      */
-    protected $blogs;
+    protected $blog;
 
     /**
-     * @param BlogsRepository $blogs
+     * @param \App\Repositories\Backend\Blogs\BlogsRepository $blog
      */
-    public function __construct(BlogsRepository $blogs)
+    public function __construct(BlogsRepository $blog)
     {
-        $this->blogs = $blogs;
+        $this->blog = $blog;
     }
 
     /**
-     * @param ManageBlogsRequest $request
+     * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
      * @return mixed
      */
@@ -52,14 +52,14 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param ManageBlogsRequest $request
+     * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
      * @return mixed
      */
     public function create(ManageBlogsRequest $request)
     {
+        $blogTags       = BlogTag::getSelectData();
         $blogCategories = BlogCategory::getSelectData();
-        $blogTags = BlogTag::getSelectData();
 
         return view('backend.blogs.create')->with([
             'blogCategories' => $blogCategories,
@@ -69,22 +69,22 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param StoreBlogsRequest $request
+     * @param \App\Http\Requests\Backend\Blogs\StoreBlogsRequest $request
      *
      * @return mixed
      */
     public function store(StoreBlogsRequest $request)
     {
-        $input = $request->all();
+        $this->blog->create($request->except('_token'));
 
-        $this->blogs->create($input, $tagsArray, $categoriesArray);
-
-        return redirect()->route('admin.blogs.index')->withFlashSuccess(trans('alerts.backend.blogs.created'));
+        return redirect()
+            ->route('admin.blogs.index')
+            ->with('flash_success', trans('alerts.backend.blogs.created'));
     }
 
     /**
-     * @param Blog               $blog
-     * @param ManageBlogsRequest $request
+     * @param \App\Models\Blogs\Blog               $blog
+     * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
      * @return mixed
      */
@@ -107,8 +107,8 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param Blog               $blog
-     * @param UpdateBlogsRequest $request
+     * @param \App\Models\Blogs\Blog               $blog
+     * @param \App\Http\Requests\Backend\Blogs\UpdateBlogsRequest $request
      *
      * @return mixed
      */
@@ -116,21 +116,25 @@ class BlogsController extends Controller
     {
         $input = $request->all();
 
-        $this->blogs->update($blog, $input);
+        $this->blog->update($blog, $request->except(['_token', '_method']));
 
-        return redirect()->route('admin.blogs.index')->withFlashSuccess(trans('alerts.backend.blogs.updated'));
+        return redirect()
+            ->route('admin.blogs.index')
+            ->with('flash_success', trans('alerts.backend.blogs.updated'));
     }
 
     /**
-     * @param Blog               $blog
-     * @param ManageBlogsRequest $request
+     * @param \App\Models\Blogs\Blog               $blog
+     * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
      * @return mixed
      */
     public function destroy(Blog $blog, ManageBlogsRequest $request)
     {
-        $this->blogs->delete($blog);
+        $this->blog->delete($blog);
 
-        return redirect()->route('admin.blogs.index')->withFlashSuccess(trans('alerts.backend.blogs.deleted'));
+        return redirect()
+            ->route('admin.blogs.index')
+            ->with('flash_success', trans('alerts.backend.blogs.deleted'));
     }
 }

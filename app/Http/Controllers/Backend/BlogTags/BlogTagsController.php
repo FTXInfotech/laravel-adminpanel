@@ -18,20 +18,20 @@ use App\Repositories\Backend\BlogTags\BlogTagsRepository;
 class BlogTagsController extends Controller
 {
     /**
-     * @var BlogTagsRepository
+     * @var \App\Repositories\Backend\BlogTags\BlogTagsRepository
      */
-    protected $blogtags;
+    protected $blogtag;
 
     /**
-     * @param blogtagsRepository $blogtags
+     * @param \App\Repositories\Backend\BlogTags\BlogTagsRepository $blogtag
      */
-    public function __construct(BlogTagsRepository $blogtags)
+    public function __construct(BlogTagsRepository $blogtag)
     {
-        $this->blogtags = $blogtags;
+        $this->blogtag = $blogtag;
     }
 
     /**
-     * @param ManageBlogTagsRequest $request
+     * @param \App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest $request
      *
      * @return mixed
      */
@@ -41,7 +41,7 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param CreateBlogTagsRequest $request
+     * @param \App\Http\Requests\Backend\BlogTags\CreateBlogTagsRequest $request
      *
      * @return mixed
      */
@@ -51,52 +51,58 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param StoreblogtagsRequest $request
+     * @param \App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest $request
      *
      * @return mixed
      */
     public function store(StoreBlogTagsRequest $request)
     {
-        $this->blogtags->create($request->all());
+        $this->blogtag->create($request->except('token'));
 
-        return redirect()->route('admin.blogtags.index')->withFlashSuccess(trans('alerts.backend.blogtags.created'));
+        return redirect()
+            ->route('admin.blogtags.index')
+            ->with('flash_success', trans('alerts.backend.blogtags.created'));
     }
 
     /**
-     * @param BlogTag             $blogtag
-     * @param EditBlogTagsRequest $request
+     * @param \App\Models\BlogTags\BlogTag             $blogtag
+     * @param \App\Http\Requests\Backend\BlogTags\EditBlogTagsRequest $request
      *
      * @return mixed
      */
     public function edit(BlogTag $blogtag, EditBlogTagsRequest $request)
     {
         return view('backend.blogtags.edit')
-            ->withBlogtag($blogtag);
+            ->with('blogtag', $blogtag);
     }
 
     /**
-     * @param BlogTag               $blogtag
-     * @param UpdateblogtagsRequest $request
+     * @param \App\Models\BlogTags\BlogTag               $blogtag
+     * @param \App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest $request
      *
      * @return mixed
      */
     public function update(BlogTag $blogtag, UpdateBlogTagsRequest $request)
     {
-        $this->blogtags->update($blogtag, $request->all());
+        $this->blogtag->update($blogtag, $request->except(['_method', '_token']));
 
-        return redirect()->route('admin.blogtags.index')->withFlashSuccess(trans('alerts.backend.blogtags.updated'));
+        return redirect()
+            ->route('admin.blogtags.index')
+            ->with('flash_success', trans('alerts.backend.blogtags.updated'));
     }
 
     /**
-     * @param BlogTag               $blogtag
-     * @param DeleteBlogTagsRequest $request
+     * @param \App\Models\BlogTags\BlogTag               $blogtag
+     * @param \App\Http\Requests\Backend\BlogTags\DeleteBlogTagsRequest $request
      *
      * @return mixed
      */
     public function destroy(BlogTag $blogtag, DeleteBlogTagsRequest $request)
     {
-        $this->blogtags->delete($blogtag);
+        $this->blogtag->delete($blogtag);
 
-        return redirect()->route('admin.blogtags.index')->withFlashSuccess(trans('alerts.backend.blogtags.deleted'));
+        return redirect()
+            ->route('admin.blogtags.index')
+            ->with('flash_success', trans('alerts.backend.blogtags.deleted'));
     }
 }

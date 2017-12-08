@@ -17,6 +17,26 @@ class Blog extends BaseModel
             // BlogAttribute::getEditButtonAttribute insteadof ModelTrait;
         }
 
+    protected $fillable = [
+        'name',
+        'slug',
+        'publish_datetime',
+        'content',
+        'meta_title',
+        'cannonical_link',
+        'meta_keywords',
+        'meta_description',
+        'status',
+        'featured_image',
+        'created_by'
+    ];
+
+    protected $dates = [
+        'publish_datetime',
+        'created_at',
+        'updated_at'
+    ];
+
     /**
      * The database table used by the model.
      *
@@ -27,6 +47,6 @@ class Blog extends BaseModel
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('access.blogs_table');
+        $this->table = config('module.blogs.table');
     }
 }

@@ -32,6 +32,6 @@ class Faq extends BaseModel
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('access.faqs_table');
+        $this->table = config('module.faqs.table');
     }
 }

@@ -11,11 +11,10 @@ class BlogMapTag extends BaseModel
      *
      * @var string
      */
-    protected $table;
+    protected $table = 'blog_map_tags';
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('access.blog_map_tags');
     }
 }

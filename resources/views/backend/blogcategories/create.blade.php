@@ -17,7 +17,7 @@
                 <h3 class="box-title">{{ trans('labels.backend.blogcategories.create') }}</h3>
 
                 <div class="box-tools pull-right">
-                    @include('backend.includes.partials.blogcategories-header-buttons')
+                    @include('backend.blogcategories.partials.blogcategories-header-buttons')
                 </div><!--box-tools pull-right-->
             </div><!-- /.box-header -->
 

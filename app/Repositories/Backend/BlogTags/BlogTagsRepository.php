@@ -26,13 +26,13 @@ class BlogTagsRepository extends BaseRepository
     public function getForDataTable()
     {
         return $this->query()
-            ->leftjoin(config('access.users_table'), config('access.users_table').'.id', '=', config('access.blog_tags_table').'.created_by')
+            ->leftjoin(config('access.users_table'), config('access.users_table').'.id', '=', config('module.blog_tags.table').'.created_by')
             ->select([
-                config('access.blog_tags_table').'.id',
-                config('access.blog_tags_table').'.name',
-                config('access.blog_tags_table').'.status',
-                config('access.blog_tags_table').'.created_by',
-                config('access.blog_tags_table').'.created_at',
+                config('module.blog_tags.table').'.id',
+                config('module.blog_tags.table').'.name',
+                config('module.blog_tags.table').'.status',
+                config('module.blog_tags.table').'.created_by',
+                config('module.blog_tags.table').'.created_at',
                 config('access.users_table').'.first_name as user_name',
             ]);
     }
@@ -40,7 +40,7 @@ class BlogTagsRepository extends BaseRepository
     /**
      * @param array $input
      *
-     * @throws GeneralException
+     * @throws \App\Exceptions\GeneralException
      *
      * @return bool
      */
@@ -49,16 +49,13 @@ class BlogTagsRepository extends BaseRepository
         if ($this->query()->where('name', $input['name'])->first()) {
             throw new GeneralException(trans('exceptions.backend.blogtags.already_exists'));
         }
-        DB::transaction(function () use ($input) {
-            $blogtags = self::MODEL;
-            $blogtags = new $blogtags();
-            $blogtags->name = $input['name'];
-            $blogtags->status = (isset($input['status']) && $input['status'] == 1)
-                 ? 1 : 0;
-            $blogtags->created_by = access()->user()->id;
 
-            if ($blogtags->save()) {
-                event(new BlogTagCreated($blogtags));
+        DB::transaction(function () use ($input) {
+            $input['status'] = isset($input['status']) ? 1 : 0;
+            $input['created_by'] = access()->user()->id;
+
+            if ($blogtag = BlogTag::create($input)) {
+                event(new BlogTagCreated($blogtag));
 
                 return true;
             }
@@ -68,27 +65,25 @@ class BlogTagsRepository extends BaseRepository
     }
 
     /**
-     * @param Model $permission
+     * @param \App\Models\BlogTags\BlogTag $blogtag
      * @param  $input
      *
-     * @throws GeneralException
+     * @throws \App\Exceptions\GeneralException
      *
      * return bool
      */
-    public function update(Model $blogtags, array $input)
+    public function update(BlogTag $blogtag, array $input)
     {
-        if ($this->query()->where('name', $input['name'])->where('id', '!=', $blogtags->id)->first()) {
+        if ($this->query()->where('name', $input['name'])->where('id', '!=', $blogtag->id)->first()) {
             throw new GeneralException(trans('exceptions.backend.blogtags.already_exists'));
         }
 
-        $blogtags->name = $input['name'];
-        $blogtags->status = (isset($input['status']) && $input['status'] == 1)
-                 ? 1 : 0;
-        $blogtags->updated_by = access()->user()->id;
-
-        DB::transaction(function () use ($blogtags, $input) {
-            if ($blogtags->save()) {
-                event(new BlogTagUpdated($blogtags));
+        DB::transaction(function () use ($blogtag, $input) {
+            $input['status'] = isset($input['status']) ? 1 : 0;
+            $input['updated_by'] = access()->user()->id;
+            
+            if ($blogtag->update($input)) {
+                event(new BlogTagUpdated($blogtag));
 
                 return true;
             }
@@ -100,13 +95,13 @@ class BlogTagsRepository extends BaseRepository
     }
 
     /**
-     * @param Model $blogtag
+     * @param \App\Models\BlogTags\BlogTag $blogtag
      *
-     * @throws GeneralException
+     * @throws \App\Exceptions\GeneralException
      *
      * @return bool
      */
-    public function delete(Model $blogtag)
+    public function delete(BlogTag $blogtag)
     {
         DB::transaction(function () use ($blogtag) {
             if ($blogtag->delete()) {
