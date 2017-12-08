@@ -58,7 +58,7 @@ class BlogsController extends Controller
      */
     public function create(ManageBlogsRequest $request)
     {
-        $blogTags       = BlogTag::getSelectData();
+        $blogTags = BlogTag::getSelectData();
         $blogCategories = BlogCategory::getSelectData();
 
         return view('backend.blogs.create')->with([
@@ -83,7 +83,7 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param \App\Models\Blogs\Blog               $blog
+     * @param \App\Models\Blogs\Blog                              $blog
      * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
      * @return mixed
@@ -107,7 +107,7 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param \App\Models\Blogs\Blog               $blog
+     * @param \App\Models\Blogs\Blog                              $blog
      * @param \App\Http\Requests\Backend\Blogs\UpdateBlogsRequest $request
      *
      * @return mixed
@@ -124,7 +124,7 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param \App\Models\Blogs\Blog               $blog
+     * @param \App\Models\Blogs\Blog                              $blog
      * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
      * @return mixed

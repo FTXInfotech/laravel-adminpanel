@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Backend\Blogs;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
 use App\Repositories\Backend\Blogs\BlogsRepository;
-use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
 /**

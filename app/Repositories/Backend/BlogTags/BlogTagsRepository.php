@@ -81,7 +81,7 @@ class BlogTagsRepository extends BaseRepository
         DB::transaction(function () use ($blogtag, $input) {
             $input['status'] = isset($input['status']) ? 1 : 0;
             $input['updated_by'] = access()->user()->id;
-            
+
             if ($blogtag->update($input)) {
                 event(new BlogTagUpdated($blogtag));
 
