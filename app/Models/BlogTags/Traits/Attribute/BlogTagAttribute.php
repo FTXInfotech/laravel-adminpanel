@@ -17,7 +17,7 @@ trait BlogTagAttribute
                     '.$this->getDeleteButtonAttribute('delete-blog-tag', 'admin.blogtags.destroy').'
                 </div>';
     }
-    
+
     /**
      * @return string
      */

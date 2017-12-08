@@ -52,7 +52,7 @@ class FaqsRepository extends BaseRepository
 
     /**
      * @param \App\Models\Faqs\Faq $faq
-     * @param array $input
+     * @param array                $input
      *
      * @throws \App\Exceptions\GeneralException
      *
@@ -88,7 +88,7 @@ class FaqsRepository extends BaseRepository
 
     /**
      * @param \App\Models\Faqs\Faq $faq
-     * @param string $status
+     * @param string               $status
      *
      * @throws \App\Exceptions\GeneralException
      *

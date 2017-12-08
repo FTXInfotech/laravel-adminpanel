@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Backend\Faqs;
 
-use App\Models\Faqs\Faq;
 use App\Http\Controllers\Controller;
-use App\Repositories\Backend\Faqs\FaqsRepository;
 use App\Http\Requests\Backend\Faqs\EditFaqsRequest;
-use App\Http\Requests\Backend\Faqs\ManageFaqsRequest;
+use App\Models\Faqs\Faq;
+use App\Repositories\Backend\Faqs\FaqsRepository;
 
 class FaqStatusController extends Controller
 {
@@ -19,8 +18,8 @@ class FaqStatusController extends Controller
     {
         $this->faq = $faq;
     }
-    
-     /**
+
+    /**
      * @param \App\Models\Faqs\Faq $Faq
      * @param $status
      * @param \App\Http\Requests\Backend\Faqs\ManageFaqsRequest $request

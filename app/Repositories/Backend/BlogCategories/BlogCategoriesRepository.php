@@ -81,7 +81,7 @@ class BlogCategoriesRepository extends BaseRepository
         DB::transaction(function () use ($blogcategory, $input) {
             $input['status'] = isset($input['status']) ? 1 : 0;
             $input['updated_by'] = access()->user()->id;
-            
+
             if ($blogcategory->update($input)) {
                 event(new BlogCategoryUpdated($blogcategory));
 

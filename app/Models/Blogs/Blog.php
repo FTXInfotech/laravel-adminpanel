@@ -28,13 +28,13 @@ class Blog extends BaseModel
         'meta_description',
         'status',
         'featured_image',
-        'created_by'
+        'created_by',
     ];
 
     protected $dates = [
         'publish_datetime',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     /**

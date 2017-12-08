@@ -65,7 +65,7 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogTags\BlogTag             $blogtag
+     * @param \App\Models\BlogTags\BlogTag                            $blogtag
      * @param \App\Http\Requests\Backend\BlogTags\EditBlogTagsRequest $request
      *
      * @return mixed
@@ -77,7 +77,7 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogTags\BlogTag               $blogtag
+     * @param \App\Models\BlogTags\BlogTag                              $blogtag
      * @param \App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest $request
      *
      * @return mixed
@@ -92,7 +92,7 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogTags\BlogTag               $blogtag
+     * @param \App\Models\BlogTags\BlogTag                              $blogtag
      * @param \App\Http\Requests\Backend\BlogTags\DeleteBlogTagsRequest $request
      *
      * @return mixed

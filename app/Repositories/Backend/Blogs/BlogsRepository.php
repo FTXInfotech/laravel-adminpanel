@@ -2,19 +2,19 @@
 
 namespace App\Repositories\Backend\Blogs;
 
-use DB;
-use Carbon\Carbon;
-use App\Models\Blogs\Blog;
-use App\Models\BlogTags\BlogTag;
-use App\Http\Utilities\FileUploads;
-use App\Exceptions\GeneralException;
-use App\Repositories\BaseRepository;
-use App\Models\BlogMapTags\BlogMapTag;
-use App\Events\Backend\Blogs\BlogUpdated;
 use App\Events\Backend\Blogs\BlogCreated;
 use App\Events\Backend\Blogs\BlogDeleted;
+use App\Events\Backend\Blogs\BlogUpdated;
+use App\Exceptions\GeneralException;
+use App\Http\Utilities\FileUploads;
 use App\Models\BlogCategories\BlogCategory;
 use App\Models\BlogMapCategories\BlogMapCategory;
+use App\Models\BlogMapTags\BlogMapTag;
+use App\Models\Blogs\Blog;
+use App\Models\BlogTags\BlogTag;
+use App\Repositories\BaseRepository;
+use Carbon\Carbon;
+use DB;
 
 /**
  * Class BlogsRepository.
@@ -57,12 +57,12 @@ class BlogsRepository extends BaseRepository
         $categoriesArray = $this->createCategories($input['categories']);
         unset($input['tags'], $input['categories']);
 
-        DB::transaction(function () use ($input, $tagsArray, $categoriesArray) {        
+        DB::transaction(function () use ($input, $tagsArray, $categoriesArray) {
             $input['slug'] = str_slug($input['name']);
             $input['publish_datetime'] = Carbon::parse($input['publish_datetime']);
             $input = $this->uploadImage($input);
             $input['created_by'] = access()->user()->id;
-            
+
             if ($blog = Blog::create($input)) {
                 // Inserting associated category's id in mapper table
                 if (count($categoriesArray)) {
@@ -87,7 +87,7 @@ class BlogsRepository extends BaseRepository
      * Update Blog.
      *
      * @param \App\Models\Blogs\Blog $blog
-     * @param array $input
+     * @param array                  $input
      */
     public function update(Blog $blog, array $input)
     {
