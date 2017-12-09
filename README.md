@@ -99,13 +99,13 @@ Password: `1234`
 ## ScreenShots
 
 ## Dashboard
-![Screenshot](screenshots/dashboard.png)
+![Screenshot](screenshots/dashboard_sc.png)
 
 ## User Listing
-![Screenshot](screenshots/users.png)
+![Screenshot](screenshots/users_sc.png)
 
 ## Settings
-![Screenshot](screenshots/settings.png)
+![Screenshot](screenshots/settings_sc.png)
 
 ## Issues
 
