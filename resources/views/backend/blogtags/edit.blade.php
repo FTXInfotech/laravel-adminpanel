@@ -12,7 +12,7 @@
 @section('content')
     {{ Form::model($blogtag, ['route' => ['admin.blogtags.update', $blogtag], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH', 'id' => 'edit-role']) }}
 
-        <div class="box box-success">
+        <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ trans('labels.backend.blogtags.edit') }}</h3>
 

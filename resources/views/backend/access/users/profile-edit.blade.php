@@ -11,7 +11,7 @@
 @section('content')
 	{{ Form::model($logged_in_user, ['route' => 'admin.profile.update', 'class' => 'form-horizontal', 'method' => 'PATCH']) }}
 
-     <div class="box box-success">
+     <div class="box box-info">
         <div class="box-header with-border">
             <h3 class="box-title">{{ trans('labels.backend.access.users.edit-profile') }}</h3>
         </div>

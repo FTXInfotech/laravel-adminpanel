@@ -12,7 +12,7 @@
 @section('content')
     {{ Form::model($blogcategory, ['route' => ['admin.blogcategories.update', $blogcategory], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH', 'id' => 'edit-role']) }}
 
-        <div class="box box-success">
+        <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ trans('labels.backend.blogcategories.edit') }}</h3>
 
