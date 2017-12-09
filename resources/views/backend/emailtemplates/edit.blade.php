@@ -32,7 +32,7 @@
 @section('content')
     {{ Form::model($emailtemplate, ['route' => ['admin.emailtemplates.update', $emailtemplate], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH', 'id' => 'edit-role']) }}
 
-        <div class="box box-success">
+        <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ trans('labels.backend.emailtemplates.edit') }}</h3>
             </div><!-- /.box-header -->

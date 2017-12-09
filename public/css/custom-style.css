@@ -1,3 +1,7 @@
+:root {
+    --theme-co: #495867;
+    --light-blue: #BDD5EA;
+}
 .box {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -42,6 +46,11 @@
     -o-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
+.skin-blue-light .main-sidebar {
+    background: var(--theme-co);
+    color: #fff;
+}
+
 a.dt-button.copyButton {
     height: 30px;
     width: 30px;
@@ -63,7 +72,7 @@ a.dt-button.copyButton:active:not(.disabled):hover:not(.disabled){
 a.dt-button.copyButton:before {
     position: absolute;
     content: "\f0c5";
-    font-family: 'FontAwesome';
+    font-family: 'Fira Sans', sans-serif;
     top: 0;
     left: 0;
 }
@@ -144,7 +153,7 @@ a.dt-button.pdfButton:active:not(.disabled):hover:not(.disabled){
 a.dt-button.pdfButton:before {
     position: absolute;
     content: "\f1c1";
-    font-family: 'FontAwesome';
+    font-family: 'Fira Sans', sans-serif;
     top: 0;
     left: 0;
 }
@@ -171,7 +180,7 @@ a.dt-button.v:active:not(.disabled):hover:not(.disabled){
 a.dt-button.printButton:before {
     position: absolute;
     content: "\f02f";
-    font-family: 'FontAwesome';
+    font-family: 'Fira Sans', sans-serif;
     top: 0;
     left: 0;
 }
@@ -186,7 +195,7 @@ div.dataTables_wrapper div.dataTables_filter label input {width: 395px;}
                             /*CSS 25/05/2017*/
 /*==================================================================*/
 
-body { font-family: 'Lato', sans-serif; }
+body { font-family:'Fira Sans', sans-serif; }
 .alert { padding: 10px 15px; margin-bottom: 15px; }
 label { font-weight: 500; }
 .box-header .box-title { line-height: 30px; }
@@ -237,13 +246,13 @@ textarea.form-control { max-width: 100%; min-height: 50px; }
 
 /*Custom Fileinputs start*/
 .custom-file-input input[type=file] { display: none; }
-.custom-file-input .inputfile + label { max-width: 100%; font-size: 14px; font-weight: 500 text-overflow: ellipsis; white-space: nowrap; cursor: pointer; display: inline-block; padding: 8px 12px; margin-bottom: 0; height: 36px; }
+.custom-file-input .inputfile + label { max-width: 100%; font-size: 14px; font-weight: 500 text-overflow: ellipsis; white-space: nowrap; cursor: pointer; display: inline-block; padding: 8px 12px; margin-bottom: 0; height: 36px; border:1px solid var(--theme-co) }
 .custom-file-input .inputfile + label .fa { margin-right: 10px; }
 .custom-file-input .inputfile:focus + label,.custom-file-input .inputfile.has-focus + label { outline: 1px dotted #000; outline: -webkit-focus-ring-color auto 5px; }
 
 /*Custom Fileinputs end*/
 /*Datetimepicker CSS start*/
-.bootstrap-datetimepicker-widget.dropdown-menu { font-family: 'Lato', sans-serif; box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; -ms-box-shadow: none; }
+.bootstrap-datetimepicker-widget.dropdown-menu { font-family: 'Fira Sans', sans-serif; box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; -ms-box-shadow: none; }
 .bootstrap-datetimepicker-widget table tr td.active, .bootstrap-datetimepicker-widget table tr td span.active, .bootstrap-datetimepicker-widget table tr td span.active:hover { text-shadow: none; }
 
 /*Datetimepicker CSS end*/
@@ -255,12 +264,22 @@ textarea.form-control { max-width: 100%; min-height: 50px; }
 .main-footer { display: none; }
 .skin-blue-light .sidebar-menu>li>a { font-weight: 500; }
 .skin-blue-light .sidebar-menu>li>.treeview-menu { padding-top: 10px; padding-bottom: 10px; }
+.skin-blue-light .main-header .navbar { background-color: var(--theme-co) }
+.skin-blue-light .sidebar-menu>li.active{ background-color: var(--theme-co) }
+.skin-blue-light .sidebar-menu>li#hover{ background-color: var(--theme-co) }
+.skin-blue-light .sidebar a { color: #fff;  }
+.skin-blue-light .sidebar a { color: #fff;  }
+.skin-blue-light .sidebar-menu>li.header {     background-color: var(--theme-co);   color: #fff; font-weight: bold; }
 
 .sidebar-menu .treeview-menu>li>a { font-size: 13px; white-space: normal; }
-.main-header .logo { height: 53px; line-height: 53px; }
+.skin-blue-light .main-header .logo { height: 53px; line-height: 53px; background-color: #fff; color: var(--theme-co); font-family: 'Fira Sans', sans-serif;}
+.btn-primary { color: #fff; background-color: var(--theme-co); border-color: rgba(0,0,0,.1);}
+.btn-primary:hover {background: rgba(0,0,0,.8);}
+.skin-blue-light .main-header .logo:hover, .skin-blue-light .main-header .navbar .sidebar-toggle:hover {     background: rgba(0,0,0,.1);
+    color: #f6f6f6;}
 .main-header .sidebar-toggle { height: 53px; }
 .navbar-custom-menu>.navbar-nav>li>.dropdown-menu { padding: 0; }
-.navbar-nav>.user-menu>.dropdown-menu>li.user-header { height: 145px; }
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header { height: 145px; background: var(--theme-co)}
 .navbar-nav>.user-menu>.dropdown-menu>.user-body { display: inline-block; width: 49%; vertical-align: middle; border-top: 0; border-bottom: 0; border-radius: 0; -moz-border-radius: 0; -webkit-border-radius: 0; -ms-border-radius: 0; }
 .navbar-nav>.user-menu>.dropdown-menu>.user-footer { border-top: 1px solid #ddd; }
 /*Datatable CSS*/

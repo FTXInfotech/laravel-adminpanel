@@ -12,7 +12,7 @@
 @section('content')
     {{ Form::model($setting, ['route' => ['admin.settings.update', $setting], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH','files' => true, 'id' => 'edit-role']) }}
 
-        <div class="box box-success">
+        <div class="box box-info">
             <div class="box-header">
                 <h3 class="box-title">{{ trans('labels.backend.settings.edit') }}</h3>
             </div><!-- /.box-header -->

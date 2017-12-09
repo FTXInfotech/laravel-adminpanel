@@ -11,8 +11,7 @@
         <!-- Meta -->
         <meta name="description" content="@yield('meta_description', 'Default Description')">
         <meta name="author" content="@yield('meta_author', 'Viral Solani')">
-       {{--  <!--Lato Fonts Included-->
-        <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i" rel="stylesheet"> --}}
+        <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
         @yield('meta')
 
         <!-- Styles -->
