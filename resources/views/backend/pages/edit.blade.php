@@ -93,6 +93,6 @@
 @endsection
 @section("after-scripts")
     <script type="text/javascript">
-        Backend.Cmspage.init();
+        Backend.Pages.init();
     </script>
 @endsection
