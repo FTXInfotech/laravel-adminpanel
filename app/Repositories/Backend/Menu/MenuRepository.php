@@ -2,18 +2,17 @@
 
 namespace App\Repositories\Backend\Menu;
 
-use App\Repositories\BaseRepository;
 use App\Exceptions\GeneralException;
 use App\Models\Menu\Menu;
+use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
-use DB;
 
 /**
  * Class MenuRepository.
  */
 class MenuRepository extends BaseRepository
 {
-	/**
+    /**
      * Associated Repository Model.
      */
     const MODEL = Menu::class;
@@ -63,13 +62,12 @@ class MenuRepository extends BaseRepository
      *
      * return bool
      */
-     
     public function update(Menu $menu, array $input)
     {
-        if ($this->query()->where('name', $input['name'])->where("id", '!=', $menu->id)->first()) {
+        if ($this->query()->where('name', $input['name'])->where('id', '!=', $menu->id)->first()) {
             throw new GeneralException(trans('exceptions.backend.menus.already_exists'));
         }
-        
+
         $input['updated_by'] = access()->user()->id;
 
         if ($menu->update($input)) {
@@ -77,7 +75,6 @@ class MenuRepository extends BaseRepository
         }
 
         throw new GeneralException(trans('exceptions.backend.menus.update_error'));
-
     }
 
     /**

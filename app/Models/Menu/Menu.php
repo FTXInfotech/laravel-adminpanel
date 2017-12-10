@@ -2,9 +2,9 @@
 
 namespace App\Models\Menu;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\ModelTrait;
 use App\Models\Menu\Traits\Attribute\MenuAttribute;
+use App\Models\ModelTrait;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Menu extends Model
@@ -25,12 +25,12 @@ class Menu extends Model
     protected $fillable = [
         'name',
         'type',
-        'items'
+        'items',
     ];
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-    	$this->table = config("access.menus_table");
+        $this->table = config('access.menus_table');
     }
 }
