@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <div class="box box-success">
+    <div class="box box-info">
         <div class="box-header with-border">
             <h3 class="box-title">{{ trans('labels.backend.modules.management') }}</h3>
 

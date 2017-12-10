@@ -46,7 +46,7 @@
 
         <div class="wrapper">
             @include('backend.includes.header')
-            @include('backend.includes.sidebar')
+            @include('backend.includes.sidebar-dynamic')
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
