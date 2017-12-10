@@ -139,6 +139,7 @@ return [
                     'associated_permissions' => 'Associated Permissions',
                     'name'                   => 'Name',
                     'sort'                   => 'Sort',
+                    'active'                 => 'Active',
                 ],
 
                 'users' => [

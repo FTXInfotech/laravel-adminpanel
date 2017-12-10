@@ -65,7 +65,7 @@
                 </div><!--form control-->
 
                 <div class="form-group">
-                    {{ Form::label('status', trans('validation.attributes.backend.cmspages.is_active'), ['class' => 'col-lg-2 control-label']) }}
+                    {{ Form::label('status', trans('validation.attributes.backend.access.roles.active'), ['class' => 'col-lg-2 control-label']) }}
 
                     <div class="col-lg-10">
                         <div class="control-group">
