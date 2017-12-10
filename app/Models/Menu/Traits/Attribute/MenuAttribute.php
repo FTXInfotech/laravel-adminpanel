@@ -13,8 +13,8 @@ trait MenuAttribute
     public function getActionButtonsAttribute()
     {
         return '<div class="btn-group action-btn">
-                    ' .$this->getEditButtonAttribute('edit-menu', 'admin.menus.edit'). '
-                    ' .$this->getDeleteButtonAttribute('delete-menu', 'admin.menus.destroy'). '
+                    '.$this->getEditButtonAttribute('edit-menu', 'admin.menus.edit').'
+                    '.$this->getDeleteButtonAttribute('delete-menu', 'admin.menus.destroy').'
                 </div>';
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Requests\Backend\Menu;
 use App\Http\Requests\Request;
 
 /**
- * Class CreateMenuRequest
+ * Class CreateMenuRequest.
  */
 class CreateMenuRequest extends Request
 {

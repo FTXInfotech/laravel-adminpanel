@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Backend\Menu;
 
-use App\Models\Menu\Menu;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\Backend\Menu\MenuRepository;
-use App\Http\Requests\Backend\Menu\StoreMenuRequest;
-use App\Http\Requests\Backend\Menu\ManageMenuRequest;
 use App\Http\Requests\Backend\Menu\CreateMenuRequest;
-use App\Http\Requests\Backend\Menu\EditMenuRequest;
 use App\Http\Requests\Backend\Menu\DeleteMenuRequest;
+use App\Http\Requests\Backend\Menu\EditMenuRequest;
+use App\Http\Requests\Backend\Menu\ManageMenuRequest;
+use App\Http\Requests\Backend\Menu\StoreMenuRequest;
 use App\Http\Requests\Backend\Menu\UpdateMenuRequest;
+use App\Models\Menu\Menu;
+use App\Repositories\Backend\Menu\MenuRepository;
 use Illuminate\Support\Facades\DB;
 
 class MenuController extends Controller
@@ -28,6 +27,7 @@ class MenuController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
      * @param \App\Http\Requests\Backend\Menu\ManageMenuRequest $request
      *
      * @return \Illuminate\Http\Response
@@ -39,6 +39,7 @@ class MenuController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @param \App\Http\Requests\Backend\Menu\CreateMenuRequest $request
      *
      * @return \Illuminate\Http\Response
@@ -46,17 +47,19 @@ class MenuController extends Controller
     public function create(CreateMenuRequest $request)
     {
         $types = [
-            "backend" => "Backend", 
-            "frontend" => "Frontend"
+            'backend'  => 'Backend',
+            'frontend' => 'Frontend',
         ];
         $modules = DB::table('modules')->get();
+
         return view('backend.menus.create')->withTypes($types)->withModules($modules);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
      * @param \App\Http\Requests\Backend\Menu\StoreMenuRequest $request
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(StoreMenuRequest $request)
@@ -68,19 +71,21 @@ class MenuController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param \App\Models\Menu\Menu  $menu
+     *
+     * @param \App\Models\Menu\Menu                           $menu
      * @param \App\Http\Requests\Backend\Menu\EditMenuRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Menu $menu, EditMenuRequest $request)
     {
         $types = [
-            "backend" => "Backend", 
-            "frontend" => "Frontend"
+            'backend'  => 'Backend',
+            'frontend' => 'Frontend',
         ];
-        
+
         $modules = DB::table('modules')->get();
-        
+
         return view('backend.menus.edit')
                 ->with('types', $types)
                 ->with('menu', $menu)
@@ -90,9 +95,9 @@ class MenuController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Models\Menu\Menu  $menu
-     * @param  \App\Http\Requests\Backend\Menu\UpdateMenuRequest  $request
-     * 
+     * @param \App\Models\Menu\Menu                             $menu
+     * @param \App\Http\Requests\Backend\Menu\UpdateMenuRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Menu $menu, UpdateMenuRequest $request)
@@ -106,8 +111,10 @@ class MenuController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param \App\Models\Menu\Menu  $menu
+     *
+     * @param \App\Models\Menu\Menu                             $menu
      * @param \App\Http\Requests\Backend\Menu\DeleteMenuRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Menu $menu, DeleteMenuRequest $request)

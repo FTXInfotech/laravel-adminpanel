@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Backend\Menu;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\Menu\MenuRepository;
 use App\Http\Requests\Backend\Menu\ManageMenuRequest;
+use App\Repositories\Backend\Menu\MenuRepository;
 use Carbon\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Class MenuTableController.
