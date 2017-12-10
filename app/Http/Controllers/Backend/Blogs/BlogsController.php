@@ -22,7 +22,7 @@ class BlogsController extends Controller
     protected $status = [
         'Published' => 'Published',
         'Draft'     => 'Draft',
-        'Inactive'  => 'Inactive',
+        'InActive'  => 'InActive',
         'Scheduled' => 'Scheduled',
     ];
 

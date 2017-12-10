@@ -77,7 +77,7 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="{{ access()->user()->picture }}" class="user-image" alt="User Avatar"/>
-                        <span class="hidden-xs">{{ access()->user()->name }}</span>
+                        <span class="hidden-xs">{{ access()->user()->first_name }}</span>
                         <div class="clearfix"></div>
                     </a>
 
