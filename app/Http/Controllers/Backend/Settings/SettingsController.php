@@ -25,7 +25,7 @@ class SettingsController extends Controller
     }
 
     /**
-     * @param \App\Models\Settings\Setting                     $setting
+     * @param \App\Models\Settings\Setting                              $setting
      * @param \App\Http\Requests\Backend\Settings\ManageSettingsRequest $request
      *
      * @return mixed
@@ -37,7 +37,7 @@ class SettingsController extends Controller
     }
 
     /**
-     * @param \App\Models\Settings\Setting                     $setting
+     * @param \App\Models\Settings\Setting                              $setting
      * @param \App\Http\Requests\Backend\Settings\UpdateSettingsRequest $request
      *
      * @return mixed
