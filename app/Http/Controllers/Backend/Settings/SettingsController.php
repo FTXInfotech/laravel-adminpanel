@@ -14,13 +14,10 @@ use Illuminate\Http\Request;
  */
 class SettingsController extends Controller
 {
-    /**
-     * @var SettingsRepository
-     */
     protected $settings;
 
     /**
-     * @param SettingsRepository $settings
+     * @param \App\Repositories\Backend\Settings\SettingsRepository $settings
      */
     public function __construct(SettingsRepository $settings)
     {
@@ -28,8 +25,8 @@ class SettingsController extends Controller
     }
 
     /**
-     * @param Setting                     $setting
-     * @param ManageEmailTemplatesRequest $request
+     * @param \App\Models\Settings\Setting                     $setting
+     * @param \App\Http\Requests\Backend\Settings\ManageSettingsRequest $request
      *
      * @return mixed
      */
@@ -40,16 +37,18 @@ class SettingsController extends Controller
     }
 
     /**
-     * @param Setting                     $setting
-     * @param UpdateEmailTemplatesRequest $request
+     * @param \App\Models\Settings\Setting                     $setting
+     * @param \App\Http\Requests\Backend\Settings\UpdateSettingsRequest $request
      *
      * @return mixed
      */
     public function update(Setting $setting, UpdateSettingsRequest $request)
     {
-        $this->settings->update($setting, $request->all());
+        $this->settings->update($setting, $request->except(['_token', '_method']));
 
-        return redirect()->route('admin.settings.edit', $setting->id)->withFlashSuccess(trans('alerts.backend.settings.updated'));
+        return redirect()
+            ->route('admin.settings.edit', $setting->id)
+            ->with('flash_success', trans('alerts.backend.settings.updated'));
     }
 
     /**

@@ -18,19 +18,15 @@ class SettingsRepository extends BaseRepository
     const MODEL = Setting::class;
 
     /**
-     * @param Model $permission
+     * @param \App\Models\Settings\Setting $setting
      * @param  $input
      *
-     * @throws GeneralException
+     * @throws \App\Exceptions\GeneralException
      *
      * return bool
      */
-    public function update(Model $setting, array $input)
+    public function update(Setting $setting, array $input)
     {
-        // Unsetting method and token values from array
-        unset($input['_method']);
-        unset($input['_token']);
-
         if (isset($input['logo'])) {
             $image_upload = $this->uploadlogoimage($setting, $input['logo']);
             $input['logo'] = $image_upload;
@@ -41,13 +37,11 @@ class SettingsRepository extends BaseRepository
             $input['favicon'] = $image_upload;
         }
 
-        DB::transaction(function () use ($setting, $input) {
-            if ($setting->update($input)) {
-                return true;
-            }
+        if ($setting->update($input)) {
+            return true;
+        }
 
-            throw new GeneralException(trans('exceptions.backend.settings.update_error'));
-        });
+        throw new GeneralException(trans('exceptions.backend.settings.update_error'));
     }
 
     /*
