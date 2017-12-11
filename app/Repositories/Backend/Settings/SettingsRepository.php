@@ -5,7 +5,6 @@ namespace App\Repositories\Backend\Settings;
 use App\Exceptions\GeneralException;
 use App\Models\Settings\Setting;
 use App\Repositories\BaseRepository;
-use DB;
 
 /**
  * Class SettingsRepository.

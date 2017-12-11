@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Backend\Settings;
 
 use App\Http\Requests\Request;
-use App\Models\Settings\Setting;
 
 /**
  * Class UpdateSettingsRequest.
@@ -42,7 +41,7 @@ class UpdateSettingsRequest extends Request
     {
         return [
             'logo.dimensions'     => 'Invalid logo - should be minimum 226*48',
-            'favicon.dimensions'  => 'Invalid favicon - should be 16*16'
+            'favicon.dimensions'  => 'Invalid favicon - should be 16*16',
         ];
     }
 }
