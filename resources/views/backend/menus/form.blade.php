@@ -56,7 +56,6 @@
 @section("after-scripts")
     {{ Html::script('js/nestable2/jquery.nestable.js') }}
     <script type="text/javascript">
-        //FinBuilders.Blog.init();
         var formName = '_add_custom_url_form';
         var lastId = null;
         $('#menu-items').nestable({

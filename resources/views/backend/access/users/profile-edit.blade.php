@@ -83,57 +83,6 @@
 <script type="text/javascript">
     $(document).ready(function() {
         Backend.Profile.init();
-        //Getting States of default contry
-        ajaxCall("{{route('admin.get.states')}}");
-
-
-
-        //Getting Cities of select State
-        $("#state").on("change", function() {
-            var stateId = $(this).val();
-            var url = "{{route('admin.get.cities')}}";
-            ajaxCall(url, stateId);
-        });
-
-        function ajaxCall(url, data = null)
-        {
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: {stateId: data},
-                success: function(result) {
-                    if(result != null)
-                    {
-                        if(result.status == "city")
-                        {
-                            var userCity = "{{ $logged_in_user->city_id }}";
-                            var options;
-                            $.each(result.data, function(key, value) {
-                                if(key == userCity)
-                                    options += "<option value='" + key + "' selected>" + value + "</option>";
-                                else
-                                    options += "<option value='" + key + "'>" + value + "</option>";
-                            });
-                            $("#city").html('');
-                            $("#city").append(options);
-                        }
-                        else
-                        {
-                            var userState = "{{ $logged_in_user->state_id }}";
-                            var options;
-                            $.each(result.data, function(key, value) {
-                                if(key == userState)
-                                    options += "<option value='" + key + "' selected>" + value + "</option>";
-                                else
-                                    options += "<option value='" + key + "'>" + value + "</option>";
-                            });
-                            $("#state").append(options);
-                            $("#state").trigger('change');
-                        }
-                    }
-                }
-            });
-        }
     });
 </script>
 @endsection

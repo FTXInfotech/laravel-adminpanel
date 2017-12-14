@@ -68,7 +68,7 @@
 @section('after-scripts')
     {{-- For DataTables --}}
     {{ Html::script(mix('js/dataTable.js')) }}
-    
+
     <script>
         $(function() {
             var dataTable = $('#modules-table').dataTable({
@@ -98,7 +98,7 @@
                 }
             });
 
-            FinBuilders.DataTableSearch.init(dataTable);
+            Backend.DataTableSearch.init(dataTable);
         });
     </script>
 @endsection
