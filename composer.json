@@ -27,7 +27,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.0",
-        "bvipul/generator": "v0.9.1",
+        "bvipul/generator": "^0.9.1",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
