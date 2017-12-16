@@ -27,10 +27,10 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.0",
-        "bvipul/generator": "v0.9.1",
+        "bvipul/generator": "^0.9.1",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
-        "laravel/dusk": "^2.0",
+        "laravel/browser-kit-testing": "^2.0",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~6.0",
         "xethron/migrations-generator": "2.0.2"

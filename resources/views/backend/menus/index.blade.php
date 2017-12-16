@@ -64,7 +64,7 @@
 @section('after-scripts')
     {{-- For DataTables --}}
     @include('includes.datatables')
-    
+
     <script>
         $(function() {
             var dataTable = $('#menus-table').dataTable({
@@ -94,7 +94,7 @@
                 }
             });
 
-            FinBuilders.DataTableSearch.init(dataTable);
+            Backend.DataTableSearch.init(dataTable);
         });
     </script>
 @endsection
