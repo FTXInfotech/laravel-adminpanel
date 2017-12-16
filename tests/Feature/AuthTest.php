@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Tests\BrowserKitTestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class AuthTest extends BrowserKitTestCase
 {
@@ -11,9 +10,9 @@ class AuthTest extends BrowserKitTestCase
     public function login_page_loads_properly()
     {
         $this->visit('/login')
-            ->see("Email")
-            ->see("Password")
-            ->see("Login")
+            ->see('Email')
+            ->see('Password')
+            ->see('Login')
             ->dontSee('You are logged in!');
     }
 
@@ -27,7 +26,7 @@ class AuthTest extends BrowserKitTestCase
             ->see('The password field is required.');
     }
 
-     /** @test */
+    /** @test */
     /*public function test_login_failure_with_wrong_inputs()
     {
         $this->visit("/login")
@@ -37,7 +36,6 @@ class AuthTest extends BrowserKitTestCase
             ->seePageIs('/login')
             ->see('These credentials do not match our records.');
     }*/
-
 
     /** @test */
     public function users_can_login()
@@ -49,5 +47,4 @@ class AuthTest extends BrowserKitTestCase
             //->press('Login')
             ->seePageIs('/login');
     }
-
 }
