@@ -3,14 +3,16 @@
  * DummyModuleName
  *
  */
-@startNamespace
-Route::group( ['namespace' => 'DummyModel'], function () {
+Route::group(['namespace' => 'route_namespace', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
+    @startNamespace
+    Route::group( ['namespace' => 'DummyModel'], function () {
+        Route::resource('dummy_name', 'DummyController');
+        //For Datatable
+        Route::post('dummy_name/get', 'DummyTableController')->name('dummy_name.get');
+    });
+    @endNamespace@startWithoutNamespace
     Route::resource('dummy_name', 'DummyController');
     //For Datatable
     Route::post('dummy_name/get', 'DummyTableController')->name('dummy_name.get');
+    @endWithoutNamespace
 });
-@endNamespace@startWithoutNamespace
-Route::resource('dummy_name', 'DummyController');
-//For Datatable
-Route::post('dummy_name/get', 'DummyTableController')->name('dummy_name.get');
-@endWithoutNamespace
