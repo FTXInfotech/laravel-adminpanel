@@ -14,7 +14,7 @@
         "arcanedev/no-captcha": "^5.0",
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^4.1",
-        "doctrine/dbal": "^2.5",
+        "doctrine/dbal": "^2.6",
         "fideloper/proxy": "~3.3",
         "hieu-le/active": "^3.5",
         "laravel/framework": "5.5.*",
@@ -30,6 +30,7 @@
         "bvipul/generator": "^0.9.1",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
+        "laravel/browser-kit-testing": "^2.0",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~6.0",
         "xethron/migrations-generator": "2.0.2"

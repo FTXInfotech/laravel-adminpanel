@@ -8,14 +8,14 @@
 
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg">
-            @php
+           {{--  @php
                  $settings = settings();
             @endphp
             @if($settings->logo)
                 <img height="48" width="226" class="navbar-brand" src="{{route('frontend.index')}}/img/site_logo/{{$settings->logo}}">
-            @else
+            @else --}}
                 {{ app_name() }}
-            @endif
+           {{--  @endif --}}
         </span>
     </a>
 
