@@ -27,7 +27,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.0",
-        "bvipul/generator": "v0.9.1",
+        "bvipul/generator": "^0.9.1",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
@@ -37,7 +37,8 @@
     "autoload": {
         "classmap": [
             "database/seeds",
-            "database/factories"
+            "database/factories",
+            "database"
         ],
         "psr-4": {
             "App\\": "app/"
@@ -51,8 +52,7 @@
             "Tests\\": "tests/"
         },
         "classmap": [
-            "tests/TestCase.php",
-            "tests/BrowserKitTestCase.php"
+            "tests/TestCase.php"
         ]
     },
     "scripts": {

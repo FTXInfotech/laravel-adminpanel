@@ -46,7 +46,7 @@
 
         <div class="wrapper">
             @include('backend.includes.header')
-            @include('backend.includes.sidebar')
+            @include('backend.includes.sidebar-dynamic')
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -54,7 +54,9 @@
                 <section class="content-header">
                     @yield('page-header')
                     <!-- Breadcrumbs would render from routes/breadcrumb.php -->
-
+                    @if(Breadcrumbs::exists())
+                        {!! Breadcrumbs::render() !!}
+                    @endif
                 </section>
 
                 <!-- Main content -->
