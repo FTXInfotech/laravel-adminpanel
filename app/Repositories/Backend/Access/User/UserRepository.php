@@ -2,20 +2,21 @@
 
 namespace App\Repositories\Backend\Access\User;
 
-use App\Events\Backend\Access\User\UserCreated;
-use App\Events\Backend\Access\User\UserDeactivated;
-use App\Events\Backend\Access\User\UserDeleted;
-use App\Events\Backend\Access\User\UserPasswordChanged;
-use App\Events\Backend\Access\User\UserPermanentlyDeleted;
-use App\Events\Backend\Access\User\UserReactivated;
-use App\Events\Backend\Access\User\UserRestored;
-use App\Events\Backend\Access\User\UserUpdated;
-use App\Exceptions\GeneralException;
 use App\Models\Access\User\User;
-use App\Repositories\Backend\Access\Role\RoleRepository;
-use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\GeneralException;
+use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\Hash;
+use App\Events\Backend\Access\User\UserCreated;
+use App\Events\Backend\Access\User\UserDeleted;
+use App\Events\Backend\Access\User\UserUpdated;
+use App\Events\Backend\Access\User\UserRestored;
+use App\Events\Backend\Access\User\UserDeactivated;
+use App\Events\Backend\Access\User\UserReactivated;
+use App\Events\Backend\Access\User\UserPasswordChanged;
+use App\Repositories\Backend\Access\Role\RoleRepository;
+use App\Events\Backend\Access\User\UserPermanentlyDeleted;
+use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 
 /**
  * Class UserRepository.

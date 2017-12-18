@@ -1367,16 +1367,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.25",
+            "version": "v5.5.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "0a5b6112f325c56ae5a6679c08a0a10723153fe0"
+                "reference": "d7e6a7aab600c5cfae595ea22074ac3c536cbc28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/0a5b6112f325c56ae5a6679c08a0a10723153fe0",
-                "reference": "0a5b6112f325c56ae5a6679c08a0a10723153fe0",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/d7e6a7aab600c5cfae595ea22074ac3c536cbc28",
+                "reference": "d7e6a7aab600c5cfae595ea22074ac3c536cbc28",
                 "shasum": ""
             },
             "require": {
@@ -1497,7 +1497,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-12-11T14:59:28+00:00"
+            "time": "2017-12-18T14:15:59+00:00"
         },
         {
             "name": "laravel/socialite",
@@ -1563,16 +1563,16 @@
         },
         {
             "name": "laravel/tinker",
-            "version": "v1.0.2",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/tinker.git",
-                "reference": "203978fd67f118902acff95925847e70b72e3daf"
+                "reference": "852c2abe0b0991555a403f1c0583e64de6acb4a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/tinker/zipball/203978fd67f118902acff95925847e70b72e3daf",
-                "reference": "203978fd67f118902acff95925847e70b72e3daf",
+                "url": "https://api.github.com/repos/laravel/tinker/zipball/852c2abe0b0991555a403f1c0583e64de6acb4a6",
+                "reference": "852c2abe0b0991555a403f1c0583e64de6acb4a6",
                 "shasum": ""
             },
             "require": {
@@ -1581,7 +1581,7 @@
                 "illuminate/support": "~5.1",
                 "php": ">=5.5.9",
                 "psy/psysh": "0.7.*|0.8.*",
-                "symfony/var-dumper": "~3.0"
+                "symfony/var-dumper": "~3.0|~4.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.0|~5.0"
@@ -1622,7 +1622,7 @@
                 "laravel",
                 "psysh"
             ],
-            "time": "2017-07-13T13:11:05+00:00"
+            "time": "2017-12-18T16:25:11+00:00"
         },
         {
             "name": "laravelcollective/html",
@@ -4864,16 +4864,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "6.5.4",
+            "version": "6.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "1b2f933d5775f9237369deaa2d2bfbf9d652be4c"
+                "reference": "83d27937a310f2984fd575686138597147bdc7df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1b2f933d5775f9237369deaa2d2bfbf9d652be4c",
-                "reference": "1b2f933d5775f9237369deaa2d2bfbf9d652be4c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/83d27937a310f2984fd575686138597147bdc7df",
+                "reference": "83d27937a310f2984fd575686138597147bdc7df",
                 "shasum": ""
             },
             "require": {
@@ -4944,7 +4944,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-12-10T08:06:19+00:00"
+            "time": "2017-12-17T06:31:19+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
