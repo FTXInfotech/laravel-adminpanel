@@ -12,7 +12,6 @@ use App\Events\Backend\Access\User\UserRestored;
 use App\Events\Backend\Access\User\UserUpdated;
 use App\Exceptions\GeneralException;
 use App\Models\Access\User\User;
-use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 use App\Repositories\Backend\Access\Role\RoleRepository;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
@@ -122,11 +121,11 @@ class UserRepository extends BaseRepository
 
                 // Send email to the user
                 $options = [
-                    'data' => $user->toArray(),
-                    'email_template_type' => $email_type
+                    'data'                => $user->toArray(),
+                    'email_template_type' => $email_type,
                 ];
 
-                createNotification("", 1, 2, $options);
+                createNotification('', 1, 2, $options);
 
                 return true;
             }
