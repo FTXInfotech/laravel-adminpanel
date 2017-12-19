@@ -352,8 +352,8 @@ class UserRepository extends BaseRepository
      */
     protected function flushPermissions($permissions, $user)
     {
-        //Flush roles out, then add array of new ones
-        $user->detachPermissions($user->roles);
+        //Flush permission out, then add array of new ones
+        $user->detachPermissions($user->permissions);
         $user->attachPermissions($permissions);
     }
 
