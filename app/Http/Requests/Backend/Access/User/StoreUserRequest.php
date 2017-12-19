@@ -32,6 +32,8 @@ class StoreUserRequest extends Request
             'last_name'  => 'required|max:255',
             'email'      => ['required', 'email', 'max:255', Rule::unique('users')],
             'password'   => 'required|min:6|confirmed',
+            'assignees_roles' => 'required',
+            'permissions'=> 'required',
         ];
     }
 
@@ -43,6 +45,7 @@ class StoreUserRequest extends Request
     public function messages()
     {
         return [
+            'assignees_roles' => 'Please Select Role'
         ];
     }
 }

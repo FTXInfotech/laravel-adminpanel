@@ -97,6 +97,7 @@ class UserController extends Controller
         $permissions = Permission::getSelectData('display_name');
         $userPermissions = $user->permissions()->get()->pluck('id')->toArray();
 
+
         return view('backend.access.users.edit')->with([
             'user'            => $user,
             'userRoles'       => $user->roles->pluck('id')->all(),
