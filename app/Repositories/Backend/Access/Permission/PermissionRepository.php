@@ -74,7 +74,7 @@ class PermissionRepository extends BaseRepository
      *
      * @return bool
      */
-    public function update(Model $permission, array $input)
+    public function update($permission, array $input)
     {
         if ($this->query()->where('name', $input['name'])->where('id', '!=', $permission->id)->first()) {
             throw new GeneralException(trans('exceptions.backend.access.permissions.already_exists'));
@@ -104,7 +104,7 @@ class PermissionRepository extends BaseRepository
      *
      * @return bool
      */
-    public function delete(Model $permission)
+    public function delete($permission)
     {
         DB::transaction(function () use ($permission) {
             if ($permission->delete()) {
