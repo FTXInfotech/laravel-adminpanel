@@ -27,7 +27,8 @@ class UpdateRoleRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:191',
+            'name'          => 'required|max:191',
+            'permissions'   => 'required',
         ];
     }
 }
