@@ -115,10 +115,18 @@ class UserRepository extends BaseRepository
 
                 //Send confirmation email if requested and account approval is off
                 if (isset($data['confirmation_email']) && $user->confirmed == 0) {
-                    $user->notify(new UserNeedsConfirmation($user->confirmation_code));
+                    $email_type = 1;
                 }
 
                 event(new UserCreated($user));
+
+                // Send email to the user
+                $options = [
+                    'data' => $user->toArray(),
+                    'email_template_type' => $email_type
+                ];
+
+                createNotification("", 1, 2, $options);
 
                 return true;
             }
