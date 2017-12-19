@@ -15,14 +15,13 @@ trait CreatesUsers
         return $user;
     }
 
-
     protected function createUser(array $attributes = []): User
     {
         return factory(User::class)->create(array_merge([
-            'name' => 'John Doe',
-            'username' => 'johndoe',
-            'email' => 'john@example.com',
-            'password' => bcrypt('password'),
+            'name'            => 'John Doe',
+            'username'        => 'johndoe',
+            'email'           => 'john@example.com',
+            'password'        => bcrypt('password'),
             'github_username' => 'johndoe',
         ], $attributes));
     }
