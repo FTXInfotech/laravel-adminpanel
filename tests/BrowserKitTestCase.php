@@ -43,7 +43,7 @@ abstract class BrowserKitTestCase extends BaseTestCase
      */
     protected $userRole;
 
-     /**
+    /**
      * Set up tests.
      */
     public function setUp()
