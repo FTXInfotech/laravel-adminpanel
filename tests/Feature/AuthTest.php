@@ -2,7 +2,10 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Support\Facades\Auth;
 use Tests\BrowserKitTestCase;
+use Illuminate\Support\Facades\Event;
+use App\Events\Frontend\Auth\UserLoggedIn;
 
 class AuthTest extends BrowserKitTestCase
 {
@@ -40,11 +43,30 @@ class AuthTest extends BrowserKitTestCase
     /** @test */
     public function users_can_login()
     {
-        //$this->createUser();
-        $this->visit('/login')
-            ->type('user@user.com', 'email')
-            ->type('1234', 'password')
-            //->press('Login')
-            ->seePageIs('/login');
+        // Make sure our events are fired
+               Event::fake();
+
+               Auth::logout();
+
+               //User Test
+               $this->visit('/login')
+                    ->type($this->user->email, 'email')
+                    ->type('1234', 'password')
+                    ->press('Login')
+                    ->see($this->user->name)
+                    ->seePageIs('/dashboard');
+
+               Auth::logout();
+
+               //Admin Test
+               $this->visit('/login')
+                    ->type($this->admin->email, 'email')
+                    ->type('1234', 'password')
+                    ->press('Login')
+                    ->seePageIs('/admin/dashboard')
+                    ->see($this->admin->first_name)
+                    ->see('Access Management');
+
+               Event::assertDispatched(UserLoggedIn::class);
     }
 }
