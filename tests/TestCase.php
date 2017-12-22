@@ -4,8 +4,8 @@ namespace Tests;
 
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Artisan;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -41,7 +41,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected $userRole;
 
-     /**
+    /**
      * Set up tests.
      */
     public function setUp()
