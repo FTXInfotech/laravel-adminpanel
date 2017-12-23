@@ -102,9 +102,9 @@
                                             {{ trans('labels.backend.access.users.all_permissions') }}
                                         @else
                                             @if (count($role->permissions) > 0)
-                                                <blockquote class="small">{{--
-                                            --}}@foreach ($role->permissions as $perm){{--
-                                            --}}{{$perm->display_name}}
+                                                <blockquote class="small">
+                                                    @foreach ($role->permissions as $perm)
+                                                        {{$perm->display_name}}
                                                     @endforeach
                                                 </blockquote>
                                             @else
@@ -127,13 +127,14 @@
                                 <div class="row">
                                     <div class="col-xs-12 get-available-permissions">
                                         @if ($permissions)
+
                                             @foreach ($permissions as $id => $display_name)
                                             <div class="control-group">
-                                            <label class="control control--checkbox" for="perm_{{ $id }}">
-                                                <input type="checkbox" name="permissions[{{ $id }}]" value="{{ $id }}" id="perm_{{ $id }}" {{ isset($userPermissions[$id]) && in_array($id, $userPermissions) ? 'checked' : '' }} /> <label for="perm_{{ $id }}">{{ $display_name }}</label>
-                                                <div class="control__indicator"></div>
+                                                <label class="control control--checkbox" for="perm_{{ $id }}">
+                                                    <input type="checkbox" name="permissions[{{ $id }}]" value="{{ $id }}" id="perm_{{ $id }}" {{ isset($userPermissions) && in_array($id, $userPermissions) ? 'checked' : '' }} /> <label for="perm_{{ $id }}">{{ $display_name }}</label>
+                                                    <div class="control__indicator"></div>
                                                 </label>
-                                                </div>
+                                            </div>
                                             @endforeach
                                         @else
                                             <p>There are no available permissions.</p>

@@ -127,7 +127,7 @@ class RoleRepository extends BaseRepository
      *
      * @return bool
      */
-    public function update(Model $role, array $input)
+    public function update($role, array $input)
     {
         //See if the role has all access, administrator always has all access
         if ($role->id == 1) {
