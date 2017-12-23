@@ -1,4 +1,4 @@
-var associated = $("select[name='associated-permissions']");
+var associated = $("select[name='associated_permissions']");
 var associated_container = $("#available-permissions");
 
 if (associated.val() == "custom")
