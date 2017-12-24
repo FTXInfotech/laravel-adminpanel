@@ -224,9 +224,15 @@ class EloquentHistoryRepository implements HistoryContract
     {
         $assets = json_decode($assets, true);
         $count = 1;
-        $asset_count = count($assets) + 1;
+        $asset_count = 1;
+        $flag = false;
 
-        if (count($assets)) {
+        if(is_array($assets) || $assets instanceof \Countable) {
+            $asset_count = count($assets) + 1;
+            $flag = true;
+        }
+
+        if ($flag) {
             foreach ($assets as $name => $values) {
                 $key = explode('_', $name)[0];
                 $type = explode('_', $name)[1];
