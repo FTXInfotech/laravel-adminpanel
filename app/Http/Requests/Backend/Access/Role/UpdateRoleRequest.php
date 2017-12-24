@@ -27,8 +27,8 @@ class UpdateRoleRequest extends Request
     public function rules()
     {
         $permissions = '';
-        
-        if($this->associated_permissions != 'all') {
+
+        if ($this->associated_permissions != 'all') {
             $permissions = 'required';
         }
 
@@ -41,7 +41,7 @@ class UpdateRoleRequest extends Request
     public function messages()
     {
         return [
-            'permissions.required' => 'You must select at least one permission for this role.'
+            'permissions.required' => 'You must select at least one permission for this role.',
         ];
     }
 }

@@ -12,7 +12,7 @@ class AccessRepositoryTest extends BrowserKitTestCase
         $results = app()->make(\App\Repositories\Backend\Access\User\UserRepository::class)
             ->getByPermission('view-backend')
             ->toArray();
-        
+
         $this->assertCount(1, $results);
         $this->assertArraySubset(['first_name' => $this->executive->first_name], $results[0]);
         $this->assertArraySubset(['last_name' => $this->executive->last_name], $results[0]);
