@@ -1,12 +1,12 @@
 <?php
 
-use Tests\BrowserKitTestCase;
-use App\Models\Access\Role\Role;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Event;
 use App\Events\Backend\Access\Role\RoleCreated;
 use App\Events\Backend\Access\Role\RoleDeleted;
 use App\Events\Backend\Access\Role\RoleUpdated;
+use App\Models\Access\Role\Role;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
+use Tests\BrowserKitTestCase;
 
 /**
  * Class RoleFormTest.
@@ -157,11 +157,11 @@ class RoleFormTest extends BrowserKitTestCase
         Event::fake();
 
         $this->actingAs($this->admin);
-        
+
         $role = factory(Role::class)->create([
-            'created_by' => $this->admin->id
+            'created_by' => $this->admin->id,
         ]);
-        
+
         $this->seeInDatabase(config('access.roles_table'), ['id' => $role->id])
              ->delete(route('admin.access.role.destroy', $role))
              ->assertRedirectedTo(route('admin.access.role.index'))

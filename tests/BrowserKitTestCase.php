@@ -2,11 +2,11 @@
 
 namespace Tests;
 
-use App\Models\Access\User\User;
 use App\Models\Access\Role\Role;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Artisan;
+use App\Models\Access\User\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
 abstract class BrowserKitTestCase extends BaseTestCase
