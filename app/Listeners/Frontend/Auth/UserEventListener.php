@@ -31,6 +31,14 @@ class UserEventListener
      */
     public function onRegistered($event)
     {
+        \Log::info('User Registered: '.$event->user->full_name);
+    }
+
+    /**
+     * @param $event
+     */
+    /*public function onRegistered($event)
+    {
         \Log::info('User Registered: '.$event->user->first_name);
 
         // Send email to the user
@@ -39,7 +47,7 @@ class UserEventListener
                 'email_template_type' => 1,
             ];
         createNotification('', 1, 2, $options);
-    }
+    }*/
 
     /**
      * @param $event

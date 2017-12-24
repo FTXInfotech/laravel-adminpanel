@@ -88,7 +88,7 @@ return [
         /*
          * Whether or not public registration is on
          */
-        'registration' => env('ENABLE_REGISTRATION', 'true'),
+        'registration' => env('ENABLE_REGISTRATION', true),
 
         /*
          * The role the user is assigned to when they sign up from the frontend, not namespaced
@@ -105,6 +105,12 @@ return [
          * Whether or not the users email can be changed on the edit profile screen
          */
         'change_email' => false,
+
+        /*
+         * Whether or not new users need to be approved by an administrator before logging in
+         * If this is set to true, then confirm_email is not in effect
+         */
+        'requires_approval' => env('REQUIRES_APPROVAL', false),
     ],
 
     /*

@@ -52,8 +52,8 @@ class UserTableSeeder extends Seeder
                 'deleted_at'        => null,
             ],
             [
-                'first_name'        => 'John',
-                'last_name'         => 'Doe',
+                'first_name'        => 'User',
+                'last_name'         => 'Test',
                 'email'             => 'user@user.com',
                 'password'          => bcrypt('1234'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
