@@ -227,7 +227,7 @@ class EloquentHistoryRepository implements HistoryContract
         $asset_count = 1;
         $flag = false;
 
-        if(is_array($assets) || $assets instanceof \Countable) {
+        if (is_array($assets) || $assets instanceof \Countable) {
             $asset_count = count($assets) + 1;
             $flag = true;
         }
