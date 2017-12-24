@@ -19,11 +19,12 @@ $factory->define(User::class, function (Generator $faker) {
     static $password;
 
     return [
-        'name'              => $faker->name,
+        'first_name'        => $faker->name,
+        'last_name'         => $faker->name,
         'email'             => $faker->safeEmail,
         'password'          => $password ?: $password = bcrypt('secret'),
-        'remember_token'    => str_random(10),
         'confirmation_code' => md5(uniqid(mt_rand(), true)),
+        'remember_token'    => str_random(10),
     ];
 });
 
