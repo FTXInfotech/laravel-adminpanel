@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Support\Facades\Auth;
-use Tests\BrowserKitTestCase;
-use Illuminate\Support\Facades\Event;
 use App\Events\Frontend\Auth\UserLoggedIn;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
+use Tests\BrowserKitTestCase;
 
 class AuthTest extends BrowserKitTestCase
 {
@@ -44,22 +44,22 @@ class AuthTest extends BrowserKitTestCase
     public function users_can_login()
     {
         // Make sure our events are fired
-               Event::fake();
+        Event::fake();
 
-               Auth::logout();
+        Auth::logout();
 
-               //User Test
-               $this->visit('/login')
+        //User Test
+        $this->visit('/login')
                     ->type($this->user->email, 'email')
                     ->type('1234', 'password')
                     ->press('Login')
                     ->see($this->user->name)
                     ->seePageIs('/dashboard');
 
-               Auth::logout();
+        Auth::logout();
 
-               //Admin Test
-               $this->visit('/login')
+        //Admin Test
+        $this->visit('/login')
                     ->type($this->admin->email, 'email')
                     ->type('1234', 'password')
                     ->press('Login')
@@ -67,6 +67,6 @@ class AuthTest extends BrowserKitTestCase
                     ->see($this->admin->first_name)
                     ->see('Access Management');
 
-               Event::assertDispatched(UserLoggedIn::class);
+        Event::assertDispatched(UserLoggedIn::class);
     }
 }

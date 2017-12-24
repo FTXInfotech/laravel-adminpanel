@@ -53,7 +53,6 @@ abstract class TestCase extends BaseTestCase
     /**
      * Set up tests.
      */
-
     public function setUp()
     {
         parent::setUp();
