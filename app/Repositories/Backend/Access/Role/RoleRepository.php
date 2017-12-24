@@ -69,7 +69,7 @@ class RoleRepository extends BaseRepository
         }
 
         //See if the role has all access
-        $all = $input['associated-permissions'] == 'all' ? true : false;
+        $all = $input['associated_permissions'] == 'all' ? true : false;
 
         if (!isset($input['permissions'])) {
             $input['permissions'] = [];
@@ -133,7 +133,7 @@ class RoleRepository extends BaseRepository
         if ($role->id == 1) {
             $all = true;
         } else {
-            $all = $input['associated-permissions'] == 'all' ? true : false;
+            $all = $input['associated_permissions'] == 'all' ? true : false;
         }
 
         if (!isset($input['permissions'])) {
@@ -190,13 +190,13 @@ class RoleRepository extends BaseRepository
     }
 
     /**
-     * @param Model $role
+     * @param Role $role
      *
      * @throws GeneralException
      *
      * @return bool
      */
-    public function delete(Model $role)
+    public function delete(Role $role)
     {
         //Would be stupid to delete the administrator role
         if ($role->id == 1) { //id is 1 because of the seeder

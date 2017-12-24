@@ -27,7 +27,7 @@ class AuthTest extends BrowserKitTestCase
     }
 
     /** @test */
-    /*public function test_login_failure_with_wrong_inputs()
+    public function test_login_failure_with_wrong_inputs()
     {
         $this->visit("/login")
             ->type('wrongusername@wrongpassword.com', 'email')
@@ -35,16 +35,15 @@ class AuthTest extends BrowserKitTestCase
             ->press('Login')
             ->seePageIs('/login')
             ->see('These credentials do not match our records.');
-    }*/
+    }
 
     /** @test */
     public function users_can_login()
     {
-        //$this->createUser();
         $this->visit('/login')
             ->type('user@user.com', 'email')
             ->type('1234', 'password')
-            //->press('Login')
-            ->seePageIs('/login');
+            ->press('Login')
+            ->seePageIs(route('frontend.user.dashboard'));
     }
 }
