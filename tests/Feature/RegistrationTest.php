@@ -2,16 +2,12 @@
 
 namespace Tests\Feature;
 
-use Faker\Generator;
-use Tests\BrowserKitTestCase;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Event;
-use App\Events\Frontend\Auth\UserLoggedIn;
 use App\Events\Frontend\Auth\UserRegistered;
+use Illuminate\Support\Facades\Event;
+use Tests\BrowserKitTestCase;
 
 class RegistrationTest extends BrowserKitTestCase
 {
-
     /** @test */
     public function registration_page_loads_properly()
     {
@@ -42,10 +38,11 @@ class RegistrationTest extends BrowserKitTestCase
     }
 
     /**
-    * Test the registration form
-    * Test it works with confirming email on or off, and that the confirm email notification is sent
-    * Note: Captcha is disabled by default in phpunit.xml.
-    */
+     * Test the registration form
+     * Test it works with confirming email on or off, and that the confirm email notification is sent
+     * Note: Captcha is disabled by default in phpunit.xml.
+     */
+
     /** @test */
     public function test_registration_form()
     {
@@ -54,7 +51,6 @@ class RegistrationTest extends BrowserKitTestCase
 
         config(['access.users.confirm_email' => false]);
         config(['access.users.requires_approval' => false]);
-
 
         $this->visit('/register')
             ->type('John', 'first_name')
@@ -67,13 +63,12 @@ class RegistrationTest extends BrowserKitTestCase
             ->seePageIs('/')
             ->seeInDatabase(config('access.users_table'),
              [
-                 'email' => 'john.doe@example.com',
+                 'email'      => 'john.doe@example.com',
                  'first_name' => 'John',
-                 'last_name' => 'Doe',
-                 'confirmed' => 1,
+                 'last_name'  => 'Doe',
+                 'confirmed'  => 1,
              ]);
 
         Event::assertDispatched(UserRegistered::class);
     }
-
 }
