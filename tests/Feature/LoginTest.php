@@ -45,7 +45,7 @@ class LoginTest extends BrowserKitTestCase
     /** @test */
     public function login_failure_with_wrong_inputs()
     {
-        $this->visit("/login")
+        $this->visit('/login')
             ->type('wrongusername@wrongpassword.com', 'email')
             ->type('wrongpassword', 'password')
             ->press('Login')
