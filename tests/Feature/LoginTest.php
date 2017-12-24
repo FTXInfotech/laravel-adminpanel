@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Tests\BrowserKitTestCase;
 
-class AuthTest extends BrowserKitTestCase
+class LoginTest extends BrowserKitTestCase
 {
     /** @test */
     public function login_page_loads_properly()
@@ -20,17 +20,30 @@ class AuthTest extends BrowserKitTestCase
     }
 
     /** @test */
-    public function login_failure_without_inputs()
+    public function login_fails_when_a_required_field_is_not_filled_in()
     {
         $this->visit('/login')
-            ->press('Login')
-            ->seePageIs('/login')
-            ->see('The email field is required.')
-            ->see('The password field is required.');
+             ->type('', 'email')
+             ->type('', 'password')
+             ->press('Login')
+             ->seePageIs('/login')
+             ->see('The email field is required.')
+             ->see('The password field is required.');
     }
 
     /** @test */
-    public function test_login_failure_with_wrong_inputs()
+    public function login_fails_when_password_is_incorrect()
+    {
+        $this->visit('/login')
+            ->type('admin@admin.com', 'email')
+            ->type('invalidpass', 'password')
+            ->press('Login')
+            ->seePageIs('/login')
+            ->see('These credentials do not match our records.');
+    }
+
+    /** @test */
+    public function login_failure_with_wrong_inputs()
     {
         $this->visit("/login")
             ->type('wrongusername@wrongpassword.com', 'email')
