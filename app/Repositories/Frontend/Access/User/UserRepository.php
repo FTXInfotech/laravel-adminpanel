@@ -79,7 +79,7 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * Create User
+     * Create User.
      *
      * @param array $data
      * @param bool  $provider
@@ -114,7 +114,6 @@ class UserRepository extends BaseRepository
             // Otherwise both are off and confirmed is default
             $user->confirmed = 1;
         }
-
 
         DB::transaction(function () use ($user) {
             if ($user->save()) {
