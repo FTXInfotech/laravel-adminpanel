@@ -50,7 +50,7 @@ class PagesRepository extends BaseRepository
         //Making extra fields
         $input['page_slug'] = str_slug($input['title']);
         $input['status'] = isset($input['status']) ? 1 : 0;
-        $input['created_by'] = access()->user()->id;
+        $input['created_by'] = auth()->id();
 
         if ($page = Page::create($input)) {
             event(new PageCreated($page));

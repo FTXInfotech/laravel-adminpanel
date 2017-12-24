@@ -55,6 +55,9 @@
         },
         "classmap": [
             "tests/TestCase.php"
+        ],
+        "files": [
+            "tests/Utilities/helpers.php"
         ]
     },
     "scripts": {
