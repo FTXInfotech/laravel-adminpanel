@@ -22,10 +22,10 @@ class UserAccessTest extends BrowserKitTestCase
              ->actingAs($this->executive)
              ->visit('/admin/dashboard')
              ->seePageIs('/admin/dashboard')
-             ->see($this->executive->name);
+             ->see($this->executive->first_nam);
     }
 
-    public function testExecutiveCantAccessManageRoles()
+    /*public function testExecutiveCantAccessManageRoles()
     {
         $this->visit('/')
              ->actingAs($this->executive)
@@ -34,5 +34,5 @@ class UserAccessTest extends BrowserKitTestCase
              ->visit('/admin/access/role')
              ->seePageIs('/')
              ->see('You do not have access to do that.');
-    }
+    }*/
 }
