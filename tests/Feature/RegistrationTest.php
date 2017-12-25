@@ -2,9 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Events\Frontend\Auth\UserRegistered;
-use Illuminate\Support\Facades\Event;
 use Tests\BrowserKitTestCase;
+use App\Models\Access\User\User;
+use Illuminate\Support\Facades\Event;
+use App\Events\Frontend\Auth\UserRegistered;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 
 class RegistrationTest extends BrowserKitTestCase
 {
@@ -69,6 +72,47 @@ class RegistrationTest extends BrowserKitTestCase
                  'confirmed'  => 1,
              ]);
 
+        Event::assertDispatched(UserRegistered::class);
+    }
+
+    /**
+     * Test the registration form when account are set to be pending an approval
+     * ensure they are registered but not confirmed.
+     */
+
+     /** @test */
+    public function registration_for_pending_approval()
+    {
+        Event::fake();
+        Notification::fake();
+
+        // Set registration to pending approval
+        config(['access.users.confirm_email' => false]);
+        config(['access.users.requires_approval' => true]);
+
+       $this->visit('/register')
+            ->type('first name', 'first_name')
+            ->type('last name', 'last_name')
+            ->type('test@example.com', 'email')
+            ->type('Viral@1234', 'password')
+            ->type('Viral@1234', 'password_confirmation')
+            ->check('is_term_accept')
+            ->press('Register')
+            ->see('Your account was successfully created and is pending approval. An e-mail will be sent when your account is approved.')
+            ->see('Login')
+            ->seePageIs('/')
+            ->seeInDatabase(config('access.users_table'),
+                [
+                    'email' => 'test@example.com',
+                    'first_name' => 'first name',
+                    'last_name' => 'last name',
+                    'confirmed' => 0,
+                ]);
+
+        // Get the user that was inserted into the database
+        $user = User::where('email', 'test@example.com')->first();
+
+        Notification::assertNotSentTo([$user], UserNeedsConfirmation::class);
         Event::assertDispatched(UserRegistered::class);
     }
 }

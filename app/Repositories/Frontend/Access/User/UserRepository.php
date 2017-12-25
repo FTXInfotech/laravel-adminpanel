@@ -88,6 +88,7 @@ class UserRepository extends BaseRepository
      */
     public function create(array $data, $provider = false)
     {
+
         $user = self::MODEL;
         $user = new $user();
         $user->first_name = $data['first_name'];
@@ -117,6 +118,7 @@ class UserRepository extends BaseRepository
 
         DB::transaction(function () use ($user) {
             if ($user->save()) {
+
                 /*
                  * Add the default site role to the new user
                  */
