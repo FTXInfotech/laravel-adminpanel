@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Models\Page\Page;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ManagePageTest extends TestCase
 {
@@ -81,7 +79,6 @@ class ManagePageTest extends TestCase
             ->actingAs($this->admin)
             ->post(route('admin.pages.store'), $page->toArray())
             ->assertSessionHasErrors('description');
-
     }
 
     /** @test */
@@ -107,14 +104,14 @@ class ManagePageTest extends TestCase
 
         $page1['title'] = '';
         $page1['description'] = '';
-        
+
         $this->withExceptionHandling()
             ->actingAs($this->admin)
             ->post(route('admin.pages.store'), $page1)
             ->assertSessionHasErrors(['title', 'description']);
 
         $page2['title'] = '';
-            
+
         $this->withExceptionHandling()
             ->actingAs($this->admin)
             ->post(route('admin.pages.store'), $page2)
