@@ -88,7 +88,6 @@ class UserRepository extends BaseRepository
      */
     public function create(array $data, $provider = false)
     {
-
         $user = self::MODEL;
         $user = new $user();
         $user->first_name = $data['first_name'];

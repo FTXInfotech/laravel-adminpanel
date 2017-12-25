@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use Tests\BrowserKitTestCase;
-use App\Models\Access\User\User;
-use Illuminate\Support\Facades\Event;
 use App\Events\Frontend\Auth\UserRegistered;
-use Illuminate\Support\Facades\Notification;
+use App\Models\Access\User\User;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
+use Tests\BrowserKitTestCase;
 
 class RegistrationTest extends BrowserKitTestCase
 {
@@ -80,7 +80,7 @@ class RegistrationTest extends BrowserKitTestCase
      * ensure they are registered but not confirmed.
      */
 
-     /** @test */
+    /** @test */
     public function registration_for_pending_approval()
     {
         Event::fake();
@@ -90,7 +90,7 @@ class RegistrationTest extends BrowserKitTestCase
         config(['access.users.confirm_email' => false]);
         config(['access.users.requires_approval' => true]);
 
-       $this->visit('/register')
+        $this->visit('/register')
             ->type('first name', 'first_name')
             ->type('last name', 'last_name')
             ->type('test@example.com', 'email')
@@ -103,10 +103,10 @@ class RegistrationTest extends BrowserKitTestCase
             ->seePageIs('/')
             ->seeInDatabase(config('access.users_table'),
                 [
-                    'email' => 'test@example.com',
+                    'email'      => 'test@example.com',
                     'first_name' => 'first name',
-                    'last_name' => 'last name',
-                    'confirmed' => 0,
+                    'last_name'  => 'last name',
+                    'confirmed'  => 0,
                 ]);
 
         // Get the user that was inserted into the database
