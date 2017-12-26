@@ -4,8 +4,8 @@
     "keywords": [
         "framework",
         "laravel",
-        "boilerplate"
-        "adminpanel"
+        "boilerplate",
+        "adminpanel",
         "rest-api"
     ],
     "license": "MIT",
