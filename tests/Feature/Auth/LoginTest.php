@@ -2,10 +2,11 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Events\Frontend\Auth\UserLoggedIn;
+use Tests\BrowserKitTestCase;
+use App\Models\Access\User\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
-use Tests\BrowserKitTestCase;
+use App\Events\Frontend\Auth\UserLoggedIn;
 
 class LoginTest extends BrowserKitTestCase
 {
@@ -51,6 +52,40 @@ class LoginTest extends BrowserKitTestCase
             ->press('Login')
             ->seePageIs('/login')
             ->see('These credentials do not match our records.');
+    }
+
+    /** @test */
+    public function unconfirmed_users_can_not_logIn()
+    {
+        Auth::logout();
+        config(['access.users.requires_approval' => false]);
+
+        // Create default user to test with
+        $unconfirmed = factory(User::class)->states('unconfirmed')->create();
+        $unconfirmed->attachRole(3); //User
+
+        $this->visit('/login')
+             ->type($unconfirmed->email, 'email')
+             ->type('secret', 'password')
+             ->press('Login')
+             ->seePageIs('/login')
+             ->see('Your account is not confirmed.');
+    }
+
+    /** @test **/
+    public function inactive_users_can_not_login()
+    {
+        Auth::logout();
+        // Create default user to test with
+        $inactive = factory(User::class)->states('confirmed', 'inactive')->create();
+        $inactive->attachRole(3); //User
+
+        $this->visit('/login')
+             ->type($inactive->email, 'email')
+             ->type('secret', 'password')
+             ->press('Login')
+             ->seePageIs('/login')
+             ->see('Your account has been deactivated.');
     }
 
     /** @test */
