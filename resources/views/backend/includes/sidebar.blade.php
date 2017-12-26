@@ -1,4 +1,4 @@
-<?php //dd(getMenuItems()); 
+<?php //dd(getMenuItems());
 ?>
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
@@ -111,15 +111,16 @@
                     </li>
                     @endauth
                 </ul>
-                @permission('view-faq')
+            </li>
+            @endauth
+
+            @permission('view-faq')
                 <li class="{{ active_class(Active::checkUriPattern('admin/faqs*')) }}">
                 <a href="{{ route('admin.faqs.index')}}">
                     <i class="fa fa-question-circle"></i>
                     <span>{{ trans('labels.backend.faqs.title') }}</span>
                 </a>
                 </li>
-                @endauth
-            </li>
             @endauth
 
             <li class="{{ active_class(Active::checkUriPattern('admin/log-viewer*')) }} treeview">
