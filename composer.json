@@ -5,6 +5,8 @@
         "framework",
         "laravel",
         "boilerplate"
+        "adminpanel"
+        "rest-api"
     ],
     "license": "MIT",
     "type": "project",
