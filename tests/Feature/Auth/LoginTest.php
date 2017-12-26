@@ -58,6 +58,7 @@ class LoginTest extends BrowserKitTestCase
     public function unconfirmed_users_can_not_logIn()
     {
         Auth::logout();
+
         config(['access.users.requires_approval' => false]);
 
         // Create default user to test with
@@ -104,6 +105,8 @@ class LoginTest extends BrowserKitTestCase
                     ->see($this->user->name)
                     ->seePageIs('/dashboard');
 
+        $this->assertLoggedIn();
+
         Auth::logout();
 
         //Admin Test
@@ -114,6 +117,8 @@ class LoginTest extends BrowserKitTestCase
                     ->seePageIs('/admin/dashboard')
                     ->see($this->admin->first_name)
                     ->see('Access Management');
+
+        $this->assertLoggedIn();
 
         Event::assertDispatched(UserLoggedIn::class);
     }
