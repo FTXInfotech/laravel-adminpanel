@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Auth;
 
-use Tests\BrowserKitTestCase;
+use App\Events\Frontend\Auth\UserLoggedIn;
 use App\Models\Access\User\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
-use App\Events\Frontend\Auth\UserLoggedIn;
+use Tests\BrowserKitTestCase;
 
 class LoginTest extends BrowserKitTestCase
 {
