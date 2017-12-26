@@ -2,16 +2,13 @@
 
 namespace Tests\Feature\Auth;
 
-use Tests\BrowserKitTestCase;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Event;
-use App\Events\Frontend\Auth\UserLoggedIn;
-use Illuminate\Support\Facades\Notification;
 use App\Notifications\Frontend\Auth\UserNeedsPasswordReset;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+use Tests\BrowserKitTestCase;
 
 class ResetPasswordTest extends BrowserKitTestCase
 {
-
     /** @test */
     public function forgot_password_page_loads_properly()
     {
@@ -73,5 +70,4 @@ class ResetPasswordTest extends BrowserKitTestCase
              ->press('Reset Password')
              ->see($this->user->first_name);
     }
-
 }

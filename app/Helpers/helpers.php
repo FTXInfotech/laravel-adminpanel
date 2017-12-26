@@ -17,7 +17,7 @@ function generateUuid()
     return uuid::uuid4();
 }
 
-if (! function_exists('homeRoute')) {
+if (!function_exists('homeRoute')) {
 
     /**
      * Return the route to the "home" page depending on authentication/authorization status.
