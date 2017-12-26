@@ -9,5 +9,3 @@ function make($class, $attributes = [], $times = null)
 {
     return factory($class, $times)->make($attributes);
 }
-
-

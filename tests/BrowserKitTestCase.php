@@ -5,8 +5,8 @@ namespace Tests;
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
@@ -83,7 +83,7 @@ abstract class BrowserKitTestCase extends BaseTestCase
     /**
      * Check if User is logged in or not.
      *
-     * @return boolean true or false
+     * @return bool true or false
      */
     protected function assertLoggedIn()
     {
@@ -91,9 +91,9 @@ abstract class BrowserKitTestCase extends BaseTestCase
     }
 
     /**
-     * Check if User is logged out or not
+     * Check if User is logged out or not.
      *
-     * @return boolean true or false
+     * @return bool true or false
      */
     protected function assertLoggedOut()
     {
