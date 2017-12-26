@@ -1,15 +1,21 @@
 <?php
 
+namespace Tests\Feature\Backend\History;
+
 use Tests\BrowserKitTestCase;
+use App\Models\Access\User\User;
 
 /**
- * Class HistoryRenderTypeTest.
+ * Class HistoryRenderEntityTest.
  */
-class HistoryRenderTypeTest extends BrowserKitTestCase
+class HistoryRenderEntityTest extends BrowserKitTestCase
 {
-    public function testViewOnlyHasHistoryOfType()
+    /** @test **/
+    public function users_can_see_history_of_entity()
     {
         $this->actingAs($this->admin);
+
+        $test_user = factory(User::class)->create();
 
         history()
             ->withType('User')
@@ -36,35 +42,35 @@ class HistoryRenderTypeTest extends BrowserKitTestCase
             ->log();
 
         history()
-            ->withType('Role')
-            ->withText('trans("history.backend.roles.created") '.$this->adminRole->name)
-            ->withEntity($this->adminRole->id)
+            ->withType('User')
+            ->withText('trans("history.backend.roles.created") '.$test_user->name)
+            ->withEntity($test_user->id)
             ->withIcon('plus')
             ->withClass('bg-red')
             ->log();
 
         history()
-            ->withType('Role')
-            ->withText('trans("history.backend.roles.updated") '.$this->adminRole->name)
-            ->withEntity($this->adminRole->id)
+            ->withType('User')
+            ->withText('trans("history.backend.roles.updated") '.$test_user->name)
+            ->withEntity($test_user->id)
             ->withIcon('pencil')
             ->withClass('bg-red')
             ->log();
 
         history()
-            ->withType('Role')
-            ->withText('trans("history.backend.roles.deleted") ')
-            ->withEntity($this->adminRole->id)
+            ->withType('User')
+            ->withText('trans("history.backend.roles.deleted") '.$test_user->name)
+            ->withEntity($test_user->id)
             ->withIcon('trash')
             ->withClass('bg-red')
             ->log();
 
-        $this->visit('/admin/access/user')
+        $this->visit('/admin/access/user/'.$this->user->id)
              ->see('<strong>'.$this->admin->name.'</strong> created user '.$this->user->name)
              ->see('<strong>'.$this->admin->name.'</strong> updated user '.$this->user->name)
              ->see('<strong>'.$this->admin->name.'</strong> deleted user '.$this->user->name)
-             ->dontSee('<strong>'.$this->admin->name.'</strong> created role '.$this->adminRole->name)
-             ->dontSee('<strong>'.$this->admin->name.'</strong> updated role '.$this->adminRole->name)
-             ->dontSee('<strong>'.$this->admin->name.'</strong> deleted role '.$this->adminRole->name);
+             ->dontSee('<strong>'.$this->admin->name.'</strong> created user '.$test_user->name)
+             ->dontSee('<strong>'.$this->admin->name.'</strong> updated user '.$test_user->name)
+             ->dontSee('<strong>'.$this->admin->name.'</strong> deleted user '.$test_user->name);
     }
 }

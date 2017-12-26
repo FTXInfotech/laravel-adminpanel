@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature\Backend\History;
+
 use Tests\BrowserKitTestCase;
 
 /**
@@ -7,7 +9,8 @@ use Tests\BrowserKitTestCase;
  */
 class HistoryLogTest extends BrowserKitTestCase
 {
-    public function testHistoryLogByTypeNameFunction()
+    /** @test **/
+    public function history_log_by_type_name_function()
     {
         $this->actingAs($this->admin);
 
@@ -32,7 +35,8 @@ class HistoryLogTest extends BrowserKitTestCase
              ->see('<strong>'.$this->admin->name.'</strong> '.trans('history.backend.users.created').$this->user->name);
     }
 
-    public function testHistoryLogByTypeIdFunction()
+    /** @test **/
+    public function history_log_By_TypeId_Function()
     {
         $this->actingAs($this->admin);
 

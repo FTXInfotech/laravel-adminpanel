@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Backend;
 
 use App\Models\Page\Page;
 use Tests\TestCase;
