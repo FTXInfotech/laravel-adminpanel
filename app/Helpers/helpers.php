@@ -17,6 +17,25 @@ function generateUuid()
     return uuid::uuid4();
 }
 
+if (! function_exists('homeRoute')) {
+
+    /**
+     * Return the route to the "home" page depending on authentication/authorization status.
+     *
+     * @return string
+     */
+    function homeRoute()
+    {
+        if (access()->allow('view-backend')) {
+            return 'admin.dashboard';
+        } elseif (auth()->check()) {
+            return 'frontend.user.dashboard';
+        }
+
+        return 'frontend.index';
+    }
+}
+
 /*
  * Global helpers file with misc functions.
  */

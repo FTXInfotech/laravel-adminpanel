@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Auth;
 
 use App\Events\Frontend\Auth\UserRegistered;
 use App\Models\Access\User\User;
@@ -47,7 +47,7 @@ class RegistrationTest extends BrowserKitTestCase
      */
 
     /** @test */
-    public function test_registration_form()
+    public function user_can_register()
     {
         // Make sure our events are fired
         Event::fake();

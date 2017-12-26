@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Auth;
 
 use App\Events\Frontend\Auth\UserLoggedIn;
 use Illuminate\Support\Facades\Auth;
