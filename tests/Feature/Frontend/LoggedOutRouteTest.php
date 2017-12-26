@@ -2,13 +2,12 @@
 
 namespace Tests\Feature\Frontend;
 
-use Tests\BrowserKitTestCase;
-use App\Models\Access\User\User;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Event;
 use App\Events\Frontend\Auth\UserConfirmed;
-use Illuminate\Support\Facades\Notification;
+use App\Models\Access\User\User;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
+use Tests\BrowserKitTestCase;
 
 /**
  * Class LoggedOutRouteTest.
@@ -65,6 +64,7 @@ class LoggedOutRouteTest extends BrowserKitTestCase
      * Create an unconfirmed user and assure the user gets
      * confirmed when hitting the confirmation route.
      */
+
     /** @test */
     public function confirm_account_route()
     {
@@ -86,6 +86,7 @@ class LoggedOutRouteTest extends BrowserKitTestCase
      * Assure the user gets resent a confirmation email
      * after hitting the resend confirmation route.
      */
+
     /** @test */
     public function resend_confirm_account_route()
     {
