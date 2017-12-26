@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Frontend;
 
-use Tests\BrowserKitTestCase;
-use Illuminate\Support\Facades\Event;
 use App\Events\Frontend\Auth\UserLoggedOut;
+use Illuminate\Support\Facades\Event;
+use Tests\BrowserKitTestCase;
 
 /**
  * Class LoggedInRouteTest.
@@ -22,7 +22,8 @@ class LoggedInRouteTest extends BrowserKitTestCase
     /**
      * Test the dashboard page works and displays the users information.
      */
-     /** @test */
+
+    /** @test */
     public function dashboard_page_loads_properly()
     {
         $this->actingAs($this->user)
@@ -35,6 +36,7 @@ class LoggedInRouteTest extends BrowserKitTestCase
     /**
      * Test the account page works and displays the users information.
      */
+
     /** @test */
     public function account_page_loads_properly()
     {
@@ -47,7 +49,7 @@ class LoggedInRouteTest extends BrowserKitTestCase
              ->dontSee('Administration');
     }
 
-     /** @test */
+    /** @test */
     public function users_can_logout()
     {
         // Make sure our events are fired
