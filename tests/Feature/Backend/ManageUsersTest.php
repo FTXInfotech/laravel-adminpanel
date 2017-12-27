@@ -3,6 +3,7 @@
 namespace Tests\Feature\Backend;
 
 use Tests\TestCase;
+use App\Models\Access\User\User;
 
 class ManageUsersTest extends TestCase
 {
@@ -55,4 +56,5 @@ class ManageUsersTest extends TestCase
              ->assertSee($this->admin->last_name)
              ->assertSee($this->admin->email);
     }
+
 }

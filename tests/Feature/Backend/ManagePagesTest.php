@@ -8,7 +8,7 @@ use Tests\TestCase;
 class ManagePagesTest extends TestCase
 {
     /** @test */
-    public function test_pages_index_route()
+    public function a_user_can_view_pages()
     {
         $this->actingAs($this->admin)
             ->get(route('admin.pages.index'))
@@ -45,7 +45,7 @@ class ManagePagesTest extends TestCase
     }
 
     /** @test */
-    public function test_create_page_successfully()
+    public function a_user_can_create_page()
     {
         $page = make(Page::class);
 
@@ -82,7 +82,7 @@ class ManagePagesTest extends TestCase
     }
 
     /** @test */
-    public function it_updates_successfully()
+    public function a_user_can_update_page()
     {
         $page = create(Page::class);
         $title = 'Changed title';
