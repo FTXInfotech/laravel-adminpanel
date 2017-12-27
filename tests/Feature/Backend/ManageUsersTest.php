@@ -41,4 +41,18 @@ class ManageUsersTest extends TestCase
             ->assertSee('Export')
             ->assertSee('Action');
     }
+
+    /** @test */
+    public function a_user_can_view_single_user()
+    {
+        $this->actingAs($this->admin)
+             ->get('/admin/access/user/'.$this->admin->id)
+             ->assertViewIs('backend.access.users.show')
+             ->assertSee('View User')
+             ->assertSee('Overview')
+             ->assertSee('History')
+             ->assertSee($this->admin->first_name)
+             ->assertSee($this->admin->last_name)
+             ->assertSee($this->admin->email);
+    }
 }
