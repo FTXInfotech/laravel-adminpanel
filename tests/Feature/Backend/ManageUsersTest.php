@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Backend;
 
-use App\Models\Page\Page;
 use Tests\TestCase;
 
 class ManageUsersTest extends TestCase
@@ -42,5 +41,4 @@ class ManageUsersTest extends TestCase
             ->assertSee('Export')
             ->assertSee('Action');
     }
-
 }
