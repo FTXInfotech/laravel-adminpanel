@@ -5,7 +5,7 @@ namespace Tests\Feature\Backend;
 use App\Models\Page\Page;
 use Tests\TestCase;
 
-class ManagePageTest extends TestCase
+class ManagePagesTest extends TestCase
 {
     /** @test */
     public function test_pages_index_route()
