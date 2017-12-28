@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Backend;
 
-use App\Models\Access\User\User;
 use Tests\TestCase;
+use App\Models\Access\Role\Role;
+use App\Models\Access\User\User;
+use App\Models\Access\Permission\Permission;
 
 class ManageUsersTest extends TestCase
 {
@@ -55,5 +57,26 @@ class ManageUsersTest extends TestCase
              ->assertSee($this->admin->first_name)
              ->assertSee($this->admin->last_name)
              ->assertSee($this->admin->email);
+    }
+
+    /** @test */
+    public function a_user_can_create_new_user()
+    {
+       $user            = factory(User::class)->states('active','confirmed')->make()->toArray();
+       $role            = create(Role::class);
+       $permission      = create(Permission::class);
+
+       $user['password']                = 'Viral@1234';
+       $user['password_confirmation']   = 'Viral@1234';
+       $user['assignees_roles']         = [$role->id];
+       $user['permissions']             = [$permission->id];
+
+       $this->actingAs($this->admin)
+            ->post(route('admin.access.user.store'), $user)
+            ->assertRedirect(route('admin.access.user.index'));
+
+        $this->assertDatabaseHas('users', ['first_name' => $user['first_name'], 'last_name' => $user['last_name']]);
+        $this->assertDatabaseHas('roles', ['name' => $role->name]);
+        $this->assertDatabaseHas('permissions', ['name' => $permission->name]);
     }
 }
