@@ -60,6 +60,48 @@ class ManageUsersTest extends TestCase
     }
 
     /** @test */
+    function a_user_requires_a_first_name()
+    {
+        $this->createUser(['first_name' => null])
+            ->assertSessionHasErrors('first_name');
+    }
+
+    /** @test */
+    function a_user_requires_a_last_name()
+    {
+        $this->createUser(['last_name' => null])
+            ->assertSessionHasErrors('last_name');
+    }
+
+    /** @test */
+    function a_user_requires_a_email()
+    {
+        $this->createUser(['email' => null])
+            ->assertSessionHasErrors('email');
+    }
+
+    /** @test */
+    function a_user_requires_a_password()
+    {
+        $this->createUser(['password' => null])
+            ->assertSessionHasErrors('password');
+    }
+
+    /** @test */
+    function a_user_requires_a_role()
+    {
+        $this->createUser()
+            ->assertSessionHasErrors('assignees_roles');
+    }
+
+    /** @test */
+    function a_user_requires_a_permission()
+    {
+        $this->createUser()
+            ->assertSessionHasErrors('permissions');
+    }
+
+    /** @test */
     public function a_user_can_create_new_user()
     {
         $user = factory(User::class)->states('active', 'confirmed')->make()->toArray();
@@ -78,5 +120,20 @@ class ManageUsersTest extends TestCase
         $this->assertDatabaseHas('users', ['first_name' => $user['first_name'], 'last_name' => $user['last_name']]);
         $this->assertDatabaseHas('roles', ['name' => $role->name]);
         $this->assertDatabaseHas('permissions', ['name' => $permission->name]);
+    }
+
+    /**
+     * Create User
+     *
+     * @param  $overrides
+     * @return [array] User array
+     */
+    protected function createUser($overrides = [])
+    {
+        $user = factory(User::class, $overrides = [])->states('active', 'confirmed')->make()->toArray();
+
+        return $this->withExceptionHandling()
+                    ->actingAs($this->admin)
+                    ->post(route('admin.access.user.store'), $user);
     }
 }
