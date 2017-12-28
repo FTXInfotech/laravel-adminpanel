@@ -13,6 +13,22 @@ use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 
 class ManageUsersTest extends TestCase
 {
+    /**
+     * Create User.
+     *
+     * @param  $overrides
+     *
+     * @return [array] User array
+     */
+    protected function createUser($overrides = [])
+    {
+        $user = factory(User::class, $overrides = [])->states('active', 'confirmed')->make()->toArray();
+
+        return $this->withExceptionHandling()
+                    ->actingAs($this->admin)
+                    ->post(route('admin.access.user.store'), $user);
+    }
+
     /** @test */
     public function a_user_can_view_active_users()
     {
@@ -122,6 +138,13 @@ class ManageUsersTest extends TestCase
     }
 
     /** @test */
+    public function create_user_fails_if_email_is_exists()
+    {
+        $this->createUser(['email' => 'admin@admin.com'])
+            ->assertSessionHasErrors('email');
+    }
+
+    /** @test */
     public function a_user_can_create_new_user()
     {
         // Make sure our events are fired
@@ -199,19 +222,10 @@ class ManageUsersTest extends TestCase
         Event::assertDispatched(UserCreated::class);
     }
 
-    /**
-     * Create User.
-     *
-     * @param  $overrides
-     *
-     * @return [array] User array
-     */
-    protected function createUser($overrides = [])
-    {
-        $user = factory(User::class, $overrides = [])->states('active', 'confirmed')->make()->toArray();
-
-        return $this->withExceptionHandling()
-                    ->actingAs($this->admin)
-                    ->post(route('admin.access.user.store'), $user);
-    }
+    //@todo
+    //  update user
+    //  delete user
+    //  user can not delete himself
+    //  change password
+    //  export / import feature
 }
