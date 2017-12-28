@@ -1,9 +1,9 @@
 <?php
 
-use Faker\Generator;
+use App\Models\Access\Permission\Permission;
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
-use App\Models\Access\Permission\Permission;
+use Faker\Generator;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,9 +76,10 @@ $factory->state(Role::class, 'admin', function () {
 
 $factory->define(Permission::class, function (Generator $faker) {
     $name = $faker->word;
+
     return [
         'name'          => $name,
         'display_name'  => $name,
-        'sort' => $faker->numberBetween(1, 100),
+        'sort'          => $faker->numberBetween(1, 100),
     ];
 });
