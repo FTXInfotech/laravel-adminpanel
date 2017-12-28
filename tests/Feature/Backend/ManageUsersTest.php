@@ -60,42 +60,42 @@ class ManageUsersTest extends TestCase
     }
 
     /** @test */
-    function a_user_requires_a_first_name()
+    public function a_user_requires_a_first_name()
     {
         $this->createUser(['first_name' => null])
             ->assertSessionHasErrors('first_name');
     }
 
     /** @test */
-    function a_user_requires_a_last_name()
+    public function a_user_requires_a_last_name()
     {
         $this->createUser(['last_name' => null])
             ->assertSessionHasErrors('last_name');
     }
 
     /** @test */
-    function a_user_requires_a_email()
+    public function a_user_requires_a_email()
     {
         $this->createUser(['email' => null])
             ->assertSessionHasErrors('email');
     }
 
     /** @test */
-    function a_user_requires_a_password()
+    public function a_user_requires_a_password()
     {
         $this->createUser(['password' => null])
             ->assertSessionHasErrors('password');
     }
 
     /** @test */
-    function a_user_requires_a_role()
+    public function a_user_requires_a_role()
     {
         $this->createUser()
             ->assertSessionHasErrors('assignees_roles');
     }
 
     /** @test */
-    function a_user_requires_a_permission()
+    public function a_user_requires_a_permission()
     {
         $this->createUser()
             ->assertSessionHasErrors('permissions');
@@ -123,9 +123,10 @@ class ManageUsersTest extends TestCase
     }
 
     /**
-     * Create User
+     * Create User.
      *
      * @param  $overrides
+     *
      * @return [array] User array
      */
     protected function createUser($overrides = [])
