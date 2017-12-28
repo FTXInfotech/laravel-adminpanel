@@ -2,14 +2,14 @@
 
 namespace Tests\Feature\Backend;
 
-use Tests\TestCase;
+use App\Events\Backend\Access\User\UserCreated;
+use App\Models\Access\Permission\Permission;
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
+use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
-use App\Models\Access\Permission\Permission;
-use App\Events\Backend\Access\User\UserCreated;
-use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
+use Tests\TestCase;
 
 class ManageUsersTest extends TestCase
 {
@@ -92,13 +92,12 @@ class ManageUsersTest extends TestCase
     }
 
     /** @test */
-    function a_user_requires_a_confirm_password()
+    public function a_user_requires_a_confirm_password()
     {
         $user = factory(User::class)->states('active', 'confirmed')->make()->toArray();
 
         $user['password'] = 'Viral@1234';
         $user['password_confirmation'] = 'Viral@1235';
-
 
         $this->withExceptionHandling()
              ->actingAs($this->admin)
@@ -107,7 +106,6 @@ class ManageUsersTest extends TestCase
     }
 
     /** @test */
-
     public function a_user_requires_a_role()
     {
         $this->createUser()
@@ -143,10 +141,10 @@ class ManageUsersTest extends TestCase
 
         $this->assertDatabaseHas(config('access.users_table'), [
             'first_name' => $user['first_name'],
-            'last_name' => $user['last_name'],
-            'email' => $user['email'],
-            'status' => 1,
-            'confirmed' => 1,
+            'last_name'  => $user['last_name'],
+            'email'      => $user['email'],
+            'status'     => 1,
+            'confirmed'  => 1,
         ]);
         $this->assertDatabaseHas(config('access.roles_table'), ['name' => $role->name]);
         $this->assertDatabaseHas(config('access.permissions_table'), ['name' => $permission->name]);
@@ -155,7 +153,7 @@ class ManageUsersTest extends TestCase
         Event::assertDispatched(UserCreated::class);
     }
 
-     /** @test */
+    /** @test */
     public function an_email_will_be_sent_to_uncomfirmed_user()
     {
         // Make sure our events are fired
@@ -181,10 +179,10 @@ class ManageUsersTest extends TestCase
 
         $this->assertDatabaseHas(config('access.users_table'), [
             'first_name' => $user['first_name'],
-            'last_name' => $user['last_name'],
-            'email' => $user['email'],
-            'status' => 1,
-            'confirmed' => 0,
+            'last_name'  => $user['last_name'],
+            'email'      => $user['email'],
+            'status'     => 1,
+            'confirmed'  => 0,
         ]);
         $this->assertDatabaseHas(config('access.roles_table'), ['name' => $role->name]);
         $this->assertDatabaseHas(config('access.permissions_table'), ['name' => $permission->name]);
