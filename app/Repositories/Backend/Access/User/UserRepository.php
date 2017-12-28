@@ -97,7 +97,6 @@ class UserRepository extends BaseRepository
         $user = $this->createUserStub($data);
 
         DB::transaction(function () use ($user, $data, $roles, $permissions) {
-
             if ($user->save()) {
 
                 //User Created, Validate Roles
