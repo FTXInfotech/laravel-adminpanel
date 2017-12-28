@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Backend;
 
-use Tests\TestCase;
+use App\Models\Access\Permission\Permission;
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
-use App\Models\Access\Permission\Permission;
+use Tests\TestCase;
 
 class ManageUsersTest extends TestCase
 {
@@ -62,16 +62,16 @@ class ManageUsersTest extends TestCase
     /** @test */
     public function a_user_can_create_new_user()
     {
-       $user            = factory(User::class)->states('active','confirmed')->make()->toArray();
-       $role            = create(Role::class);
-       $permission      = create(Permission::class);
+        $user = factory(User::class)->states('active', 'confirmed')->make()->toArray();
+        $role = create(Role::class);
+        $permission = create(Permission::class);
 
-       $user['password']                = 'Viral@1234';
-       $user['password_confirmation']   = 'Viral@1234';
-       $user['assignees_roles']         = [$role->id];
-       $user['permissions']             = [$permission->id];
+        $user['password'] = 'Viral@1234';
+        $user['password_confirmation'] = 'Viral@1234';
+        $user['assignees_roles'] = [$role->id];
+        $user['permissions'] = [$permission->id];
 
-       $this->actingAs($this->admin)
+        $this->actingAs($this->admin)
             ->post(route('admin.access.user.store'), $user)
             ->assertRedirect(route('admin.access.user.index'));
 
