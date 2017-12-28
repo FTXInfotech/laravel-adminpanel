@@ -2,10 +2,14 @@
 
 namespace Tests\Feature\Backend;
 
-use App\Models\Access\Permission\Permission;
+use Tests\TestCase;
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
-use Tests\TestCase;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
+use App\Models\Access\Permission\Permission;
+use App\Events\Backend\Access\User\UserCreated;
+use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 
 class ManageUsersTest extends TestCase
 {
@@ -88,6 +92,21 @@ class ManageUsersTest extends TestCase
     }
 
     /** @test */
+    function a_user_requires_a_confirm_password()
+    {
+        $user = factory(User::class)->states('active', 'confirmed')->make()->toArray();
+
+        $user['password'] = 'Viral@1234';
+        $user['password_confirmation'] = 'Viral@1235';
+
+
+        $this->withExceptionHandling()
+             ->actingAs($this->admin)
+            ->post(route('admin.access.user.store'), $user)
+            ->assertSessionHasErrors('password');
+    }
+
+    /** @test */
     function a_user_requires_a_role()
     {
         $this->createUser()
@@ -104,8 +123,12 @@ class ManageUsersTest extends TestCase
     /** @test */
     public function a_user_can_create_new_user()
     {
+        // Make sure our events are fired
+        Event::fake();
+
         $user = factory(User::class)->states('active', 'confirmed')->make()->toArray();
         $role = create(Role::class);
+
         $permission = create(Permission::class);
 
         $user['password'] = 'Viral@1234';
@@ -117,9 +140,62 @@ class ManageUsersTest extends TestCase
             ->post(route('admin.access.user.store'), $user)
             ->assertRedirect(route('admin.access.user.index'));
 
-        $this->assertDatabaseHas('users', ['first_name' => $user['first_name'], 'last_name' => $user['last_name']]);
-        $this->assertDatabaseHas('roles', ['name' => $role->name]);
-        $this->assertDatabaseHas('permissions', ['name' => $permission->name]);
+        $this->assertDatabaseHas(config('access.users_table'), [
+            'first_name' => $user['first_name'],
+            'last_name' => $user['last_name'],
+            'email' => $user['email'],
+            'status' => 1,
+            'confirmed' => 1,
+        ]);
+        $this->assertDatabaseHas(config('access.roles_table'), ['name' => $role->name]);
+        $this->assertDatabaseHas(config('access.permissions_table'), ['name' => $permission->name]);
+        $this->assertDatabaseHas(config('access.role_user_table'), ['role_id' => $role->id]);
+
+        Event::assertDispatched(UserCreated::class);
+    }
+
+     /** @test */
+    public function an_email_will_be_sent_to_uncomfirmed_user()
+    {
+        // Make sure our events are fired
+        Event::fake();
+
+        // Make sure our notifications are sent
+        Notification::fake();
+
+        $user = factory(User::class)->states('active')->make()->toArray();
+        $role = create(Role::class);
+
+        $permission = create(Permission::class);
+
+        $user['password'] = 'Viral@1234';
+        $user['password_confirmation'] = 'Viral@1234';
+        $user['confirmation_email'] = 1;
+        $user['assignees_roles'] = [$role->id];
+        $user['permissions'] = [$permission->id];
+
+        $this->actingAs($this->admin)
+            ->post(route('admin.access.user.store'), $user)
+            ->assertRedirect(route('admin.access.user.index'));
+
+        $this->assertDatabaseHas(config('access.users_table'), [
+            'first_name' => $user['first_name'],
+            'last_name' => $user['last_name'],
+            'email' => $user['email'],
+            'status' => 1,
+            'confirmed' => 0,
+        ]);
+        $this->assertDatabaseHas(config('access.roles_table'), ['name' => $role->name]);
+        $this->assertDatabaseHas(config('access.permissions_table'), ['name' => $permission->name]);
+        $this->assertDatabaseHas(config('access.role_user_table'), ['role_id' => $role->id]);
+
+        // Get the user that was inserted into the database
+        $insertedUser = User::where('email', $user['email'])->first();
+
+        // Check that the user was sent the confirmation email
+        Notification::assertSentTo([$insertedUser], UserNeedsConfirmation::class);
+
+        Event::assertDispatched(UserCreated::class);
     }
 
     /**

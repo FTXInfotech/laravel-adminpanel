@@ -97,8 +97,6 @@ class UserRepository extends BaseRepository
         $user = $this->createUserStub($data);
 
         DB::transaction(function () use ($user, $data, $roles, $permissions) {
-            // Set email type 2
-            $email_type = 2;
 
             if ($user->save()) {
 
@@ -119,18 +117,6 @@ class UserRepository extends BaseRepository
                 }
 
                 event(new UserCreated($user));
-
-                /*if (isset($data['confirmation_email']) && $user->confirmed == 0) {
-                    $email_type = 1;
-                }*/
-
-                // Send email to the user
-                /* $options = [
-                     'data'                => $user->toArray(),
-                     'email_template_type' => $email_type,
-                 ];*/
-
-                //createNotification('', 1, 2, $options);
 
                 return true;
             }
