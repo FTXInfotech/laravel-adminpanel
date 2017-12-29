@@ -74,10 +74,4 @@ class ManageSettingsTest extends TestCase
         ])
         ->assertSessionHasErrors('favicon');
     }
-
-    /** @test */
-    public function a_user_can_update_settings()
-    {
-        
-    }
 }
