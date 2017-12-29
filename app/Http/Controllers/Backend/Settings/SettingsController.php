@@ -45,27 +45,9 @@ class SettingsController extends Controller
     public function update(Setting $setting, UpdateSettingsRequest $request)
     {
         $this->settings->update($setting, $request->except(['_token', '_method']));
-
+        
         return redirect()
             ->route('admin.settings.edit', $setting->id)
             ->with('flash_success', trans('alerts.backend.settings.updated'));
-    }
-
-    /**
-     * @param Setting $setting
-     * @param Request $request
-     *                         Remove logo or favicon icon
-     *
-     * @return mixed
-     */
-    public function removeIcon(Request $request)
-    {
-        $this->settings->removeicon($request->data);
-
-        return json_encode(
-        [
-                    'status' => true,
-                ]
-        );
     }
 }
