@@ -16,7 +16,7 @@ class CreateBlogCategoriesTable extends Migration
             $table->increments('id');
             $table->string('name', 191);
             $table->boolean('status')->default(1);
-            $table->integer('created_by')->unsigned();
+            $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
