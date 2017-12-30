@@ -97,8 +97,8 @@
                     </li>
                     @endauth
                     @permission('view-blog-tag')
-                    <li class="{{ active_class(Active::checkUriPattern('admin/blogtags*')) }}">
-                        <a href="{{ route('admin.blogtags.index') }}">
+                    <li class="{{ active_class(Active::checkUriPattern('admin/blogTags*')) }}">
+                        <a href="{{ route('admin.blogTags.index') }}">
                             <span>{{ trans('menus.backend.blogtags.management') }}</span>
                         </a>
                     </li>

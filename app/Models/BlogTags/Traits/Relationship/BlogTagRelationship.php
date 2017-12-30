@@ -12,8 +12,8 @@ trait BlogTagRelationship
     /**
      * BlogTags belongs to relationship with state.
      */
-    public function createdBy()
+    public function creator()
     {
-        return $this->belongsTo(User::class, 'created_by', 'id');
+        return $this->belongsTo(User::class, 'created_by');
     }
 }
