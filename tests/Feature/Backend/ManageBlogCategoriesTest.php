@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Backend;
 
 use App\Models\BlogCategories\BlogCategory;
 use Tests\TestCase;
@@ -43,15 +43,16 @@ class ManageBlogCategoriesTest extends TestCase
             ->assertSessionHasErrors('name');
     }
 
-    // public function a_blog_category_requires_a_name_while_updating()
-    // {
-    //     $this->actingAs($this->admin)->withExceptionHandling();
+    /** @test */
+    public function a_blog_category_requires_a_name_while_updating()
+    {
+        $this->actingAs($this->admin)->withExceptionHandling();
 
-    //     $category = create(BlogCategory::class);
+        $category = create(BlogCategory::class);
 
-    //     $this->post(route('admin.blogCategories.store'), $category->toArray())
-    //         ->assertSessionHasErrors('name');
-    // }
+        $this->patch(route('admin.blogCategories.update', $category), ['name' => ''])
+            ->assertSessionHasErrors('name');
+    }
 
     /** @test */
     public function a_user_can_update_a_blog_category()

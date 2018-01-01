@@ -62,7 +62,7 @@ class BlogCategoriesController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogCategories\BlogCategory                             $blogcategory
+     * @param \App\Models\BlogCategories\BlogCategory                             $blogCategory
      * @param \App\Http\Requests\Backend\BlogCategories\EditBlogCategoriesRequest $request
      *
      * @return mixed
@@ -74,7 +74,7 @@ class BlogCategoriesController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogCategories\BlogCategory                               $blogcategory
+     * @param \App\Models\BlogCategories\BlogCategory                               $blogCategory
      * @param \App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest $request
      *
      * @return mixed
@@ -89,7 +89,7 @@ class BlogCategoriesController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogCategories\BlogCategory                               $blogcategory
+     * @param \App\Models\BlogCategories\BlogCategory                               $blogCategory
      * @param \App\Http\Requests\Backend\BlogCategories\DeleteBlogCategoriesRequest $request
      *
      * @return mixed

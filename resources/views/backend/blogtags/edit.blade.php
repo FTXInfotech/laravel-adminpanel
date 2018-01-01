@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    {{ Form::model($blogtag, ['route' => ['admin.blogtags.update', $blogtag], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH', 'id' => 'edit-role']) }}
+    {{ Form::model($blogtag, ['route' => ['admin.blogTags.update', $blogtag], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH', 'id' => 'edit-blogtags']) }}
 
         <div class="box box-info">
             <div class="box-header with-border">
@@ -26,7 +26,7 @@
                 <div class="form-group">
                     @include("backend.blogtags.form")
                     <div class="edit-form-btn">
-                    {{ link_to_route('admin.blogtags.index', trans('buttons.general.cancel'), [], ['class' => 'btn btn-danger btn-md']) }}
+                    {{ link_to_route('admin.blogTags.index', trans('buttons.general.cancel'), [], ['class' => 'btn btn-danger btn-md']) }}
                     {{ Form::submit(trans('buttons.general.crud.update'), ['class' => 'btn btn-primary btn-md']) }}
                     <div class="clearfix"></div>
                 </div>

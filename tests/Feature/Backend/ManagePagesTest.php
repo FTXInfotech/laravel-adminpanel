@@ -124,4 +124,16 @@ class ManagePagesTest extends TestCase
             ->post(route('admin.pages.store'), $page3)
             ->assertSessionHasErrors('description');
     }
+
+    /** @test */
+    public function a_user_can_delete_a_page()
+    {
+        $this->actingAs($this->admin);
+
+        $page = create(Page::class);
+
+        $this->delete(route('admin.pages.destroy', $page));
+
+        $this->assertDatabaseMissing(config('module.pages.table'), ['name' => $page->name, 'id' => $page->id, 'deleted_at' => null]);
+    }
 }
