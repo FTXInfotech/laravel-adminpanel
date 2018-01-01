@@ -4,9 +4,9 @@ namespace App\Models\Page;
 
 use App\Models\BaseModel;
 use App\Models\ModelTrait;
+use App\Models\Page\Traits\Attribute\PageAttribute;
 use App\Models\Page\Traits\PageRelationship;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Page\Traits\Attribute\PageAttribute;
 
 class Page extends BaseModel
 {
@@ -32,12 +32,12 @@ class Page extends BaseModel
     protected $guarded = ['id'];
 
     /**
-     * The default values for attributes
+     * The default values for attributes.
      *
      * @var array
      */
     protected $attributes = [
-        'created_by' => 1
+        'created_by' => 1,
     ];
 
     protected $with = ['owner'];

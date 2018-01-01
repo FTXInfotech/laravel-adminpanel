@@ -23,10 +23,10 @@ class SettingsLogoController extends Controller
     }
 
     /**
-     * Remove logo or favicon icon
-     * 
+     * Remove logo or favicon icon.
+     *
      * @param \App\Models\Settings\Setting $setting
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request     $request
      *
      * @return mixed
      */
@@ -35,7 +35,7 @@ class SettingsLogoController extends Controller
         $this->settings->removeLogo($setting, $request->data);
 
         return json_encode([
-            'status' => true
+            'status' => true,
         ]);
     }
 }

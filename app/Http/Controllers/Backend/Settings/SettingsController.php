@@ -7,7 +7,6 @@ use App\Http\Requests\Backend\Settings\ManageSettingsRequest;
 use App\Http\Requests\Backend\Settings\UpdateSettingsRequest;
 use App\Models\Settings\Setting;
 use App\Repositories\Backend\Settings\SettingsRepository;
-use Illuminate\Http\Request;
 
 /**
  * Class SettingsController.
@@ -45,7 +44,7 @@ class SettingsController extends Controller
     public function update(Setting $setting, UpdateSettingsRequest $request)
     {
         $this->settings->update($setting, $request->except(['_token', '_method']));
-        
+
         return redirect()
             ->route('admin.settings.edit', $setting->id)
             ->with('flash_success', trans('alerts.backend.settings.updated'));

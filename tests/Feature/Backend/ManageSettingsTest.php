@@ -2,12 +2,10 @@
 
 namespace Tests\Feature\Backend;
 
-use Tests\TestCase;
 use App\Models\Settings\Setting;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ManageSettingsTest extends TestCase
 {
@@ -37,10 +35,10 @@ class ManageSettingsTest extends TestCase
     public function it_can_update_a_valid_site_logo()
     {
         $this->patch(route('admin.settings.update', $this->setting), [
-            'logo' => UploadedFile::fake()->image('logo.jpg', 226, 48)
+            'logo' => UploadedFile::fake()->image('logo.jpg', 226, 48),
         ]);
 
-        Storage::disk('public')->assertExists('img/logo/' . $this->setting->logo);
+        Storage::disk('public')->assertExists('img/logo/'.$this->setting->logo);
     }
 
     /** @test */
@@ -49,7 +47,7 @@ class ManageSettingsTest extends TestCase
         $this->withExceptionHandling();
 
         $this->patch(route('admin.settings.update', $this->setting), [
-            'logo' => UploadedFile::fake()->image('logo.jpg', 200, 500)
+            'logo' => UploadedFile::fake()->image('logo.jpg', 200, 500),
         ])
         ->assertSessionHasErrors('logo');
     }
@@ -58,10 +56,10 @@ class ManageSettingsTest extends TestCase
     public function it_can_update_site_favicon()
     {
         $this->patch(route('admin.settings.update', $this->setting), [
-            'favicon' => UploadedFile::fake()->image('favicon.jpg', 16, 16)
+            'favicon' => UploadedFile::fake()->image('favicon.jpg', 16, 16),
         ]);
 
-        Storage::disk('public')->assertExists('img/favicon/' . $this->setting->favicon);
+        Storage::disk('public')->assertExists('img/favicon/'.$this->setting->favicon);
     }
 
     /** @test */
@@ -70,7 +68,7 @@ class ManageSettingsTest extends TestCase
         $this->withExceptionHandling();
 
         $this->patch(route('admin.settings.update', $this->setting), [
-            'favicon' => UploadedFile::fake()->image('favicon.jpg', 200, 500)
+            'favicon' => UploadedFile::fake()->image('favicon.jpg', 200, 500),
         ])
         ->assertSessionHasErrors('favicon');
     }

@@ -32,7 +32,7 @@ class PagesRepository extends BaseRepository
                 config('module.pages.table').'.status',
                 config('module.pages.table').'.created_at',
                 config('module.pages.table').'.updated_at',
-                config('access.users_table').'.first_name as created_by'
+                config('access.users_table').'.first_name as created_by',
             ]);
     }
 
