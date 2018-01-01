@@ -126,6 +126,7 @@ return [
                 'status'    => 'Status',
                 'createdat' => 'Created At',
                 'updatedat' => 'Updated At',
+                'createdby' => 'Created By',
                 'all'       => 'All',
             ],
         ],
@@ -200,7 +201,7 @@ return [
             'companydetails' => 'Company Contact Details',
             'mail'           => 'Mail Settings',
             'footer'         => 'Footer Settings',
-            'terms'          => 'Terms & Condition Settings',
+            'terms'          => 'Terms and Condition Settings',
             'google'         => 'Google Analytics Track Code',
         ],
 

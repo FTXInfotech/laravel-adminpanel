@@ -57,7 +57,7 @@ class BlogCategoriesController extends Controller
         $this->blogcategory->create($request->all());
 
         return redirect()
-            ->route('admin.blogcategories.index')
+            ->route('admin.blogCategories.index')
             ->with('flash_success', trans('alerts.backend.blogcategories.created'));
     }
 
@@ -67,10 +67,10 @@ class BlogCategoriesController extends Controller
      *
      * @return mixed
      */
-    public function edit(BlogCategory $blogcategory, EditBlogCategoriesRequest $request)
+    public function edit(BlogCategory $blogCategory, EditBlogCategoriesRequest $request)
     {
         return view('backend.blogcategories.edit')
-            ->with('blogcategory', $blogcategory);
+            ->with('blogcategory', $blogCategory);
     }
 
     /**
@@ -79,12 +79,12 @@ class BlogCategoriesController extends Controller
      *
      * @return mixed
      */
-    public function update(BlogCategory $blogcategory, UpdateBlogCategoriesRequest $request)
+    public function update(BlogCategory $blogCategory, UpdateBlogCategoriesRequest $request)
     {
-        $this->blogcategory->update($blogcategory, $request->all());
+        $this->blogcategory->update($blogCategory, $request->all());
 
         return redirect()
-            ->route('admin.blogcategories.index')
+            ->route('admin.blogCategories.index')
             ->with('flash_success', trans('alerts.backend.blogcategories.updated'));
     }
 
@@ -94,12 +94,12 @@ class BlogCategoriesController extends Controller
      *
      * @return mixed
      */
-    public function destroy(BlogCategory $blogcategory, DeleteBlogCategoriesRequest $request)
+    public function destroy(BlogCategory $blogCategory, DeleteBlogCategoriesRequest $request)
     {
-        $this->blogcategory->delete($blogcategory);
+        $this->blogcategory->delete($blogCategory);
 
         return redirect()
-            ->route('admin.blogcategories.index')
+            ->route('admin.blogCategories.index')
             ->with('flash_success', trans('alerts.backend.blogcategories.deleted'));
     }
 }
