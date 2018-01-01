@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
-use App\Models\BlogTags\BlogTag;
 use App\Models\Access\User\User;
+use App\Models\BlogTags\BlogTag;
+use Tests\TestCase;
 
 class BlogTagTest extends TestCase
 {
