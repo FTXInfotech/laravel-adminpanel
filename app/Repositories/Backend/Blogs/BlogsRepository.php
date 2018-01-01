@@ -132,7 +132,7 @@ class BlogsRepository extends BaseRepository
     /**
      * Creating Tags.
      *
-     * @param Array $tags
+     * @param array $tags
      *
      * @return array
      */
