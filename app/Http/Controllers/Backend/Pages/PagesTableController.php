@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Backend\Pages;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Pages\ManagePageRequest;
 use App\Repositories\Backend\Pages\PagesRepository;
-use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
 /**

@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Backend\Settings;
 
-use App\Models\Settings\Setting;
 use App\Exceptions\GeneralException;
+use App\Models\Settings\Setting;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,39 +18,39 @@ class SettingsRepository extends BaseRepository
     const MODEL = Setting::class;
 
     /**
-     * Site Logo Path
+     * Site Logo Path.
      *
      * @var string
      */
     protected $site_logo_path;
 
     /**
-     * Favicon path
+     * Favicon path.
      *
      * @var string
      */
     protected $favicon_path;
 
     /**
-     * Storage Class Object
+     * Storage Class Object.
      *
      * @var \Illuminate\Support\Facades\Storage
      */
     protected $storage;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
-        $this->site_logo_path = 'img'. DIRECTORY_SEPARATOR . 'logo' . DIRECTORY_SEPARATOR;
-        $this->favicon_path = 'img' . DIRECTORY_SEPARATOR . 'favicon' . DIRECTORY_SEPARATOR;
+        $this->site_logo_path = 'img'.DIRECTORY_SEPARATOR.'logo'.DIRECTORY_SEPARATOR;
+        $this->favicon_path = 'img'.DIRECTORY_SEPARATOR.'favicon'.DIRECTORY_SEPARATOR;
         $this->storage = Storage::disk('public');
     }
 
     /**
      * @param \App\Models\Settings\Setting $setting
-     * @param  Array $input
+     * @param array                        $input
      *
      * @throws \App\Exceptions\GeneralException
      *
@@ -58,20 +58,21 @@ class SettingsRepository extends BaseRepository
      */
     public function update(Setting $setting, array $input)
     {
-        if (! empty($input['logo'])) {
+        if (!empty($input['logo'])) {
             $this->removeLogo($setting, 'logo');
 
             $input['logo'] = $this->uploadLogo($setting, $input['logo'], 'logo');
         }
 
-        if (! empty($input['favicon'])) {
+        if (!empty($input['favicon'])) {
             $this->removeLogo($setting, 'favicon');
 
             $input['favicon'] = $this->uploadLogo($setting, $input['favicon'], 'favicon');
         }
 
-        if ($setting->update($input))
+        if ($setting->update($input)) {
             return true;
+        }
 
         throw new GeneralException(trans('exceptions.backend.settings.update_error'));
     }
@@ -81,11 +82,11 @@ class SettingsRepository extends BaseRepository
      */
     public function uploadLogo($setting, $logo, $type)
     {
-        $path = $type == "logo" ? $this->site_logo_path : $this->favicon_path;
+        $path = $type == 'logo' ? $this->site_logo_path : $this->favicon_path;
 
-        $image_name = time() . $logo->getClientOriginalName();
+        $image_name = time().$logo->getClientOriginalName();
 
-        $this->storage->put($path . $image_name, file_get_contents($logo->getRealPath()));
+        $this->storage->put($path.$image_name, file_get_contents($logo->getRealPath()));
 
         return $image_name;
     }
@@ -95,15 +96,17 @@ class SettingsRepository extends BaseRepository
      */
     public function removeLogo(Setting $setting, $type)
     {
-        $path = $type == "logo" ? $this->site_logo_path : $this->favicon_path;
+        $path = $type == 'logo' ? $this->site_logo_path : $this->favicon_path;
 
-        if ($setting->$type && $this->storage->exists($path . $setting->$type)) {
-            $this->storage->delete($path . $setting->$type);
+        if ($setting->$type && $this->storage->exists($path.$setting->$type)) {
+            $this->storage->delete($path.$setting->$type);
         }
 
-        $result = $setting->update([ $type => null ]);
+        $result = $setting->update([$type => null]);
 
-        if($result) return true;
+        if ($result) {
+            return true;
+        }
 
         throw new GeneralException(trans('exceptions.backend.settings.update_error'));
     }

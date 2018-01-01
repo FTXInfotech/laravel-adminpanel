@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Models\BlogCategories\BlogCategory;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ManageBlogCategoriesTest extends TestCase
 {
@@ -17,7 +15,7 @@ class ManageBlogCategoriesTest extends TestCase
             ->assertViewIs('backend.blogcategories.index')
             ->assertSee(trans('labels.backend.blogcategories.management'))
             ->assertSee(trans('labels.backend.blogcategories.table.title'))
-            ->assertSee(trans('labels.backend.blogcategories.table.status'))           
+            ->assertSee(trans('labels.backend.blogcategories.table.status'))
             ->assertSee('Export')
             ->assertSee('Action');
     }
@@ -26,9 +24,9 @@ class ManageBlogCategoriesTest extends TestCase
     public function a_user_can_create_a_blog_category()
     {
         $this->actingAs($this->admin);
-        
+
         $category = make(BlogCategory::class);
-        
+
         $this->post(route('admin.blogCategories.store'), $category->toArray());
 
         $this->assertDatabaseHas(config('module.blog_categories.table'), ['name' => $category->name]);
