@@ -2,11 +2,9 @@
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
 use App\Models\Access\User\User;
 use App\Models\BlogCategories\BlogCategory;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class BlogCategoryTest extends TestCase
 {

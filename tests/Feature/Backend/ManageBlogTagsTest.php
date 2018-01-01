@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Backend;
 
-use Tests\TestCase;
 use App\Models\BlogTags\BlogTag;
+use Tests\TestCase;
 
 class ManageBlogTagsTest extends TestCase
 {
