@@ -90,8 +90,8 @@
 
                 <ul class="treeview-menu {{ active_class(Active::checkUriPattern('admin/blog*'), 'menu-open') }}" style="display: none; {{ active_class(Active::checkUriPattern('admin/blog*'), 'display: block;') }}">
                     @permission('view-blog-category')
-                    <li class="{{ active_class(Active::checkUriPattern('admin/blogcategories*')) }}">
-                        <a href="{{ route('admin.blogcategories.index') }}">
+                    <li class="{{ active_class(Active::checkUriPattern('admin/blogCategories*')) }}">
+                        <a href="{{ route('admin.blogCategories.index') }}">
                             <span>{{ trans('menus.backend.blogcategories.management') }}</span>
                         </a>
                     </li>
