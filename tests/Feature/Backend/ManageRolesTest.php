@@ -2,14 +2,14 @@
 
 namespace Tests\Feature\Backend;
 
-use Tests\TestCase;
-use App\Models\Access\Role\Role;
-use App\Exceptions\GeneralException;
-use Illuminate\Support\Facades\Event;
-use App\Models\Access\Permission\Permission;
 use App\Events\Backend\Access\Role\RoleCreated;
 use App\Events\Backend\Access\Role\RoleDeleted;
 use App\Events\Backend\Access\Role\RoleUpdated;
+use App\Exceptions\GeneralException;
+use App\Models\Access\Permission\Permission;
+use App\Models\Access\Role\Role;
+use Illuminate\Support\Facades\Event;
+use Tests\TestCase;
 
 class ManageRolesTest extends TestCase
 {
@@ -60,7 +60,7 @@ class ManageRolesTest extends TestCase
         $this->expectException(GeneralException::class);
     }*/
 
-     /** @test */
+    /** @test */
     public function a_user_can_create_new_role()
     {
         // Make sure our events are fired
@@ -75,7 +75,7 @@ class ManageRolesTest extends TestCase
             ->assertSessionHas(['flash_success' => trans('alerts.backend.roles.created')]);
 
         $this->assertDatabaseHas(config('access.roles_table'), [
-            'name' => $role['name']
+            'name' => $role['name'],
         ]);
 
         Event::assertDispatched(RoleCreated::class);
@@ -99,7 +99,7 @@ class ManageRolesTest extends TestCase
             ->assertSessionHas(['flash_success' => trans('alerts.backend.roles.created')]);
 
         $this->assertDatabaseHas(config('access.roles_table'), [
-            'name' => $role['name']
+            'name' => $role['name'],
         ]);
 
         $this->assertDatabaseHas(config('access.permissions_table'), ['name' => $permission->name]);
@@ -144,7 +144,7 @@ class ManageRolesTest extends TestCase
             ->assertSessionHas(['flash_success' => trans('alerts.backend.roles.updated')]);
 
         $this->assertDatabaseHas(config('access.roles_table'), [
-            'name' => $data['name']
+            'name' => $data['name'],
         ]);
 
         $this->assertDatabaseHas(config('access.permissions_table'), ['name' => $permission->name]);
