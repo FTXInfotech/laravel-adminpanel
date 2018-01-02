@@ -30,8 +30,8 @@ trait BlogRelationship
     /**
      * Blogs belongsTo with User.
      */
-    public function createdBy()
+    public function owner()
     {
-        return $this->belongsTo(User::class, 'created_by', 'id');
+        return $this->belongsTo(User::class, 'created_by');
     }
 }
