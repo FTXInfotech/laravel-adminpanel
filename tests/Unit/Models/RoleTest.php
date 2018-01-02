@@ -6,7 +6,6 @@ use Tests\TestCase;
 
 class RoleTest extends TestCase
 {
-
     /** @test */
     public function a_role_has_users()
     {
