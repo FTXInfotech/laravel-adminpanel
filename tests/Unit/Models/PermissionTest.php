@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
 use App\Models\Access\Permission\Permission;
+use Tests\TestCase;
 
 class PermissionTest extends TestCase
 {
