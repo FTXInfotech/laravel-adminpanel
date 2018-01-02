@@ -17,7 +17,6 @@ $factory->define(Permission::class, function (Generator $faker) {
     ];
 });
 
-
 $factory->state(Permission::class, 'active', function () {
     return [
         'status' => 1,
