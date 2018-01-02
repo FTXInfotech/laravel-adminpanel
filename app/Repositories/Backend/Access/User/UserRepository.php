@@ -160,7 +160,7 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * Change Password
+     * Change Password.
      *
      * @param $user
      * @param $input
@@ -174,11 +174,11 @@ class UserRepository extends BaseRepository
         $user = $this->find(access()->id());
 
         if (Hash::check($input['old_password'], $user->password)) {
-
             $user->password = bcrypt($input['password']);
 
             if ($user->save()) {
                 event(new UserPasswordChanged($user));
+
                 return true;
             }
 

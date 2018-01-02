@@ -2,16 +2,16 @@
 
 namespace Tests\Feature\Backend;
 
-use Tests\TestCase;
-use App\Models\Access\Role\Role;
-use App\Models\Access\User\User;
-use Illuminate\Support\Facades\Event;
-use App\Models\Access\Permission\Permission;
-use Illuminate\Support\Facades\Notification;
 use App\Events\Backend\Access\User\UserCreated;
 use App\Events\Backend\Access\User\UserDeleted;
 use App\Events\Backend\Access\User\UserUpdated;
+use App\Models\Access\Permission\Permission;
+use App\Models\Access\Role\Role;
+use App\Models\Access\User\User;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
+use Tests\TestCase;
 
 class ManageUsersTest extends TestCase
 {
@@ -222,7 +222,7 @@ class ManageUsersTest extends TestCase
         Event::assertDispatched(UserCreated::class);
     }
 
-      /** @test */
+    /** @test */
     public function it_fails_for_validation_on_update_user()
     {
         $user = create(User::class);
@@ -262,17 +262,16 @@ class ManageUsersTest extends TestCase
             ->assertRedirect(route('admin.access.user.index'))
             ->assertSessionHas(['flash_success' => trans('alerts.backend.users.updated')]);
 
-        $this->assertDatabaseHas(config('access.users_table'),[
-            'id' => $user->id,
+        $this->assertDatabaseHas(config('access.users_table'), [
+            'id'         => $user->id,
             'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
+            'last_name'  => $data['last_name'],
         ]);
 
         Event::assertDispatched(UserUpdated::class);
-
     }
 
-     /** @test */
+    /** @test */
     public function a_user_can_delete_a_user()
     {
         Event::fake();
@@ -288,7 +287,7 @@ class ManageUsersTest extends TestCase
         Event::assertDispatched(UserDeleted::class);
     }
 
-     /** @test */
+    /** @test */
     public function a_user_can_not_delete_himself()
     {
         $this->withExceptionHandling()
@@ -298,6 +297,7 @@ class ManageUsersTest extends TestCase
 
         $this->assertDatabaseHas(config('access.users_table'), ['id' => $this->admin->id, 'deleted_at' => null]);
     }
+
     //  change password
     //  export / import feature
 }
