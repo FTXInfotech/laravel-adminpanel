@@ -39,4 +39,3 @@ $factory->state(User::class, 'unconfirmed', function () {
         'confirmed' => 0,
     ];
 });
-
