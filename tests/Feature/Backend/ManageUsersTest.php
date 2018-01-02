@@ -298,7 +298,7 @@ class ManageUsersTest extends TestCase
         $this->withExceptionHandling()
              ->actingAs($this->admin)
              ->delete(route('admin.access.user.destroy', $this->admin))
-             ->assertSessionHas(['flash_danger' => trans('exceptions.backend.access.users.cant_delete_self')]);
+             ->expectException('Exception');
 
         $this->assertDatabaseHas(config('access.users_table'), ['id' => $this->admin->id, 'deleted_at' => null]);
     }

@@ -19,3 +19,15 @@ $factory->state(Role::class, 'admin', function () {
         'all' => 1,
     ];
 });
+
+$factory->state(Role::class, 'active', function () {
+    return [
+        'status' => 1,
+    ];
+});
+
+$factory->state(Role::class, 'inactive', function () {
+    return [
+        'status' => 0,
+    ];
+});

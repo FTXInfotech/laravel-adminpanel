@@ -114,7 +114,6 @@ class RoleRepository extends BaseRepository
 
                 return true;
             }
-
             throw new GeneralException(trans('exceptions.backend.access.roles.create_error'));
         });
     }
