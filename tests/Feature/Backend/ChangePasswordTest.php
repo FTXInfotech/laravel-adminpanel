@@ -2,21 +2,19 @@
 
 namespace Tests\Feature\Backend;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Event;
 use App\Events\Backend\Access\User\UserPasswordChanged;
-
+use Illuminate\Support\Facades\Event;
+use Tests\TestCase;
 
 class ChangePasswordTest extends TestCase
 {
-
     /** @test */
     public function a_user_require_old_password_to_change_password()
     {
         $data = [];
-        $data['old_password']           = '12345';
-        $data['password']               = 'Viral@1234';
-        $data['password_confirmation']  = 'Viral@1234';
+        $data['old_password'] = '12345';
+        $data['password'] = 'Viral@1234';
+        $data['password_confirmation'] = 'Viral@1234';
 
         $this->withExceptionHandling()
              ->actingAs($this->admin)
@@ -28,9 +26,9 @@ class ChangePasswordTest extends TestCase
     public function a_user_require_strong_password_to_change_password()
     {
         $data = [];
-        $data['old_password']           = '1234';
-        $data['password']               = '12345678';
-        $data['password_confirmation']  = '12345678';
+        $data['old_password'] = '1234';
+        $data['password'] = '12345678';
+        $data['password_confirmation'] = '12345678';
 
         $this->withExceptionHandling()
              ->actingAs($this->admin)
@@ -38,15 +36,15 @@ class ChangePasswordTest extends TestCase
              ->assertSessionHas('The given data was invalid.');
     }
 
-     /** @test */
+    /** @test */
     public function a_user_can_change_password()
     {
         Event::fake();
 
         $data = [];
-        $data['old_password']           = '1234';
-        $data['password']               = 'Viral@1234';
-        $data['password_confirmation']  = 'Viral@1234';
+        $data['old_password'] = '1234';
+        $data['password'] = 'Viral@1234';
+        $data['password_confirmation'] = 'Viral@1234';
 
         $this->actingAs($this->admin)
              ->patch(route('admin.access.user.change-password', $this->admin), $data)
