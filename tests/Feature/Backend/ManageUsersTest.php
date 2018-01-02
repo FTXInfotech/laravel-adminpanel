@@ -2,16 +2,21 @@
 
 namespace Tests\Feature\Backend;
 
+use Carbon\Carbon;
+use Tests\TestCase;
+use App\Models\Access\Role\Role;
+use App\Models\Access\User\User;
+use Illuminate\Support\Facades\Event;
+use App\Models\Access\Permission\Permission;
+use Illuminate\Support\Facades\Notification;
 use App\Events\Backend\Access\User\UserCreated;
 use App\Events\Backend\Access\User\UserDeleted;
 use App\Events\Backend\Access\User\UserUpdated;
-use App\Models\Access\Permission\Permission;
-use App\Models\Access\Role\Role;
-use App\Models\Access\User\User;
+use App\Events\Backend\Access\User\UserRestored;
+use App\Events\Backend\Access\User\UserDeactivated;
+use App\Events\Backend\Access\User\UserReactivated;
+use App\Events\Backend\Access\User\UserPermanentlyDeleted;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Notification;
-use Tests\TestCase;
 
 class ManageUsersTest extends TestCase
 {
@@ -298,6 +303,56 @@ class ManageUsersTest extends TestCase
         $this->assertDatabaseHas(config('access.users_table'), ['id' => $this->admin->id, 'deleted_at' => null]);
     }
 
-    //  change password
-    //  export / import feature
+    /** @test */
+    public function a_user_can_restore_a_deleted_user()
+    {
+        Event::fake();
+
+        $this->user->deleted_at = Carbon::now();
+        $this->user->save();
+
+        $this->actingAs($this->admin)
+         ->get(route('admin.access.user.restore', $this->user))
+         ->assertSessionHas(['flash_success' => trans('alerts.backend.users.restored')]);
+
+        Event::assertDispatched(UserRestored::class);
+    }
+
+    /** @test */
+    public function a_user_can_permanently_delete_user()
+    {
+        Event::fake();
+
+        $this->user->deleted_at = Carbon::now();
+        $this->user->save();
+
+        $this->actingAs($this->admin)
+         ->get(route('admin.access.user.delete-permanently', $this->user))
+         ->assertSessionHas(['flash_success' => trans('alerts.backend.users.deleted_permanently')]);
+
+        Event::assertDispatched(UserPermanentlyDeleted::class);
+    }
+
+     /** @test */
+    public function a_user_can_mark_user_as_inactive_and_active()
+    {
+        Event::fake();
+
+        $this->actingAs($this->admin)
+         ->get(route('admin.access.user.mark', [$this->user, 0]))
+         ->assertSessionHas(['flash_success' => trans('alerts.backend.users.updated')]);
+
+        $this->assertDatabaseHas(config('access.users_table'), ['id' => $this->user->id, 'status' => 0]);
+
+         $this->actingAs($this->admin)
+         ->get(route('admin.access.user.mark', [$this->user, 1]))
+         ->assertSessionHas(['flash_success' => trans('alerts.backend.users.updated')]);
+
+        $this->assertDatabaseHas(config('access.users_table'), ['id' => $this->user->id, 'status' => 1]);
+
+        Event::assertDispatched(UserDeactivated::class);
+        Event::assertDispatched(UserReactivated::class);
+    }
+
+
 }

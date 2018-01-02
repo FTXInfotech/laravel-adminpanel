@@ -211,11 +211,11 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param Model $user
+     * @param $user
      *
      * @throws GeneralException
      */
-    public function forceDelete(Model $user)
+    public function forceDelete($user)
     {
         if (is_null($user->deleted_at)) {
             throw new GeneralException(trans('exceptions.backend.access.users.delete_first'));
@@ -233,13 +233,13 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param Model $user
+     * @param $user
      *
      * @throws GeneralException
      *
      * @return bool
      */
-    public function restore(Model $user)
+    public function restore($user)
     {
         if (is_null($user->deleted_at)) {
             throw new GeneralException(trans('exceptions.backend.access.users.cant_restore'));
@@ -255,14 +255,14 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param Model $user
+     * @param $user
      * @param $status
      *
      * @throws GeneralException
      *
      * @return bool
      */
-    public function mark(Model $user, $status)
+    public function mark($user, $status)
     {
         if (access()->id() == $user->id && $status == 0) {
             throw new GeneralException(trans('exceptions.backend.access.users.cant_deactivate_self'));
@@ -281,13 +281,6 @@ class UserRepository extends BaseRepository
         }
 
         if ($user->save()) {
-            // Send email to the user
-            $options = [
-                    'data'                => $user,
-                    'email_template_type' => 3,
-                ];
-            createNotification('', $user->id, 2, $options);
-
             return true;
         }
 
