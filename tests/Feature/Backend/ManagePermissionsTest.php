@@ -3,7 +3,6 @@
 namespace Tests\Feature\Backend;
 
 use App\Models\Access\Permission\Permission;
-use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class ManagePermissionsTest extends TestCase
