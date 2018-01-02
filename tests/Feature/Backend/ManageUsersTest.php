@@ -2,21 +2,21 @@
 
 namespace Tests\Feature\Backend;
 
-use Carbon\Carbon;
-use Tests\TestCase;
+use App\Events\Backend\Access\User\UserCreated;
+use App\Events\Backend\Access\User\UserDeactivated;
+use App\Events\Backend\Access\User\UserDeleted;
+use App\Events\Backend\Access\User\UserPermanentlyDeleted;
+use App\Events\Backend\Access\User\UserReactivated;
+use App\Events\Backend\Access\User\UserRestored;
+use App\Events\Backend\Access\User\UserUpdated;
+use App\Models\Access\Permission\Permission;
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
-use Illuminate\Support\Facades\Event;
-use App\Models\Access\Permission\Permission;
-use Illuminate\Support\Facades\Notification;
-use App\Events\Backend\Access\User\UserCreated;
-use App\Events\Backend\Access\User\UserDeleted;
-use App\Events\Backend\Access\User\UserUpdated;
-use App\Events\Backend\Access\User\UserRestored;
-use App\Events\Backend\Access\User\UserDeactivated;
-use App\Events\Backend\Access\User\UserReactivated;
-use App\Events\Backend\Access\User\UserPermanentlyDeleted;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
+use Tests\TestCase;
 
 class ManageUsersTest extends TestCase
 {
@@ -333,7 +333,7 @@ class ManageUsersTest extends TestCase
         Event::assertDispatched(UserPermanentlyDeleted::class);
     }
 
-     /** @test */
+    /** @test */
     public function a_user_can_mark_user_as_inactive_and_active()
     {
         Event::fake();
@@ -344,7 +344,7 @@ class ManageUsersTest extends TestCase
 
         $this->assertDatabaseHas(config('access.users_table'), ['id' => $this->user->id, 'status' => 0]);
 
-         $this->actingAs($this->admin)
+        $this->actingAs($this->admin)
          ->get(route('admin.access.user.mark', [$this->user, 1]))
          ->assertSessionHas(['flash_success' => trans('alerts.backend.users.updated')]);
 
@@ -353,6 +353,4 @@ class ManageUsersTest extends TestCase
         Event::assertDispatched(UserDeactivated::class);
         Event::assertDispatched(UserReactivated::class);
     }
-
-
 }
