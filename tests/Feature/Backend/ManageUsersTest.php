@@ -2,14 +2,16 @@
 
 namespace Tests\Feature\Backend;
 
-use App\Events\Backend\Access\User\UserCreated;
-use App\Models\Access\Permission\Permission;
+use Tests\TestCase;
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
-use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 use Illuminate\Support\Facades\Event;
+use App\Models\Access\Permission\Permission;
 use Illuminate\Support\Facades\Notification;
-use Tests\TestCase;
+use App\Events\Backend\Access\User\UserCreated;
+use App\Events\Backend\Access\User\UserDeleted;
+use App\Events\Backend\Access\User\UserUpdated;
+use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 
 class ManageUsersTest extends TestCase
 {
@@ -150,7 +152,6 @@ class ManageUsersTest extends TestCase
 
         $user = factory(User::class)->states('active', 'confirmed')->make()->toArray();
         $role = create(Role::class);
-
         $permission = create(Permission::class);
 
         $user['password'] = 'Viral@1234';
@@ -160,7 +161,8 @@ class ManageUsersTest extends TestCase
 
         $this->actingAs($this->admin)
             ->post(route('admin.access.user.store'), $user)
-            ->assertRedirect(route('admin.access.user.index'));
+            ->assertRedirect(route('admin.access.user.index'))
+            ->assertSessionHas(['flash_success' => trans('alerts.backend.users.created')]);
 
         $this->assertDatabaseHas(config('access.users_table'), [
             'first_name' => $user['first_name'],
@@ -187,7 +189,6 @@ class ManageUsersTest extends TestCase
 
         $user = factory(User::class)->states('active')->make()->toArray();
         $role = create(Role::class);
-
         $permission = create(Permission::class);
 
         $user['password'] = 'Viral@1234';
@@ -198,7 +199,8 @@ class ManageUsersTest extends TestCase
 
         $this->actingAs($this->admin)
             ->post(route('admin.access.user.store'), $user)
-            ->assertRedirect(route('admin.access.user.index'));
+            ->assertRedirect(route('admin.access.user.index'))
+            ->assertSessionHas(['flash_success' => trans('alerts.backend.users.created')]);
 
         $this->assertDatabaseHas(config('access.users_table'), [
             'first_name' => $user['first_name'],
@@ -220,10 +222,82 @@ class ManageUsersTest extends TestCase
         Event::assertDispatched(UserCreated::class);
     }
 
-    //@todo
-    //  update user
-    //  delete user
-    //  user can not delete himself
+      /** @test */
+    public function it_fails_for_validation_on_update_user()
+    {
+        $user = create(User::class);
+
+        $user1 = $user->toArray();
+
+        $user1['first_name'] = '';
+        $user1['last_name'] = '';
+        $user1['email'] = '';
+        $user1['assignees_roles'] = '';
+        $user1['permissions'] = '';
+
+        $this->withExceptionHandling()
+            ->actingAs($this->admin)
+            ->patch(route('admin.access.user.update', $user), $user1)
+            ->assertSessionHasErrors(['first_name', 'last_name', 'email', 'assignees_roles', 'permissions']);
+    }
+
+    /** @test */
+    public function a_user_can_update_new_user()
+    {
+        Event::fake();
+
+        $user = create(User::class);
+        $role = create(Role::class);
+        $permission = create(Permission::class);
+
+        $data = $user->toArray();
+
+        $data['first_name'] = 'updated first_name';
+        $data['last_name'] = 'updated last_name';
+        $data['assignees_roles'] = [$role->id];
+        $data['permissions'] = [$permission->id];
+
+        $this->actingAs($this->admin)
+            ->patch(route('admin.access.user.update', $user), $data)
+            ->assertRedirect(route('admin.access.user.index'))
+            ->assertSessionHas(['flash_success' => trans('alerts.backend.users.updated')]);
+
+        $this->assertDatabaseHas(config('access.users_table'),[
+            'id' => $user->id,
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+        ]);
+
+        Event::assertDispatched(UserUpdated::class);
+
+    }
+
+     /** @test */
+    public function a_user_can_delete_a_user()
+    {
+        Event::fake();
+
+        $user = create(User::class);
+
+        $this->actingAs($this->admin)
+             ->delete(route('admin.access.user.destroy', $user))
+             ->assertSessionHas(['flash_success' => trans('alerts.backend.users.deleted')]);
+
+        $this->assertDatabaseMissing(config('access.users_table'), ['name' => $user->first_name, 'id' => $user->id]);
+
+        Event::assertDispatched(UserDeleted::class);
+    }
+
+     /** @test */
+    public function a_user_can_not_delete_himself()
+    {
+        $this->withExceptionHandling()
+             ->actingAs($this->admin)
+             ->delete(route('admin.access.user.destroy', $this->admin))
+             ->assertSessionHas(['flash_danger' => trans('exceptions.backend.access.users.cant_delete_self')]);
+
+        $this->assertDatabaseHas(config('access.users_table'), ['id' => $this->admin->id, 'deleted_at' => null]);
+    }
     //  change password
     //  export / import feature
 }

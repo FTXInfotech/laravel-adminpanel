@@ -160,30 +160,25 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param Model $user
+     * Change Password
+     *
+     * @param $user
      * @param $input
      *
      * @throws GeneralException
      *
      * @return bool
      */
-    public function updatePassword(Model $user, $input)
+    public function updatePassword($user, $input)
     {
         $user = $this->find(access()->id());
+
         if (Hash::check($input['old_password'], $user->password)) {
+
             $user->password = bcrypt($input['password']);
+
             if ($user->save()) {
-                $input['email'] = $user->email;
-
-                // Send email to the user
-                $options = [
-                            'data'                => $input,
-                            'email_template_type' => 4,
-                        ];
-                createNotification('', $user->id, 2, $options);
-
                 event(new UserPasswordChanged($user));
-
                 return true;
             }
 
@@ -200,7 +195,7 @@ class UserRepository extends BaseRepository
      *
      * @return bool
      */
-    public function delete(Model $user)
+    public function delete($user)
     {
         if (access()->id() == $user->id) {
             throw new GeneralException(trans('exceptions.backend.access.users.cant_delete_self'));

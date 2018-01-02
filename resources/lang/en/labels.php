@@ -66,7 +66,7 @@ return [
                 'active'              => 'Active Users',
                 'all_permissions'     => 'All Permissions',
                 'change_password'     => 'Change Password',
-                'change_password_for' => 'Change Password :user',
+                'change_password_for' => 'Change Password for :user',
                 'create'              => 'Create User',
                 'deactivated'         => 'Deactivated Users',
                 'deleted'             => 'Deleted Users',
