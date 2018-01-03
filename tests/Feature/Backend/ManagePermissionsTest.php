@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Backend;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Event;
-use App\Models\Access\Permission\Permission;
 use App\Events\Backend\Access\Permission\PermissionCreated;
 use App\Events\Backend\Access\Permission\PermissionDeleted;
 use App\Events\Backend\Access\Permission\PermissionUpdated;
+use App\Models\Access\Permission\Permission;
+use Illuminate\Support\Facades\Event;
+use Tests\TestCase;
 
 class ManagePermissionsTest extends TestCase
 {
