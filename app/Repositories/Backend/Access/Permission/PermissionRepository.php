@@ -109,7 +109,6 @@ class PermissionRepository extends BaseRepository
         DB::transaction(function () use ($permission) {
             if ($permission->delete()) {
                 event(new PermissionDeleted($permission));
-
                 return true;
             }
 

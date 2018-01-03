@@ -2,8 +2,12 @@
 
 namespace Tests\Feature\Backend;
 
-use App\Models\Access\Permission\Permission;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Event;
+use App\Models\Access\Permission\Permission;
+use App\Events\Backend\Access\Permission\PermissionCreated;
+use App\Events\Backend\Access\Permission\PermissionDeleted;
+use App\Events\Backend\Access\Permission\PermissionUpdated;
 
 class ManagePermissionsTest extends TestCase
 {
@@ -38,5 +42,86 @@ class ManagePermissionsTest extends TestCase
                     ->actingAs($this->admin)
                     ->post(route('admin.access.permission.store'), $permission)
                     ->assertSessionHasErrors('display_name');
+    }
+
+    /** @test */
+    public function a_user_can_create_new_permission()
+    {
+        // Make sure our events are fired
+        Event::fake();
+
+        $permission = make(Permission::class, ['name' => 'test permission'])->toArray();
+
+        $this->actingAs($this->admin)
+            ->post(route('admin.access.permission.store'), $permission)
+            ->assertRedirect(route('admin.access.permission.index'))
+            ->assertSessionHas(['flash_success' => trans('alerts.backend.permissions.created')]);
+
+        $this->assertDatabaseHas(config('access.permissions_table'), [
+            'name' => $permission['name'],
+        ]);
+
+        Event::assertDispatched(PermissionCreated::class);
+    }
+
+    /** @test */
+    public function it_fails_for_validation_on_update_permission()
+    {
+        $permission = create(Permission::class);
+
+        $data = $permission->toArray();
+
+        $data['name'] = '';
+
+        $this->withExceptionHandling()
+            ->actingAs($this->admin)
+            ->patch(route('admin.access.permission.update', $permission), $data)
+            ->assertSessionHasErrors(['name']);
+    }
+
+    /** @test */
+    public function a_user_can_update_permission()
+    {
+        Event::fake();
+
+        $permission = create(Permission::class);
+
+        $data = $permission->toArray();
+
+        $data['name'] = 'Updated Permission Name';
+
+        $this->withExceptionHandling()
+            ->actingAs($this->admin)
+            ->patch(route('admin.access.permission.update', $permission), $data)
+            ->assertRedirect(route('admin.access.permission.index'))
+            ->assertSessionHas(['flash_success' => trans('alerts.backend.permissions.updated')]);
+
+        $this->assertDatabaseHas(config('access.permissions_table'), [
+            'name' => $data['name'],
+        ]);
+
+        Event::assertDispatched(PermissionUpdated::class);
+    }
+
+    /** @test */
+    public function a_user_can_delete_a_permission()
+    {
+        Event::fake();
+
+        $permission = create(Permission::class);
+
+        /*$this->assertDatabaseHas(config('access.permissions_table'), [
+            ['name' => $permission->name, 'id' => $permission->id]
+        ]);*/
+
+        $this->actingAs($this->admin)
+             ->delete(route('admin.access.permission.destroy', $permission))
+             ->assertSessionHas(['flash_success' => trans('alerts.backend.permissions.deleted')]);
+
+        /*$this->assertDatabaseMissing('permissions', [
+            'name' => $permission->name, 'id' => $permission->id
+        ]);*/
+
+        Event::assertDispatched(PermissionDeleted::class);
     }
 }
