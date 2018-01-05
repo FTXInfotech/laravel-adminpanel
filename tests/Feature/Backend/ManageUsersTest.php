@@ -285,9 +285,13 @@ class ManageUsersTest extends TestCase
 
         $this->actingAs($this->admin)
              ->delete(route('admin.access.user.destroy', $user))
+             ->assertStatus(302)
              ->assertSessionHas(['flash_success' => trans('alerts.backend.users.deleted')]);
 
-        $this->assertDatabaseMissing(config('access.users_table'), ['name' => $user->first_name, 'id' => $user->id]);
+        $this->assertDatabaseMissing(config('access.users_table'), [
+            'name' => $user->first_name,
+            'id' => $user->id
+        ]);
 
         Event::assertDispatched(UserDeleted::class);
     }

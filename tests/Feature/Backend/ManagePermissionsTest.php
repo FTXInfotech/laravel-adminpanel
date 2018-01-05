@@ -110,12 +110,9 @@ class ManagePermissionsTest extends TestCase
 
         $permission = create(Permission::class);
 
-        /*$this->assertDatabaseHas(config('access.permissions_table'), [
-            ['name' => $permission->name, 'id' => $permission->id]
-        ]);*/
-
         $this->actingAs($this->admin)
              ->delete(route('admin.access.permission.destroy', $permission))
+             ->assertStatus(302)
              ->assertSessionHas(['flash_success' => trans('alerts.backend.permissions.deleted')]);
 
         /*$this->assertDatabaseMissing('permissions', [
