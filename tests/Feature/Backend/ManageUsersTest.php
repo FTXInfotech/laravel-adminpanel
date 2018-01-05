@@ -290,7 +290,7 @@ class ManageUsersTest extends TestCase
 
         $this->assertDatabaseMissing(config('access.users_table'), [
             'name' => $user->first_name,
-            'id' => $user->id
+            'id'   => $user->id,
         ]);
 
         Event::assertDispatched(UserDeleted::class);
