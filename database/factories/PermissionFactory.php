@@ -16,3 +16,15 @@ $factory->define(Permission::class, function (Generator $faker) {
         'sort'          => $faker->numberBetween(1, 100),
     ];
 });
+
+$factory->state(Permission::class, 'active', function () {
+    return [
+        'status' => 1,
+    ];
+});
+
+$factory->state(Permission::class, 'inactive', function () {
+    return [
+        'status' => 0,
+    ];
+});
