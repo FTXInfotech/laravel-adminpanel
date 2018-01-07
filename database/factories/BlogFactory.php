@@ -12,6 +12,7 @@ $factory->define(Blog::class, function (Faker $faker) {
         'InActive',
         'Scheduled'
     ];
+    
     return [
         'name' => $faker->sentence,
         'publish_datetime' => $faker->dateTime(),

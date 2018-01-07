@@ -55,7 +55,7 @@ class BlogTest extends TestCase
     }
 
     /** @test */
-    public function it_has_a_date_field_for_publish_datetime()
+    public function it_has_a_carbon_date_field_for_publish_datetime()
     {
         $this->actingAs($this->admin);
 
