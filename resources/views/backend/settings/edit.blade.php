@@ -58,7 +58,7 @@
 						</div>
 						<div class="img-remove-logo">
 							@if($setting->logo)
-							<img height="50" width="50" src="{{ Storage::disk('public')->url('img/site_logo/' . $setting->logo) }}">
+							<img height="50" width="50" src="{{ Storage::disk('public')->url('img/logo/' . $setting->logo) }}">
 							<i id="remove-logo-img" class="fa fa-times remove-logo" data-id="logo" aria-hidden="true"></i>
 							@endif
 						</div>

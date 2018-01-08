@@ -57,22 +57,19 @@ class ManagePagesTest extends TestCase
     }
 
     /** @test */
-    public function it_fails_for_validation_on_create_page()
+    public function it_requires_title_on_create()
     {
-        $page = make(Page::class, ['title' => '', 'description' => '']);
-
-        $this->withExceptionHandling()
-            ->actingAs($this->admin)
-            ->post(route('admin.pages.store'), $page->toArray())
-            ->assertSessionHasErrors(['title', 'description']);
-
         $page = make(Page::class, ['title' => '']);
 
         $this->withExceptionHandling()
             ->actingAs($this->admin)
             ->post(route('admin.pages.store'), $page->toArray())
             ->assertSessionHasErrors('title');
+    }
 
+    /** @test */
+    public function it_requires_description_while_create()
+    {
         $page = make(Page::class, ['description' => '']);
 
         $this->withExceptionHandling()
@@ -96,32 +93,32 @@ class ManagePagesTest extends TestCase
     }
 
     /** @test */
-    public function it_fails_for_validation_on_update()
+    public function it_requires_title_on_update()
     {
         $page = create(Page::class);
 
-        $page1 = $page2 = $page3 = $page->toArray();
+        $page1 = $page->toArray();
 
         $page1['title'] = '';
+
+        $this->withExceptionHandling()
+            ->actingAs($this->admin)
+            ->patch(route('admin.pages.update', $page), $page1)
+            ->assertSessionHasErrors('title');
+    }
+
+    /** @test */
+    public function it_requires_description_while_update()
+    {
+        $page = create(Page::class);
+
+        $page1 = $page->toArray();
+
         $page1['description'] = '';
 
         $this->withExceptionHandling()
             ->actingAs($this->admin)
-            ->post(route('admin.pages.store'), $page1)
-            ->assertSessionHasErrors(['title', 'description']);
-
-        $page2['title'] = '';
-
-        $this->withExceptionHandling()
-            ->actingAs($this->admin)
-            ->post(route('admin.pages.store'), $page2)
-            ->assertSessionHasErrors('title');
-
-        $page3['description'] = '';
-
-        $this->withExceptionHandling()
-            ->actingAs($this->admin)
-            ->post(route('admin.pages.store'), $page3)
+            ->patch(route('admin.pages.update', $page), $page1)
             ->assertSessionHasErrors('description');
     }
 

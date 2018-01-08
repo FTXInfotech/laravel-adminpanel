@@ -35,7 +35,7 @@
         {{ Form::label('featured_image', trans('validation.attributes.backend.blogs.image'), ['class' => 'col-lg-2 control-label required']) }}
         @if(!empty($blog->featured_image))
             <div class="col-lg-1">
-                <img src="/img/backend/blog_images/{{$blog->featured_image}}" height="80" width="80">
+                <img src="{{ Storage::disk('public')->url('img/blog/' . $blog->featured_image) }}" height="80" width="80">
             </div>
             <div class="col-lg-5">
                 <div class="custom-file-input">
