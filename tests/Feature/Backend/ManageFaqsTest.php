@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Backend;
 
-use Tests\TestCase;
 use App\Models\Faqs\Faq;
+use Tests\TestCase;
 
 class ManageFaqsTest extends TestCase
 {
@@ -43,7 +43,6 @@ class ManageFaqsTest extends TestCase
             ->assertSessionHasErrors('question');
     }
 
-
     /** @test */
     public function it_requires_answer_while_creating()
     {
@@ -82,7 +81,7 @@ class ManageFaqsTest extends TestCase
     {
         $faq = create(Faq::class);
 
-        $changed_question = "What is Life?";
+        $changed_question = 'What is Life?';
         $changed_answer = $faq->answer;
         $this->actingAs($this->admin)
             ->patch(route('admin.faqs.update', $faq), ['question' => $changed_question, 'answer' => $changed_answer]);
@@ -96,7 +95,7 @@ class ManageFaqsTest extends TestCase
         $faq = create(Faq::class);
 
         $this->actingAs($this->admin)
-            ->delete(route('admin.faqs.destroy' , $faq));
+            ->delete(route('admin.faqs.destroy', $faq));
 
         $this->assertDatabaseMissing(config('module.faqs.table'), ['id' => $faq->id, 'deleted_at' => null]);
     }

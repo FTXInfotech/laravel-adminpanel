@@ -2,20 +2,19 @@
 
 namespace App\Repositories\Backend\Blogs;
 
-use DB;
-use Carbon\Carbon;
-use App\Models\Blogs\Blog;
-use App\Models\BlogTags\BlogTag;
-use App\Http\Utilities\FileUploads;
-use App\Exceptions\GeneralException;
-use App\Repositories\BaseRepository;
-use App\Models\BlogMapTags\BlogMapTag;
-use Illuminate\Support\Facades\Storage;
+use App\Events\Backend\Blogs\BlogCreated;
 use App\Events\Backend\Blogs\BlogDeleted;
 use App\Events\Backend\Blogs\BlogUpdated;
-use App\Events\Backend\Blogs\BlogCreated;
+use App\Exceptions\GeneralException;
 use App\Models\BlogCategories\BlogCategory;
 use App\Models\BlogMapCategories\BlogMapCategory;
+use App\Models\BlogMapTags\BlogMapTag;
+use App\Models\Blogs\Blog;
+use App\Models\BlogTags\BlogTag;
+use App\Repositories\BaseRepository;
+use Carbon\Carbon;
+use DB;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class BlogsRepository.
@@ -38,7 +37,7 @@ class BlogsRepository extends BaseRepository
 
     public function __construct()
     {
-        $this->upload_path = 'img' . DIRECTORY_SEPARATOR . 'blog' . DIRECTORY_SEPARATOR;
+        $this->upload_path = 'img'.DIRECTORY_SEPARATOR.'blog'.DIRECTORY_SEPARATOR;
         $this->storage = Storage::disk('public');
     }
 
@@ -229,9 +228,9 @@ class BlogsRepository extends BaseRepository
         $avatar = $input['featured_image'];
 
         if (isset($input['featured_image']) && !empty($input['featured_image'])) {
-            $fileName = time() . $avatar->getClientOriginalName();
+            $fileName = time().$avatar->getClientOriginalName();
 
-            $this->storage->put($this->upload_path . $fileName, file_get_contents($avatar->getRealPath()));
+            $this->storage->put($this->upload_path.$fileName, file_get_contents($avatar->getRealPath()));
 
             $input = array_merge($input, ['featured_image' => $fileName]);
 
@@ -247,7 +246,7 @@ class BlogsRepository extends BaseRepository
     public function deleteOldFile($model)
     {
         $fileName = $model->featured_image;
-        
-        return $this->storage->delete($this->upload_path . $fileName);
+
+        return $this->storage->delete($this->upload_path.$fileName);
     }
 }

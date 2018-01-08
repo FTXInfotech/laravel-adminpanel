@@ -2,13 +2,11 @@
 
 namespace Tests\Feature\Backend;
 
-use Tests\TestCase;
 use App\Models\Blogs\Blog;
-use App\Models\BlogTags\BlogTag;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use App\Models\BlogCategories\BlogCategory;
-use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class ManageBlogsTest extends TestCase
 {
@@ -27,7 +25,6 @@ class ManageBlogsTest extends TestCase
         $this->blog = create(Blog::class);
         $this->categories = [$this->faker->word, $this->faker->word];
         $this->tags = [$this->faker->word, $this->faker->word];
-
     }
 
     /** @test */
@@ -48,21 +45,21 @@ class ManageBlogsTest extends TestCase
 
     /** @test */
     public function a_user_can_create_a_blog()
-    {   
+    {
         $blog = make(Blog::class, [
             'featured_image' => UploadedFile::fake()->image('logo.jpg'),
-            'categories' => $this->categories, 
-            'tags' => $this->tags
+            'categories'     => $this->categories,
+            'tags'           => $this->tags,
         ]);
 
         $this->post(route('admin.blogs.store'), $blog->toArray());
 
         $this->assertDatabaseHas(config('module.blogs.table'), ['name' => $blog->name, 'status' => $blog->status]);
-        
+
         //Assert Tags have been saved
         $this->assertDatabaseHas(config('module.blog_tags.table'), ['name' => $this->tags[0]]);
         $this->assertDatabaseHas(config('module.blog_tags.table'), ['name' => $this->tags[1]]);
-        
+
         //Assert Categories have been saved
         $this->assertDatabaseHas(config('module.blog_categories.table'), ['name' => $this->categories[0]]);
         $this->assertDatabaseHas(config('module.blog_categories.table'), ['name' => $this->categories[1]]);
@@ -108,7 +105,7 @@ class ManageBlogsTest extends TestCase
     public function it_requires_categories_while_creating()
     {
         $blog = $this->makeBlog(['categories' => '']);
-        
+
         $this->post(route('admin.blogs.store'), $blog->toArray())
             ->assertSessionHasErrors('categories');
     }
@@ -127,15 +124,15 @@ class ManageBlogsTest extends TestCase
     {
         $blog = make(Blog::class, [
             'featured_image' => UploadedFile::fake()->image('logo.jpg'),
-            'categories' => $this->categories,
-            'tags' => $this->tags
+            'categories'     => $this->categories,
+            'tags'           => $this->tags,
         ]);
 
         $this->post(route('admin.blogs.store'), $blog->toArray());
 
         $stored_blog = Blog::find(2);
 
-        Storage::disk('public')->assertExists('img/blog/' . $stored_blog->featured_image);
+        Storage::disk('public')->assertExists('img/blog/'.$stored_blog->featured_image);
     }
 
     /** @test */
@@ -159,7 +156,7 @@ class ManageBlogsTest extends TestCase
         $this->patch(route('admin.blogs.update', $this->blog), $this->blog->toArray())
             ->assertSessionHasErrors('content');
     }
-    
+
     /** @test */
     public function it_requires_categories_while_updating()
     {
@@ -182,17 +179,17 @@ class ManageBlogsTest extends TestCase
     public function a_user_can_update_blog()
     {
         $blog = make(Blog::class, [
-            'featured_image' => UploadedFile::fake()->image('logo.jpg'), 
-            'name' => 'Changed Name', 
-            'categories' => $this->categories, 
-            'tags' => $this->tags
+            'featured_image' => UploadedFile::fake()->image('logo.jpg'),
+            'name'           => 'Changed Name',
+            'categories'     => $this->categories,
+            'tags'           => $this->tags,
         ]);
 
         $this->patch(route('admin.blogs.update', $this->blog), $blog->toArray());
 
         $this->assertDatabaseHas(config('module.blogs.table'), ['id' => $this->blog->id, 'name' => 'Changed Name']);
     }
-    
+
     /** @test */
     public function a_user_can_delete_a_blog()
     {
