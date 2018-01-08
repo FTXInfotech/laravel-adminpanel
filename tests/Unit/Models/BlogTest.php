@@ -2,13 +2,12 @@
 
 namespace Tests\Unit\Models;
 
-use Carbon\Carbon;
-use Tests\TestCase;
-use App\Models\Blogs\Blog;
-use App\Models\BlogTags\BlogTag;
 use App\Models\Access\User\User;
 use App\Models\BlogCategories\BlogCategory;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Blogs\Blog;
+use App\Models\BlogTags\BlogTag;
+use Carbon\Carbon;
+use Tests\TestCase;
 
 class BlogTest extends TestCase
 {
@@ -21,8 +20,8 @@ class BlogTest extends TestCase
 
         $category = create(BlogCategory::class);
 
-        $blog->categories()->sync(array($category->id));
-        
+        $blog->categories()->sync([$category->id]);
+
         $this->assertInstanceOf(BlogCategory::class, $blog->categories->first());
 
         $this->assertEquals($category->id, $blog->categories->first()->id);
@@ -37,7 +36,7 @@ class BlogTest extends TestCase
 
         $tag = create(BlogTag::class);
 
-        $blog->tags()->sync(array($tag->id));
+        $blog->tags()->sync([$tag->id]);
 
         $this->assertInstanceOf(BlogTag::class, $blog->tags->first());
 
