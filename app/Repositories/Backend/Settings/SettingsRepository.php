@@ -98,7 +98,7 @@ class SettingsRepository extends BaseRepository
     {
         $path = $type == 'logo' ? $this->site_logo_path : $this->favicon_path;
 
-        if ($setting->$type && $this->storage->exists($path.$setting->$type)) {
+        if ($type && $this->storage->exists($path.$setting->$type)) {
             $this->storage->delete($path.$setting->$type);
         }
 
