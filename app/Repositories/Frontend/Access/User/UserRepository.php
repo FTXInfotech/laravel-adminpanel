@@ -79,6 +79,8 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * Create User.
+     *
      * @param array $data
      * @param bool  $provider
      *
@@ -94,11 +96,28 @@ class UserRepository extends BaseRepository
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
         $user->status = 1;
         $user->password = $provider ? null : bcrypt($data['password']);
-        $user->confirmed = $provider ? 1 : (config('access.users.confirm_email') ? 0 : 1);
         $user->is_term_accept = $data['is_term_accept'];
+
+        // If users require approval, confirmed is false regardless of account type
+        if (config('access.users.requires_approval')) {
+            $user->confirmed = 0; // No confirm e-mail sent, that defeats the purpose of manual approval
+        } elseif (config('access.users.confirm_email')) { // If user must confirm email
+            // If user is from social, already confirmed
+            if ($provider) {
+                $user->confirmed = 1; // E-mails are validated through the social platform
+            } else {
+                // Otherwise needs confirmation
+                $user->confirmed = 0;
+                $confirm = true;
+            }
+        } else {
+            // Otherwise both are off and confirmed is default
+            $user->confirmed = 1;
+        }
 
         DB::transaction(function () use ($user) {
             if ($user->save()) {
+
                 /*
                  * Add the default site role to the new user
                  */
@@ -303,5 +322,21 @@ class UserRepository extends BaseRepository
         ]);
 
         return $token;
+    }
+
+    /**
+     * @param $token
+     *
+     * @return mixed
+     */
+    public function findByPasswordResetToken($token)
+    {
+        foreach (DB::table(config('auth.passwords.users.table'))->get() as $row) {
+            if (password_verify($token, $row->token)) {
+                return $this->findByEmail($row->email);
+            }
+        }
+
+        return false;
     }
 }

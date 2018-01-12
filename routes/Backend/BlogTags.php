@@ -4,9 +4,9 @@
  * Blogs Tags Management
  */
 Route::group(['namespace' => 'BlogTags'], function () {
-    Route::resource('blogtags', 'BlogTagsController', ['except' => ['show']]);
+    Route::resource('blogTags', 'BlogTagsController', ['except' => ['show']]);
 
     //For DataTables
-    Route::post('blogtags/get', 'BlogTagsTableController')
-       ->name('blogtags.get');
+    Route::post('blogTags/get', 'BlogTagsTableController')
+       ->name('blogTags.get');
 });

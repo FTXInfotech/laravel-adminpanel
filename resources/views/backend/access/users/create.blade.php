@@ -120,7 +120,7 @@
                             @foreach($roles as $role)
                                 <div>
                                 <label for="role-{{$role->id}}" class="control control--radio">
-                                <input type="radio" value="{{$role->id}}" name="assignees_roles[]" id="role-{{$role->id}}" class="get-role-for-permissions" />  &nbsp;&nbsp;{!! $role->name !!}
+                                <input type="radio" value="{{$role->id}}" name="assignees_roles[]" id="role-{{$role->id}}" class="get-role-for-permissions" {{ $role->id == 3 ? 'checked' : '' }} />  &nbsp;&nbsp;{!! $role->name !!}
                                 <div class="control__indicator"></div>
                                     <a href="#" data-role="role_{{ $role->id }}" class="show-permissions small">
                                         (
@@ -184,7 +184,7 @@
         $(document).ready(function() {
 
             Backend.Access.init();
-
+            
             /**
              * This function is used to get clicked element role id and return required result
              */
@@ -220,6 +220,7 @@
                 });
             });
 
+            $("#role-3").click();
         });
     </script>
 @endsection

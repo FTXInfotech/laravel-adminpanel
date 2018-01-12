@@ -5,12 +5,14 @@ namespace App\Models\Page;
 use App\Models\BaseModel;
 use App\Models\ModelTrait;
 use App\Models\Page\Traits\Attribute\PageAttribute;
+use App\Models\Page\Traits\PageRelationship;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Page extends BaseModel
 {
     use ModelTrait,
         SoftDeletes,
+        PageRelationship,
         PageAttribute {
             // PageAttribute::getEditButtonAttribute insteadof ModelTrait;
         }
@@ -28,6 +30,17 @@ class Page extends BaseModel
      * @var array
      */
     protected $guarded = ['id'];
+
+    /**
+     * The default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'created_by' => 1,
+    ];
+
+    protected $with = ['owner'];
 
     public function __construct(array $attributes = [])
     {

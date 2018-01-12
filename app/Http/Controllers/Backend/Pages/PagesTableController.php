@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Backend\Pages;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Pages\ManagePageRequest;
 use App\Repositories\Backend\Pages\PagesRepository;
-use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
 /**
@@ -32,17 +31,17 @@ class PagesTableController extends Controller
     {
         return Datatables::of($this->pages->getForDataTable())
             ->escapeColumns(['title'])
-            ->addColumn('status', function ($pages) {
-                return $pages->status_label;
+            ->addColumn('status', function ($page) {
+                return $page->status_label;
             })
-            ->addColumn('created_at', function ($pages) {
-                return Carbon::parse($pages->created_at)->toDateString();
+            ->addColumn('created_at', function ($page) {
+                return $page->created_at->toDateString();
             })
-            ->addColumn('updated_at', function ($pages) {
-                return Carbon::parse($pages->updated_at)->toDateString();
+            ->addColumn('created_by', function ($page) {
+                return $page->created_by;
             })
-            ->addColumn('actions', function ($pages) {
-                return $pages->action_buttons;
+            ->addColumn('actions', function ($page) {
+                return $page->action_buttons;
             })
             ->make(true);
     }

@@ -97,9 +97,6 @@ class UserRepository extends BaseRepository
         $user = $this->createUserStub($data);
 
         DB::transaction(function () use ($user, $data, $roles, $permissions) {
-            // Set email type 2
-            $email_type = 2;
-
             if ($user->save()) {
 
                 //User Created, Validate Roles
@@ -119,18 +116,6 @@ class UserRepository extends BaseRepository
                 }
 
                 event(new UserCreated($user));
-
-                /*if (isset($data['confirmation_email']) && $user->confirmed == 0) {
-                    $email_type = 1;
-                }*/
-
-                // Send email to the user
-                /* $options = [
-                     'data'                => $user->toArray(),
-                     'email_template_type' => $email_type,
-                 ];*/
-
-                //createNotification('', 1, 2, $options);
 
                 return true;
             }
@@ -175,28 +160,23 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param Model $user
+     * Change Password.
+     *
+     * @param $user
      * @param $input
      *
      * @throws GeneralException
      *
      * @return bool
      */
-    public function updatePassword(Model $user, $input)
+    public function updatePassword($user, $input)
     {
         $user = $this->find(access()->id());
+
         if (Hash::check($input['old_password'], $user->password)) {
             $user->password = bcrypt($input['password']);
+
             if ($user->save()) {
-                $input['email'] = $user->email;
-
-                // Send email to the user
-                $options = [
-                            'data'                => $input,
-                            'email_template_type' => 4,
-                        ];
-                createNotification('', $user->id, 2, $options);
-
                 event(new UserPasswordChanged($user));
 
                 return true;
@@ -215,7 +195,7 @@ class UserRepository extends BaseRepository
      *
      * @return bool
      */
-    public function delete(Model $user)
+    public function delete($user)
     {
         if (access()->id() == $user->id) {
             throw new GeneralException(trans('exceptions.backend.access.users.cant_delete_self'));
@@ -231,11 +211,11 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param Model $user
+     * @param $user
      *
      * @throws GeneralException
      */
-    public function forceDelete(Model $user)
+    public function forceDelete($user)
     {
         if (is_null($user->deleted_at)) {
             throw new GeneralException(trans('exceptions.backend.access.users.delete_first'));
@@ -253,13 +233,13 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param Model $user
+     * @param $user
      *
      * @throws GeneralException
      *
      * @return bool
      */
-    public function restore(Model $user)
+    public function restore($user)
     {
         if (is_null($user->deleted_at)) {
             throw new GeneralException(trans('exceptions.backend.access.users.cant_restore'));
@@ -275,14 +255,14 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param Model $user
+     * @param $user
      * @param $status
      *
      * @throws GeneralException
      *
      * @return bool
      */
-    public function mark(Model $user, $status)
+    public function mark($user, $status)
     {
         if (access()->id() == $user->id && $status == 0) {
             throw new GeneralException(trans('exceptions.backend.access.users.cant_deactivate_self'));
@@ -301,13 +281,6 @@ class UserRepository extends BaseRepository
         }
 
         if ($user->save()) {
-            // Send email to the user
-            $options = [
-                    'data'                => $user,
-                    'email_template_type' => 3,
-                ];
-            createNotification('', $user->id, 2, $options);
-
             return true;
         }
 

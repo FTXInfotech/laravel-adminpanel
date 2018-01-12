@@ -60,49 +60,49 @@ class BlogTagsController extends Controller
         $this->blogtag->create($request->except('token'));
 
         return redirect()
-            ->route('admin.blogtags.index')
+            ->route('admin.blogTags.index')
             ->with('flash_success', trans('alerts.backend.blogtags.created'));
     }
 
     /**
-     * @param \App\Models\BlogTags\BlogTag                            $blogtag
+     * @param \App\Models\BlogTags\BlogTag                            $blogTag
      * @param \App\Http\Requests\Backend\BlogTags\EditBlogTagsRequest $request
      *
      * @return mixed
      */
-    public function edit(BlogTag $blogtag, EditBlogTagsRequest $request)
+    public function edit(BlogTag $blogTag, EditBlogTagsRequest $request)
     {
         return view('backend.blogtags.edit')
-            ->with('blogtag', $blogtag);
+            ->with('blogtag', $blogTag);
     }
 
     /**
-     * @param \App\Models\BlogTags\BlogTag                              $blogtag
+     * @param \App\Models\BlogTags\BlogTag                              $blogTag
      * @param \App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest $request
      *
      * @return mixed
      */
-    public function update(BlogTag $blogtag, UpdateBlogTagsRequest $request)
+    public function update(BlogTag $blogTag, UpdateBlogTagsRequest $request)
     {
-        $this->blogtag->update($blogtag, $request->except(['_method', '_token']));
+        $this->blogtag->update($blogTag, $request->except(['_method', '_token']));
 
         return redirect()
-            ->route('admin.blogtags.index')
+            ->route('admin.blogTags.index')
             ->with('flash_success', trans('alerts.backend.blogtags.updated'));
     }
 
     /**
-     * @param \App\Models\BlogTags\BlogTag                              $blogtag
+     * @param \App\Models\BlogTags\BlogTag                              $blogTag
      * @param \App\Http\Requests\Backend\BlogTags\DeleteBlogTagsRequest $request
      *
      * @return mixed
      */
-    public function destroy(BlogTag $blogtag, DeleteBlogTagsRequest $request)
+    public function destroy(BlogTag $blogTag, DeleteBlogTagsRequest $request)
     {
-        $this->blogtag->delete($blogtag);
+        $this->blogtag->delete($blogTag);
 
         return redirect()
-            ->route('admin.blogtags.index')
+            ->route('admin.blogTags.index')
             ->with('flash_success', trans('alerts.backend.blogtags.deleted'));
     }
 }

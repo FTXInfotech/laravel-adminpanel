@@ -4,9 +4,9 @@
  * Blogs Categories Management
  */
 Route::group(['namespace' => 'BlogCategories'], function () {
-    Route::resource('blogcategories', 'BlogCategoriesController', ['except' => ['show']]);
+    Route::resource('blogCategories', 'BlogCategoriesController', ['except' => ['show']]);
 
     //For DataTables
-    Route::post('blogcategories/get', 'BlogCategoriesTableController')
-        ->name('blogcategories.get');
+    Route::post('blogCategories/get', 'BlogCategoriesTableController')
+        ->name('blogCategories.get');
 });

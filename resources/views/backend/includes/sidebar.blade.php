@@ -1,4 +1,4 @@
-<?php //dd(getMenuItems()); 
+<?php //dd(getMenuItems());
 ?>
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
@@ -90,15 +90,15 @@
 
                 <ul class="treeview-menu {{ active_class(Active::checkUriPattern('admin/blog*'), 'menu-open') }}" style="display: none; {{ active_class(Active::checkUriPattern('admin/blog*'), 'display: block;') }}">
                     @permission('view-blog-category')
-                    <li class="{{ active_class(Active::checkUriPattern('admin/blogcategories*')) }}">
-                        <a href="{{ route('admin.blogcategories.index') }}">
+                    <li class="{{ active_class(Active::checkUriPattern('admin/blogCategories*')) }}">
+                        <a href="{{ route('admin.blogCategories.index') }}">
                             <span>{{ trans('menus.backend.blogcategories.management') }}</span>
                         </a>
                     </li>
                     @endauth
                     @permission('view-blog-tag')
-                    <li class="{{ active_class(Active::checkUriPattern('admin/blogtags*')) }}">
-                        <a href="{{ route('admin.blogtags.index') }}">
+                    <li class="{{ active_class(Active::checkUriPattern('admin/blogTags*')) }}">
+                        <a href="{{ route('admin.blogTags.index') }}">
                             <span>{{ trans('menus.backend.blogtags.management') }}</span>
                         </a>
                     </li>
@@ -111,15 +111,16 @@
                     </li>
                     @endauth
                 </ul>
-                @permission('view-faq')
+            </li>
+            @endauth
+
+            @permission('view-faq')
                 <li class="{{ active_class(Active::checkUriPattern('admin/faqs*')) }}">
                 <a href="{{ route('admin.faqs.index')}}">
                     <i class="fa fa-question-circle"></i>
                     <span>{{ trans('labels.backend.faqs.title') }}</span>
                 </a>
                 </li>
-                @endauth
-            </li>
             @endauth
 
             <li class="{{ active_class(Active::checkUriPattern('admin/log-viewer*')) }} treeview">

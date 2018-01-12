@@ -24,7 +24,7 @@
                             <th>{{ trans('labels.backend.pages.table.title') }}</th>
                             <th>{{ trans('labels.backend.pages.table.status') }}</th>
                             <th>{{ trans('labels.backend.pages.table.createdat') }}</th>
-                            <th>{{ trans('labels.backend.pages.table.updatedat') }}</th>
+                            <th>{{ trans('labels.backend.pages.table.createdby') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
                     </thead>
@@ -77,10 +77,10 @@
                     {data: 'title', name: '{{config('module.pages.table')}}.title'},
                     {data: 'status', name: '{{config('module.pages.table')}}.status'},
                     {data: 'created_at', name: '{{config('module.pages.table')}}.created_at'},
-                    {data: 'updated_at', name: '{{config('module.pages.table')}}.updated_at'},
+                    {data: 'created_by', name: '{{config('access.users_table')}}.first_name'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],
-                order: [[3, "asc"]],
+                order: [[1, "asc"]],
                 searchDelay: 500,
                 dom: 'lBfrtip',
                 buttons: {

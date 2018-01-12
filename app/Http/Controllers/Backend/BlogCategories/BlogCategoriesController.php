@@ -57,49 +57,49 @@ class BlogCategoriesController extends Controller
         $this->blogcategory->create($request->all());
 
         return redirect()
-            ->route('admin.blogcategories.index')
+            ->route('admin.blogCategories.index')
             ->with('flash_success', trans('alerts.backend.blogcategories.created'));
     }
 
     /**
-     * @param \App\Models\BlogCategories\BlogCategory                             $blogcategory
+     * @param \App\Models\BlogCategories\BlogCategory                             $blogCategory
      * @param \App\Http\Requests\Backend\BlogCategories\EditBlogCategoriesRequest $request
      *
      * @return mixed
      */
-    public function edit(BlogCategory $blogcategory, EditBlogCategoriesRequest $request)
+    public function edit(BlogCategory $blogCategory, EditBlogCategoriesRequest $request)
     {
         return view('backend.blogcategories.edit')
-            ->with('blogcategory', $blogcategory);
+            ->with('blogcategory', $blogCategory);
     }
 
     /**
-     * @param \App\Models\BlogCategories\BlogCategory                               $blogcategory
+     * @param \App\Models\BlogCategories\BlogCategory                               $blogCategory
      * @param \App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest $request
      *
      * @return mixed
      */
-    public function update(BlogCategory $blogcategory, UpdateBlogCategoriesRequest $request)
+    public function update(BlogCategory $blogCategory, UpdateBlogCategoriesRequest $request)
     {
-        $this->blogcategory->update($blogcategory, $request->all());
+        $this->blogcategory->update($blogCategory, $request->all());
 
         return redirect()
-            ->route('admin.blogcategories.index')
+            ->route('admin.blogCategories.index')
             ->with('flash_success', trans('alerts.backend.blogcategories.updated'));
     }
 
     /**
-     * @param \App\Models\BlogCategories\BlogCategory                               $blogcategory
+     * @param \App\Models\BlogCategories\BlogCategory                               $blogCategory
      * @param \App\Http\Requests\Backend\BlogCategories\DeleteBlogCategoriesRequest $request
      *
      * @return mixed
      */
-    public function destroy(BlogCategory $blogcategory, DeleteBlogCategoriesRequest $request)
+    public function destroy(BlogCategory $blogCategory, DeleteBlogCategoriesRequest $request)
     {
-        $this->blogcategory->delete($blogcategory);
+        $this->blogcategory->delete($blogCategory);
 
         return redirect()
-            ->route('admin.blogcategories.index')
+            ->route('admin.blogCategories.index')
             ->with('flash_success', trans('alerts.backend.blogcategories.deleted'));
     }
 }

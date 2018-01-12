@@ -13,8 +13,8 @@ trait BlogCategoryAttribute
     public function getActionButtonsAttribute()
     {
         return '<div class="btn-group action-btn">
-                    '.$this->getEditButtonAttribute('edit-blog-category', 'admin.blogcategories.edit').'
-                    '.$this->getDeleteButtonAttribute('delete-blog-category', 'admin.blogcategories.destroy').'
+                    '.$this->getEditButtonAttribute('edit-blog-category', 'admin.blogCategories.edit').'
+                    '.$this->getDeleteButtonAttribute('delete-blog-category', 'admin.blogCategories.destroy').'
                 </div>';
     }
 
