@@ -14,13 +14,13 @@ class BlogCategoryDeleted
     /**
      * @var
      */
-    public $blogcategories;
+    public $blogcategory;
 
     /**
-     * @param $blogcategories
+     * @param $blogcategory
      */
-    public function __construct($blogcategories)
+    public function __construct($blogcategory)
     {
-        $this->blogcategories = $blogcategories;
+        $this->blogcategory = $blogcategory;
     }
 }

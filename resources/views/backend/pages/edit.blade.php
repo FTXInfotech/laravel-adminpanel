@@ -12,12 +12,12 @@
 @section('content')
     {{ Form::model($page, ['route' => ['admin.pages.update', $page], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH', 'id' => 'edit-role']) }}
 
-        <div class="box box-success">
+        <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ trans('labels.backend.pages.edit') }}</h3>
 
                 <div class="box-tools pull-right">
-                    @include('backend.includes.partials.pages-header-buttons')
+                    @include('backend.pages.partials.pages-header-buttons')
                 </div><!--box-tools pull-right-->
             </div><!-- /.box-header -->
 
@@ -93,6 +93,6 @@
 @endsection
 @section("after-scripts")
     <script type="text/javascript">
-        Backend.Cmspage.init();
+        Backend.Pages.init();
     </script>
 @endsection

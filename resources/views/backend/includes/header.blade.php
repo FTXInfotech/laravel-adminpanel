@@ -8,14 +8,14 @@
 
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg">
-            @php
+           {{--  @php
                  $settings = settings();
             @endphp
             @if($settings->logo)
                 <img height="48" width="226" class="navbar-brand" src="{{route('frontend.index')}}/img/site_logo/{{$settings->logo}}">
-            @else
+            @else --}}
                 {{ app_name() }}
-            @endif
+           {{--  @endif --}}
         </span>
     </a>
 
@@ -77,7 +77,7 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="{{ access()->user()->picture }}" class="user-image" alt="User Avatar"/>
-                        <span class="hidden-xs">{{ access()->user()->name }}</span>
+                        <span class="hidden-xs">{{ access()->user()->first_name }}</span>
                         <div class="clearfix"></div>
                     </a>
 

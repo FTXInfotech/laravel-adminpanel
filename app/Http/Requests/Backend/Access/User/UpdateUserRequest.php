@@ -27,9 +27,11 @@ class UpdateUserRequest extends Request
     public function rules()
     {
         return [
-            'email'      => 'required|email',
-            'first_name' => 'required',
-            'last_name'  => 'required',
+            'email'           => 'required|email',
+            'first_name'      => 'required',
+            'last_name'       => 'required',
+            'permissions'     => 'required',
+            'assignees_roles' => 'required',
         ];
     }
 
@@ -41,6 +43,7 @@ class UpdateUserRequest extends Request
     public function messages()
     {
         return [
+            'assignees_roles' => 'Please Select Role',
         ];
     }
 }

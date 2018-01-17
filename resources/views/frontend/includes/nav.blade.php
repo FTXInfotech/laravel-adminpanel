@@ -8,11 +8,11 @@
                 <span class="icon-bar"></span>
             </button>
 
-             @if(settings()->logo)
+           {{--   @if(settings()->logo)
             <a href="{{ route('frontend.index') }}" class="logo"><img height="48" width="226" class="navbar-brand" src="{{route('frontend.index')}}/img/site_logo/{{settings()->logo}}"></a>
-            @else
+            @else --}}
              {{ link_to_route('frontend.index',app_name(), [], ['class' => 'navbar-brand']) }}
-            @endif
+           {{--  @endif --}}
         </div><!--navbar-header-->
 
         <div class="collapse navbar-collapse" id="frontend-navbar-collapse">

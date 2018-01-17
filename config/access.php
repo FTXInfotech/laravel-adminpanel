@@ -71,31 +71,6 @@ return [
     'history_types_table' => 'history_types',
 
     /*
-     * Blog Catagories table used to store Blog Catagory
-     */
-    'blog_categories_table' => 'blog_categories',
-
-    /*
-     * Blog Tags table used to store Blog Tag
-     */
-    'blog_tags_table' => 'blog_tags',
-
-    /*
-     * Blog Tags table used to store Blog Tag
-     */
-    'blogs_table' => 'blogs',
-
-    /*
-     * Blog Tags table used to store Blog Tag
-     */
-    'blog_map_categories_table' => 'blog_map_categories',
-
-    /*
-     * Blog Tags table used to store Blog Tag
-     */
-    'blog_map_tags_table' => 'blog_map_tags',
-
-    /*
      * Notifications table used to store user notification
      */
     'notifications_table' => 'notifications',
@@ -113,7 +88,7 @@ return [
         /*
          * Whether or not public registration is on
          */
-        'registration' => env('ENABLE_REGISTRATION', 'true'),
+        'registration' => env('ENABLE_REGISTRATION', true),
 
         /*
          * The role the user is assigned to when they sign up from the frontend, not namespaced
@@ -130,6 +105,12 @@ return [
          * Whether or not the users email can be changed on the edit profile screen
          */
         'change_email' => false,
+
+        /*
+         * Whether or not new users need to be approved by an administrator before logging in
+         * If this is set to true, then confirm_email is not in effect
+         */
+        'requires_approval' => env('REQUIRES_APPROVAL', false),
     ],
 
     /*

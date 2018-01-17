@@ -7,12 +7,12 @@
 @endsection
 
 @section('content')
-    <div class="box box-success">
+    <div class="box box-info">
         <div class="box-header with-border">
             <h3 class="box-title">{{ trans('labels.backend.pages.management') }}</h3>
 
             <div class="box-tools pull-right">
-                @include('backend.includes.partials.pages-header-buttons')
+                @include('backend.pages.partials.pages-header-buttons')
             </div>
         </div><!-- /.box-header -->
 
@@ -24,7 +24,7 @@
                             <th>{{ trans('labels.backend.pages.table.title') }}</th>
                             <th>{{ trans('labels.backend.pages.table.status') }}</th>
                             <th>{{ trans('labels.backend.pages.table.createdat') }}</th>
-                            <th>{{ trans('labels.backend.pages.table.updatedat') }}</th>
+                            <th>{{ trans('labels.backend.pages.table.createdby') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
                     </thead>
@@ -57,7 +57,7 @@
         <div class="box-body">
             {{-- {!! history()->renderType('CMSpage') !!} --}}
         </div><!-- /.box-body -->
-    </div><!--box box-success-->
+    </div><!--box box-info-->
 @endsection
 
 @section('after-scripts')
@@ -77,10 +77,10 @@
                     {data: 'title', name: '{{config('module.pages.table')}}.title'},
                     {data: 'status', name: '{{config('module.pages.table')}}.status'},
                     {data: 'created_at', name: '{{config('module.pages.table')}}.created_at'},
-                    {data: 'updated_at', name: '{{config('module.pages.table')}}.updated_at'},
+                    {data: 'created_by', name: '{{config('access.users_table')}}.first_name'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],
-                order: [[3, "asc"]],
+                order: [[1, "asc"]],
                 searchDelay: 500,
                 dom: 'lBfrtip',
                 buttons: {

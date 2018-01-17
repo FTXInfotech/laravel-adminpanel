@@ -25,4 +25,5 @@ phpunit.txt
 public/css
 public/js
 composer.lock
-/public/img/backend/blog_images
+public/img/backend/blog_images/*
+public/mix-manifest.json

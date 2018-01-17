@@ -12,7 +12,7 @@
 @section('content')
     {{ Form::open(['route' => 'admin.access.role.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post', 'id' => 'create-role']) }}
 
-        <div class="box box-success">
+        <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ trans('labels.backend.access.roles.create') }}</h3>
 
@@ -31,10 +31,10 @@
                 </div><!--form control-->
 
                 <div class="form-group">
-                    {{ Form::label('associated-permissions', trans('validation.attributes.backend.access.roles.associated_permissions'), ['class' => 'col-lg-2 control-label']) }}
+                    {{ Form::label('associated_permissions', trans('validation.attributes.backend.access.roles.associated_permissions'), ['class' => 'col-lg-2 control-label']) }}
 
                     <div class="col-lg-10">
-                        {{ Form::select('associated-permissions', array('all' => trans('labels.general.all'), 'custom' => trans('labels.general.custom')), 'all', ['class' => 'form-control select2 box-size']) }}
+                        {{ Form::select('associated_permissions', array('all' => trans('labels.general.all'), 'custom' => trans('labels.general.custom')), 'all', ['class' => 'form-control select2 box-size']) }}
 
                         <div id="available-permissions" class="hidden mt-20" style="width: 700px; height: 200px; overflow-x: hidden; overflow-y: scroll;">
                             <div class="row">
@@ -65,7 +65,7 @@
                 </div><!--form control-->
 
                 <div class="form-group">
-                    {{ Form::label('status', trans('validation.attributes.backend.cmspages.is_active'), ['class' => 'col-lg-2 control-label']) }}
+                    {{ Form::label('status', trans('validation.attributes.backend.access.roles.active'), ['class' => 'col-lg-2 control-label']) }}
 
                     <div class="col-lg-10">
                         <div class="control-group">

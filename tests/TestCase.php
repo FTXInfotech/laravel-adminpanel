@@ -1,27 +1,16 @@
 <?php
 
+namespace Tests;
+
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\App;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
-/**
- * Class TestCase.
- */
-abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
+abstract class TestCase extends BaseTestCase
 {
-    use DatabaseTransactions;
-
-    /**
-     * The base URL to use while testing the application.
-     *
-     * @var string
-     */
-    protected $baseUrl = '     */
-     */
-http://laraveladminpanel.dev';
+    use CreatesApplication;
 
     /**
      * @var
@@ -53,18 +42,13 @@ http://laraveladminpanel.dev';
      */
     protected $userRole;
 
-    /**
-     * Creates the application.
-     *
-     * @return \Illuminate\Foundation\Application
-     */
-    public function createApplication()
+    public function signIn($user = null)
     {
-        $app = require __DIR__.'/../bootstrap/app.php';
+        $user = $user ?: create('App\User');
 
-        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+        $this->be($user);
 
-        return $app;
+        return $this;
     }
 
     /**
@@ -74,12 +58,11 @@ http://laraveladminpanel.dev';
     {
         parent::setUp();
 
+        $this->withoutExceptionHandling();
+
         // Set up the database
         Artisan::call('migrate:refresh');
         Artisan::call('db:seed');
-
-        // Run the tests in English
-        App::setLocale('en');
 
         /*
          * Create class properties to be used in tests

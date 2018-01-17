@@ -10,14 +10,14 @@
 @endsection
 
 @section('content')
-    {{ Form::model($blogcategory, ['route' => ['admin.blogcategories.update', $blogcategory], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH', 'id' => 'edit-role']) }}
+    {{ Form::model($blogcategory, ['route' => ['admin.blogCategories.update', $blogcategory], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH', 'id' => 'edit-role']) }}
 
-        <div class="box box-success">
+        <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ trans('labels.backend.blogcategories.edit') }}</h3>
 
                 <div class="box-tools pull-right">
-                    @include('backend.includes.partials.blogcategories-header-buttons')
+                    @include('backend.blogcategories.partials.blogcategories-header-buttons')
                 </div><!--box-tools pull-right-->
             </div><!-- /.box-header -->
 
@@ -26,7 +26,7 @@
                 <div class="form-group">
                     @include("backend.blogcategories.form")
                     <div class="edit-form-btn">
-                    {{ link_to_route('admin.blogcategories.index', trans('buttons.general.cancel'), [], ['class' => 'btn btn-danger btn-md']) }}
+                    {{ link_to_route('admin.blogCategories.index', trans('buttons.general.cancel'), [], ['class' => 'btn btn-danger btn-md']) }}
                     {{ Form::submit(trans('buttons.general.crud.update'), ['class' => 'btn btn-primary btn-md']) }}
                     <div class="clearfix"></div>
                 </div>

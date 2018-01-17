@@ -4,7 +4,9 @@
     "keywords": [
         "framework",
         "laravel",
-        "boilerplate"
+        "boilerplate",
+        "adminpanel",
+        "rest-api"
     ],
     "license": "MIT",
     "type": "project",
@@ -12,9 +14,10 @@
         "php": ">=7.0.0",
         "arcanedev/log-viewer": "^4.4",
         "arcanedev/no-captcha": "^5.0",
+        "codedungeon/phpunit-result-printer": "0.4.4",
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^4.1",
-        "doctrine/dbal": "^2.5",
+        "doctrine/dbal": "^2.6",
         "fideloper/proxy": "~3.3",
         "hieu-le/active": "^3.5",
         "laravel/framework": "5.5.*",
@@ -27,16 +30,18 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.0",
-        "bvipul/generator": "v0.9.1",
+        "bvipul/generator": "^0.9.1",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
-        "laravel/browser-kit-testing": "^1.0",
+        "laravel/browser-kit-testing": "^2.0",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~6.0",
         "xethron/migrations-generator": "2.0.2"
     },
     "autoload": {
         "classmap": [
+            "database/seeds",
+            "database/factories",
             "database"
         ],
         "psr-4": {
@@ -51,8 +56,10 @@
             "Tests\\": "tests/"
         },
         "classmap": [
-            "tests/TestCase.php",
-            "tests/BrowserKitTestCase.php"
+            "tests/TestCase.php"
+        ],
+        "files": [
+            "tests/Utilities/helpers.php"
         ]
     },
     "scripts": {

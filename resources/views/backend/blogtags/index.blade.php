@@ -7,12 +7,12 @@
 @endsection
 
 @section('content')
-    <div class="box box-success">
+    <div class="box box-info">
         <div class="box-header with-border">
             <h3 class="box-title">{{ trans('labels.backend.blogtags.management') }}</h3>
 
             <div class="box-tools pull-right">
-                @include('backend.includes.partials.blogtags-header-buttons')
+                @include('backend.blogtags.partials.blogtags-header-buttons')
             </div>
         </div><!-- /.box-header -->
 
@@ -57,7 +57,7 @@
         <div class="box-body">
             {{-- {!! history()->renderType('BlogTag') !!} --}}
         </div><!-- /.box-body -->
-    </div><!--box box-success-->
+    </div><!--box box-info-->
 @endsection
 
 @section('after-scripts')
@@ -70,14 +70,14 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route("admin.blogtags.get") }}',
+                    url: '{{ route("admin.blogTags.get") }}',
                     type: 'post'
                 },
                 columns: [
-                    {data: 'name', name: '{{config('access.blog_tags_table')}}.name'},
-                    {data: 'status', name: '{{config('access.blog_tags_table')}}.status'},
-                    {data: 'created_by', name: '{{config('access.blog_tags_table')}}.created_by'},
-                    {data: 'created_at', name: '{{config('access.blog_tags_table')}}.created_at'},
+                    {data: 'name', name: '{{config('module.blog_tags.table')}}.name'},
+                    {data: 'status', name: '{{config('module.blog_tags.table')}}.status'},
+                    {data: 'created_by', name: '{{config('module.blog_tags.table')}}.created_by'},
+                    {data: 'created_at', name: '{{config('module.blog_tags.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],
                 order: [[3, "asc"]],

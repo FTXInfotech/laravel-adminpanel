@@ -213,9 +213,9 @@ trait UserAttribute
     /**
      * @return string
      */
-    public function getDeletePermanentlyButtonAttribute()
+    public function getDeletePermanentlyButtonAttribute($class)
     {
-        return '<a href="'.route('admin.access.user.delete-permanently', $this).'" name="delete_user_perm"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.delete_permanently').'"></i></a> ';
+        return '<a class="'.$class.'" href="'.route('admin.access.user.delete-permanently', $this).'" name="delete_user_perm"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.delete_permanently').'"></i></a> ';
     }
 
     /**
@@ -372,13 +372,21 @@ trait UserAttribute
         return $button;
     }
 
+    public function getNameAttribute()
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
     /**
      * @return string
      */
     public function getActionButtonsAttribute()
     {
         if ($this->trashed()) {
-            return '<div class="btn-group action-btn">'.$this->getRestoreButtonAttribute('btn btn-default btn-flat').'</div>';
+            return '<div class="btn-group action-btn">
+                        '.$this->getRestoreButtonAttribute('btn btn-default btn-flat').'
+                        '.$this->getDeletePermanentlyButtonAttribute('btn btn-default btn-flat').'
+                    </div>';
         }
 
         // Check if role have all permission

@@ -13,43 +13,36 @@ use Yajra\DataTables\Facades\DataTables;
  */
 class BlogCategoriesTableController extends Controller
 {
-    /**
-     * @var BlogCategoriesRepository
-     */
-    protected $blogcategories;
+    protected $blogcategory;
 
     /**
-     * @param BlogCategoriesRepository $cmspages
+     * @param \App\Repositories\Backend\BlogCategories\BlogCategoriesRepository $cmspages
      */
-    public function __construct(BlogCategoriesRepository $blogcategories)
+    public function __construct(BlogCategoriesRepository $blogcategory)
     {
-        $this->blogcategories = $blogcategories;
+        $this->blogcategory = $blogcategory;
     }
 
     /**
-     * @param ManageBlogCategoriesRequest $request
+     * @param \App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest $request
      *
      * @return mixed
      */
     public function __invoke(ManageBlogCategoriesRequest $request)
     {
-        return Datatables::of($this->blogcategories->getForDataTable())
+        return Datatables::of($this->blogcategory->getForDataTable())
             ->escapeColumns(['name'])
-            ->addColumn('status', function ($blogcategories) {
-                if ($blogcategories->status) {
-                    return '<span class="label label-success">Active</span>';
-                }
-
-                return '<span class="label label-danger">Inactive</span>';
+            ->addColumn('status', function ($blogcategory) {
+                return $blogcategory->status_label;
             })
-            ->addColumn('created_by', function ($blogcategories) {
-                return $blogcategories->user_name;
+            ->addColumn('created_by', function ($blogcategory) {
+                return $blogcategory->user_name;
             })
-            ->addColumn('created_at', function ($blogcategories) {
-                return Carbon::parse($blogcategories->created_at)->toDateString();
+            ->addColumn('created_at', function ($blogcategory) {
+                return Carbon::parse($blogcategory->created_at)->toDateString();
             })
-            ->addColumn('actions', function ($blogcategories) {
-                return $blogcategories->action_buttons;
+            ->addColumn('actions', function ($blogcategory) {
+                return $blogcategory->action_buttons;
             })
             ->make(true);
     }

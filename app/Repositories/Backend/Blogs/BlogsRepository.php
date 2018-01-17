@@ -6,13 +6,15 @@ use App\Events\Backend\Blogs\BlogCreated;
 use App\Events\Backend\Blogs\BlogDeleted;
 use App\Events\Backend\Blogs\BlogUpdated;
 use App\Exceptions\GeneralException;
-use App\Http\Utilities\FileUploads;
+use App\Models\BlogCategories\BlogCategory;
 use App\Models\BlogMapCategories\BlogMapCategory;
 use App\Models\BlogMapTags\BlogMapTag;
 use App\Models\Blogs\Blog;
+use App\Models\BlogTags\BlogTag;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class BlogsRepository.
@@ -24,67 +26,70 @@ class BlogsRepository extends BaseRepository
      */
     const MODEL = Blog::class;
 
+    protected $upload_path;
+
+    /**
+     * Storage Class Object.
+     *
+     * @var \Illuminate\Support\Facades\Storage
+     */
+    protected $storage;
+
+    public function __construct()
+    {
+        $this->upload_path = 'img'.DIRECTORY_SEPARATOR.'blog'.DIRECTORY_SEPARATOR;
+        $this->storage = Storage::disk('public');
+    }
+
     /**
      * @return mixed
      */
     public function getForDataTable()
     {
         return $this->query()
-            ->leftjoin(config('access.users_table'), config('access.users_table').'.id', '=', config('access.blogs_table').'.created_by')
+            ->leftjoin(config('access.users_table'), config('access.users_table').'.id', '=', config('module.blogs.table').'.created_by')
             ->select([
-                config('access.blogs_table').'.id',
-                config('access.blogs_table').'.name',
-                config('access.blogs_table').'.publish_datetime',
-                config('access.blogs_table').'.status',
-                config('access.blogs_table').'.created_by',
-                config('access.blogs_table').'.created_at',
+                config('module.blogs.table').'.id',
+                config('module.blogs.table').'.name',
+                config('module.blogs.table').'.publish_datetime',
+                config('module.blogs.table').'.status',
+                config('module.blogs.table').'.created_by',
+                config('module.blogs.table').'.created_at',
                 config('access.users_table').'.first_name as user_name',
             ]);
     }
 
     /**
      * @param array $input
-     * @param array $tagsArray
-     * @param array $categoriesArray
      *
-     * @throws GeneralException
+     * @throws \App\Exceptions\GeneralException
      *
      * @return bool
      */
-    public function create(array $input, array $tagsArray, array $categoriesArray)
+    public function create(array $input)
     {
-        // dd(Carbon::createFromFormat('d/m/Y h:i a',$input['publish_datetime']));
+        $tagsArray = $this->createTags($input['tags']);
+        $categoriesArray = $this->createCategories($input['categories']);
+        unset($input['tags'], $input['categories']);
+
         DB::transaction(function () use ($input, $tagsArray, $categoriesArray) {
-            $blogs = self::MODEL;
-            $blogs = new $blogs();
-            $blogs->name = $input['name'];
-            $blogs->slug = str_slug($input['name']);
-            $blogs->content = $input['content'];
-            $blogs->publish_datetime = Carbon::parse($input['publish_datetime']);
+            $input['slug'] = str_slug($input['name']);
+            $input['publish_datetime'] = Carbon::parse($input['publish_datetime']);
+            $input = $this->uploadImage($input);
+            $input['created_by'] = access()->user()->id;
 
-            // Image Upload
-            $image = $this->uploadImage($input);
-            $blogs->featured_image = $image['featured_image'];
-
-            $blogs->meta_title = $input['meta_title'];
-            $blogs->cannonical_link = $input['cannonical_link'];
-            $blogs->meta_keywords = $input['meta_keywords'];
-            $blogs->meta_description = $input['meta_description'];
-            $blogs->status = $input['status'];
-            $blogs->created_by = access()->user()->id;
-
-            if ($blogs->save()) {
+            if ($blog = Blog::create($input)) {
                 // Inserting associated category's id in mapper table
                 if (count($categoriesArray)) {
-                   $blogs->categories()->sync($categoriesArray);
+                    $blog->categories()->sync($categoriesArray);
                 }
 
                 // Inserting associated tag's id in mapper table
                 if (count($tagsArray)) {
-                    $blogs->tags()->sync($tagsArray);
+                    $blog->tags()->sync($tagsArray);
                 }
 
-                event(new BlogCreated($blogs));
+                event(new BlogCreated($blog));
 
                 return true;
             }
@@ -94,47 +99,41 @@ class BlogsRepository extends BaseRepository
     }
 
     /**
-     * @param $blogs
-     * @param array $input
-     * @param array $tagsArray
-     * @param array $categoriesArray
+     * Update Blog.
+     *
+     * @param \App\Models\Blogs\Blog $blog
+     * @param array                  $input
      */
-    public function update($blogs, array $input, array $tagsArray, array $categoriesArray)
+    public function update(Blog $blog, array $input)
     {
-        // dd( Carbon::parse($input['publish_datetime']));
-        // dd($input['publish_datetime']);
-        $blogs->name = $input['name'];
-        $blogs->slug = str_slug($input['name']);
-        $blogs->content = $input['content'];
-        $blogs->publish_datetime = Carbon::parse($input['publish_datetime']);
-        $blogs->meta_title = $input['meta_title'];
-        $blogs->cannonical_link = $input['cannonical_link'];
-        $blogs->meta_keywords = $input['meta_keywords'];
-        $blogs->meta_description = $input['meta_description'];
-        $blogs->status = $input['status'];
-        $blogs->updated_by = access()->user()->id;
+        $tagsArray = $this->createTags($input['tags']);
+        $categoriesArray = $this->createCategories($input['categories']);
+        unset($input['tags'], $input['categories']);
+
+        $input['slug'] = str_slug($input['name']);
+        $input['publish_datetime'] = Carbon::parse($input['publish_datetime']);
+        $input['updated_by'] = access()->user()->id;
 
         // Uploading Image
         if (array_key_exists('featured_image', $input)) {
-            $this->deleteOldFile($blogs);
+            $this->deleteOldFile($blog);
             $input = $this->uploadImage($input);
-            $blogs->featured_image = $input['featured_image'];
         }
 
-        DB::transaction(function () use ($blogs, $input, $tagsArray, $categoriesArray) {
-            if ($blogs->save()) {
+        DB::transaction(function () use ($blog, $input, $tagsArray, $categoriesArray) {
+            if ($blog->update($input)) {
 
                 // Updateing associated category's id in mapper table
                 if (count($categoriesArray)) {
-                    $blogs->categories()->sync($categoriesArray);
+                    $blog->categories()->sync($categoriesArray);
                 }
 
                 // Updating associated tag's id in mapper table
                 if (count($tagsArray)) {
-                    $blogs->tags()->sync($tagsArray);
+                    $blog->tags()->sync($tagsArray);
                 }
 
-                event(new BlogUpdated($blogs));
+                event(new BlogUpdated($blog));
 
                 return true;
             }
@@ -146,13 +145,62 @@ class BlogsRepository extends BaseRepository
     }
 
     /**
-     * @param Model $blog
+     * Creating Tags.
+     *
+     * @param array $tags
+     *
+     * @return array
+     */
+    public function createTags($tags)
+    {
+        //Creating a new array for tags (newly created)
+        $tags_array = [];
+
+        foreach ($tags as $tag) {
+            if (is_numeric($tag)) {
+                $tags_array[] = $tag;
+            } else {
+                $newTag = BlogTag::create(['name' => $tag, 'status' => 1, 'created_by' => 1]);
+                $tags_array[] = $newTag->id;
+            }
+        }
+
+        return $tags_array;
+    }
+
+    /**
+     * Creating Categories.
+     *
+     * @param Array($categories)
+     *
+     * @return array
+     */
+    public function createCategories($categories)
+    {
+        //Creating a new array for categories (newly created)
+        $categories_array = [];
+
+        foreach ($categories as $category) {
+            if (is_numeric($category)) {
+                $categories_array[] = $category;
+            } else {
+                $newCategory = BlogCategory::create(['name' => $category, 'status' => 1, 'created_by' => 1]);
+
+                $categories_array[] = $newCategory->id;
+            }
+        }
+
+        return $categories_array;
+    }
+
+    /**
+     * @param \App\Models\Blogs\Blog $blog
      *
      * @throws GeneralException
      *
      * @return bool
      */
-    public function delete(Model $blog)
+    public function delete(Blog $blog)
     {
         DB::transaction(function () use ($blog) {
             if ($blog->delete()) {
@@ -177,13 +225,12 @@ class BlogsRepository extends BaseRepository
      */
     public function uploadImage($input)
     {
-        $uploadManager = new FileUploads();
         $avatar = $input['featured_image'];
 
         if (isset($input['featured_image']) && !empty($input['featured_image'])) {
-            $fileName = $uploadManager->setBasePath('backend/blog_images')
-                ->setThumbnailFlag(false)
-                ->upload($input['featured_image']);
+            $fileName = time().$avatar->getClientOriginalName();
+
+            $this->storage->put($this->upload_path.$fileName, file_get_contents($avatar->getRealPath()));
 
             $input = array_merge($input, ['featured_image' => $fileName]);
 
@@ -198,11 +245,8 @@ class BlogsRepository extends BaseRepository
      */
     public function deleteOldFile($model)
     {
-        $uploadManager = new FileUploads();
         $fileName = $model->featured_image;
-        $filePath = $uploadManager->setBasePath('backend/blog_images');
-        $file = $filePath->filePath.DIRECTORY_SEPARATOR.$fileName;
 
-        return $uploadManager->deleteFile($file);
+        return $this->storage->delete($this->upload_path.$fileName);
     }
 }

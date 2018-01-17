@@ -10,14 +10,14 @@
 @endsection
 
 @section('content')
-    {{ Form::open(['route' => 'admin.blogtags.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post', 'id' => 'create-permission']) }}
+    {{ Form::open(['route' => 'admin.blogTags.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post', 'id' => 'create-blogtags']) }}
 
-        <div class="box box-success">
+        <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ trans('labels.backend.blogtags.create') }}</h3>
 
                 <div class="box-tools pull-right">
-                    @include('backend.includes.partials.blogtags-header-buttons')
+                    @include('backend.blogtags.partials.blogtags-header-buttons')
                 </div><!--box-tools pull-right-->
             </div><!-- /.box-header -->
 
@@ -26,7 +26,7 @@
                 <div class="form-group">
                     @include("backend.blogtags.form")
                     <div class="edit-form-btn">
-                    {{ link_to_route('admin.blogtags.index', trans('buttons.general.cancel'), [], ['class' => 'btn btn-danger btn-md']) }}
+                    {{ link_to_route('admin.blogTags.index', trans('buttons.general.cancel'), [], ['class' => 'btn btn-danger btn-md']) }}
                     {{ Form::submit(trans('buttons.general.crud.create'), ['class' => 'btn btn-primary btn-md']) }}
                     <div class="clearfix"></div>
                 </div>

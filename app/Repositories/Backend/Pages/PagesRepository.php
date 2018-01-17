@@ -25,12 +25,14 @@ class PagesRepository extends BaseRepository
     public function getForDataTable()
     {
         return $this->query()
+            ->leftjoin(config('access.users_table'), config('access.users_table').'.id', '=', config('module.pages.table').'.created_by')
             ->select([
                 config('module.pages.table').'.id',
                 config('module.pages.table').'.title',
                 config('module.pages.table').'.status',
                 config('module.pages.table').'.created_at',
                 config('module.pages.table').'.updated_at',
+                config('access.users_table').'.first_name as created_by',
             ]);
     }
 
@@ -47,10 +49,10 @@ class PagesRepository extends BaseRepository
             throw new GeneralException(trans('exceptions.backend.pages.already_exists'));
         }
 
-        //Making extra fields
+        // Making extra fields
         $input['page_slug'] = str_slug($input['title']);
         $input['status'] = isset($input['status']) ? 1 : 0;
-        $input['created_by'] = access()->user()->id;
+        $input['created_by'] = auth()->id();
 
         if ($page = Page::create($input)) {
             event(new PageCreated($page));
@@ -75,7 +77,7 @@ class PagesRepository extends BaseRepository
             throw new GeneralException(trans('exceptions.backend.pages.already_exists'));
         }
 
-        //Making extra fields
+        // Making extra fields
         $input['page_slug'] = str_slug($input['title']);
         $input['status'] = isset($input['status']) ? 1 : 0;
         $input['updated_by'] = access()->user()->id;

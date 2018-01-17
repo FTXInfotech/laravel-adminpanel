@@ -18,8 +18,8 @@ class BlogTagEventListener
     public function onCreated($event)
     {
         history()->withType($this->history_slug)
-            ->withEntity($event->blogtags->id)
-            ->withText('trans("history.backend.blogtags.created") <strong>'.$event->blogtags->name.'</strong>')
+            ->withEntity($event->blogtag->id)
+            ->withText('trans("history.backend.blogtags.created") <strong>'.$event->blogtag->name.'</strong>')
             ->withIcon('plus')
             ->withClass('bg-green')
             ->log();
@@ -31,8 +31,8 @@ class BlogTagEventListener
     public function onUpdated($event)
     {
         history()->withType($this->history_slug)
-            ->withEntity($event->blogtags->id)
-            ->withText('trans("history.backend.blogtags.updated") <strong>'.$event->blogtags->name.'</strong>')
+            ->withEntity($event->blogtag->id)
+            ->withText('trans("history.backend.blogtags.updated") <strong>'.$event->blogtag->name.'</strong>')
             ->withIcon('save')
             ->withClass('bg-aqua')
             ->log();
@@ -44,8 +44,8 @@ class BlogTagEventListener
     public function onDeleted($event)
     {
         history()->withType($this->history_slug)
-            ->withEntity($event->blogtags->id)
-            ->withText('trans("history.backend.blogtags.deleted") <strong>'.$event->blogtags->name.'</strong>')
+            ->withEntity($event->blogtag->id)
+            ->withText('trans("history.backend.blogtags.deleted") <strong>'.$event->blogtag->name.'</strong>')
             ->withIcon('trash')
             ->withClass('bg-maroon')
             ->log();

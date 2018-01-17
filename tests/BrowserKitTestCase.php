@@ -4,28 +4,21 @@ namespace Tests;
 
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\App;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
-/**
- * Class TestCase.
- */
 abstract class BrowserKitTestCase extends BaseTestCase
 {
-    use CreatesApplication;
-    use DatabaseTransactions;
+    use CreatesApplication,
+        RefreshDatabase;
 
     /**
-     * The base URL to use while testing the application.
-     *
-     * @var string
+     * @var
      */
-    protected $baseUrl = '     */
-     */
-http://laraveladminpanel.dev';
+    public $baseUrl;
 
     /**
      * @var
@@ -57,23 +50,15 @@ http://laraveladminpanel.dev';
      */
     protected $userRole;
 
-    /**
-     * Set up tests.
-     */
     public function setUp()
     {
         parent::setUp();
 
-        $this->baseUrl = config('app.url', '     */
-     */
-http://laraveladminpanel.dev');
+        $this->baseUrl = config('app.url', 'http://localhost:8000');
 
         // Set up the database
         Artisan::call('migrate:refresh');
         Artisan::call('db:seed');
-
-        // Run the tests in English
-        App::setLocale('en');
 
         /*
          * Create class properties to be used in tests
@@ -93,5 +78,25 @@ http://laraveladminpanel.dev');
         });
 
         parent::tearDown();
+    }
+
+    /**
+     * Check if User is logged in or not.
+     *
+     * @return bool true or false
+     */
+    protected function assertLoggedIn()
+    {
+        $this->assertTrue(Auth::check());
+    }
+
+    /**
+     * Check if User is logged out or not.
+     *
+     * @return bool true or false
+     */
+    protected function assertLoggedOut()
+    {
+        $this->assertFalse(Auth::check());
     }
 }

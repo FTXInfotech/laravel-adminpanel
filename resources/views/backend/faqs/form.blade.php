@@ -21,8 +21,8 @@
         <div class="col-lg-10">
             <div class="control-group">
                 <label class="control control--checkbox">
-                    @if(isset($item->status))
-                        {{ Form::checkbox('status', 1, $item->status == 1 ? true :false) }}
+                    @if(isset($faq->status))
+                        {{ Form::checkbox('status', 1, $faq->status == 1 ? true :false) }}
                     @else
                         {{ Form::checkbox('status', 1, true) }}
                     @endif

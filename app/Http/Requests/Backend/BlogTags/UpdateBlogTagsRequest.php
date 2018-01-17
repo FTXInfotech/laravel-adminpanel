@@ -39,7 +39,7 @@ class UpdateBlogTagsRequest extends Request
     public function messages()
     {
         return [
-            'name.required' => 'Blog Tag name must required',
+            'name.required' => 'Blog Tag name is a required field.',
             'name.max'      => 'Blog Tag may not be greater than 191 characters.',
         ];
     }

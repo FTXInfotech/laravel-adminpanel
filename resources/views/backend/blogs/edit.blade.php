@@ -10,14 +10,15 @@
 @endsection
 
 @section('content')
+
     {{ Form::model($blog, ['route' => ['admin.blogs.update', $blog], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH', 'id' => 'edit-role', 'files' => true]) }}
 
-        <div class="box box-success">
+        <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ trans('labels.backend.blogs.edit') }}</h3>
 
                 <div class="box-tools pull-right">
-                    @include('backend.includes.partials.blogs-header-buttons')
+                    @include('backend.blogs.partials.blogs-header-buttons')
                 </div><!--box-tools pull-right-->
             </div><!-- /.box-header -->
 
