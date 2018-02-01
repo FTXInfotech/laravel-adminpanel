@@ -24,11 +24,10 @@ trait PageAttribute
      */
     public function getViewButtonAttribute()
     {
-        return '<a target="_blank" href="' . route('frontend.pages.show', $this->page_slug) . '" class="btn btn-flat btn-default">
+        return '<a target="_blank" href="'.route('frontend.pages.show', $this->page_slug).'" class="btn btn-flat btn-default">
                     <i data-toggle="tooltip" data-placement="top" title="View Page" class="fa fa-eye"></i>
                 </a>';
     }
-
 
     /**
      * @return string

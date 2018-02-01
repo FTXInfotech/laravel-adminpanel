@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Models\Settings\Setting;
 use App\Http\Controllers\Controller;
+use App\Models\Settings\Setting;
 use App\Repositories\Frontend\Pages\PagesRepository;
 
 /**
