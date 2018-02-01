@@ -38,6 +38,6 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 /*
-* Show cmspages
+* Show pages
 */
-Route::get('cmspage/{page_slug}', 'FrontendController@showCMSPage')->name('cmspages.show');
+Route::get('pages/{slug}', 'FrontendController@showPage')->name('pages.show');

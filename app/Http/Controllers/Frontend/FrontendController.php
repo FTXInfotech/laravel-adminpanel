@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Settings\Setting;
-use App\Repositories\Frontend\CMSPages\CMSPagesRepository;
+use App\Http\Controllers\Controller;
+use App\Repositories\Frontend\Pages\PagesRepository;
 
 /**
  * Class FrontendController.
@@ -31,13 +31,13 @@ class FrontendController extends Controller
     }
 
     /**
-     * show cmspage by pageslug.
+     * show page by $page_slug.
      */
-    public function showCMSPage($page_slug, CMSPagesRepository $RepositoryContract)
+    public function showPage($slug, PagesRepository $pages)
     {
-        $result = $RepositoryContract->findBySlug($page_slug);
+        $result = $pages->findBySlug($slug);
 
-        return view('frontend.cmspages.index')
-            ->withCmspages($result);
+        return view('frontend.pages.index')
+            ->withpage($result);
     }
 }
