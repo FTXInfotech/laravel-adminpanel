@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Repositories\Frontend\CMSPages;
+namespace App\Repositories\Frontend\Pages;
 
 use App\Exceptions\GeneralException;
-use App\Models\CMSPages\CMSPage;
+use App\Models\Page\Page;
 use App\Repositories\BaseRepository;
 
 /**
- * Class CMSPagesRepository.
+ * Class PagesRepository.
  */
-class CMSPagesRepository extends BaseRepository
+class PagesRepository extends BaseRepository
 {
     /**
      * Associated Repository Model.
      */
-    const MODEL = CMSPage::class;
+    const MODEL = Page::class;
 
     /*
-    * Find cmspage by pageslug
+    * Find page by page_slug
     */
     public function findBySlug($page_slug)
     {
@@ -25,6 +25,6 @@ class CMSPagesRepository extends BaseRepository
             return $this->query()->wherePage_slug($page_slug)->firstOrFail();
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.cmspages.not_found'));
+        throw new GeneralException(trans('exceptions.backend.access.pages.not_found'));
     }
 }

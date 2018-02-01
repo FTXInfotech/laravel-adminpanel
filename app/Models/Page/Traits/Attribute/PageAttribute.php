@@ -14,9 +14,21 @@ trait PageAttribute
     {
         return '<div class="btn-group action-btn">
                     '.$this->getEditButtonAttribute('edit-page', 'admin.pages.edit').'
+                    '.$this->getViewButtonAttribute().'                    
                     '.$this->getDeleteButtonAttribute('delete-page', 'admin.pages.destroy').'
                 </div>';
     }
+
+    /**
+     * @return string
+     */
+    public function getViewButtonAttribute()
+    {
+        return '<a target="_blank" href="' . route('frontend.pages.show', $this->page_slug) . '" class="btn btn-flat btn-default">
+                    <i data-toggle="tooltip" data-placement="top" title="View Page" class="fa fa-eye"></i>
+                </a>';
+    }
+
 
     /**
      * @return string
