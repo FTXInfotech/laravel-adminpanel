@@ -51,7 +51,7 @@
                             <div class="col-xs-7">
                                <label class="col-md-12 control-label">
                                  {!! Form::checkbox('is_term_accept',1,false) !!}
-                                 I accept {!! link_to_route('frontend.cmspages.show', trans('validation.attributes.frontend.register-user.terms_and_conditions').'*', ['page_slug'=>'terms-and-conditions']) !!} </label>
+                                 I accept {!! link_to_route('frontend.pages.show', trans('validation.attributes.frontend.register-user.terms_and_conditions').'*', ['page_slug'=>'terms-and-conditions']) !!} </label>
 
                          </div><!--form-group-->
                     </div><!--col-md-6-->
