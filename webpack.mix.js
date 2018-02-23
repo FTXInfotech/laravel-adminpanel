@@ -43,7 +43,8 @@ mix.sass('resources/assets/sass/frontend/app.scss', 'public/css/frontend.css')
         "public/js/bootstrap-datetimepicker.min.js",
         "public/js/backend/custom-file-input.js",
         "public/js/backend/notification.js",
-        "public/js/backend/admin.js"
+        //"public/js/backend/admin.js"
+        "public/js/backend/mainbackend.js"
     ], 'public/js/backend-custom.js')
     //Datatable js
     .scripts([
