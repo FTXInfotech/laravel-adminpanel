@@ -20,7 +20,54 @@ var Backend = {}; // common variable used in all the files of the backend
               
                 element.className = classes.join(' ');
               }
-        }
+        },
+        documentReady : function(callback){
+            if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
+                callback();
+              } else {
+                document.addEventListener('DOMContentLoaded', callback);
+              }
+        },
+
+        ajaxrequest:function(url,method,data,csrf,callback){
+            var request = new XMLHttpRequest();
+            if (window.XMLHttpRequest) {
+                // code for modern browsers
+                request = new XMLHttpRequest();
+             } else {
+                // code for old IE browsers
+                request = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            request.open(method, url, true);
+            request.setRequestHeader('X-CSRF-TOKEN', 'application/x-www-form-urlencoded; charset=UTF-8');
+            if("post" === method.toLowerCase()){
+                request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+                data = this.jsontoformdata(data);
+            }
+            request.onload = callback.success(request);
+            
+            request.onerror = callback.error;
+            
+            request.send(data);
+        },
+
+        // This should probably only be used if all JSON elements are strings
+        jsontoformdata:function (srcjson){
+            if(typeof srcjson !== "object")
+            if(typeof console !== "undefined"){
+                console.log("\"srcjson\" is not a JSON object");
+                return null;
+            }
+            u = encodeURIComponent;
+            var urljson = "";
+            var keys = Object.keys(srcjson);
+            for(var i=0; i <keys.length; i++){
+                urljson += u(keys[i]) + "=" + u(srcjson[keys[i]]);
+                if(i < (keys.length-1))urljson+="&";
+            }
+            return urljson;
+        },
+
     },
 
       /**

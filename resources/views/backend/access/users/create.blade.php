@@ -181,46 +181,32 @@
 @section('after-scripts')
     {{ Html::script('js/backend/access/users/script.js') }}
     <script type="text/javascript">
-        $(document).ready(function() {
 
+        Backend.Utils.documentReady(function(){
+         
             Backend.Access.init();
-            
-            /**
-             * This function is used to get clicked element role id and return required result
-             */
-            $('.get-role-for-permissions').click(function () {
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('admin.get.permission') }}",
-                    dataType: "JSON",
-                    data: {role_id: $(this).val()},
-                    success: function (response) {
-                        var p = response.permissions;
-                        var q = response.rolePermissions;
-                        var qAll = response.allPermissions;
-
-                        $('.get-available-permissions').html('');
-                        if (p.length == 0) {
-                            ('.get-available-permissions').html('<p>There are no available permissions.</p>');
-                        } else {
-                            for (var key in p) {
-                                var addChecked = '';
-                                if (qAll == 1 && q.length == 0) {
-                                    addChecked = 'checked="checked"';
-                                } else {
-                                    if (typeof q[key] !== "undefined") {
-                                        addChecked = 'checked="checked"';
-                                    }
-                                }
-                                $('<label class="control control--checkbox"> <input type="checkbox" name="permissions[' + key + ']" value="' + key + '" id="perm_' + key + '" ' + addChecked + ' /> <label for="perm_' + key + '">' + p[key] + '</label> <div class="control__indicator"></div> </label> <br>').appendTo('.get-available-permissions');
-                            }
-                        }
-                        $('#available-permissions').removeClass('hidden');
+            callback = {
+                success:function(request){
+                    if (request.status >= 200 && request.status < 400) {
+                        // Success!
+                        var resp = request.responseText;
+                        console.log(resp);
+                    } else {
+                    // We reached our target server, but it returned an error
+                    console.log("errror");
                     }
-                });
-            });
+                },
+                error:function(){
+                    console.log("errror");
+                }
+            };
+            csrf = $('meta[name="csrf-token"]').attr('content');
+            Backend.Utils.ajaxrequest("{{ route('admin.get.permission') }}","post",{role_id: $('.get-role-for-permissions').val()},csrf,callback);
 
-            $("#role-3").click();
         });
+            
+
+
+        
     </script>
 @endsection
