@@ -24,7 +24,6 @@ yarn-error.log
 phpunit.txt
 public/css
 public/js/*.js
-
 public/js/plugins
 public/js/skins
 public/js/themes
