@@ -315,7 +315,7 @@ var Backend = {}; // common variable used in all the files of the backend
             init: function (dataTable) {
 
                this.setSelectors();
-               this.addHandlers();
+               this.addHandlers(dataTable);
        
             },
             setSelectors:function(){
@@ -339,7 +339,7 @@ var Backend = {}; // common variable used in all the files of the backend
                 Backend.DataTableSearch.setSelectors();
                 callback(this.selector.searchInput);
             },
-            addHandlers:function(){
+            addHandlers:function(dataTable){
                         // get the datatable search input and on its key press check if we hit enter then search with datatable
                this.cloneElement(this.selector.searchInput,function(element){ //cloning done to remove any binding of the events
                     element.onkeypress = function(event){
