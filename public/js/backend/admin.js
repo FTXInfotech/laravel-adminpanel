@@ -39,14 +39,26 @@ var Backend = {}; // common variable used in all the files of the backend
                 request = new ActiveXObject("Microsoft.XMLHTTP");
             }
             request.open(method, url, true);
-            request.setRequestHeader('X-CSRF-TOKEN', 'application/x-www-form-urlencoded; charset=UTF-8');
+            request.setRequestHeader('X-CSRF-TOKEN', csrf);
+            request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             if("post" === method.toLowerCase()){
                 request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
                 data = this.jsontoformdata(data);
             }
-            request.onload = callback.success(request);
+            
+
+            // when request is in the ready state change the details or perform success function 
+            request.onreadystatechange = function()
+            {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    // Everything is good, the response was received.
+                    request.onload = callback.success(request);
+                } 
+            };
             
             request.onerror = callback.error;
+
+            
             
             request.send(data);
         },
@@ -67,6 +79,13 @@ var Backend = {}; // common variable used in all the files of the backend
             }
             return urljson;
         },
+
+        removeClass:function(el,className){
+            if (el.classList)
+                el.classList.remove(className);
+            else
+                el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
 
     },
 
