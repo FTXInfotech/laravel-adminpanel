@@ -279,19 +279,28 @@ var Backend = {}; // common variable used in all the files of the backend
          */
         Profile:
         {
+            selectors:{
+
+            },
             init: function ()
             {
                 this.setSelectors();
                 this.addHandlers();
             },
             setSelectors:function(){
+                
                 this.selectors.state = document.querySelector(".st");
                 this.selectors.cities = document.querySelector(".ct");
             },
             addHandlers: function ()
             {
-                this.selectors.state.select2();
-                this.selectors.cities.select2();
+                if(this.selectors.state!=null){
+                    this.selectors.state.select2();
+                }
+                if(this.selectors.cities!=null){
+                    this.selectors.cities.select2();
+                }
+                
             }
         },
 
