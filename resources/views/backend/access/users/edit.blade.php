@@ -211,14 +211,17 @@
         */
         
         Backend.Utils.documentReady(function(){
-
+            csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            Backend.Access.selectors.getPremissionURL = "{{ route('admin.get.permission') }}";
+            Backend.Access.init("edit");
+            /*
             Backend.Access.init();
             csrf = $('meta[name="csrf-token"]').attr('content');
            
             /**
              * This function is used to get clicked element role id and return required result
              */
-             document.querySelectorAll(".get-role-for-permissions").forEach(function(element){
+            /* document.querySelectorAll(".get-role-for-permissions").forEach(function(element){
                 element.onclick =function(event){
                     callback = {
                         success:function(request){
@@ -266,7 +269,7 @@
                     Backend.Utils.ajaxrequest("{{ route('admin.get.permission') }}","post",{role_id: event.target.value ,"_tocken":csrf},csrf,callback);
                 }
              });
-           
+           */
             
         });
 

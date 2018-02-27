@@ -75,7 +75,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            
             var dataTable = $('#users-table').dataTable({
                 processing: true,
                 serverSide: true,
@@ -110,41 +109,6 @@
 
             Backend.DataTableSearch.init(dataTable);
         })();
-        /*
-        $(function() {
-            var dataTable = $('#users-table').dataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: '{{ route("admin.access.user.get") }}',
-                    type: 'post',
-                    data: {status: 0, trashed: false}
-                },
-                columns: [
-                    {data: 'first_name', name: '{{config('access.users_table')}}.first_name'},
-                    {data: 'last_name', name: '{{config('access.users_table')}}.last_name'},
-                    {data: 'email', name: '{{config('access.users_table')}}.email'},
-                    {data: 'confirmed', name: '{{config('access.users_table')}}.confirmed'},
-                    {data: 'roles', name: '{{config('access.roles_table')}}.name', sortable: false},
-                    {data: 'created_at', name: '{{config('access.users_table')}}.created_at'},
-                    {data: 'updated_at', name: '{{config('access.users_table')}}.updated_at'},
-                    {data: 'actions', name: 'actions', searchable: false, sortable: false}
-                ],
-                order: [[0, "asc"]],
-                searchDelay: 500,
-                dom: 'lBfrtip',
-                buttons: {
-                    buttons: [
-                        { extend: 'copy', className: 'copyButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }},
-                        { extend: 'csv', className: 'csvButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }},
-                        { extend: 'excel', className: 'excelButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }},
-                        { extend: 'pdf', className: 'pdfButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }},
-                        { extend: 'print', className: 'printButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }}
-                    ]
-                }
-            });
-
-            Backend.DataTableSearch.init(dataTable);
-        });*/
+       
     </script>
 @endsection

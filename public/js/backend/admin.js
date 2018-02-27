@@ -89,7 +89,7 @@ var Backend = {}; // common variable used in all the files of the backend
 
     },
 
-      /**
+    /**
      * Pages
      *
      */
@@ -109,58 +109,161 @@ var Backend = {}; // common variable used in all the files of the backend
     {
         selectors: {
             select2: $(".select2"),
+            getPremissionURL:"",
+            Areyousure:"",
+            delete_user_confirm:"",
+            continue:"",
+            cancel:"",
+            restore_user_confirm:"",
         },
 
-        init: function ()
+        init: function (page)
         {
             this.setSelectors();
-            this.addHandlers();
+            this.addHandlers(page);
         },
         setSelectors:function(){
             this.selectors.select2 = $(".select2");
            
         },
-
-        addHandlers: function ()
+        addHandlers: function (page)
         {
+               /**
+             * This function is used to get clicked element role id and return required result
+             */
+            document.querySelectorAll(".get-role-for-permissions").forEach(function(element){
+                element.onclick =function(event){
+                    callback = {
+                        success:function(request){
+                            console.log("request",request,request.status);
+                            if (request.status >= 200 && request.status < 400) {
+                                // Success!
+                                var response = JSON.parse(request.responseText);
+                                var p = response.permissions;
+                                var q = response.rolePermissions;
+                                var qAll = response.allPermissions;
+
+                                
+                                document.querySelector(".get-available-permissions").innerHTML = "";
+                                htmlstring = "";
+                                if (p.length == 0) {
+                                    document.querySelector(".get-available-permissions").innerHTML = '<p>There are no available permissions.</p>';
+                                } else {
+                                    for (var key in p) {
+                                        var addChecked = '';
+                                        if (qAll == 1 && q.length == 0) {
+                                            addChecked = 'checked="checked"';
+                                        } else {
+                                            if (typeof q[key] !== "undefined") {
+                                                addChecked = 'checked="checked"';
+                                            }
+                                        }
+                                        htmlstring += '<label class="control control--checkbox"> <input type="checkbox" name="permissions[' + key + ']" value="' + key + '" id="perm_' + key + '" ' + addChecked + ' /> <label for="perm_' + key + '">' + p[key] + '</label> <div class="control__indicator"></div> </label> <br>'; 
+                                    }
+                                }
+                                document.querySelector(".get-available-permissions").innerHTML = htmlstring;
+                                Backend.Utils.removeClass(document.getElementById("available-permissions"),'hidden');
+
+                            } else {
+                                // We reached our target server, but it returned an error
+                                console.log("errror in request");
+                                document.querySelector(".get-available-permissions").innerHTML = '<p>There are no available permissions.</p>';
+                            }
+                        },
+                        error:function(){
+                            console.log("errror");
+                            document.querySelector(".get-available-permissions").innerHTML = '<p>There are no available permissions.</p>';
+                        }
+                    };
+                    
+                    Backend.Utils.ajaxrequest(Backend.Access.selectors.getPremissionURL,"post",{role_id: event.target.value},csrf,callback);
+                }
+             });
+             if(page=="create"){
+                 document.getElementById("role-3").click();
+             }
+
             this.selectors.select2.select2();
+
+        },
+        windowloadhandler:function(){
+            /*
+                deleted page showing the swal when click on peremenenant delition
+             */
+            document.querySelectorAll("a[name='delete_user_perm']").forEach(function(element){
+                element.onclick = function(event){
+                    event.preventDefault();
+                    var linkURL = event.target.getAttribute("href");
+                    swal({
+                        title:  Backend.Access.selectors.Areyousure,
+                        text:  Backend.Access.selectors.delete_user_confirm,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: Backend.Access.selectors.continue,
+                        cancelButtonText: Backend.Access.selectors.cancel,
+                        closeOnConfirm: false
+                    }, function(isConfirmed){
+                        if (isConfirmed){
+                            window.location.href = linkURL;
+                        }
+                    });
+                };
+            });
+            /**
+             * deleted user page handeler for user restore
+             */
+            document.querySelectorAll("a[name='restore_user']").forEach(function(element){
+                element.onclick = function(event){
+                    event.preventDefault();
+                    var linkURL = event.target.getAttribute("href");
+
+                    swal({
+                        title: Backend.Access.selectors.Areyousure,
+                        text: Backend.Access.selectors.restore_user_confirm,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText:  Backend.Access.selectors.continue,
+                        cancelButtonText: Backend.Access.selectors.cancel,
+                        closeOnConfirm: false
+                    }, function(isConfirmed){
+                        if (isConfirmed){
+                            window.location.href = linkURL;
+                        }
+                    });
+                };
+            });
         }
     },   
-    /**
-     * Blog
-     *
-     */
-    Blog:
-    {
-        selectors: {
-            tags: document.querySelector(".tags"),
-            categories : document.querySelector(".categories"),
-            toDisplay :document.querySelector(".toDisplay"),
-            status : document.querySelector(".status"),
+        /**
+          * Blog
+          *
+          */
+        Blog:
+        {
+            selectors: {
+                tags: jQuery(".tags"),
+                categories: jQuery(".categories"),
+                toDisplay: jQuery(".toDisplay"),
+                status: jQuery(".status"),
+            },
+
+            init: function () {
+                this.addHandlers();
+                Backend.tinyMCE.init();
+            },
+
+            addHandlers: function () {
+                this.selectors.tags.select2({
+                    tags: true,
+                });
+                this.selectors.categories.select2();
+                this.selectors.toDisplay.select2();
+                this.selectors.status.select2();
+            }
         },
 
-        init: function ()
-        {
-            this.setSelectors();
-            this.addHandlers();
-            Backend.tinyMCE.init();
-        },
-        setSelectors:function(){
-            tags= document.querySelector(".tags");
-            categories = document.querySelector(".categories");
-            toDisplay =document.querySelector(".toDisplay");
-            status = document.querySelector(".status");
-        },
-        addHandlers: function ()
-        {
-            this.selectors.tags.select2({
-                tags: true,
-            });
-            this.selectors.categories.select2();
-            this.selectors.toDisplay.select2();
-            this.selectors.status.select2();
-        }
-    },
 
     /**
      * Tiny MCE
@@ -224,19 +327,20 @@ var Backend = {}; // common variable used in all the files of the backend
 
         // ! Backend.emailTemplate.addHandlers
         addHandlers: function () {
+            $(".select2").select2();
             // to add placeholder in to active textarea
-            $("#addPlaceHolder").on('click', function (event) {
+            document.getElementById("addPlaceHolder").onclick = function(event){
                 Backend.emailTemplate.addPlaceHolder(event);
-            });
-            $("#showPreview").on('click', function (event) {
+            };
+            document.getElementById("showPreview").onclick = function(event){
                 Backend.emailTemplate.showPreview(event);
-            });
-            this.selectors.emailtemplateSelection.select2();
+            };
+        
         },
 
         // ! Backend.emailTemplate.addPlaceHolder
         addPlaceHolder: function (event) {
-            var placeHolder = $('#placeHolder').val();
+            var placeHolder =  document.getElementById('placeHolder').value;
             if (placeHolder != '') {
                 tinymce.activeEditor.execCommand('mceInsertContent', false, "[" + $('#placeHolder :selected').text() + "]");
             }
@@ -244,9 +348,9 @@ var Backend = {}; // common variable used in all the files of the backend
 
         // ! Backend.emailTemplate.showPreview
         showPreview: function (event) {
-
-            document.querySelector( ".modal-body" ).innerHTML = tinyMCE.get('txtBody').getContent();
-            document.querySelector( ".modal-body" ).modal('show');
+            document.querySelector(".modal-body").innerHTML = tinyMCE.get('txtBody').getContent();
+            //jQuery( ".modal-body" ).html(tinyMCE.get('txtBody').getContent());
+            $(".model-wrapper").modal('show');
             
         },
     },

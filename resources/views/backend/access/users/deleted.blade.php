@@ -109,55 +109,19 @@
     
                 Backend.DataTableSearch.init(dataTable);
 
-               
+                Backend.Access.selectors.Areyousure = "{{ trans('strings.backend.general.are_you_sure') }}";
+                Backend.Access.selectors.delete_user_confirm = "{{ trans('strings.backend.access.users.delete_user_confirm') }}";
+                Backend.Access.selectors.continue = "{{ trans('strings.backend.general.continue') }}";
+                Backend.Access.selectors.cancel ="{{ trans('buttons.general.cancel') }}";
+                Backend.Access.selectors.restore_user_confirm ="{{ trans('strings.backend.access.users.restore_user_confirm') }}";
+            
             })();
 
             
      
         window.onload = function(){
-            document.querySelectorAll("a[name='delete_user_perm']").forEach(function(element){
-                element.onclick = function(event){
-                    event.preventDefault();
-                    var linkURL = event.target.getAttribute("href");
-                    swal({
-                        title: "{{ trans('strings.backend.general.are_you_sure') }}",
-                        text: "{{ trans('strings.backend.access.users.delete_user_confirm') }}",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "{{ trans('strings.backend.general.continue') }}",
-                        cancelButtonText: "{{ trans('buttons.general.cancel') }}",
-                        closeOnConfirm: false
-                    }, function(isConfirmed){
-                        if (isConfirmed){
-                            window.location.href = linkURL;
-                        }
-                    });
-                }
-            })
-
-            document.querySelectorAll("a[name='restore_user']").forEach(function(element){
-                element.onclick = function(event){
-                    event.preventDefault();
-                    var linkURL = event.target.getAttribute("href");
-
-                    swal({
-                        title: "{{ trans('strings.backend.general.are_you_sure') }}",
-                        text: "{{ trans('strings.backend.access.users.restore_user_confirm') }}",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "{{ trans('strings.backend.general.continue') }}",
-                        cancelButtonText: "{{ trans('buttons.general.cancel') }}",
-                        closeOnConfirm: false
-                    }, function(isConfirmed){
-                        if (isConfirmed){
-                            window.location.href = linkURL;
-                        }
-                    });
-                }
-            })
-        };
+            Backend.Access.windowloadhandler();
+        }
           
 	</script>
 @endsection

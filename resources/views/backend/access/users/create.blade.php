@@ -184,64 +184,10 @@
 
 
         Backend.Utils.documentReady(function(){
-
-            Backend.Access.init();
-            csrf = $('meta[name="csrf-token"]').attr('content');
-           
-            /**
-             * This function is used to get clicked element role id and return required result
-             */
-             document.querySelectorAll(".get-role-for-permissions").forEach(function(element){
-                element.onclick =function(event){
-                    callback = {
-                        success:function(request){
-                            console.log("request",request,request.status);
-                            if (request.status >= 200 && request.status < 400) {
-                                // Success!
-                                var response = JSON.parse(request.responseText);
-                                var p = response.permissions;
-                                var q = response.rolePermissions;
-                                var qAll = response.allPermissions;
-
-                                
-                                document.querySelector(".get-available-permissions").innerHTML = "";
-                                htmlstring = "";
-                                if (p.length == 0) {
-                                    document.querySelector(".get-available-permissions").innerHTML = '<p>There are no available permissions.</p>';
-                                } else {
-                                    for (var key in p) {
-                                        var addChecked = '';
-                                        if (qAll == 1 && q.length == 0) {
-                                            addChecked = 'checked="checked"';
-                                        } else {
-                                            if (typeof q[key] !== "undefined") {
-                                                addChecked = 'checked="checked"';
-                                            }
-                                        }
-                                        htmlstring += '<label class="control control--checkbox"> <input type="checkbox" name="permissions[' + key + ']" value="' + key + '" id="perm_' + key + '" ' + addChecked + ' /> <label for="perm_' + key + '">' + p[key] + '</label> <div class="control__indicator"></div> </label> <br>'; 
-                                    }
-                                }
-                                document.querySelector(".get-available-permissions").innerHTML = htmlstring;
-                                Backend.Utils.removeClass(document.getElementById("available-permissions"),'hidden');
-
-                            } else {
-                                // We reached our target server, but it returned an error
-                                console.log("errror in request");
-                                document.querySelector(".get-available-permissions").innerHTML = '<p>There are no available permissions.</p>';
-                            }
-                        },
-                        error:function(){
-                            console.log("errror");
-                            document.querySelector(".get-available-permissions").innerHTML = '<p>There are no available permissions.</p>';
-                        }
-                    };
-                    
-                    Backend.Utils.ajaxrequest("{{ route('admin.get.permission') }}","post",{role_id: event.target.value ,"_tocken":csrf},csrf,callback);
-                }
-             });
-            document.getElementById("role-3").click();
-            
+            csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            Backend.Access.selectors.getPremissionURL = "{{ route('admin.get.permission') }}";
+            Backend.Access.init("create");
         });
-      
+        
     </script>
 @endsection
