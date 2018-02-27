@@ -181,46 +181,13 @@
 @section('after-scripts')
     {{ Html::script('js/backend/access/users/script.js') }}
     <script type="text/javascript">
-        $(document).ready(function() {
 
-            Backend.Access.init();
-            
-            /**
-             * This function is used to get clicked element role id and return required result
-             */
-            $('.get-role-for-permissions').click(function () {
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('admin.get.permission') }}",
-                    dataType: "JSON",
-                    data: {role_id: $(this).val()},
-                    success: function (response) {
-                        var p = response.permissions;
-                        var q = response.rolePermissions;
-                        var qAll = response.allPermissions;
 
-                        $('.get-available-permissions').html('');
-                        if (p.length == 0) {
-                            ('.get-available-permissions').html('<p>There are no available permissions.</p>');
-                        } else {
-                            for (var key in p) {
-                                var addChecked = '';
-                                if (qAll == 1 && q.length == 0) {
-                                    addChecked = 'checked="checked"';
-                                } else {
-                                    if (typeof q[key] !== "undefined") {
-                                        addChecked = 'checked="checked"';
-                                    }
-                                }
-                                $('<label class="control control--checkbox"> <input type="checkbox" name="permissions[' + key + ']" value="' + key + '" id="perm_' + key + '" ' + addChecked + ' /> <label for="perm_' + key + '">' + p[key] + '</label> <div class="control__indicator"></div> </label> <br>').appendTo('.get-available-permissions');
-                            }
-                        }
-                        $('#available-permissions').removeClass('hidden');
-                    }
-                });
-            });
-
-            $("#role-3").click();
+        Backend.Utils.documentReady(function(){
+            csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            Backend.Access.selectors.getPremissionURL = "{{ route('admin.get.permission') }}";
+            Backend.Access.init("create");
         });
+        
     </script>
 @endsection
