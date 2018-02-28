@@ -26,7 +26,7 @@ var Backend = {}; // common variable used in all the files of the backend
                     element.classList.add(className);
                 else
                     element.className += ' ' + className;
-            }, 
+            },
             removeClass: function (el, className) {
                 if (el.classList)
                     el.classList.remove(className);
@@ -87,7 +87,7 @@ var Backend = {}; // common variable used in all the files of the backend
                 return urljson;
             },
 
-            
+
         },
 
         /**
@@ -104,33 +104,33 @@ var Backend = {}; // common variable used in all the files of the backend
         /**
          * Roles management
          */
-        Roles:{
-            selectors:{
-                associated:document.querySelector("select[name='associated_permissions']"),
-                associated_container:document.getElementById("#available-permissions"),
+        Roles: {
+            selectors: {
+                associated: document.querySelector("select[name='associated_permissions']"),
+                associated_container: document.getElementById("#available-permissions"),
             },
-            init(page){
-               
+            init(page) {
+
                 this.setSelectors();
                 this.setRolepermission(page);
                 this.addHandlers();
-              
+
             },
-            setSelectors:function(){
-                this.selectors.associated=document.querySelector("select[name='associated_permissions']");
-                this.selectors.associated_container=document.getElementById("available-permissions");
+            setSelectors: function () {
+                this.selectors.associated = document.querySelector("select[name='associated_permissions']");
+                this.selectors.associated_container = document.getElementById("available-permissions");
             },
-            addHandlers:function(){
+            addHandlers: function () {
                 var associated = this.selectors.associated;
                 var associated_container = this.selectors.associated_container;
-              
+
                 if (associated_container != null)
                     if (associated.value == "custom")
-                        Backend.Utils.removeClass(associated_container,"hidden");
+                        Backend.Utils.removeClass(associated_container, "hidden");
                     else
-                        Backend.Utils.addClass(associated_container,'hidden');
+                        Backend.Utils.addClass(associated_container, 'hidden');
 
-                associated.onchange = function(event){
+                associated.onchange = function (event) {
                     if (associated_container != null)
                         if (associated.value == "custom")
                             Backend.Utils.removeClass(associated_container, "hidden");
@@ -138,35 +138,35 @@ var Backend = {}; // common variable used in all the files of the backend
                             Backend.Utils.addClass(associated_container, 'hidden');
                 };
             },
-            setRolepermission: function (page){
+            setRolepermission: function (page) {
                 Backend.Users.setSelectors();
                 Backend.Users.addHandlers(page);
             }
 
         },
-         /**
-         * Users management
-         *
-         */
+        /**
+        * Users management
+        *
+        */
         Users:
-        {
-            selectors: {
-                select2: $(".select2"),
-                getPremissionURL: "",
-                showPermission:document.querySelectorAll(".show-permissions")
-            },
-            init: function (page) {
-                this.setSelectors();
-                this.addHandlers(page);
-            },
-            setSelectors: function () {
-                this.selectors.select2 = $(".select2");
-                this.selectors.getRoleForPermissions = document.querySelectorAll(".get-role-for-permissions");
-                this.selectors.getAvailabelPermissions = document.querySelector(".get-available-permissions");
-                this.selectors.Role3 = document.getElementById("role-3");
-                this.showPermission = document.querySelectorAll(".show-permissions");
-            },
-            addHandlers: function (page) {
+            {
+                selectors: {
+                    select2: $(".select2"),
+                    getPremissionURL: "",
+                    showPermission: document.querySelectorAll(".show-permissions")
+                },
+                init: function (page) {
+                    this.setSelectors();
+                    this.addHandlers(page);
+                },
+                setSelectors: function () {
+                    this.selectors.select2 = $(".select2");
+                    this.selectors.getRoleForPermissions = document.querySelectorAll(".get-role-for-permissions");
+                    this.selectors.getAvailabelPermissions = document.querySelector(".get-available-permissions");
+                    this.selectors.Role3 = document.getElementById("role-3");
+                    this.showPermission = document.querySelectorAll(".show-permissions");
+                },
+                addHandlers: function (page) {
                     /**
                   * This function is used to get clicked element role id and return required result
                   */
@@ -222,8 +222,8 @@ var Backend = {}; // common variable used in all the files of the backend
                     this.selectors.select2.select2();
 
                 },
-                windowloadhandler:function(){
-                    
+                windowloadhandler: function () {
+
                     // scripts to be handeled on user create and edit when window is laoaded
                     Backend.Users.selectors.showPermission.forEach(function (element) {
                         element.onclick = function (event) {
@@ -244,14 +244,14 @@ var Backend = {}; // common variable used in all the files of the backend
                         };
                     });
                 }
-        },
-         /**
-         * Users delete page 
-         *
-         */
+            },
+        /**
+        * Users delete page 
+        *
+        */
 
-         UserDeleted:{
-            selectors:{
+        UserDeleted: {
+            selectors: {
                 AlldeletePerms: document.querySelectorAll("a[name='delete_user_perm']"),
                 AllrestorePerms: document.querySelectorAll("a[name='restore_user']"),
                 Areyousure: "",
@@ -260,63 +260,63 @@ var Backend = {}; // common variable used in all the files of the backend
                 cancel: "",
                 restore_user_confirm: "",
             },
-            setSelectors:function(){
-                this.selectors.AlldeletePerms= document.querySelectorAll("a[name='delete_user_perm']");
-                this.selectors.AllrestorePerms= document.querySelectorAll("a[name='restore_user']");
+            setSelectors: function () {
+                this.selectors.AlldeletePerms = document.querySelectorAll("a[name='delete_user_perm']");
+                this.selectors.AllrestorePerms = document.querySelectorAll("a[name='restore_user']");
             },
             windowloadhandler: function () {
                 this.setSelectors();
-                 /*
-                     deleted page showing the swal when click on peremenenant delition
-                  */
+                /*
+                    deleted page showing the swal when click on peremenenant delition
+                 */
                 this.selectors.AlldeletePerms.forEach(function (element) {
-                     element.onclick = function (event) {
+                    element.onclick = function (event) {
                         event.preventDefault();
                         var linkURL = this.getAttribute("href");
                         swal({
-                             title: Backend.UserDeleted.selectors.Areyousure,
-                             text: Backend.UserDeleted.selectors.delete_user_confirm,
-                             type: "warning",
-                             showCancelButton: true,
-                             confirmButtonColor: "#DD6B55",
-                             confirmButtonText: Backend.UserDeleted.selectors.continue,
-                             cancelButtonText: Backend.UserDeleted.selectors.cancel,
-                             closeOnConfirm: false
-                         }, function (isConfirmed) {
-                             if (isConfirmed) {
-                                 window.location.href = linkURL;
-                             }
-                         });
-                     };
-                 });
-                 /**
-                  * deleted user page handeler for user restore
-                  */
+                            title: Backend.UserDeleted.selectors.Areyousure,
+                            text: Backend.UserDeleted.selectors.delete_user_confirm,
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: Backend.UserDeleted.selectors.continue,
+                            cancelButtonText: Backend.UserDeleted.selectors.cancel,
+                            closeOnConfirm: false
+                        }, function (isConfirmed) {
+                            if (isConfirmed) {
+                                window.location.href = linkURL;
+                            }
+                        });
+                    };
+                });
+                /**
+                 * deleted user page handeler for user restore
+                 */
                 this.selectors.AllrestorePerms.forEach(function (element) {
-                   
-                     element.onclick = function (event,element) {
-                         event.preventDefault();
-                        
-                         var linkURL = this.getAttribute("href");
-                         
-                         swal({
-                             title: Backend.UserDeleted.selectors.Areyousure,
-                             text: Backend.UserDeleted.selectors.restore_user_confirm,
-                             type: "warning",
-                             showCancelButton: true,
-                             confirmButtonColor: "#DD6B55",
-                             confirmButtonText: Backend.UserDeleted.selectors.continue,
-                             cancelButtonText: Backend.UserDeleted.selectors.cancel,
-                             closeOnConfirm: false
-                         }, function (isConfirmed) {
-                             if (isConfirmed) {
-                                 window.location.href = linkURL;
-                             }
-                         });
-                     };
-                 });
-             }
-         },
+
+                    element.onclick = function (event, element) {
+                        event.preventDefault();
+
+                        var linkURL = this.getAttribute("href");
+
+                        swal({
+                            title: Backend.UserDeleted.selectors.Areyousure,
+                            text: Backend.UserDeleted.selectors.restore_user_confirm,
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: Backend.UserDeleted.selectors.continue,
+                            cancelButtonText: Backend.UserDeleted.selectors.cancel,
+                            closeOnConfirm: false
+                        }, function (isConfirmed) {
+                            if (isConfirmed) {
+                                window.location.href = linkURL;
+                            }
+                        });
+                    };
+                });
+            }
+        },
 
         /**
           * Blog
