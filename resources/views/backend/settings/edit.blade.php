@@ -243,6 +243,17 @@
 @section('after-scripts')
 <script src='/js/backend/bootstrap-tabcollapse.js'></script>
 <script>
+	(function(){
+		Backend.Utils.csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+		Backend.Settings.selectors.RouteURL = "{{ route('admin.removeIcon', -1) }}";
+		Backend.Settings.init();
+		
+	})();
+
+	window.load = function(){
+		
+	}
+	/*
 	var route = "{{ route('admin.removeIcon', -1) }}";
     var data_id = $('#setting').data('id');
     
@@ -281,7 +292,8 @@
                 }
             });
     });
-    
+	
+   */
     $('#myTab').tabCollapse({
         tabsClass: 'hidden-sm hidden-xs',
         accordionClass: 'visible-sm visible-xs'

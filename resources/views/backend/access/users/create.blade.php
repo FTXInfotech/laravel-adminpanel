@@ -179,15 +179,18 @@
 @endsection
 
 @section('after-scripts')
-    {{ Html::script('js/backend/access/users/script.js') }}
+   
     <script type="text/javascript">
 
 
         Backend.Utils.documentReady(function(){
-            csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            Backend.Access.selectors.getPremissionURL = "{{ route('admin.get.permission') }}";
-            Backend.Access.init("create");
+            Backend.Users.selectors.getPremissionURL = "{{ route('admin.get.permission') }}";
+            Backend.Users.init("create");
         });
+
+        window.onload = function () {
+            Backend.Users.windowloadhandler();
+        };
         
     </script>
 @endsection

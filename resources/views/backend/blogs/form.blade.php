@@ -125,27 +125,10 @@
 
 @section("after-scripts")
     <script type="text/javascript">
+
+        Backend.Blog.selectors.GenerateSlugUrl = "{{route('admin.generate.slug')}}";
+        Backend.Blog.selectors.SlugUrl = "{{url('/')}}";
         Backend.Blog.init();
-
-        //For Blog datetimepicker for publish_datetime
-        $('#datetimepicker1').datetimepicker();
-
-        //changing slug on blur event
-        $("#name").on('blur',function()
-        {
-            url = $(this).val();
-            console.log(url);
-            if(url !== '')
-            {
-                $.ajax({
-                    type:"POST",
-                    url : "{{route('admin.generate.slug')}}",
-                    data : {text:url },
-                    success : function(data) {
-                      $('#slug').val( "{{url('/')}}" + '/' + data);
-                    }
-                });
-            }
-        });
+        
     </script>
 @endsection
