@@ -1,7 +1,7 @@
-//common functionalities for all the javascript featueres 
-var Backend = {}; // common variable used in all the files of the backend 
+//common functionalities for all the javascript featueres
+var Backend = {}; // common variable used in all the files of the backend
 
-(function () {
+(function (){
     Backend = {
 
         Utils: {
@@ -59,7 +59,7 @@ var Backend = {}; // common variable used in all the files of the backend
                     data = this.jsontoformdata(data);
                 }
 
-                // when request is in the ready state change the details or perform success function 
+                // when request is in the ready state change the details or perform success function
                 request.onreadystatechange = function () {
                     if (request.readyState === XMLHttpRequest.DONE) {
                         // Everything is good, the response was received.
@@ -87,7 +87,6 @@ var Backend = {}; // common variable used in all the files of the backend
                 return urljson;
             },
 
-
         },
 
         /**
@@ -95,16 +94,17 @@ var Backend = {}; // common variable used in all the files of the backend
          *
          */
         Pages:
-            {
-                init: function () {
-                    Backend.tinyMCE.init();
-                },
+        {
+            init: function () {
+                Backend.tinyMCE.init();
             },
+        },
 
         /**
          * Roles management
          */
-        Roles: {
+        Roles:
+        {
             selectors: {
                 associated: document.querySelector("select[name='associated_permissions']"),
                 associated_container: document.getElementById("#available-permissions"),
@@ -149,108 +149,110 @@ var Backend = {}; // common variable used in all the files of the backend
         *
         */
         Users:
-            {
-                selectors: {
-                    select2: $(".select2"),
-                    getPremissionURL: "",
-                    showPermission: document.querySelectorAll(".show-permissions")
-                },
-                init: function (page) {
-                    this.setSelectors();
-                    this.addHandlers(page);
-                },
-                setSelectors: function () {
-                    this.selectors.select2 = $(".select2");
-                    this.selectors.getRoleForPermissions = document.querySelectorAll(".get-role-for-permissions");
-                    this.selectors.getAvailabelPermissions = document.querySelector(".get-available-permissions");
-                    this.selectors.Role3 = document.getElementById("role-3");
-                    this.showPermission = document.querySelectorAll(".show-permissions");
-                },
-                addHandlers: function (page) {
-                    /**
-                  * This function is used to get clicked element role id and return required result
-                  */
+        {
+            selectors: {
+                select2: $(".select2"),
+                getPremissionURL: "",
+                showPermission: document.querySelectorAll(".show-permissions")
+            },
+            init: function (page) {
+                this.setSelectors();
+                this.addHandlers(page);
+            },
+            setSelectors: function () {
+                this.selectors.select2 = $(".select2");
+                this.selectors.getRoleForPermissions = document.querySelectorAll(".get-role-for-permissions");
+                this.selectors.getAvailabelPermissions = document.querySelector(".get-available-permissions");
+                this.selectors.Role3 = document.getElementById("role-3");
+                this.showPermission = document.querySelectorAll(".show-permissions");
+            },
+            addHandlers: function (page) {
+                /**
+              * This function is used to get clicked element role id and return required result
+              */
 
-                    this.selectors.getRoleForPermissions.forEach(function (element) {
-                        element.onclick = function (event) {
-                            callback = {
-                                success: function (request) {
-                                    if (request.status >= 200 && request.status < 400) {
-                                        // Success!
-                                        var response = JSON.parse(request.responseText);
-                                        var permissions = response.permissions;
-                                        var rolePermissions = response.rolePermissions;
-                                        var allPermisssions = response.allPermissions;
+                this.selectors.getRoleForPermissions.forEach(function (element) {
+                    element.onclick = function (event) {
+                        callback = {
+                            success: function (request) {
+                                if (request.status >= 200 && request.status < 400) {
+                                    // Success!
+                                    var response = JSON.parse(request.responseText);
+                                    var permissions = response.permissions;
+                                    var rolePermissions = response.rolePermissions;
+                                    var allPermisssions = response.allPermissions;
 
-                                        Backend.Users.selectors.getAvailabelPermissions.innerHTML = "";
-                                        htmlstring = "";
-                                        if (permissions.length == 0) {
-                                            Backend.Users.selectors.getAvailabelPermissions.innerHTML = '<p>There are no available permissions.</p>';
-                                        } else {
-                                            for (var key in permissions) {
-                                                var addChecked = '';
-                                                if (allPermisssions == 1 && rolePermissions.length == 0) {
-                                                    addChecked = 'checked="checked"';
-                                                } else {
-                                                    if (typeof rolePermissions[key] !== "undefined") {
-                                                        addChecked = 'checked="checked"';
-                                                    }
-                                                }
-                                                htmlstring += '<label class="control control--checkbox"> <input type="checkbox" name="permissions[' + key + ']" value="' + key + '" id="perm_' + key + '" ' + addChecked + ' /> <label for="perm_' + key + '">' + permissions[key] + '</label> <div class="control__indicator"></div> </label> <br>';
-                                            }
-                                        }
-                                        Backend.Users.selectors.getAvailabelPermissions.innerHTML = htmlstring;
-                                        Backend.Utils.removeClass(document.getElementById("available-permissions"), 'hidden');
-
-                                    } else {
-                                        // We reached our target server, but it returned an error
+                                    Backend.Users.selectors.getAvailabelPermissions.innerHTML = "";
+                                    htmlstring = "";
+                                    if (permissions.length == 0) {
                                         Backend.Users.selectors.getAvailabelPermissions.innerHTML = '<p>There are no available permissions.</p>';
+                                    } else {
+                                        for (var key in permissions) {
+                                            var addChecked = '';
+                                            if (allPermisssions == 1 && rolePermissions.length == 0) {
+                                                addChecked = 'checked="checked"';
+                                            } else {
+                                                if (typeof rolePermissions[key] !== "undefined") {
+                                                    addChecked = 'checked="checked"';
+                                                }
+                                            }
+                                            htmlstring += '<label class="control control--checkbox"> <input type="checkbox" name="permissions[' + key + ']" value="' + key + '" id="perm_' + key + '" ' + addChecked + ' /> <label for="perm_' + key + '">' + permissions[key] + '</label> <div class="control__indicator"></div> </label> <br>';
+                                        }
                                     }
-                                },
-                                error: function () {
+                                    Backend.Users.selectors.getAvailabelPermissions.innerHTML = htmlstring;
+                                    Backend.Utils.removeClass(document.getElementById("available-permissions"), 'hidden');
+
+                                } else {
+                                    // We reached our target server, but it returned an error
                                     Backend.Users.selectors.getAvailabelPermissions.innerHTML = '<p>There are no available permissions.</p>';
                                 }
-                            };
-
-                            Backend.Utils.ajaxrequest(Backend.Users.selectors.getPremissionURL, "post", { role_id: event.target.value }, Backend.Utils.csrf, callback);
-                        }
-                    });
-                    if (page == "create") {
-                        Backend.Users.selectors.Role3.click();
-                    }
-
-                    this.selectors.select2.select2();
-
-                },
-                windowloadhandler: function () {
-
-                    // scripts to be handeled on user create and edit when window is laoaded
-                    Backend.Users.selectors.showPermission.forEach(function (element) {
-                        element.onclick = function (event) {
-                            event.preventDefault();
-                            var $this = this;
-                            var role = $this.getAttribute("data-role");
-
-                            var permissions = document.querySelector(".permission-list[data-role='" + role + "']");
-                            var hideText = $this.querySelector('.hide-text');
-                            var showText = $this.querySelector('.show-text');
-
-                            // show permission list
-                            Backend.Utils.toggleClass(permissions, 'hidden');
-
-                            // toggle the text Show/Hide for the link
-                            Backend.Utils.toggleClass(hideText, 'hidden');
-                            Backend.Utils.toggleClass(showText, 'hidden');
+                            },
+                            error: function () {
+                                Backend.Users.selectors.getAvailabelPermissions.innerHTML = '<p>There are no available permissions.</p>';
+                            }
                         };
-                    });
+
+                        Backend.Utils.ajaxrequest(Backend.Users.selectors.getPremissionURL, "post", { role_id: event.target.value }, Backend.Utils.csrf, callback);
+                    }
+                });
+                if (page == "create") {
+                    Backend.Users.selectors.Role3.click();
                 }
+
+                this.selectors.select2.select2();
+
             },
+            windowloadhandler: function () {
+
+                // scripts to be handeled on user create and edit when window is laoaded
+                Backend.Users.selectors.showPermission.forEach(function (element) {
+                    element.onclick = function (event) {
+                        event.preventDefault();
+                        var $this = this;
+                        var role = $this.getAttribute("data-role");
+
+                        var permissions = document.querySelector(".permission-list[data-role='" + role + "']");
+                        var hideText = $this.querySelector('.hide-text');
+                        var showText = $this.querySelector('.show-text');
+
+                        // show permission list
+                        Backend.Utils.toggleClass(permissions, 'hidden');
+
+                        // toggle the text Show/Hide for the link
+                        Backend.Utils.toggleClass(hideText, 'hidden');
+                        Backend.Utils.toggleClass(showText, 'hidden');
+                    };
+                });
+            }
+        },
+
         /**
-        * Users delete page 
+        * Users delete page
         *
         */
 
-        UserDeleted: {
+        UserDeleted:
+        {
             selectors: {
                 AlldeletePerms: document.querySelectorAll("a[name='delete_user_perm']"),
                 AllrestorePerms: document.querySelectorAll("a[name='restore_user']"),
@@ -323,64 +325,65 @@ var Backend = {}; // common variable used in all the files of the backend
           *
           */
         Blog:
-            {
-                selectors: {
-                    tags: jQuery(".tags"),
-                    categories: jQuery(".categories"),
-                    toDisplay: jQuery(".toDisplay"),
-                    status: jQuery(".status"),
-                    datetimepicker1: jQuery("#datetimepicker1"),
-                    GenerateSlugUrl: "",
-                    name: document.getElementById("name"),
-                    SlugUrl: "",
-                    slug: document.getElementById("slug"),
-                },
-
-                init: function () {
-                    this.addHandlers();
-                    Backend.tinyMCE.init();
-                },
-
-                addHandlers: function () {
-
-                    this.selectors.tags.select2({
-                        tags: true,
-                    });
-                    this.selectors.categories.select2();
-                    this.selectors.toDisplay.select2();
-                    this.selectors.status.select2();
-
-                    //For Blog datetimepicker for publish_datetime
-                    this.selectors.datetimepicker1.datetimepicker();
-
-                    // For generating the Slug  //changing slug on blur event
-                    this.selectors.name.onblur = function (event) {
-                        url = event.target.value;
-                        if (url !== '') {
-                            callback = {
-                                success: function (request) {
-                                    if (request.status >= 200 && request.status < 400) {
-                                        // Success!
-                                        response = request.responseText;
-                                        Backend.Blog.selectors.slug.value = Backend.Blog.selectors.SlugUrl + '/' + response;
-                                    }
-                                },
-                                error: function (request) {
-
-                                }
-                            };
-                            Backend.Utils.ajaxrequest(Backend.Blog.selectors.GenerateSlugUrl, "post", { text: url }, Backend.Utils.csrf, callback);
-                        }
-                    };
-
-                }
+        {
+            selectors: {
+                tags: jQuery(".tags"),
+                categories: jQuery(".categories"),
+                toDisplay: jQuery(".toDisplay"),
+                status: jQuery(".status"),
+                datetimepicker1: jQuery("#datetimepicker1"),
+                GenerateSlugUrl: "",
+                name: document.getElementById("name"),
+                SlugUrl: "",
+                slug: document.getElementById("slug"),
             },
+
+            init: function () {
+                this.addHandlers();
+                Backend.tinyMCE.init();
+            },
+
+            addHandlers: function () {
+
+                this.selectors.tags.select2({
+                    tags: true,
+                });
+                this.selectors.categories.select2();
+                this.selectors.toDisplay.select2();
+                this.selectors.status.select2();
+
+                //For Blog datetimepicker for publish_datetime
+                this.selectors.datetimepicker1.datetimepicker();
+
+                // For generating the Slug  //changing slug on blur event
+                this.selectors.name.onblur = function (event) {
+                    url = event.target.value;
+                    if (url !== '') {
+                        callback = {
+                            success: function (request) {
+                                if (request.status >= 200 && request.status < 400) {
+                                    // Success!
+                                    response = request.responseText;
+                                    Backend.Blog.selectors.slug.value = Backend.Blog.selectors.SlugUrl + '/' + response;
+                                }
+                            },
+                            error: function (request) {
+
+                            }
+                        };
+                        Backend.Utils.ajaxrequest(Backend.Blog.selectors.GenerateSlugUrl, "post", { text: url }, Backend.Utils.csrf, callback);
+                    }
+                };
+
+            }
+        },
 
 
         /**
          * Tiny MCE
          */
-        tinyMCE: {
+        tinyMCE:
+        {
             init: function () {
                 tinymce.init({
                     path_absolute: "/",
@@ -426,7 +429,8 @@ var Backend = {}; // common variable used in all the files of the backend
             }
         },
 
-        emailTemplate: {
+        emailTemplate:
+        {
 
             selectors: {
                 emailtemplateSelection: document.querySelector(".select2")
@@ -472,7 +476,7 @@ var Backend = {}; // common variable used in all the files of the backend
         *
         */
         Faq:
-            {
+        {
                 selectors:
                     {
                     },
@@ -484,43 +488,43 @@ var Backend = {}; // common variable used in all the files of the backend
 
                 addHandlers: function () {
                 }
-            },
-
+        },
 
         /**
          * Profile
          *
          */
         Profile:
-            {
-                selectors: {
+        {
+            selectors: {
 
-                },
-                init: function () {
-                    this.setSelectors();
-                    this.addHandlers();
-                },
-                setSelectors: function () {
-
-                    this.selectors.state = document.querySelector(".st");
-                    this.selectors.cities = document.querySelector(".ct");
-                },
-                addHandlers: function () {
-                    if (this.selectors.state != null) {
-                        this.selectors.state.select2();
-                    }
-                    if (this.selectors.cities != null) {
-                        this.selectors.cities.select2();
-                    }
-
-                }
             },
+            init: function () {
+                this.setSelectors();
+                this.addHandlers();
+            },
+            setSelectors: function () {
+
+                this.selectors.state = document.querySelector(".st");
+                this.selectors.cities = document.querySelector(".ct");
+            },
+            addHandlers: function () {
+                if (this.selectors.state != null) {
+                    this.selectors.state.select2();
+                }
+                if (this.selectors.cities != null) {
+                    this.selectors.cities.select2();
+                }
+
+            }
+        },
 
         /**
          * for all datatables
          *
          */
-        DataTableSearch: { //functionalities related to datable search at all the places 
+        DataTableSearch:
+        { //functionalities related to datable search at all the places
             selector: {
             },
 
@@ -559,10 +563,10 @@ var Backend = {}; // common variable used in all the files of the backend
                             dataTable.fnFilter(this.value);
                         }
                     };
-                }); // to remove all the listinerers  
+                }); // to remove all the listinerers
 
                 // for text boxes
-                //column input search if search box on the column of the datatable given with enter then search with datatable 
+                //column input search if search box on the column of the datatable given with enter then search with datatable
                 if (this.selector.columnSearchInput.length > 0) {
                     this.selector.columnSearchInput.forEach(function (element) {
                         element.onkeypress = function (event) {
@@ -618,7 +622,8 @@ var Backend = {}; // common variable used in all the files of the backend
 
         },
 
-        Settings: {
+        Settings:
+        {
             selectors: {
                 RouteURL: "",
                 setting: document.getElementById("setting")
@@ -678,12 +683,7 @@ var Backend = {}; // common variable used in all the files of the backend
 
             }
         }
-
     };
-
-
-
-
 })();
 
 
