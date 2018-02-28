@@ -74,10 +74,14 @@
 @endsection
 
 @section('after-scripts')
-    {{ Html::script('js/backend/access/roles/script.js') }}
+    
     <script type="text/javascript">
-        $(document).ready(function() {
-            Backend.Access.init();
+        Backend.Utils.documentReady(function(){
+             Backend.Roles.init("edit")
         });
+        window.onload = function () {
+            Backend.Users.windowloadhandler();
+        };
+        
     </script>
 @endsection

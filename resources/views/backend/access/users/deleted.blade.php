@@ -109,18 +109,19 @@
     
                 Backend.DataTableSearch.init(dataTable);
 
-                Backend.Access.selectors.Areyousure = "{{ trans('strings.backend.general.are_you_sure') }}";
-                Backend.Access.selectors.delete_user_confirm = "{{ trans('strings.backend.access.users.delete_user_confirm') }}";
-                Backend.Access.selectors.continue = "{{ trans('strings.backend.general.continue') }}";
-                Backend.Access.selectors.cancel ="{{ trans('buttons.general.cancel') }}";
-                Backend.Access.selectors.restore_user_confirm ="{{ trans('strings.backend.access.users.restore_user_confirm') }}";
+                Backend.UserDeleted.selectors.Areyousure = "{{ trans('strings.backend.general.are_you_sure') }}";
+                Backend.UserDeleted.selectors.delete_user_confirm = "{{ trans('strings.backend.access.users.delete_user_confirm') }}";
+                Backend.UserDeleted.selectors.continue = "{{ trans('strings.backend.general.continue') }}";
+                Backend.UserDeleted.selectors.cancel ="{{ trans('buttons.general.cancel') }}";
+                Backend.UserDeleted.selectors.restore_user_confirm ="{{ trans('strings.backend.access.users.restore_user_confirm') }}";
             
             })();
 
             
      
         window.onload = function(){
-            Backend.Access.windowloadhandler();
+            
+            Backend.UserDeleted.windowloadhandler();
         }
           
 	</script>
