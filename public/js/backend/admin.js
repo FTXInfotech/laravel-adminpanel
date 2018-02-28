@@ -1,5 +1,93 @@
-var Backend = {
+//common functionalities for all the javascript featueres 
+var Backend = {}; // common variable used in all the files of the backend 
 
+(function()
+{
+    Backend = {
+    
+    Utils:{
+        toggleClass :function(element,className){
+            if (element.classList) {
+                element.classList.toggle(className);
+              } else {
+                var classes = element.className.split(' ');
+                var existingIndex = classes.indexOf(className);
+              
+                if (existingIndex >= 0)
+                  classes.splice(existingIndex, 1);
+                else
+                  classes.push(className);
+              
+                element.className = classes.join(' ');
+              }
+        },
+        documentReady : function(callback){
+            if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
+                callback();
+              } else {
+                document.addEventListener('DOMContentLoaded', callback);
+              }
+        },
+
+        ajaxrequest:function(url,method,data,csrf,callback){
+            var request = new XMLHttpRequest();
+            if (window.XMLHttpRequest) {
+                // code for modern browsers
+                request = new XMLHttpRequest();
+             } else {
+                // code for old IE browsers
+                request = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            request.open(method, url, true);
+            request.setRequestHeader('X-CSRF-TOKEN', csrf);
+            request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            if("post" === method.toLowerCase()){
+                request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+                data = this.jsontoformdata(data);
+            }
+            
+
+            // when request is in the ready state change the details or perform success function 
+            request.onreadystatechange = function()
+            {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    // Everything is good, the response was received.
+                    request.onload = callback.success(request);
+                } 
+            };
+            
+            request.onerror = callback.error;
+
+            
+            
+            request.send(data);
+        },
+
+        // This should probably only be used if all JSON elements are strings
+        jsontoformdata:function (srcjson){
+            if(typeof srcjson !== "object")
+            if(typeof console !== "undefined"){
+                console.log("\"srcjson\" is not a JSON object");
+                return null;
+            }
+            u = encodeURIComponent;
+            var urljson = "";
+            var keys = Object.keys(srcjson);
+            for(var i=0; i <keys.length; i++){
+                urljson += u(keys[i]) + "=" + u(srcjson[keys[i]]);
+                if(i < (keys.length-1))urljson+="&";
+            }
+            return urljson;
+        },
+
+        removeClass:function(el,className){
+            if (el.classList)
+                el.classList.remove(className);
+            else
+                el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
+
+    },
 
     /**
      * Pages
@@ -20,50 +108,162 @@ var Backend = {
     Access:
     {
         selectors: {
-            select2: jQuery(".select2"),
+            select2: $(".select2"),
+            getPremissionURL:"",
+            Areyousure:"",
+            delete_user_confirm:"",
+            continue:"",
+            cancel:"",
+            restore_user_confirm:"",
         },
 
-        init: function ()
+        init: function (page)
         {
-            this.addHandlers();
+            this.setSelectors();
+            this.addHandlers(page);
         },
-
-        addHandlers: function ()
+        setSelectors:function(){
+            this.selectors.select2 = $(".select2");
+           
+        },
+        addHandlers: function (page)
         {
+               /**
+             * This function is used to get clicked element role id and return required result
+             */
+            document.querySelectorAll(".get-role-for-permissions").forEach(function(element){
+                element.onclick =function(event){
+                    callback = {
+                        success:function(request){
+                            console.log("request",request,request.status);
+                            if (request.status >= 200 && request.status < 400) {
+                                // Success!
+                                var response = JSON.parse(request.responseText);
+                                var p = response.permissions;
+                                var q = response.rolePermissions;
+                                var qAll = response.allPermissions;
+
+                                
+                                document.querySelector(".get-available-permissions").innerHTML = "";
+                                htmlstring = "";
+                                if (p.length == 0) {
+                                    document.querySelector(".get-available-permissions").innerHTML = '<p>There are no available permissions.</p>';
+                                } else {
+                                    for (var key in p) {
+                                        var addChecked = '';
+                                        if (qAll == 1 && q.length == 0) {
+                                            addChecked = 'checked="checked"';
+                                        } else {
+                                            if (typeof q[key] !== "undefined") {
+                                                addChecked = 'checked="checked"';
+                                            }
+                                        }
+                                        htmlstring += '<label class="control control--checkbox"> <input type="checkbox" name="permissions[' + key + ']" value="' + key + '" id="perm_' + key + '" ' + addChecked + ' /> <label for="perm_' + key + '">' + p[key] + '</label> <div class="control__indicator"></div> </label> <br>'; 
+                                    }
+                                }
+                                document.querySelector(".get-available-permissions").innerHTML = htmlstring;
+                                Backend.Utils.removeClass(document.getElementById("available-permissions"),'hidden');
+
+                            } else {
+                                // We reached our target server, but it returned an error
+                                console.log("errror in request");
+                                document.querySelector(".get-available-permissions").innerHTML = '<p>There are no available permissions.</p>';
+                            }
+                        },
+                        error:function(){
+                            console.log("errror");
+                            document.querySelector(".get-available-permissions").innerHTML = '<p>There are no available permissions.</p>';
+                        }
+                    };
+                    
+                    Backend.Utils.ajaxrequest(Backend.Access.selectors.getPremissionURL,"post",{role_id: event.target.value},csrf,callback);
+                }
+             });
+             if(page=="create"){
+                 document.getElementById("role-3").click();
+             }
+
             this.selectors.select2.select2();
-        }
-    },
 
-
-    /**
-     * Blog
-     *
-     */
-    Blog:
-    {
-        selectors: {
-            tags: jQuery(".tags"),
-            categories : jQuery(".categories"),
-            toDisplay :jQuery(".toDisplay"),
-            status : jQuery(".status"),
         },
-
-        init: function ()
-        {
-            this.addHandlers();
-            Backend.tinyMCE.init();
-        },
-
-        addHandlers: function ()
-        {
-            this.selectors.tags.select2({
-                tags: true,
+        windowloadhandler:function(){
+            /*
+                deleted page showing the swal when click on peremenenant delition
+             */
+            document.querySelectorAll("a[name='delete_user_perm']").forEach(function(element){
+                element.onclick = function(event){
+                    event.preventDefault();
+                    var linkURL = event.target.getAttribute("href");
+                    swal({
+                        title:  Backend.Access.selectors.Areyousure,
+                        text:  Backend.Access.selectors.delete_user_confirm,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: Backend.Access.selectors.continue,
+                        cancelButtonText: Backend.Access.selectors.cancel,
+                        closeOnConfirm: false
+                    }, function(isConfirmed){
+                        if (isConfirmed){
+                            window.location.href = linkURL;
+                        }
+                    });
+                };
             });
-            this.selectors.categories.select2();
-            this.selectors.toDisplay.select2();
-            this.selectors.status.select2();
+            /**
+             * deleted user page handeler for user restore
+             */
+            document.querySelectorAll("a[name='restore_user']").forEach(function(element){
+                element.onclick = function(event){
+                    event.preventDefault();
+                    var linkURL = event.target.getAttribute("href");
+
+                    swal({
+                        title: Backend.Access.selectors.Areyousure,
+                        text: Backend.Access.selectors.restore_user_confirm,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText:  Backend.Access.selectors.continue,
+                        cancelButtonText: Backend.Access.selectors.cancel,
+                        closeOnConfirm: false
+                    }, function(isConfirmed){
+                        if (isConfirmed){
+                            window.location.href = linkURL;
+                        }
+                    });
+                };
+            });
         }
-    },
+    },   
+        /**
+          * Blog
+          *
+          */
+        Blog:
+        {
+            selectors: {
+                tags: jQuery(".tags"),
+                categories: jQuery(".categories"),
+                toDisplay: jQuery(".toDisplay"),
+                status: jQuery(".status"),
+            },
+
+            init: function () {
+                this.addHandlers();
+                Backend.tinyMCE.init();
+            },
+
+            addHandlers: function () {
+                this.selectors.tags.select2({
+                    tags: true,
+                });
+                this.selectors.categories.select2();
+                this.selectors.toDisplay.select2();
+                this.selectors.status.select2();
+            }
+        },
+
 
     /**
      * Tiny MCE
@@ -117,7 +317,7 @@ var Backend = {
     emailTemplate: {
 
         selectors: {
-            emailtemplateSelection: jQuery(".select2")
+            emailtemplateSelection: document.querySelector(".select2")
         },
 
         init: function () {
@@ -127,19 +327,20 @@ var Backend = {
 
         // ! Backend.emailTemplate.addHandlers
         addHandlers: function () {
+            $(".select2").select2();
             // to add placeholder in to active textarea
-            $("#addPlaceHolder").on('click', function (event) {
+            document.getElementById("addPlaceHolder").onclick = function(event){
                 Backend.emailTemplate.addPlaceHolder(event);
-            });
-            $("#showPreview").on('click', function (event) {
+            };
+            document.getElementById("showPreview").onclick = function(event){
                 Backend.emailTemplate.showPreview(event);
-            });
-            this.selectors.emailtemplateSelection.select2();
+            };
+        
         },
 
         // ! Backend.emailTemplate.addPlaceHolder
         addPlaceHolder: function (event) {
-            var placeHolder = $('#placeHolder').val();
+            var placeHolder =  document.getElementById('placeHolder').value;
             if (placeHolder != '') {
                 tinymce.activeEditor.execCommand('mceInsertContent', false, "[" + $('#placeHolder :selected').text() + "]");
             }
@@ -147,12 +348,14 @@ var Backend = {
 
         // ! Backend.emailTemplate.showPreview
         showPreview: function (event) {
-            jQuery( ".modal-body" ).html(tinyMCE.get('txtBody').getContent());
+            document.querySelector(".modal-body").innerHTML = tinyMCE.get('txtBody').getContent();
+            //jQuery( ".modal-body" ).html(tinyMCE.get('txtBody').getContent());
             $(".model-wrapper").modal('show');
+            
         },
     },
 
-    /**
+     /**
      * Faq
      *
      */
@@ -173,95 +376,147 @@ var Backend = {
         }
     },
 
-    /**
-     * Profile
-     *
-     */
-    Profile:
-    {
-        selectors: {
-            state: jQuery(".st"),
-            cities : jQuery(".ct"),
-        },
 
-        init: function ()
+        /**
+         * Profile
+         *
+         */
+        Profile:
         {
-            this.addHandlers();
-        },
+            selectors:{
 
-        addHandlers: function ()
-        {
-            this.selectors.state.select2();
-            this.selectors.cities.select2();
-        }
-    },
-
-    DataTableSearch: {
-        init: function (dataTable) {
-
-            // Header All search columns
-            $("div.dataTables_filter input").unbind();
-            $("div.dataTables_filter input").keypress( function (e)
+            },
+            init: function ()
             {
-                if (e.keyCode == 13)
-                {
-                    dataTable.fnFilter( this.value );
+                this.setSelectors();
+                this.addHandlers();
+            },
+            setSelectors:function(){
+                
+                this.selectors.state = document.querySelector(".st");
+                this.selectors.cities = document.querySelector(".ct");
+            },
+            addHandlers: function ()
+            {
+                if(this.selectors.state!=null){
+                    this.selectors.state.select2();
                 }
-            });
-
-            // Individual columns search
-            $('.search-input-text').on( 'keypress', function (e) {
-                // for text boxes
-                if (e.keyCode == 13)
-                {
-                    var i =$(this).attr('data-column');  // getting column index
-                    var v =$(this).val();  // getting search input value
-                    dataTable.api().columns(i).search(v).draw();
+                if(this.selectors.cities!=null){
+                    this.selectors.cities.select2();
                 }
-            });
-
-            // Individual columns search
-            $('.search-input-select').on( 'change', function (e) {
-                // for dropdown
-                var i =$(this).attr('data-column');  // getting column index
-                var v =$(this).val();  // getting search input value
-                dataTable.api().columns(i).search(v).draw();
-            });
-
-            // Individual columns reset
-            $('.reset-data').on( 'click', function (e) {
-                var textbox = $(this).prev('input'); // Getting closest input field
-                var i =textbox.attr('data-column');  // Getting column index
-                $(this).prev('input').val(''); // Blank the serch value
-                dataTable.api().columns(i).search("").draw();
-            });
-
-             //Copy button
-            $('#copyButton').click(function(){
-                $('.copyButton').trigger('click');
-            });
-             //Download csv
-            $('#csvButton').click(function(){
-                $('.csvButton').trigger('click');
-            });
-            //Download excelButton
-            $('#excelButton').click(function(){
-                $('.excelButton').trigger('click');
-            });
-            //Download pdf
-            $('#pdfButton').click(function(){
-                $('.pdfButton').trigger('click');
-            });
-             //Download printButton
-            $('#printButton').click(function(){
-                $('.printButton').trigger('click');
-            });
-
-            var id = $('.table-responsive .dataTables_filter').attr('id');
-            $('#'+id+' label').append('<a class="reset-data" id="input-sm-reset" href="javascript:void(0)"><i class="fa fa-times"></i></a>');
-            $(document).on('click', "#"+id+" label #input-sm-reset", function(){
-                dataTable.fnFilter('');
-            });
+                
+            }
         },
-    }
-}
+
+        /**
+         * for all datatables
+         *
+         */
+        DataTableSearch: { //functionalities related to datable search at all the places 
+            selector:{
+            },
+
+            init: function (dataTable) {
+
+               this.setSelectors();
+               this.addHandlers(dataTable);
+       
+            },
+            setSelectors:function(){
+                this.selector.searchInput = document.querySelector("div.dataTables_filter input");
+                this.selector.columnSearchInput = document.querySelectorAll(".search-input-text");
+                this.selector.columnSelectInput = document.querySelectorAll('search-input-select');
+                this.selector.restButton = document.querySelectorAll('.reset-data');
+                this.setSelectors.copyButton = document.getElementById("copyButton");
+                this.setSelectors.csvButton = document.getElementById("csvButton");
+                this.setSelectors.excelButton = document.getElementById("excelButton");
+                this.setSelectors.pdfButton = document.getElementById("pdfButton");
+                this.setSelectors.printButton = document.getElementById("printButton");
+                
+            },
+            cloneElement:function(element,callback){
+                var clone = element.cloneNode();
+                while (element.firstChild) {
+                    clone.appendChild(element.lastChild);
+                }
+                element.parentNode.replaceChild(clone, element);
+                Backend.DataTableSearch.setSelectors();
+                callback(this.selector.searchInput);
+            },
+            addHandlers:function(dataTable){
+                        // get the datatable search input and on its key press check if we hit enter then search with datatable
+               this.cloneElement(this.selector.searchInput,function(element){ //cloning done to remove any binding of the events
+                    element.onkeypress = function(event){
+                        if(event.keyCode==13){
+                            dataTable.fnFilter( this.value );
+                        }
+                    };
+               }); // to remove all the listinerers  
+               
+                // for text boxes
+                //column input search if search box on the column of the datatable given with enter then search with datatable 
+                if(this.selector.columnSearchInput.length>0){
+                    this.selector.columnSearchInput.forEach(function(element){
+                        element.onkeypress = function(event){
+                            if (event.keyCode == 13){
+                                var i =element.getAttribute("data-column")  // getting column index
+                                var v =element.value;  // getting search input value
+                                dataTable.api().columns(i).search(v).draw();
+                            }
+                        };
+                    });
+                }
+               
+
+               // Individual columns search
+                if(this.selector.columnSelectInput.length>>0){
+                    this.selector.columnSelectInput.forEach(function(element){
+                        element.onchange = function(event){
+                            var i =element.getAttribute("data-column"); // getting column index
+                            var v =element.value;  // getting search input value
+                            dataTable.api().columns(i).search(v).draw();
+                        };
+                    });
+                }
+               
+                // Individual columns reset
+                if(this.selector.restButton.length>>0){
+                    this.selector.restButton.forEach(function(element){
+                        element.onclick = function(event){
+                            var inputelement  = this.previousElementSibling;
+                            var i = inputelement.getAttribute("data-column");
+                            inputelement.value = "";
+                            dataTable.api().columns(i).search("").draw();
+                        };
+                    });
+                }
+
+                this.setSelectors.copyButton.onclick = function(element){
+                    document.querySelector(".copyButton").click();
+                };
+                this.setSelectors.csvButton.onclick = function(element){
+                    document.querySelector(".csvButton").click();
+                };
+                this.setSelectors.excelButton.onclick = function(element){
+                    document.querySelector(".excelButton").click();
+                };
+                this.setSelectors.pdfButton.onclick = function(element){
+                    document.querySelector(".pdfButton").click();
+                };
+                this.setSelectors.printButton.onclick = function(element){
+                    document.querySelector(".printButton").click();
+                };
+            }
+
+        }    
+    };
+})();
+
+
+
+
+
+
+
+
+

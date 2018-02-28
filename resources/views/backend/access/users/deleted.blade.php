@@ -68,80 +68,60 @@
     {{-- For DataTables --}}
     {{ Html::script(mix('js/dataTable.js')) }}
 	<script>
-		$(function() {
-            var dataTable = $('#users-table').dataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: '{{ route("admin.access.user.get") }}',
-                    type: 'post',
-                    data: {status: false, trashed: true}
-                },
-                columns: [
-                    {data: 'first_name', name: '{{config('access.users_table')}}.first_name'},
-                    {data: 'last_name', name: '{{config('access.users_table')}}.last_name'},
-                    {data: 'email', name: '{{config('access.users_table')}}.email'},
-                    {data: 'confirmed', name: '{{config('access.users_table')}}.confirmed'},
-                    {data: 'roles', name: '{{config('access.roles_table')}}.name', sortable: false},
-                    {data: 'created_at', name: '{{config('access.users_table')}}.created_at'},
-                    {data: 'updated_at', name: '{{config('access.users_table')}}.updated_at'},
-                    {data: 'actions', name: 'actions', searchable: false, sortable: false}
-                ],
-                order: [[0, "asc"]],
-                searchDelay: 500,
-                dom: 'lBfrtip',
-                buttons: {
-                    buttons: [
-                        { extend: 'copy', className: 'copyButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }},
-                        { extend: 'csv', className: 'csvButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }},
-                        { extend: 'excel', className: 'excelButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }},
-                        { extend: 'pdf', className: 'pdfButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }},
-                        { extend: 'print', className: 'printButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }}
-                    ]
-                }
-            });
 
-            Backend.DataTableSearch.init(dataTable);
-
-            $("body").on("click", "a[name='delete_user_perm']", function(e) {
-                e.preventDefault();
-                var linkURL = $(this).attr("href");
-
-                swal({
-                    title: "{{ trans('strings.backend.general.are_you_sure') }}",
-                    text: "{{ trans('strings.backend.access.users.delete_user_confirm') }}",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "{{ trans('strings.backend.general.continue') }}",
-                    cancelButtonText: "{{ trans('buttons.general.cancel') }}",
-                    closeOnConfirm: false
-                }, function(isConfirmed){
-                    if (isConfirmed){
-                        window.location.href = linkURL;
+            (function () {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-            });
-
-            $("body").on("click", "a[name='restore_user']", function(e) {
-                e.preventDefault();
-                var linkURL = $(this).attr("href");
-
-                swal({
-                    title: "{{ trans('strings.backend.general.are_you_sure') }}",
-                    text: "{{ trans('strings.backend.access.users.restore_user_confirm') }}",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "{{ trans('strings.backend.general.continue') }}",
-                    cancelButtonText: "{{ trans('buttons.general.cancel') }}",
-                    closeOnConfirm: false
-                }, function(isConfirmed){
-                    if (isConfirmed){
-                        window.location.href = linkURL;
+                var dataTable = $('#users-table').dataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url: '{{ route("admin.access.user.get") }}',
+                        type: 'post',
+                        data: {status: false, trashed: true}
+                    },
+                    columns: [
+                        {data: 'first_name', name: '{{config('access.users_table')}}.first_name'},
+                        {data: 'last_name', name: '{{config('access.users_table')}}.last_name'},
+                        {data: 'email', name: '{{config('access.users_table')}}.email'},
+                        {data: 'confirmed', name: '{{config('access.users_table')}}.confirmed'},
+                        {data: 'roles', name: '{{config('access.roles_table')}}.name', sortable: false},
+                        {data: 'created_at', name: '{{config('access.users_table')}}.created_at'},
+                        {data: 'updated_at', name: '{{config('access.users_table')}}.updated_at'},
+                        {data: 'actions', name: 'actions', searchable: false, sortable: false}
+                    ],
+                    order: [[0, "asc"]],
+                    searchDelay: 500,
+                    dom: 'lBfrtip',
+                    buttons: {
+                        buttons: [
+                            { extend: 'copy', className: 'copyButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }},
+                            { extend: 'csv', className: 'csvButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }},
+                            { extend: 'excel', className: 'excelButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }},
+                            { extend: 'pdf', className: 'pdfButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }},
+                            { extend: 'print', className: 'printButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6 ]  }}
+                        ]
                     }
                 });
-            });
-		});
+    
+                Backend.DataTableSearch.init(dataTable);
+
+                Backend.Access.selectors.Areyousure = "{{ trans('strings.backend.general.are_you_sure') }}";
+                Backend.Access.selectors.delete_user_confirm = "{{ trans('strings.backend.access.users.delete_user_confirm') }}";
+                Backend.Access.selectors.continue = "{{ trans('strings.backend.general.continue') }}";
+                Backend.Access.selectors.cancel ="{{ trans('buttons.general.cancel') }}";
+                Backend.Access.selectors.restore_user_confirm ="{{ trans('strings.backend.access.users.restore_user_confirm') }}";
+            
+            })();
+
+            
+     
+        window.onload = function(){
+            Backend.Access.windowloadhandler();
+        }
+          
 	</script>
 @endsection

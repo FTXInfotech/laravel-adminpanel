@@ -23,7 +23,13 @@ npm-debug.log
 yarn-error.log
 phpunit.txt
 public/css
-public/js
+public/js/*.js
+public/js/plugins
+public/js/skins
+public/js/themes
+
+public/js/skins/*.js
+
 composer.lock
 public/img/backend/blog_images/*
 public/mix-manifest.json
