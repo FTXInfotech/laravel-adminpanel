@@ -104,7 +104,7 @@
                                             @if (count($role->permissions) > 0)
                                                 <blockquote class="small">
                                                     @foreach ($role->permissions as $perm)
-                                                        {{$perm->display_name}}
+                                                        {{$perm->display_name}}<br/>
                                                     @endforeach
                                                 </blockquote>
                                             @else

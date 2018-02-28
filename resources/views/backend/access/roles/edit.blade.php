@@ -79,9 +79,5 @@
         Backend.Utils.documentReady(function(){
              Backend.Roles.init("edit")
         });
-        window.onload = function () {
-            Backend.Users.windowloadhandler();
-        };
-        
     </script>
 @endsection
