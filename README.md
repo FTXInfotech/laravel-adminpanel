@@ -72,9 +72,15 @@ Compile the dependencies
 
     npm run development
 
+For generating the files of unisharp file manager
+
+    php artisan vendor:publish --tag=lfm_public
+
 Start the local development server
 
     php artisan serve
+
+
 
 You can now access the server at http://localhost:8000
 
@@ -88,6 +94,7 @@ You can now access the server at http://localhost:8000
     npm run development
     php artisan key:generate
     php artisan jwt:generate
+    php artisan vendor:publish --tag=lfm_public
 
 ## Logging In
 
