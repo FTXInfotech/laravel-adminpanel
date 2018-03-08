@@ -34,7 +34,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
             Route::get('deleteUsers', 'UsersController@deleteUserList');
         });
         Route::resource('users', 'UsersController');
-      
+
         // Roles
         Route::resource('roles', 'RolesController');
         // Permission
@@ -42,7 +42,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
 
         // Page
         Route::resource('pages', 'PagesController');
-        
+
         // Faqs
         Route::resource('faqs', 'FaqsController');
 
