@@ -17,10 +17,15 @@ class UserResource extends Resource
     {
         return [
             'id'            => $this->id,
-            'name'          => $this->name,
+            'first_name'    => $this->first_name,
+            'last_name'     => $this->last_name,
             'email'         => $this->email,
-            'role'          => $this->roles()->first()->name,
+            'confirmed'     => $this->confirmed,
+            'role'          => optional($this->roles()->first())->name,
             'registered_at' => $this->created_at->toIso8601String(),
+            'last_updated_at' => $this->updated_at->toIso8601String(),
+            
+            
         ];
     }
 }
