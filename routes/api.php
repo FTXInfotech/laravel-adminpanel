@@ -45,5 +45,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         
         // Faqs
         Route::resource('faqs', 'FaqsController');
+
+        // Blog Categories
+        Route::resource('blog_categories', 'BlogCategoriesController');
     });
 });
