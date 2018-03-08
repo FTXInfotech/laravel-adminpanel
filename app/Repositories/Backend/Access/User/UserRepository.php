@@ -137,7 +137,7 @@ class UserRepository extends BaseRepository
         $data = $request->except('assignees_roles', 'permissions');
         $roles = $request->get('assignees_roles');
         $permissions = $request->get('permissions');
-       
+
         $this->checkUserByEmail($data, $user);
 
         DB::transaction(function () use ($user, $data, $roles, $permissions) {
