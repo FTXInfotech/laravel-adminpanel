@@ -49,7 +49,7 @@ class PermissionController extends APIController
     }
 
     /**
-     * Creates the Resourse for Role.
+     * Creates the Resource for Role.
      *
      * @param Request $request
      *
@@ -57,7 +57,7 @@ class PermissionController extends APIController
      */
     public function store(Request $request)
     {
-        $validation = $this->valiatingRequest($request);
+        $validation = $this->validatingRequest($request);
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
         }
@@ -76,7 +76,7 @@ class PermissionController extends APIController
      */
     public function update(Request $request, Permission $permission)
     {
-        $validation = $this->valiatingRequest($request);
+        $validation = $this->validatingRequest($request);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -89,7 +89,7 @@ class PermissionController extends APIController
         return new PermissionResource($permission);
     }
 
-    public function valiatingRequest(Request $request)
+    public function validatingRequest(Request $request)
     {
         $validation = Validator::make($request->all(), [
             'name'         => 'required|max:191',

@@ -58,7 +58,7 @@ class PagesController extends APIController
      */
     public function store(Request $request)
     {
-        $validation = $this->valiatingRequest($request);
+        $validation = $this->validatingRequest($request);
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
         }
@@ -76,7 +76,7 @@ class PagesController extends APIController
      */
     public function update(Request $request, Page $page)
     {
-        $validation = $this->valiatingRequest($request);
+        $validation = $this->validatingRequest($request);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -89,7 +89,7 @@ class PagesController extends APIController
         return new PagesResource($page);
     }
 
-    public function valiatingRequest(Request $request)
+    public function validatingRequest(Request $request)
     {
         
         $validation = Validator::make($request->all(), [

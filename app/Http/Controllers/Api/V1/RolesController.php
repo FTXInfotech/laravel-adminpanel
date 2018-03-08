@@ -57,7 +57,7 @@ class RolesController extends APIController
      */
     public function store(Request $request)
     {
-        $validation = $this->valiatingRequest($request);
+        $validation = $this->validatingRequest($request);
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
         }
@@ -75,7 +75,7 @@ class RolesController extends APIController
      */
     public function update(Request $request, Role $role)
     {
-        $validation = $this->valiatingRequest($request);
+        $validation = $this->validatingRequest($request);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -88,7 +88,7 @@ class RolesController extends APIController
         return new RoleResource($role);
     }
 
-    public function valiatingRequest(Request $request)
+    public function validatingRequest(Request $request)
     {
         $permissions = '';
 

@@ -89,7 +89,7 @@ class UsersController extends APIController
      */
     public function update(Request $request, User $user)
     {
-        $validation = $this->valiatingRequest($request, 'edit', $user->id);
+        $validation = $this->validatingRequest($request, 'edit', $user->id);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -107,7 +107,7 @@ class UsersController extends APIController
      */
     public function store(Request $request)
     {
-        $validation = $this->valiatingRequest($request);
+        $validation = $this->validatingRequest($request);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -120,7 +120,7 @@ class UsersController extends APIController
     /**
      * Validation function to validate user input.
      */
-    public function valiatingRequest(Request $request, $string = '', $id = 0)
+    public function validatingRequest(Request $request, $string = '', $id = 0)
     {
         $password = ($string == 'edit') ? '' : 'required|min:6|confirmed';
         $validation = Validator::make($request->all(), [
