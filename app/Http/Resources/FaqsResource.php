@@ -20,8 +20,8 @@ class FaqsResource extends Resource
             'id'            => $this->id,
             'question'      => $this->question,
             'answer'        => $this->answer,
-            'status'        => $this->status,
-            'created_at'    => $this->created_at->toIso8601String(),
+            'status'        => ($this->isActive()) ? "Active" : "InActive",
+            'created_at'    => $this->created_at->toDateString(),
         ];
     }
 }
