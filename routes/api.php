@@ -51,5 +51,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
 
         // Blog Tags
         Route::resource('blog_tags', 'BlogTagsController');
+
+        // Blogs
+        Route::resource('blogs', 'BlogsController');
     });
 });
