@@ -8,7 +8,6 @@ use App\Repositories\Backend\Access\Role\RoleRepository;
 use Illuminate\Http\Request;
 use Validator;
 
-
 class RolesController extends APIController
 {
     protected $repository;
@@ -50,7 +49,7 @@ class RolesController extends APIController
     }
 
     /**
-     * Creates the Resourse for Role
+     * Creates the Resourse for Role.
      *
      * @param Request $request
      *
@@ -65,10 +64,8 @@ class RolesController extends APIController
 
         $this->repository->create($request->all());
 
-        
         return new RoleResource(Role::orderBy('created_at', 'desc')->first());
     }
-
 
     /**
      * @param Role              $role
@@ -78,7 +75,6 @@ class RolesController extends APIController
      */
     public function update(Request $request, Role $role)
     {
-      
         $validation = $this->valiatingRequest($request);
 
         if ($validation->fails()) {
@@ -87,7 +83,7 @@ class RolesController extends APIController
 
         $this->repository->update($role, $request->all());
 
-        $role= Role::findOrfail($role->id);
+        $role = Role::findOrfail($role->id);
 
         return new RoleResource($role);
     }
@@ -96,17 +92,18 @@ class RolesController extends APIController
     {
         $permissions = '';
 
-        if ($request->post("associated_permissions") != 'all') {
+        if ($request->post('associated_permissions') != 'all') {
             $permissions = 'required';
         }
 
         $validation = Validator::make($request->all(), [
-            'name' => 'required|max:191',
+            'name'        => 'required|max:191',
             'permissions' => $permissions,
         ]);
 
         return $validation;
     }
+
     /**
      * @param Role              $role
      * @param DeleteRoleRequest $request
@@ -117,6 +114,6 @@ class RolesController extends APIController
     {
         $this->repository->delete($role);
 
-        return ["message"=>"success"];
+        return ['message'=>'success'];
     }
 }

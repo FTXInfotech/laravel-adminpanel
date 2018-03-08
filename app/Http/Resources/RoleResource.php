@@ -18,9 +18,9 @@ class RoleResource extends Resource
         return [
             'id'            => $this->id,
             'name'          => $this->name,
-            "permission"    => ($this->all)? "All": optional($this->permissions)->pluck("display_name"),
-            "noofuses"      => $this->users->count(),
-            "sort"          => $this->sort,
+            'permission'    => ($this->all) ? 'All' : optional($this->permissions)->pluck('display_name'),
+            'noofuses'      => $this->users->count(),
+            'sort'          => $this->sort,
         ];
     }
 }
