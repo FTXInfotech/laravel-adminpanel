@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Resources\RoleResource;
-use App\Models\Access\Role\Role;
-use App\Repositories\Backend\Access\Role\RoleRepository;
+use App\Http\Resources\BlogCategoriesResource;
+use App\Models\BlogCategories\BlogCategory;
+use App\Repositories\Backend\BlogCategories\BlogCategoriesRepository;
 use Illuminate\Http\Request;
 use Validator;
 
-class RolesController extends APIController
+class BlogCategoriesController extends APIController
 {
     protected $repository;
 
@@ -17,7 +17,7 @@ class RolesController extends APIController
      *
      * @param $repository
      */
-    public function __construct(RoleRepository $repository)
+    public function __construct(BlogCategoriesRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -29,10 +29,11 @@ class RolesController extends APIController
      */
     public function index(Request $request)
     {
-        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
 
-        return RoleResource::collection(
-            $this->repository->getPaginated($limit)
+        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
+       
+        return BlogCategoriesResource::collection(
+            $this->repository->getForDataTable()->paginate($limit)
         );
     }
 
@@ -43,13 +44,13 @@ class RolesController extends APIController
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(BlogCategory $blog_category)
     {
-        return new RoleResource($role);
+        return new BlogCategoriesResource($blog_category);
     }
 
     /**
-     * Creates the Resourse for Role.
+     * Creates the Resource for BlogCategory.
      *
      * @param Request $request
      *
@@ -64,16 +65,16 @@ class RolesController extends APIController
 
         $this->repository->create($request->all());
 
-        return new RoleResource(Role::orderBy('created_at', 'desc')->first());
+        return new BlogCategoriesResource(BlogCategory::orderBy('created_at', 'desc')->first());
     }
 
     /**
-     * @param Role              $role
-     * @param UpdateRoleRequest $request
+     * @param BlogCategory              $blog_category
+     * @param UpdateBlogCategoryRequest $request
      *
      * @return mixed
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, BlogCategory $blog_category)
     {
         $validation = $this->validatingRequest($request);
 
@@ -81,38 +82,32 @@ class RolesController extends APIController
             return $this->throwValidation($validation->messages()->first());
         }
 
-        $this->repository->update($role, $request->all());
+        $this->repository->update($blog_category, $request->all());
 
-        $role = Role::findOrfail($role->id);
+        $blog_category = BlogCategory::findOrfail($blog_category->id);
 
-        return new RoleResource($role);
+        return new BlogCategoriesResource($blog_category);
     }
 
     public function validatingRequest(Request $request)
     {
-        $permissions = '';
-
-        if ($request->post('associated_permissions') != 'all') {
-            $permissions = 'required';
-        }
-
+        
         $validation = Validator::make($request->all(), [
-            'name'        => 'required|max:191',
-            'permissions' => $permissions,
+            'name' => 'required|max:191',
         ]);
 
         return $validation;
     }
 
     /**
-     * @param Role              $role
-     * @param DeleteRoleRequest $request
+     * @param BlogCategory              $blog_category
+     * @param DeleteBlogCategoryRequest $request
      *
      * @return mixed
      */
-    public function destroy(Role $role, Request $request)
+    public function destroy(BlogCategory $blog_category, Request $request)
     {
-        $this->repository->delete($role);
+        $this->repository->delete($blog_category);
 
         return ['message'=>'success'];
     }

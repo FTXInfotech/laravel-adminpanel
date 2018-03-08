@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Resources\PermissionResource;
-use App\Models\Access\Permission\Permission;
-use App\Repositories\Backend\Access\Permission\PermissionRepository;
+use App\Http\Resources\PagesResource;
+use App\Models\Page\Page;
+use App\Repositories\Backend\Pages\PagesRepository;
 use Illuminate\Http\Request;
 use Validator;
 
-class PermissionController extends APIController
+class PagesController extends APIController
 {
     protected $repository;
 
@@ -17,7 +17,7 @@ class PermissionController extends APIController
      *
      * @param $repository
      */
-    public function __construct(PermissionRepository $repository)
+    public function __construct(PagesRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -29,10 +29,11 @@ class PermissionController extends APIController
      */
     public function index(Request $request)
     {
-        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
 
-        return PermissionResource::collection(
-            $this->repository->getPaginated($limit)
+        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
+       
+        return PagesResource::collection(
+            $this->repository->getForDataTable()->paginate($limit)
         );
     }
 
@@ -43,13 +44,13 @@ class PermissionController extends APIController
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Permission $permission)
+    public function show(Page $page)
     {
-        return new PermissionResource($permission);
+        return new PagesResource($page);
     }
 
     /**
-     * Creates the Resource for Role.
+     * Creates the Resourse for Page.
      *
      * @param Request $request
      *
@@ -61,20 +62,19 @@ class PermissionController extends APIController
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
         }
+
         $this->repository->create($request->all());
 
-        $permission = Permission::orderBy('created_at', 'desc')->first();
-
-        return new PermissionResource($permission);
+        return new PagesResource(Page::orderBy('created_at', 'desc')->first());
     }
 
     /**
-     * @param Role              $role
-     * @param UpdateRoleRequest $request
+     * @param Page              $page
+     * @param UpdatePageRequest $request
      *
      * @return mixed
      */
-    public function update(Request $request, Permission $permission)
+    public function update(Request $request, Page $page)
     {
         $validation = $this->validatingRequest($request);
 
@@ -82,32 +82,33 @@ class PermissionController extends APIController
             return $this->throwValidation($validation->messages()->first());
         }
 
-        $this->repository->update($permission, $request->all());
+        $this->repository->update($page, $request->all());
 
-        $permission = Permission::findOrfail($permission->id);
+        $page = Page::findOrfail($page->id);
 
-        return new PermissionResource($permission);
+        return new PagesResource($page);
     }
 
     public function validatingRequest(Request $request)
     {
+        
         $validation = Validator::make($request->all(), [
-            'name'         => 'required|max:191',
-            'display_name' => 'required|max:191',
+            'title' => 'required|max:191',
+            'description' => 'required',
         ]);
 
         return $validation;
     }
 
     /**
-     * @param Role              $role
-     * @param DeleteRoleRequest $request
+     * @param Page              $page
+     * @param DeletePageRequest $request
      *
      * @return mixed
      */
-    public function destroy(Permission $permission, Request $request)
+    public function destroy(Page $page, Request $request)
     {
-        $this->repository->delete($permission);
+        $this->repository->delete($page);
 
         return ['message'=>'success'];
     }

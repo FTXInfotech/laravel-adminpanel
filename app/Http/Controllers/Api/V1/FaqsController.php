@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Resources\PermissionResource;
-use App\Models\Access\Permission\Permission;
-use App\Repositories\Backend\Access\Permission\PermissionRepository;
+use App\Http\Resources\FaqsResource;
+use App\Models\Faqs\Faq;
+use App\Repositories\Backend\Faqs\FaqsRepository;
 use Illuminate\Http\Request;
 use Validator;
 
-class PermissionController extends APIController
+class FaqsController extends APIController
 {
     protected $repository;
 
@@ -17,7 +17,7 @@ class PermissionController extends APIController
      *
      * @param $repository
      */
-    public function __construct(PermissionRepository $repository)
+    public function __construct(FaqsRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -29,10 +29,11 @@ class PermissionController extends APIController
      */
     public function index(Request $request)
     {
-        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
 
-        return PermissionResource::collection(
-            $this->repository->getPaginated($limit)
+        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
+       
+        return FaqsResource::collection(
+            $this->repository->getForDataTable()->paginate($limit)
         );
     }
 
@@ -43,13 +44,13 @@ class PermissionController extends APIController
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Permission $permission)
+    public function show(Faq $faq)
     {
-        return new PermissionResource($permission);
+        return new FaqsResource($faq);
     }
 
     /**
-     * Creates the Resource for Role.
+     * Creates the Resource for Faq.
      *
      * @param Request $request
      *
@@ -61,20 +62,19 @@ class PermissionController extends APIController
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
         }
+
         $this->repository->create($request->all());
 
-        $permission = Permission::orderBy('created_at', 'desc')->first();
-
-        return new PermissionResource($permission);
+        return new FaqsResource(Faq::orderBy('created_at', 'desc')->first());
     }
 
     /**
-     * @param Role              $role
-     * @param UpdateRoleRequest $request
+     * @param Faq              $faq
+     * @param UpdateFaqRequest $request
      *
      * @return mixed
      */
-    public function update(Request $request, Permission $permission)
+    public function update(Request $request, Faq $faq)
     {
         $validation = $this->validatingRequest($request);
 
@@ -82,32 +82,33 @@ class PermissionController extends APIController
             return $this->throwValidation($validation->messages()->first());
         }
 
-        $this->repository->update($permission, $request->all());
+        $this->repository->update($faq, $request->all());
 
-        $permission = Permission::findOrfail($permission->id);
+        $faq = Faq::findOrfail($faq->id);
 
-        return new PermissionResource($permission);
+        return new FaqsResource($faq);
     }
 
     public function validatingRequest(Request $request)
     {
+        
         $validation = Validator::make($request->all(), [
-            'name'         => 'required|max:191',
-            'display_name' => 'required|max:191',
+            'question' => 'required|max:191',
+            'answer' => 'required',
         ]);
 
         return $validation;
     }
 
     /**
-     * @param Role              $role
-     * @param DeleteRoleRequest $request
+     * @param Faq              $faq
+     * @param DeleteFaqRequest $request
      *
      * @return mixed
      */
-    public function destroy(Permission $permission, Request $request)
+    public function destroy(Faq $faq, Request $request)
     {
-        $this->repository->delete($permission);
+        $this->repository->delete($faq);
 
         return ['message'=>'success'];
     }

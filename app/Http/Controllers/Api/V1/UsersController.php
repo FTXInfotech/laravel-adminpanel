@@ -32,7 +32,7 @@ class UsersController extends APIController
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
 
         return UserResource::collection(
-            $this->repository->getPaginated($limit)
+            $this->repository->getForDataTable(1, false)->paginate($limit)
         );
     }
 
@@ -54,11 +54,42 @@ class UsersController extends APIController
     }
 
     /**
+     * Return the specified resource.
+     *
+     * @param Request 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deactivatedUserList(Request $request)
+    {
+        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
+        
+        return UserResource::collection(
+            $this->repository->getForDataTable(0,false)->paginate($limit)
+        );
+    }
+    
+    /**
+     * Return the specified resource.
+     *
+     * @param User $user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteUserList(Request $request)
+    {
+        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
+        return UserResource::collection(
+            $this->repository->getForDataTable(0, true)->paginate($limit)
+        );
+    }
+        
+    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, User $user)
     {
-        $validation = $this->valiatingRequest($request, 'edit', $user->id);
+        $validation = $this->validatingRequest($request, 'edit', $user->id);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -76,7 +107,7 @@ class UsersController extends APIController
      */
     public function store(Request $request)
     {
-        $validation = $this->valiatingRequest($request);
+        $validation = $this->validatingRequest($request);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -89,7 +120,7 @@ class UsersController extends APIController
     /**
      * Validation function to validate user input.
      */
-    public function valiatingRequest(Request $request, $string = '', $id = 0)
+    public function validatingRequest(Request $request, $string = '', $id = 0)
     {
         $password = ($string == 'edit') ? '' : 'required|min:6|confirmed';
         $validation = Validator::make($request->all(), [
