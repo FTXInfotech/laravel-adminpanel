@@ -8,7 +8,6 @@ use App\Repositories\Backend\Access\Permission\PermissionRepository;
 use Illuminate\Http\Request;
 use Validator;
 
-
 class PermissionController extends APIController
 {
     protected $repository;
@@ -50,7 +49,7 @@ class PermissionController extends APIController
     }
 
     /**
-     * Creates the Resourse for Role
+     * Creates the Resourse for Role.
      *
      * @param Request $request
      *
@@ -63,11 +62,11 @@ class PermissionController extends APIController
             return $this->throwValidation($validation->messages()->first());
         }
         $this->repository->create($request->all());
-        
+
         $permission = Permission::orderBy('created_at', 'desc')->first();
+
         return new PermissionResource($permission);
     }
-
 
     /**
      * @param Role              $role
@@ -77,13 +76,12 @@ class PermissionController extends APIController
      */
     public function update(Request $request, Permission $permission)
     {
-      
         $validation = $this->valiatingRequest($request);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
         }
-        
+
         $this->repository->update($permission, $request->all());
 
         $permission = Permission::findOrfail($permission->id);
@@ -93,13 +91,14 @@ class PermissionController extends APIController
 
     public function valiatingRequest(Request $request)
     {
-        $validation = Validator::make($request->all(),[
+        $validation = Validator::make($request->all(), [
             'name'         => 'required|max:191',
             'display_name' => 'required|max:191',
         ]);
 
         return $validation;
     }
+
     /**
      * @param Role              $role
      * @param DeleteRoleRequest $request
@@ -110,6 +109,6 @@ class PermissionController extends APIController
     {
         $this->repository->delete($permission);
 
-        return ["message"=>"success"];
+        return ['message'=>'success'];
     }
 }

@@ -33,7 +33,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
 
         // Roles
         Route::resource('roles', 'RolesController');
-         // Permission
+        // Permission
         Route::resource('permission', 'PermissionController');
     });
 });

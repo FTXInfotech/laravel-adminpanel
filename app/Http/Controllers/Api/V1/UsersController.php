@@ -6,7 +6,6 @@ use App\Http\Resources\UserResource;
 use App\Models\Access\User\User;
 use App\Repositories\Backend\Access\User\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Validator;
 
 class UsersController extends APIController
@@ -47,25 +46,24 @@ class UsersController extends APIController
     public function show(User $user)
     {
         $data = new UserResource($user);
-        $history["history"] = history()->renderEntity('User', $user->id);
+        $history['history'] = history()->renderEntity('User', $user->id);
         $maindata = $data->toArray($user);
         $maindata = array_merge($maindata, $history);
-       return $maindata;
-    }
 
-    
+        return $maindata;
+    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, User $user)
     {
-        $validation = $this->valiatingRequest($request,"edit",$user->id);
+        $validation = $this->valiatingRequest($request, 'edit', $user->id);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
         }
-        
+
         $this->repository->update($user, $request);
 
         $user = User::findOrfail($user->id);
@@ -84,28 +82,31 @@ class UsersController extends APIController
             return $this->throwValidation($validation->messages()->first());
         }
         $this->repository->create($request);
+
         return new UserResource(User::orderBy('created_at', 'desc')->first());
     }
+
     /**
-     * Validation function to validate user input
+     * Validation function to validate user input.
      */
-    public function valiatingRequest(Request $request,$string="",$id=0)
+    public function valiatingRequest(Request $request, $string = '', $id = 0)
     {
-        $password = ($string=="edit")?"":"required|min:6|confirmed";
+        $password = ($string == 'edit') ? '' : 'required|min:6|confirmed';
         $validation = Validator::make($request->all(), [
-            'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
-            'email' => 'required|max:255|email|unique:users,email,'.$id,
-            'password' => $password,
+            'first_name'      => 'required|max:255',
+            'last_name'       => 'required|max:255',
+            'email'           => 'required|max:255|email|unique:users,email,'.$id,
+            'password'        => $password,
             'assignees_roles' => 'required',
-            'permissions' => 'required',
+            'permissions'     => 'required',
         ]);
 
         return $validation;
     }
 
     /**
-     * Api to delete the resource 
+     * Api to delete the resource.
+     *
      * @param Role              $role
      * @param DeleteRoleRequest $request
      *
@@ -115,6 +116,6 @@ class UsersController extends APIController
     {
         $this->repository->delete($user);
 
-        return ["message" => "success"];
+        return ['message' => 'success'];
     }
 }
