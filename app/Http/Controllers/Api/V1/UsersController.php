@@ -33,7 +33,7 @@ class UsersController extends APIController
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
 
         return UserResource::collection(
-            $this->repository->getPaginated($limit)
+            $this->repository->getForDataTable(1, false)->paginate($limit)
         );
     }
 
@@ -53,8 +53,38 @@ class UsersController extends APIController
        return $maindata;
     }
 
+    /**
+     * Return the specified resource.
+     *
+     * @param Request 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deactivatedUserList(Request $request)
+    {
+        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
+        
+        return UserResource::collection(
+            $this->repository->getForDataTable(0,false)->paginate($limit)
+        );
+    }
     
+    /**
+     * Return the specified resource.
+     *
+     * @param User $user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteUserList(Request $request)
+    {
+        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
 
+        return UserResource::collection(
+            $this->repository->getForDataTable(0, true)->paginate($limit)
+        );
+    }
+        
     /**
      * Update the specified resource in storage.
      */

@@ -29,11 +29,18 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         });
 
         // Users
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('deactiveUsers', 'UsersController@deactivatedUserList');
+            Route::get('deleteUsers', 'UsersController@deleteUserList');
+        });
         Route::resource('users', 'UsersController');
-
+      
         // Roles
         Route::resource('roles', 'RolesController');
          // Permission
         Route::resource('permission', 'PermissionController');
+
+        // Page
+        Route::resource('pages', 'PagesController');
     });
 });
