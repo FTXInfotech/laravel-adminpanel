@@ -29,9 +29,8 @@ class BlogCategoriesController extends APIController
      */
     public function index(Request $request)
     {
-
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
-       
+
         return BlogCategoriesResource::collection(
             $this->repository->getForDataTable()->paginate($limit)
         );
@@ -91,7 +90,6 @@ class BlogCategoriesController extends APIController
 
     public function validatingRequest(Request $request)
     {
-        
         $validation = Validator::make($request->all(), [
             'name' => 'required|max:191',
         ]);

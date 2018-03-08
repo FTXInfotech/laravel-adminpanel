@@ -56,19 +56,19 @@ class UsersController extends APIController
     /**
      * Return the specified resource.
      *
-     * @param Request 
+     * @param Request
      *
      * @return \Illuminate\Http\Response
      */
     public function deactivatedUserList(Request $request)
     {
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
-        
+
         return UserResource::collection(
-            $this->repository->getForDataTable(0,false)->paginate($limit)
+            $this->repository->getForDataTable(0, false)->paginate($limit)
         );
     }
-    
+
     /**
      * Return the specified resource.
      *
@@ -79,11 +79,12 @@ class UsersController extends APIController
     public function deleteUserList(Request $request)
     {
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
+
         return UserResource::collection(
             $this->repository->getForDataTable(0, true)->paginate($limit)
         );
     }
-        
+
     /**
      * Update the specified resource in storage.
      */
