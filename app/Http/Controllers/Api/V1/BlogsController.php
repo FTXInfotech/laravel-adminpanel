@@ -29,7 +29,6 @@ class BlogsController extends APIController
      */
     public function index(Request $request)
     {
-
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
 
         return BlogsResource::collection(
@@ -89,10 +88,10 @@ class BlogsController extends APIController
         return new BlogsResource($blog);
     }
 
-    public function validatingRequest(Request $request, $type="insert")
+    public function validatingRequest(Request $request, $type = 'insert')
     {
-        $featured_image = ($type=="insert")?"required":"";
-        
+        $featured_image = ($type == 'insert') ? 'required' : '';
+
         $validation = Validator::make($request->all(), [
             'name'           => 'required|max:191',
             'featured_image' => $featured_image,
@@ -103,6 +102,7 @@ class BlogsController extends APIController
 
         return $validation;
     }
+
     public function messages()
     {
         return [
@@ -110,7 +110,7 @@ class BlogsController extends APIController
             'name.max'      => 'Blog Title may not be greater than 191 characters.',
         ];
     }
-    
+
     /**
      * @param Blog              $blog
      * @param DeleteBlogRequest $request

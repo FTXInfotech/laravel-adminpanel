@@ -29,9 +29,8 @@ class BlogTagsController extends APIController
      */
     public function index(Request $request)
     {
-
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
-       
+
         return BlogTagsResource::collection(
             $this->repository->getForDataTable()->paginate($limit)
         );
@@ -91,9 +90,8 @@ class BlogTagsController extends APIController
 
     public function validatingRequest(Request $request, $id = 0)
     {
-        
         $validation = Validator::make($request->all(), [
-            'name' => 'required|max:191|unique:blog_tags,name,'. $id,
+            'name' => 'required|max:191|unique:blog_tags,name,'.$id,
         ]);
 
         return $validation;
