@@ -29,9 +29,8 @@ class FaqsController extends APIController
      */
     public function index(Request $request)
     {
-
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
-       
+
         return FaqsResource::collection(
             $this->repository->getForDataTable()->paginate($limit)
         );
@@ -91,10 +90,9 @@ class FaqsController extends APIController
 
     public function validatingRequest(Request $request)
     {
-        
         $validation = Validator::make($request->all(), [
             'question' => 'required|max:191',
-            'answer' => 'required',
+            'answer'   => 'required',
         ]);
 
         return $validation;
