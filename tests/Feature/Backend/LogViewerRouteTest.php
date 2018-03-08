@@ -25,7 +25,7 @@ class LogViewerRouteTest extends BrowserKitTestCase
             ->see('Logs');
     }
 
-    /** @test **/
+    /* @test **/
     /*public function admin_users_can_see_logviewer_single_date()
     {
         $this->actingAs($this->admin)
@@ -33,7 +33,7 @@ class LogViewerRouteTest extends BrowserKitTestCase
             ->see('Log ['.date('Y-m-d').']');
     }*/
 
-    /** @test **/
+    /* @test **/
     /*public function admin_users_can_see_logviewer_single_date_type()
     {
         $this->actingAs($this->admin)
