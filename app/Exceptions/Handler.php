@@ -47,6 +47,35 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+         /*
+         * Redirect if token mismatch error
+         * Usually because user stayed on the same screen too long and their session expired
+         */
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
+            switch (get_class($exception->getPrevious())) {
+                case \App\Exceptions\Handler::class:
+                    return response()->json([
+                        'status' => 'error',
+                        'error'  => 'Token has not been provided',
+                        'data'   => json_decode("{}"),
+                    ], $exception->getStatusCode());
+                case \Tymon\JWTAuth\Exceptions\TokenExpiredException::class:
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'Token has expired',
+                        'data' => json_decode("{}"),
+                    ], $exception->getStatusCode());
+                case \Tymon\JWTAuth\Exceptions\TokenInvalidException::class:
+                case \Tymon\JWTAuth\Exceptions\TokenBlacklistedException::class:
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'Token is invalid',
+                        'data' => json_decode("{}"),
+                    ], $exception->getStatusCode());
+                default:
+                    break;
+            }
+        }
         /*
          * Redirect if token mismatch error
          * Usually because user stayed on the same screen too long and their session expired
@@ -75,6 +104,7 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
+        
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
