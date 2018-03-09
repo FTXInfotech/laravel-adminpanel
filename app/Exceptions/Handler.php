@@ -62,14 +62,14 @@ class Handler extends ExceptionHandler
                 case \Tymon\JWTAuth\Exceptions\TokenExpiredException::class:
                     return response()->json([
                         'status' => 'error',
-                        'message' => 'Token has expired',
+                        'error' => 'Token has expired',
                         'data' => json_decode("{}"),
                     ], $exception->getStatusCode());
                 case \Tymon\JWTAuth\Exceptions\TokenInvalidException::class:
                 case \Tymon\JWTAuth\Exceptions\TokenBlacklistedException::class:
                     return response()->json([
                         'status' => 'error',
-                        'message' => 'Token is invalid',
+                        'error' => 'Token is invalid',
                         'data' => json_decode("{}"),
                     ], $exception->getStatusCode());
                 default:
@@ -88,6 +88,17 @@ class Handler extends ExceptionHandler
          * All instances of GeneralException redirect back with a flash message to show a bootstrap alert-error
          */
         if ($exception instanceof GeneralException) {
+            //Note:Below code is required when we use an extra class as api request then we need to pass accept:application/json in the header also
+            //if the header has accept application/json then $request->wantsJson() returns true 
+            // if ($request->ajax() || $request->wantsJson()){ 
+            //     $json = [
+            //         'success' => false,
+            //         'error' => [
+            //             'message' => $exception->getMessage(),
+            //         ],
+            //     ];
+            //     return response()->json($json, 400);
+            // }
             return redirect()->back()->withInput()->withFlashDanger($exception->getMessage());
         }
 

@@ -178,6 +178,20 @@ class APIController extends Controller
         return $this->setStatusCode(204)->respond(null);
     }
 
+
+    /**Note this function is same as the below function but instead of responding with error below function returns error json 
+     * Throw Validation.
+     *
+     * @param string $message
+     *
+     * @return mix
+     */
+    // public function throwValidation($message)
+    // {
+    //     return $this->setStatusCode(422)
+    //         ->respondWithError($message);
+    // }
+
     /**
      * Throw Validation.
      *
@@ -185,9 +199,8 @@ class APIController extends Controller
      *
      * @return mix
      */
-    public function throwValidation($message)
+    public function throwValidation($validation)
     {
-        return $this->setStatusCode(422)
-                    ->respondWithError($message);
+        return ["error"=>$validation->errors()];
     }
 }

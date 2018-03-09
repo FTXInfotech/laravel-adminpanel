@@ -6,7 +6,9 @@ use App\Http\Resources\BlogTagsResource;
 use App\Models\BlogTags\BlogTag;
 use App\Repositories\Backend\BlogTags\BlogTagsRepository;
 use Illuminate\Http\Request;
+use App\Http\Requests\Backend\BlogTags\StoreApiBlogTagsRequest;
 use Validator;
+use Exception;
 
 class BlogTagsController extends APIController
 {
@@ -67,6 +69,22 @@ class BlogTagsController extends APIController
 
         return new BlogTagsResource(BlogTag::orderBy('created_at', 'desc')->first());
     }
+    
+    /** NOTE This function is same as about but uses StoreApiBlogTagsRequest for validation of the api 
+     * Creates the Resource for BlogTag.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response
+     * 
+     * 
+     */
+    // public function store(StoreApiBlogTagsRequest $request)
+    // {
+    //     $this->repository->create($request->all());
+
+    //     return new BlogTagsResource(BlogTag::orderBy('created_at', 'desc')->first());
+    // }
 
     /**
      * @param BlogTag              $blog_tag
@@ -79,7 +97,7 @@ class BlogTagsController extends APIController
         $validation = $this->validatingRequest($request, $blog_tag->id);
 
         if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
+            return $this->throwValidation($validation);
         }
 
         $this->repository->update($blog_tag, $request->all());
