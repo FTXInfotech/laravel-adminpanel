@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use JWTAuth;
-use Illuminate\Support\Facades\Hash;
-use Validator;
-use Illuminate\Http\Request;
 use App\Models\Access\User\User;
-use App\Http\Resources\UserResource;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Validator;
 
 class AuthController extends APIController
 {
@@ -19,7 +18,6 @@ class AuthController extends APIController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-
     public function login(Request $request)
     {
         $validation = Validator::make($request->all(), [
