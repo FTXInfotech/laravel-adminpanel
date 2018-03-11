@@ -7,6 +7,7 @@ use App\Models\Access\User\User;
 use App\Repositories\Backend\Access\User\UserRepository;
 use Illuminate\Http\Request;
 use Validator;
+use JWTAuth;
 
 class UsersController extends APIController
 {
@@ -29,6 +30,7 @@ class UsersController extends APIController
      */
     public function index(Request $request)
     {
+        dd(JWTAuth::getPayload());
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
 
         return UserResource::collection(
