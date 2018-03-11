@@ -6,6 +6,12 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -60,6 +66,58 @@ class Handler extends ExceptionHandler
          */
         if ($exception instanceof GeneralException) {
             return redirect()->back()->withInput()->withFlashDanger($exception->getMessage());
+        }
+
+        if(strpos($request->url(), '/api/') !== false)
+        {
+            \Log::debug("API Request Exception - ". $request->url() ." - " . $exception->getMessage() . (!empty($request->all()) ? ' - ' . json_encode($request->except(['password'])) : ''));
+
+            if($exception instanceof MethodNotAllowedHttpException)
+            {
+                return response()->json((object) [
+                    'status'        => false,
+                    'errorCode'     => 'METHOD_NOT_ALLOWED',
+                    'message'       => 'Please check HTTP Request Method. - MethodNotAllowedHttpException'
+                ], 403);
+            }
+
+            if($exception instanceof NotFoundHttpException)
+            {
+                return response()->json((object) [
+                    'status'        => false,
+                    'errorCode'     => 'URL_NOT_FOUND',
+                    'message'       => 'Please check your URL to make sure request is formatted properly. - NotFoundHttpException'
+                ], 403);
+            }
+
+            if($exception instanceof GeneralException)
+            {
+                return response()->json((object) [
+                    'status'        => false,
+                    'errorCode'     => 'EXCEPTION',
+                    'message'       => $exception->getMessage()
+                ], 403);
+            }
+
+            if($exception instanceof ModelNotFoundException)
+            {
+                return response()->json((object) [
+                    'status'        => false,
+                    'errorCode'     => 'ITEM_NOT_FOUND',
+                    'message'       => 'Item could not be found. Please check identifier.'
+                ], 403);
+            }
+
+            if($exception instanceof ValidationException)
+            {
+                \Log::debug("API Validation Exception - " . json_encode($exception->validator->messages()));
+
+                return response()->json((object) [
+                    'status'        => false,
+                    'errorCode'     => 'VALIDATION_EXCEPTION',
+                    'messages'      => $exception->validator->messages()
+                ], 403);
+            }
         }
 
         return parent::render($request, $exception);
