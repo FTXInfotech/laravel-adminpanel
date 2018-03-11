@@ -6,8 +6,8 @@ use App\Http\Resources\UserResource;
 use App\Models\Access\User\User;
 use App\Repositories\Backend\Access\User\UserRepository;
 use Illuminate\Http\Request;
-use Validator;
 use JWTAuth;
+use Validator;
 
 class UsersController extends APIController
 {
