@@ -31,48 +31,6 @@ class AuthController extends APIController
             return $this->throwValidation($validation->messages()->first());
         }
 
-        $credentials = $request->only('email', 'password');
-
-        $user = User::where('email', $credentials['email'])->firstOrFail();
-
-        if (!Hash::check($credentials['password'], $user->password)) {
-            return $this->throwValidation('invalid_credentials');
-        }
-
-        try {
-           $customClaims = [
-               'id'              => $user->id,
-               'first_name'      => $user->first_name,
-               'last_name'       => $user->last_name,
-               'email'           => $user->email,
-               'confirmed'       => $user->confirmed,
-               'registered_at'   => $user->created_at->toIso8601String(),
-               'last_updated_at' => $user->updated_at->toIso8601String(),
-           ];
-
-           $token = JWTAuth::fromUser($user, $customClaims);
-        } catch (JWTException $e) {
-           return $this->respondInternalError($e->getMessage());
-        }
-
-        return $this->respond([
-            'message'   => trans('api.messages.login.success'),
-            'token'     => $token,
-        ]);
-    }
-
-
-    /*public function login(Request $request)
-    {
-        $validation = Validator::make($request->all(), [
-            'email'     => 'required|email',
-            'password'  => 'required|min:4',
-        ]);
-
-        if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
-        }
-
         $credentials = $request->only(['email', 'password']);
 
         try {
@@ -87,7 +45,7 @@ class AuthController extends APIController
             'message'   => trans('api.messages.login.success'),
             'token'     => $token,
         ]);
-    }*/
+    }
 
     /**
      * Log the user out (Invalidate the token).

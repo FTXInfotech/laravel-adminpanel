@@ -23,7 +23,7 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
-        "tymon/jwt-auth": "1.0.0-rc.2",
+        "tymon/jwt-auth": "dev-develop",
         "unisharp/laravel-filemanager": "~1.8",
         "yajra/laravel-datatables-oracle":  "~8.0"
     },
