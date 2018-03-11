@@ -74,49 +74,29 @@ class Handler extends ExceptionHandler
 
             if($exception instanceof MethodNotAllowedHttpException)
             {
-                return response()->json((object) [
-                    'status'        => false,
-                    'errorCode'     => 'METHOD_NOT_ALLOWED',
-                    'message'       => 'Please check HTTP Request Method. - MethodNotAllowedHttpException'
-                ], 403);
+                return $this->setStatusCode(403)->respondWithError('Please check HTTP Request Method. - MethodNotAllowedHttpException');
             }
 
             if($exception instanceof NotFoundHttpException)
             {
-                return response()->json((object) [
-                    'status'        => false,
-                    'errorCode'     => 'URL_NOT_FOUND',
-                    'message'       => 'Please check your URL to make sure request is formatted properly. - NotFoundHttpException'
-                ], 403);
+                return $this->setStatusCode(403)->respondWithError('Please check your URL to make sure request is formatted properly. - NotFoundHttpException');
             }
 
             if($exception instanceof GeneralException)
             {
-                return response()->json((object) [
-                    'status'        => false,
-                    'errorCode'     => 'EXCEPTION',
-                    'message'       => $exception->getMessage()
-                ], 403);
+                return $this->setStatusCode(403)->respondWithError($exception->getMessage());
             }
 
             if($exception instanceof ModelNotFoundException)
             {
-                return response()->json((object) [
-                    'status'        => false,
-                    'errorCode'     => 'ITEM_NOT_FOUND',
-                    'message'       => 'Item could not be found. Please check identifier.'
-                ], 403);
+                return $this->setStatusCode(403)->respondWithError('Item could not be found. Please check identifier.');
             }
 
             if($exception instanceof ValidationException)
             {
                 \Log::debug("API Validation Exception - " . json_encode($exception->validator->messages()));
 
-                return response()->json((object) [
-                    'status'        => false,
-                    'errorCode'     => 'VALIDATION_EXCEPTION',
-                    'messages'      => $exception->validator->messages()
-                ], 403);
+                return $this->setStatusCode(422)->respondWithError($exception->validator->messages());
             }
         }
 
@@ -138,5 +118,59 @@ class Handler extends ExceptionHandler
         }
 
         return redirect()->guest(route('frontend.auth.login'));
+    }
+
+    /**
+     * get the status code.
+     *
+     * @return statuscode
+     */
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
+
+    /**
+     * set the status code.
+     *
+     * @param [type] $statusCode [description]
+     *
+     * @return statuscode
+     */
+    public function setStatusCode($statusCode)
+    {
+        $this->statusCode = $statusCode;
+
+        return $this;
+    }
+
+    /**
+     * respond with error.
+     *
+     * @param $message
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithError($message)
+    {
+        return $this->respond([
+                'error' => [
+                    'message'     => $message,
+                    'status_code' => $this->getStatusCode(),
+                ],
+            ]);
+    }
+
+    /**
+     * Respond.
+     *
+     * @param array $data
+     * @param array $headers
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respond($data, $headers = [])
+    {
+        return response()->json($data, $this->getStatusCode(), $headers);
     }
 }
