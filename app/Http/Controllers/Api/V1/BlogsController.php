@@ -23,9 +23,9 @@ class BlogsController extends APIController
     }
 
     /**
-     * Return the users.
+     * Return the blogs.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
@@ -39,9 +39,9 @@ class BlogsController extends APIController
     /**
      * Return the specified resource.
      *
-     * @param User $user
+     * @param Blog blog
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Blog $blog)
     {
@@ -53,29 +53,32 @@ class BlogsController extends APIController
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        $validation = $this->validatingRequest($request);
+        $validation = $this->validateBlog($request);
+
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
         }
 
         $this->repository->create($request->all());
-
+        
         return new BlogsResource(Blog::orderBy('created_at', 'desc')->first());
     }
 
     /**
+     * Update blog
+     * 
      * @param Blog              $blog
-     * @param UpdateBlogRequest $request
+     * @param Request           $request
      *
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Blog $blog)
     {
-        $validation = $this->validatingRequest($request, 'update');
+        $validation = $this->validateBlog($request, 'update');
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -88,9 +91,33 @@ class BlogsController extends APIController
         return new BlogsResource($blog);
     }
 
-    public function validatingRequest(Request $request, $type = 'insert')
+    /**
+     * Delete Blog 
+     * 
+     * @param Blog              $blog
+     * @param Request           $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Blog $blog, Request $request)
     {
-        $featured_image = ($type == 'insert') ? 'required' : '';
+        $this->repository->delete($blog);
+
+        return $this->respond([
+            'message' => trans('alerts.backend.blogs.deleted'),
+        ]);
+    }
+
+    /**
+     * validate Blog.
+     *
+     * @param $request 
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function validateBlog(Request $request, $action = 'insert')
+    {
+        $featured_image = ($action == 'insert') ? 'required' : '';
 
         $validation = Validator::make($request->all(), [
             'name'           => 'required|max:191',
@@ -102,7 +129,11 @@ class BlogsController extends APIController
 
         return $validation;
     }
-
+    /**
+     * validate message for validate blog.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function messages()
     {
         return [
@@ -111,16 +142,4 @@ class BlogsController extends APIController
         ];
     }
 
-    /**
-     * @param Blog              $blog
-     * @param DeleteBlogRequest $request
-     *
-     * @return mixed
-     */
-    public function destroy(Blog $blog, Request $request)
-    {
-        $this->repository->delete($blog);
-
-        return ['message'=>'success'];
-    }
 }

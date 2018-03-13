@@ -24,9 +24,9 @@ class BlogTagsController extends APIController
     }
 
     /**
-     * Return the users.
+     * Return the BlogTags.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
@@ -40,9 +40,9 @@ class BlogTagsController extends APIController
     /**
      * Return the specified resource.
      *
-     * @param User $user
+     * @param BlogTag $blog_tag
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(BlogTag $blog_tag)
     {
@@ -54,7 +54,7 @@ class BlogTagsController extends APIController
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -68,25 +68,13 @@ class BlogTagsController extends APIController
         return new BlogTagsResource(BlogTag::orderBy('created_at', 'desc')->first());
     }
 
-    /** NOTE This function is same as about but uses StoreApiBlogTagsRequest for validation of the api
-     * Creates the Resource for BlogTag.
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function store(StoreApiBlogTagsRequest $request)
-    // {
-    //     $this->repository->create($request->all());
-
-    //     return new BlogTagsResource(BlogTag::orderBy('created_at', 'desc')->first());
-    // }
-
     /**
+     * Update BlogTag
+     * 
      * @param BlogTag              $blog_tag
-     * @param UpdateBlogTagRequest $request
+     * @param Request              $request
      *
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, BlogTag $blog_tag)
     {
@@ -103,20 +91,13 @@ class BlogTagsController extends APIController
         return new BlogTagsResource($blog_tag);
     }
 
-    public function validatingRequest(Request $request, $id = 0)
-    {
-        $validation = Validator::make($request->all(), [
-            'name' => 'required|max:191|unique:blog_tags,name,'.$id,
-        ]);
-
-        return $validation;
-    }
-
     /**
+     * Delete BlogTag
+     * 
      * @param BlogTag              $blog_tag
      * @param DeleteBlogTagRequest $request
      *
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(BlogTag $blog_tag, Request $request)
     {
@@ -124,4 +105,21 @@ class BlogTagsController extends APIController
 
         return ['message'=>'success'];
     }
+
+    /**
+     * validate BlogTag.
+     *
+     * @param $request 
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function validatingRequest(Request $request, $id = 0)
+    {
+        $validation = Validator::make($request->all(), [
+            'name' => 'required|max:191|unique:blog_tags,name,' . $id,
+        ]);
+
+        return $validation;
+    }
+
 }

@@ -25,7 +25,7 @@ class FaqsController extends APIController
     /**
      * Return the faqs.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
@@ -41,7 +41,7 @@ class FaqsController extends APIController
      *
      * @param Faq $faq
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Faq $faq)
     {
@@ -53,7 +53,7 @@ class FaqsController extends APIController
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -73,7 +73,7 @@ class FaqsController extends APIController
      * @param Faq     $faq
      * @param Request $request
      *
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Faq $faq)
     {
@@ -96,7 +96,7 @@ class FaqsController extends APIController
      * @param Faq     $faq
      * @param Request $request
      *
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Faq $faq, Request $request)
     {
