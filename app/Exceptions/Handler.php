@@ -51,30 +51,30 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-         /*
-         * Redirect if token mismatch error
-         * Usually because user stayed on the same screen too long and their session expired
-         */
+        /*
+        * Redirect if token mismatch error
+        * Usually because user stayed on the same screen too long and their session expired
+        */
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
             switch (get_class($exception->getPrevious())) {
                 case \App\Exceptions\Handler::class:
                     return response()->json([
                         'status' => 'error',
                         'error'  => 'Token has not been provided',
-                        'data'   => json_decode("{}"),
+                        'data'   => json_decode('{}'),
                     ], $exception->getStatusCode());
                 case \Tymon\JWTAuth\Exceptions\TokenExpiredException::class:
                     return response()->json([
                         'status' => 'error',
-                        'error' => 'Token has expired',
-                        'data' => json_decode("{}"),
+                        'error'  => 'Token has expired',
+                        'data'   => json_decode('{}'),
                     ], $exception->getStatusCode());
                 case \Tymon\JWTAuth\Exceptions\TokenInvalidException::class:
                 case \Tymon\JWTAuth\Exceptions\TokenBlacklistedException::class:
                     return response()->json([
                         'status' => 'error',
-                        'error' => 'Token is invalid',
-                        'data' => json_decode("{}"),
+                        'error'  => 'Token is invalid',
+                        'data'   => json_decode('{}'),
                     ], $exception->getStatusCode());
                 default:
                     break;
@@ -93,8 +93,8 @@ class Handler extends ExceptionHandler
          */
         if ($exception instanceof GeneralException) {
             //Note:Below code is required when we use an extra class as api request then we need to pass accept:application/json in the header also
-            //if the header has accept application/json then $request->wantsJson() returns true 
-            // if ($request->ajax() || $request->wantsJson()){ 
+            //if the header has accept application/json then $request->wantsJson() returns true
+            // if ($request->ajax() || $request->wantsJson()){
             //     $json = [
             //         'success' => false,
             //         'error' => [
@@ -145,7 +145,6 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }

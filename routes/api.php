@@ -28,13 +28,12 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
             // Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
         });
         // Users
-        Route::resource('users', 'UsersController', ['except' => ['create','edit']]);
+        Route::resource('users', 'UsersController', ['except' => ['create', 'edit']]);
         Route::get('deactivatedUsers', 'DeactivatedUsersController@index');
         Route::get('deletedUsers', 'DeletedUsersController@index');
 
-        
         // Roles
-        Route::resource('roles', 'RolesController' , ['except' => ['create', 'edit']]);
+        Route::resource('roles', 'RolesController', ['except' => ['create', 'edit']]);
         // Permission
         Route::resource('permission', 'PermissionController');
 

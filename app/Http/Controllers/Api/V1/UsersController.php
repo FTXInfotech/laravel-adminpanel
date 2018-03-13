@@ -76,7 +76,7 @@ class UsersController extends APIController
      * @param Request $request
      * @param User    $user
      *
-     * @return Validator object 
+     * @return Validator object
      */
     public function update(Request $request, User $user)
     {
