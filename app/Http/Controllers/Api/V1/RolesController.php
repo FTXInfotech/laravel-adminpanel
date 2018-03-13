@@ -79,7 +79,7 @@ class RolesController extends APIController
      */
     public function update(Request $request, Role $role)
     {
-        $validation = $this->validateRole($request);
+        $validation = $this->validateRole($request, $role->id);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -110,11 +110,12 @@ class RolesController extends APIController
     /**
      * validateUser Role Requests.
      *
-     * @param $request
-     *
+     * @param Request $request
+     * @param int     $id
+     * 
      * @return Validator object
      */
-    public function validateRole(Request $request)
+    public function validateRole(Request $request,$id=0)
     {
         $permissions = '';
 
@@ -123,7 +124,7 @@ class RolesController extends APIController
         }
 
         $validation = Validator::make($request->all(), [
-            'name'        => 'required|max:191',
+            'name'        => 'required|max:191|unique:roles,name,'.$id,
             'permissions' => $permissions,
         ]);
 
