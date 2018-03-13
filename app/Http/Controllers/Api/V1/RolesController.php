@@ -55,13 +55,13 @@ class RolesController extends APIController
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
         $validation = $this->validateRole($request);
         if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
+            return $this->throwValidation($validation);
         }
 
         $this->repository->create($request->all());
@@ -82,7 +82,7 @@ class RolesController extends APIController
         $validation = $this->validateRole($request);
 
         if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
+            return $this->throwValidation($validation);
         }
 
         $this->repository->update($role, $request->all());
@@ -108,7 +108,7 @@ class RolesController extends APIController
     }
 
     /**
-     * validateUser User.
+     * validateUser Role Requests.
      *
      * @param $request
      *

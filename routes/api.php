@@ -35,7 +35,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         // Roles
         Route::resource('roles', 'RolesController', ['except' => ['create', 'edit']]);
         // Permission
-        Route::resource('permission', 'PermissionController');
+        Route::resource('permission', 'PermissionController', ['except' => ['create', 'edit']]);
 
         // Page
         Route::resource('pages', 'PagesController');
