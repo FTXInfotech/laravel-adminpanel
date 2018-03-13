@@ -69,8 +69,6 @@ class UsersController extends APIController
 
         $this->repository->create($request);
 
-        event(new UserCreated($user));
-
         return new UserResource(User::orderBy('created_at', 'desc')->first());
     }
 
@@ -91,8 +89,6 @@ class UsersController extends APIController
         }
 
         $updatedUser = $this->repository->update($user, $request);
-
-        event(new UserUpdated($user));
 
         return new UserResource($updatedUser);
     }

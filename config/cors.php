@@ -34,6 +34,8 @@ return [
             'Content-Type',
             'X-Auth-Token',
             'Origin',
+            'x-xsrf-token',
+            'x_csrftoken',
             'Authorization',
         ],
 
