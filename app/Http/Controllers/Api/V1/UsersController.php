@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Events\Backend\Access\User\UserCreated;
-use App\Events\Backend\Access\User\UserUpdated;
 use App\Http\Resources\UserResource;
 use App\Models\Access\User\User;
 use App\Repositories\Backend\Access\User\UserRepository;
