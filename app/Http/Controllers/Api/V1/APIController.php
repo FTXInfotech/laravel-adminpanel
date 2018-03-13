@@ -185,21 +185,10 @@ class APIController extends Controller
      *
      * @return mix
      */
-    // public function throwValidation($message)
-    // {
-    //     return $this->setStatusCode(422)
-    //         ->respondWithError($message);
-    // }
-
-    /**
-     * Throw Validation.
-     *
-     * @param string $message
-     *
-     * @return mix
-     */
     public function throwValidation($message)
     {
-        return ['error'=> $message];
+        return $this->setStatusCode(422)
+            ->respondWithError($message);
     }
+
 }
