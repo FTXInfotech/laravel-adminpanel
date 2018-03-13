@@ -109,6 +109,13 @@ class FaqsController extends APIController
         ]);
     }
 
+    /**
+     * validateUser User.
+     *
+     * @param $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function validateFaq(Request $request)
     {
         $validation = Validator::make($request->all(), [
