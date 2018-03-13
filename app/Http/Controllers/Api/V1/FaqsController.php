@@ -23,7 +23,7 @@ class FaqsController extends APIController
     }
 
     /**
-     * Return the users.
+     * Return the faqs.
      *
      * @return \Illuminate\Http\Response
      */
@@ -39,7 +39,7 @@ class FaqsController extends APIController
     /**
      * Return the specified resource.
      *
-     * @param User $user
+     * @param Faq $faq
      *
      * @return \Illuminate\Http\Response
      */
@@ -57,7 +57,7 @@ class FaqsController extends APIController
      */
     public function store(Request $request)
     {
-        $validation = $this->validatingRequest($request);
+        $validation = $this->validateFaq($request);
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
         }
@@ -68,14 +68,16 @@ class FaqsController extends APIController
     }
 
     /**
-     * @param Faq              $faq
-     * @param UpdateFaqRequest $request
+     * Update Faq
+     * 
+     * @param Faq               $faq
+     * @param Request           $request
      *
      * @return mixed
      */
     public function update(Request $request, Faq $faq)
     {
-        $validation = $this->validatingRequest($request);
+        $validation = $this->validateFaq($request);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -88,19 +90,13 @@ class FaqsController extends APIController
         return new FaqsResource($faq);
     }
 
-    public function validatingRequest(Request $request)
-    {
-        $validation = Validator::make($request->all(), [
-            'question' => 'required|max:191',
-            'answer'   => 'required',
-        ]);
-
-        return $validation;
-    }
+    
 
     /**
+     * Delete Faq
+     * 
      * @param Faq              $faq
-     * @param DeleteFaqRequest $request
+     * @param Request           $request
      *
      * @return mixed
      */
@@ -108,6 +104,18 @@ class FaqsController extends APIController
     {
         $this->repository->delete($faq);
 
-        return ['message'=>'success'];
+        return $this->respond([
+            'message' => trans('alerts.backend.faqs.deleted'),
+        ]);
+    }
+
+    public function validateFaq(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'question' => 'required|max:191',
+            'answer' => 'required',
+        ]);
+
+        return $validation;
     }
 }
