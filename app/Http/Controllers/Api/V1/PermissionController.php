@@ -71,6 +71,8 @@ class PermissionController extends APIController
     }
 
     /**
+     *  Updates Permission
+     * 
      * @param Permission        $permission
      * @param Request           $request
      *
@@ -92,6 +94,8 @@ class PermissionController extends APIController
     }
 
     /**
+     * Delete permission 
+     * 
      * @param Role              $role
      * @param DeleteRoleRequest $request
      *

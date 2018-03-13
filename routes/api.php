@@ -38,18 +38,18 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::resource('permission', 'PermissionController', ['except' => ['create', 'edit']]);
 
         // Page
-        Route::resource('pages', 'PagesController');
+        Route::resource('pages', 'PagesController', ['except' => ['create', 'edit']]);
 
         // Faqs
-        Route::resource('faqs', 'FaqsController');
+        Route::resource('faqs', 'FaqsController', ['except' => ['create', 'edit']]);
 
         // Blog Categories
         Route::resource('blog_categories', 'BlogCategoriesController', ['except' => ['create', 'edit']]);
 
         // Blog Tags
-        Route::resource('blog_tags', 'BlogTagsController');
+        Route::resource('blog_tags', 'BlogTagsController', ['except' => ['create', 'edit']]);
 
         // Blogs
-        Route::resource('blogs', 'BlogsController');
+        Route::resource('blogs', 'BlogsController', ['except' => ['create', 'edit']]);
     });
 });

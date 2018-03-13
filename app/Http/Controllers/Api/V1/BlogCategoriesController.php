@@ -70,6 +70,8 @@ class BlogCategoriesController extends APIController
     }
 
     /**
+     * Update BlogCategory
+     * 
      * @param BlogCategory      $blog_category
      * @param Request           $request
      *
@@ -91,6 +93,8 @@ class BlogCategoriesController extends APIController
     }
 
     /**
+     *  Delete BlogCategory
+     * 
      * @param BlogCategory              $blog_category
      * @param Request $request
      *
@@ -106,7 +110,7 @@ class BlogCategoriesController extends APIController
     }
 
     /**
-     * validateUser Permission Requests.
+     * validateUser BlogCategory Requests.
      *
      * @param Request $request
      * 
