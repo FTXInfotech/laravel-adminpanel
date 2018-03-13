@@ -68,10 +68,10 @@ class FaqsController extends APIController
     }
 
     /**
-     * Update Faq
-     * 
-     * @param Faq               $faq
-     * @param Request           $request
+     * Update Faq.
+     *
+     * @param Faq     $faq
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -90,13 +90,11 @@ class FaqsController extends APIController
         return new FaqsResource($faq);
     }
 
-    
-
     /**
-     * Delete Faq
-     * 
-     * @param Faq               $faq
-     * @param Request           $request
+     * Delete Faq.
+     *
+     * @param Faq     $faq
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -120,7 +118,7 @@ class FaqsController extends APIController
     {
         $validation = Validator::make($request->all(), [
             'question' => 'required|max:191',
-            'answer' => 'required',
+            'answer'   => 'required',
         ]);
 
         return $validation;
