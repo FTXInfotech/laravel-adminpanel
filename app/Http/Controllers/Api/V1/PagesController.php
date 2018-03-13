@@ -69,7 +69,7 @@ class PagesController extends APIController
 
     /**
      *  Update Page.
-     * 
+     *
      * @param Page    $page
      * @param Request $request
      *
@@ -92,7 +92,7 @@ class PagesController extends APIController
 
     /**
      *  Delete Page.
-     * 
+     *
      * @param Page              $page
      * @param DeletePageRequest $request
      *
@@ -107,21 +107,18 @@ class PagesController extends APIController
         ]);
     }
 
-
     /**
      * validateUser Pages Requests.
      *
      * @param Request $request
      * @param int     $id
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-
-    public function validatePages(Request $request,$id=0)
+    public function validatePages(Request $request, $id = 0)
     {
-        
         $validation = Validator::make($request->all(), [
-            'title' => 'required|max:191|unique:pages,title,'.$id,
+            'title'       => 'required|max:191|unique:pages,title,'.$id,
             'description' => 'required',
         ]);
 
