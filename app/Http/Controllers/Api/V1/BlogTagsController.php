@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\Backend\BlogTags\StoreApiBlogTagsRequest;
 use App\Http\Resources\BlogTagsResource;
 use App\Models\BlogTags\BlogTag;
 use App\Repositories\Backend\BlogTags\BlogTagsRepository;
@@ -69,10 +68,10 @@ class BlogTagsController extends APIController
     }
 
     /**
-     * Update BlogTag
-     * 
-     * @param BlogTag              $blog_tag
-     * @param Request              $request
+     * Update BlogTag.
+     *
+     * @param BlogTag $blog_tag
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -92,8 +91,8 @@ class BlogTagsController extends APIController
     }
 
     /**
-     * Delete BlogTag
-     * 
+     * Delete BlogTag.
+     *
      * @param BlogTag              $blog_tag
      * @param DeleteBlogTagRequest $request
      *
@@ -109,17 +108,16 @@ class BlogTagsController extends APIController
     /**
      * validate BlogTag.
      *
-     * @param $request 
+     * @param $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function validatingRequest(Request $request, $id = 0)
     {
         $validation = Validator::make($request->all(), [
-            'name' => 'required|max:191|unique:blog_tags,name,' . $id,
+            'name' => 'required|max:191|unique:blog_tags,name,'.$id,
         ]);
 
         return $validation;
     }
-
 }

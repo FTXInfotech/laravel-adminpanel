@@ -64,15 +64,15 @@ class BlogsController extends APIController
         }
 
         $this->repository->create($request->all());
-        
+
         return new BlogsResource(Blog::orderBy('created_at', 'desc')->first());
     }
 
     /**
-     * Update blog
-     * 
-     * @param Blog              $blog
-     * @param Request           $request
+     * Update blog.
+     *
+     * @param Blog    $blog
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -92,10 +92,10 @@ class BlogsController extends APIController
     }
 
     /**
-     * Delete Blog 
-     * 
-     * @param Blog              $blog
-     * @param Request           $request
+     * Delete Blog.
+     *
+     * @param Blog    $blog
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -111,7 +111,7 @@ class BlogsController extends APIController
     /**
      * validate Blog.
      *
-     * @param $request 
+     * @param $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -129,6 +129,7 @@ class BlogsController extends APIController
 
         return $validation;
     }
+
     /**
      * validate message for validate blog.
      *
@@ -141,5 +142,4 @@ class BlogsController extends APIController
             'name.max'      => 'Blog Title may not be greater than 191 characters.',
         ];
     }
-
 }
