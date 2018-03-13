@@ -95,7 +95,7 @@ class FaqsController extends APIController
     /**
      * Delete Faq
      * 
-     * @param Faq              $faq
+     * @param Faq               $faq
      * @param Request           $request
      *
      * @return mixed
@@ -110,7 +110,7 @@ class FaqsController extends APIController
     }
 
     /**
-     * validateFaq Faq.
+     * validate Faq.
      *
      * @param $request
      *
