@@ -94,7 +94,7 @@ class RolesController extends APIController
 
     /**
      *  Delete Role.
-     * 
+     *
      * @param Role    $role
      * @param Request $request
      *
