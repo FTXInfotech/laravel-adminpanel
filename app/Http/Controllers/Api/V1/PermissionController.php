@@ -50,7 +50,6 @@ class PermissionController extends APIController
         return new PermissionResource($permission);
     }
 
-
     /**
      * Creates the Resource for Permission.
      *
@@ -111,14 +110,14 @@ class PermissionController extends APIController
      * validateUser Permission Requests.
      *
      * @param Request $request
-     * @param Integer $id
-     * 
+     * @param int     $id
+     *
      * @return Validator object
      */
-    public function validatePermission(Request $request,$id=0)
+    public function validatePermission(Request $request, $id = 0)
     {
         $validation = Validator::make($request->all(), [
-            'name' => 'required|max:191|unique:permissions,name,'.$id,
+            'name'         => 'required|max:191|unique:permissions,name,'.$id,
             'display_name' => 'required|max:191',
         ]);
 
