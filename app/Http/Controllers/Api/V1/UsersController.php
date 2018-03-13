@@ -76,7 +76,7 @@ class UsersController extends APIController
      * @param Request $request
      * @param User    $user
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return Validator object 
      */
     public function update(Request $request, User $user)
     {
@@ -106,38 +106,6 @@ class UsersController extends APIController
         return $this->respond([
             'message'   => trans('alerts.backend.users.deleted'),
         ]);
-    }
-
-    /**
-     * Return the deactivate users.
-     *
-     * @param Request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function deactivatedUserList(Request $request)
-    {
-        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
-
-        return UserResource::collection(
-            $this->repository->getForDataTable(0, false)->paginate($limit)
-        );
-    }
-
-    /**
-     * Return the deleted users.
-     *
-     * @param User $user
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function deleteUserList(Request $request)
-    {
-        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
-
-        return UserResource::collection(
-            $this->repository->getForDataTable(0, true)->paginate($limit)
-        );
     }
 
     /**

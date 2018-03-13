@@ -27,17 +27,14 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
             Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
             // Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
         });
-
-        Route::resource('users', 'UsersController', ['except' => ['edit', 'udpate']]);
-
         // Users
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('deactiveUsers', 'UsersController@deactivatedUserList');
-            Route::get('deleteUsers', 'UsersController@deleteUserList');
-        });
+        Route::resource('users', 'UsersController', ['except' => ['create','edit']]);
+        Route::get('deactivatedUsers', 'DeactivatedUsersController@index');
+        Route::get('deletedUsers', 'DeletedUsersController@index');
 
+        
         // Roles
-        Route::resource('roles', 'RolesController');
+        Route::resource('roles', 'RolesController' , ['except' => ['create', 'edit']]);
         // Permission
         Route::resource('permission', 'PermissionController');
 
