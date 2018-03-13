@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use Validator;
-use Illuminate\Http\Request;
-use App\Models\Access\User\User;
-use App\Http\Resources\UserResource;
 use App\Events\Backend\Access\User\UserCreated;
 use App\Events\Backend\Access\User\UserUpdated;
+use App\Http\Resources\UserResource;
+use App\Models\Access\User\User;
 use App\Repositories\Backend\Access\User\UserRepository;
+use Illuminate\Http\Request;
+use Validator;
 
 class UsersController extends APIController
 {
@@ -52,8 +52,8 @@ class UsersController extends APIController
         return new UserResource($user);
     }
 
-     /**
-     * Create User
+    /**
+     * Create User.
      *
      * @param Request $request
      *
@@ -75,10 +75,10 @@ class UsersController extends APIController
     }
 
     /**
-     * Update User
+     * Update User.
      *
      * @param Request $request
-     * @param User $user
+     * @param User    $user
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -98,7 +98,7 @@ class UsersController extends APIController
     }
 
     /**
-     * Delete User
+     * Delete User.
      *
      * @param User    $user
      * @param Request $request
@@ -115,7 +115,7 @@ class UsersController extends APIController
     }
 
     /**
-     * Return the deactivate users
+     * Return the deactivate users.
      *
      * @param Request
      *
@@ -147,7 +147,7 @@ class UsersController extends APIController
     }
 
     /**
-     * validateUser User
+     * validateUser User.
      *
      * @param $request
      * @param $action
