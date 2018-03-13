@@ -23,43 +23,46 @@ class PermissionController extends APIController
     }
 
     /**
-     * Return the users.
+     * Return the permissions.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
 
         return PermissionResource::collection(
-            $this->repository->getPaginated($limit)
+            $this->repository->getForDataTable()->paginate($limit)
         );
     }
 
     /**
      * Return the specified resource.
      *
-     * @param User $user
+     * @param Permission $permission
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Permission $permission)
     {
         return new PermissionResource($permission);
     }
 
+
     /**
-     * Creates the Resource for Role.
+     * Creates the Resource for Permission.
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        $validation = $this->validatingRequest($request);
+        $validation = $this->validatePermission($request);
         if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
+            return $this->throwValidation($validation);
         }
         $this->repository->create($request->all());
 
@@ -69,17 +72,17 @@ class PermissionController extends APIController
     }
 
     /**
-     * @param Role              $role
+     * @param Permission        $permission
      * @param UpdateRoleRequest $request
      *
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Permission $permission)
     {
-        $validation = $this->validatingRequest($request);
+        $validation = $this->validatePermission($request, $permission->id);
 
         if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
+            return $this->throwValidation($validation);
         }
 
         $this->repository->update($permission, $request->all());
@@ -89,26 +92,36 @@ class PermissionController extends APIController
         return new PermissionResource($permission);
     }
 
-    public function validatingRequest(Request $request)
-    {
-        $validation = Validator::make($request->all(), [
-            'name'         => 'required|max:191',
-            'display_name' => 'required|max:191',
-        ]);
-
-        return $validation;
-    }
-
     /**
      * @param Role              $role
      * @param DeleteRoleRequest $request
      *
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Permission $permission, Request $request)
     {
         $this->repository->delete($permission);
 
-        return ['message'=>'success'];
+        return $this->respond([
+            'message' => trans('alerts.backend.permissions.deleted'),
+        ]);
+    }
+
+    /**
+     * validateUser Permission Requests.
+     *
+     * @param Request $request
+     * @param Integer $id
+     * 
+     * @return Validator object
+     */
+    public function validatePermission(Request $request,$id=0)
+    {
+        $validation = Validator::make($request->all(), [
+            'name' => 'required|max:191|unique:permissions,name,'.$id,
+            'display_name' => 'required|max:191',
+        ]);
+
+        return $validation;
     }
 }

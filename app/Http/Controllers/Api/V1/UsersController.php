@@ -62,7 +62,7 @@ class UsersController extends APIController
         $validation = $this->validateUser($request);
 
         if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
+            return $this->throwValidation($validation);
         }
 
         $this->repository->create($request);
@@ -83,7 +83,7 @@ class UsersController extends APIController
         $validation = $this->validateUser($request, 'edit', $user->id);
 
         if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
+            return $this->throwValidation($validation);
         }
 
         $updatedUser = $this->repository->update($user, $request);
