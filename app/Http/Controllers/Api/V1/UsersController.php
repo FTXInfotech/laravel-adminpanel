@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Events\Backend\Access\User\UserCreated;
+use App\Events\Backend\Access\User\UserUpdated;
 use App\Http\Resources\UserResource;
 use App\Models\Access\User\User;
 use App\Repositories\Backend\Access\User\UserRepository;
@@ -25,7 +27,9 @@ class UsersController extends APIController
     /**
      * Return the users.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
@@ -41,24 +45,81 @@ class UsersController extends APIController
      *
      * @param User $user
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(User $user)
     {
-        $data = new UserResource($user);
-        $history['history'] = history()->renderEntity('User', $user->id);
-        $maindata = $data->toArray($user);
-        $maindata = array_merge($maindata, $history);
-
-        return $maindata;
+        return new UserResource($user);
     }
 
     /**
-     * Return the specified resource.
+     * Create User.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(Request $request)
+    {
+        $validation = $this->validateUser($request);
+
+        if ($validation->fails()) {
+            return $this->throwValidation($validation->messages()->first());
+        }
+
+        $this->repository->create($request);
+
+        event(new UserCreated($user));
+
+        return new UserResource(User::orderBy('created_at', 'desc')->first());
+    }
+
+    /**
+     * Update User.
+     *
+     * @param Request $request
+     * @param User    $user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, User $user)
+    {
+        $validation = $this->validateUser($request, 'edit', $user->id);
+
+        if ($validation->fails()) {
+            return $this->throwValidation($validation->messages()->first());
+        }
+
+        $updatedUser = $this->repository->update($user, $request);
+
+        event(new UserUpdated($user));
+
+        return new UserResource($updatedUser);
+    }
+
+    /**
+     * Delete User.
+     *
+     * @param User    $user
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function destroy(User $user, Request $request)
+    {
+        $this->repository->delete($user);
+
+        return $this->respond([
+            'message'   => trans('alerts.backend.users.deleted'),
+        ]);
+    }
+
+    /**
+     * Return the deactivate users.
      *
      * @param Request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function deactivatedUserList(Request $request)
     {
@@ -70,11 +131,11 @@ class UsersController extends APIController
     }
 
     /**
-     * Return the specified resource.
+     * Return the deleted users.
      *
      * @param User $user
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function deleteUserList(Request $request)
     {
@@ -86,44 +147,18 @@ class UsersController extends APIController
     }
 
     /**
-     * Update the specified resource in storage.
+     * validateUser User.
+     *
+     * @param $request
+     * @param $action
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, User $user)
+    public function validateUser(Request $request, $action = '', $id = 0)
     {
-        $validation = $this->validatingRequest($request, 'edit', $user->id);
+        $password = ($action == 'edit') ? '' : 'required|min:6|confirmed';
 
-        if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
-        }
-
-        $this->repository->update($user, $request);
-
-        $user = User::findOrfail($user->id);
-
-        return new UserResource($user);
-    }
-
-    /**
-     * Store the specified resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validation = $this->validatingRequest($request);
-
-        if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
-        }
-        $this->repository->create($request);
-
-        return new UserResource(User::orderBy('created_at', 'desc')->first());
-    }
-
-    /**
-     * Validation function to validate user input.
-     */
-    public function validatingRequest(Request $request, $string = '', $id = 0)
-    {
-        $password = ($string == 'edit') ? '' : 'required|min:6|confirmed';
         $validation = Validator::make($request->all(), [
             'first_name'      => 'required|max:255',
             'last_name'       => 'required|max:255',
@@ -134,20 +169,5 @@ class UsersController extends APIController
         ]);
 
         return $validation;
-    }
-
-    /**
-     * Api to delete the resource.
-     *
-     * @param Role              $role
-     * @param DeleteRoleRequest $request
-     *
-     * @return mixed
-     */
-    public function destroy(User $user, Request $request)
-    {
-        $this->repository->delete($user);
-
-        return ['message' => 'success'];
     }
 }
