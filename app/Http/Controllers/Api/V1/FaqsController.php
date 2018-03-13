@@ -110,7 +110,7 @@ class FaqsController extends APIController
     }
 
     /**
-     * validateUser User.
+     * validateFaq Faq.
      *
      * @param $request
      *
