@@ -132,6 +132,7 @@ class BlogsController extends APIController
     /**
      * validate message for validate blog.
      *
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function messages()
