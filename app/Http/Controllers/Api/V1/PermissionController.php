@@ -61,7 +61,7 @@ class PermissionController extends APIController
     {
         $validation = $this->validatePermission($request);
         if ($validation->fails()) {
-            return $this->throwValidation($validation);
+            return $this->throwValidation($validation->messages()->first());
         }
         $this->repository->create($request->all());
 
@@ -81,7 +81,7 @@ class PermissionController extends APIController
         $validation = $this->validatePermission($request, $permission->id);
 
         if ($validation->fails()) {
-            return $this->throwValidation($validation);
+            return $this->throwValidation($validation->messages()->first());
         }
 
         $this->repository->update($permission, $request->all());

@@ -198,8 +198,8 @@ class APIController extends Controller
      *
      * @return mix
      */
-    public function throwValidation($validation)
+    public function throwValidation($message)
     {
-        return ['error'=>$validation->errors()];
+        return ['error'=> $message];
     }
 }
