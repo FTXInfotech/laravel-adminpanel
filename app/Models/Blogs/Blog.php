@@ -7,6 +7,8 @@ use App\Models\Blogs\Traits\Attribute\BlogAttribute;
 use App\Models\Blogs\Traits\Relationship\BlogRelationship;
 use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
+use App\Models\BlogTags\BlogTag;
 
 class Blog extends BaseModel
 {
@@ -49,4 +51,17 @@ class Blog extends BaseModel
         parent::__construct($attributes);
         $this->table = config('module.blogs.table');
     }
+
+     public static function archives()
+     {
+        return static::SELECTRaw('year( `created_at`) year, monthname(`created_at`) month,COUNT(*) published')
+        ->GROUPBy('month','year')
+        ->get()
+        ->toarray();
+        }
+
+    // public function tags()
+    // {
+    //     return $this->belongsToMany(BlogTag::class);
+    // }
 }

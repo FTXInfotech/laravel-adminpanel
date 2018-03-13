@@ -1,4 +1,5 @@
-@extends('frontend.layouts.app')
 
-   @include('frontend.includes.header');
-    @include('frontend.includes.footer');
+
+   @include('frontend.includes.header')
+   @yield('content')
+    @include('frontend.includes.footer')

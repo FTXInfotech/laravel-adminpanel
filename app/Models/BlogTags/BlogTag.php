@@ -31,4 +31,11 @@ class BlogTag extends BaseModel
         parent::__construct($attributes);
         $this->table = config('module.blog_tags.table');
     }
+
+     public function blogs()
+    {
+        return $this->belongsToMany(Blog::class);
+    }
+
+  
 }

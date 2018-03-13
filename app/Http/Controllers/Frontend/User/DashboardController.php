@@ -15,6 +15,7 @@ class DashboardController extends Controller
      */
     public function index(DashboardViewRequest $request)
     {
+    	// dd('here');
         return view('frontend.user.dashboard');
     }
 }
