@@ -70,7 +70,7 @@ class RolesController extends APIController
     }
 
     /**
-     * Update User.
+     * Update Role.
      *
      * @param Request $request
      * @param Role    $role
@@ -93,6 +93,8 @@ class RolesController extends APIController
     }
 
     /**
+     *  Delete Role.
+     * 
      * @param Role    $role
      * @param Request $request
      *

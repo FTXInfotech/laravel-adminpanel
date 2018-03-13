@@ -23,9 +23,9 @@ class PagesController extends APIController
     }
 
     /**
-     * Return the users.
+     * Return the pages.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
@@ -39,9 +39,9 @@ class PagesController extends APIController
     /**
      * Return the specified resource.
      *
-     * @param User $user
+     * @param Pages $page
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Page $page)
     {
@@ -49,15 +49,15 @@ class PagesController extends APIController
     }
 
     /**
-     * Creates the Resourse for Page.
+     * Creates the Resource for Page.
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        $validation = $this->validatingRequest($request);
+        $validation = $this->validatePages($request);
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
         }
@@ -68,14 +68,16 @@ class PagesController extends APIController
     }
 
     /**
-     * @param Page              $page
-     * @param UpdatePageRequest $request
+     *  Update Page.
+     * 
+     * @param Page    $page
+     * @param Request $request
      *
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Page $page)
     {
-        $validation = $this->validatingRequest($request);
+        $validation = $this->validatePages($request, $page->id);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -88,26 +90,41 @@ class PagesController extends APIController
         return new PagesResource($page);
     }
 
-    public function validatingRequest(Request $request)
-    {
-        $validation = Validator::make($request->all(), [
-            'title'       => 'required|max:191',
-            'description' => 'required',
-        ]);
-
-        return $validation;
-    }
-
     /**
+     *  Delete Page.
+     * 
      * @param Page              $page
      * @param DeletePageRequest $request
      *
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Page $page, Request $request)
     {
         $this->repository->delete($page);
 
-        return ['message'=>'success'];
+        return $this->respond([
+            'message' => trans('alerts.backend.pages.deleted'),
+        ]);
+    }
+
+
+    /**
+     * validateUser Pages Requests.
+     *
+     * @param Request $request
+     * @param int     $id
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function validatePages(Request $request,$id=0)
+    {
+        
+        $validation = Validator::make($request->all(), [
+            'title' => 'required|max:191|unique:pages,title,'.$id,
+            'description' => 'required',
+        ]);
+
+        return $validation;
     }
 }

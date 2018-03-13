@@ -106,7 +106,7 @@ class BlogCategoriesController extends APIController
     }
 
     /**
-     * validateUser Permission Requests.
+     * validateUser BlogCategory Requests.
      *
      * @param Request $request
      *
