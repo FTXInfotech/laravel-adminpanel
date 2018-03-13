@@ -190,5 +190,4 @@ class APIController extends Controller
         return $this->setStatusCode(422)
             ->respondWithError($message);
     }
-
 }
