@@ -72,7 +72,7 @@ class PermissionController extends APIController
 
     /**
      * @param Permission        $permission
-     * @param UpdateRoleRequest $request
+     * @param Request           $request
      *
      * @return \Illuminate\Http\JsonResponse
      */

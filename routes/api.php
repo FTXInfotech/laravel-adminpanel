@@ -44,7 +44,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::resource('faqs', 'FaqsController');
 
         // Blog Categories
-        Route::resource('blog_categories', 'BlogCategoriesController');
+        Route::resource('blog_categories', 'BlogCategoriesController', ['except' => ['create', 'edit']]);
 
         // Blog Tags
         Route::resource('blog_tags', 'BlogTagsController');
