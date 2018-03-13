@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\Backend\BlogTags\StoreApiBlogTagsRequest;
 use App\Http\Resources\BlogTagsResource;
 use App\Models\BlogTags\BlogTag;
 use App\Repositories\Backend\BlogTags\BlogTagsRepository;
 use Illuminate\Http\Request;
-use App\Http\Requests\Backend\BlogTags\StoreApiBlogTagsRequest;
 use Validator;
-use Exception;
 
 class BlogTagsController extends APIController
 {
@@ -68,15 +67,13 @@ class BlogTagsController extends APIController
 
         return new BlogTagsResource(BlogTag::orderBy('created_at', 'desc')->first());
     }
-    
-    /** NOTE This function is same as about but uses StoreApiBlogTagsRequest for validation of the api 
+
+    /** NOTE This function is same as about but uses StoreApiBlogTagsRequest for validation of the api
      * Creates the Resource for BlogTag.
      *
      * @param Request $request
      *
      * @return \Illuminate\Http\Response
-     * 
-     * 
      */
     // public function store(StoreApiBlogTagsRequest $request)
     // {

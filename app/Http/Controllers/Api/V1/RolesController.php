@@ -22,7 +22,6 @@ class RolesController extends APIController
         $this->repository = $repository;
     }
 
-
     /**
      * Return the roles.
      *
@@ -94,8 +93,8 @@ class RolesController extends APIController
     }
 
     /**
-     * @param Role              $role
-     * @param Request           $request
+     * @param Role    $role
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -112,10 +111,9 @@ class RolesController extends APIController
      * validateUser User.
      *
      * @param $request
-     * 
-     * @return Validator object 
+     *
+     * @return Validator object
      */
-
     public function validateRole(Request $request)
     {
         $permissions = '';
@@ -125,7 +123,7 @@ class RolesController extends APIController
         }
 
         $validation = Validator::make($request->all(), [
-            'name' => 'required|max:191',
+            'name'        => 'required|max:191',
             'permissions' => $permissions,
         ]);
 

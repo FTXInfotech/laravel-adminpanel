@@ -26,7 +26,6 @@ class StoreApiBlogTagsRequest extends Request
      */
     public function rules()
     {
-        
         return [
             'name' => 'required|max:191',
         ];
