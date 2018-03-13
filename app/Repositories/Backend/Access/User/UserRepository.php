@@ -144,7 +144,7 @@ class UserRepository extends BaseRepository
             if ($user->update($data)) {
                 $user->status = isset($data['status']) ? 1 : 0;
                 $user->confirmed = isset($data['confirmed']) ? 1 : 0;
-                $updatedUser = tap($user)->save();
+                $user->save();
 
                 $this->checkUserRolesCount($roles);
                 $this->flushRoles($roles, $user);
@@ -152,7 +152,7 @@ class UserRepository extends BaseRepository
                 $this->flushPermissions($permissions, $user);
                 event(new UserUpdated($user));
 
-                return $updatedUser;
+                return true;
             }
 
             throw new GeneralException(trans('exceptions.backend.access.users.update_error'));

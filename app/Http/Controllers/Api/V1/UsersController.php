@@ -86,9 +86,11 @@ class UsersController extends APIController
             return $this->throwValidation($validation->messages()->first());
         }
 
-        $updatedUser = $this->repository->update($user, $request);
+        $this->repository->update($user, $request);
 
-        return new UserResource($updatedUser);
+        $user = User::findOrfail($user->id);
+
+        return new UserResource($user);
     }
 
     /**
