@@ -111,13 +111,13 @@ class BlogsController extends APIController
     /**
      * validate Blog.
      *
-     * @param $request
+     * @param $request 
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function validateBlog(Request $request, $type = 'insert')
+    public function validateBlog(Request $request, $action = 'insert')
     {
-        $featured_image = ($type == 'insert') ? 'required' : '';
+        $featured_image = ($action == 'insert') ? 'required' : '';
 
         $validation = Validator::make($request->all(), [
             'name'           => 'required|max:191',
