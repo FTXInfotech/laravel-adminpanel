@@ -114,10 +114,10 @@ class RolesController extends APIController
      *
      * @param Request $request
      * @param int     $id
-     * 
+     *
      * @return Validator object
      */
-    public function validateRole(Request $request,$id=0)
+    public function validateRole(Request $request, $id = 0)
     {
         $permissions = '';
 
