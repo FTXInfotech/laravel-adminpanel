@@ -39,7 +39,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('roles/delete-all', 'RolesController@deleteAll');
 
         // Permission
-        Route::resource('permission', 'PermissionController', ['except' => ['create', 'edit']]);
+        Route::resource('permissions', 'PermissionController', ['except' => ['create', 'edit']]);
 
         // Page
         Route::resource('pages', 'PagesController', ['except' => ['create', 'edit']]);
