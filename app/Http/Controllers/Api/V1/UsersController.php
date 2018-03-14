@@ -119,13 +119,10 @@ class UsersController extends APIController
      */
     public function delteAll(Request $request)
     {
-       $ids = $request->get('ids');
-       if(isset($ids) && !empty($ids))
-       {
+        $ids = $request->get('ids');
+        if (isset($ids) && !empty($ids)) {
             $this->repository->deleteAll($ids);
-       }
-
-
+        }
     }
 
     /**

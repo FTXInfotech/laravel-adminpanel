@@ -189,7 +189,7 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * Delete User
+     * Delete User.
      *
      * @param Model $user
      *
@@ -213,7 +213,7 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * Delete All User
+     * Delete All User.
      *
      * @param $ids
      *
@@ -227,10 +227,9 @@ class UserRepository extends BaseRepository
             throw new GeneralException(trans('exceptions.backend.access.users.cant_delete_self'));
         }
 
-        $result = DB::table("users")->whereIn('id',explode(",",$ids))->delete();
+        $result = DB::table('users')->whereIn('id', explode(',', $ids))->delete();
 
         dd($result);
-
     }
 
     /**
