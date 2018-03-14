@@ -31,8 +31,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::resource('users', 'UsersController', ['except' => ['create', 'edit']]);
         Route::post('users/delete-all', 'UsersController@deleteAll');
         //@todo need to change the route name and related changes
-        /*Route::get('deactivatedUsers', 'DeactivatedUsersController@index');
-        Route::get('deletedUsers', 'DeletedUsersController@index');*/
+        Route::get('deactivated-users', 'DeactivatedUsersController@index');
+        Route::get('deleted-users', 'DeletedUsersController@index');
 
         // Roles
         Route::resource('roles', 'RolesController', ['except' => ['create', 'edit']]);
