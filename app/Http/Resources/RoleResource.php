@@ -21,6 +21,7 @@ class RoleResource extends Resource
             'permission'    => ($this->all) ? 'All' : optional($this->permissions)->pluck('display_name'),
             'noofuses'      => $this->users->count(),
             'sort'          => $this->sort,
+            'status'        => $this->status
         ];
     }
 }

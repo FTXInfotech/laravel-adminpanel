@@ -36,6 +36,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
 
         // Roles
         Route::resource('roles', 'RolesController', ['except' => ['create', 'edit']]);
+        Route::post('roles/delete-all', 'RolesController@deleteAll');
+
         // Permission
         Route::resource('permission', 'PermissionController', ['except' => ['create', 'edit']]);
 
