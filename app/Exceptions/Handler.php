@@ -77,10 +77,10 @@ class Handler extends ExceptionHandler
                 return $this->setStatusCode(422)->respondWithError($exception->validator->messages());
             }
 
-             /*
-             * Redirect if token mismatch error
-             * Usually because user stayed on the same screen too long and their session expired
-             */
+            /*
+            * Redirect if token mismatch error
+            * Usually because user stayed on the same screen too long and their session expired
+            */
             if ($exception instanceof UnauthorizedHttpException) {
                 switch (get_class($exception->getPrevious())) {
                     case \App\Exceptions\Handler::class:
