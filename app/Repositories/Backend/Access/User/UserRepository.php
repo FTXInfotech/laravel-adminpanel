@@ -189,7 +189,7 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * Delete User
+     * Delete User.
      *
      * @param Model $user
      *
@@ -213,7 +213,7 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * Delete All Users
+     * Delete All Users.
      *
      * @param Model $user
      *
@@ -233,8 +233,7 @@ class UserRepository extends BaseRepository
 
         $result = DB::table('users')->whereIn('id', $ids)->delete();
 
-        if($result)
-        {
+        if ($result) {
             return true;
         }
 
