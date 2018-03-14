@@ -111,6 +111,24 @@ class UsersController extends APIController
     }
 
     /**
+     * Delete All User.
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function delteAll(Request $request)
+    {
+       $ids = $request->get('ids');
+       if(isset($ids) && !empty($ids))
+       {
+            $this->repository->deleteAll($ids);
+       }
+
+
+    }
+
+    /**
      * validateUser User.
      *
      * @param $request

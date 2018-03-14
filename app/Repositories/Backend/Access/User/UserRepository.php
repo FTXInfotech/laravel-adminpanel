@@ -189,6 +189,8 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * Delete User
+     *
      * @param Model $user
      *
      * @throws GeneralException
@@ -208,6 +210,27 @@ class UserRepository extends BaseRepository
         }
 
         throw new GeneralException(trans('exceptions.backend.access.users.delete_error'));
+    }
+
+    /**
+     * Delete All User
+     *
+     * @param $ids
+     *
+     * @throws GeneralException
+     *
+     * @return bool
+     */
+    public function deleteAll($ids)
+    {
+        if (in_array(access()->id(), $ids)) {
+            throw new GeneralException(trans('exceptions.backend.access.users.cant_delete_self'));
+        }
+
+        $result = DB::table("users")->whereIn('id',explode(",",$ids))->delete();
+
+        dd($result);
+
     }
 
     /**
