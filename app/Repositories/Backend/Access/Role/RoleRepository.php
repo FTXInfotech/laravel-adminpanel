@@ -50,6 +50,8 @@ class RoleRepository extends BaseRepository
                 config('access.roles_table').'.all',
                 config('access.roles_table').'.sort',
                 config('access.roles_table').'.status',
+                config('access.roles_table').'.created_at',
+                config('access.roles_table').'.updated_at',
                 DB::raw("GROUP_CONCAT( DISTINCT permissions.display_name SEPARATOR '<br/>') as permission_name"),
                 DB::raw('(SELECT COUNT(role_user.id) FROM role_user LEFT JOIN users ON role_user.user_id = users.id WHERE role_user.role_id = roles.id AND users.deleted_at IS NULL) AS userCount'),
             ])

@@ -16,10 +16,13 @@ class PermissionResource extends Resource
     public function toArray($request)
     {
         return [
-            'id'            => $this->id,
-            'name'          => $this->name,
-            'display_name'  => $this->display_name,
-            'sort'          => $this->sort,
+            'id'                => $this->id,
+            'name'              => $this->name,
+            'display_name'      => $this->display_name,
+            'sort'              => $this->sort,
+            'registered_at'     => $this->created_at->toIso8601String(),
+            'last_updated_at'   => $this->updated_at->toIso8601String(),
+
         ];
     }
 }
