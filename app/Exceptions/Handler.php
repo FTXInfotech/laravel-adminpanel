@@ -80,8 +80,8 @@ class Handler extends ExceptionHandler
         * Redirect if token mismatch error
         * Usually because user stayed on the same screen too long and their session expired
         */
-       if ($exception instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
-           switch (get_class($exception->getPrevious())) {
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
+            switch (get_class($exception->getPrevious())) {
                case \App\Exceptions\Handler::class:
                    return $this->setStatusCode($exception->getStatusCode())->respondWithError('Token has not been provided.');
                case \Tymon\JWTAuth\Exceptions\TokenExpiredException::class:
@@ -90,7 +90,7 @@ class Handler extends ExceptionHandler
                case \Tymon\JWTAuth\Exceptions\TokenBlacklistedException::class:
                    return $this->setStatusCode($exception->getStatusCode())->respondWithError('Token is invalid.');
            }
-       }
+        }
 
         /*
          * Redirect if token mismatch error
