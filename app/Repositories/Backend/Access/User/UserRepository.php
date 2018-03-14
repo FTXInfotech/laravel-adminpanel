@@ -142,8 +142,9 @@ class UserRepository extends BaseRepository
 
         DB::transaction(function () use ($user, $data, $roles, $permissions) {
             if ($user->update($data)) {
-                $user->status = isset($data['status']) ? 1 : 0;
-                $user->confirmed = isset($data['confirmed']) ? 1 : 0;
+                $user->status = isset($data['status']) && $data['status'] == "1" ? 1 : 0;
+                $user->confirmed = isset($data['confirmed']) && $data['confirmed'] == "1"  ? 1 : 0;
+
                 $user->save();
 
                 $this->checkUserRolesCount($roles);
