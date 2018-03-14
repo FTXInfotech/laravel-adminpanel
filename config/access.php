@@ -71,6 +71,11 @@ return [
     'history_types_table' => 'history_types',
 
     /*
+     * History table used to store History
+     */
+    'history_table' => 'history',
+
+    /*
      * Notifications table used to store user notification
      */
     'notifications_table' => 'notifications',
