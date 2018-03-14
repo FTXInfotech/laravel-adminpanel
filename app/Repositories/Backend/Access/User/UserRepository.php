@@ -189,7 +189,7 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * Delete User.
+     * Delete User
      *
      * @param Model $user
      *
@@ -213,9 +213,9 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * Delete All User.
+     * Delete All Users
      *
-     * @param $ids
+     * @param Model $user
      *
      * @throws GeneralException
      *
@@ -227,9 +227,18 @@ class UserRepository extends BaseRepository
             throw new GeneralException(trans('exceptions.backend.access.users.cant_delete_self'));
         }
 
-        $result = DB::table('users')->whereIn('id', explode(',', $ids))->delete();
+        if (in_array(1, $ids)) {
+            throw new GeneralException(trans('exceptions.backend.access.users.cant_delete_admin'));
+        }
 
-        dd($result);
+        $result = DB::table('users')->whereIn('id', $ids)->delete();
+
+        if($result)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     /**

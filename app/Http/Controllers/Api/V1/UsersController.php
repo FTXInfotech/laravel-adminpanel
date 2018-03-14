@@ -117,12 +117,24 @@ class UsersController extends APIController
      *
      * @return mixed
      */
-    public function delteAll(Request $request)
+    public function deleteAll(Request $request)
     {
         $ids = $request->get('ids');
+
         if (isset($ids) && !empty($ids)) {
-            $this->repository->deleteAll($ids);
+            $result = $this->repository->deleteAll($ids);
         }
+
+        if($result)
+        {
+            return $this->respond([
+                'message'   => trans('alerts.backend.users.deleted'),
+            ]);
+        }
+
+        return $this->respond([
+            'message'   => trans('exceptions.backend.access.users.not_found'),
+        ]);
     }
 
     /**

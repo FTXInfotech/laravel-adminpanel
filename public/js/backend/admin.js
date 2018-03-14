@@ -110,11 +110,9 @@ var Backend = {}; // common variable used in all the files of the backend
                 associated_container: document.getElementById("#available-permissions"),
             },
             init(page) {
-
                 this.setSelectors();
                 this.setRolepermission(page);
                 this.addHandlers();
-
             },
             setSelectors: function () {
                 this.selectors.associated = document.querySelector("select[name='associated_permissions']");
@@ -477,17 +475,17 @@ var Backend = {}; // common variable used in all the files of the backend
         */
         Faq:
         {
-                selectors:
-                    {
-                    },
+            selectors:
+            {
+            },
 
-                init: function () {
-                    // this.addHandlers();
-                    Backend.tinyMCE.init();
-                },
+            init: function () {
+                // this.addHandlers();
+                Backend.tinyMCE.init();
+            },
 
-                addHandlers: function () {
-                }
+            addHandlers: function () {
+            }
         },
 
         /**
@@ -515,7 +513,6 @@ var Backend = {}; // common variable used in all the files of the backend
                 if (this.selectors.cities != null) {
                     this.selectors.cities.select2();
                 }
-
             }
         },
 
@@ -622,6 +619,10 @@ var Backend = {}; // common variable used in all the files of the backend
 
         },
 
+        /**
+         * Settings
+         *
+         */
         Settings:
         {
             selectors: {
@@ -678,9 +679,7 @@ var Backend = {}; // common variable used in all the files of the backend
                             Backend.Utils.ajaxrequest(route, "POST", { data: value, _token: Backend.Utils.csrf }, Backend.Utils.csrf, callback);
                         }
                     });
-
                 };
-
             }
         }
     };

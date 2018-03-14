@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 
 /*
@@ -29,7 +29,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         });
         // Users
         Route::resource('users', 'UsersController', ['except' => ['create', 'edit']]);
-        Route::post('users/delete-all', 'UsersController@delteAll');
+        Route::post('users/delete-all', 'UsersController@deleteAll');
         //@todo need to change the route name and related changes
         /*Route::get('deactivatedUsers', 'DeactivatedUsersController@index');
         Route::get('deletedUsers', 'DeletedUsersController@index');*/

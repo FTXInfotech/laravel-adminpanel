@@ -51,61 +51,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        /*
-        * Redirect if token mismatch error
-        * Usually because user stayed on the same screen too long and their session expired
-        */
-        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
-            switch (get_class($exception->getPrevious())) {
-                case \App\Exceptions\Handler::class:
-                    return response()->json([
-                        'status' => 'error',
-                        'error'  => 'Token has not been provided',
-                        'data'   => json_decode('{}'),
-                    ], $exception->getStatusCode());
-                case \Tymon\JWTAuth\Exceptions\TokenExpiredException::class:
-                    return response()->json([
-                        'status' => 'error',
-                        'error'  => 'Token has expired',
-                        'data'   => json_decode('{}'),
-                    ], $exception->getStatusCode());
-                case \Tymon\JWTAuth\Exceptions\TokenInvalidException::class:
-                case \Tymon\JWTAuth\Exceptions\TokenBlacklistedException::class:
-                    return response()->json([
-                        'status' => 'error',
-                        'error'  => 'Token is invalid',
-                        'data'   => json_decode('{}'),
-                    ], $exception->getStatusCode());
-                default:
-                    break;
-            }
-        }
-        /*
-         * Redirect if token mismatch error
-         * Usually because user stayed on the same screen too long and their session expired
-         */
-        if ($exception instanceof TokenMismatchException) {
-            return redirect()->route('frontend.auth.login');
-        }
-
-        /*
-         * All instances of GeneralException redirect back with a flash message to show a bootstrap alert-error
-         */
-        if ($exception instanceof GeneralException) {
-            //Note:Below code is required when we use an extra class as api request then we need to pass accept:application/json in the header also
-            //if the header has accept application/json then $request->wantsJson() returns true
-            // if ($request->ajax() || $request->wantsJson()){
-            //     $json = [
-            //         'success' => false,
-            //         'error' => [
-            //             'message' => $exception->getMessage(),
-            //         ],
-            //     ];
-            //     return response()->json($json, 400);
-            // }
-            return redirect()->back()->withInput()->withFlashDanger($exception->getMessage());
-        }
-
         if (strpos($request->url(), '/api/') !== false) {
             \Log::debug('API Request Exception - '.$request->url().' - '.$exception->getMessage().(!empty($request->all()) ? ' - '.json_encode($request->except(['password'])) : ''));
 
@@ -130,6 +75,36 @@ class Handler extends ExceptionHandler
 
                 return $this->setStatusCode(422)->respondWithError($exception->validator->messages());
             }
+        }
+        /*
+        * Redirect if token mismatch error
+        * Usually because user stayed on the same screen too long and their session expired
+        */
+       if ($exception instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
+           switch (get_class($exception->getPrevious())) {
+               case \App\Exceptions\Handler::class:
+                   return $this->setStatusCode($exception->getStatusCode())->respondWithError('Token has not been provided.');
+               case \Tymon\JWTAuth\Exceptions\TokenExpiredException::class:
+                   return $this->setStatusCode($exception->getStatusCode())->respondWithError('Token has expired.');
+               case \Tymon\JWTAuth\Exceptions\TokenInvalidException::class:
+               case \Tymon\JWTAuth\Exceptions\TokenBlacklistedException::class:
+                   return $this->setStatusCode($exception->getStatusCode())->respondWithError('Token is invalid.');
+           }
+       }
+
+        /*
+         * Redirect if token mismatch error
+         * Usually because user stayed on the same screen too long and their session expired
+         */
+        if ($exception instanceof TokenMismatchException) {
+            return redirect()->route('frontend.auth.login');
+        }
+
+        /*
+         * All instances of GeneralException redirect back with a flash message to show a bootstrap alert-error
+         */
+        if ($exception instanceof GeneralException) {
+            return redirect()->back()->withInput()->withFlashDanger($exception->getMessage());
         }
 
         return parent::render($request, $exception);
