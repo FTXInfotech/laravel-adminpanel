@@ -125,8 +125,7 @@ class UsersController extends APIController
             $result = $this->repository->deleteAll($ids);
         }
 
-        if($result)
-        {
+        if ($result) {
             return $this->respond([
                 'message'   => trans('alerts.backend.users.deleted'),
             ]);
