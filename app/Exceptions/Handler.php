@@ -11,6 +11,7 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class Handler extends ExceptionHandler
 {
@@ -52,8 +53,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        //dd($exception);
         if (strpos($request->url(), '/api/') !== false) {
             \Log::debug('API Request Exception - '.$request->url().' - '.$exception->getMessage().(!empty($request->all()) ? ' - '.json_encode($request->except(['password'])) : ''));
+
+            if ($exception instanceof AuthorizationException) {
+                return $this->setStatusCode(403)->respondWithError($exception->getMessage());
+            }
 
             if ($exception instanceof MethodNotAllowedHttpException) {
                 return $this->setStatusCode(403)->respondWithError('Please check HTTP Request Method. - MethodNotAllowedHttpException');
