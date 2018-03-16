@@ -2,6 +2,7 @@
 var Backend = {}; // common variable used in all the files of the backend
 
 (function (){
+
     Backend = {
 
         Utils: {
@@ -96,7 +97,7 @@ var Backend = {}; // common variable used in all the files of the backend
         Pages:
         {
             init: function () {
-                Backend.tinyMCE.init();
+                Backend.tinyMCE.init();                
             },
         },
 
@@ -151,16 +152,16 @@ var Backend = {}; // common variable used in all the files of the backend
         Users:
         {
             selectors: {
-                select2: $(".select2"),
+                select2: jQuery(".select2"),
                 getPremissionURL: "",
                 showPermission: document.querySelectorAll(".show-permissions")
             },
-            init: function (page) {
+            init: function (page) {                
                 this.setSelectors();
-                this.addHandlers(page);
+                this.addHandlers(page);                                
             },
             setSelectors: function () {
-                this.selectors.select2 = $(".select2");
+                this.selectors.select2 = jQuery(".select2");
                 this.selectors.getRoleForPermissions = document.querySelectorAll(".get-role-for-permissions");
                 this.selectors.getAvailabelPermissions = document.querySelector(".get-available-permissions");
                 this.selectors.Role3 = document.getElementById("role-3");
@@ -223,7 +224,7 @@ var Backend = {}; // common variable used in all the files of the backend
 
             },
             windowloadhandler: function () {
-
+                
                 // scripts to be handeled on user create and edit when window is laoaded
                 Backend.Users.selectors.showPermission.forEach(function (element) {
                     element.onclick = function (event) {
@@ -443,7 +444,7 @@ var Backend = {}; // common variable used in all the files of the backend
 
             // ! Backend.emailTemplate.addHandlers
             addHandlers: function () {
-                $(".select2").select2();
+                jQuery(".select2").select2();
                 // to add placeholder in to active textarea
                 document.getElementById("addPlaceHolder").onclick = function (event) {
                     Backend.emailTemplate.addPlaceHolder(event);
@@ -458,7 +459,7 @@ var Backend = {}; // common variable used in all the files of the backend
             addPlaceHolder: function (event) {
                 var placeHolder = document.getElementById('placeHolder').value;
                 if (placeHolder != '') {
-                    tinymce.activeEditor.execCommand('mceInsertContent', false, "[" + $('#placeHolder :selected').text() + "]");
+                    tinymce.activeEditor.execCommand('mceInsertContent', false, "[" + jQuery('#placeHolder :selected').text() + "]");
                 }
             },
 
@@ -466,7 +467,7 @@ var Backend = {}; // common variable used in all the files of the backend
             showPreview: function (event) {
                 document.querySelector(".modal-body").innerHTML = tinyMCE.get('txtBody').getContent();
                 //jQuery( ".modal-body" ).html(tinyMCE.get('txtBody').getContent());
-                $(".model-wrapper").modal('show');
+                jQuery(".model-wrapper").modal('show');
 
             },
         },
@@ -529,9 +530,12 @@ var Backend = {}; // common variable used in all the files of the backend
             },
 
             init: function (dataTable) {
-
+                
                 this.setSelectors();
-                this.addHandlers(dataTable);
+                
+                this.setSelectors.divAlerts.delay(2000).fadeOut(800);
+                
+                this.addHandlers(dataTable);                
 
             },
             setSelectors: function () {
@@ -544,6 +548,7 @@ var Backend = {}; // common variable used in all the files of the backend
                 this.setSelectors.excelButton = document.getElementById("excelButton");
                 this.setSelectors.pdfButton = document.getElementById("pdfButton");
                 this.setSelectors.printButton = document.getElementById("printButton");
+                this.setSelectors.divAlerts = jQuery('div.alert').not('.alert-important');
 
             },
             cloneElement: function (element, callback) {
@@ -684,6 +689,7 @@ var Backend = {}; // common variable used in all the files of the backend
             }
         }
     };
+        
 })();
 
 
