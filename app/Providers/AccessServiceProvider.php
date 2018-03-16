@@ -24,6 +24,10 @@ class AccessServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerBladeExtensions();
+
+         view()->composer('frontend.sidebars.right_sidebar',function($view){
+            $view->with('archives',\App\Models\Blogs\Blog::archives());
+        });
     }
 
     /**

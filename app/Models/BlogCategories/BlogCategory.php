@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BlogCategory extends BaseModel
 {
     use ModelTrait,
-        SoftDeletes,
+        SoftDeletes, 
         BlogCategoryAttribute,
         BlogCategoryRelationship {
             // BlogCategoryAttribute::getEditButtonAttribute insteadof ModelTrait;

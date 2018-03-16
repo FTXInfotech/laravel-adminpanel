@@ -18,6 +18,7 @@
         <div class="collapse navbar-collapse" id="frontend-navbar-collapse">
             <ul class="nav navbar-nav">
                 <li>{{ link_to_route('frontend.macros', trans('navs.frontend.macros')) }}</li>
+                <li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if (config('locale.status') && count(config('locale.languages')) > 1)

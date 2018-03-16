@@ -41,3 +41,14 @@ Route::group(['middleware' => 'auth'], function () {
 * Show pages
 */
 Route::get('pages/{slug}', 'FrontendController@showPage')->name('pages.show');
+Route::get('/dashboard', 'frontendController@blogindex');
+Route::get('/home', 'frontendController@blogindex');
+Route::get('/about', 'frontendController@about');
+Route::get('/contact', 'frontendController@contact');
+
+
+
+Route::get('/dashboard/blogs/{blog}', 'FrontendController@showBlog');
+Route::get('/frontend/blogs/index', 'FrontendController@blogindex');
+
+Route::get('/search', 'FrontendController@search');

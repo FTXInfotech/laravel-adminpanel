@@ -96,6 +96,13 @@ return [
                 'role'       => 'Role Based - ',
             ],
 
+            'search' => [
+            'empty'      => 'Please enter a search term.',
+            'incomplete' => 'You must write your own search logic for this system.',
+            'title'      => 'Search Results',
+            'results'    => 'Search Results for :query',
+        ],
+
             'js_injected_from_controller' => 'Javascript Injected from a Controller',
 
             'using_blade_extensions' => 'Using Blade Extensions',
