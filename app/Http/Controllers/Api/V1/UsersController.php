@@ -30,7 +30,7 @@ class UsersController extends APIController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(ManageUserRequest $request)
+    public function index(Request $request)
     {
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
 
