@@ -93,7 +93,7 @@ You can now access the server at http://localhost:8000
     npm install
     npm run development
     php artisan key:generate
-    php artisan jwt:generate
+    php artisan jwt:secret
     php artisan vendor:publish --tag=lfm_public
 
 ## Logging In
