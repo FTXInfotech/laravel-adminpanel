@@ -43,7 +43,9 @@ var Backend = {}; // common variable used in all the files of the backend
             },
 
             ajaxrequest: function (url, method, data, csrf, callback) {
+                console.log(url);
                 var request = new XMLHttpRequest();
+                var loadingIcon = jQuery(".loading");
                 if (window.XMLHttpRequest) {
                     // code for modern browsers
                     request = new XMLHttpRequest();
@@ -52,6 +54,15 @@ var Backend = {}; // common variable used in all the files of the backend
                     request = new ActiveXObject("Microsoft.XMLHTTP");
                 }
                 request.open(method, url, true);
+                
+                request.onloadstart = function() {
+                    console.log('been here');
+                    loadingIcon.show();
+                };
+                request.onloadend = function() {
+                    console.log('been there');
+                    loadingIcon.hide();
+                };
                 request.setRequestHeader('X-CSRF-TOKEN', csrf);
                 request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 if ("post" === method.toLowerCase() || "patch" === method.toLowerCase()) {
@@ -378,6 +389,60 @@ var Backend = {}; // common variable used in all the files of the backend
             }
         },
 
+        Menu:
+        {
+            selectors: {
+                menuItemContainer: jQuery("#menu-items"),
+                menuItemsData: jQuery(".menu-items-field"),
+                addCustomUrlButton: jQuery(".show-modal"),
+                modal: jQuery("#showMenuModal"),
+                document: jQuery("document"),
+                addCustomUrlForm: "#menu-add-custom-url",
+                formUrl: ""
+            },
+
+            init: function () {
+                this.addHandlers();
+            },
+
+            addHandlers: function () {
+                var context = this;
+                var formName = "_add_custom_url_form";
+
+                this.selectors.menuItemContainer.nestable({
+                    callback: function(l, e){
+                        this.selectors.menuItemsData.val(JSON.stringify($(l).nestable('serialise')));
+                    },
+                    json: this.selectors.menuItemsData.val(),
+                    includeContent:true,
+                    scroll: false,
+                    maxDepth: 10
+                });
+
+                this.selectors.addCustomUrlButton.click(function() {
+                    let title = context.selectors.addCustomUrlButton.attr("data-header");
+                    context.selectors.modal.find(".modal-title").html(title);
+                    context.selectors.modal.modal("show");
+                    // setTimeout(function() {
+                    
+                    callback = {
+                        success: function (request) {
+                            console.log(request);
+                            if (request.status >= 200 && request.status < 400) {
+                                // Success!
+                                context.selectors.modal.find(".modal-body").html(request.responseText);
+                                jQuery(document).find(context.selectors.modal).find(".view-permission-block").remove();
+                                jQuery(document).find(context.selectors.addCustomUrlForm).removeClass("hidden");            
+                            }
+                        },
+                        error: function (request) {
+                            //Do Something
+                        }
+                    }
+                    Backend.Utils.ajaxrequest(context.selectors.formUrl + "/" + formName, "get", {}, Backend.Utils.csrf, callback);
+                });
+            }
+        },
 
         /**
          * Tiny MCE

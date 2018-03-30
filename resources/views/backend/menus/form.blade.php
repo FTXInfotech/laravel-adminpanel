@@ -58,34 +58,8 @@
     <script type="text/javascript">
         var formName = '_add_custom_url_form';
         var lastId = null;
-        $('#menu-items').nestable({
-            callback: function(l, e){
-                $(".menu-items-field").val(JSON.stringify($(l).nestable('serialise')));
-            },
-            json: $(".menu-items-field").val(),
-            includeContent:true,
-            scroll: false,
-            maxDepth: 10
-        });
-        $(".show-modal").click(function(){
-            $("#showMenuModal").find(".modal-dialog .modal-content .modal-header .modal-title").html($(this).attr("data-header"));
-            formName = $(this).attr("data-form");
-            $("#showMenuModal").modal("show");
-            setTimeout(function() {
-                $(document).find("#showMenuModal .view-permission-block").remove();
-                $(document).find("#menu-add-custom-url").removeClass("hidden");
-            }, 500);
-        });
-        $("#showMenuModal").on('show.bs.modal', function () {
-            $.get("{{ route('admin.menus.getform') }}/" + formName, function(data, status){
-                if(status == "success") {
-                    $("#showMenuModal").find(".modal-dialog .modal-content .modal-body").html(data);
-                }
-                else {
-                    $("#showMenuModal").find(".modal-dialog .modal-content .modal-body").html("Something went wrong! Please try again later.");
-                }
-            });
-        });
+        Backend.Menu.selectors.formUrl = "{{route('admin.menus.getform')}}";
+        Backend.Menu.init();
         var getNewId = function(str) {
             var arr = str.match(/"id":[0-9]+/gi);
             if(arr) {
