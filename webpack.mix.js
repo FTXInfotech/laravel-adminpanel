@@ -21,6 +21,7 @@ mix.sass('resources/assets/sass/frontend/app.scss', 'public/css/frontend.css')
         'public/js/select2/select2.css',
         'public/css/bootstrap.min.css',
         'public/css/custom-style.css',
+        'public/css/loader.css',
         'public/css/bootstrap-datetimepicker.min.css'
     ], 'public/css/backend-custom.css')
     .js([
