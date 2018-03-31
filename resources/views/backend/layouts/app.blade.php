@@ -42,6 +42,7 @@
         </script>
     </head>
     <body class="skin-{{ config('backend.theme') }} {{ config('backend.layout') }}">
+        <div class="loading" style="display:none"></div>
         @include('includes.partials.logged-in-as')
 
         <div class="wrapper">
