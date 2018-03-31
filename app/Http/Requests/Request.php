@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
@@ -24,5 +25,10 @@ abstract class Request extends FormRequest
         }
 
         return redirect()->back()->withErrors($this->error);
+    }
+
+    protected function failedAuthorization()
+    {
+        throw new AuthorizationException('This action is unauthorized.');
     }
 }

@@ -23,9 +23,9 @@ class BlogTagsController extends APIController
     }
 
     /**
-     * Return the users.
+     * Return the BlogTags.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
@@ -39,9 +39,9 @@ class BlogTagsController extends APIController
     /**
      * Return the specified resource.
      *
-     * @param User $user
+     * @param BlogTag $blog_tag
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(BlogTag $blog_tag)
     {
@@ -53,7 +53,7 @@ class BlogTagsController extends APIController
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -68,17 +68,19 @@ class BlogTagsController extends APIController
     }
 
     /**
-     * @param BlogTag              $blog_tag
-     * @param UpdateBlogTagRequest $request
+     * Update BlogTag.
      *
-     * @return mixed
+     * @param BlogTag $blog_tag
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, BlogTag $blog_tag)
     {
         $validation = $this->validatingRequest($request, $blog_tag->id);
 
         if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
+            return $this->throwValidation($validation);
         }
 
         $this->repository->update($blog_tag, $request->all());
@@ -88,6 +90,28 @@ class BlogTagsController extends APIController
         return new BlogTagsResource($blog_tag);
     }
 
+    /**
+     * Delete BlogTag.
+     *
+     * @param BlogTag              $blog_tag
+     * @param DeleteBlogTagRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(BlogTag $blog_tag, Request $request)
+    {
+        $this->repository->delete($blog_tag);
+
+        return ['message'=>'success'];
+    }
+
+    /**
+     * validate BlogTag.
+     *
+     * @param $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function validatingRequest(Request $request, $id = 0)
     {
         $validation = Validator::make($request->all(), [
@@ -95,18 +119,5 @@ class BlogTagsController extends APIController
         ]);
 
         return $validation;
-    }
-
-    /**
-     * @param BlogTag              $blog_tag
-     * @param DeleteBlogTagRequest $request
-     *
-     * @return mixed
-     */
-    public function destroy(BlogTag $blog_tag, Request $request)
-    {
-        $this->repository->delete($blog_tag);
-
-        return ['message'=>'success'];
     }
 }

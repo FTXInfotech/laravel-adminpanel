@@ -23,9 +23,9 @@ class FaqsController extends APIController
     }
 
     /**
-     * Return the users.
+     * Return the faqs.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
@@ -39,9 +39,9 @@ class FaqsController extends APIController
     /**
      * Return the specified resource.
      *
-     * @param User $user
+     * @param Faq $faq
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Faq $faq)
     {
@@ -53,11 +53,11 @@ class FaqsController extends APIController
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        $validation = $this->validatingRequest($request);
+        $validation = $this->validateFaq($request);
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
         }
@@ -68,14 +68,16 @@ class FaqsController extends APIController
     }
 
     /**
-     * @param Faq              $faq
-     * @param UpdateFaqRequest $request
+     * Update Faq.
      *
-     * @return mixed
+     * @param Faq     $faq
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Faq $faq)
     {
-        $validation = $this->validatingRequest($request);
+        $validation = $this->validateFaq($request);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -88,7 +90,31 @@ class FaqsController extends APIController
         return new FaqsResource($faq);
     }
 
-    public function validatingRequest(Request $request)
+    /**
+     * Delete Faq.
+     *
+     * @param Faq     $faq
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Faq $faq, Request $request)
+    {
+        $this->repository->delete($faq);
+
+        return $this->respond([
+            'message' => trans('alerts.backend.faqs.deleted'),
+        ]);
+    }
+
+    /**
+     * validate Faq.
+     *
+     * @param $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function validateFaq(Request $request)
     {
         $validation = Validator::make($request->all(), [
             'question' => 'required|max:191',
@@ -96,18 +122,5 @@ class FaqsController extends APIController
         ]);
 
         return $validation;
-    }
-
-    /**
-     * @param Faq              $faq
-     * @param DeleteFaqRequest $request
-     *
-     * @return mixed
-     */
-    public function destroy(Faq $faq, Request $request)
-    {
-        $this->repository->delete($faq);
-
-        return ['message'=>'success'];
     }
 }

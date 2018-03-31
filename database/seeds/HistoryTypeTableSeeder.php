@@ -22,6 +22,7 @@ class HistoryTypeTableSeeder extends Seeder
     {
         $this->disableForeignKeys();
         $this->truncate(config('access.history_types_table'));
+        $this->truncate(config('access.history_table'));
 
         $types = [
             [

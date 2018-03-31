@@ -23,25 +23,27 @@ class RolesController extends APIController
     }
 
     /**
-     * Return the users.
+     * Return the roles.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
 
         return RoleResource::collection(
-            $this->repository->getPaginated($limit)
+            $this->repository->getForDataTable()->paginate($limit)
         );
     }
 
     /**
      * Return the specified resource.
      *
-     * @param User $user
+     * @param Role $role
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Role $role)
     {
@@ -49,15 +51,15 @@ class RolesController extends APIController
     }
 
     /**
-     * Creates the Resourse for Role.
+     * Creates the Resource for Role.
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        $validation = $this->validatingRequest($request);
+        $validation = $this->validateRole($request);
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
         }
@@ -68,14 +70,16 @@ class RolesController extends APIController
     }
 
     /**
-     * @param Role              $role
-     * @param UpdateRoleRequest $request
+     * Update Role.
      *
-     * @return mixed
+     * @param Request $request
+     * @param Role    $role
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Role $role)
     {
-        $validation = $this->validatingRequest($request);
+        $validation = $this->validateRole($request, $role->id);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -88,7 +92,32 @@ class RolesController extends APIController
         return new RoleResource($role);
     }
 
-    public function validatingRequest(Request $request)
+    /**
+     *  Delete Role.
+     *
+     * @param Role    $role
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Role $role, Request $request)
+    {
+        $this->repository->delete($role);
+
+        return $this->respond([
+            'message' => trans('alerts.backend.roles.deleted'),
+        ]);
+    }
+
+    /**
+     * validateUser Role Requests.
+     *
+     * @param Request $request
+     * @param int     $id
+     *
+     * @return Validator object
+     */
+    public function validateRole(Request $request, $id = 0)
     {
         $permissions = '';
 
@@ -97,23 +126,10 @@ class RolesController extends APIController
         }
 
         $validation = Validator::make($request->all(), [
-            'name'        => 'required|max:191',
+            'name'        => 'required|max:191|unique:roles,name,'.$id,
             'permissions' => $permissions,
         ]);
 
         return $validation;
-    }
-
-    /**
-     * @param Role              $role
-     * @param DeleteRoleRequest $request
-     *
-     * @return mixed
-     */
-    public function destroy(Role $role, Request $request)
-    {
-        $this->repository->delete($role);
-
-        return ['message'=>'success'];
     }
 }

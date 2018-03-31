@@ -71,6 +71,11 @@ return [
     'history_types_table' => 'history_types',
 
     /*
+     * History table used to store History
+     */
+    'history_table' => 'history',
+
+    /*
      * Notifications table used to store user notification
      */
     'notifications_table' => 'notifications',
@@ -99,7 +104,7 @@ return [
         /*
          * Whether or not the user has to confirm their email when signing up
          */
-        'confirm_email' => true,
+        'confirm_email' => false,
 
         /*
          * Whether or not the users email can be changed on the edit profile screen

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\Backend\Access\User\ManageUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Access\User\User;
 use App\Repositories\Backend\Access\User\UserRepository;
@@ -25,9 +26,11 @@ class UsersController extends APIController
     /**
      * Return the users.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(ManageUserRequest $request)
     {
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
 
@@ -41,56 +44,44 @@ class UsersController extends APIController
      *
      * @param User $user
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(User $user)
     {
-        $data = new UserResource($user);
-        $history['history'] = history()->renderEntity('User', $user->id);
-        $maindata = $data->toArray($user);
-        $maindata = array_merge($maindata, $history);
-
-        return $maindata;
+        return new UserResource($user);
     }
 
     /**
-     * Return the specified resource.
+     * Create User.
      *
-     * @param Request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function deactivatedUserList(Request $request)
+    public function store(Request $request)
     {
-        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
+        $validation = $this->validateUser($request);
 
-        return UserResource::collection(
-            $this->repository->getForDataTable(0, false)->paginate($limit)
-        );
+        if ($validation->fails()) {
+            return $this->throwValidation($validation->messages()->first());
+        }
+
+        $this->repository->create($request);
+
+        return new UserResource(User::orderBy('created_at', 'desc')->first());
     }
 
     /**
-     * Return the specified resource.
+     * Update User.
      *
-     * @param User $user
+     * @param Request $request
+     * @param User    $user
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function deleteUserList(Request $request)
-    {
-        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
-
-        return UserResource::collection(
-            $this->repository->getForDataTable(0, true)->paginate($limit)
-        );
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * @return Validator object
      */
     public function update(Request $request, User $user)
     {
-        $validation = $this->validatingRequest($request, 'edit', $user->id);
+        $validation = $this->validateUser($request, 'edit', $user->id);
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -104,26 +95,61 @@ class UsersController extends APIController
     }
 
     /**
-     * Store the specified resource in storage.
+     * Delete User.
+     *
+     * @param User    $user
+     * @param Request $request
+     *
+     * @return mixed
      */
-    public function store(Request $request)
+    public function destroy(User $user, Request $request)
     {
-        $validation = $this->validatingRequest($request);
+        $this->repository->delete($user);
 
-        if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
-        }
-        $this->repository->create($request);
-
-        return new UserResource(User::orderBy('created_at', 'desc')->first());
+        return $this->respond([
+            'message'   => trans('alerts.backend.users.deleted'),
+        ]);
     }
 
     /**
-     * Validation function to validate user input.
+     * Delete All User.
+     *
+     * @param Request $request
+     *
+     * @return mixed
      */
-    public function validatingRequest(Request $request, $string = '', $id = 0)
+    public function deleteAll(Request $request)
     {
-        $password = ($string == 'edit') ? '' : 'required|min:6|confirmed';
+        $ids = $request->get('ids');
+
+        if (isset($ids) && !empty($ids)) {
+            $result = $this->repository->deleteAll($ids);
+        }
+
+        if ($result) {
+            return $this->respond([
+                'message'   => trans('alerts.backend.users.deleted'),
+            ]);
+        }
+
+        return $this->respond([
+            'message'   => trans('exceptions.backend.access.users.not_found'),
+        ]);
+    }
+
+    /**
+     * validateUser User.
+     *
+     * @param $request
+     * @param $action
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function validateUser(Request $request, $action = '', $id = 0)
+    {
+        $password = ($action == 'edit') ? '' : 'required|min:6|confirmed';
+
         $validation = Validator::make($request->all(), [
             'first_name'      => 'required|max:255',
             'last_name'       => 'required|max:255',
@@ -134,20 +160,5 @@ class UsersController extends APIController
         ]);
 
         return $validation;
-    }
-
-    /**
-     * Api to delete the resource.
-     *
-     * @param Role              $role
-     * @param DeleteRoleRequest $request
-     *
-     * @return mixed
-     */
-    public function destroy(User $user, Request $request)
-    {
-        $this->repository->delete($user);
-
-        return ['message' => 'success'];
     }
 }
