@@ -369,7 +369,7 @@ var Backend = {}; // common variable used in all the files of the backend
                                 if (request.status >= 200 && request.status < 400) {
                                     // Success!
                                     response = request.responseText;
-                                    Backend.Blog.selectors.slug.value = Backend.Blog.selectors.SlugUrl + '/' + response;
+                                    Backend.Blog.selectors.slug.value = Backend.Blog.selectors.SlugUrl + '/' + response.trim();
                                 }
                             },
                             error: function (request) {
