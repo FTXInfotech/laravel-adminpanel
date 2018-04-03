@@ -10,15 +10,15 @@ $factory->define(Page::class, function (Faker $faker) {
     $newestPage = Page::orderBy('id', 'desc')->first();
 
     return [
-        'title'       => $title,
-        'page_slug'   => str_slug($title),
-        'description' => $faker->paragraph,
-        'cannonical_link' => "http://localhost:8000/".str_slug($title),
-        'created_by'  => function () {
+        'title'           => $title,
+        'page_slug'       => str_slug($title),
+        'description'     => $faker->paragraph,
+        'cannonical_link' => 'http://localhost:8000/'.str_slug($title),
+        'created_by'      => function () {
             return factory(User::class)->create()->id;
         },
         'status'      => 1,
-        'created_at' => Carbon\Carbon::now(),
-        'updated_at' => Carbon\Carbon::now(),
+        'created_at'  => Carbon\Carbon::now(),
+        'updated_at'  => Carbon\Carbon::now(),
     ];
 });
