@@ -134,6 +134,7 @@ class PageTest extends TestCase
     /** @test */
     public function create_a_new_page_in_db_and_get_response()
     {
+        
         $page = make(Page::class);
         $payload = [
             "title" => $page->title,
