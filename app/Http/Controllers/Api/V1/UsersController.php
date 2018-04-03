@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\Backend\Access\User\ManageUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Access\User\User;
 use App\Repositories\Backend\Access\User\UserRepository;
