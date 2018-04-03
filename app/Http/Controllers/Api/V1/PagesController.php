@@ -57,14 +57,15 @@ class PagesController extends APIController
      */
     public function store(Request $request)
     {
+        
         $validation = $this->validatePages($request);
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
         }
 
-        $this->repository->create($request->all());
-
-        return new PagesResource(Page::orderBy('created_at', 'desc')->first());
+       $page = $this->repository->create($request->all());
+    
+        return new PagesResource($page);
     }
 
     /**

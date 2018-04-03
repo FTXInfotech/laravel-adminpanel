@@ -10,7 +10,6 @@ $factory->define(Page::class, function (Faker $faker) {
     $newestPage = Page::orderBy('id', 'desc')->first();
 
     return [
-        "id" => $newestPage->id+1,
         'title'       => $title,
         'page_slug'   => str_slug($title),
         'description' => $faker->paragraph,
