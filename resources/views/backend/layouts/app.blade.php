@@ -42,9 +42,10 @@
         </script>
     </head>
     <body class="skin-{{ config('backend.theme') }} {{ config('backend.layout') }}">
+        <div class="loading" style="display:none"></div>
         @include('includes.partials.logged-in-as')
 
-        <div class="wrapper">
+        <div class="wrapper" id="app">
             @include('backend.includes.header')
             @include('backend.includes.sidebar-dynamic')
 

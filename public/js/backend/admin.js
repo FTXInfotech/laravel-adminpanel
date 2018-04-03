@@ -45,6 +45,7 @@ var Backend = {}; // common variable used in all the files of the backend
 
             ajaxrequest: function (url, method, data, csrf, callback) {
                 var request = new XMLHttpRequest();
+                var loadingIcon = jQuery(".loading");
                 if (window.XMLHttpRequest) {
                     // code for modern browsers
                     request = new XMLHttpRequest();
@@ -53,6 +54,13 @@ var Backend = {}; // common variable used in all the files of the backend
                     request = new ActiveXObject("Microsoft.XMLHTTP");
                 }
                 request.open(method, url, true);
+                
+                request.onloadstart = function() {
+                    loadingIcon.show();
+                };
+                request.onloadend = function() {
+                    loadingIcon.hide();
+                };
                 request.setRequestHeader('X-CSRF-TOKEN', csrf);
                 request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 if ("post" === method.toLowerCase() || "patch" === method.toLowerCase()) {
@@ -75,7 +83,6 @@ var Backend = {}; // common variable used in all the files of the backend
             jsontoformdata: function (srcjson) {
                 if (typeof srcjson !== "object")
                     if (typeof console !== "undefined") {
-                        console.log("\"srcjson\" is not a JSON object");
                         return null;
                     }
                 u = encodeURIComponent;
@@ -363,7 +370,7 @@ var Backend = {}; // common variable used in all the files of the backend
                                 if (request.status >= 200 && request.status < 400) {
                                     // Success!
                                     response = request.responseText;
-                                    Backend.Blog.selectors.slug.value = Backend.Blog.selectors.SlugUrl + '/' + response;
+                                    Backend.Blog.selectors.slug.value = Backend.Blog.selectors.SlugUrl + '/' + response.trim();
                                 }
                             },
                             error: function (request) {
@@ -377,6 +384,219 @@ var Backend = {}; // common variable used in all the files of the backend
             }
         },
 
+        Menu:
+        {
+            selectors: {
+                menuItemContainer: jQuery("#menu-items"),
+                menuItemsData: jQuery(".menu-items-field"),
+                addCustomUrlButton: jQuery(".show-modal"),
+                modal: jQuery("#showMenuModal"),
+                document: jQuery("document"),
+                addCustomUrlForm: "#menu-add-custom-url",
+                addModuleToMenuButton: ".add-module-to-menu",
+                removeMenuItemButton : ".remove-menu-item",
+                editMenuItemButton : ".edit-menu-item",
+                formUrl: "",
+            },
+
+            methods: {
+                getNewId : function(str) {
+                    var arr = str.match(/"id":[0-9]+/gi);
+                    if(arr) {
+                        $.each(arr, function(index, item) {
+                            arr[index] =  parseInt(item.replace('"id":', ''));
+                        });
+                        return Math.max.apply(Math, arr) + 1;
+                    }
+                    return 1;
+                },
+
+                findItemById : function(item, id) {
+                    if(item.id == id) {
+                        return item;
+                    }
+                    var found = false;
+                    var foundItem;
+                    if(item.children){
+                        $.each(item.children, function(index, childItem){
+                            foundItem = Backend.Menu.methods.findItemById(childItem, id);
+                            if(foundItem)
+                            {
+                                found = true;
+                                return false;
+                            }
+                        });
+                    }
+                    if(found)
+                    {
+                        return foundItem;
+                    }
+                    return null;
+                },
+
+                addMenuItem : function(obj) {
+                    Backend.Menu.selectors.menuItemContainer.nestable('add', {
+                        "id": Backend.Menu.methods.getNewId(Backend.Menu.selectors.menuItemsData.val()),
+                        "content": obj.name,
+                        "name": obj.name,
+                        "url": obj.url,
+                        "url_type" : obj.url_type,
+                        "open_in_new_tab": obj.open_in_new_tab,
+                        "icon": obj.icon,
+                        "view_permission_id": obj.view_permission_id
+                    });
+                    Backend.Menu.selectors.menuItemsData.val(
+                        JSON.stringify(
+                            Backend.Menu.selectors.menuItemContainer.nestable('serialise')
+                        )
+                    );
+                },
+
+                editMenuItem : function(obj) {
+                    var newObject = {
+                        "id": obj.id,
+                        "content": obj.name,
+                        "name": obj.name,
+                        "url": obj.url,
+                        "url_type": obj.url_type,
+                        "open_in_new_tab": obj.open_in_new_tab,
+                        "icon": obj.icon,
+                        "view_permission_id": obj.view_permission_id
+                    };
+                    var menuItems = Backend.Menu.selectors.menuItemContainer.nestable('serialise');
+                    var itemData;
+                    $.each(menuItems, function(index, item){
+                        itemData = Backend.Menu.methods.findItemById(item, id);
+                        if(itemData) { return false; }
+                    });
+                    if(itemData.children) {
+                        newObject.children = itemData.children;
+                    }
+                    
+                    Backend.Menu.selectors.menuItemContainer.nestable('replace', newObject);
+                    
+                    Backend.Menu.selectors.menuItemsData.val(
+                        JSON.stringify(
+                            Backend.Menu.selectors.menuItemContainer.nestable('serialise')
+                        )
+                    );
+                }
+            },
+
+            init: function () {
+                this.addHandlers();
+            },
+            
+            addHandlers: function () {
+                var context = this;
+                var formName = "_add_custom_url_form";
+
+                this.selectors.menuItemContainer.nestable({
+                    callback: function(l, e){
+                        this.selectors.menuItemsData.val(JSON.stringify($(l).nestable('serialise')));
+                    },
+                    json: this.selectors.menuItemsData.val(),
+                    includeContent:true,
+                    scroll: false,
+                    maxDepth: 10
+                });
+
+                this.selectors.addCustomUrlButton.click(function() {
+                    var title = context.selectors.addCustomUrlButton.attr("data-header");
+                    context.selectors.modal.find(".modal-title").html(title);
+                    context.selectors.modal.modal("show");
+                    
+                    callback = {
+                        success: function (request) {
+                            if (request.status >= 200 && request.status < 400) {
+                                // Success!
+                                context.selectors.modal.find(".modal-body").html(request.responseText);
+                                // jQuery(document).find(context.selectors.modal).find(".view-permission-block").remove();
+                                jQuery(document).find(context.selectors.addCustomUrlForm).removeClass("hidden");            
+                            }
+                        },
+                        error: function (request) {
+                            //Do Something
+                        }
+                    }
+                    Backend.Utils.ajaxrequest(context.selectors.formUrl + "/" + formName, "get", {}, Backend.Utils.csrf, callback);
+                });
+
+                jQuery(document).on("submit", context.selectors.addCustomUrlForm, function(e){
+                    e.preventDefault();
+                    var formData = jQuery(this).serializeArray().reduce(function(obj, item) {
+                        obj[item.name] = item.value;
+                        return obj;
+                    }, {});
+                    if(formData.name.length > 0) {
+                        if(formData.id.length > 0) {
+                            context.methods.editMenuItem(formData);
+                        } else {
+                            context.methods.addMenuItem(formData);
+                        }
+                        context.selectors.modal.modal("hide");
+                    }
+                });
+
+                jQuery(document).on("click", context.selectors.addModuleToMenuButton, function(){
+                    var dataObj = {
+                        id: $(this).attr("data-id"),
+                        name: $(this).attr("data-name"),
+                        url: $(this).attr("data-url"),
+                        url_type: $(this).attr("data-url_type"),
+                        open_in_new_tab: $(this).attr("data-open_in_new_tab"),
+                        view_permission_id: $(this).attr("data-view_permission_id"),
+                    }
+                    context.methods.addMenuItem(dataObj);
+                });
+                
+                jQuery(document).on("click", context.selectors.removeMenuItemButton, function() {
+                    context.selectors.menuItemContainer.nestable('remove', jQuery(this).parents(".dd-item").first().attr("data-id"));
+                    Backend.Menu.selectors.menuItemsData.val(
+                        JSON.stringify(
+                            Backend.Menu.selectors.menuItemContainer.nestable('serialise')
+                        )
+                    );
+                });
+
+                jQuery(document).on("click", context.selectors.editMenuItemButton, function() {
+                    id = jQuery(this).parents(".dd-item").first().attr("data-id");
+                    var menuItems = context.selectors.menuItemContainer.nestable('serialise');
+                    var itemData;
+                    $.each(menuItems, function(index, item){
+                        itemData = context.methods.findItemById(item, id);
+                        if(itemData) { return false; }
+                    });
+                    if(itemData.id != undefined && itemData.id == id)
+                    {                    
+                        callback = {
+                            success: function (request) {
+                                if (request.status >= 200 && request.status < 400) {
+                                    // Success!
+                                    context.selectors.modal.find(".modal-body").html(request.responseText);
+                                    context.selectors.modal.find(".modal-dialog .modal-content .modal-header .modal-title").html("Edit: " + itemData.name);
+                                        $(document).find(context.selectors.modal).find(".mi-id").val(itemData.id);
+                                        $(document).find(context.selectors.modal).find(".mi-name").val(itemData.name);
+                                        $(document).find(context.selectors.modal).find(".mi-url").val(itemData.url);
+                                        $(document).find(context.selectors.modal).find(".mi-url_type_"+itemData.url_type).prop("checked", true);
+                                        if(itemData.open_in_new_tab == 1) {
+                                          $(document).find(context.selectors.modal).find(".mi-open_in_new_tab").prop("checked", true);
+                                        }
+                                        $(document).find(context.selectors.modal).find(".mi-icon").val(itemData.icon);
+                                        $(document).find(context.selectors.modal).find(".mi-view_permission_id").val(itemData.view_permission_id);
+                                        $(document).find("#menu-add-custom-url").removeClass("hidden");
+                                        context.selectors.modal.modal("show");  
+                                }
+                            },
+                            error: function (request) {
+                                //Do Something
+                            }
+                        }
+                        Backend.Utils.ajaxrequest(context.selectors.formUrl + "/" + formName, "get", {}, Backend.Utils.csrf, callback);
+                    }
+                });
+            }
+        },
 
         /**
          * Tiny MCE
