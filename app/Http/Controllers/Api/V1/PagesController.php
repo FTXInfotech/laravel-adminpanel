@@ -62,9 +62,9 @@ class PagesController extends APIController
             return $this->throwValidation($validation->messages()->first());
         }
 
-        $this->repository->create($request->all());
+        $page = $this->repository->create($request->all());
 
-        return new PagesResource(Page::orderBy('created_at', 'desc')->first());
+        return new PagesResource($page);
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\Backend\Access\User\ManageUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Access\User\User;
 use App\Repositories\Backend\Access\User\UserRepository;
@@ -30,7 +29,7 @@ class UsersController extends APIController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(ManageUserRequest $request)
+    public function index(Request $request)
     {
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
 

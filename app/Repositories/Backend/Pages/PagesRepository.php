@@ -58,7 +58,7 @@ class PagesRepository extends BaseRepository
         if ($page = Page::create($input)) {
             event(new PageCreated($page));
 
-            return true;
+            return $page;
         }
 
         throw new GeneralException(trans('exceptions.backend.pages.create_error'));

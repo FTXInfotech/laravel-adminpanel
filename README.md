@@ -8,7 +8,7 @@
 
 ## Introduction
 * This is a laravel Admin Panel, based on [Rappasoft Laravel Boilerplate](https://github.com/rappasoft/laravel-5-boilerplate/releases/tag/4.5.7), with enhancemenets and many modules pre-made, just for you.
-* The project is taken to Laravel 5.5 so we can develop from the latest Laravel.
+* The project is taken to Laravel 5.6 so we can develop from the latest Laravel.
 
 ## Features
 For Laravel 5 Boilerplate Features : [Features](https://github.com/rappasoft/laravel-5-boilerplate/wiki#features)
@@ -29,7 +29,7 @@ It gives you the ability to create a module using a sweet GUI, where you put in 
 
 ## Installation
 
-Please check the official laravel installation guide for server requirements before you start. [Official Documentation](https://laravel.com/docs/5.4/installation#installation)
+Please check the official laravel installation guide for server requirements before you start. [Official Documentation](https://laravel.com/docs/5.6/installation#installation)
 
 
 Clone the repository
