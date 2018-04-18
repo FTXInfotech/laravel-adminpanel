@@ -76,6 +76,10 @@ For generating the files of unisharp file manager
 
     php artisan vendor:publish --tag=lfm_public
 
+For linking storage folder in public
+    
+    php artisan storage:link
+
 Start the local development server
 
     php artisan serve
@@ -92,6 +96,7 @@ You can now access the server at http://localhost:8000
     composer install
     npm install
     npm run development
+    php artisan storage:link
     php artisan key:generate
     php artisan jwt:secret
     php artisan vendor:publish --tag=lfm_public
