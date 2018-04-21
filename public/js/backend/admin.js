@@ -1,7 +1,7 @@
 //common functionalities for all the javascript featueres
 var Backend = {}; // common variable used in all the files of the backend
 
-(function (){
+(function () {
 
     Backend = {
 
@@ -54,11 +54,11 @@ var Backend = {}; // common variable used in all the files of the backend
                     request = new ActiveXObject("Microsoft.XMLHTTP");
                 }
                 request.open(method, url, true);
-                
-                request.onloadstart = function() {
+
+                request.onloadstart = function () {
                     loadingIcon.show();
                 };
-                request.onloadend = function() {
+                request.onloadend = function () {
                     loadingIcon.hide();
                 };
                 request.setRequestHeader('X-CSRF-TOKEN', csrf);
@@ -101,23 +101,21 @@ var Backend = {}; // common variable used in all the files of the backend
          * Pages
          *
          */
-        Pages:
-        {
+        Pages: {
             init: function () {
-                Backend.tinyMCE.init();                
+                Backend.tinyMCE.init();
             },
         },
 
         /**
          * Roles management
          */
-        Roles:
-        {
+        Roles: {
             selectors: {
                 associated: document.querySelector("select[name='associated_permissions']"),
                 associated_container: document.getElementById("#available-permissions"),
             },
-            init(page) {
+            init: function (page) {
                 this.setSelectors();
                 this.setRolepermission(page);
                 this.addHandlers();
@@ -151,19 +149,18 @@ var Backend = {}; // common variable used in all the files of the backend
 
         },
         /**
-        * Users management
-        *
-        */
-        Users:
-        {
+         * Users management
+         *
+         */
+        Users: {
             selectors: {
                 select2: jQuery(".select2"),
                 getPremissionURL: "",
                 showPermission: document.querySelectorAll(".show-permissions")
             },
-            init: function (page) {                
+            init: function (page) {
                 this.setSelectors();
-                this.addHandlers(page);                                
+                this.addHandlers(page);
             },
             setSelectors: function () {
                 this.selectors.select2 = jQuery(".select2");
@@ -174,8 +171,8 @@ var Backend = {}; // common variable used in all the files of the backend
             },
             addHandlers: function (page) {
                 /**
-              * This function is used to get clicked element role id and return required result
-              */
+                 * This function is used to get clicked element role id and return required result
+                 */
 
                 this.selectors.getRoleForPermissions.forEach(function (element) {
                     element.onclick = function (event) {
@@ -218,8 +215,10 @@ var Backend = {}; // common variable used in all the files of the backend
                             }
                         };
 
-                        Backend.Utils.ajaxrequest(Backend.Users.selectors.getPremissionURL, "post", { role_id: event.target.value }, Backend.Utils.csrf, callback);
-                    }
+                        Backend.Utils.ajaxrequest(Backend.Users.selectors.getPremissionURL, "post", {
+                            role_id: event.target.value
+                        }, Backend.Utils.csrf, callback);
+                    };
                 });
                 if (page == "create") {
                     Backend.Users.selectors.Role3.click();
@@ -229,7 +228,7 @@ var Backend = {}; // common variable used in all the files of the backend
 
             },
             windowloadhandler: function () {
-                
+
                 // scripts to be handeled on user create and edit when window is laoaded
                 Backend.Users.selectors.showPermission.forEach(function (element) {
                     element.onclick = function (event) {
@@ -253,12 +252,11 @@ var Backend = {}; // common variable used in all the files of the backend
         },
 
         /**
-        * Users delete page
-        *
-        */
+         * Users delete page
+         *
+         */
 
-        UserDeleted:
-        {
+        UserDeleted: {
             selectors: {
                 AlldeletePerms: document.querySelectorAll("a[name='delete_user_perm']"),
                 AllrestorePerms: document.querySelectorAll("a[name='restore_user']"),
@@ -327,11 +325,10 @@ var Backend = {}; // common variable used in all the files of the backend
         },
 
         /**
-          * Blog
-          *
-          */
-        Blog:
-        {
+         * Blog
+         *
+         */
+        Blog: {
             selectors: {
                 tags: jQuery(".tags"),
                 categories: jQuery(".categories"),
@@ -377,15 +374,16 @@ var Backend = {}; // common variable used in all the files of the backend
 
                             }
                         };
-                        Backend.Utils.ajaxrequest(Backend.Blog.selectors.GenerateSlugUrl, "post", { text: url }, Backend.Utils.csrf, callback);
+                        Backend.Utils.ajaxrequest(Backend.Blog.selectors.GenerateSlugUrl, "post", {
+                            text: url
+                        }, Backend.Utils.csrf, callback);
                     }
                 };
 
             }
         },
 
-        Menu:
-        {
+        Menu: {
             selectors: {
                 menuItemContainer: jQuery("#menu-items"),
                 menuItemsData: jQuery(".menu-items-field"),
@@ -394,53 +392,51 @@ var Backend = {}; // common variable used in all the files of the backend
                 document: jQuery("document"),
                 addCustomUrlForm: "#menu-add-custom-url",
                 addModuleToMenuButton: ".add-module-to-menu",
-                removeMenuItemButton : ".remove-menu-item",
-                editMenuItemButton : ".edit-menu-item",
+                removeMenuItemButton: ".remove-menu-item",
+                editMenuItemButton: ".edit-menu-item",
                 formUrl: "",
             },
 
             methods: {
-                getNewId : function(str) {
+                getNewId: function (str) {
                     var arr = str.match(/"id":[0-9]+/gi);
-                    if(arr) {
-                        $.each(arr, function(index, item) {
-                            arr[index] =  parseInt(item.replace('"id":', ''));
+                    if (arr) {
+                        $.each(arr, function (index, item) {
+                            arr[index] = parseInt(item.replace('"id":', ''));
                         });
                         return Math.max.apply(Math, arr) + 1;
                     }
                     return 1;
                 },
 
-                findItemById : function(item, id) {
-                    if(item.id == id) {
+                findItemById: function (item, id) {
+                    if (item.id == id) {
                         return item;
                     }
                     var found = false;
                     var foundItem;
-                    if(item.children){
-                        $.each(item.children, function(index, childItem){
+                    if (item.children) {
+                        $.each(item.children, function (index, childItem) {
                             foundItem = Backend.Menu.methods.findItemById(childItem, id);
-                            if(foundItem)
-                            {
+                            if (foundItem) {
                                 found = true;
                                 return false;
                             }
                         });
                     }
-                    if(found)
-                    {
+                    if (found) {
                         return foundItem;
                     }
                     return null;
                 },
 
-                addMenuItem : function(obj) {
+                addMenuItem: function (obj) {
                     Backend.Menu.selectors.menuItemContainer.nestable('add', {
                         "id": Backend.Menu.methods.getNewId(Backend.Menu.selectors.menuItemsData.val()),
                         "content": obj.name,
                         "name": obj.name,
                         "url": obj.url,
-                        "url_type" : obj.url_type,
+                        "url_type": obj.url_type,
                         "open_in_new_tab": obj.open_in_new_tab,
                         "icon": obj.icon,
                         "view_permission_id": obj.view_permission_id
@@ -452,7 +448,7 @@ var Backend = {}; // common variable used in all the files of the backend
                     );
                 },
 
-                editMenuItem : function(obj) {
+                editMenuItem: function (obj) {
                     var newObject = {
                         "id": obj.id,
                         "content": obj.name,
@@ -465,16 +461,18 @@ var Backend = {}; // common variable used in all the files of the backend
                     };
                     var menuItems = Backend.Menu.selectors.menuItemContainer.nestable('serialise');
                     var itemData;
-                    $.each(menuItems, function(index, item){
+                    $.each(menuItems, function (index, item) {
                         itemData = Backend.Menu.methods.findItemById(item, id);
-                        if(itemData) { return false; }
+                        if (itemData) {
+                            return false;
+                        }
                     });
-                    if(itemData.children) {
+                    if (itemData.children) {
                         newObject.children = itemData.children;
                     }
-                    
+
                     Backend.Menu.selectors.menuItemContainer.nestable('replace', newObject);
-                    
+
                     Backend.Menu.selectors.menuItemsData.val(
                         JSON.stringify(
                             Backend.Menu.selectors.menuItemContainer.nestable('serialise')
@@ -486,50 +484,50 @@ var Backend = {}; // common variable used in all the files of the backend
             init: function () {
                 this.addHandlers();
             },
-            
+
             addHandlers: function () {
                 var context = this;
                 var formName = "_add_custom_url_form";
 
                 this.selectors.menuItemContainer.nestable({
-                    callback: function(l, e){
+                    callback: function (l, e) {
                         this.selectors.menuItemsData.val(JSON.stringify($(l).nestable('serialise')));
                     },
                     json: this.selectors.menuItemsData.val(),
-                    includeContent:true,
+                    includeContent: true,
                     scroll: false,
                     maxDepth: 10
                 });
 
-                this.selectors.addCustomUrlButton.click(function() {
+                this.selectors.addCustomUrlButton.click(function () {
                     var title = context.selectors.addCustomUrlButton.attr("data-header");
                     context.selectors.modal.find(".modal-title").html(title);
                     context.selectors.modal.modal("show");
-                    
+
                     callback = {
                         success: function (request) {
                             if (request.status >= 200 && request.status < 400) {
                                 // Success!
                                 context.selectors.modal.find(".modal-body").html(request.responseText);
                                 // jQuery(document).find(context.selectors.modal).find(".view-permission-block").remove();
-                                jQuery(document).find(context.selectors.addCustomUrlForm).removeClass("hidden");            
+                                jQuery(document).find(context.selectors.addCustomUrlForm).removeClass("hidden");
                             }
                         },
                         error: function (request) {
                             //Do Something
                         }
-                    }
+                    };
                     Backend.Utils.ajaxrequest(context.selectors.formUrl + "/" + formName, "get", {}, Backend.Utils.csrf, callback);
                 });
 
-                jQuery(document).on("submit", context.selectors.addCustomUrlForm, function(e){
+                jQuery(document).on("submit", context.selectors.addCustomUrlForm, function (e) {
                     e.preventDefault();
-                    var formData = jQuery(this).serializeArray().reduce(function(obj, item) {
+                    var formData = jQuery(this).serializeArray().reduce(function (obj, item) {
                         obj[item.name] = item.value;
                         return obj;
                     }, {});
-                    if(formData.name.length > 0) {
-                        if(formData.id.length > 0) {
+                    if (formData.name.length > 0) {
+                        if (formData.id.length > 0) {
                             context.methods.editMenuItem(formData);
                         } else {
                             context.methods.addMenuItem(formData);
@@ -538,7 +536,7 @@ var Backend = {}; // common variable used in all the files of the backend
                     }
                 });
 
-                jQuery(document).on("click", context.selectors.addModuleToMenuButton, function(){
+                jQuery(document).on("click", context.selectors.addModuleToMenuButton, function () {
                     var dataObj = {
                         id: $(this).attr("data-id"),
                         name: $(this).attr("data-name"),
@@ -546,11 +544,11 @@ var Backend = {}; // common variable used in all the files of the backend
                         url_type: $(this).attr("data-url_type"),
                         open_in_new_tab: $(this).attr("data-open_in_new_tab"),
                         view_permission_id: $(this).attr("data-view_permission_id"),
-                    }
+                    };
                     context.methods.addMenuItem(dataObj);
                 });
-                
-                jQuery(document).on("click", context.selectors.removeMenuItemButton, function() {
+
+                jQuery(document).on("click", context.selectors.removeMenuItemButton, function () {
                     context.selectors.menuItemContainer.nestable('remove', jQuery(this).parents(".dd-item").first().attr("data-id"));
                     Backend.Menu.selectors.menuItemsData.val(
                         JSON.stringify(
@@ -559,39 +557,40 @@ var Backend = {}; // common variable used in all the files of the backend
                     );
                 });
 
-                jQuery(document).on("click", context.selectors.editMenuItemButton, function() {
+                jQuery(document).on("click", context.selectors.editMenuItemButton, function () {
                     id = jQuery(this).parents(".dd-item").first().attr("data-id");
                     var menuItems = context.selectors.menuItemContainer.nestable('serialise');
                     var itemData;
-                    $.each(menuItems, function(index, item){
+                    $.each(menuItems, function (index, item) {
                         itemData = context.methods.findItemById(item, id);
-                        if(itemData) { return false; }
+                        if (itemData) {
+                            return false;
+                        }
                     });
-                    if(itemData.id != undefined && itemData.id == id)
-                    {                    
+                    if (itemData.id != undefined && itemData.id == id) {
                         callback = {
                             success: function (request) {
                                 if (request.status >= 200 && request.status < 400) {
                                     // Success!
                                     context.selectors.modal.find(".modal-body").html(request.responseText);
                                     context.selectors.modal.find(".modal-dialog .modal-content .modal-header .modal-title").html("Edit: " + itemData.name);
-                                        $(document).find(context.selectors.modal).find(".mi-id").val(itemData.id);
-                                        $(document).find(context.selectors.modal).find(".mi-name").val(itemData.name);
-                                        $(document).find(context.selectors.modal).find(".mi-url").val(itemData.url);
-                                        $(document).find(context.selectors.modal).find(".mi-url_type_"+itemData.url_type).prop("checked", true);
-                                        if(itemData.open_in_new_tab == 1) {
-                                          $(document).find(context.selectors.modal).find(".mi-open_in_new_tab").prop("checked", true);
-                                        }
-                                        $(document).find(context.selectors.modal).find(".mi-icon").val(itemData.icon);
-                                        $(document).find(context.selectors.modal).find(".mi-view_permission_id").val(itemData.view_permission_id);
-                                        $(document).find("#menu-add-custom-url").removeClass("hidden");
-                                        context.selectors.modal.modal("show");  
+                                    $(document).find(context.selectors.modal).find(".mi-id").val(itemData.id);
+                                    $(document).find(context.selectors.modal).find(".mi-name").val(itemData.name);
+                                    $(document).find(context.selectors.modal).find(".mi-url").val(itemData.url);
+                                    $(document).find(context.selectors.modal).find(".mi-url_type_" + itemData.url_type).prop("checked", true);
+                                    if (itemData.open_in_new_tab == 1) {
+                                        $(document).find(context.selectors.modal).find(".mi-open_in_new_tab").prop("checked", true);
+                                    }
+                                    $(document).find(context.selectors.modal).find(".mi-icon").val(itemData.icon);
+                                    $(document).find(context.selectors.modal).find(".mi-view_permission_id").val(itemData.view_permission_id);
+                                    $(document).find("#menu-add-custom-url").removeClass("hidden");
+                                    context.selectors.modal.modal("show");
                                 }
                             },
                             error: function (request) {
                                 //Do Something
                             }
-                        }
+                        };
                         Backend.Utils.ajaxrequest(context.selectors.formUrl + "/" + formName, "get", {}, Backend.Utils.csrf, callback);
                     }
                 });
@@ -601,8 +600,7 @@ var Backend = {}; // common variable used in all the files of the backend
         /**
          * Tiny MCE
          */
-        tinyMCE:
-        {
+        tinyMCE: {
             init: function () {
                 tinymce.init({
                     path_absolute: "/",
@@ -648,8 +646,7 @@ var Backend = {}; // common variable used in all the files of the backend
             }
         },
 
-        emailTemplate:
-        {
+        emailTemplate: {
 
             selectors: {
                 emailtemplateSelection: document.querySelector(".select2")
@@ -691,30 +688,25 @@ var Backend = {}; // common variable used in all the files of the backend
         },
 
         /**
-        * Faq
-        *
-        */
-        Faq:
-        {
-            selectors:
-            {
-            },
+         * Faq
+         *
+         */
+        Faq: {
+            selectors: {},
 
             init: function () {
                 // this.addHandlers();
                 Backend.tinyMCE.init();
             },
 
-            addHandlers: function () {
-            }
+            addHandlers: function () {}
         },
 
         /**
          * Profile
          *
          */
-        Profile:
-        {
+        Profile: {
             selectors: {
 
             },
@@ -741,18 +733,16 @@ var Backend = {}; // common variable used in all the files of the backend
          * for all datatables
          *
          */
-        DataTableSearch:
-        { //functionalities related to datable search at all the places
-            selector: {
-            },
+        DataTableSearch: { //functionalities related to datable search at all the places
+            selector: {},
 
             init: function (dataTable) {
-                
+
                 this.setSelectors();
-                
+
                 this.setSelectors.divAlerts.delay(2000).fadeOut(800);
-                
-                this.addHandlers(dataTable);                
+
+                this.addHandlers(dataTable);
 
             },
             setSelectors: function () {
@@ -793,8 +783,8 @@ var Backend = {}; // common variable used in all the files of the backend
                     this.selector.columnSearchInput.forEach(function (element) {
                         element.onkeypress = function (event) {
                             if (event.keyCode == 13) {
-                                var i = element.getAttribute("data-column")  // getting column index
-                                var v = element.value;  // getting search input value
+                                var i = element.getAttribute("data-column"); // getting column index
+                                var v = element.value; // getting search input value
                                 dataTable.api().columns(i).search(v).draw();
                             }
                         };
@@ -807,7 +797,7 @@ var Backend = {}; // common variable used in all the files of the backend
                     this.selector.columnSelectInput.forEach(function (element) {
                         element.onchange = function (event) {
                             var i = element.getAttribute("data-column"); // getting column index
-                            var v = element.value;  // getting search input value
+                            var v = element.value; // getting search input value
                             dataTable.api().columns(i).search(v).draw();
                         };
                     });
@@ -848,8 +838,7 @@ var Backend = {}; // common variable used in all the files of the backend
          * Settings
          *
          */
-        Settings:
-        {
+        Settings: {
             selectors: {
                 RouteURL: "",
                 setting: document.getElementById("setting")
@@ -884,8 +873,7 @@ var Backend = {}; // common variable used in all the files of the backend
                             if (data == 'logo') {
                                 value = 'logo';
                                 Backend.Utils.addClass(Backend.Settings.selectors.imageRemoveLogo, 'hidden');
-                            }
-                            else {
+                            } else {
                                 value = 'favicon';
                                 Backend.Utils.addClass(Backend.Settings.selectors.imageRemoveFavicon, 'hidden');
                             }
@@ -901,21 +889,15 @@ var Backend = {}; // common variable used in all the files of the backend
                                 }
                             };
 
-                            Backend.Utils.ajaxrequest(route, "POST", { data: value, _token: Backend.Utils.csrf }, Backend.Utils.csrf, callback);
+                            Backend.Utils.ajaxrequest(route, "POST", {
+                                data: value,
+                                _token: Backend.Utils.csrf
+                            }, Backend.Utils.csrf, callback);
                         }
                     });
                 };
             }
         }
     };
-        
+
 })();
-
-
-
-
-
-
-
-
-
