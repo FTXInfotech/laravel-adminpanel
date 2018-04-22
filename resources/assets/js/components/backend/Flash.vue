@@ -5,42 +5,42 @@
 </template>
 
 <script>
-    export default {
-        props: ['message' , 'type'],
-        
-        data() {
-            return {
-                body: '',
-                typeClass: '',
-                show: false
-            }
-        },
+export default {
+  props: ["message", "type"],
 
-        created() {
-            var context = this;
-            if(this.message && this.type) {
-                this.flash(this.message, this.type);
-            }
+  data() {
+    return {
+      body: "",
+      typeClass: "",
+      show: false
+    };
+  },
 
-            window.events.$on('flash', function(message, type) {
-                context.flash(message, type);
-            });
-        },
-
-        methods: {
-            flash(message, type) {
-                this.body = message;
-                this.typeClass = "alert alert-" + type;
-                this.show = true;
-
-                this.hide();
-            },
-
-            hide() {
-                setTimeout(() => {
-                    this.show = false;
-                }, 3000);
-            }
-        }
+  created() {
+    var context = this;
+    if (this.message && this.type) {
+      this.flash(this.message, this.type);
     }
+
+    window.events.$on("flash", function(message, type) {
+      context.flash(message, type);
+    });
+  },
+
+  methods: {
+    flash(message, type) {
+      this.body = message;
+      this.typeClass = "alert alert-" + type;
+      this.show = true;
+
+      this.hide();
+    },
+
+    hide() {
+      setTimeout(() => {
+        this.show = false;
+      }, 3000);
+    }
+  }
+};
 </script>
