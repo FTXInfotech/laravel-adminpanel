@@ -39,7 +39,6 @@ class ManageBlogsTest extends TestCase
             ->assertSee(trans('labels.backend.blogs.table.createdby'))
             ->assertSee(trans('labels.backend.blogs.table.createdat'))
             ->assertSee(trans('labels.backend.blogs.table.status'))
-            ->assertSee('Export')
             ->assertSee('Action');
     }
 
