@@ -4,7 +4,7 @@ namespace App\Http\Responses\Backend\Blog;
 
 use Illuminate\Contracts\Support\Responsable;
 
-class IndexResponse implements Responsable 
+class IndexResponse implements Responsable
 {
     protected $status;
 
@@ -13,11 +13,10 @@ class IndexResponse implements Responsable
         $this->status = $status;
     }
 
-    public function toResponse($request) 
+    public function toResponse($request)
     {
         return view('backend.blogs.index')->with([
             'status'=> $this->status,
         ]);
     }
-
 }
