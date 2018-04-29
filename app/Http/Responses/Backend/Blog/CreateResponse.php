@@ -6,9 +6,9 @@ use Illuminate\Contracts\Support\Responsable;
 
 class CreateResponse implements Responsable
 {
-    protected $status,
-            $blogTags,
-            $blogCategories;
+    protected $status;
+    protected $blogTags;
+    protected $blogCategories;
 
     public function __construct($status, $blogCategories, $blogTags)
     {
@@ -16,8 +16,8 @@ class CreateResponse implements Responsable
         $this->blogTags = $blogTags;
         $this->blogCategories = $blogCategories;
     }
-    
-    public function toResponse($request) 
+
+    public function toResponse($request)
     {
         return view('backend.blogs.create')->with([
             'blogCategories' => $this->blogCategories,
@@ -25,5 +25,4 @@ class CreateResponse implements Responsable
             'status'         => $this->status,
         ]);
     }
-
 }
