@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Cookie;
 use Illuminate\Session\Store;
 
 /**
@@ -39,12 +40,16 @@ class SessionTimeout
      */
     public function handle($request, Closure $next)
     {
-        if (config('session.timeout_status')) {
+        //Cookie Name for when 'remember me' is checked
+        $remember_cookie = \Auth::guard()->getRecallerName();
+        
+        if(!Cookie::has($remember_cookie) && config('session.timeout_status')) {
             $isLoggedIn = $request->path() != '/logout';
-
+                
             if (!session('lastActivityTime')) {
                 $this->session->put('lastActivityTime', time());
-            } elseif (time() - $this->session->get('lastActivityTime') > $this->timeout) {
+            } 
+            else if (time() - $this->session->get('lastActivityTime') > $this->timeout) {
                 $this->session->forget('lastActivityTime');
                 $cookie = cookie('intend', $isLoggedIn ? url()->current() : 'admin/dashboard');
                 $email = $request->user()->email;
@@ -53,7 +58,7 @@ class SessionTimeout
                 return redirect()->route('frontend.auth.login')->withFlashWarning(trans('strings.backend.general.timeout').$this->timeout / 60 .trans('strings.backend.general.minutes'))->withInput(compact('email'))->withCookie($cookie);
             }
 
-            $isLoggedIn ? $this->session->put('lastActivityTime', time()) : $this->session->forget('lastActivityTime');
+            $isLoggedIn ? $this->session->put('lastActivityTime', time()) : $this->session->forget('lastActivityTime'); 
         }
 
         return $next($request);
