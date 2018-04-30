@@ -44,7 +44,6 @@ class ManageUsersTest extends TestCase
             ->assertViewIs('backend.access.users.index')
             ->assertSee(trans('labels.backend.access.users.management'))
             ->assertSee(trans('labels.backend.access.users.active'))
-            ->assertSee('Export')
             ->assertSee('Action');
     }
 
@@ -56,7 +55,6 @@ class ManageUsersTest extends TestCase
             ->assertViewIs('backend.access.users.deactivated')
             ->assertSee(trans('labels.backend.access.users.management'))
             ->assertSee(trans('labels.backend.access.users.deactivated'))
-            ->assertSee('Export')
             ->assertSee('Action');
     }
 
@@ -68,7 +66,6 @@ class ManageUsersTest extends TestCase
             ->assertViewIs('backend.access.users.deleted')
             ->assertSee(trans('labels.backend.access.users.management'))
             ->assertSee(trans('labels.backend.access.users.deleted'))
-            ->assertSee('Export')
             ->assertSee('Action');
     }
 

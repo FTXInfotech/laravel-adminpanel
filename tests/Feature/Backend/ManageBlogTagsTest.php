@@ -16,7 +16,6 @@ class ManageBlogTagsTest extends TestCase
             ->assertSee(trans('labels.backend.blogtags.management'))
             ->assertSee(trans('labels.backend.blogtags.table.title'))
             ->assertSee(trans('labels.backend.blogtags.table.status'))
-            ->assertSee('Export')
             ->assertSee('Action');
     }
 

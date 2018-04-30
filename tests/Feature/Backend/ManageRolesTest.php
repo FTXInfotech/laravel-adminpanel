@@ -20,7 +20,6 @@ class ManageRolesTest extends TestCase
             ->get(route('admin.access.role.index'))
             ->assertViewIs('backend.access.roles.index')
             ->assertSee(trans('labels.backend.access.roles.management'))
-            ->assertSee('Export')
             ->assertSee('Action');
     }
 
