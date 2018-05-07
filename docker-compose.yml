@@ -1,0 +1,54 @@
+version: '3'
+services:
+  app:
+    image:  inshastri/laravel-adminpanel:latest
+    ports:
+      - 80:80
+      - 8080:8080
+    links:
+      - mysql
+      - redis
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: laravel_docker
+      DB_USERNAME: root
+      DB_PASSWORD: toor
+      REDIS_HOST: redis
+      SESSION_DRIVER: redis
+      CACHE_DRIVER: redis
+    networks: 
+    - testservice_bridge2
+  mysql:
+    image: mysql:5
+    volumes:
+     - ./data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: laravel_docker
+    networks: 
+    - testservice_bridge2      
+  redis:
+    image: redis:4.0-alpine
+    ports:
+      - 6379:6379
+    networks: 
+    - testservice_bridge2
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_PORT: 3306
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: toor
+    ports:
+    - "8005:80"
+    restart: always
+    depends_on: 
+    - mysql
+    networks: 
+    - testservice_bridge2 
+networks:
+  testservice_bridge2:
