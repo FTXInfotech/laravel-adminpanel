@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Backend\Access\User;
 
-use App\Models\Access\User\User;
 use App\Http\Controllers\Controller;
-use App\Http\Responses\RedirectResponse;
-use App\Models\Access\Permission\Permission;
-use App\Http\Responses\Backend\Access\User\EditResponse;
-use App\Http\Responses\Backend\Access\User\ShowResponse;
-use App\Repositories\Backend\Access\Role\RoleRepository;
-use App\Repositories\Backend\Access\User\UserRepository;
-use App\Http\Responses\Backend\Access\User\IndexResponse;
-use App\Http\Requests\Backend\Access\User\EditUserRequest;
-use App\Http\Requests\Backend\Access\User\ShowUserRequest;
-use App\Http\Responses\Backend\Access\User\CreateResponse;
-use App\Http\Requests\Backend\Access\User\StoreUserRequest;
 use App\Http\Requests\Backend\Access\User\CreateUserRequest;
 use App\Http\Requests\Backend\Access\User\DeleteUserRequest;
+use App\Http\Requests\Backend\Access\User\EditUserRequest;
 use App\Http\Requests\Backend\Access\User\ManageUserRequest;
+use App\Http\Requests\Backend\Access\User\ShowUserRequest;
+use App\Http\Requests\Backend\Access\User\StoreUserRequest;
 use App\Http\Requests\Backend\Access\User\UpdateUserRequest;
+use App\Http\Responses\Backend\Access\User\CreateResponse;
+use App\Http\Responses\Backend\Access\User\EditResponse;
+use App\Http\Responses\Backend\Access\User\IndexResponse;
+use App\Http\Responses\Backend\Access\User\ShowResponse;
+use App\Http\Responses\RedirectResponse;
+use App\Models\Access\Permission\Permission;
+use App\Models\Access\User\User;
+use App\Repositories\Backend\Access\Role\RoleRepository;
+use App\Repositories\Backend\Access\User\UserRepository;
 
 /**
  * Class UserController.
@@ -47,7 +47,7 @@ class UserController extends Controller
 
     /**
      * @param \App\Http\Requests\Backend\Access\User\ManageUserRequest $request
-     * 
+     *
      * @return \App\Http\Responses\Backend\Access\User\IndexResponse
      */
     public function index(ManageUserRequest $request)
@@ -63,7 +63,7 @@ class UserController extends Controller
     public function create(CreateUserRequest $request)
     {
         $roles = $this->roles->getAll();
-        
+
         return new CreateResponse($roles);
     }
 
@@ -80,8 +80,8 @@ class UserController extends Controller
     }
 
     /**
-     * @param \App\Models\Access\User\User                              $user
-     * @param \App\Http\Requests\Backend\Access\User\ShowUserRequest    $request
+     * @param \App\Models\Access\User\User                           $user
+     * @param \App\Http\Requests\Backend\Access\User\ShowUserRequest $request
      *
      * @return \App\Http\Responses\Backend\Access\User\ShowResponse
      */
@@ -91,8 +91,8 @@ class UserController extends Controller
     }
 
     /**
-     * @param \App\Models\Access\User\User                              $user
-     * @param \App\Http\Requests\Backend\Access\User\EditUserRequest    $request
+     * @param \App\Models\Access\User\User                           $user
+     * @param \App\Http\Requests\Backend\Access\User\EditUserRequest $request
      *
      * @return \App\Http\Responses\Backend\Access\User\EditResponse
      */
@@ -105,8 +105,8 @@ class UserController extends Controller
     }
 
     /**
-     * @param \App\Models\Access\User\User                              $user
-     * @param \App\Http\Requests\Backend\Access\User\UpdateUserRequest  $request
+     * @param \App\Models\Access\User\User                             $user
+     * @param \App\Http\Requests\Backend\Access\User\UpdateUserRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
@@ -118,8 +118,8 @@ class UserController extends Controller
     }
 
     /**
-     * @param \App\Models\Access\User\User                              $user
-     * @param \App\Http\Requests\Backend\Access\User\DeleteUserRequest  $request
+     * @param \App\Models\Access\User\User                             $user
+     * @param \App\Http\Requests\Backend\Access\User\DeleteUserRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
