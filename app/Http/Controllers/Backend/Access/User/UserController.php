@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Backend\Access\User;
 
-use App\Models\Access\User\User;
 use App\Http\Controllers\Controller;
-use App\Http\Responses\ViewResponse;
-use App\Http\Responses\RedirectResponse;
-use App\Models\Access\Permission\Permission;
-use App\Http\Responses\Backend\Access\User\EditResponse;
-use App\Http\Responses\Backend\Access\User\ShowResponse;
-use App\Repositories\Backend\Access\Role\RoleRepository;
-use App\Repositories\Backend\Access\User\UserRepository;
-use App\Http\Requests\Backend\Access\User\EditUserRequest;
-use App\Http\Requests\Backend\Access\User\ShowUserRequest;
-use App\Http\Responses\Backend\Access\User\CreateResponse;
-use App\Http\Requests\Backend\Access\User\StoreUserRequest;
 use App\Http\Requests\Backend\Access\User\CreateUserRequest;
 use App\Http\Requests\Backend\Access\User\DeleteUserRequest;
+use App\Http\Requests\Backend\Access\User\EditUserRequest;
 use App\Http\Requests\Backend\Access\User\ManageUserRequest;
+use App\Http\Requests\Backend\Access\User\ShowUserRequest;
+use App\Http\Requests\Backend\Access\User\StoreUserRequest;
 use App\Http\Requests\Backend\Access\User\UpdateUserRequest;
+use App\Http\Responses\Backend\Access\User\CreateResponse;
+use App\Http\Responses\Backend\Access\User\EditResponse;
+use App\Http\Responses\Backend\Access\User\ShowResponse;
+use App\Http\Responses\RedirectResponse;
+use App\Http\Responses\ViewResponse;
+use App\Models\Access\Permission\Permission;
+use App\Models\Access\User\User;
+use App\Repositories\Backend\Access\Role\RoleRepository;
+use App\Repositories\Backend\Access\User\UserRepository;
 
 /**
  * Class UserController.

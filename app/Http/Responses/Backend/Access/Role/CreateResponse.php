@@ -17,8 +17,8 @@ class CreateResponse implements Responsable
     protected $permissions;
 
     /**
-     * @param \App\Repositories\Backend\Access\Permission\PermissionRepository  $permissions
-     * @param \App\Repositories\Backend\Access\Role\RoleRepository              $roles
+     * @param \App\Repositories\Backend\Access\Permission\PermissionRepository $permissions
+     * @param \App\Repositories\Backend\Access\Role\RoleRepository             $roles
      */
     public function __construct($permissions, $roles)
     {
