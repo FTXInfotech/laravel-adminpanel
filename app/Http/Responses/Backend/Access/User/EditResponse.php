@@ -31,6 +31,12 @@ class EditResponse implements Responsable
         $this->permissions = $permissions;
     }
 
+    /**
+     * toReponse
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function toResponse($request)
     {
         $permissions = $this->permissions;
