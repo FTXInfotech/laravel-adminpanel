@@ -748,7 +748,7 @@ var Backend = {}; // common variable used in all the files of the backend
             setSelectors: function () {
                 this.selector.searchInput = document.querySelector("div.dataTables_filter input");
                 this.selector.columnSearchInput = document.querySelectorAll(".search-input-text");
-                this.selector.columnSelectInput = document.querySelectorAll('search-input-select');
+                this.selector.columnSelectInput = document.querySelectorAll(".search-input-select");
                 this.selector.restButton = document.querySelectorAll('.reset-data');
                 this.setSelectors.copyButton = document.getElementById("copyButton");
                 this.setSelectors.csvButton = document.getElementById("csvButton");
