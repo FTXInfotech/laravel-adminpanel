@@ -6,10 +6,10 @@ use Illuminate\Contracts\Support\Responsable;
 
 class EditResponse implements Responsable
 {
-    protected $blog,
-            $status,
-            $blogTags,
-            $blogCategories;
+    protected $blog;
+    protected $status;
+    protected $blogTags;
+    protected $blogCategories;
 
     public function __construct($blog, $status, $blogCategories, $blogTags)
     {
@@ -18,8 +18,8 @@ class EditResponse implements Responsable
         $this->blogTags = $blogTags;
         $this->blogCategories = $blogCategories;
     }
-    
-    public function toResponse($request) 
+
+    public function toResponse($request)
     {
         $selectedCategories = $this->blog->categories->pluck('id')->toArray();
         $selectedtags = $this->blog->tags->pluck('id')->toArray();
@@ -33,5 +33,4 @@ class EditResponse implements Responsable
             'status'             => $this->status,
         ]);
     }
-
 }

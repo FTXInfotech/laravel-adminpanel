@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
 use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
 use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
-use App\Http\Responses\Backend\Blog\IndexResponse;
 use App\Http\Responses\Backend\Blog\CreateResponse;
 use App\Http\Responses\Backend\Blog\EditResponse;
+use App\Http\Responses\Backend\Blog\IndexResponse;
 use App\Http\Responses\RedirectResponse;
 use App\Models\BlogCategories\BlogCategory;
 use App\Models\Blogs\Blog;
@@ -89,7 +89,7 @@ class BlogsController extends Controller
         $blogCategories = BlogCategory::getSelectData();
         $blogTags = BlogTag::getSelectData();
 
-        return new EditResponse($blog, $this->status, $blogCategories, $blogTags);        
+        return new EditResponse($blog, $this->status, $blogCategories, $blogTags);
     }
 
     /**
