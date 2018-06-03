@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Responsable;
 class EditResponse implements Responsable
 {
     /**
-     * @var Array
+     * @var array
      */
     protected $types;
 
@@ -22,9 +22,9 @@ class EditResponse implements Responsable
     protected $menu;
 
     /**
-     * @param \App\Models\Menu\Menu     $menu
-     * @param Array                     $types
-     * @param \Bvipul\Generator\Module  $modules
+     * @param \App\Models\Menu\Menu    $menu
+     * @param array                    $types
+     * @param \Bvipul\Generator\Module $modules
      */
     public function __construct($menu, $types, $modules)
     {
@@ -34,9 +34,10 @@ class EditResponse implements Responsable
     }
 
     /**
-     * toReponse
+     * toReponse.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function toResponse($request)

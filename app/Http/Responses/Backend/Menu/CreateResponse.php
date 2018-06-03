@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Responsable;
 class CreateResponse implements Responsable
 {
     /**
-     * @var Array
+     * @var array
      */
     protected $types;
 
@@ -17,8 +17,8 @@ class CreateResponse implements Responsable
     protected $modules;
 
     /**
-     * @param Array                     $types
-     * @param \Bvipul\Generator\Module  $modules
+     * @param array                    $types
+     * @param \Bvipul\Generator\Module $modules
      */
     public function __construct($types, $modules)
     {

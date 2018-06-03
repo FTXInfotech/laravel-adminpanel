@@ -108,6 +108,6 @@ class RoleController extends Controller
     {
         $this->roles->delete($role);
 
-        return new RedirectResponse(route('admin.access.role.index'), ['flash_success' => trans('alerts.backend.roles.deleted')]);        
+        return new RedirectResponse(route('admin.access.role.index'), ['flash_success' => trans('alerts.backend.roles.deleted')]);
     }
 }
