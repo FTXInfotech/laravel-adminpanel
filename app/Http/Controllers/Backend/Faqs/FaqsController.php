@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Backend\Faqs;
 
-use App\Models\Faqs\Faq;
 use App\Http\Controllers\Controller;
-use App\Http\Responses\ViewResponse;
-use App\Http\Responses\RedirectResponse;
-use App\Http\Responses\Backend\Faq\EditResponse;
-use App\Repositories\Backend\Faqs\FaqsRepository;
-use App\Http\Requests\Backend\Faqs\EditFaqsRequest;
-use App\Http\Requests\Backend\Faqs\StoreFaqsRequest;
 use App\Http\Requests\Backend\Faqs\CreateFaqsRequest;
 use App\Http\Requests\Backend\Faqs\DeleteFaqsRequest;
+use App\Http\Requests\Backend\Faqs\EditFaqsRequest;
 use App\Http\Requests\Backend\Faqs\ManageFaqsRequest;
+use App\Http\Requests\Backend\Faqs\StoreFaqsRequest;
 use App\Http\Requests\Backend\Faqs\UpdateFaqsRequest;
+use App\Http\Responses\Backend\Faq\EditResponse;
+use App\Http\Responses\RedirectResponse;
+use App\Http\Responses\ViewResponse;
+use App\Models\Faqs\Faq;
+use App\Repositories\Backend\Faqs\FaqsRepository;
 
 class FaqsController extends Controller
 {
     /**
-     * Faq Repository
+     * Faq Repository.
      *
      * @var \App\Repositories\Backend\Faqs\FaqsRepository
      */

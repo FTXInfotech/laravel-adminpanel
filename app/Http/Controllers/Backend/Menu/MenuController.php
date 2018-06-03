@@ -2,42 +2,41 @@
 
 namespace App\Http\Controllers\Backend\Menu;
 
-use App\Models\Menu\Menu;
-use Bvipul\Generator\Module;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Responses\ViewResponse;
-use App\Http\Responses\RedirectResponse;
-use App\Http\Responses\Backend\Menu\EditResponse;
-use App\Repositories\Backend\Menu\MenuRepository;
-use App\Http\Requests\Backend\Menu\EditMenuRequest;
-use App\Http\Responses\Backend\Menu\CreateResponse;
-use App\Http\Requests\Backend\Menu\StoreMenuRequest;
 use App\Http\Requests\Backend\Menu\CreateMenuRequest;
 use App\Http\Requests\Backend\Menu\DeleteMenuRequest;
+use App\Http\Requests\Backend\Menu\EditMenuRequest;
 use App\Http\Requests\Backend\Menu\ManageMenuRequest;
+use App\Http\Requests\Backend\Menu\StoreMenuRequest;
 use App\Http\Requests\Backend\Menu\UpdateMenuRequest;
+use App\Http\Responses\Backend\Menu\CreateResponse;
+use App\Http\Responses\Backend\Menu\EditResponse;
+use App\Http\Responses\RedirectResponse;
+use App\Http\Responses\ViewResponse;
+use App\Models\Menu\Menu;
+use App\Repositories\Backend\Menu\MenuRepository;
+use Bvipul\Generator\Module;
 
 class MenuController extends Controller
 {
     /**
-     * Menu Model Object
+     * Menu Model Object.
      *
      * @var \App\Models\Menu\Menu
      */
     protected $menu;
 
     /**
-     * Module Model Object
+     * Module Model Object.
      *
      * @var \Bvipul\Generator\Module
      */
     protected $modules;
 
     /**
-     * Menu Types
+     * Menu Types.
      *
-     * @var Array
+     * @var array
      */
     protected $types;
 
@@ -47,14 +46,13 @@ class MenuController extends Controller
     public function __construct(MenuRepository $menu, Module $module)
     {
         $this->menu = $menu;
-        
+
         $this->modules = $module;
-        
+
         $this->types = [
             'backend'  => 'Backend',
             'frontend' => 'Frontend',
         ];
-
     }
 
     /**

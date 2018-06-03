@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Backend\Pages;
 
-use App\Models\Page\Page;
 use App\Http\Controllers\Controller;
-use App\Http\Responses\ViewResponse;
-use App\Http\Responses\RedirectResponse;
-use App\Http\Responses\Backend\Page\EditResponse;
-use App\Repositories\Backend\Pages\PagesRepository;
-use App\Http\Requests\Backend\Pages\EditPageRequest;
-use App\Http\Requests\Backend\Pages\StorePageRequest;
 use App\Http\Requests\Backend\Pages\CreatePageRequest;
 use App\Http\Requests\Backend\Pages\DeletePageRequest;
+use App\Http\Requests\Backend\Pages\EditPageRequest;
 use App\Http\Requests\Backend\Pages\ManagePageRequest;
+use App\Http\Requests\Backend\Pages\StorePageRequest;
 use App\Http\Requests\Backend\Pages\UpdatePageRequest;
+use App\Http\Responses\Backend\Page\EditResponse;
+use App\Http\Responses\RedirectResponse;
+use App\Http\Responses\ViewResponse;
+use App\Models\Page\Page;
+use App\Repositories\Backend\Pages\PagesRepository;
 
 /**
  * Class PagesController.
@@ -37,7 +37,7 @@ class PagesController extends Controller
      */
     public function index(ManagePageRequest $request)
     {
-        return new ViewResponse('backend.pages.index');        
+        return new ViewResponse('backend.pages.index');
     }
 
     /**

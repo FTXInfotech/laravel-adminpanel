@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Backend\Settings;
 
-use App\Models\Settings\Setting;
 use App\Http\Controllers\Controller;
-use App\Http\Responses\RedirectResponse;
-use App\Http\Responses\Backend\Setting\EditResponse;
-use App\Repositories\Backend\Settings\SettingsRepository;
 use App\Http\Requests\Backend\Settings\ManageSettingsRequest;
 use App\Http\Requests\Backend\Settings\UpdateSettingsRequest;
+use App\Http\Responses\Backend\Setting\EditResponse;
+use App\Http\Responses\RedirectResponse;
+use App\Models\Settings\Setting;
+use App\Repositories\Backend\Settings\SettingsRepository;
 
 /**
  * Class SettingsController.
