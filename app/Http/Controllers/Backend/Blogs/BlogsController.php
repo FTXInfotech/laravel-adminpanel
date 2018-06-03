@@ -46,7 +46,7 @@ class BlogsController extends Controller
     /**
      * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\Backend\Blog\IndexResponse
      */
     public function index(ManageBlogsRequest $request)
     {
@@ -69,7 +69,7 @@ class BlogsController extends Controller
     /**
      * @param \App\Http\Requests\Backend\Blogs\StoreBlogsRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StoreBlogsRequest $request)
     {
@@ -82,7 +82,7 @@ class BlogsController extends Controller
      * @param \App\Models\Blogs\Blog                              $blog
      * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\Backend\Blog\EditResponse
      */
     public function edit(Blog $blog, ManageBlogsRequest $request)
     {
@@ -96,7 +96,7 @@ class BlogsController extends Controller
      * @param \App\Models\Blogs\Blog                              $blog
      * @param \App\Http\Requests\Backend\Blogs\UpdateBlogsRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function update(Blog $blog, UpdateBlogsRequest $request)
     {
@@ -111,7 +111,7 @@ class BlogsController extends Controller
      * @param \App\Models\Blogs\Blog                              $blog
      * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(Blog $blog, ManageBlogsRequest $request)
     {
