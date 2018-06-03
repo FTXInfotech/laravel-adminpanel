@@ -18,7 +18,7 @@ class RedirectResponse implements Responsable
     public function toResponse($request)
     {
         return redirect()
-            ->route($this->route)
+            ->to($this->route)
             ->with($this->message);
     }
 }

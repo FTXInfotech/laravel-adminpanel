@@ -63,7 +63,7 @@ class PermissionController extends Controller
     {
         $this->permissions->create($request->all());
 
-        return new RedirectResponse('admin.access.permission.index', ['flash_success' => trans('alerts.backend.permissions.created')]);
+        return new RedirectResponse(route('admin.access.permission.index'), ['flash_success' => trans('alerts.backend.permissions.created')]);
     }
 
     /**
@@ -87,7 +87,7 @@ class PermissionController extends Controller
     {
         $this->permissions->update($permission, $request->all());
 
-        return new RedirectResponse('admin.access.permission.index', ['flash_success' => trans('alerts.backend.permissions.updated')]);
+        return new RedirectResponse(route('admin.access.permission.index'), ['flash_success' => trans('alerts.backend.permissions.updated')]);
     }
 
     /**
@@ -100,6 +100,6 @@ class PermissionController extends Controller
     {
         $this->permissions->delete($permission);
 
-        return new RedirectResponse('admin.access.permission.index', ['flash_success' => trans('alerts.backend.permissions.deleted')]);
+        return new RedirectResponse(route('admin.access.permission.index'), ['flash_success' => trans('alerts.backend.permissions.deleted')]);
     }
 }

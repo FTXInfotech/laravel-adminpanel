@@ -71,7 +71,7 @@ class RoleController extends Controller
     {
         $this->roles->create($request->all());
 
-        return new RedirectResponse('admin.access.role.index', ['flash_success' => trans('alerts.backend.roles.created')]);
+        return new RedirectResponse(route('admin.access.role.index'), ['flash_success' => trans('alerts.backend.roles.created')]);
     }
 
     /**
@@ -95,7 +95,7 @@ class RoleController extends Controller
     {
         $this->roles->update($role, $request->all());
 
-        return new RedirectResponse('admin.access.role.index', ['flash_success' => trans('alerts.backend.roles.updated')]);
+        return new RedirectResponse(route('admin.access.role.index'), ['flash_success' => trans('alerts.backend.roles.updated')]);
     }
 
     /**
@@ -108,6 +108,6 @@ class RoleController extends Controller
     {
         $this->roles->delete($role);
 
-        return new RedirectResponse('admin.access.role.index', ['flash_success' => trans('alerts.backend.roles.deleted')]);        
+        return new RedirectResponse(route('admin.access.role.index'), ['flash_success' => trans('alerts.backend.roles.deleted')]);        
     }
 }
