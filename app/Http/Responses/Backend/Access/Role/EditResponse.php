@@ -17,8 +17,8 @@ class EditResponse implements Responsable
     protected $permissions;
 
     /**
-     * @param \App\Models\Access\Role\Role                                      $role
-     * @param \App\Repositories\Backend\Access\Permission\PermissionRepository  $permissions
+     * @param \App\Models\Access\Role\Role                                     $role
+     * @param \App\Repositories\Backend\Access\Permission\PermissionRepository $permissions
      */
     public function __construct($role, $permissions)
     {
@@ -27,9 +27,10 @@ class EditResponse implements Responsable
     }
 
     /**
-     * toReponse
+     * toReponse.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function toResponse($request)
