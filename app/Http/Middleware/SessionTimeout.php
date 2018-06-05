@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Cookie;
 use Illuminate\Session\Store;
 
 /**
@@ -39,7 +40,10 @@ class SessionTimeout
      */
     public function handle($request, Closure $next)
     {
-        if (config('session.timeout_status')) {
+        //Cookie Name for when 'remember me' is checked
+        $remember_cookie = \Auth::guard()->getRecallerName();
+
+        if (!Cookie::has($remember_cookie) && config('session.timeout_status')) {
             $isLoggedIn = $request->path() != '/logout';
 
             if (!session('lastActivityTime')) {

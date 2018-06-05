@@ -9,20 +9,50 @@ use App\Http\Requests\Backend\Menu\EditMenuRequest;
 use App\Http\Requests\Backend\Menu\ManageMenuRequest;
 use App\Http\Requests\Backend\Menu\StoreMenuRequest;
 use App\Http\Requests\Backend\Menu\UpdateMenuRequest;
+use App\Http\Responses\Backend\Menu\CreateResponse;
+use App\Http\Responses\Backend\Menu\EditResponse;
+use App\Http\Responses\RedirectResponse;
+use App\Http\Responses\ViewResponse;
 use App\Models\Menu\Menu;
 use App\Repositories\Backend\Menu\MenuRepository;
-use Illuminate\Support\Facades\DB;
+use Bvipul\Generator\Module;
 
 class MenuController extends Controller
 {
+    /**
+     * Menu Model Object.
+     *
+     * @var \App\Models\Menu\Menu
+     */
     protected $menu;
+
+    /**
+     * Module Model Object.
+     *
+     * @var \Bvipul\Generator\Module
+     */
+    protected $modules;
+
+    /**
+     * Menu Types.
+     *
+     * @var array
+     */
+    protected $types;
 
     /**
      * @param \App\Repositories\Backend\Menu\MenuRepository $menu
      */
-    public function __construct(MenuRepository $menu)
+    public function __construct(MenuRepository $menu, Module $module)
     {
         $this->menu = $menu;
+
+        $this->modules = $module;
+
+        $this->types = [
+            'backend'  => 'Backend',
+            'frontend' => 'Frontend',
+        ];
     }
 
     /**
@@ -30,11 +60,11 @@ class MenuController extends Controller
      *
      * @param \App\Http\Requests\Backend\Menu\ManageMenuRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Responses\ViewResponse
      */
     public function index(ManageMenuRequest $request)
     {
-        return view('backend.menus.index');
+        return new ViewResponse('backend.menus.index');
     }
 
     /**
@@ -42,17 +72,11 @@ class MenuController extends Controller
      *
      * @param \App\Http\Requests\Backend\Menu\CreateMenuRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Responses\Backend\Menu\CreateResponse
      */
     public function create(CreateMenuRequest $request)
     {
-        $types = [
-            'backend'  => 'Backend',
-            'frontend' => 'Frontend',
-        ];
-        $modules = DB::table('modules')->get();
-
-        return view('backend.menus.create')->withTypes($types)->withModules($modules);
+        return new CreateResponse($this->types, $this->modules);
     }
 
     /**
@@ -60,13 +84,13 @@ class MenuController extends Controller
      *
      * @param \App\Http\Requests\Backend\Menu\StoreMenuRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StoreMenuRequest $request)
     {
         $this->menu->create($request->except('_token'));
 
-        return redirect()->route('admin.menus.index')->withFlashSuccess(trans('alerts.backend.menus.created'));
+        return new RedirectResponse(route('admin.menus.index'), ['flash_success' => trans('alerts.backend.menus.created')]);
     }
 
     /**
@@ -75,21 +99,11 @@ class MenuController extends Controller
      * @param \App\Models\Menu\Menu                           $menu
      * @param \App\Http\Requests\Backend\Menu\EditMenuRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Responses\Backend\Menu\EditResponse
      */
     public function edit(Menu $menu, EditMenuRequest $request)
     {
-        $types = [
-            'backend'  => 'Backend',
-            'frontend' => 'Frontend',
-        ];
-
-        $modules = DB::table('modules')->get();
-
-        return view('backend.menus.edit')
-                ->with('types', $types)
-                ->with('menu', $menu)
-                ->with('modules', $modules);
+        return new EditResponse($menu, $this->types, $this->modules);
     }
 
     /**
@@ -98,15 +112,13 @@ class MenuController extends Controller
      * @param \App\Models\Menu\Menu                             $menu
      * @param \App\Http\Requests\Backend\Menu\UpdateMenuRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function update(Menu $menu, UpdateMenuRequest $request)
     {
         $this->menu->update($menu, $request->all());
 
-        return redirect()
-            ->route('admin.menus.index')
-            ->with('flash_success', trans('alerts.backend.menus.updated'));
+        return new RedirectResponse(route('admin.menus.index'), ['flash_success' => trans('alerts.backend.menus.updated')]);
     }
 
     /**
@@ -115,14 +127,12 @@ class MenuController extends Controller
      * @param \App\Models\Menu\Menu                             $menu
      * @param \App\Http\Requests\Backend\Menu\DeleteMenuRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(Menu $menu, DeleteMenuRequest $request)
     {
         $this->menu->delete($menu);
 
-        return redirect()
-            ->route('admin.menus.index')
-            ->with('flash_success', trans('alerts.backend.menus.deleted'));
+        return new RedirectResponse(route('admin.menus.index'), ['flash_success' => trans('alerts.backend.menus.deleted')]);
     }
 }

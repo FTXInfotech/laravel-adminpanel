@@ -17,7 +17,6 @@ class ManageFaqsTest extends TestCase
             ->assertSee(trans('labels.backend.faqs.table.question'))
             ->assertSee(trans('labels.backend.faqs.table.answer'))
             ->assertSee(trans('labels.backend.faqs.table.status'))
-            ->assertSee('Export')
             ->assertSee('Action');
     }
 
