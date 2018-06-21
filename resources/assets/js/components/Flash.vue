@@ -29,11 +29,16 @@ export default {
 
   methods: {
     flash(message, type) {
-      this.body = message;
-      this.typeClass = "alert alert-" + type;
-      this.show = true;
+        
+        if (! type) {
+            type = "info";
+        }
 
-      this.hide();
+        this.body = message;
+        this.typeClass = "alert alert-" + type;
+        this.show = true;
+
+        this.hide();
     },
 
     hide() {
