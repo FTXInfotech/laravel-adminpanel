@@ -31,7 +31,7 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.0",
         "codedungeon/phpunit-result-printer": "^0.6.0",
-        "bvipul/generator": "dev-master",
+        "bvipul/generator": "^5.6",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "laravel/browser-kit-testing": "^4.0.0",
