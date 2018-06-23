@@ -12,7 +12,7 @@ class EditResponse implements Responsable
     protected $faq;
 
     /**
-     * @param \App\Models\Faqs\Faq     $faq
+     * @param \App\Models\Faqs\Faq $faq
      */
     public function __construct($faq)
     {
@@ -20,9 +20,10 @@ class EditResponse implements Responsable
     }
 
     /**
-     * toReponse
+     * toReponse.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function toResponse($request)

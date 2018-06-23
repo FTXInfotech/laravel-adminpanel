@@ -23,14 +23,6 @@ class FrontendController extends Controller
     }
 
     /**
-     * @return \Illuminate\View\View
-     */
-    public function macros()
-    {
-        return view('frontend.macros');
-    }
-
-    /**
      * show page by $page_slug.
      */
     public function showPage($slug, PagesRepository $pages)

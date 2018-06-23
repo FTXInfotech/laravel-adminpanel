@@ -33,3 +33,5 @@ public/js/skins/*.js
 composer.lock
 public/img/backend/blog_images/*
 public/mix-manifest.json
+public/access.log
+public/error.log

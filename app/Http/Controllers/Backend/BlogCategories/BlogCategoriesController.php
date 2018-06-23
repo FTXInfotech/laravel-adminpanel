@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Backend\BlogCategories;
 
 use App\Http\Controllers\Controller;
-use App\Http\Responses\ViewResponse;
-use App\Http\Responses\RedirectResponse;
-use App\Models\BlogCategories\BlogCategory;
-use App\Repositories\Backend\BlogCategories\BlogCategoriesRepository;
-use App\Http\Requests\Backend\BlogCategories\EditBlogCategoriesRequest;
-use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\CreateBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\DeleteBlogCategoriesRequest;
+use App\Http\Requests\Backend\BlogCategories\EditBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;
+use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest;
+use App\Http\Responses\RedirectResponse;
+use App\Http\Responses\ViewResponse;
+use App\Models\BlogCategories\BlogCategory;
+use App\Repositories\Backend\BlogCategories\BlogCategoriesRepository;
 
 /**
  * Class BlogCategoriesController.
