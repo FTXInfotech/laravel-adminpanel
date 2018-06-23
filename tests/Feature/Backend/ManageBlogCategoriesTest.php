@@ -85,8 +85,8 @@ class ManageBlogCategoriesTest extends TestCase
         $catCategory = create(BlogCategory::class, ['name' => 'Cat']);
         $dogCategory = create(BlogCategory::class, ['name' => 'Dog']);
 
-        $this->patch(route('admin.blogCategories.update', $dogCategory), 
+        $this->patch(route('admin.blogCategories.update', $dogCategory),
             ['name' => 'Cat']
-        )->assertSessionHasErrors('name');        ;
+        )->assertSessionHasErrors('name');
     }
 }

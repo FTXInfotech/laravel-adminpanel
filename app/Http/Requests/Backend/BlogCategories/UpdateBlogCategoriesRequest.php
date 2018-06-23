@@ -27,7 +27,7 @@ class UpdateBlogCategoriesRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:191|unique:blog_categories,name,' . $this->segment(3)
+            'name' => 'required|max:191|unique:blog_categories,name,'.$this->segment(3),
         ];
     }
 
