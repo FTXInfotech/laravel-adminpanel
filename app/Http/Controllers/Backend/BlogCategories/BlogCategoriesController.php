@@ -66,7 +66,7 @@ class BlogCategoriesController extends Controller
      * @param \App\Models\BlogCategories\BlogCategory                             $blogCategory
      * @param \App\Http\Requests\Backend\BlogCategories\EditBlogCategoriesRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\Backend\BlogCategory\EditResponse
      */
     public function edit(BlogCategory $blogCategory, EditBlogCategoriesRequest $request)
     {

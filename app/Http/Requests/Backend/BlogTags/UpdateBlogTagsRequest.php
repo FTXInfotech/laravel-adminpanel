@@ -27,7 +27,7 @@ class UpdateBlogTagsRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:191',
+            'name' => 'required|max:191|unique:blog_tags,name,' . $this->segment(3)
         ];
     }
 
