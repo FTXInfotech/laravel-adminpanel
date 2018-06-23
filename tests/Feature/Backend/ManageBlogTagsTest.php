@@ -76,7 +76,7 @@ class ManageBlogTagsTest extends TestCase
 
         $this->assertDatabaseMissing(config('module.blog_tags.table'), ['name' => $tag->name, 'id' => $tag->id, 'deleted_at' => null]);
     }
-    
+
     /** @test */
     public function a_user_can_not_update_a_blog_tag_with_same_name()
     {
@@ -84,8 +84,8 @@ class ManageBlogTagsTest extends TestCase
 
         $catTag = create(BlogTag::class, ['name' => 'Cat']);
         $dogTag = create(BlogTag::class, ['name' => 'Dog']);
-        
-        $this->patch(route('admin.blogTags.update', $dogTag), 
+
+        $this->patch(route('admin.blogTags.update', $dogTag),
             ['name' => 'Cat']
         )->assertSessionHasErrors('name');
     }
