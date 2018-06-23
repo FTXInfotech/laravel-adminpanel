@@ -196,4 +196,17 @@ class ManageBlogsTest extends TestCase
 
         $this->assertDatabaseMissing(config('module.blogs.table'), ['id' => $this->blog->id, 'deleted_at' => null]);
     }
+
+    /** @test */
+    public function a_user_can_not_update_a_blog_with_same_name()
+    {
+        $this->actingAs($this->admin)->withExceptionHandling();
+
+        $catCategory = create(Blog::class, ['name' => 'Cat']);
+        $dogCategory = create(Blog::class, ['name' => 'Dog']);
+
+        $this->patch(route('admin.blogs.update', $dogCategory), 
+            ['name' => 'Cat']
+        )->assertSessionHasErrors('name');        ;
+    }
 }

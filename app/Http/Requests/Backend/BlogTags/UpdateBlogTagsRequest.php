@@ -39,6 +39,7 @@ class UpdateBlogTagsRequest extends Request
     public function messages()
     {
         return [
+            'name.unique'   => 'Blog Tag name already exists, please enter a different name.',
             'name.required' => 'Blog Tag name is a required field.',
             'name.max'      => 'Blog Tag may not be greater than 191 characters.',
         ];
