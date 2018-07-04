@@ -106,6 +106,7 @@ class PermissionController extends APIController
         $this->repository->delete($permission);
 
         return $this->respond([
+            'data'    => $permission->id,
             'message' => trans('alerts.backend.permissions.deleted'),
         ]);
     }

@@ -108,6 +108,7 @@ class RolesController extends APIController
         $this->repository->delete($role);
 
         return $this->respond([
+            'data'    => $role->id,
             'message' => trans('alerts.backend.roles.deleted'),
         ]);
     }

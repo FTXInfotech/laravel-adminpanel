@@ -108,6 +108,7 @@ class UsersController extends APIController
         $this->repository->delete($user);
 
         return $this->respond([
+            'data'      => $user->id,
             'message'   => trans('alerts.backend.users.deleted'),
         ]);
     }
