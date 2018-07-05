@@ -29,9 +29,9 @@ class PagesController extends APIController
      */
     public function index(Request $request)
     {
-        $limit      = $request->get('paginate') ? $request->get('paginate') : 25;
-        $orderBy    = $request->get('orderBy') ? $request->get('orderBy') : 'ASC';
-        $sortBy     = $request->get('sortBy') ? $request->get('sortBy') : 'created_at';
+        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
+        $orderBy = $request->get('orderBy') ? $request->get('orderBy') : 'ASC';
+        $sortBy = $request->get('sortBy') ? $request->get('sortBy') : 'created_at';
 
         return PagesResource::collection(
             $this->repository->getForDataTable()->orderBy($sortBy, $orderBy)->paginate($limit)
