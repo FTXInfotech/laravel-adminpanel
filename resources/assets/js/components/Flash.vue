@@ -1,5 +1,5 @@
 <template>
-    <div :class="typeClass" v-show="show">
+    <div :class="typeClass" v-show="show" v-html="body">
         {{ body }}
     </div>
 </template>
