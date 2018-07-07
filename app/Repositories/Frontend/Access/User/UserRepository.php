@@ -242,12 +242,6 @@ class UserRepository extends BaseRepository
         $user = $this->find($id);
         $user->first_name = $input['first_name'];
         $user->last_name = $input['last_name'];
-        $user->address = $input['address'];
-        $user->state_id = $input['state_id'];
-        $user->country_id = config('access.constants.default_country');
-        $user->city_id = $input['city_id'];
-        $user->zip_code = $input['zip_code'];
-        $user->ssn = $input['ssn'];
         $user->updated_by = access()->user()->id;
 
         if ($user->canChangeEmail()) {
