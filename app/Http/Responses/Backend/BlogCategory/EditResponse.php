@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Responses\Backend\Menu;
+namespace App\Http\Responses\Backend\BlogCategory;
 
 use Illuminate\Contracts\Support\Responsable;
 
@@ -14,7 +14,7 @@ class EditResponse implements Responsable
     /**
      * @param \App\Models\BlogCategories\BlogCategory $blogCategory
      */
-    public function __construct($blogCategory, $types, $modules)
+    public function __construct($blogCategory)
     {
         $this->blogCategory = $blogCategory;
     }

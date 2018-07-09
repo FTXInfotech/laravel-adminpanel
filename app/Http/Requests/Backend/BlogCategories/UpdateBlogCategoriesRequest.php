@@ -27,7 +27,7 @@ class UpdateBlogCategoriesRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:191',
+            'name' => 'required|max:191|unique:blog_categories,name,'.$this->segment(3),
         ];
     }
 
@@ -39,6 +39,7 @@ class UpdateBlogCategoriesRequest extends Request
     public function messages()
     {
         return [
+            'name.unique'   => 'Blog category name already exists, please enter a different name.',
             'name.required' => 'Blog category name must required',
             'name.max'      => 'Blog category may not be greater than 191 characters.',
         ];

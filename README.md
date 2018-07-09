@@ -54,6 +54,9 @@ Generate a new application key
 
     php artisan key:generate
 
+Generate a new JWT secret key (If you want to use API)
+    php artisan jwt:secret
+
 Generate a new JWT authentication secret key
 
     php artisan jwt:secret
@@ -79,7 +82,7 @@ For generating the files of unisharp file manager
     php artisan vendor:publish --tag=lfm_public
 
 For linking storage folder in public
-    
+
     php artisan storage:link
 
 Start the local development server

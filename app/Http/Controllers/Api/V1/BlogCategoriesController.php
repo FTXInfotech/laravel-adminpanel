@@ -32,9 +32,11 @@ class BlogCategoriesController extends APIController
     public function index(Request $request)
     {
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
+        $orderBy = $request->get('orderBy') ? $request->get('orderBy') : 'ASC';
+        $sortBy = $request->get('sortBy') ? $request->get('sortBy') : 'created_at';
 
         return BlogCategoriesResource::collection(
-            $this->repository->getForDataTable()->paginate($limit)
+            $this->repository->getForDataTable()->orderBy($sortBy, $orderBy)->paginate($limit)
         );
     }
 

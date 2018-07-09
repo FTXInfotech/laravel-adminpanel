@@ -32,9 +32,11 @@ class UsersController extends APIController
     public function index(Request $request)
     {
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
+        $orderBy = $request->get('orderBy') ? $request->get('orderBy') : 'ASC';
+        $sortBy = $request->get('sortBy') ? $request->get('sortBy') : 'created_at';
 
         return UserResource::collection(
-            $this->repository->getForDataTable(1, false)->paginate($limit)
+            $this->repository->getForDataTable(1, false)->orderBy($sortBy, $orderBy)->paginate($limit)
         );
     }
 
@@ -106,6 +108,7 @@ class UsersController extends APIController
         $this->repository->delete($user);
 
         return $this->respond([
+            'data'      => $user->id,
             'message'   => trans('alerts.backend.users.deleted'),
         ]);
     }

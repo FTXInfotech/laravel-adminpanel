@@ -9,6 +9,7 @@ use App\Http\Requests\Backend\BlogCategories\EditBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest;
+use App\Http\Responses\Backend\BlogCategory\EditResponse;
 use App\Http\Responses\RedirectResponse;
 use App\Http\Responses\ViewResponse;
 use App\Models\BlogCategories\BlogCategory;
@@ -65,7 +66,7 @@ class BlogCategoriesController extends Controller
      * @param \App\Models\BlogCategories\BlogCategory                             $blogCategory
      * @param \App\Http\Requests\Backend\BlogCategories\EditBlogCategoriesRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\Backend\BlogCategory\EditResponse
      */
     public function edit(BlogCategory $blogCategory, EditBlogCategoriesRequest $request)
     {
