@@ -20,8 +20,8 @@ class PermissionResource extends Resource
             'name'              => $this->name,
             'display_name'      => $this->display_name,
             'sort'              => $this->sort,
-            'registered_at'     => $this->created_at->toIso8601String(),
-            'last_updated_at'   => $this->updated_at->toIso8601String(),
+            'created_at'        => $this->created_at->toIso8601String(),
+            'updated_at'        => $this->updated_at->toIso8601String(),
 
         ];
     }

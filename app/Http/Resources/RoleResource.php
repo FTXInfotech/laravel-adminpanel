@@ -18,12 +18,12 @@ class RoleResource extends Resource
         return [
             'id'                => $this->id,
             'name'              => $this->name,
-            'permission'        => ($this->all) ? 'All' : optional($this->permissions)->pluck('display_name'),
-            'noofuses'          => $this->users->count(),
+            'permissions'       => ($this->all) ? 'All' : optional($this->permissions)->pluck('display_name'),
+            'number_of_users'   => $this->users->count(),
             'sort'              => $this->sort,
             'status'            => $this->status,
-            'registered_at'     => $this->created_at->toIso8601String(),
-            'last_updated_at'   => $this->updated_at->toIso8601String(),
+            'created_at'        => $this->created_at->toIso8601String(),
+            'updated_at'        => $this->updated_at->toIso8601String(),
         ];
     }
 }
