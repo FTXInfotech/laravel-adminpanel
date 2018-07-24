@@ -1,4 +1,10 @@
 # laravel-adminpanel
+[![GitHub license](https://img.shields.io/github/license/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/blob/master/LICENSE.txt)
+[![GitHub stars](https://img.shields.io/github/stars/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/network)
+[![GitHub issues](https://img.shields.io/github/issues/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/issues)
+![StyleCI](https://img.shields.io/badge/styleCI-passed-brightgreen.svg?style=plastic)
+
 
 ## Introduction
 * This is a laravel Admin Panel, based on [Rappasoft Laravel Boilerplate](https://github.com/rappasoft/laravel-5-boilerplate/releases/tag/4.5.7), with enhancemenets and many modules pre-made, just for you.
@@ -16,7 +22,7 @@ For Laravel 5 Boilerplate Features : [Features](https://github.com/rappasoft/lar
 * FAQ Module
 * API Boilerplate.
 
-Give your project a Head Start by using [laravel-adminpanel](https://github.com/vhsolani25/laravel-adminpanel).
+Give your project a Head Start by using [laravel-adminpanel](https://github.com/viralsolani/laravel-adminpanel).
 
 ## Built-in Laravel Boilerplate Module Generator
 It gives you the ability to create a module using a sweet GUI, where you put in the Module Name and it will generate all the necessary files for you, like Model, Traits, Relationship, Migration, Controllers, Views and routes. So when you are done creating a module, you can directly go to the route generated and see your new module. Since, this does not have the ability to generate table fields for now, so you have to write the migration file that is generated and run a manual php artisan migrate command, and you are good to go.
@@ -89,7 +95,7 @@ You can now access the server at http://localhost:8000
 
 **TL;DR command list**
 
-    git clone https://github.com/vhsolani25/laravel-adminpanel
+    git clone https://github.com/viralsolani/laravel-adminpanel.git
     cd laravel-adminpanel
     cp .env.example .env
     composer install
@@ -121,3 +127,13 @@ Password: `1234`
 ## Settings
 ![Screenshot](screenshots/settings.png)
 
+## Issues
+
+If you come across any issues please report them [here](https://github.com/viralsolani/laravel-adminpanel/issues).
+
+## Contributing
+Feel free to create any pull requests for the project. For proposing any new changes or features you want to add to the project, you can send us an email at viral.solani@gmail.com or basapativipulkumar@gmail.com.
+
+## License
+
+[MIT LICENSE](https://github.com/viralsolani/laravel-adminpanel/blob/master/LICENSE.txt)
