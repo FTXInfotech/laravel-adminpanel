@@ -491,7 +491,7 @@ var Backend = {}; // common variable used in all the files of the backend
 
                 this.selectors.menuItemContainer.nestable({
                     callback: function (l, e) {
-                        this.selectors.menuItemsData.val(JSON.stringify($(l).nestable('serialise')));
+                        context.selectors.menuItemsData.val(JSON.stringify($(l).nestable('serialise')));
                     },
                     json: this.selectors.menuItemsData.val(),
                     includeContent: true,
