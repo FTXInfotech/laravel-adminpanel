@@ -23,8 +23,8 @@ class FaqsRepository extends BaseRepository
     {
         return $this->query()
             ->select([
-                config('mdule.faqs.able').'.id',
-                config('odule.faqs.table').'.question',
+                config('module.faqs.table').'.id',
+                config('module.faqs.table').'.question',
                 config('module.faqs.table').'.answer',
                 config('module.faqs.table').'.status',
                 config('module.faqs.table').'.created_at',
