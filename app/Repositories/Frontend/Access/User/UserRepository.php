@@ -115,7 +115,7 @@ class UserRepository extends BaseRepository
             $user->confirmed = 1;
         }
 
-        DB::transaction(function () use ($user) {
+        DB::transaction(function () use ($user, $provider) {
             if ($user->save()) {
 
                 /*
@@ -130,18 +130,18 @@ class UserRepository extends BaseRepository
                  * Assigned permissions to user
                 */
                 $user->permissions()->sync($permissions);
+
+                /*
+                 * If users have to confirm their email and this is not a social account,
+                 * send the confirmation email
+                 *
+                 * If this is a social account they are confirmed through the social provider by default
+                 */
+                if (config('access.users.confirm_email') && $provider === false) {
+                    $user->notify(new UserNeedsConfirmation($user->confirmation_code));
+                }
             }
         });
-
-        /*
-         * If users have to confirm their email and this is not a social account,
-         * send the confirmation email
-         *
-         * If this is a social account they are confirmed through the social provider by default
-         */
-        if (config('access.users.confirm_email') && $provider === false) {
-            $user->notify(new UserNeedsConfirmation($user->confirmation_code));
-        }
 
         /*
          * Return the user object
