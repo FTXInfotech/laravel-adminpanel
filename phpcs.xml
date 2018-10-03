@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<ruleset name="Zend Framework Coding Standard">
+    <rule ref="./vendor/zendframework/zend-coding-standard/ruleset.xml"/>
+    <file>config</file>
+    <!--<file>app</file>-->
+</ruleset>

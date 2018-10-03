@@ -73,7 +73,9 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
-        ]
+        ],
+        "cs-check": "./vendor/bin/phpcs",
+        "cs-fix": "./vendor/bin/phpcbf"
     },
     "config": {
         "preferred-install": "dist",
