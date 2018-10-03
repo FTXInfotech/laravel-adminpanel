@@ -52,6 +52,6 @@ class UserNeedsConfirmation extends Notification
         $confirmation_url = route('frontend.auth.account.confirm', $user->confirmation_code);
 
         return (new MailMessage())
-            ->view('emails.template', compact('confirmation_url'));
+            ->view('emails.template', ['confirmation_url' => $confirmation_url]);
     }
 }
