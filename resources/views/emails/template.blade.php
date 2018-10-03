@@ -225,7 +225,7 @@
 
                                                 <p style="line-height: 24px; margin-bottom:20px;">
                                                     <a href="{{ $confirmation_url }}" target="_blank" class="lap">
-                                                        {{ $confirmation_url }}
+                                                        {{ $confirmation_url}}
                                                     </a>
                                                 </p>
 
