@@ -51,7 +51,7 @@ trait UserAccess
     public function hasRoles($roles, $needsAll = false)
     {
         //If not an array, make a one item array
-        if (!is_array($roles)) {
+        if (! is_array($roles)) {
             $roles = [$roles];
         }
 
@@ -95,7 +95,6 @@ trait UserAccess
 
         //Check permissions directly tied to user
         foreach ($this->permissions as $perm) {
-
             //First check to see if it's an ID
             if (is_numeric($nameOrId)) {
                 if ($perm->id == $nameOrId) {
@@ -153,7 +152,7 @@ trait UserAccess
     public function allowMultiple($permissions, $needsAll = false)
     {
         //If not an array, make a one item array
-        if (!is_array($permissions)) {
+        if (! is_array($permissions)) {
             $permissions = [$permissions];
         }
 

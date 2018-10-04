@@ -13,7 +13,7 @@ class Menu extends Model
         MenuAttribute,
         SoftDeletes{
             // MenuAttribute::getEditButtonAttribute insteadof ModelTrait;
-        }
+    }
 
     /**
      * The database table used by the model.

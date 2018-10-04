@@ -104,9 +104,11 @@ class FaqsController extends APIController
     {
         $this->repository->delete($faq);
 
-        return $this->respond([
+        return $this->respond(
+            [
             'message' => trans('alerts.backend.faqs.deleted'),
-        ]);
+            ]
+        );
     }
 
     /**
@@ -118,10 +120,13 @@ class FaqsController extends APIController
      */
     public function validateFaq(Request $request)
     {
-        $validation = Validator::make($request->all(), [
+        $validation = Validator::make(
+            $request->all(),
+            [
             'question' => 'required|max:191',
             'answer'   => 'required',
-        ]);
+            ]
+        );
 
         return $validation;
     }

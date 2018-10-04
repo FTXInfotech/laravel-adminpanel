@@ -105,9 +105,11 @@ class BlogsController extends APIController
     {
         $this->repository->delete($blog);
 
-        return $this->respond([
+        return $this->respond(
+            [
             'message' => trans('alerts.backend.blogs.deleted'),
-        ]);
+            ]
+        );
     }
 
     /**
@@ -121,13 +123,16 @@ class BlogsController extends APIController
     {
         $featured_image = ($action == 'insert') ? 'required' : '';
 
-        $validation = Validator::make($request->all(), [
+        $validation = Validator::make(
+            $request->all(),
+            [
             'name'           => 'required|max:191',
             'featured_image' => $featured_image,
             'content'        => 'required',
             'categories'     => 'required',
             'tags'           => 'required',
-        ]);
+            ]
+        );
 
         return $validation;
     }

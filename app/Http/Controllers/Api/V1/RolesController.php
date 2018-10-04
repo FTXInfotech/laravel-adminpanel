@@ -107,10 +107,12 @@ class RolesController extends APIController
     {
         $this->repository->delete($role);
 
-        return $this->respond([
+        return $this->respond(
+            [
             'data'    => $role->id,
             'message' => trans('alerts.backend.roles.deleted'),
-        ]);
+            ]
+        );
     }
 
     /**
@@ -129,10 +131,13 @@ class RolesController extends APIController
             $permissions = 'required';
         }
 
-        $validation = Validator::make($request->all(), [
+        $validation = Validator::make(
+            $request->all(),
+            [
             'name'        => 'required|max:191|unique:roles,name,'.$id,
             'permissions' => $permissions,
-        ]);
+            ]
+        );
 
         return $validation;
     }

@@ -31,21 +31,36 @@ class BlogsTableController extends Controller
     {
         return Datatables::of($this->blogs->getForDataTable())
             ->escapeColumns(['name'])
-            ->addColumn('status', function ($blogs) {
-                return $blogs->status;
-            })
-            ->addColumn('publish_datetime', function ($blogs) {
-                return $blogs->publish_datetime->format('d/m/Y h:i A');
-            })
-            ->addColumn('created_by', function ($blogs) {
-                return $blogs->user_name;
-            })
-            ->addColumn('created_at', function ($blogs) {
-                return $blogs->created_at->toDateString();
-            })
-            ->addColumn('actions', function ($blogs) {
-                return $blogs->action_buttons;
-            })
+            ->addColumn(
+                'status',
+                function ($blogs) {
+                    return $blogs->status;
+                }
+            )
+            ->addColumn(
+                'publish_datetime',
+                function ($blogs) {
+                    return $blogs->publish_datetime->format('d/m/Y h:i A');
+                }
+            )
+            ->addColumn(
+                'created_by',
+                function ($blogs) {
+                    return $blogs->user_name;
+                }
+            )
+            ->addColumn(
+                'created_at',
+                function ($blogs) {
+                    return $blogs->created_at->toDateString();
+                }
+            )
+            ->addColumn(
+                'actions',
+                function ($blogs) {
+                    return $blogs->action_buttons;
+                }
+            )
             ->make(true);
     }
 }

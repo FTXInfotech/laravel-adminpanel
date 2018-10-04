@@ -1,7 +1,3 @@
 <?php
 
-return [
-
-    'view' => 'backend.includes.partials.breadcrumbs',
-
-];
+return ['view' => 'backend.includes.partials.breadcrumbs'];

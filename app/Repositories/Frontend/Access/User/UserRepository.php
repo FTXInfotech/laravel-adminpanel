@@ -115,23 +115,24 @@ class UserRepository extends BaseRepository
             $user->confirmed = 1;
         }
 
-        DB::transaction(function () use ($user) {
-            if ($user->save()) {
-
-                /*
-                 * Add the default site role to the new user
-                 */
-                $user->attachRole($this->role->getDefaultUserRole());
-                /*
-                 * Fetch the permissions of role attached to this user
-                */
-                $permissions = $user->roles->first()->permissions->pluck('id');
-                /*
-                 * Assigned permissions to user
-                */
-                $user->permissions()->sync($permissions);
+        DB::transaction(
+            function () use ($user) {
+                if ($user->save()) {
+                    /*
+                     * Add the default site role to the new user
+                     */
+                    $user->attachRole($this->role->getDefaultUserRole());
+                    /*
+                     * Fetch the permissions of role attached to this user
+                    */
+                    $permissions = $user->roles->first()->permissions->pluck('id');
+                    /*
+                     * Assigned permissions to user
+                    */
+                    $user->permissions()->sync($permissions);
+                }
             }
-        });
+        );
 
         /*
          * If users have to confirm their email and this is not a social account,
@@ -170,33 +171,42 @@ class UserRepository extends BaseRepository
          * The true flag indicate that it is a social account
          * Which triggers the script to use some default values in the create method
          */
-        if (!$user) {
+        if (! $user) {
             // Registration is not enabled
-            if (!config('access.users.registration')) {
+            if (! config('access.users.registration')) {
                 throw new GeneralException(trans('exceptions.frontend.auth.registration_disabled'));
             }
 
-            $user = $this->create([
+            $user = $this->create(
+                [
                 'name'  => $data->name,
                 'email' => $user_email,
-            ], true);
+                ],
+                true
+            );
         }
 
         // See if the user has logged in with this social account before
-        if (!$user->hasProvider($provider)) {
+        if (! $user->hasProvider($provider)) {
             // Gather the provider data for saving and associate it with the user
-            $user->providers()->save(new SocialLogin([
-                'provider'    => $provider,
-                'provider_id' => $data->id,
-                'token'       => $data->token,
-                'avatar'      => $data->avatar,
-            ]));
+            $user->providers()->save(
+                new SocialLogin(
+                    [
+                    'provider'    => $provider,
+                    'provider_id' => $data->id,
+                    'token'       => $data->token,
+                    'avatar'      => $data->avatar,
+                    ]
+                )
+            );
         } else {
             // Update the users information, token and avatar can be updated.
-            $user->providers()->update([
+            $user->providers()->update(
+                [
                 'token'  => $data->token,
                 'avatar' => $data->avatar,
-            ]);
+                ]
+            );
         }
 
         // Return the user object
@@ -316,10 +326,12 @@ class UserRepository extends BaseRepository
     {
         $token = hash_hmac('sha256', Str::random(40), 'hashKey');
 
-        \DB::table('password_resets')->insert([
+        \DB::table('password_resets')->insert(
+            [
             'email' => request('email'),
             'token' => $token,
-        ]);
+            ]
+        );
 
         return $token;
     }

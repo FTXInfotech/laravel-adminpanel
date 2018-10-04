@@ -104,9 +104,11 @@ class PagesController extends APIController
     {
         $this->repository->delete($page);
 
-        return $this->respond([
+        return $this->respond(
+            [
             'message' => trans('alerts.backend.pages.deleted'),
-        ]);
+            ]
+        );
     }
 
     /**
@@ -119,10 +121,13 @@ class PagesController extends APIController
      */
     public function validatePages(Request $request, $id = 0)
     {
-        $validation = Validator::make($request->all(), [
+        $validation = Validator::make(
+            $request->all(),
+            [
             'title'       => 'required|max:191|unique:pages,title,'.$id,
             'description' => 'required',
-        ]);
+            ]
+        );
 
         return $validation;
     }

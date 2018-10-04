@@ -32,18 +32,30 @@ class BlogCategoriesTableController extends Controller
     {
         return Datatables::of($this->blogcategory->getForDataTable())
             ->escapeColumns(['name'])
-            ->addColumn('status', function ($blogcategory) {
-                return $blogcategory->status_label;
-            })
-            ->addColumn('created_by', function ($blogcategory) {
-                return $blogcategory->user_name;
-            })
-            ->addColumn('created_at', function ($blogcategory) {
-                return Carbon::parse($blogcategory->created_at)->toDateString();
-            })
-            ->addColumn('actions', function ($blogcategory) {
-                return $blogcategory->action_buttons;
-            })
+            ->addColumn(
+                'status',
+                function ($blogcategory) {
+                    return $blogcategory->status_label;
+                }
+            )
+            ->addColumn(
+                'created_by',
+                function ($blogcategory) {
+                    return $blogcategory->user_name;
+                }
+            )
+            ->addColumn(
+                'created_at',
+                function ($blogcategory) {
+                    return Carbon::parse($blogcategory->created_at)->toDateString();
+                }
+            )
+            ->addColumn(
+                'actions',
+                function ($blogcategory) {
+                    return $blogcategory->action_buttons;
+                }
+            )
             ->make(true);
     }
 }

@@ -34,19 +34,28 @@ class RoleTableController extends Controller
     {
         return Datatables::of($this->roles->getForDataTable())
             ->escapeColumns(['name', 'sort'])
-            ->addColumn('permissions', function ($role) {
-                if ($role->all) {
-                    return '<span class="label label-success">'.trans('labels.general.all').'</span>';
-                }
+            ->addColumn(
+                'permissions',
+                function ($role) {
+                    if ($role->all) {
+                        return '<span class="label label-success">'.trans('labels.general.all').'</span>';
+                    }
 
-                return $role->permission_name;
-            })
-            ->addColumn('users', function ($role) {
-                return $role->userCount;
-            })
-            ->addColumn('actions', function ($role) {
-                return $role->action_buttons;
-            })
+                    return $role->permission_name;
+                }
+            )
+            ->addColumn(
+                'users',
+                function ($role) {
+                    return $role->userCount;
+                }
+            )
+            ->addColumn(
+                'actions',
+                function ($role) {
+                    return $role->action_buttons;
+                }
+            )
             ->make(true);
     }
 }

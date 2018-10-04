@@ -368,7 +368,7 @@ class FileUploads
         $destination = $filePath.DIRECTORY_SEPARATOR.$destination;
         if (File::exists($source)) {
             $dir = dirname($destination);
-            if (!is_dir($dir)) {
+            if (! is_dir($dir)) {
                 mkdir($dir, 0777, true);
             }
 
@@ -393,7 +393,7 @@ class FileUploads
         $destination = $filePath.DIRECTORY_SEPARATOR.$destination;
         if (File::exists($source)) {
             $dir = dirname($destination);
-            if (!is_dir($dir)) {
+            if (! is_dir($dir)) {
                 mkdir($dir, 0777, true);
             }
 

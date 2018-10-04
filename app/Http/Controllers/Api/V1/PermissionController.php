@@ -105,10 +105,12 @@ class PermissionController extends APIController
     {
         $this->repository->delete($permission);
 
-        return $this->respond([
+        return $this->respond(
+            [
             'data'    => $permission->id,
             'message' => trans('alerts.backend.permissions.deleted'),
-        ]);
+            ]
+        );
     }
 
     /**
@@ -121,10 +123,13 @@ class PermissionController extends APIController
      */
     public function validatePermission(Request $request, $id = 0)
     {
-        $validation = Validator::make($request->all(), [
+        $validation = Validator::make(
+            $request->all(),
+            [
             'name'         => 'required|max:191|unique:permissions,name,'.$id,
             'display_name' => 'required|max:191',
-        ]);
+            ]
+        );
 
         return $validation;
     }

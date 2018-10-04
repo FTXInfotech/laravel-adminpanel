@@ -15,8 +15,10 @@ class IndexResponse implements Responsable
 
     public function toResponse($request)
     {
-        return view('backend.blogs.index')->with([
-            'status'=> $this->status,
-        ]);
+        return view('backend.blogs.index')->with(
+            [
+            'status' => $this->status,
+            ]
+        );
     }
 }

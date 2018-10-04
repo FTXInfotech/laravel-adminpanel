@@ -19,10 +19,13 @@ class AuthController extends APIController
      */
     public function login(Request $request)
     {
-        $validation = Validator::make($request->all(), [
+        $validation = Validator::make(
+            $request->all(),
+            [
             'email'     => 'required|email',
             'password'  => 'required|min:4',
-        ]);
+            ]
+        );
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -31,17 +34,19 @@ class AuthController extends APIController
         $credentials = $request->only(['email', 'password']);
 
         try {
-            if (!$token = JWTAuth::attempt($credentials)) {
+            if (! $token = JWTAuth::attempt($credentials)) {
                 return $this->throwValidation(trans('api.messages.login.failed'));
             }
         } catch (JWTException $e) {
             return $this->respondInternalError($e->getMessage());
         }
 
-        return $this->respond([
+        return $this->respond(
+            [
             'message'   => trans('api.messages.login.success'),
             'token'     => $token,
-        ]);
+            ]
+        );
     }
 
     /**
@@ -61,9 +66,11 @@ class AuthController extends APIController
             return $this->respondInternalError($e->getMessage());
         }
 
-        return $this->respond([
+        return $this->respond(
+            [
             'message'   => trans('api.messages.logout.success'),
-        ]);
+            ]
+        );
     }
 
     /**
@@ -75,7 +82,7 @@ class AuthController extends APIController
     {
         $token = JWTAuth::getToken();
 
-        if (!$token) {
+        if (! $token) {
             $this->respondUnauthorized(trans('api.messages.refresh.token.not_provided'));
         }
 
@@ -85,9 +92,11 @@ class AuthController extends APIController
             return $this->respondInternalError($e->getMessage());
         }
 
-        return $this->respond([
+        return $this->respond(
+            [
             'status' => trans('api.messages.refresh.status'),
             'token'  => $refreshedToken,
-        ]);
+            ]
+        );
     }
 }

@@ -35,21 +35,36 @@ class UserTableController extends Controller
     {
         return Datatables::make($this->users->getForDataTable($request->get('status'), $request->get('trashed')))
             ->escapeColumns(['first_name', 'email'])
-            ->editColumn('confirmed', function ($user) {
-                return $user->confirmed_label;
-            })
-            ->addColumn('roles', function ($user) {
-                return $user->roles;
-            })
-            ->addColumn('created_at', function ($user) {
-                return Carbon::parse($user->created_at)->toDateString();
-            })
-            ->addColumn('updated_at', function ($user) {
-                return Carbon::parse($user->updated_at)->toDateString();
-            })
-            ->addColumn('actions', function ($user) {
-                return $user->action_buttons;
-            })
+            ->editColumn(
+                'confirmed',
+                function ($user) {
+                    return $user->confirmed_label;
+                }
+            )
+            ->addColumn(
+                'roles',
+                function ($user) {
+                    return $user->roles;
+                }
+            )
+            ->addColumn(
+                'created_at',
+                function ($user) {
+                    return Carbon::parse($user->created_at)->toDateString();
+                }
+            )
+            ->addColumn(
+                'updated_at',
+                function ($user) {
+                    return Carbon::parse($user->updated_at)->toDateString();
+                }
+            )
+            ->addColumn(
+                'actions',
+                function ($user) {
+                    return $user->action_buttons;
+                }
+            )
             ->make(true);
     }
 }

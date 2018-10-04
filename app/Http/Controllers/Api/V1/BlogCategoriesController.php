@@ -102,9 +102,11 @@ class BlogCategoriesController extends APIController
     {
         $this->repository->delete($blog_category);
 
-        return $this->respond([
+        return $this->respond(
+            [
             'message' => trans('alerts.backend.blogcategories.deleted'),
-        ]);
+            ]
+        );
     }
 
     /**
@@ -116,9 +118,12 @@ class BlogCategoriesController extends APIController
      */
     public function validateBlogCategory(Request $request)
     {
-        $validation = Validator::make($request->all(), [
+        $validation = Validator::make(
+            $request->all(),
+            [
             'name' => 'required|max:191',
-        ]);
+            ]
+        );
 
         return $validation;
     }

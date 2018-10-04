@@ -26,9 +26,11 @@ class HistoryServiceProvider extends ServiceProvider
 
     public function registerFacade()
     {
-        $this->app->booting(function () {
-            $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-            $loader->alias('History', HistoryFacade::class);
-        });
+        $this->app->booting(
+            function () {
+                $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+                $loader->alias('History', HistoryFacade::class);
+            }
+        );
     }
 }

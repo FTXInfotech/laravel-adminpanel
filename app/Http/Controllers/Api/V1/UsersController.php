@@ -107,10 +107,12 @@ class UsersController extends APIController
     {
         $this->repository->delete($user);
 
-        return $this->respond([
+        return $this->respond(
+            [
             'data'      => $user->id,
             'message'   => trans('alerts.backend.users.deleted'),
-        ]);
+            ]
+        );
     }
 
     /**
@@ -124,19 +126,23 @@ class UsersController extends APIController
     {
         $ids = $request->get('ids');
 
-        if (isset($ids) && !empty($ids)) {
+        if (isset($ids) && ! empty($ids)) {
             $result = $this->repository->deleteAll($ids);
         }
 
         if ($result) {
-            return $this->respond([
+            return $this->respond(
+                [
                 'message'   => trans('alerts.backend.users.deleted'),
-            ]);
+                ]
+            );
         }
 
-        return $this->respond([
+        return $this->respond(
+            [
             'message'   => trans('exceptions.backend.access.users.not_found'),
-        ]);
+            ]
+        );
     }
 
     /**
@@ -152,14 +158,17 @@ class UsersController extends APIController
     {
         $password = ($action == 'edit') ? '' : 'required|min:6|confirmed';
 
-        $validation = Validator::make($request->all(), [
+        $validation = Validator::make(
+            $request->all(),
+            [
             'first_name'      => 'required|max:255',
             'last_name'       => 'required|max:255',
             'email'           => 'required|max:255|email|unique:users,email,'.$id,
             'password'        => $password,
             'assignees_roles' => 'required',
             'permissions'     => 'required',
-        ]);
+            ]
+        );
 
         return $validation;
     }

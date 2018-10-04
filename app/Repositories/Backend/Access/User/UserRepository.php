@@ -62,7 +62,8 @@ class UserRepository extends BaseRepository
         $dataTableQuery = $this->query()
             ->leftJoin('role_user', 'role_user.user_id', '=', 'users.id')
             ->leftJoin('roles', 'role_user.role_id', '=', 'roles.id')
-            ->select([
+            ->select(
+                [
                 config('access.users_table').'.id',
                 config('access.users_table').'.first_name',
                 config('access.users_table').'.last_name',
@@ -73,7 +74,8 @@ class UserRepository extends BaseRepository
                 config('access.users_table').'.updated_at',
                 config('access.users_table').'.deleted_at',
                 DB::raw('GROUP_CONCAT(roles.name) as roles'),
-            ])
+                ]
+            )
             ->groupBy('users.id');
 
         if ($trashed == 'true') {
@@ -96,32 +98,33 @@ class UserRepository extends BaseRepository
         $permissions = $request->get('permissions');
         $user = $this->createUserStub($data);
 
-        DB::transaction(function () use ($user, $data, $roles, $permissions) {
-            if ($user->save()) {
+        DB::transaction(
+            function () use ($user, $data, $roles, $permissions) {
+                if ($user->save()) {
+                    //User Created, Validate Roles
+                    if (! count($roles)) {
+                        throw new GeneralException(trans('exceptions.backend.access.users.role_needed_create'));
+                    }
 
-                //User Created, Validate Roles
-                if (!count($roles)) {
-                    throw new GeneralException(trans('exceptions.backend.access.users.role_needed_create'));
+                    //Attach new roles
+                    $user->attachRoles($roles);
+
+                    // Attach New Permissions
+                    $user->attachPermissions($permissions);
+
+                    //Send confirmation email if requested and account approval is off
+                    if (isset($data['confirmation_email']) && $user->confirmed == 0) {
+                        $user->notify(new UserNeedsConfirmation($user->confirmation_code));
+                    }
+
+                    event(new UserCreated($user));
+
+                    return true;
                 }
 
-                //Attach new roles
-                $user->attachRoles($roles);
-
-                // Attach New Permissions
-                $user->attachPermissions($permissions);
-
-                //Send confirmation email if requested and account approval is off
-                if (isset($data['confirmation_email']) && $user->confirmed == 0) {
-                    $user->notify(new UserNeedsConfirmation($user->confirmation_code));
-                }
-
-                event(new UserCreated($user));
-
-                return true;
+                throw new GeneralException(trans('exceptions.backend.access.users.create_error'));
             }
-
-            throw new GeneralException(trans('exceptions.backend.access.users.create_error'));
-        });
+        );
     }
 
     /**
@@ -140,24 +143,26 @@ class UserRepository extends BaseRepository
 
         $this->checkUserByEmail($data, $user);
 
-        DB::transaction(function () use ($user, $data, $roles, $permissions) {
-            if ($user->update($data)) {
-                $user->status = isset($data['status']) && $data['status'] == '1' ? 1 : 0;
-                $user->confirmed = isset($data['confirmed']) && $data['confirmed'] == '1' ? 1 : 0;
+        DB::transaction(
+            function () use ($user, $data, $roles, $permissions) {
+                if ($user->update($data)) {
+                    $user->status = isset($data['status']) && $data['status'] == '1' ? 1 : 0;
+                    $user->confirmed = isset($data['confirmed']) && $data['confirmed'] == '1' ? 1 : 0;
 
-                $user->save();
+                    $user->save();
 
-                $this->checkUserRolesCount($roles);
-                $this->flushRoles($roles, $user);
+                    $this->checkUserRolesCount($roles);
+                    $this->flushRoles($roles, $user);
 
-                $this->flushPermissions($permissions, $user);
-                event(new UserUpdated($user));
+                    $this->flushPermissions($permissions, $user);
+                    event(new UserUpdated($user));
 
-                return true;
+                    return true;
+                }
+
+                throw new GeneralException(trans('exceptions.backend.access.users.update_error'));
             }
-
-            throw new GeneralException(trans('exceptions.backend.access.users.update_error'));
-        });
+        );
     }
 
     /**
@@ -252,15 +257,17 @@ class UserRepository extends BaseRepository
             throw new GeneralException(trans('exceptions.backend.access.users.delete_first'));
         }
 
-        DB::transaction(function () use ($user) {
-            if ($user->forceDelete()) {
-                event(new UserPermanentlyDeleted($user));
+        DB::transaction(
+            function () use ($user) {
+                if ($user->forceDelete()) {
+                    event(new UserPermanentlyDeleted($user));
 
-                return true;
+                    return true;
+                }
+
+                throw new GeneralException(trans('exceptions.backend.access.users.delete_error'));
             }
-
-            throw new GeneralException(trans('exceptions.backend.access.users.delete_error'));
-        });
+        );
     }
 
     /**
@@ -404,13 +411,16 @@ class UserRepository extends BaseRepository
      */
     public function getByPermission($permissions, $by = 'name')
     {
-        if (!is_array($permissions)) {
+        if (! is_array($permissions)) {
             $permissions = [$permissions];
         }
 
-        return $this->query()->whereHas('roles.permissions', function ($query) use ($permissions, $by) {
-            $query->whereIn('permissions.'.$by, $permissions);
-        })->get();
+        return $this->query()->whereHas(
+            'roles.permissions',
+            function ($query) use ($permissions, $by) {
+                $query->whereIn('permissions.'.$by, $permissions);
+            }
+        )->get();
     }
 
     /**
@@ -421,12 +431,15 @@ class UserRepository extends BaseRepository
      */
     public function getByRole($roles, $by = 'name')
     {
-        if (!is_array($roles)) {
+        if (! is_array($roles)) {
             $roles = [$roles];
         }
 
-        return $this->query()->whereHas('roles', function ($query) use ($roles, $by) {
-            $query->whereIn('roles.'.$by, $roles);
-        })->get();
+        return $this->query()->whereHas(
+            'roles',
+            function ($query) use ($roles, $by) {
+                $query->whereIn('roles.'.$by, $roles);
+            }
+        )->get();
     }
 }

@@ -15,7 +15,7 @@ class BlogTag extends BaseModel
         BlogTagAttribute,
         BlogTagRelationship{
             // BlogTagAttribute::getEditButtonAttribute insteadof ModelTrait;
-        }
+    }
 
     /**
      * The database table used by the model.

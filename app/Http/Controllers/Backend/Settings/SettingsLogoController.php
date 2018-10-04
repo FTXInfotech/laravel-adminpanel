@@ -34,8 +34,10 @@ class SettingsLogoController extends Controller
     {
         $this->settings->removeLogo($setting, $request->data);
 
-        return json_encode([
+        return json_encode(
+            [
             'status' => true,
-        ]);
+            ]
+        );
     }
 }

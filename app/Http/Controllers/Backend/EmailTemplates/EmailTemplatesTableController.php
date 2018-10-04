@@ -35,18 +35,30 @@ class EmailTemplatesTableController extends Controller
     {
         return Datatables::of($this->emailtemplates->getForDataTable())
             ->escapeColumns(['title'])
-            ->addColumn('status', function ($emailtemplates) {
-                return $emailtemplates->status_label;
-            })
-            ->addColumn('created_at', function ($emailtemplates) {
-                return Carbon::parse($emailtemplates->created_at)->toDateString();
-            })
-            ->addColumn('updated_at', function ($emailtemplates) {
-                return Carbon::parse($emailtemplates->updated_at)->toDateString();
-            })
-            ->addColumn('actions', function ($emailtemplates) {
-                return $emailtemplates->action_buttons;
-            })
+            ->addColumn(
+                'status',
+                function ($emailtemplates) {
+                    return $emailtemplates->status_label;
+                }
+            )
+            ->addColumn(
+                'created_at',
+                function ($emailtemplates) {
+                    return Carbon::parse($emailtemplates->created_at)->toDateString();
+                }
+            )
+            ->addColumn(
+                'updated_at',
+                function ($emailtemplates) {
+                    return Carbon::parse($emailtemplates->updated_at)->toDateString();
+                }
+            )
+            ->addColumn(
+                'actions',
+                function ($emailtemplates) {
+                    return $emailtemplates->action_buttons;
+                }
+            )
             ->make(true);
     }
 }

@@ -28,8 +28,10 @@ class CreateResponse implements Responsable
      */
     public function toResponse($request)
     {
-        return view('backend.access.users.create')->with([
+        return view('backend.access.users.create')->with(
+            [
             'roles' => $this->roles,
-        ]);
+            ]
+        );
     }
 }

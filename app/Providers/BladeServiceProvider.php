@@ -26,8 +26,11 @@ class BladeServiceProvider extends ServiceProvider
          * The block of code inside this directive indicates
          * the chosen language requests RTL support.
          */
-        Blade::directive('langRTL', function () {
-            return "<?php if (session()->has('lang-rtl')): ?>";
-        });
+        Blade::directive(
+            'langRTL',
+            function () {
+                return "<?php if (session()->has('lang-rtl')): ?>";
+            }
+        );
     }
 }

@@ -55,7 +55,7 @@ class Handler extends ExceptionHandler
     {
         //dd($exception);
         if (strpos($request->url(), '/api/') !== false) {
-            \Log::debug('API Request Exception - '.$request->url().' - '.$exception->getMessage().(!empty($request->all()) ? ' - '.json_encode($request->except(['password'])) : ''));
+            \Log::debug('API Request Exception - '.$request->url().' - '.$exception->getMessage().(! empty($request->all()) ? ' - '.json_encode($request->except(['password'])) : ''));
 
             if ($exception instanceof AuthorizationException) {
                 return $this->setStatusCode(403)->respondWithError($exception->getMessage());
@@ -168,12 +168,14 @@ class Handler extends ExceptionHandler
      */
     protected function respondWithError($message)
     {
-        return $this->respond([
+        return $this->respond(
+            [
                 'error' => [
                     'message'     => $message,
                     'status_code' => $this->getStatusCode(),
                 ],
-            ]);
+            ]
+        );
     }
 
     /**

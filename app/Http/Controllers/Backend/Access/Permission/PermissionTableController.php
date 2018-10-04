@@ -34,14 +34,20 @@ class PermissionTableController extends Controller
     {
         return Datatables::of($this->permissions->getForDataTable())
             ->escapeColumns(['name', 'sort'])
-            ->addColumn('permissions', function ($permission) {
-                if ($permission->all) {
-                    return '<span class="label label-success">'.trans('labels.general.all').'</span>';
+            ->addColumn(
+                'permissions',
+                function ($permission) {
+                    if ($permission->all) {
+                        return '<span class="label label-success">'.trans('labels.general.all').'</span>';
+                    }
                 }
-            })
-            ->addColumn('actions', function ($permission) {
-                return $permission->action_buttons;
-            })
+            )
+            ->addColumn(
+                'actions',
+                function ($permission) {
+                    return $permission->action_buttons;
+                }
+            )
             ->make(true);
     }
 }

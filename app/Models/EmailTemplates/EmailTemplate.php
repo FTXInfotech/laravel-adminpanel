@@ -13,7 +13,7 @@ class EmailTemplate extends BaseModel
         SoftDeletes,
         EmailTemplateAttribute {
             // EmailTemplateAttribute::getEditButtonAttribute insteadof ModelTrait;
-        }
+    }
 
     protected $guarded = ['id'];
 

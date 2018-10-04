@@ -22,9 +22,11 @@ class UserEventListener
             ->withText('trans("history.backend.users.created") <strong>{user}</strong>')
             ->withIcon('plus')
             ->withClass('bg-green')
-            ->withAssets([
+            ->withAssets(
+                [
                 'user_link' => ['admin.access.user.show', $event->user->name, $event->user->id],
-            ])
+                ]
+            )
             ->log();
     }
 
@@ -38,9 +40,11 @@ class UserEventListener
             ->withText('trans("history.backend.users.updated") <strong>{user}</strong>')
             ->withIcon('save')
             ->withClass('bg-aqua')
-            ->withAssets([
+            ->withAssets(
+                [
                 'user_link' => ['admin.access.user.show', $event->user->name, $event->user->id],
-            ])
+                ]
+            )
             ->log();
     }
 
@@ -54,9 +58,11 @@ class UserEventListener
             ->withText('trans("history.backend.users.deleted") <strong>{user}</strong>')
             ->withIcon('trash')
             ->withClass('bg-maroon')
-            ->withAssets([
+            ->withAssets(
+                [
                 'user_link' => ['admin.access.user.show', $event->user->name, $event->user->id],
-            ])
+                ]
+            )
             ->log();
     }
 
@@ -70,9 +76,11 @@ class UserEventListener
             ->withText('trans("history.backend.users.restored") <strong>{user}</strong>')
             ->withIcon('refresh')
             ->withClass('bg-aqua')
-            ->withAssets([
+            ->withAssets(
+                [
                 'user_link' => ['admin.access.user.show', $event->user->name, $event->user->id],
-            ])
+                ]
+            )
             ->log();
     }
 
@@ -99,9 +107,11 @@ class UserEventListener
             ->withText('trans("history.backend.users.changed_password") <strong>{user}</strong>')
             ->withIcon('lock')
             ->withClass('bg-blue')
-            ->withAssets([
+            ->withAssets(
+                [
                 'user_link' => ['admin.access.user.show', $event->user->name, $event->user->id],
-            ])
+                ]
+            )
             ->log();
     }
 
@@ -115,9 +125,11 @@ class UserEventListener
             ->withText('trans("history.backend.users.deactivated") <strong>{user}</strong>')
             ->withIcon('times')
             ->withClass('bg-yellow')
-            ->withAssets([
+            ->withAssets(
+                [
                 'user_link' => ['admin.access.user.show', $event->user->name, $event->user->id],
-            ])
+                ]
+            )
             ->log();
     }
 
@@ -131,9 +143,11 @@ class UserEventListener
             ->withText('trans("history.backend.users.reactivated") <strong>{user}</strong>')
             ->withIcon('check')
             ->withClass('bg-green')
-            ->withAssets([
+            ->withAssets(
+                [
                 'user_link' => ['admin.access.user.show', $event->user->name, $event->user->id],
-            ])
+                ]
+            )
             ->log();
     }
 

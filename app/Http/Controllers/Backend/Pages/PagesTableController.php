@@ -31,18 +31,30 @@ class PagesTableController extends Controller
     {
         return Datatables::of($this->pages->getForDataTable())
             ->escapeColumns(['title'])
-            ->addColumn('status', function ($page) {
-                return $page->status_label;
-            })
-            ->addColumn('created_at', function ($page) {
-                return $page->created_at->toDateString();
-            })
-            ->addColumn('created_by', function ($page) {
-                return $page->created_by;
-            })
-            ->addColumn('actions', function ($page) {
-                return $page->action_buttons;
-            })
+            ->addColumn(
+                'status',
+                function ($page) {
+                    return $page->status_label;
+                }
+            )
+            ->addColumn(
+                'created_at',
+                function ($page) {
+                    return $page->created_at->toDateString();
+                }
+            )
+            ->addColumn(
+                'created_by',
+                function ($page) {
+                    return $page->created_by;
+                }
+            )
+            ->addColumn(
+                'actions',
+                function ($page) {
+                    return $page->action_buttons;
+                }
+            )
             ->make(true);
     }
 }

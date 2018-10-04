@@ -65,14 +65,17 @@ class APIController extends Controller
      */
     public function respondWithPagination($items, $data)
     {
-        $data = array_merge($data, [
+        $data = array_merge(
+            $data,
+            [
             'paginator' => [
                 'total_count'  => $items->total(),
                 'total_pages'  => ceil($items->total() / $items->perPage()),
                 'current_page' => $items->currentPage(),
                 'limit'        => $items->perPage(),
              ],
-        ]);
+            ]
+        );
 
         return $this->respond($data);
     }
@@ -86,9 +89,11 @@ class APIController extends Controller
      */
     public function respondCreated($data)
     {
-        return $this->setStatusCode(201)->respond([
+        return $this->setStatusCode(201)->respond(
+            [
             'data' => $data,
-        ]);
+            ]
+        );
     }
 
     /**
@@ -112,12 +117,14 @@ class APIController extends Controller
      */
     public function respondWithError($message)
     {
-        return $this->respond([
+        return $this->respond(
+            [
                 'error' => [
                     'message'     => $message,
                     'status_code' => $this->getStatusCode(),
                 ],
-            ]);
+            ]
+        );
     }
 
     /**

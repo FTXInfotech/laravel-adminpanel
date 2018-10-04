@@ -19,10 +19,12 @@ class CreateResponse implements Responsable
 
     public function toResponse($request)
     {
-        return view('backend.blogs.create')->with([
+        return view('backend.blogs.create')->with(
+            [
             'blogCategories' => $this->blogCategories,
             'blogTags'       => $this->blogTags,
             'status'         => $this->status,
-        ]);
+            ]
+        );
     }
 }

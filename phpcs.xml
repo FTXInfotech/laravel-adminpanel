@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <ruleset name="Zend Framework Coding Standard">
     <rule ref="./vendor/zendframework/zend-coding-standard/ruleset.xml"/>
+    <!-- Ignore Line exceeds Warning-->
+    <rule ref="Zend">
+        <exclude name="Generic.Files.LineLength"/>
+    </rule>
+
     <file>config</file>
-    <!--<file>app</file>-->
+    <file>app</file>
 </ruleset>

@@ -32,18 +32,30 @@ class MenuTableController extends Controller
     {
         return Datatables::of($this->menus->getForDataTable())
             ->escapeColumns(['name'])
-            ->addColumn('type', function ($menus) {
-                return ucwords($menus->type);
-            })
-            ->addColumn('created_at', function ($menus) {
-                return Carbon::parse($menus->created_at)->toDateTimeString();
-            })
-            ->addColumn('updated_at', function ($menus) {
-                return Carbon::parse($menus->updated_at)->toDateTimeString();
-            })
-            ->addColumn('actions', function ($menus) {
-                return $menus->action_buttons;
-            })
+            ->addColumn(
+                'type',
+                function ($menus) {
+                    return ucwords($menus->type);
+                }
+            )
+            ->addColumn(
+                'created_at',
+                function ($menus) {
+                    return Carbon::parse($menus->created_at)->toDateTimeString();
+                }
+            )
+            ->addColumn(
+                'updated_at',
+                function ($menus) {
+                    return Carbon::parse($menus->updated_at)->toDateTimeString();
+                }
+            )
+            ->addColumn(
+                'actions',
+                function ($menus) {
+                    return $menus->action_buttons;
+                }
+            )
             ->make(true);
     }
 }

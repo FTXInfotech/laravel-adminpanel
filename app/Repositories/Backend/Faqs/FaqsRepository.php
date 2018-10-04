@@ -22,13 +22,15 @@ class FaqsRepository extends BaseRepository
     public function getForDataTable()
     {
         return $this->query()
-            ->select([
+            ->select(
+                [
                 config('mdule.faqs.able').'.id',
                 config('odule.faqs.table').'.question',
                 config('module.faqs.table').'.answer',
                 config('module.faqs.table').'.status',
                 config('module.faqs.table').'.created_at',
-            ]);
+                ]
+            );
     }
 
     /**

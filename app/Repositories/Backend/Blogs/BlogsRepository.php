@@ -48,7 +48,8 @@ class BlogsRepository extends BaseRepository
     {
         return $this->query()
             ->leftjoin(config('access.users_table'), config('access.users_table').'.id', '=', config('module.blogs.table').'.created_by')
-            ->select([
+            ->select(
+                [
                 config('module.blogs.table').'.id',
                 config('module.blogs.table').'.name',
                 config('module.blogs.table').'.publish_datetime',
@@ -56,7 +57,8 @@ class BlogsRepository extends BaseRepository
                 config('module.blogs.table').'.created_by',
                 config('module.blogs.table').'.created_at',
                 config('access.users_table').'.first_name as user_name',
-            ]);
+                ]
+            );
     }
 
     /**
@@ -72,30 +74,32 @@ class BlogsRepository extends BaseRepository
         $categoriesArray = $this->createCategories($input['categories']);
         unset($input['tags'], $input['categories']);
 
-        DB::transaction(function () use ($input, $tagsArray, $categoriesArray) {
-            $input['slug'] = str_slug($input['name']);
-            $input['publish_datetime'] = Carbon::parse($input['publish_datetime']);
-            $input = $this->uploadImage($input);
-            $input['created_by'] = access()->user()->id;
+        DB::transaction(
+            function () use ($input, $tagsArray, $categoriesArray) {
+                $input['slug'] = str_slug($input['name']);
+                $input['publish_datetime'] = Carbon::parse($input['publish_datetime']);
+                $input = $this->uploadImage($input);
+                $input['created_by'] = access()->user()->id;
 
-            if ($blog = Blog::create($input)) {
-                // Inserting associated category's id in mapper table
-                if (count($categoriesArray)) {
-                    $blog->categories()->sync($categoriesArray);
+                if ($blog = Blog::create($input)) {
+                    // Inserting associated category's id in mapper table
+                    if (count($categoriesArray)) {
+                        $blog->categories()->sync($categoriesArray);
+                    }
+
+                    // Inserting associated tag's id in mapper table
+                    if (count($tagsArray)) {
+                        $blog->tags()->sync($tagsArray);
+                    }
+
+                    event(new BlogCreated($blog));
+
+                    return true;
                 }
 
-                // Inserting associated tag's id in mapper table
-                if (count($tagsArray)) {
-                    $blog->tags()->sync($tagsArray);
-                }
-
-                event(new BlogCreated($blog));
-
-                return true;
+                throw new GeneralException(trans('exceptions.backend.blogs.create_error'));
             }
-
-            throw new GeneralException(trans('exceptions.backend.blogs.create_error'));
-        });
+        );
     }
 
     /**
@@ -120,28 +124,29 @@ class BlogsRepository extends BaseRepository
             $input = $this->uploadImage($input);
         }
 
-        DB::transaction(function () use ($blog, $input, $tagsArray, $categoriesArray) {
-            if ($blog->update($input)) {
+        DB::transaction(
+            function () use ($blog, $input, $tagsArray, $categoriesArray) {
+                if ($blog->update($input)) {
+                    // Updateing associated category's id in mapper table
+                    if (count($categoriesArray)) {
+                        $blog->categories()->sync($categoriesArray);
+                    }
 
-                // Updateing associated category's id in mapper table
-                if (count($categoriesArray)) {
-                    $blog->categories()->sync($categoriesArray);
+                    // Updating associated tag's id in mapper table
+                    if (count($tagsArray)) {
+                        $blog->tags()->sync($tagsArray);
+                    }
+
+                    event(new BlogUpdated($blog));
+
+                    return true;
                 }
 
-                // Updating associated tag's id in mapper table
-                if (count($tagsArray)) {
-                    $blog->tags()->sync($tagsArray);
-                }
-
-                event(new BlogUpdated($blog));
-
-                return true;
+                throw new GeneralException(
+                    trans('exceptions.backend.blogs.update_error')
+                );
             }
-
-            throw new GeneralException(
-                trans('exceptions.backend.blogs.update_error')
-            );
-        });
+        );
     }
 
     /**
@@ -202,18 +207,20 @@ class BlogsRepository extends BaseRepository
      */
     public function delete(Blog $blog)
     {
-        DB::transaction(function () use ($blog) {
-            if ($blog->delete()) {
-                BlogMapCategory::where('blog_id', $blog->id)->delete();
-                BlogMapTag::where('blog_id', $blog->id)->delete();
+        DB::transaction(
+            function () use ($blog) {
+                if ($blog->delete()) {
+                    BlogMapCategory::where('blog_id', $blog->id)->delete();
+                    BlogMapTag::where('blog_id', $blog->id)->delete();
 
-                event(new BlogDeleted($blog));
+                    event(new BlogDeleted($blog));
 
-                return true;
+                    return true;
+                }
+
+                throw new GeneralException(trans('exceptions.backend.blogs.delete_error'));
             }
-
-            throw new GeneralException(trans('exceptions.backend.blogs.delete_error'));
-        });
+        );
     }
 
     /**
@@ -227,7 +234,7 @@ class BlogsRepository extends BaseRepository
     {
         $avatar = $input['featured_image'];
 
-        if (isset($input['featured_image']) && !empty($input['featured_image'])) {
+        if (isset($input['featured_image']) && ! empty($input['featured_image'])) {
             $fileName = time().$avatar->getClientOriginalName();
 
             $this->storage->put($this->upload_path.$fileName, file_get_contents($avatar->getRealPath()));

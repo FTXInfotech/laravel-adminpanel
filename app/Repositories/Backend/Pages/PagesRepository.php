@@ -26,7 +26,8 @@ class PagesRepository extends BaseRepository
     {
         return $this->query()
             ->leftjoin(config('access.users_table'), config('access.users_table').'.id', '=', config('module.pages.table').'.created_by')
-            ->select([
+            ->select(
+                [
                 config('module.pages.table').'.id',
                 config('module.pages.table').'.title',
                 config('module.pages.table').'.page_slug',
@@ -34,7 +35,8 @@ class PagesRepository extends BaseRepository
                 config('module.pages.table').'.created_at',
                 config('module.pages.table').'.updated_at',
                 config('access.users_table').'.first_name as created_by',
-            ]);
+                ]
+            );
     }
 
     /**

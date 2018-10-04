@@ -24,13 +24,15 @@ class EditResponse implements Responsable
         $selectedCategories = $this->blog->categories->pluck('id')->toArray();
         $selectedtags = $this->blog->tags->pluck('id')->toArray();
 
-        return view('backend.blogs.edit')->with([
+        return view('backend.blogs.edit')->with(
+            [
             'blog'               => $this->blog,
             'blogCategories'     => $this->blogCategories,
             'blogTags'           => $this->blogTags,
             'selectedCategories' => $selectedCategories,
             'selectedtags'       => $selectedtags,
             'status'             => $this->status,
-        ]);
+            ]
+        );
     }
 }

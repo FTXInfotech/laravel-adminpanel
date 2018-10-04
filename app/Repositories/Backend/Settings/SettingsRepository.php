@@ -58,13 +58,13 @@ class SettingsRepository extends BaseRepository
      */
     public function update(Setting $setting, array $input)
     {
-        if (!empty($input['logo'])) {
+        if (! empty($input['logo'])) {
             $this->removeLogo($setting, 'logo');
 
             $input['logo'] = $this->uploadLogo($setting, $input['logo'], 'logo');
         }
 
-        if (!empty($input['favicon'])) {
+        if (! empty($input['favicon'])) {
             $this->removeLogo($setting, 'favicon');
 
             $input['favicon'] = $this->uploadLogo($setting, $input['favicon'], 'favicon');

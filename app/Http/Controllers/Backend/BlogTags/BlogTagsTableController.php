@@ -35,18 +35,30 @@ class BlogTagsTableController extends Controller
     {
         return Datatables::of($this->blogtags->getForDataTable())
             ->escapeColumns(['name'])
-            ->addColumn('status', function ($blogtags) {
-                return $blogtags->status_label;
-            })
-            ->addColumn('created_by', function ($blogtags) {
-                return $blogtags->user_name;
-            })
-            ->addColumn('created_at', function ($blogtags) {
-                return Carbon::parse($blogtags->created_at)->toDateString();
-            })
-            ->addColumn('actions', function ($blogtags) {
-                return $blogtags->action_buttons;
-            })
+            ->addColumn(
+                'status',
+                function ($blogtags) {
+                    return $blogtags->status_label;
+                }
+            )
+            ->addColumn(
+                'created_by',
+                function ($blogtags) {
+                    return $blogtags->user_name;
+                }
+            )
+            ->addColumn(
+                'created_at',
+                function ($blogtags) {
+                    return Carbon::parse($blogtags->created_at)->toDateString();
+                }
+            )
+            ->addColumn(
+                'actions',
+                function ($blogtags) {
+                    return $blogtags->action_buttons;
+                }
+            )
             ->make(true);
     }
 }

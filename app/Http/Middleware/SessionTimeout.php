@@ -43,10 +43,10 @@ class SessionTimeout
         //Cookie Name for when 'remember me' is checked
         $remember_cookie = \Auth::guard()->getRecallerName();
 
-        if (!Cookie::has($remember_cookie) && config('session.timeout_status')) {
+        if (! Cookie::has($remember_cookie) && config('session.timeout_status')) {
             $isLoggedIn = $request->path() != '/logout';
 
-            if (!session('lastActivityTime')) {
+            if (! session('lastActivityTime')) {
                 $this->session->put('lastActivityTime', time());
             } elseif (time() - $this->session->get('lastActivityTime') > $this->timeout) {
                 $this->session->forget('lastActivityTime');

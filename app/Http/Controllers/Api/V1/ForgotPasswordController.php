@@ -29,9 +29,12 @@ class ForgotPasswordController extends APIController
      */
     public function sendResetLinkEmail(Request $request)
     {
-        $validation = Validator::make($request->all(), [
+        $validation = Validator::make(
+            $request->all(),
+            [
             'email' => 'required|email',
-        ]);
+            ]
+        );
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -39,7 +42,7 @@ class ForgotPasswordController extends APIController
 
         $user = $this->repository->findByEmail($request->get('email'));
 
-        if (!$user) {
+        if (! $user) {
             return $this->respondNotFound(trans('api.messages.forgot_password.validation.email_not_found'));
         }
 
@@ -47,9 +50,11 @@ class ForgotPasswordController extends APIController
 
         $user->notify(new UserNeedsPasswordReset($token));
 
-        return $this->respond([
+        return $this->respond(
+            [
             'status'    => 'ok',
             'message'   => trans('api.messages.forgot_password.success'),
-        ]);
+            ]
+        );
     }
 }
