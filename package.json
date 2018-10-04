@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "axios": "^0.18",
-    "bootstrap-sass": "^3.3.7",
+    "bootstrap-sass": "3.3.7",
     "cross-env": "^5.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.1.1",
