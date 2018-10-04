@@ -22,8 +22,8 @@ class RoleResource extends Resource
             'number_of_users'   => $this->users->count(),
             'sort'              => $this->sort,
             'status'            => $this->status,
-            'registered_at'     => $this->created_at->toIso8601String(),
-            'last_updated_at'   => $this->updated_at->toIso8601String(),
+            'created_at'        => $this->created_at->toIso8601String(),
+            'updated_at'        => $this->updated_at->toIso8601String(),
         ];
     }
 }

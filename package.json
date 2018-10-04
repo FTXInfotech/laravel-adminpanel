@@ -15,9 +15,9 @@
     "cross-env": "^5.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.1.1",
-    "laravel-mix": "^2.0",
+    "laravel-mix": "^2.1.14",
     "lodash": "^4.17.4",
-    "vue": "^2.5.7",
+    "vue": "^2.5.17",
     "webpack-rtl-plugin": "^1.5.0"
   },
   "dependencies": {

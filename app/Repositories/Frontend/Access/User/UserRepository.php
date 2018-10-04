@@ -26,25 +26,25 @@ class UserRepository extends BaseRepository
     /**
      * @var RoleRepository
      */
-    protected $role;
+protected $role;
 
     /**
      * @param RoleRepository $role
      */
-    public function __construct(RoleRepository $role)
-    {
-        $this->role = $role;
-    }
+public function __construct(RoleRepository $role)
+{
+    $this->role = $role;
+}
 
     /**
      * @param $email
      *
      * @return bool
      */
-    public function findByEmail($email)
-    {
-        return $this->query()->where('email', $email)->first();
-    }
+public function findByEmail($email)
+{
+    return $this->query()->where('email', $email)->first();
+}
 
     /**
      * @param $token
@@ -53,10 +53,10 @@ class UserRepository extends BaseRepository
      *
      * @return mixed
      */
-    public function findByToken($token)
-    {
-        return $this->query()->where('confirmation_code', $token)->first();
-    }
+public function findByToken($token)
+{
+    return $this->query()->where('confirmation_code', $token)->first();
+}
 
     /**
      * @param $token
@@ -65,18 +65,18 @@ class UserRepository extends BaseRepository
      *
      * @return mixed
      */
-    public function getEmailForPasswordToken($token)
-    {
-        $rows = DB::table(config('auth.passwords.users.table'))->get();
+public function getEmailForPasswordToken($token)
+{
+    $rows = DB::table(config('auth.passwords.users.table'))->get();
 
-        foreach ($rows as $row) {
-            if (password_verify($token, $row->token)) {
-                return $row->email;
-            }
+    foreach ($rows as $row) {
+        if (password_verify($token, $row->token)) {
+            return $row->email;
         }
-
-        throw new GeneralException(trans('auth.unknown'));
     }
+
+    throw new GeneralException(trans('auth.unknown'));
+}
 
     /**
      * Create User.
@@ -86,69 +86,68 @@ class UserRepository extends BaseRepository
      *
      * @return static
      */
-    public function create(array $data, $provider = false)
-    {
-        $user = self::MODEL;
-        $user = new $user();
-        $user->first_name = $data['first_name'];
-        $user->last_name = $data['last_name'];
-        $user->email = $data['email'];
-        $user->confirmation_code = md5(uniqid(mt_rand(), true));
-        $user->status = 1;
-        $user->password = $provider ? null : bcrypt($data['password']);
-        $user->is_term_accept = $data['is_term_accept'];
+public function create(array $data, $provider = false)
+{
+    $user = self::MODEL;
+    $user = new $user();
+    $user->first_name = $data['first_name'];
+    $user->last_name = $data['last_name'];
+    $user->email = $data['email'];
+    $user->confirmation_code = md5(uniqid(mt_rand(), true));
+    $user->status = 1;
+    $user->password = $provider ? null : bcrypt($data['password']);
+    $user->is_term_accept = $data['is_term_accept'];
 
-        // If users require approval, confirmed is false regardless of account type
-        if (config('access.users.requires_approval')) {
-            $user->confirmed = 0; // No confirm e-mail sent, that defeats the purpose of manual approval
-        } elseif (config('access.users.confirm_email')) { // If user must confirm email
-            // If user is from social, already confirmed
-            if ($provider) {
-                $user->confirmed = 1; // E-mails are validated through the social platform
-            } else {
-                // Otherwise needs confirmation
-                $user->confirmed = 0;
-                $confirm = true;
-            }
+    // If users require approval, confirmed is false regardless of account type
+    if (config('access.users.requires_approval')) {
+        $user->confirmed = 0; // No confirm e-mail sent, that defeats the purpose of manual approval
+    } elseif (config('access.users.confirm_email')) { // If user must confirm email
+        // If user is from social, already confirmed
+        if ($provider) {
+            $user->confirmed = 1; // E-mails are validated through the social platform
         } else {
-            // Otherwise both are off and confirmed is default
-            $user->confirmed = 1;
+            // Otherwise needs confirmation
+            $user->confirmed = 0;
+            $confirm = true;
         }
+    } else {
+        // Otherwise both are off and confirmed is default
+        $user->confirmed = 1;
+    }
 
-        DB::transaction(
-            function () use ($user) {
-                if ($user->save()) {
-                    /*
-                     * Add the default site role to the new user
-                     */
-                    $user->attachRole($this->role->getDefaultUserRole());
-                    /*
-                     * Fetch the permissions of role attached to this user
-                    */
-                    $permissions = $user->roles->first()->permissions->pluck('id');
-                    /*
-                     * Assigned permissions to user
-                    */
-                    $user->permissions()->sync($permissions);
+    DB::transaction(
+        function () use ($user, $provider) {
+            if ($user->save()) {
+                /*
+                 * Add the default site role to the new user
+                 */
+                $user->attachRole($this->role->getDefaultUserRole());
+                /*
+                 * Fetch the permissions of role attached to this user
+                */
+                $permissions = $user->roles->first()->permissions->pluck('id');
+                /*
+                 * Assigned permissions to user
+                */
+                $user->permissions()->sync($permissions);
+
+                /*
+                 * If users have to confirm their email and this is not a social account,
+                 * send the confirmation email
+                 *
+                 * If this is a social account they are confirmed through the social provider by default
+                 */
+                if (config('access.users.confirm_email') && $provider === false) {
+                    $user->notify(new UserNeedsConfirmation($user->confirmation_code));
                 }
             }
-        );
+    );
 
         /*
-         * If users have to confirm their email and this is not a social account,
-         * send the confirmation email
-         *
-         * If this is a social account they are confirmed through the social provider by default
-         */
-        if (config('access.users.confirm_email') && $provider === false) {
-            $user->notify(new UserNeedsConfirmation($user->confirmation_code));
+     * Return the user object
+     */
+            return $user;
         }
-
-        /*
-         * Return the user object
-         */
-        return $user;
-    }
 
     /**
      * @param $data
@@ -200,7 +199,7 @@ class UserRepository extends BaseRepository
                 )
             );
         } else {
-            // Update the users information, token and avatar can be updated.
+        // Update the users information, token and avatar can be updated.
             $user->providers()->update(
                 [
                 'token'  => $data->token,
@@ -209,8 +208,8 @@ class UserRepository extends BaseRepository
             );
         }
 
-        // Return the user object
-        return $user;
+                // Return the user object
+                return $user;
     }
 
     /**
@@ -252,12 +251,6 @@ class UserRepository extends BaseRepository
         $user = $this->find($id);
         $user->first_name = $input['first_name'];
         $user->last_name = $input['last_name'];
-        $user->address = $input['address'];
-        $user->state_id = $input['state_id'];
-        $user->country_id = config('access.constants.default_country');
-        $user->city_id = $input['city_id'];
-        $user->zip_code = $input['zip_code'];
-        $user->ssn = $input['ssn'];
         $user->updated_by = access()->user()->id;
 
         if ($user->canChangeEmail()) {
@@ -278,8 +271,8 @@ class UserRepository extends BaseRepository
                 $user->notify(new UserNeedsConfirmation($user->confirmation_code));
 
                 return [
-                    'success'       => $updated,
-                    'email_changed' => true,
+                'success'       => $updated,
+                'email_changed' => true,
                 ];
             }
         }
@@ -305,9 +298,9 @@ class UserRepository extends BaseRepository
                 $input['email'] = $user->email;
                 // Send email to the user
                 $options = [
-                        'data'                => $input,
-                        'email_template_type' => 4,
-                    ];
+                    'data'                => $input,
+                    'email_template_type' => 4,
+                ];
                 createNotification('', $user->id, 2, $options);
 
                 return true;

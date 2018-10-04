@@ -188,7 +188,7 @@ return [
             'blogs' => [
                 'title'            => 'Blog Title',
                 'category'         => 'Blog Category',
-                'publish'          => 'Publich Date & Time',
+                'publish'          => 'Publish Date & Time',
                 'image'            => 'Featured Image',
                 'content'          => 'Content',
                 'tags'             => 'Tags',
