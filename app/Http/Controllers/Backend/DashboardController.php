@@ -7,7 +7,7 @@ use App\Models\Access\Permission\Permission;
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
 use Illuminate\Http\Request;
-
+use App\Models\Settings\Setting;
 /**
  * Class DashboardController.
  */
@@ -18,7 +18,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('backend.dashboard');
+        $settingData = Setting::first();
+        $google_analytics = $settingData->google_analytics;
+
+        return view('backend.dashboard',compact('google_analytics', $google_analytics));
     }
 
     /**
