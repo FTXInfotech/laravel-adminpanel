@@ -40,7 +40,7 @@ class AuthController extends APIController
 
         return $this->respond([
             'message'   => trans('api.messages.login.success'),
-            'token'     => $token,
+            'token'     =>  'Bearer ' .$token,
         ]);
     }
 

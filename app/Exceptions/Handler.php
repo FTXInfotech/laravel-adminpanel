@@ -88,7 +88,7 @@ class Handler extends ExceptionHandler
             * Usually because user stayed on the same screen too long and their session expired
             */
             if ($exception instanceof UnauthorizedHttpException) {
-                switch (get_class($exception->getPrevious())) {
+                switch (is_object($exception->getPrevious()) && null !== $exception->getPrevious() && get_class($exception->getPrevious())) {
                     case \App\Exceptions\Handler::class:
                         return $this->setStatusCode($exception->getStatusCode())->respondWithError('Token has not been provided.');
                     case \Tymon\JWTAuth\Exceptions\TokenExpiredException::class:

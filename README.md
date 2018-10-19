@@ -57,6 +57,7 @@ Generate a new application key
     php artisan key:generate
 
 Generate a new JWT secret key (If you want to use API)
+    
     php artisan jwt:secret
 
 Generate a new JWT authentication secret key
