@@ -10,26 +10,27 @@ use Exception;
 class GeneralException extends Exception
 {
     /**
-     * message
+     * message.
      *
      * @var string
      */
     public $message;
 
     /**
-     * dontHide
+     * dontHide.
      *
      * @var bool
      */
     public $dontHide;
 
     /**
-     * Constructor function
+     * Constructor function.
      *
-     * @param string    $message
-     * @param boolean   $dontHide
+     * @param string  $message
+     * @param boolean $dontHide
      */
-    public function __construct($message, $dontHide = false) {
+    public function __construct($message, $dontHide = false) 
+    {
         $this->message = $message;
         $this->dontHide = $dontHide;
     }
