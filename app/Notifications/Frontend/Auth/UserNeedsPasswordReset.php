@@ -50,10 +50,9 @@ class UserNeedsPasswordReset extends Notification
      */
     public function toMail($notifiable)
     {
+        $reset_password_route = route('frontend.auth.password.reset.form', $this->token);
+
         return (new MailMessage())
-            ->subject(app_name().': '.trans('strings.emails.auth.password_reset_subject'))
-            ->line(trans('strings.emails.auth.password_cause_of_email'))
-            ->action(trans('buttons.emails.auth.reset_password'), route('frontend.auth.password.reset.form', $this->token))
-            ->line(trans('strings.emails.auth.password_if_not_requested'));
+            ->view('emails.reset-password', ['reset_password_url' => $reset_password_route]);
     }
 }

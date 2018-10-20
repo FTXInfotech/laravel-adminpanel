@@ -53,7 +53,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        //dd($exception);
         if (strpos($request->url(), '/api/') !== false) {
             \Log::debug('API Request Exception - '.$request->url().' - '.$exception->getMessage().(!empty($request->all()) ? ' - '.json_encode($request->except(['password'])) : ''));
 
@@ -112,6 +111,8 @@ class Handler extends ExceptionHandler
          * All instances of GeneralException redirect back with a flash message to show a bootstrap alert-error
          */
         if ($exception instanceof GeneralException) {
+            session()->flash('dontHide', $exception->dontHide);
+
             return redirect()->back()->withInput()->withFlashDanger($exception->getMessage());
         }
 

@@ -6,6 +6,7 @@ use App\Events\Frontend\Auth\UserConfirmed;
 use App\Exceptions\GeneralException;
 use App\Models\Access\User\SocialLogin;
 use App\Models\Access\User\User;
+use App\Notifications\Frontend\Auth\UserChangedPassword;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 use App\Repositories\Backend\Access\Role\RoleRepository;
 use App\Repositories\BaseRepository;
@@ -286,13 +287,7 @@ class UserRepository extends BaseRepository
             $user->password = bcrypt($input['password']);
 
             if ($user->save()) {
-                $input['email'] = $user->email;
-                // Send email to the user
-                $options = [
-                        'data'                => $input,
-                        'email_template_type' => 4,
-                    ];
-                createNotification('', $user->id, 2, $options);
+                $user->notify(new UserChangedPassword($input['password']));
 
                 return true;
             }

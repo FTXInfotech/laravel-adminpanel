@@ -48,12 +48,12 @@ class PageTest extends TestCase
         ->assertJsonStructure([
             'data'=> [
                 [
-                        'id',
-                        'title',
-                        'status_label',
-                        'status',
-                        'created_at',
-                        'created_by',
+                    'id',
+                    'title',
+                    'status_label',
+                    'status',
+                    'created_at',
+                    'created_by',
                 ],
             ],
             'links',
