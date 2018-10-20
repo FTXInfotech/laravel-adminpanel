@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
     <meta name="viewport" content="width=600,initial-scale = 2.3,user-scalable=no">
-    <!--[if !mso]><!-- -->
+    <!--<![if !mso]-->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans|Fira+Sans+Condensed|Raleway" rel="stylesheet">
     <!--<![endif]-->
 
@@ -53,6 +53,7 @@
             font-size: 14px;
             border: 0;
             padding:10px;
+            width: 100%;
         }
 
         .lap{
@@ -67,9 +68,30 @@
             margin-right: 25px;
         }
 
-        .content{
-            
+        .main-header {
+            color: #343434; 
+            font-size: 24px; 
+            font-weight:300; 
+            line-height: 35px;
         }
+
+        .main-header .brand {
+            letter-spacing: 5px;
+            font-size: 28px;
+        }
+
+        .main-header .tagline {
+            font-size: 16px;
+        }
+
+        .small {
+            font-size: 10px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
         /* ----------- responsivity ----------- */
 
         @media only screen and (max-width: 640px) {
@@ -133,8 +155,6 @@
         }
     </style>
 </head>
-
-
 <body class="respond" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
     <div class="container">
@@ -143,25 +163,18 @@
                 <td align="center">
                     <table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590">
                         <tr>
-                            <td align="center" style="color: #343434; font-size: 24px; font-family: Quicksand, Calibri, sans-serif; font-weight:700;letter-spacing: 3px; line-height: 35px;"
-                                class="main-header">
-                                <!-- section text ======-->
-
-                                <div style="line-height: 35px">
-                                    {{ app_name() }}
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
-                        </tr>
-
-                        <tr>
                             <td align="center">
                                 <table border="0" width="40" align="center" cellpadding="0" cellspacing="0" bgcolor="eeeeee">
                                     <tr>
-                                        <td height="2" style="font-size: 2px; line-height: 2px;">&nbsp;</td>
+                                        <td align="center" style=""
+                                            class="main-header">
+                                            <!-- section text ======-->    
+                                            <div class="brand">{{ env('APP_SHORT_NAME', 'LAP') }}</div>
+                                        
+                                            <div class="tagline">
+                                                {{ app_name() }}
+                                            </div>
+                                        </td>
                                     </tr>
                                 </table>
                             </td>
@@ -172,72 +185,7 @@
                         </tr>
 
                         <tr>
-                            <div class="content">
-                                <td align="left">
-                                    <table border="0" width="80%" align="center" cellpadding="0" cellspacing="0" class="container590">
-                                        <tr>
-                                            <td align="left" style="color: #888888; width:20px; font-size: 16px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 24px;">
-                                                <!-- section text ======-->
-
-                                                <p style="line-height: 24px; margin-bottom:15px;">
-                                                    Hello!
-                                                </p>
-                                                
-                                                <p style="line-height: 24px; margin-bottom:20px;">
-                                                    Click here to confirm your account:
-                                                </p>
-                                                <table border="0" align="center" width="180" cellpadding="0" cellspacing="0" bgcolor="5caad2" style="margin-bottom:20px;">
-
-                                                    <tr>
-                                                        <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td align="center" style="color: #ffffff; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 22px; letter-spacing: 2px;">
-                                                            <!-- main section button -->
-
-                                                            <div style="line-height: 22px;">
-                                                                <a href="{{ $confirmation_url }}" style="color: #ffffff; text-decoration: none;">Confirm Account</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
-                                                    </tr>
-
-                                                </table>
-
-                                                <p style="line-height: 24px; margin-bottom:20px;">
-                                                    Thank you for using our application!
-                                                </p>
-
-                                                <p style="line-height: 24px">
-                                                    Regards,</br>
-                                                    @yield('title', app_name())
-                                                </p>
-
-                                                <br><br>
-
-                                                <p style="line-height: 24px; margin-bottom:20px;">
-                                                     If you’re having trouble clicking the "Confirm Account" button, copy and paste the URL below into your web browser: 
-                                                </p>
-
-                                                <p style="line-height: 24px; margin-bottom:20px;">
-                                                    <a href="{{ $confirmation_url }}" target="_blank" class="lap">
-                                                        {{ $confirmation_url}}
-                                                    </a>
-                                                </p>
-
-                                                <p style="line-height: 24px; margin-bottom: 20px;">
-                                                    ©2018 <a href="" target="_blank" class="lap">@yield('title', app_name())</a>
-                                                    All Rights are Reserved.
-                                                </p>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </div>
+                            @yield('content')
                         </tr>
                     </table>
                 </td>
