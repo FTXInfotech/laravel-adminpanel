@@ -1,8 +1,12 @@
 @php
     $message = '';
     $type = '';
-@endphp
+    $dontHide = false;
 
+    if(session()->has('dontHide')) {
+        $dontHide = session()->get('dontHide');
+    }
+@endphp
 @if ($errors->any())
     @php
         $type = 'danger';
@@ -80,4 +84,4 @@
 @endif
 
 <!-- Flash Message Vue component -->
-<flash message="{!! $message !!}" type="{{ $type }}"></flash>
+<flash message="{!! $message !!}" type="{{ $type }}" dont-hide="{{ $dontHide }}"></flash>
