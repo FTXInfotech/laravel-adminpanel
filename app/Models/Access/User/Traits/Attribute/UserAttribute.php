@@ -147,23 +147,22 @@ trait UserAttribute
             switch ($this->status) {
                 case 0:
                     if (access()->allow('activate-user')) {
-                        $name = $class == '' ? 'Active' : '';
+                        $name = $class == '' ? 'Activate' : '';
 
                         return '<a class="'.$class.'" href="'.route('admin.access.user.mark', [$this, 1]).'"><i class="fa fa-check-square" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.activate').'"></i>'.$name.'</a>';
                     }
-                // No break
+                    break;
 
                 case 1:
                     if (access()->allow('deactivate-user')) {
-                        $name = ($class == '') ? 'Deactive' : '';
+                        $name = ($class == '') ? 'Deactivate' : '';
 
                         return '<a class="'.$class.'" href="'.route('admin.access.user.mark', [$this, 0]).'"><i class="fa fa-square" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.deactivate').'"></i>'.$name.'</a>';
                     }
-                // No break
+                    break;
 
                 default:
                     return '';
-                // No break
             }
         }
 
