@@ -31,8 +31,8 @@ class PagesController extends APIController
     {
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
         $orderBy = $request->get('orderBy') ? $request->get('orderBy') : 'ASC';
-        $sortBy = $request->get('sortBy') ? $request->get('sortBy') : config('module.pages.table', 'pages').    'created_at';
-        
+        $sortBy = $request->get('sortBy') ? $request->get('sortBy') : config('module.pages.table', 'pages').'created_at';
+
         return PagesResource::collection(
             $this->repository->getForDataTable()->orderBy($sortBy, $orderBy)->paginate($limit)
         );
