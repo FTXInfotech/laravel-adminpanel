@@ -26,10 +26,10 @@ class GeneralException extends Exception
     /**
      * Constructor function.
      *
-     * @param string  $message
-     * @param boolean $dontHide
+     * @param string $message
+     * @param bool   $dontHide
      */
-    public function __construct($message, $dontHide = false) 
+    public function __construct($message, $dontHide = false)
     {
         $this->message = $message;
         $this->dontHide = $dontHide;
