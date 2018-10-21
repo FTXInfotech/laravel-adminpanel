@@ -125,5 +125,5 @@ return [
 
             'registration_disabled' => 'Registration is currently closed.',
         ],
-    ]
+    ],
 ];
