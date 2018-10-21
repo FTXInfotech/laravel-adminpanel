@@ -105,14 +105,6 @@ return [
             'main'       => 'Faq Pages',
         ],
 
-        'emailtemplates' => [
-            'all'        => 'All Email Template',
-            'create'     => 'Create Email Template',
-            'edit'       => 'Edit Email Template',
-            'management' => 'Email Template Management',
-            'main'       => 'Email Template',
-        ],
-
         'settings' => [
             'all'        => 'All Settings',
             'create'     => 'Create Settings',
