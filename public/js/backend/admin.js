@@ -646,47 +646,6 @@ var Backend = {}; // common variable used in all the files of the backend
             }
         },
 
-        emailTemplate: {
-
-            selectors: {
-                emailtemplateSelection: document.querySelector(".select2")
-            },
-
-            init: function () {
-                Backend.emailTemplate.addHandlers();
-                Backend.tinyMCE.init();
-            },
-
-            // ! Backend.emailTemplate.addHandlers
-            addHandlers: function () {
-                jQuery(".select2").select2();
-                // to add placeholder in to active textarea
-                document.getElementById("addPlaceHolder").onclick = function (event) {
-                    Backend.emailTemplate.addPlaceHolder(event);
-                };
-                document.getElementById("showPreview").onclick = function (event) {
-                    Backend.emailTemplate.showPreview(event);
-                };
-
-            },
-
-            // ! Backend.emailTemplate.addPlaceHolder
-            addPlaceHolder: function (event) {
-                var placeHolder = document.getElementById('placeHolder').value;
-                if (placeHolder != '') {
-                    tinymce.activeEditor.execCommand('mceInsertContent', false, "[" + jQuery('#placeHolder :selected').text() + "]");
-                }
-            },
-
-            // ! Backend.emailTemplate.showPreview
-            showPreview: function (event) {
-                document.querySelector(".modal-body").innerHTML = tinyMCE.get('txtBody').getContent();
-                //jQuery( ".modal-body" ).html(tinyMCE.get('txtBody').getContent());
-                jQuery(".model-wrapper").modal('show');
-
-            },
-        },
-
         /**
          * Faq
          *

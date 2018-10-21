@@ -177,22 +177,6 @@ return [
             ],
         ],
 
-        'emailtemplates' => [
-            'create'     => 'Create Email Template',
-            'edit'       => 'Edit Email Template',
-            'management' => 'Email Template Management',
-            'title'      => 'Email Templates',
-
-            'table' => [
-                'title'     => 'Title',
-                'subject'   => 'Subject',
-                'status'    => 'Status',
-                'createdat' => 'Created At',
-                'updatedat' => 'Updated At',
-                'all'       => 'All',
-            ],
-        ],
-
         'settings' => [
             'edit'           => 'Edit Settings',
             'management'     => 'Settings Management',

@@ -145,38 +145,25 @@ if (!function_exists('settings')) {
     }
 }
 
-// Creating Notification
 if (!function_exists('createNotification')) {
     /**
      * create new notification.
      *
      * @param  $message    message you want to show in notification
      * @param  $userId     To Whom You Want To send Notification
-     * @param  $type       type of notification (1 - dashboard, 2 - email, 3 - both) (by default 1)
-     * @param  $option     associate array [ 'data' => $data, 'email_template_type' => $template_type ]
      *
      * @return object
      */
-    function createNotification($message, $userId, $type = 1, $options = [])
+    function createNotification($message, $userId)
     {
-        if ($type == 1 || $type == 3) {
-            $notification = new Notification();
+        $notification = new Notification();
 
-            return $notification->insert([
-                'message'    => $message,
-                'user_id'    => $userId,
-                'type'       => $type,
-                'created_at' => Carbon::now(),
-            ]);
-        }
-        if ($type == 2 || $type == 3) {
-            if (!empty($options['data']) && !empty($options['email_template_type'])) {
-                $mail = new SendEmail();
-                $emailResult = $mail->sendWithTemplate($options['data'], $options['email_template_type']);
-            } else {
-                throw new GeneralException('Invalid input given.option array shold contains data and email_template_type');
-            }
-        }
+        return $notification->insert([
+            'message'    => $message,
+            'user_id'    => $userId,
+            'type'       => 1,
+            'created_at' => Carbon::now(),
+        ]);
     }
 }
 

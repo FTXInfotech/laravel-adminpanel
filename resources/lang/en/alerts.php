@@ -61,14 +61,10 @@ return [
             'updated' => 'The Blog was successfully updated.',
         ],
 
-        'emailtemplates' => [
-            'deleted' => 'The Email Template was successfully deleted.',
-            'updated' => 'The Email Template was successfully updated.',
-        ],
-
         'settings' => [
             'updated' => 'The Setting was successfully updated.',
         ],
+
         'faqs' => [
             'created' => 'The Faq was successfully created.',
             'deleted' => 'The Faq was successfully deleted.',
