@@ -45,30 +45,24 @@ class HistoryTypeTableSeeder extends Seeder
             ],
             [
                 'id'         => 4,
-                'name'       => 'CMSPage',
+                'name'       => 'Page',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
                 'id'         => 5,
-                'name'       => 'EmailTemplate',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ],
-            [
-                'id'         => 6,
                 'name'       => 'BlogTag',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'id'         => 7,
+                'id'         => 6,
                 'name'       => 'BlogCategory',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'id'         => 8,
+                'id'         => 7,
                 'name'       => 'Blog',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

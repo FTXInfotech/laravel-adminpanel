@@ -6,46 +6,49 @@
 
 <script>
 export default {
-  props: ["message", "type"],
+	props: ["message", "type", "dontHide"],
 
-  data() {
-    return {
-      body: "",
-      typeClass: "",
-      show: false
-    };
-  },
+	data() {
+		return {
+			body: "",
+			typeClass: "",
+			show: false
+		};
+	},
 
-  created() {
-    var context = this;
-    if (this.message && this.type) {
-      this.flash(this.message, this.type);
-    }
+	created() {
+		const context = this;
 
-    window.events.$on("flash", function(message, type) {
-      context.flash(message, type);
-    });
-  },
+		if (this.message && this.type) {
+			this.flash(this.message, this.type, this.dontHide);
+		}
 
-  methods: {
-    flash(message, type) {
-        
-        if (! type) {
-            type = "info";
-        }
+		window.events.$on("flash", function(message, type) {
+			context.flash(message, type);
+		});
+	},
 
-        this.body = message;
-        this.typeClass = "alert alert-" + type;
-        this.show = true;
+	methods: {
+		flash(message, type, dontHide = false) {
 
-        this.hide();
-    },
+			if (! type) {
+				type = "info";
+			}
 
-    hide() {
-      setTimeout(() => {
-        this.show = false;
-      }, 3000);
-    }
-  }
+			this.body = message;
+			this.typeClass = "alert alert-" + type;
+			this.show = true;
+
+			if(! dontHide) {
+				this.hide();
+			}
+    	},
+
+		hide() {
+			setTimeout(() => {
+				this.show = false;
+			}, 3000);
+		}
+	}
 };
 </script>

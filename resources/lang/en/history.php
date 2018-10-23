@@ -29,9 +29,9 @@ return [
             'updated' => 'updated permission',
         ],
         'pages' => [
-            'created' => 'created CMS Page',
-            'deleted' => 'deleted CMS Page',
-            'updated' => 'updated CMS Page',
+            'created' => 'created Page',
+            'deleted' => 'deleted Page',
+            'updated' => 'updated Page',
         ],
         'blogcategories' => [
             'created' => 'created Blog Category',
@@ -47,10 +47,6 @@ return [
             'created' => 'created Blog',
             'deleted' => 'deleted Blog',
             'updated' => 'updated Blog',
-        ],
-        'emailtemplates' => [
-            'deleted' => 'deleted Email Template',
-            'updated' => 'updated Email Template',
         ],
         'users' => [
             'changed_password'    => 'changed password for user',

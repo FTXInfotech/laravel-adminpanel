@@ -166,15 +166,6 @@ return [
                 'is_active'       => 'Active',
             ],
 
-            'emailtemplates' => [
-                'title'       => 'Title',
-                'type'        => 'Type',
-                'subject'     => 'Subject',
-                'body'        => 'Body',
-                'placeholder' => 'Placeholder',
-                'is_active'   => 'Active',
-            ],
-
             'blogcategories' => [
                 'title'     => 'Blog Category',
                 'is_active' => 'Active',
