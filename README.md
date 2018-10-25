@@ -44,13 +44,14 @@ Switch to the repo folder
 
     cd laravel-adminpanel
 
-Copy the example env file and make the required configuration changes in the .env file
+If you have linux system, you can execute below command only in your project root
 
-    cp .env.example .env
+    1) sudo chmod -R 777 install.sh
+    2) ./install.sh
 
-Install all the dependencies using composer
+If you have windows system, you can run Artisan Command for database setup, connection and configuration.
 
-    composer install
+    php artisan install:app
 
 Generate a new application key
 
@@ -95,7 +96,7 @@ Start the local development server
 
 You can now access the server at http://localhost:8000
 
-**TL;DR command list**
+**Command list**
 
     git clone https://github.com/viralsolani/laravel-adminpanel.git
     cd laravel-adminpanel
@@ -112,7 +113,7 @@ You can now access the server at http://localhost:8000
 
 `php artisan db:seed` adds three users with respective roles. The credentials are as follows:
 
-* Admin Istrator: `admin@admin.com`
+* Administrator: `admin@admin.com`
 * Backend User: `executive@executive.com`
 * Default User: `user@user.com`
 
