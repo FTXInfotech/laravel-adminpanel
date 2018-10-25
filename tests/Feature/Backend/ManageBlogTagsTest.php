@@ -16,7 +16,6 @@ class ManageBlogTagsTest extends TestCase
             ->assertSee(trans('labels.backend.blogtags.management'))
             ->assertSee(trans('labels.backend.blogtags.table.title'))
             ->assertSee(trans('labels.backend.blogtags.table.status'))
-            ->assertSee('Export')
             ->assertSee('Action');
     }
 
@@ -76,5 +75,18 @@ class ManageBlogTagsTest extends TestCase
         $this->delete(route('admin.blogTags.destroy', $tag));
 
         $this->assertDatabaseMissing(config('module.blog_tags.table'), ['name' => $tag->name, 'id' => $tag->id, 'deleted_at' => null]);
+    }
+
+    /** @test */
+    public function a_user_can_not_update_a_blog_tag_with_same_name()
+    {
+        $this->actingAs($this->admin)->withExceptionHandling();
+
+        $catTag = create(BlogTag::class, ['name' => 'Cat']);
+        $dogTag = create(BlogTag::class, ['name' => 'Dog']);
+
+        $this->patch(route('admin.blogTags.update', $dogTag),
+            ['name' => 'Cat']
+        )->assertSessionHasErrors('name');
     }
 }

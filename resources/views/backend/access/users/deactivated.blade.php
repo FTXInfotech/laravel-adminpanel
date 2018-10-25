@@ -68,7 +68,13 @@
     {{-- For DataTables --}}
     {{ Html::script(mix('js/dataTable.js')) }}
     <script>
-        $(function() {
+
+        (function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             var dataTable = $('#users-table').dataTable({
                 processing: true,
                 serverSide: true,
@@ -102,6 +108,7 @@
             });
 
             Backend.DataTableSearch.init(dataTable);
-        });
+        })();
+       
     </script>
 @endsection

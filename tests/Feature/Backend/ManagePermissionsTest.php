@@ -18,7 +18,6 @@ class ManagePermissionsTest extends TestCase
             ->get(route('admin.access.permission.index'))
             ->assertViewIs('backend.access.permissions.index')
             ->assertSee(trans('labels.backend.access.permissions.management'))
-            ->assertSee('Export')
             ->assertSee('Action');
     }
 

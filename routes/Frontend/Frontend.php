@@ -5,7 +5,6 @@
  * All route names are prefixed with 'frontend.'.
  */
 Route::get('/', 'FrontendController@index')->name('index');
-Route::get('macros', 'FrontendController@macros')->name('macros');
 Route::post('/get/states', 'FrontendController@getStates')->name('get.states');
 Route::post('/get/cities', 'FrontendController@getCities')->name('get.cities');
 
@@ -38,6 +37,6 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 /*
-* Show cmspages
+* Show pages
 */
-Route::get('cmspage/{page_slug}', 'FrontendController@showCMSPage')->name('cmspages.show');
+Route::get('pages/{slug}', 'FrontendController@showPage')->name('pages.show');

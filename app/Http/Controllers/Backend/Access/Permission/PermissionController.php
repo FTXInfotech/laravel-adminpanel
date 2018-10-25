@@ -9,6 +9,10 @@ use App\Http\Requests\Backend\Access\Permission\EditPermissionRequest;
 use App\Http\Requests\Backend\Access\Permission\ManagePermissionRequest;
 use App\Http\Requests\Backend\Access\Permission\StorePermissionRequest;
 use App\Http\Requests\Backend\Access\Permission\UpdatePermissionRequest;
+use App\Http\Responses\Backend\Access\Permission\CreateResponse;
+use App\Http\Responses\Backend\Access\Permission\EditResponse;
+use App\Http\Responses\RedirectResponse;
+use App\Http\Responses\ViewResponse;
 use App\Models\Access\Permission\Permission;
 use App\Repositories\Backend\Access\Permission\PermissionRepository;
 
@@ -33,71 +37,69 @@ class PermissionController extends Controller
     /**
      * @param ManagePermissionRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\ViewResponse
      */
     public function index(ManagePermissionRequest $request)
     {
-        return view('backend.access.permissions.index');
+        return new ViewResponse('backend.access.permissions.index');
     }
 
     /**
      * @param CreatePermissionRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\Backend\Access\Permission\CreateResponse
      */
     public function create(CreatePermissionRequest $request)
     {
-        return view('backend.access.permissions.create')
-                ->withPermissionCount($this->permissions->getCount());
+        return new CreateResponse($this->permissions);
     }
 
     /**
      * @param StorePermissionRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StorePermissionRequest $request)
     {
         $this->permissions->create($request->all());
 
-        return redirect()->route('admin.access.permission.index')->withFlashSuccess(trans('alerts.backend.permissions.created'));
+        return new RedirectResponse(route('admin.access.permission.index'), ['flash_success' => trans('alerts.backend.permissions.created')]);
     }
 
     /**
      * @param Permission            $permission
      * @param EditPermissionRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\Backend\Access\Permission\EditResponse
      */
     public function edit(Permission $permission, EditPermissionRequest $request)
     {
-        return view('backend.access.permissions.edit')
-            ->withPermission($permission);
+        return new EditResponse($permission);
     }
 
     /**
      * @param Permission              $permission
      * @param UpdatePermissionRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function update(Permission $permission, UpdatePermissionRequest $request)
     {
         $this->permissions->update($permission, $request->all());
 
-        return redirect()->route('admin.access.permission.index')->withFlashSuccess(trans('alerts.backend.permissions.updated'));
+        return new RedirectResponse(route('admin.access.permission.index'), ['flash_success' => trans('alerts.backend.permissions.updated')]);
     }
 
     /**
      * @param Permission              $permission
      * @param DeletePermissionRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(Permission $permission, DeletePermissionRequest $request)
     {
         $this->permissions->delete($permission);
 
-        return redirect()->route('admin.access.permission.index')->withFlashSuccess(trans('alerts.backend.permissions.deleted'));
+        return new RedirectResponse(route('admin.access.permission.index'), ['flash_success' => trans('alerts.backend.permissions.deleted')]);
     }
 }

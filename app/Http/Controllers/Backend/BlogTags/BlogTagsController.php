@@ -9,6 +9,9 @@ use App\Http\Requests\Backend\BlogTags\EditBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest;
+use App\Http\Responses\Backend\BlogTag\EditResponse;
+use App\Http\Responses\RedirectResponse;
+use App\Http\Responses\ViewResponse;
 use App\Models\BlogTags\BlogTag;
 use App\Repositories\Backend\BlogTags\BlogTagsRepository;
 
@@ -33,47 +36,44 @@ class BlogTagsController extends Controller
     /**
      * @param \App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\ViewResponse
      */
     public function index(ManageBlogTagsRequest $request)
     {
-        return view('backend.blogtags.index');
+        return new ViewResponse('backend.blogtags.index');
     }
 
     /**
      * @param \App\Http\Requests\Backend\BlogTags\CreateBlogTagsRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\ViewResponse
      */
     public function create(CreateBlogTagsRequest $request)
     {
-        return view('backend.blogtags.create');
+        return new ViewResponse('backend.blogtags.create');
     }
 
     /**
      * @param \App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StoreBlogTagsRequest $request)
     {
         $this->blogtag->create($request->except('token'));
 
-        return redirect()
-            ->route('admin.blogTags.index')
-            ->with('flash_success', trans('alerts.backend.blogtags.created'));
+        return new RedirectResponse(route('admin.blogTags.index'), ['flash_success' => trans('alerts.backend.blogtags.created')]);
     }
 
     /**
      * @param \App\Models\BlogTags\BlogTag                            $blogTag
      * @param \App\Http\Requests\Backend\BlogTags\EditBlogTagsRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\Backend\BlogTag\EditResponse
      */
     public function edit(BlogTag $blogTag, EditBlogTagsRequest $request)
     {
-        return view('backend.blogtags.edit')
-            ->with('blogtag', $blogTag);
+        return new EditResponse($blogTag);
     }
 
     /**
@@ -86,9 +86,7 @@ class BlogTagsController extends Controller
     {
         $this->blogtag->update($blogTag, $request->except(['_method', '_token']));
 
-        return redirect()
-            ->route('admin.blogTags.index')
-            ->with('flash_success', trans('alerts.backend.blogtags.updated'));
+        return new RedirectResponse(route('admin.blogTags.index'), ['flash_success' => trans('alerts.backend.blogtags.updated')]);
     }
 
     /**
@@ -101,8 +99,6 @@ class BlogTagsController extends Controller
     {
         $this->blogtag->delete($blogTag);
 
-        return redirect()
-            ->route('admin.blogTags.index')
-            ->with('flash_success', trans('alerts.backend.blogtags.deleted'));
+        return new RedirectResponse(route('admin.blogTags.index'), ['flash_success' => trans('alerts.backend.blogtags.deleted')]);
     }
 }

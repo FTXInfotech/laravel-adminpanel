@@ -142,8 +142,9 @@ class UserRepository extends BaseRepository
 
         DB::transaction(function () use ($user, $data, $roles, $permissions) {
             if ($user->update($data)) {
-                $user->status = isset($data['status']) ? 1 : 0;
-                $user->confirmed = isset($data['confirmed']) ? 1 : 0;
+                $user->status = isset($data['status']) && $data['status'] == '1' ? 1 : 0;
+                $user->confirmed = isset($data['confirmed']) && $data['confirmed'] == '1' ? 1 : 0;
+
                 $user->save();
 
                 $this->checkUserRolesCount($roles);
@@ -189,6 +190,8 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * Delete User.
+     *
      * @param Model $user
      *
      * @throws GeneralException
@@ -208,6 +211,34 @@ class UserRepository extends BaseRepository
         }
 
         throw new GeneralException(trans('exceptions.backend.access.users.delete_error'));
+    }
+
+    /**
+     * Delete All Users.
+     *
+     * @param Model $user
+     *
+     * @throws GeneralException
+     *
+     * @return bool
+     */
+    public function deleteAll($ids)
+    {
+        if (in_array(access()->id(), $ids)) {
+            throw new GeneralException(trans('exceptions.backend.access.users.cant_delete_self'));
+        }
+
+        if (in_array(1, $ids)) {
+            throw new GeneralException(trans('exceptions.backend.access.users.cant_delete_admin'));
+        }
+
+        $result = DB::table('users')->whereIn('id', $ids)->delete();
+
+        if ($result) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

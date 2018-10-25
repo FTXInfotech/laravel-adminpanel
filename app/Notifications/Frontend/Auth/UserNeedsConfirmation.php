@@ -43,16 +43,15 @@ class UserNeedsConfirmation extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param mixed $notifiable
+     * @param \App\Models\Access\User\User $user
      *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($user)
     {
+        $confirmation_url = route('frontend.auth.account.confirm', $user->confirmation_code);
+
         return (new MailMessage())
-            ->subject(app_name().': '.trans('exceptions.frontend.auth.confirmation.confirm'))
-            ->line(trans('strings.emails.auth.click_to_confirm'))
-            ->action(trans('buttons.emails.auth.confirm_account'), route('frontend.auth.account.confirm', $this->confirmation_code))
-            ->line(trans('strings.emails.auth.thank_you_for_using_app'));
+            ->view('emails.user-confirmation', ['confirmation_url' => $confirmation_url]);
     }
 }

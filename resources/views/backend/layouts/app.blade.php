@@ -36,15 +36,19 @@
 
         <!-- Scripts -->
         <script>
-            window.Laravel = <?php echo json_encode([
-                'csrfToken' => csrf_token(),
-            ]); ?>
+            window.Laravel = {!! json_encode([ 'csrfToken' => csrf_token() ]) !!};
         </script>
+        <?php
+            if(!empty($google_analytics)){
+                echo $google_analytics;
+            }
+        ?>
     </head>
     <body class="skin-{{ config('backend.theme') }} {{ config('backend.layout') }}">
+        <div class="loading" style="display:none"></div>
         @include('includes.partials.logged-in-as')
 
-        <div class="wrapper">
+        <div class="wrapper" id="app">
             @include('backend.includes.header')
             @include('backend.includes.sidebar-dynamic')
 

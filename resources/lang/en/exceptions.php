@@ -37,6 +37,7 @@ return [
             'users' => [
                 'cant_deactivate_self'    => 'You can not do that to yourself.',
                 'cant_delete_self'        => 'You can not delete yourself.',
+                'cant_delete_admin'       => 'You can not delete Admin.',
                 'cant_delete_own_session' => 'You can not delete your own session.',
                 'cant_delete_own_session' => 'You can not delete your own session.',
                 'cant_restore'            => 'This user is not deleted so it can not be restored.',
@@ -78,14 +79,6 @@ return [
             'delete_error'   => 'There was a problem deleting this Blog Tag. Please try again.',
             'not_found'      => 'That Blog Tag does not exist.',
             'update_error'   => 'There was a problem updating this Blog Tag. Please try again.',
-        ],
-
-        'emailtemplates' => [
-            'already_exists' => 'That Email Template already exists. Please choose a different name.',
-            'create_error'   => 'There was a problem creating this Email Template. Please try again.',
-            'delete_error'   => 'There was a problem deleting this Email Template. Please try again.',
-            'not_found'      => 'That Email Template does not exist.',
-            'update_error'   => 'There was a problem updating this Email Template. Please try again.',
         ],
 
         'settings' => [
@@ -132,10 +125,5 @@ return [
 
             'registration_disabled' => 'Registration is currently closed.',
         ],
-    ],
-    'api' => [
-         'cmspage' => [
-              'not_found' => 'given cms page is not found.',
-         ],
     ],
 ];

@@ -39,7 +39,6 @@ class ManageBlogsTest extends TestCase
             ->assertSee(trans('labels.backend.blogs.table.createdby'))
             ->assertSee(trans('labels.backend.blogs.table.createdat'))
             ->assertSee(trans('labels.backend.blogs.table.status'))
-            ->assertSee('Export')
             ->assertSee('Action');
     }
 
@@ -102,6 +101,17 @@ class ManageBlogsTest extends TestCase
     }
 
     /** @test */
+    public function it_requires_publish_datetime_while_creating()
+    {
+        $blog = $this->makeBlog();
+
+        unset($blog->publish_datetime);
+
+        $this->post(route('admin.blogs.store'), $blog->toArray())
+            ->assertSessionHasErrors('publish_datetime');
+    }
+
+    /** @test */
     public function it_requires_categories_while_creating()
     {
         $blog = $this->makeBlog(['categories' => '']);
@@ -158,6 +168,17 @@ class ManageBlogsTest extends TestCase
     }
 
     /** @test */
+    public function it_requires_publish_datetime_while_updating()
+    {
+        $this->withExceptionHandling();
+
+        unset($this->blog->publish_datetime);
+
+        $this->patch(route('admin.blogs.update', $this->blog), $this->blog->toArray())
+            ->assertSessionHasErrors('publish_datetime');
+    }
+
+    /** @test */
     public function it_requires_categories_while_updating()
     {
         $this->withExceptionHandling();
@@ -196,5 +217,18 @@ class ManageBlogsTest extends TestCase
         $this->delete(route('admin.blogs.destroy', $this->blog));
 
         $this->assertDatabaseMissing(config('module.blogs.table'), ['id' => $this->blog->id, 'deleted_at' => null]);
+    }
+
+    /** @test */
+    public function a_user_can_not_update_a_blog_with_same_name()
+    {
+        $this->actingAs($this->admin)->withExceptionHandling();
+
+        $catCategory = create(Blog::class, ['name' => 'Cat']);
+        $dogCategory = create(Blog::class, ['name' => 'Dog']);
+
+        $this->patch(route('admin.blogs.update', $dogCategory),
+            ['name' => 'Cat']
+        )->assertSessionHasErrors('name');
     }
 }

@@ -29,6 +29,7 @@ class PagesRepository extends BaseRepository
             ->select([
                 config('module.pages.table').'.id',
                 config('module.pages.table').'.title',
+                config('module.pages.table').'.page_slug',
                 config('module.pages.table').'.status',
                 config('module.pages.table').'.created_at',
                 config('module.pages.table').'.updated_at',
@@ -57,7 +58,7 @@ class PagesRepository extends BaseRepository
         if ($page = Page::create($input)) {
             event(new PageCreated($page));
 
-            return true;
+            return $page;
         }
 
         throw new GeneralException(trans('exceptions.backend.pages.create_error'));

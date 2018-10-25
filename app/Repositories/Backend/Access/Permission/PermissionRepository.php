@@ -31,6 +31,8 @@ class PermissionRepository extends BaseRepository
                 config('access.permissions_table').'.name',
                 config('access.permissions_table').'.display_name',
                 config('access.permissions_table').'.sort',
+                config('access.permissions_table').'.created_at',
+                config('access.permissions_table').'.updated_at',
             ]);
     }
 

@@ -12,7 +12,7 @@
             <h3 class="box-title">{{ trans('labels.backend.faqs.management') }}</h3>
 
             <div class="box-tools pull-right">
-                @include('backend.includes.partials.faqs-header-buttons')
+                @include('backend.faqs.partials.faqs-header-buttons')
             </div>
         </div><!-- /.box-header -->
 

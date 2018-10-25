@@ -25,12 +25,6 @@ class LoggedOutRouteTest extends BrowserKitTestCase
     }
 
     /** @test */
-    public function test_macroPage()
-    {
-        $this->visit('/macros')->see('Macro Examples');
-    }
-
-    /** @test */
     public function testLoginPage()
     {
         $this->visit('/login')->see('Login');

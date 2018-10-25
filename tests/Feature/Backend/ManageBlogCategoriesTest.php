@@ -16,7 +16,6 @@ class ManageBlogCategoriesTest extends TestCase
             ->assertSee(trans('labels.backend.blogcategories.management'))
             ->assertSee(trans('labels.backend.blogcategories.table.title'))
             ->assertSee(trans('labels.backend.blogcategories.table.status'))
-            ->assertSee('Export')
             ->assertSee('Action');
     }
 
@@ -76,5 +75,18 @@ class ManageBlogCategoriesTest extends TestCase
         $this->delete(route('admin.blogCategories.destroy', $category));
 
         $this->assertDatabaseMissing(config('module.blog_categories.table'), ['name' => $category->name, 'id' => $category->id, 'deleted_at' => null]);
+    }
+
+    /** @test */
+    public function a_user_can_not_update_a_blog_category_with_same_name()
+    {
+        $this->actingAs($this->admin)->withExceptionHandling();
+
+        $catCategory = create(BlogCategory::class, ['name' => 'Cat']);
+        $dogCategory = create(BlogCategory::class, ['name' => 'Dog']);
+
+        $this->patch(route('admin.blogCategories.update', $dogCategory),
+            ['name' => 'Cat']
+        )->assertSessionHasErrors('name');
     }
 }

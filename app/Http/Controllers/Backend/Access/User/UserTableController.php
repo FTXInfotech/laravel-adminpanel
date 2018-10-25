@@ -14,12 +14,12 @@ use Yajra\DataTables\Facades\DataTables;
 class UserTableController extends Controller
 {
     /**
-     * @var UserRepository
+     * @var \App\Repositories\Backend\Access\User\UserRepository
      */
     protected $users;
 
     /**
-     * @param UserRepository $users
+     * @param \App\Repositories\Backend\Access\User\UserRepository $users
      */
     public function __construct(UserRepository $users)
     {
@@ -27,7 +27,7 @@ class UserTableController extends Controller
     }
 
     /**
-     * @param ManageUserRequest $request
+     * @param \App\Http\Requests\Backend\Access\User\ManageUserRequest $request
      *
      * @return mixed
      */

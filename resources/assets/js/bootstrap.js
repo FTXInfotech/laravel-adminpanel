@@ -46,8 +46,14 @@ window.axios.defaults.headers.common = {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
-// 
+//
 // var glob = require( 'glob' )
 //   , path = require( 'path' );
 
 require('tinymce/tinymce');
+
+window.events = new Vue();
+
+window.flash = function(message, type) {
+	window.events.$emit('flash', message, type);
+}

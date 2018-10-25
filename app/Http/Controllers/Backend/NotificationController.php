@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class NotificationController extends Controller
 {
     /**
-     * @var EmailTemplateContract
+     * @var \App\Repositories\Backend\Notification\NotificationRepository
      */
     protected $notification;
 
