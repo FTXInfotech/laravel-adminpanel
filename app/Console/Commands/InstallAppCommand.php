@@ -168,13 +168,15 @@ class InstallAppCommand extends Command
             }
         }
 
-        $this->createDatabase($this->database); // create database if not exists.
 
-        if ($this->confirm('You want to dump database sql ?')) {
-            $this->dumpDB($this->database);
-        } else {
-            $this->migrateTables($this->database);
-        }
+        $this->createDatabase($this->database); // create database if not exists.
+        $this->migrateTables($this->database); // database migration
+
+//        if ($this->confirm('You want to dump database sql ?')) { // uncomment the code if you want to go ahead with existing database.
+//            $this->dumpDB($this->database);
+//        } else {
+//            $this->migrateTables($this->database);
+//        }
     }
 
     /**
@@ -261,17 +263,25 @@ class InstallAppCommand extends Command
      */
     protected function migrateTables($database)
     {
-        if ($this->confirm('You want to migrate tables?')) {
-            // Switch to use {$this->database}
-            DB::unprepared('USE `'.$database.'`');
-            //DB::connection()->setDatabaseName($this->database);
-            Artisan::call('migrate');
-            $this->info('Migration successfully done!');
+        DB::unprepared('USE `'.$database.'`');
 
-            if ($this->confirm('You want to seeding your database?')) {
-                Artisan::call('db:seed');
-                $this->info('Seeding successfully done!');
-            }
-        }
+        Artisan::call('migrate'); // Artisan migration
+        $this->info('Migration successfully done!');
+
+        Artisan::call('db:seed'); // Artisan seed
+        $this->info('Seeding successfully done!');
+
+//        if ($this->confirm('You want to migrate tables?')) { //uncomment the code if you want to populate mandatory question to user for migration and seed.
+//            // Switch to use {$this->database}
+//            DB::unprepared('USE `'.$database.'`');
+//            //DB::connection()->setDatabaseName($this->database);
+//            Artisan::call('migrate'); // Artisan migration
+//            $this->info('Migration successfully done!');
+//
+//            if ($this->confirm('You want to seeding your database?')) {
+//                Artisan::call('db:seed'); // Artisan seed
+//                $this->info('Seeding successfully done!');
+//            }
+//        }
     }
 }
