@@ -168,7 +168,6 @@ class InstallAppCommand extends Command
             }
         }
 
-
         $this->createDatabase($this->database); // create database if not exists.
         $this->migrateTables($this->database); // database migration
 
