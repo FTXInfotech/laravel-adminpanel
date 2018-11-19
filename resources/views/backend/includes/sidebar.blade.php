@@ -1,5 +1,3 @@
-<?php //dd(getMenuItems());
-?>
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -55,14 +53,6 @@
                 <a href="{{ route('admin.pages.index') }}">
                     <i class="fa fa-file-text"></i>
                     <span>{{ trans('labels.backend.pages.title') }}</span>
-                </a>
-            </li>
-            @endauth
-            @permission('view-email-template')
-            <li class="{{ active_class(Active::checkUriPattern('admin/emailtemplates*')) }}">
-                <a href="{{ route('admin.emailtemplates.index') }}">
-                    <i class="fa fa-envelope"></i>
-                    <span>{{ trans('labels.backend.emailtemplates.title') }}</span>
                 </a>
             </li>
             @endauth

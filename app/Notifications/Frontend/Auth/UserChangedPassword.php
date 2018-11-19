@@ -7,25 +7,25 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 /**
- * Class UserNeedsConfirmation.
+ * Class UserChangedPassword.
  */
-class UserNeedsConfirmation extends Notification
+class UserChangedPassword extends Notification
 {
     use Queueable;
 
     /**
      * @var
      */
-    protected $confirmation_code;
+    protected $password;
 
     /**
-     * UserNeedsConfirmation constructor.
+     * UserChangedPassword constructor.
      *
-     * @param $confirmation_code
+     * @param $password
      */
-    public function __construct($confirmation_code)
+    public function __construct($password)
     {
-        $this->confirmation_code = $confirmation_code;
+        $this->password = $password;
     }
 
     /**
@@ -49,9 +49,7 @@ class UserNeedsConfirmation extends Notification
      */
     public function toMail($user)
     {
-        $confirmation_url = route('frontend.auth.account.confirm', $user->confirmation_code);
-
         return (new MailMessage())
-            ->view('emails.user-confirmation', ['confirmation_url' => $confirmation_url]);
+            ->view('emails.changed-password', ['password' => $this->password]);
     }
 }

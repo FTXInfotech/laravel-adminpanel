@@ -81,14 +81,6 @@ return [
             'update_error'   => 'There was a problem updating this Blog Tag. Please try again.',
         ],
 
-        'emailtemplates' => [
-            'already_exists' => 'That Email Template already exists. Please choose a different name.',
-            'create_error'   => 'There was a problem creating this Email Template. Please try again.',
-            'delete_error'   => 'There was a problem deleting this Email Template. Please try again.',
-            'not_found'      => 'That Email Template does not exist.',
-            'update_error'   => 'There was a problem updating this Email Template. Please try again.',
-        ],
-
         'settings' => [
             'update_error' => 'There was a problem updating this Settings. Please try again.',
         ],
@@ -133,10 +125,5 @@ return [
 
             'registration_disabled' => 'Registration is currently closed.',
         ],
-    ],
-    'api' => [
-         'cmspage' => [
-              'not_found' => 'given cms page is not found.',
-         ],
     ],
 ];

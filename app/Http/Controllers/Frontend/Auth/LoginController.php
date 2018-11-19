@@ -21,7 +21,7 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * @var CMSPagesRepository
+     * @var \App\Http\Utilities\PushNotification
      */
     protected $notification;
 
@@ -74,7 +74,7 @@ class LoginController extends Controller
         if (!$user->isConfirmed()) {
             access()->logout();
 
-            throw new GeneralException(trans('exceptions.frontend.auth.confirmation.resend', ['user_id' => $user->id]));
+            throw new GeneralException(trans('exceptions.frontend.auth.confirmation.resend', ['user_id' => $user->id]), true);
         } elseif (!$user->isActive()) {
             access()->logout();
 

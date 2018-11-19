@@ -37,21 +37,6 @@ class UserEventListener
     /**
      * @param $event
      */
-    /*public function onRegistered($event)
-    {
-        \Log::info('User Registered: '.$event->user->first_name);
-
-        // Send email to the user
-        $options = [
-                'data'                => $event->user,
-                'email_template_type' => 1,
-            ];
-        createNotification('', 1, 2, $options);
-    }*/
-
-    /**
-     * @param $event
-     */
     public function onConfirmed($event)
     {
         \Log::info('User Confirmed: '.$event->user->first_name);

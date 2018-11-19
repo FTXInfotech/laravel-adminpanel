@@ -27,10 +27,11 @@ class UpdateBlogsRequest extends Request
     public function rules()
     {
         return [
-            'name'       => 'required|max:191|unique:blogs,name,'.$this->segment(3),
-            'content'    => 'required',
-            'categories' => 'required',
-            'tags'       => 'required',
+            'name'              => 'required|max:191|unique:blogs,name,'.$this->segment(3),
+            'publish_datetime'  => 'required|date',
+            'content'           => 'required',
+            'categories'        => 'required',
+            'tags'              => 'required',
         ];
     }
 

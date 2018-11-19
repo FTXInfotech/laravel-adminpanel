@@ -101,6 +101,17 @@ class ManageBlogsTest extends TestCase
     }
 
     /** @test */
+    public function it_requires_publish_datetime_while_creating()
+    {
+        $blog = $this->makeBlog();
+
+        unset($blog->publish_datetime);
+
+        $this->post(route('admin.blogs.store'), $blog->toArray())
+            ->assertSessionHasErrors('publish_datetime');
+    }
+
+    /** @test */
     public function it_requires_categories_while_creating()
     {
         $blog = $this->makeBlog(['categories' => '']);
@@ -154,6 +165,17 @@ class ManageBlogsTest extends TestCase
 
         $this->patch(route('admin.blogs.update', $this->blog), $this->blog->toArray())
             ->assertSessionHasErrors('content');
+    }
+
+    /** @test */
+    public function it_requires_publish_datetime_while_updating()
+    {
+        $this->withExceptionHandling();
+
+        unset($this->blog->publish_datetime);
+
+        $this->patch(route('admin.blogs.update', $this->blog), $this->blog->toArray())
+            ->assertSessionHasErrors('publish_datetime');
     }
 
     /** @test */

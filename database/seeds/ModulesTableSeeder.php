@@ -66,13 +66,6 @@ class ModulesTableSeeder extends Seeder
                 'created_at'            => Carbon::now(),
             ],
             [
-                'name'                  => trans('labels.backend.emailtemplates.title'),
-                'url'                   => 'admin.emailtemplates.index',
-                'view_permission_id'    => 'view-email-template',
-                'created_by'            => 1,
-                'created_at'            => Carbon::now(),
-            ],
-            [
                 'name'                  => trans('labels.backend.settings.title'),
                 'url'                   => 'admin.settings.edit',
                 'view_permission_id'    => 'edit-settings',

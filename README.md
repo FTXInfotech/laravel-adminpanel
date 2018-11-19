@@ -5,10 +5,12 @@
 [![GitHub issues](https://img.shields.io/github/issues/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/issues)
 ![StyleCI](https://img.shields.io/badge/styleCI-passed-brightgreen.svg?style=plastic)
 
+## [Demo](https://laravel-adminpanel.vrkansagara.in/)
 
 ## Introduction
 * This is a laravel Admin Panel, based on [Rappasoft Laravel Boilerplate](https://github.com/rappasoft/laravel-5-boilerplate/releases/tag/4.5.7), with enhancemenets and many modules pre-made, just for you.
 * The project is taken to Laravel 5.6 so we can develop from the latest Laravel.
+* Article on our Admin Panel on CodeWall : [https://www.codewall.co.uk/the-laravel-admin-panel-that-you-need/](https://www.codewall.co.uk/the-laravel-admin-panel-that-you-need/)
 
 ## Features
 For Laravel 5 Boilerplate Features : [Features](https://github.com/rappasoft/laravel-5-boilerplate/wiki#features)
@@ -42,13 +44,14 @@ Switch to the repo folder
 
     cd laravel-adminpanel
 
-Copy the example env file and make the required configuration changes in the .env file
+If you have linux system, you can execute below command only in your project root
 
-    cp .env.example .env
+    1) sudo chmod -R 777 install.sh
+    2) ./install.sh
 
-Install all the dependencies using composer
+If you have windows system, you can run Artisan Command for database setup, connection and configuration.
 
-    composer install
+    php artisan install:app
 
 Generate a new application key
 
@@ -93,7 +96,7 @@ Start the local development server
 
 You can now access the server at http://localhost:8000
 
-**TL;DR command list**
+**Command list**
 
     git clone https://github.com/viralsolani/laravel-adminpanel.git
     cd laravel-adminpanel
@@ -110,7 +113,7 @@ You can now access the server at http://localhost:8000
 
 `php artisan db:seed` adds three users with respective roles. The credentials are as follows:
 
-* Admin Istrator: `admin@admin.com`
+* Administrator: `admin@admin.com`
 * Backend User: `executive@executive.com`
 * Default User: `user@user.com`
 
