@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
@@ -10,7 +11,6 @@ use Illuminate\Support\Facades\File;
 use PDOException;
 use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
 use Symfony\Component\Console\Question\Question;
-use Exception;
 
 /**
  * Class InstallAppCommand.
@@ -40,33 +40,28 @@ class InstallAppCommand extends Command
      */
     protected $files;
 
-     /**
-     * host for the database
-     *
+    /**
+     * host for the database.
      */
     protected $host;
 
-     /**
-     * port for the database
-     *
+    /**
+     * port for the database.
      */
     protected $port;
 
-     /**
-     * Database name
-     *
+    /**
+     * Database name.
      */
     protected $database;
 
-     /**
-     * Username of database
-     *
+    /**
+     * Username of database.
      */
     protected $username;
 
-     /**
+    /**
      * Password for the Database.
-     *
      */
     protected $password;
 
@@ -241,9 +236,9 @@ class InstallAppCommand extends Command
     }
 
     /**
-     * Create the Database
+     * Create the Database.
      *
-     * @param Object $database
+     * @param object $database
      */
     protected function createDatabase($database)
     {
@@ -270,9 +265,9 @@ class InstallAppCommand extends Command
     }
 
     /**
-     * Dump the DB
+     * Dump the DB.
      *
-     * @param Object $database
+     * @param object $database
      */
     protected function dumpDB($database)
     {
@@ -293,9 +288,9 @@ class InstallAppCommand extends Command
     }
 
     /**
-     * Migrate Tables
+     * Migrate Tables.
      *
-     * @param Object $database
+     * @param object $database
      */
     protected function migrateTables($database)
     {
