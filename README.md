@@ -18,11 +18,15 @@ For Laravel 5 Boilerplate Features : [Features](https://github.com/rappasoft/lar
 ## Additional Features
 * Built-in Laravel Boilerplate Module Generator,
 * Dynamic Menu/Sidebar Builder
-* CMS Pages Module
-* Email Template Module
+* Pages Module
 * Blog Module
 * FAQ Module
-* API Boilerplate.
+* API Boilerplate
+* Mailables
+* Responses
+* Vue Components
+* Laravel Mix
+* Object based javascript Implementation
 
 Give your project a Head Start by using [laravel-adminpanel](https://github.com/viralsolani/laravel-adminpanel).
 
