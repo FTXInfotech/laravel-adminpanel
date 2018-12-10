@@ -93,6 +93,6 @@
 @endsection
 @section("after-scripts")
     <script type="text/javascript">
-        Backend.Pages.init();
+        Backend.Pages.init('{{ config('locale.languages.' . app()->getLocale())[1] }}');
     </script>
 @endsection

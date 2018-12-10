@@ -102,8 +102,8 @@ var Backend = {}; // common variable used in all the files of the backend
          *
          */
         Pages: {
-            init: function () {
-                Backend.tinyMCE.init();
+            init: function (locale) {
+                Backend.tinyMCE.init(locale);
             },
         },
 
@@ -341,9 +341,9 @@ var Backend = {}; // common variable used in all the files of the backend
                 slug: document.getElementById("slug"),
             },
 
-            init: function () {
+            init: function (locale) {
                 this.addHandlers();
-                Backend.tinyMCE.init();
+                Backend.tinyMCE.init(locale);
             },
 
             addHandlers: function () {
@@ -601,8 +601,9 @@ var Backend = {}; // common variable used in all the files of the backend
          * Tiny MCE
          */
         tinyMCE: {
-            init: function () {
+            init: function (locale) {
                 tinymce.init({
+                    language: (locale === 'en_US' ? undefined : locale),
                     path_absolute: "/",
                     selector: 'textarea',
                     height: 200,
@@ -653,9 +654,9 @@ var Backend = {}; // common variable used in all the files of the backend
         Faq: {
             selectors: {},
 
-            init: function () {
+            init: function (locale) {
                 // this.addHandlers();
-                Backend.tinyMCE.init();
+                Backend.tinyMCE.init(locale);
             },
 
             addHandlers: function () {}
