@@ -14,26 +14,25 @@ return [
     */
 
     'general' => [
-        'home'   => 'Home',
-        'logout' => 'Logout',
+        'home'   => 'Accueil',
+        'logout' => 'Déconnexion',
     ],
 
     'frontend' => [
-        'dashboard' => 'Dashboard',
-        'login'     => 'Login',
+        'dashboard' => 'Tableau de bord',
+        'login'     => 'Connexion',
         'macros'    => 'Macros',
-        'register'  => 'Register',
+        'register'  => "Enregistrement",
 
         'user' => [
-            'account'         => 'My Account',
+            'account'         => 'Mon compte',
             'administration'  => 'Administration',
-            'change_password' => 'Change Password',
-            'my_information'  => 'My Information',
-            'profile'         => 'Profile',
+            'change_password' => 'Changer mon mot de passe',
+            'my_information'  => 'Mes informations',
+            'profile'         => 'Profil',
         ],
     ],
 
     'backend' => [
-        'dashboard' => 'Dashboard',
-    ],
-];
+        'dashboard' => 'Tableau de bord',
+    ],];

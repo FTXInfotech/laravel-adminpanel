@@ -34,6 +34,6 @@
 </div>
 @section('after-scripts')
     <script type="text/javascript">
-        Backend.Faq.init();
+        Backend.Faq.init('{{ config('locale.languages.' . app()->getLocale())[1] }}');
     </script>
 @endsection
