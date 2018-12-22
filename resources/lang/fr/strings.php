@@ -117,10 +117,10 @@ return [
         ],
 
         'user' => [
-            'change_email_notice' => "Si vous changez votre adresse email vous serez déconnecté jusqu'à que vous confirmiez votre nouvelle adresse email.",
+            'change_email_notice'  => "Si vous changez votre adresse email vous serez déconnecté jusqu'à que vous confirmiez votre nouvelle adresse email.",
             'email_changed_notice' => 'Vous devez confirmer votre nouvelle adresse email avant de pouvoir vous connecter de nouveau.',
-            'profile_updated'  => 'Profil modifié avec succès.',
-            'password_updated' => 'Mot de passe modifié avec succès.',
+            'profile_updated'      => 'Profil modifié avec succès.',
+            'password_updated'     => 'Mot de passe modifié avec succès.',
         ],
 
         'welcome_to' => 'Bienvenue sur :place',

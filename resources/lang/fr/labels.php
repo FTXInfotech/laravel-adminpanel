@@ -33,7 +33,7 @@ return [
 
     'backend' => [
         'profile_updated' => 'Votre profil a été mis à jour.',
-        'access' => [
+        'access'          => [
             'roles' => [
                 'create'     => 'Créer un rôle',
                 'edit'       => 'Editer un rôle',
@@ -275,7 +275,7 @@ return [
         ],
 
     ],
-    
+
     'frontend' => [
 
         'auth' => [

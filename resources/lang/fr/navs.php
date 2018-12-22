@@ -22,7 +22,7 @@ return [
         'dashboard' => 'Tableau de bord',
         'login'     => 'Connexion',
         'macros'    => 'Macros',
-        'register'  => "Enregistrement",
+        'register'  => 'Enregistrement',
 
         'user' => [
             'account'         => 'Mon compte',
@@ -35,4 +35,4 @@ return [
 
     'backend' => [
         'dashboard' => 'Tableau de bord',
-    ],];
+    ], ];

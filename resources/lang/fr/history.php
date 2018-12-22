@@ -16,7 +16,7 @@ return [
         'none'            => "Il n'y a pas d'historique récent.",
         'none_for_type'   => "Il n'y a pas d'historique pour ce type.",
         'none_for_entity' => "Il n'y a pas d'historique pour :entity.",
-        'recent_history'  => "Historique récent",
+        'recent_history'  => 'Historique récent',
 
         'roles' => [
             'created' => 'rôle créé',
