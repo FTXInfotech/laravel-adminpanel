@@ -171,7 +171,7 @@ return [
                 'title'     => 'Catégorie de blog',
                 'is_active' => 'Actif',
             ],
-            
+
             'blogtags' => [
                 'title'     => 'Tag de blog',
                 'is_active' => 'Actif',
@@ -245,7 +245,7 @@ return [
             ],
         ],
     ],
- 
+
     'api' => [
         'login' => [
             'email_required'                => 'Veuillez entrer votre email.',

@@ -36,7 +36,7 @@ return [
     ],
 
     'general' => [
-        'cancel' => 'Annuler',
+        'cancel'   => 'Annuler',
         'continue' => 'Continuer',
         'preview'  => 'Aperçu',
 
