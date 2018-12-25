@@ -24,11 +24,12 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
         "spatie/laravel-cors": "^1.2",
-        "tymon/jwt-auth":"1.0.0-rc.3",
+        "tymon/jwt-auth": "1.0.0-rc.3",
         "unisharp/laravel-filemanager": "~1.8",
         "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {
+        "laravel/telescope": "^1.0",
         "barryvdh/laravel-debugbar": "^3.0",
         "bvipul/generator": "^5.6",
         "codedungeon/phpunit-result-printer": "^0.19.10",
