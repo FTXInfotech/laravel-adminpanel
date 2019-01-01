@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "66fe21071d2383cb571cb7e1a4c43560",
+    "content-hash": "9220d1caaa9a20d931ed18bb9454f52f",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -4339,6 +4339,48 @@
                 "environment"
             ],
             "time": "2018-07-29T20:33:41+00:00"
+        },
+        {
+            "name": "vrkansagara/lara-out-press",
+            "version": "1.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vrkansagara/LaraOutPress.git",
+                "reference": "14248cf74c9a2d75be5d7aa286b0d6ca94068185"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vrkansagara/LaraOutPress/zipball/14248cf74c9a2d75be5d7aa286b0d6ca94068185",
+                "reference": "14248cf74c9a2d75be5d7aa286b0d6ca94068185",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Vrkansagara\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Vallabh Kansagara",
+                    "email": "vrkansagara@gmail.com",
+                    "homepage": "https://vrkansagara.in/"
+                }
+            ],
+            "description": "This is simply compress your final out of Larvel Application and serve to the browser.",
+            "homepage": "https://vrkansagara.in/",
+            "keywords": [
+                "compress",
+                "laravel"
+            ],
+            "time": "2018-05-25T14:31:33+00:00"
         },
         {
             "name": "yajra/laravel-datatables-oracle",

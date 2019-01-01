@@ -26,6 +26,7 @@
         "spatie/laravel-cors": "^1.2",
         "tymon/jwt-auth": "1.0.0-rc.3",
         "unisharp/laravel-filemanager": "~1.8",
+        "vrkansagara/lara-out-press": "^1.1",
         "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {
