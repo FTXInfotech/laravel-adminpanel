@@ -139,7 +139,11 @@ Password: `1234`
 If you come across any issues please report them [here](https://github.com/viralsolani/laravel-adminpanel/issues).
 
 ## Contributing
-Feel free to create any pull requests for the project. For proposing any new changes or features you want to add to the project, you can send us an email at viral.solani@gmail.com or basapativipulkumar@gmail.com.
+Feel free to create any pull requests for the project. For proposing any new changes or features you want to add to the project, you can send us an email at following addresses.
+
+    (1) Viral Solani - viral.solani@gmail.com
+    (2) Vipulkumar Basapati - basapativipulkumar@gmail.com
+    (3) Vallabh Kansagara - vrkansagara@gmail.com
 
 ## License
 
