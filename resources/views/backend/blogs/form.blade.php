@@ -128,7 +128,7 @@
 
         Backend.Blog.selectors.GenerateSlugUrl = "{{route('admin.generate.slug')}}";
         Backend.Blog.selectors.SlugUrl = "{{url('/')}}";
-        Backend.Blog.init();
+        Backend.Blog.init('{{ config('locale.languages.' . app()->getLocale())[1] }}');
         
     </script>
 @endsection

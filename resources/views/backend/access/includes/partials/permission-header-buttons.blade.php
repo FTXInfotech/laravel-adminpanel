@@ -1,6 +1,6 @@
 <!--Action Button-->
   @if(Active::checkUriPattern('admin/access/permission'))
-      <export-component></export-component>
+    @include('backend.access.includes.partials.header-export')
   @endif
 <!--Action Button-->
 <div class="btn-group">

@@ -15,7 +15,10 @@ return [
 
     'backend' => [
         'access' => [
-            'title' => 'Access Management',
+            'title'  => 'Access Management',
+            'export' => 'Export',
+            'copy'   => 'Copy',
+            'print'  => 'Print',
 
             'roles' => [
                 'all'        => 'All Roles',
@@ -34,15 +37,20 @@ return [
             ],
 
             'users' => [
-                'all'             => 'All Users',
-                'change-password' => 'Change Password',
-                'create'          => 'Create User',
-                'deactivated'     => 'Deactivated Users',
-                'deleted'         => 'Deleted Users',
-                'edit'            => 'Edit User',
-                'main'            => 'Users',
-                'view'            => 'View User',
-            ],
+                'all'               => 'All Users',
+                'change-password'   => 'Change Password',
+                'create'            => 'Create User',
+                'deactivated'       => 'Deactivated Users',
+                'deleted'           => 'Deleted Users',
+                'edit'              => 'Edit User',
+                'main'              => 'Users',
+                'view'              => 'View User',
+                'action'            => 'Action',
+                'list'              => 'List',
+                'add-new'           => 'Add new',
+                'deactivated-users' => 'Deactivated Users',
+                'deleted-users'     => 'Deleted Users',
+             ],
         ],
 
         'log-viewer' => [

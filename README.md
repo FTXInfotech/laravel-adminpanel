@@ -18,11 +18,15 @@ For Laravel 5 Boilerplate Features : [Features](https://github.com/rappasoft/lar
 ## Additional Features
 * Built-in Laravel Boilerplate Module Generator,
 * Dynamic Menu/Sidebar Builder
-* CMS Pages Module
-* Email Template Module
+* Pages Module
 * Blog Module
 * FAQ Module
-* API Boilerplate.
+* API Boilerplate
+* Mailables
+* Responses
+* Vue Components
+* Laravel Mix
+* Object based javascript Implementation
 
 Give your project a Head Start by using [laravel-adminpanel](https://github.com/viralsolani/laravel-adminpanel).
 
@@ -135,7 +139,11 @@ Password: `1234`
 If you come across any issues please report them [here](https://github.com/viralsolani/laravel-adminpanel/issues).
 
 ## Contributing
-Feel free to create any pull requests for the project. For proposing any new changes or features you want to add to the project, you can send us an email at viral.solani@gmail.com or basapativipulkumar@gmail.com.
+Feel free to create any pull requests for the project. For proposing any new changes or features you want to add to the project, you can send us an email at following addresses.
+
+    (1) Viral Solani - viral.solani@gmail.com
+    (2) Vipulkumar Basapati - basapativipulkumar@gmail.com
+    (3) Vallabh Kansagara - vrkansagara@gmail.com
 
 ## License
 

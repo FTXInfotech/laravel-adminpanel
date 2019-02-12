@@ -8,7 +8,7 @@ return [
      *
      * @var bool
      */
-    'status' => false,
+    'status' => true,
 
     /*
      * Available languages
@@ -35,7 +35,7 @@ return [
         // 'el'    => ['el', 'el_GR', false],
         'en'    => ['en', 'en_US', false],
         // 'es'    => ['es', 'es_ES', false],
-        // 'fr'    => ['fr', 'fr_FR', false],
+        'fr'    => ['fr', 'fr_FR', false],
         // 'id'    => ['id', 'id_ID', false],
         // 'it'    => ['it', 'it_IT', false],
         // 'nl'    => ['nl', 'nl_NL', false],

@@ -95,6 +95,9 @@
                         { extend: 'pdf', className: 'pdfButton',  exportOptions: {columns: [ 0, 1, 2, 3 ]  }},
                         { extend: 'print', className: 'printButton',  exportOptions: {columns: [ 0, 1, 2, 3 ]  }}
                     ]
+                },
+                language: {
+                    @lang('datatable.strings')
                 }
             });
 

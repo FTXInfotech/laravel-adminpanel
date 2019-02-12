@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
@@ -38,6 +39,31 @@ class InstallAppCommand extends Command
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $files;
+
+    /**
+     * host for the database.
+     */
+    protected $host;
+
+    /**
+     * port for the database.
+     */
+    protected $port;
+
+    /**
+     * Database name.
+     */
+    protected $database;
+
+    /**
+     * Username of database.
+     */
+    protected $username;
+
+    /**
+     * Password for the Database.
+     */
+    protected $password;
 
     /**
      * InstallAppCommand constructor.
@@ -210,7 +236,9 @@ class InstallAppCommand extends Command
     }
 
     /**
-     * @param $database
+     * Create the Database.
+     *
+     * @param object $database
      */
     protected function createDatabase($database)
     {
@@ -237,7 +265,9 @@ class InstallAppCommand extends Command
     }
 
     /**
-     * @param $database
+     * Dump the DB.
+     *
+     * @param object $database
      */
     protected function dumpDB($database)
     {
@@ -258,7 +288,9 @@ class InstallAppCommand extends Command
     }
 
     /**
-     * @param $database
+     * Migrate Tables.
+     *
+     * @param object $database
      */
     protected function migrateTables($database)
     {

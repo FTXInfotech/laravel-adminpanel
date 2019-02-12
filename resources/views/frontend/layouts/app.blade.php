@@ -25,7 +25,7 @@
         @else
             {{ Html::style(mix('css/frontend.css')) }}
         @endif
-        {!! Html::style('js/select2/select2.css') !!}
+        {!! Html::style('js/select2/select2.min.css') !!}
         @yield('after-styles')
 
         <!-- Scripts -->
@@ -55,9 +55,9 @@
         @yield('before-scripts')
         {!! Html::script(mix('js/frontend.js')) !!}
         @yield('after-scripts')
-        {{ Html::script('js/jquerysession.js') }}
-        {{ Html::script('js/frontend/frontend.js') }}
-        {!! Html::script('js/select2/select2.js') !!}
+        {{ Html::script('js/jquerysession.min.js') }}
+        {{ Html::script('js/frontend/frontend.min.js') }}
+        {!! Html::script('js/select2/select2.min.js') !!}
 
         <script type="text/javascript">
             if("{{Route::currentRouteName()}}" !== "frontend.user.account")
