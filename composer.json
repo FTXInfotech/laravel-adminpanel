@@ -29,7 +29,6 @@
         "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {
-        "laravel/telescope": "^1.0",
         "barryvdh/laravel-debugbar": "^3.0",
         "bvipul/generator": "^5.6",
         "codedungeon/phpunit-result-printer": "^0.19.10",
