@@ -54,7 +54,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Set up tests.
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -80,7 +80,7 @@ abstract class TestCase extends BaseTestCase
         $this->userRole = Role::find(3);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->beforeApplicationDestroyed(function () {
             DB::disconnect();

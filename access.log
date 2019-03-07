@@ -145,3 +145,7 @@
 127.0.0.1 - - [07/Mar/2019:18:15:03 +0530] "GET /login HTTP/1.1" 200 12126 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36"
 127.0.0.1 - - [07/Mar/2019:18:15:07 +0530] "POST /login HTTP/1.1" 302 1459 "http://laraveladminpanel.local/login" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36"
 127.0.0.1 - - [07/Mar/2019:18:15:07 +0530] "GET /admin/dashboard HTTP/1.1" 200 21420 "http://laraveladminpanel.local/login" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36"
+127.0.0.1 - - [07/Mar/2019:19:47:51 +0530] "GET /admin/dashboard HTTP/1.1" 302 1697 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36"
+127.0.0.1 - - [07/Mar/2019:19:47:53 +0530] "GET /login HTTP/1.1" 200 2671 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36"
+127.0.0.1 - - [07/Mar/2019:19:48:00 +0530] "POST /login HTTP/1.1" 302 1470 "http://laraveladminpanel.local/login" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36"
+127.0.0.1 - - [07/Mar/2019:19:48:00 +0530] "GET /admin/dashboard HTTP/1.1" 200 3839 "http://laraveladminpanel.local/login" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36"

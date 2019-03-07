@@ -50,7 +50,7 @@ abstract class BrowserKitTestCase extends BaseTestCase
      */
     protected $userRole;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -76,7 +76,7 @@ abstract class BrowserKitTestCase extends BaseTestCase
         $this->userRole = Role::find(3);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->beforeApplicationDestroyed(function () {
             DB::disconnect();

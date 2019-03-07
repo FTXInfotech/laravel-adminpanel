@@ -11,7 +11,7 @@ class ManageSettingsTest extends TestCase
 {
     protected $setting;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -38,7 +38,7 @@ class ManageSettingsTest extends TestCase
             'logo' => UploadedFile::fake()->image('logo.jpg', 226, 48),
         ]);
 
-        Storage::disk('public')->assertExists('img/logo/'.$this->setting->logo);
+        Storage::disk('public')->assertExists('img/logo/' . $this->setting->logo);
     }
 
     /** @test */
@@ -59,7 +59,7 @@ class ManageSettingsTest extends TestCase
             'favicon' => UploadedFile::fake()->image('favicon.jpg', 16, 16),
         ]);
 
-        Storage::disk('public')->assertExists('img/favicon/'.$this->setting->favicon);
+        Storage::disk('public')->assertExists('img/favicon/' . $this->setting->favicon);
     }
 
     /** @test */
