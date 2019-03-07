@@ -47,8 +47,8 @@ class ManageBlogsTest extends TestCase
     {
         $blog = make(Blog::class, [
             'featured_image' => UploadedFile::fake()->image('logo.jpg'),
-            'categories' => $this->categories,
-            'tags' => $this->tags,
+            'categories'     => $this->categories,
+            'tags'           => $this->tags,
         ]);
 
         $this->post(route('admin.blogs.store'), $blog->toArray());
@@ -134,15 +134,15 @@ class ManageBlogsTest extends TestCase
     {
         $blog = make(Blog::class, [
             'featured_image' => UploadedFile::fake()->image('logo.jpg'),
-            'categories' => $this->categories,
-            'tags' => $this->tags,
+            'categories'     => $this->categories,
+            'tags'           => $this->tags,
         ]);
 
         $this->post(route('admin.blogs.store'), $blog->toArray());
 
         $stored_blog = Blog::find(2);
 
-        Storage::disk('public')->assertExists('img/blog/' . $stored_blog->featured_image);
+        Storage::disk('public')->assertExists('img/blog/'.$stored_blog->featured_image);
     }
 
     /** @test */
@@ -201,9 +201,9 @@ class ManageBlogsTest extends TestCase
     {
         $blog = make(Blog::class, [
             'featured_image' => UploadedFile::fake()->image('logo.jpg'),
-            'name' => 'Changed Name',
-            'categories' => $this->categories,
-            'tags' => $this->tags,
+            'name'           => 'Changed Name',
+            'categories'     => $this->categories,
+            'tags'           => $this->tags,
         ]);
 
         $this->patch(route('admin.blogs.update', $this->blog), $blog->toArray());

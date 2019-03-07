@@ -19,7 +19,7 @@ class PageTest extends TestCase
         $this->user = User::find(1);
 
         $this->token = JWTAuth::fromUser($this->user);
-        $this->headers = ['Authorization' => 'Bearer ' . $this->token];
+        $this->headers = ['Authorization' => 'Bearer '.$this->token];
     }
 
     /**
@@ -66,16 +66,16 @@ class PageTest extends TestCase
     {
         $page = create(Page::class);
         $payload = [];
-        $response = $this->json('GET', '/api/v1/pages/' . $page->id, $payload, $this->headers);
+        $response = $this->json('GET', '/api/v1/pages/'.$page->id, $payload, $this->headers);
         $response
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
-                    'id' => $page->id,
-                    'title' => $page->title,
+                    'id'           => $page->id,
+                    'title'        => $page->title,
                     'status_label' => $page->status_label,
-                    'status' => ($page->isActive()) ? 'Active' : 'InActive',
-                    'created_by' => $page->created_by,
+                    'status'       => ($page->isActive()) ? 'Active' : 'InActive',
+                    'created_by'   => $page->created_by,
                 ],
             ]);
     }
@@ -91,13 +91,13 @@ class PageTest extends TestCase
     {
         $page = make(Page::class);
         $payload = [
-            'title' => $page->title,
-            'description' => $page->description,
+            'title'           => $page->title,
+            'description'     => $page->description,
             'cannonical_link' => $page->cannonical_link,
-            'seo_title' => 'some tittle',
-            'seo_keyword' => 'some keywords',
+            'seo_title'       => 'some tittle',
+            'seo_keyword'     => 'some keywords',
             'seo_description' => '<p>&nbsp;</p>↵<h1>SEO Description</h1>↵<p>some seco desctription</p>↵<p>askdsaj;ldsjfd</p>',
-            'status' => '1',
+            'status'          => '1',
         ];
         $response = '';
         $response = $this->json('PUT', '/api/v1/pages/1', $payload, $this->headers);
@@ -105,10 +105,10 @@ class PageTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson([
             'data' => [
-                'title' => $page->title,
+                'title'        => $page->title,
                 'status_label' => $page->status_label,
-                'status' => ($page->isActive()) ? 'Active' : 'InActive',
-                'created_by' => '' . $this->user->id,
+                'status'       => ($page->isActive()) ? 'Active' : 'InActive',
+                'created_by'   => ''.$this->user->id,
             ],
         ]);
     }
@@ -124,24 +124,24 @@ class PageTest extends TestCase
     {
         $page = make(Page::class);
         $payload = [
-            'title' => $page->title,
-            'description' => $page->description,
+            'title'           => $page->title,
+            'description'     => $page->description,
             'cannonical_link' => $page->cannonical_link,
-            'seo_title' => 'some tittle',
-            'seo_keyword' => 'some keywords',
+            'seo_title'       => 'some tittle',
+            'seo_keyword'     => 'some keywords',
             'seo_description' => '<p>&nbsp;</p>↵<h1>SEO Description</h1>↵<p>some seco desctription</p>↵<p>askdsaj;ldsjfd</p>',
-            'status' => '1',
+            'status'          => '1',
         ];
         $response = '';
         $response = $this->json('POST', '/api/v1/pages', $payload, $this->headers);
         $response->assertStatus(201);
         $response->assertJson([
             'data' => [
-                'title' => $page->title,
+                'title'        => $page->title,
                 'status_label' => $page->status_label,
-                'status' => ($page->isActive()) ? 'Active' : 'InActive',
-                'created_by' => $this->user->first_name,
-                'created_at' => (\Carbon\Carbon::now())->toDateString(),
+                'status'       => ($page->isActive()) ? 'Active' : 'InActive',
+                'created_by'   => $this->user->first_name,
+                'created_at'   => (\Carbon\Carbon::now())->toDateString(),
             ],
         ]);
     }
@@ -157,7 +157,7 @@ class PageTest extends TestCase
     {
         $page = create(Page::class);
         $payload = [];
-        $response = $this->json('DELETE', '/api/v1/pages/' . $page->id, $payload, $this->headers);
+        $response = $this->json('DELETE', '/api/v1/pages/'.$page->id, $payload, $this->headers);
         $response->assertStatus(200)
             ->assertJson([
                 'message' => 'The Page was successfully deleted.',
