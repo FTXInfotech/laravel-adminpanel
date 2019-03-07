@@ -61,9 +61,6 @@ Generate a new application key
 
     php artisan key:generate
 
-Generate a new JWT secret key (If you want to use API)
-    php artisan jwt:secret
-
 Generate a new JWT authentication secret key
 
     php artisan jwt:secret
@@ -112,6 +109,10 @@ You can now access the server at http://localhost:8000
     php artisan key:generate
     php artisan jwt:secret
     php artisan vendor:publish --tag=lfm_public
+
+## Please note
+
+- To run test cases, add SQLite support to your php
 
 ## Logging In
 

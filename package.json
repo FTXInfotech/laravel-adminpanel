@@ -17,19 +17,19 @@
     "jquery": "^3.1.1",
     "laravel-mix": "^2.1.14",
     "lodash": "^4.17.4",
-    "vue": "^2.5.17",
-    "webpack-rtl-plugin": "^1.5.0"
+    "vue": "^2.6.8",
+    "webpack-rtl-plugin": "^1.8.1"
   },
   "dependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "bootstrap-datetimepicker-npm": "^4.17.37-npm",
     "datatables.net": "^1.10.15",
     "datatables.net-buttons": "^1.3.1",
-    "moment": "^2.18.1",
+    "moment": "^2.24.0",
     "nestable2": "^1.5.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.11.0",
     "pluralize": "^7.0.0",
     "select2": "^4.0.4",
-    "tinymce": "^4.5.8"
+    "tinymce": "^4.9.3"
   }
 }
