@@ -54,6 +54,11 @@ abstract class BrowserKitTestCase extends BaseTestCase
     {
         parent::setUp();
 
+        if (config('database.default') == 'sqlite') {
+            $db = app()->make('db');
+            $db->connection()->getPdo()->exec('pragma foreign_keys=0');
+        }
+
         $this->baseUrl = config('app.url', 'http://localhost:8000');
 
         // Set up the database

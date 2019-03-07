@@ -58,6 +58,11 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
+        if (config('database.default') == 'sqlite') {
+            $db = app()->make('db');
+            $db->connection()->getPdo()->exec('pragma foreign_keys=0');
+        }
+
         $this->withoutExceptionHandling();
 
         // Set up the database

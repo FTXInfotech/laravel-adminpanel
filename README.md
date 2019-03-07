@@ -61,9 +61,6 @@ Generate a new application key
 
     php artisan key:generate
 
-Generate a new JWT secret key (If you want to use API)
-    php artisan jwt:secret
-
 Generate a new JWT authentication secret key
 
     php artisan jwt:secret
@@ -113,6 +110,10 @@ You can now access the server at http://localhost:8000
     php artisan jwt:secret
     php artisan vendor:publish --tag=lfm_public
 
+## Please note
+
+- To run test cases, add SQLite support to your php
+
 ## Logging In
 
 `php artisan db:seed` adds three users with respective roles. The credentials are as follows:
@@ -139,7 +140,11 @@ Password: `1234`
 If you come across any issues please report them [here](https://github.com/viralsolani/laravel-adminpanel/issues).
 
 ## Contributing
-Feel free to create any pull requests for the project. For proposing any new changes or features you want to add to the project, you can send us an email at viral.solani@gmail.com or basapativipulkumar@gmail.com.
+Feel free to create any pull requests for the project. For proposing any new changes or features you want to add to the project, you can send us an email at following addresses.
+
+    (1) Viral Solani - viral.solani@gmail.com
+    (2) Vipulkumar Basapati - basapativipulkumar@gmail.com
+    (3) Vallabh Kansagara - vrkansagara@gmail.com
 
 ## License
 
