@@ -20,7 +20,7 @@ class AuthController extends APIController
     public function login(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required|min:4',
         ]);
 

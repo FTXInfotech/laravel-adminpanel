@@ -10,7 +10,7 @@ class LoginTest extends TestCase
     public function users_can_login_through_api()
     {
         $res = $this->json('POST', '/api/v1/auth/login', [
-            'email' => $this->user->email,
+            'email'    => $this->user->email,
             'password' => '1234',
         ])
             ->assertStatus(200)
