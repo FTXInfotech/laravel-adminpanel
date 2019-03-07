@@ -9,8 +9,9 @@
  * file that was distributed with this source code.
  */
 
-return [
+use Tymon\JWTAuth\Claims;
 
+return [
     /*
     |--------------------------------------------------------------------------
     | JWT Authentication Secret
@@ -45,7 +46,6 @@ return [
     */
 
     'keys' => [
-
         /*
         |--------------------------------------------------------------------------
         | Public Key
@@ -82,7 +82,6 @@ return [
         */
 
         'passphrase' => env('JWT_PASSPHRASE'),
-
     ],
 
     /*
@@ -91,7 +90,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Specify the length of time (in minutes) that the token will be valid for.
-    | Defaults to 1 hour.
+    | Defaults to 30 minutes.
     |
     | You can also set this to null, to yield a never expiring token.
     | Some people may want this behaviour for e.g. a mobile app.
@@ -100,26 +99,21 @@ return [
     |
     */
 
-    'ttl' => env('JWT_TTL', 60),
+    'ttl' => env('JWT_TTL', 30),
 
     /*
     |--------------------------------------------------------------------------
-    | Refresh time to live
+    | Max refresh period
     |--------------------------------------------------------------------------
     |
-    | Specify the length of time (in minutes) that the token can be refreshed
-    | within. I.E. The user can refresh their token within a 2 week window of
-    | the original token being created until they must re-authenticate.
-    | Defaults to 2 weeks.
+    | Specify the length of time (in minutes) that the token will be
+    | refreshable for.
     |
-    | You can also set this to null, to yield an infinite refresh time.
-    | Some may want this instead of never expiring tokens for e.g. a mobile app.
-    | This is not particularly recommended, so make sure you have appropriate
-    | systems in place to revoke the token if necessary.
+    | Defaults to null, which will allow tokens to be refreshable forever.
     |
     */
 
-    'refresh_ttl' => env('JWT_REFRESH_TTL', 20160),
+    'max_refresh_period' => env('JWT_MAX_REFRESH_PERIOD'),
 
     /*
     |--------------------------------------------------------------------------
@@ -128,8 +122,11 @@ return [
     |
     | Specify the hashing algorithm that will be used to sign the token.
     |
-    | See here: https://github.com/namshi/jose/tree/master/src/Namshi/JOSE/Signer/OpenSSL
-    | for possible values.
+    | Possible values:
+    |
+    | 'HS256', 'HS384', 'HS512',
+    | 'RS256', 'RS384', 'RS512',
+    | 'ES256', 'ES384', 'ES512'
     |
     */
 
@@ -147,31 +144,48 @@ return [
     */
 
     'required_claims' => [
-        'iss',
-        'iat',
-        'exp',
-        'nbf',
-        'sub',
-        'jti',
+        Claims\Issuer::NAME,
+        Claims\IssuedAt::NAME,
+        Claims\Expiration::NAME,
+        Claims\Subject::NAME,
+        Claims\JwtId::NAME,
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | Persistent Claims
+    | Lock Subject
     |--------------------------------------------------------------------------
     |
-    | Specify the claim keys to be persisted when refreshing a token.
-    | `sub` and `iat` will automatically be persisted, in
-    | addition to the these claims.
+    | This will determine whether a `prv` claim is automatically added to
+    | the token. The purpose of this is to ensure that if you have multiple
+    | authentication models e.g. `App\User` & `App\OtherPerson`, then we
+    | should prevent one authentication request from impersonating another,
+    | if 2 tokens happen to have the same id across the 2 different models.
     |
-    | Note: If a claim does not exist then it will be ignored.
+    | Under specific circumstances, you may want to disable this behaviour
+    | e.g. if you only have one authentication model, then you would save
+    | a little on token size.
     |
     */
 
-    'persistent_claims' => [
-        // 'foo',
-        // 'bar',
-    ],
+    'lock_subject' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Leeway
+    |--------------------------------------------------------------------------
+    |
+    | This property gives the jwt timestamp claims some "leeway".
+    | Meaning that if you have any unavoidable slight clock skew on
+    | any of your servers then this will afford you some level of cushioning.
+    |
+    | This applies to the claims `iat`, `nbf` and `exp`.
+    |
+    | Specify in seconds - only if you know you need it.
+    |
+    */
+
+    'leeway' => env('JWT_LEEWAY', 0),
 
     /*
     |--------------------------------------------------------------------------
@@ -212,11 +226,11 @@ return [
     | see https://laravel.com/docs/master/responses#cookies-and-encryption
     | for details.
     |
-    | Set it to false if you don't want to decrypt cookies.
+    | Set it to true if you want to decrypt cookies.
     |
     */
 
-    'decrypt_cookies' => true,
+    'decrypt_cookies' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -228,7 +242,6 @@ return [
     */
 
     'providers' => [
-
         /*
         |--------------------------------------------------------------------------
         | JWT Provider
@@ -238,18 +251,7 @@ return [
         |
         */
 
-        'jwt' => Tymon\JWTAuth\Providers\JWT\Namshi::class,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Authentication Provider
-        |--------------------------------------------------------------------------
-        |
-        | Specify the provider that is used to authenticate users.
-        |
-        */
-
-        'auth' => Tymon\JWTAuth\Providers\Auth\Illuminate::class,
+        'jwt' => Tymon\JWTAuth\Providers\JWT\Lcobucci::class,
 
         /*
         |--------------------------------------------------------------------------
@@ -261,7 +263,5 @@ return [
         */
 
         'storage' => Tymon\JWTAuth\Providers\Storage\Illuminate::class,
-
     ],
-
 ];
