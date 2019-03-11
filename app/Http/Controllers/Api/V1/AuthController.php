@@ -38,7 +38,7 @@ class AuthController extends APIController
             return $this->respondInternalError($e->getMessage());
         }
 
-        return $this->respondWithToken($token);
+        return $token;
     }
 
     /**
@@ -82,6 +82,7 @@ class AuthController extends APIController
      */
     protected function respondWithToken($token)
     {
+        return $token;
         return response()->json([
             'access_token' => $token,
             // 'token_type' => 'bearer',
