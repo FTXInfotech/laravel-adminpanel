@@ -16,7 +16,7 @@
         "arcanedev/no-captcha": "^5.0",
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^5.0",
-        "doctrine/dbal": "^2.6",
+        "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "hieu-le/active": "^3.5",
         "laravel/framework": "5.7.*",

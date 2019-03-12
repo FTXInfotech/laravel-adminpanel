@@ -31,5 +31,6 @@
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
         <env name="SCOUT_DRIVER" value="null"/>
+        <env name="TELESCOPE_ENABLED" value="false"/>
     </php>
 </phpunit>
