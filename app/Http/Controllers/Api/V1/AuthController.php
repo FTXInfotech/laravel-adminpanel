@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends APIController
 {
@@ -31,10 +32,22 @@ class AuthController extends APIController
         $credentials = $request->only(['email', 'password']);
 
         try {
-            if (!$token = JWTAuth::attempt($credentials)) {
+        
+            if(!Auth::attempt($credentials))
+            {
                 return $this->throwValidation(trans('api.messages.login.failed'));
             }
-        } catch (JWTException $e) {
+
+            $user = $request->user();
+
+            $passportToken = $user->createToken('API Access Token');
+
+            // Save generated token
+            $passportToken->token->save();
+
+            $token = $passportToken->accessToken;
+
+        } catch (\Exception $e) {
             return $this->respondInternalError($e->getMessage());
         }
 
@@ -49,15 +62,13 @@ class AuthController extends APIController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout()
+    public function logout(Request $request)
     {
         try {
-            $token = JWTAuth::getToken();
+            
+            $request->user()->token()->revoke();
 
-            if ($token) {
-                JWTAuth::invalidate($token);
-            }
-        } catch (JWTException $e) {
+        } catch (\Exception $e) {
             return $this->respondInternalError($e->getMessage());
         }
 
@@ -71,9 +82,13 @@ class AuthController extends APIController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function refresh()
+    public function refresh(Request $request)
     {
+        $new_token = $request->user()->token();
+        dd($new_token);
         $token = JWTAuth::getToken();
+
+        //refresh_token
 
         if (!$token) {
             $this->respondUnauthorized(trans('api.messages.refresh.token.not_provided'));

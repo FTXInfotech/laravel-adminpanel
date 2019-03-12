@@ -75,8 +75,6 @@ class Kernel extends HttpKernel
          * Access Middleware
          */
         'access.routeNeedsRole'       => \App\Http\Middleware\RouteNeedsRole::class,
-        'access.routeNeedsPermission' => \App\Http\Middleware\RouteNeedsPermission::class,
-        'jwt.auth'                    => GetUserFromToken::class,
-        'jwt.refresh'                 => RefreshToken::class,
+        'access.routeNeedsPermission' => \App\Http\Middleware\RouteNeedsPermission::class
     ];
 }

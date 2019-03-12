@@ -199,7 +199,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\HistoryServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Bvipul\Generator\Provider\CrudGeneratorServiceProvider::class,
     ],
 
@@ -260,7 +259,7 @@ return [
         'Gravatar'    => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Html'        => Collective\Html\HtmlFacade::class,
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
-        'JWTAuth'     => Tymon\JWTAuth\Facades\JWTAuth::class,
+        //'JWTAuth'     => Tymon\JWTAuth\Facades\JWTAuth::class,
         //'Datatables' => Yajra\DataTables\Facades\DataTables::class
 
     ],
