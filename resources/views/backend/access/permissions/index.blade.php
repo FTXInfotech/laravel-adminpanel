@@ -68,6 +68,12 @@
 
     <script>
         $(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             var dataTable = $('#permissions-table').dataTable({
                 processing: true,
                 serverSide: true,

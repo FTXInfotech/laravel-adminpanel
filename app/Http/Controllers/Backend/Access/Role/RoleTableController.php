@@ -36,7 +36,7 @@ class RoleTableController extends Controller
             ->escapeColumns(['name', 'sort'])
             ->addColumn('permissions', function ($role) {
                 if ($role->all) {
-                    return '<span class="label label-success">'.trans('labels.general.all').'</span>';
+                    return '<span class="label label-success">' . trans('labels.general.all') . '</span>';
                 }
 
                 return $role->permission_name;

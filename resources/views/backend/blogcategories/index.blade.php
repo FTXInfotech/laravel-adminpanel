@@ -65,6 +65,11 @@
     {{ Html::script(mix('js/dataTable.js')) }}
 
     <script>
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+        });
         $(function() {
             var dataTable = $('#blogcategories-table').dataTable({
                 processing: true,
