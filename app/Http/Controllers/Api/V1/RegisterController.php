@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\User\User;
 use App\Repositories\Frontend\Access\User\UserRepository;
 use Config;
 use Illuminate\Http\Request;
-use JWTAuth;
 use Validator;
 
 class RegisterController extends APIController
@@ -53,7 +51,12 @@ class RegisterController extends APIController
             ]);
         }
 
-        $token = JWTAuth::fromUser($user);
+        $passportToken = $user->createToken('API Access Token');
+
+        // Save generated token
+        $passportToken->token->save();
+
+        $token = $passportToken->accessToken;
 
         return $this->respondCreated([
             'message'   => trans('api.messages.registeration.success'),
