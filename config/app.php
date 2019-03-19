@@ -199,7 +199,7 @@ return [
         App\Providers\HistoryServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Bvipul\Generator\Provider\CrudGeneratorServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class
+        Laravel\Passport\PassportServiceProvider::class,
     ],
 
     /*

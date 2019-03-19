@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
-use Validator;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class AuthController extends APIController
 {
@@ -30,8 +30,7 @@ class AuthController extends APIController
 
         try {
         
-            if(!Auth::attempt($credentials))
-            {
+            if (!Auth::attempt($credentials)) {
                 return $this->throwValidation(trans('api.messages.login.failed'));
             }
 
@@ -72,9 +71,7 @@ class AuthController extends APIController
     public function logout(Request $request)
     {
         try {
-            
             $request->user()->token()->revoke();
-
         } catch (\Exception $e) {
             return $this->respondInternalError($e->getMessage());
         }
