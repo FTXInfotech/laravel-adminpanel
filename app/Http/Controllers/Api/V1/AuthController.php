@@ -29,7 +29,6 @@ class AuthController extends APIController
         $credentials = $request->only(['email', 'password']);
 
         try {
-        
             if (!Auth::attempt($credentials)) {
                 return $this->throwValidation(trans('api.messages.login.failed'));
             }
@@ -42,7 +41,6 @@ class AuthController extends APIController
             $passportToken->token->save();
 
             $token = $passportToken->accessToken;
-
         } catch (\Exception $e) {
             return $this->respondInternalError($e->getMessage());
         }
