@@ -19,9 +19,9 @@
     "lodash": "^4.17.4",
     "resolve-url-loader": "2.3.1",
     "sass-loader": "7.*",
-    "vue": "^2.6.8",
     "vue-template-compiler": "^2.6.8",
-    "webpack-rtl-plugin": "^1.8.1"
+    "vue": "^2.5.17",
+    "webpack-rtl-plugin": "^1.7.0"
   },
   "dependencies": {
     "bootstrap": "^3.4.1",
