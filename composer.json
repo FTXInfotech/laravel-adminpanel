@@ -20,11 +20,11 @@
         "fideloper/proxy": "^4.0",
         "hieu-le/active": "^3.5",
         "laravel/framework": "5.8.*",
+        "laravel/passport": "^7.2",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
         "spatie/laravel-cors": "^1.2",
-        "tymon/jwt-auth": "2.0.x-dev",
         "unisharp/laravel-filemanager": "~1.8",
         "yajra/laravel-datatables-oracle": "~9.0"
     },

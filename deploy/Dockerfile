@@ -97,7 +97,7 @@ RUN chown -R 777 /var/www/html/
 
 RUN composer install
 
-RUN php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+#RUN php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
 
 
 
