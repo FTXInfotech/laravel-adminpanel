@@ -29,11 +29,11 @@
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
-        "laravel/telescope": "^2.0",
-        "bvipul/generator": "^5.6",
+        "bvipul/generator": "^5.8",
         "codedungeon/phpunit-result-printer": "^0.19.10",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
+        "laravel/telescope": "^2.0",
         "mockery/mockery": "1.2.2",
         "nunomaduro/larastan": "^0.3.15",
         "phpunit/phpunit": "~7.0",
