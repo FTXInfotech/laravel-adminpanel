@@ -5,7 +5,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/issues)
 ![StyleCI](https://img.shields.io/badge/styleCI-passed-brightgreen.svg?style=plastic)
 
-## [Demo](https://laravel-adminpanel.vrkansagara.in/)
+## [Demo](https://apiway.in/)
 
 ## Introduction
 * This is a laravel Admin Panel, based on [Rappasoft Laravel Boilerplate](https://github.com/rappasoft/laravel-5-boilerplate/releases/tag/4.5.7), with enhancemenets and many modules pre-made, just for you.
@@ -144,7 +144,7 @@ If you come across any issues please report them [here](https://github.com/viral
 Feel free to create any pull requests for the project. For proposing any new changes or features you want to add to the project, you can send us an email at following addresses.
 
     (1) Viral Solani - viral.solani@gmail.com
-    (2) Vipulkumar Basapati - basapativipulkumar@gmail.com
+    (2) Vipul Basapati - basapativipulkumar@gmail.com
     (3) Vallabh Kansagara - vrkansagara@gmail.com
 
 ## License
