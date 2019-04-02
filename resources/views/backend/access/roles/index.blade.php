@@ -70,12 +70,19 @@
 
     <script>
         $(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             var dataTable = $('#roles-table').dataTable({
                 processing: true,
                 serverSide: true,
+
                 ajax: {
                     url: '{{ route("admin.access.role.get") }}',
-                    type: 'post'
+                    type: 'post',
                 },
                 columns: [
                     {data: 'name', name: '{{config('access.roles_table')}}.name'},

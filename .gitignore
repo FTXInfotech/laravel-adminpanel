@@ -16,6 +16,7 @@ Thumbs.db
 _ide_helper.php
 composer.phar
 error.log
+access.log
 Todo.rtf
 .vagrant
 /.vagrant

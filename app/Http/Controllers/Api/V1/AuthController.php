@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Access\User\User;
 use Illuminate\Http\Request;
-use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class AuthController extends APIController
@@ -20,8 +18,8 @@ class AuthController extends APIController
     public function login(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'email'     => 'required|email',
-            'password'  => 'required|min:4',
+            'email'    => 'required|email',
+            'password' => 'required|min:4',
         ]);
 
         if ($validation->fails()) {
@@ -31,10 +29,19 @@ class AuthController extends APIController
         $credentials = $request->only(['email', 'password']);
 
         try {
-            if (!$token = JWTAuth::attempt($credentials)) {
+            if (!Auth::attempt($credentials)) {
                 return $this->throwValidation(trans('api.messages.login.failed'));
             }
-        } catch (JWTException $e) {
+
+            $user = $request->user();
+
+            $passportToken = $user->createToken('API Access Token');
+
+            // Save generated token
+            $passportToken->token->save();
+
+            $token = $passportToken->accessToken;
+        } catch (\Exception $e) {
             return $this->respondInternalError($e->getMessage());
         }
 
@@ -45,49 +52,30 @@ class AuthController extends APIController
     }
 
     /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function me()
+    {
+        return response()->json($this->guard()->user());
+    }
+
+    /**
      * Log the user out (Invalidate the token).
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout()
+    public function logout(Request $request)
     {
         try {
-            $token = JWTAuth::getToken();
-
-            if ($token) {
-                JWTAuth::invalidate($token);
-            }
-        } catch (JWTException $e) {
+            $request->user()->token()->revoke();
+        } catch (\Exception $e) {
             return $this->respondInternalError($e->getMessage());
         }
 
         return $this->respond([
             'message'   => trans('api.messages.logout.success'),
-        ]);
-    }
-
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function refresh()
-    {
-        $token = JWTAuth::getToken();
-
-        if (!$token) {
-            $this->respondUnauthorized(trans('api.messages.refresh.token.not_provided'));
-        }
-
-        try {
-            $refreshedToken = JWTAuth::refresh($token);
-        } catch (JWTException $e) {
-            return $this->respondInternalError($e->getMessage());
-        }
-
-        return $this->respond([
-            'status' => trans('api.messages.refresh.status'),
-            'token'  => $refreshedToken,
         ]);
     }
 }

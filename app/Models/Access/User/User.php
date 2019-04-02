@@ -10,12 +10,12 @@ use App\Models\Access\User\Traits\UserSendPasswordReset;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * Class User.
  */
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
     use UserScope,
         UserAccess,
@@ -23,7 +23,8 @@ class User extends Authenticatable implements JWTSubject
         SoftDeletes,
         UserAttribute,
         UserRelationship,
-        UserSendPasswordReset;
+        UserSendPasswordReset,
+        HasApiTokens;
     /**
      * The database table used by the model.
      *
@@ -79,6 +80,18 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Set password attribute.
+     *
+     * @param [string] $password
+     */
+    public function setPasswordAttribute($password)
+    {
+        if (!empty($password)) {
+            $this->attributes['password'] = bcrypt($password);
+        }
+    }
+
+    /**
      * Return a key value array, containing any custom claims to be added to the JWT.
      *
      * @return array
@@ -86,17 +99,17 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [
-            'id'              => $this->id,
-            'first_name'      => $this->first_name,
-            'last_name'       => $this->last_name,
-            'email'           => $this->email,
-            'picture'         => $this->getPicture(),
-            'confirmed'       => $this->confirmed,
-            'role'            => optional($this->roles()->first())->name,
-            'permissions'     => $this->permissions()->get(),
-            'status'          => $this->status,
-            'created_at'      => $this->created_at->toIso8601String(),
-            'updated_at'      => $this->updated_at->toIso8601String(),
+            'id'          => $this->id,
+            'first_name'  => $this->first_name,
+            'last_name'   => $this->last_name,
+            'email'       => $this->email,
+            'picture'     => $this->getPicture(),
+            'confirmed'   => $this->confirmed,
+            'role'        => optional($this->roles()->first())->name,
+            'permissions' => $this->permissions()->get(),
+            'status'      => $this->status,
+            'created_at'  => $this->created_at->toIso8601String(),
+            'updated_at'  => $this->updated_at->toIso8601String(),
         ];
     }
 }

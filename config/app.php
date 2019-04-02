@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -147,7 +146,6 @@ return [
     */
 
     'providers' => [
-
         /*
          * Laravel Framework Service Providers...
          */
@@ -200,8 +198,8 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\HistoryServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Bvipul\Generator\Provider\CrudGeneratorServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
     ],
 
     /*
@@ -216,7 +214,6 @@ return [
     */
 
     'aliases' => [
-
         'App'          => Illuminate\Support\Facades\App::class,
         'Artisan'      => Illuminate\Support\Facades\Artisan::class,
         'Auth'         => Illuminate\Support\Facades\Auth::class,
@@ -261,9 +258,6 @@ return [
         'Gravatar'    => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Html'        => Collective\Html\HtmlFacade::class,
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
-        'JWTAuth'     => Tymon\JWTAuth\Facades\JWTAuth::class,
         //'Datatables' => Yajra\DataTables\Facades\DataTables::class
-
     ],
-
 ];
