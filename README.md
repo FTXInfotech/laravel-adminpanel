@@ -143,7 +143,7 @@ If you come across any issues please report them [here](https://github.com/viral
 Feel free to create any pull requests for the project. For proposing any new changes or features you want to add to the project, you can send us an email at following addresses.
 
     (1) Viral Solani - viral.solani@gmail.com
-    (2) Vipulkumar Basapati - basapativipulkumar@gmail.com
+    (2) Vipul Basapati - basapativipulkumar@gmail.com
     (3) Vallabh Kansagara - vrkansagara@gmail.com
 
 ## License
