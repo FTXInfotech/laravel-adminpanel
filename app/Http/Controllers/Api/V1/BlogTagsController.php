@@ -82,7 +82,7 @@ class BlogTagsController extends APIController
         $validation = $this->validatingRequest($request, $blog_tag->id);
 
         if ($validation->fails()) {
-            return $this->throwValidation($validation);
+            return $this->throwValidation($validation->messages()->first());
         }
 
         $this->repository->update($blog_tag, $request->all());
