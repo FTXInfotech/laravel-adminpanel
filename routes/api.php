@@ -13,18 +13,16 @@
 */
 
 Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], function () {
-    Route::group(['prefix' => 'auth'], function () {
+    Route::group(['prefix' => 'auth', 'middleware' => ['guest']], function () {
         Route::post('register', 'RegisterController@register');
         Route::post('login', 'AuthController@login');
+        // Password Reset
+        Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
     });
 
     Route::group(['middleware' => ['auth:api']], function () {
         Route::group(['prefix' => 'auth'], function () {
             Route::post('logout', 'AuthController@logout');
-            Route::post('refresh', 'AuthController@refresh');
-
-            // Password Reset Routes
-            Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
             // Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
         });
         // Users
@@ -36,7 +34,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
 
         // Roles
         Route::resource('roles', 'RolesController', ['except' => ['create', 'edit']]);
-        Route::post('roles/delete-all', 'RolesController@deleteAll');
 
         // Permission
         Route::resource('permissions', 'PermissionController', ['except' => ['create', 'edit']]);
