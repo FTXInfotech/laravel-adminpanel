@@ -809,7 +809,7 @@ var Backend = {}; // common variable used in all the files of the backend
             },
             setSelectors: function () {
                 this.selectors.setting = document.getElementById("setting");
-                this.selectors.removeLogo = document.querySelector(".remove-logo");
+                this.selectors.removeLogo = document.querySelectorAll(".remove-logo");
                 this.selectors.imageRemoveLogo = document.querySelector(".img-remove-logo");
                 this.selectors.imageRemoveFavicon = document.querySelector(".img-remove-favicon");
             },
@@ -817,9 +817,10 @@ var Backend = {}; // common variable used in all the files of the backend
                 var route = this.selectors.RouteURL;
                 var data_id = this.selectors.setting.getAttribute("data-id");
                 route = route.replace('-1', data_id);
-                this.selectors.removeLogo.onclick = function (event) {
-                    var data = event.target.getAttribute("data-id");
 
+                this.selectors.removeLogo.forEach(function(element) {
+                  element.addEventListener('click', function(event) {
+                  var data = event.target.getAttribute("data-id");
                     swal({
                         title: "Warning",
                         text: "Are you sure you want to remove?",
@@ -855,7 +856,8 @@ var Backend = {}; // common variable used in all the files of the backend
                             }, Backend.Utils.csrf, callback);
                         }
                     });
-                };
+                  });
+                });
             }
         }
     };
