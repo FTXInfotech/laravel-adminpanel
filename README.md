@@ -114,6 +114,8 @@ You can now access the server at http://localhost:8000
 ## Please note
 
 - To run test cases, add SQLite support to your php
+- Just call this artisan command to start the checks - php artisan self-diagnosis
+
 
 ## Logging In
 
