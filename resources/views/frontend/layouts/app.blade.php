@@ -36,7 +36,7 @@
             ]); ?>
         </script>
         <?php
-            if(!empty($google_analytics)){
+            if (!empty($google_analytics)) {
                 echo $google_analytics;
             }
         ?>

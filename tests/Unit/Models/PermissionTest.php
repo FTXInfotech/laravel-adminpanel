@@ -12,7 +12,8 @@ class PermissionTest extends TestCase
     {
         $permission = Permission::find(1);
         $this->assertInstanceOf(
-            'Illuminate\Database\Eloquent\Collection', $permission->roles
+            'Illuminate\Database\Eloquent\Collection',
+            $permission->roles
         );
     }
 }

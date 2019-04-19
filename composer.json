@@ -33,6 +33,7 @@
         "bvipul/generator": "^5.8.1",
         "codedungeon/phpunit-result-printer": "^0.19.10",
         "filp/whoops": "~2.0",
+        "friendsofphp/php-cs-fixer": "^2.10",
         "fzaninotto/faker": "~1.4",
         "laravel/telescope": "^2.0",
         "mockery/mockery": "1.2.2",
@@ -74,6 +75,30 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
+        ],
+        "clear-all": [
+            "@php artisan clear-compiled",
+            "@php artisan cache:clear",
+            "@php artisan route:clear",
+            "@php artisan view:clear",
+            "@php artisan config:clear",
+            "composer dumpautoload -o"
+        ],
+        "cache-all": [
+            "@php artisan config:cache",
+            "@php artisan route:cache"
+        ],
+        "cc": [
+            "composer clear-all",
+            "composer cache-all"
+        ],
+        "format": [
+            "./vendor/bin/php-cs-fixer fix app/  --show-progress=estimating",
+            "./vendor/bin/php-cs-fixer fix config/  --show-progress=estimating",
+            "./vendor/bin/php-cs-fixer fix database/  --show-progress=estimating",
+            "./vendor/bin/php-cs-fixer fix resources/  --show-progress=estimating",
+            "./vendor/bin/php-cs-fixer fix routes/  --show-progress=estimating",
+            "./vendor/bin/php-cs-fixer fix tests/  --show-progress=estimating"
         ]
     },
     "config": {
