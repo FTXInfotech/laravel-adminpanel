@@ -114,8 +114,13 @@ You can now access the server at http://localhost:8000
 ## Please note
 
 - To run test cases, add SQLite support to your php
-- Just call this artisan command to start the checks - php artisan self-diagnosis
 
+## Other Important Commands
+- To fix php coding standard issues run - composer format
+- To perform various self diagnosis tests on your Laravel application. run - php artisan self-diagnosis
+- To clear all cache run - composer clear-all
+- To built Cache run - composer cache-all
+- To clear and built cache run - composer cc
 
 ## Logging In
 
