@@ -21,6 +21,7 @@
     "resolve-url-loader": "2.3.1",
     "sass-loader": "7.*",
     "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10",
     "webpack-rtl-plugin": "^1.8.2"
   },
   "dependencies": {
@@ -31,9 +32,8 @@
     "moment": "^2.24.0",
     "nestable2": "^1.5.0",
     "pluralize": "^7.0.0",
-    "sass": "^1.17.3",
+    "sass": "^1.19.0",
     "select2": "^4.0.4",
-    "tinymce": "^4.9.4",
-    "vue-template-compiler": "^2.6.10"
+    "tinymce": "^4.9.4"
   }
 }
