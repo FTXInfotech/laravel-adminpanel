@@ -10,7 +10,8 @@ class RoleTest extends TestCase
     public function a_role_has_users()
     {
         $this->assertInstanceOf(
-            'Illuminate\Database\Eloquent\Collection', $this->adminRole->users
+            'Illuminate\Database\Eloquent\Collection',
+            $this->adminRole->users
         );
     }
 
@@ -18,7 +19,8 @@ class RoleTest extends TestCase
     public function a_role_has_permissions()
     {
         $this->assertInstanceOf(
-            'Illuminate\Database\Eloquent\Collection', $this->adminRole->permissions
+            'Illuminate\Database\Eloquent\Collection',
+            $this->adminRole->permissions
         );
     }
 }

@@ -22,6 +22,15 @@ class RedirectIfAuthenticated
             return redirect('/');
         }
 
+        if ($request->wantsJson() && auth()->guard('api')->user()) {
+            return response([
+                'error' => [
+                    'message'     => 'Not allowed',
+                    'status_code' => 403,
+                ],
+            ], 403);
+        }
+
         return $next($request);
     }
 }

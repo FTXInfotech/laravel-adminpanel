@@ -229,9 +229,13 @@ trait UserAttribute
         if (access()->allow('login-as-user') && (!session()->has('admin_user_id') || !session()->has('temp_user_id'))) {
             //Won't break, but don't let them "Login As" themselves
             if ($this->id != access()->id()) {
-                return '<a class="'.$class.'" href="'.route('admin.access.user.login-as',
-                    $this).'"><i class="fa fa-lock" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.login_as',
-                    ['user' => $this->name]).'"></i>'.$name.'</a>';
+                return '<a class="'.$class.'" href="'.route(
+                    'admin.access.user.login-as',
+                    $this
+                ).'"><i class="fa fa-lock" data-toggle="tooltip" data-placement="top" title="'.trans(
+                        'buttons.backend.access.users.login_as',
+                        ['user' => $this->name]
+                    ).'"></i>'.$name.'</a>';
             }
         }
 

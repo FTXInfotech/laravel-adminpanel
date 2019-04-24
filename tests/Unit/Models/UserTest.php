@@ -10,7 +10,8 @@ class UserTest extends TestCase
     public function a_user_has_a_roles()
     {
         $this->assertInstanceOf(
-            'Illuminate\Database\Eloquent\Collection', $this->admin->roles
+            'Illuminate\Database\Eloquent\Collection',
+            $this->admin->roles
         );
     }
 
@@ -18,7 +19,8 @@ class UserTest extends TestCase
     public function a_user_has_a_permissions()
     {
         $this->assertInstanceOf(
-            'Illuminate\Database\Eloquent\Collection', $this->admin->permissions
+            'Illuminate\Database\Eloquent\Collection',
+            $this->admin->permissions
         );
     }
 
@@ -26,7 +28,8 @@ class UserTest extends TestCase
     public function a_user_has_a_providers()
     {
         $this->assertInstanceOf(
-            'Illuminate\Database\Eloquent\Collection', $this->admin->providers
+            'Illuminate\Database\Eloquent\Collection',
+            $this->admin->providers
         );
     }
 
@@ -34,7 +37,8 @@ class UserTest extends TestCase
     public function a_user_has_a_sessions()
     {
         $this->assertInstanceOf(
-            'Illuminate\Database\Eloquent\Collection', $this->admin->sessions
+            'Illuminate\Database\Eloquent\Collection',
+            $this->admin->sessions
         );
     }
 }

@@ -115,6 +115,13 @@ You can now access the server at http://localhost:8000
 
 - To run test cases, add SQLite support to your php
 
+## Other Important Commands
+- To fix php coding standard issues run - composer format
+- To perform various self diagnosis tests on your Laravel application. run - php artisan self-diagnosis
+- To clear all cache run - composer clear-all
+- To built Cache run - composer cache-all
+- To clear and built cache run - composer cc
+
 ## Logging In
 
 `php artisan db:seed` adds three users with respective roles. The credentials are as follows:

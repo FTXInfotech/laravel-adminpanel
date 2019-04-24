@@ -15,15 +15,12 @@ trait FaqAttribute
         switch ($this->status && access()->allow('edit-faq')) {
             case 0:
                 return '<a href="'.route('admin.faqs.mark', [$this, 1]).'" class="btn btn-flat btn-default"><i class="fa fa-check-square" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.activate').'"></i></a>';
-            // No break
 
             case 1:
                 return '<a href="'.route('admin.faqs.mark', [$this, 0]).'" class="btn btn-flat btn-default"><i class="fa fa-square" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.deactivate').'"></i></a>';
-            // No break
 
             default:
                 return '';
-            // No break
         }
 
         return '';
