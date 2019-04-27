@@ -35,6 +35,7 @@
         "filp/whoops": "~2.0",
         "friendsofphp/php-cs-fixer": "^2.10",
         "fzaninotto/faker": "~1.4",
+        "laravel/dusk": "^5.0",
         "laravel/telescope": "^2.0",
         "mockery/mockery": "1.2.2",
         "nunomaduro/larastan": "^0.3.15",
