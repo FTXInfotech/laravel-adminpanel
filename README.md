@@ -48,7 +48,7 @@ Switch to the repo folder
 
     cd laravel-adminpanel
 
-If you have linux system, you can execute below command only in your project root
+If you have linux system, you can execute the command below only in your project root
 
     1) sudo chmod -R 777 install.sh
     2) ./install.sh
