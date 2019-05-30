@@ -5,7 +5,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/issues)
 ![StyleCI](https://img.shields.io/badge/styleCI-passed-brightgreen.svg?style=plastic)
 
-## [Demo](https://apiway.in/)
+## [Demo](https://laravel-adminpanel.vrkansagara.in/)
 
 ## Introduction
 * This is a laravel Admin Panel, based on [Rappasoft Laravel Boilerplate](https://github.com/rappasoft/laravel-5-boilerplate/releases/tag/4.5.7), with enhancemenets and many modules pre-made, just for you.
