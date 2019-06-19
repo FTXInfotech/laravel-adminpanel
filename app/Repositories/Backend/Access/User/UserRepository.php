@@ -324,8 +324,9 @@ class UserRepository extends BaseRepository
      * @param  $input
      * @param  $user
      *
-     * @return null
      * @throws GeneralException
+     * 
+     * @return null
      */
     protected function checkUserByEmail($input, $user = null)
     {
@@ -333,11 +334,11 @@ class UserRepository extends BaseRepository
         if ($user && $user->email === $input['email']) {
             return;
         }
-        
+
         //Check to see if email exists
         if ($this->query()->where('email', '=', $input['email'])->withTrashed()->exists()) {
             throw new GeneralException(trans('exceptions.backend.access.users.email_error'));
-        }        
+        }
     }
 
     /**
