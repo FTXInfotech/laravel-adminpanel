@@ -325,7 +325,7 @@ class UserRepository extends BaseRepository
      * @param  $user
      *
      * @throws GeneralException
-     * 
+     *
      * @return null
      */
     protected function checkUserByEmail($input, $user = null)
