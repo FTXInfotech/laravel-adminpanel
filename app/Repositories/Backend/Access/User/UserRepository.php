@@ -96,6 +96,8 @@ class UserRepository extends BaseRepository
         $permissions = $request->get('permissions');
         $user = $this->createUserStub($data);
 
+        $this->checkUserByEmail($data, $user);
+
         DB::transaction(function () use ($user, $data, $roles, $permissions) {
             if ($user->save()) {
 
@@ -322,17 +324,20 @@ class UserRepository extends BaseRepository
      * @param  $input
      * @param  $user
      *
+     * @return null
      * @throws GeneralException
      */
-    protected function checkUserByEmail($input, $user)
+    protected function checkUserByEmail($input, $user = null)
     {
         //Figure out if email is not the same
-        if ($user->email != $input['email']) {
-            //Check to see if email exists
-            if ($this->query()->where('email', '=', $input['email'])->first()) {
-                throw new GeneralException(trans('exceptions.backend.access.users.email_error'));
-            }
+        if ($user && $user->email === $input['email']) {
+            return;
         }
+        
+        //Check to see if email exists
+        if ($this->query()->where('email', '=', $input['email'])->withTrashed()->exists()) {
+            throw new GeneralException(trans('exceptions.backend.access.users.email_error'));
+        }        
     }
 
     /**
