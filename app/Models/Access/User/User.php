@@ -80,18 +80,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Set password attribute.
-     *
-     * @param [string] $password
-     */
-    public function setPasswordAttribute($password)
-    {
-        if (!empty($password)) {
-            $this->attributes['password'] = bcrypt($password);
-        }
-    }
-
-    /**
      * Return a key value array, containing any custom claims to be added to the JWT.
      *
      * @return array
