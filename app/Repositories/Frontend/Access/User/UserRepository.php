@@ -96,7 +96,7 @@ class UserRepository extends BaseRepository
         $user->email = $data['email'];
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
         $user->status = 1;
-        $user->password = $provider ? null : $data['password'];
+        $user->password = $provider ? null : Hash::make($data['password']);
         $user->is_term_accept = $data['is_term_accept'];
 
         // If users require approval, confirmed is false regardless of account type
@@ -284,7 +284,7 @@ class UserRepository extends BaseRepository
         $user = $this->find(access()->id());
 
         if (Hash::check($input['old_password'], $user->password)) {
-            $user->password = $input['password'];
+            $user->password = Hash::make($input['password']);
 
             if ($user->save()) {
                 $user->notify(new UserChangedPassword($input['password']));

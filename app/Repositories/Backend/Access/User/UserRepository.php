@@ -177,7 +177,7 @@ class UserRepository extends BaseRepository
         $user = $this->find(access()->id());
 
         if (Hash::check($input['old_password'], $user->password)) {
-            $user->password = $input['password'];
+            $user->password = Hash::make($input['password']);
 
             if ($user->save()) {
                 event(new UserPasswordChanged($user));
@@ -393,7 +393,7 @@ class UserRepository extends BaseRepository
         $user->first_name = $input['first_name'];
         $user->last_name = $input['last_name'];
         $user->email = $input['email'];
-        $user->password = $input['password'];
+        $user->password = Hash::make($input['password']);
         $user->status = isset($input['status']) ? 1 : 0;
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
         $user->confirmed = isset($input['confirmed']) ? 1 : 0;

@@ -16,7 +16,7 @@ class UpdateUserPasswordRequest extends Request
      */
     public function authorize()
     {
-        return access()->allow('edit-user');
+        return true;
     }
 
     /**
