@@ -61,9 +61,9 @@ Generate a new application key
 
     php artisan key:generate
 
-Generate a new JWT authentication secret key
+Install Passport
 
-    php artisan jwt:secret
+    php artisan passport:install
 
 Run the database migrations (**Set the database connection in .env before migrating**)
 
@@ -107,6 +107,7 @@ You can now access the server at http://localhost:8000
     npm run development
     php artisan storage:link
     php artisan key:generate
+    php artisan passport:install
     php artisan vendor:publish --tag=lfm_public
     php artisan migrate
     php artisan passport:install
