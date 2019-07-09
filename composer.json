@@ -31,21 +31,23 @@
     },
     "require-dev": {
         "bvipul/generator": "^5.8.1",
-        "codedungeon/phpunit-result-printer": "^0.19.10",
-        "filp/whoops": "~2.0",
-        "friendsofphp/php-cs-fixer": "^2.10",
-        "fzaninotto/faker": "~1.4",
+        "codedungeon/phpunit-result-printer": "^0.26.1",
+        "filp/whoops": "^2.0",
+        "friendsofphp/php-cs-fixer": "^2.14",
+        "fzaninotto/faker": "^1.4",
         "laravel/telescope": "^2.0",
-        "mockery/mockery": "1.2.2",
-        "nunomaduro/larastan": "^0.3.15",
-        "phpunit/phpunit": "~7.0",
-        "xethron/migrations-generator": "2.0.2"
+        "mockery/mockery": "^1.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
     },
     "autoload": {
         "classmap": [
             "database/seeds",
-            "database/factories",
-            "database"
+            "database/factories"
         ],
         "psr-4": {
             "App\\": "app/"
@@ -65,16 +67,23 @@
             "tests/Utilities/helpers.php"
         ]
     },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
         "post-root-package-install": [
             "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
             "php artisan key:generate"
-        ],
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover"
         ],
         "clear-all": [
             "@php artisan clear-compiled",
@@ -99,11 +108,11 @@
             "./vendor/bin/php-cs-fixer fix resources/  --show-progress=estimating",
             "./vendor/bin/php-cs-fixer fix routes/  --show-progress=estimating",
             "./vendor/bin/php-cs-fixer fix tests/  --show-progress=estimating"
+        ],
+        "self-diagnosis": [
+            "@composer validate",
+            "@php artisan self-diagnosis",
+            "npm audit"
         ]
-    },
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "optimize-autoloader": true
     }
 }
