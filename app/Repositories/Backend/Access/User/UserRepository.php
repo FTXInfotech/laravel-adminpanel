@@ -96,6 +96,8 @@ class UserRepository extends BaseRepository
         $permissions = $request->get('permissions');
         $user = $this->createUserStub($data);
 
+        $this->checkUserByEmail($data, $user);
+
         DB::transaction(function () use ($user, $data, $roles, $permissions) {
             if ($user->save()) {
 
@@ -175,7 +177,7 @@ class UserRepository extends BaseRepository
         $user = $this->find(access()->id());
 
         if (Hash::check($input['old_password'], $user->password)) {
-            $user->password = bcrypt($input['password']);
+            $user->password = Hash::make($input['password']);
 
             if ($user->save()) {
                 event(new UserPasswordChanged($user));
@@ -323,15 +325,19 @@ class UserRepository extends BaseRepository
      * @param  $user
      *
      * @throws GeneralException
+     *
+     * @return null
      */
-    protected function checkUserByEmail($input, $user)
+    protected function checkUserByEmail($input, $user = null)
     {
         //Figure out if email is not the same
-        if ($user->email != $input['email']) {
-            //Check to see if email exists
-            if ($this->query()->where('email', '=', $input['email'])->first()) {
-                throw new GeneralException(trans('exceptions.backend.access.users.email_error'));
-            }
+        if ($user && $user->email === $input['email']) {
+            return;
+        }
+
+        //Check to see if email exists
+        if ($this->query()->where('email', '=', $input['email'])->withTrashed()->exists()) {
+            throw new GeneralException(trans('exceptions.backend.access.users.email_error'));
         }
     }
 
@@ -387,7 +393,7 @@ class UserRepository extends BaseRepository
         $user->first_name = $input['first_name'];
         $user->last_name = $input['last_name'];
         $user->email = $input['email'];
-        $user->password = bcrypt($input['password']);
+        $user->password = Hash::make($input['password']);
         $user->status = isset($input['status']) ? 1 : 0;
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
         $user->confirmed = isset($input['confirmed']) ? 1 : 0;

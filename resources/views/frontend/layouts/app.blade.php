@@ -13,6 +13,7 @@
         <!-- Meta -->
         <meta name="description" content="@yield('meta_description', 'Laravel AdminPanel')">
         <meta name="author" content="@yield('meta_author', 'Viral Solani')">
+        <meta name="keywords" content="@yield('meta_keywords', 'Laravel AdminPanel')">
         @yield('meta')
 
         <!-- Styles -->

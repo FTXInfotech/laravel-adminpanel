@@ -88,7 +88,7 @@ class Handler extends ExceptionHandler
             */
             if ($exception instanceof UnauthorizedHttpException) {
                 switch (get_class($exception->getPrevious())) {
-                    case \App\Exceptions\Handler::class:
+                    case self::class:
                         return $this->setStatusCode($exception->getStatusCode())->respondWithError('Token has not been provided.');
                 }
             }
