@@ -5,7 +5,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/viralsolani/laravel-adminpanel.svg?style=plastic)](https://github.com/viralsolani/laravel-adminpanel/issues)
 ![StyleCI](https://img.shields.io/badge/styleCI-passed-brightgreen.svg?style=plastic)
 
-## [Demo](https://apiway.in/)
+## [Demo](https://laravel-adminpanel.vrkansagara.in/)
 
 ## Introduction
 * This is a laravel Admin Panel, based on [Rappasoft Laravel Boilerplate](https://github.com/rappasoft/laravel-5-boilerplate/releases/tag/4.5.7), with enhancemenets and many modules pre-made, just for you.
@@ -48,7 +48,7 @@ Switch to the repo folder
 
     cd laravel-adminpanel
 
-If you have linux system, you can execute below command only in your project root
+If you have linux system, you can execute the command below only in your project root
 
     1) sudo chmod -R 777 install.sh
     2) ./install.sh
