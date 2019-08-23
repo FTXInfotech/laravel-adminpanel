@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6c62966f217649933d96ee916365b8b",
+    "content-hash": "bc7cfbdcc12b751fca065d9e692de5fc",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -55,9 +55,9 @@
             "authors": [
                 {
                     "name": "ARCANEDEV",
+                    "role": "Developer",
                     "email": "arcanedev.maroc@gmail.com",
-                    "homepage": "https://github.com/arcanedev-maroc",
-                    "role": "Developer"
+                    "homepage": "https://github.com/arcanedev-maroc"
                 }
             ],
             "description": "Provides a Log Viewer for Laravel 5",
@@ -75,45 +75,47 @@
         },
         {
             "name": "arcanedev/no-captcha",
-            "version": "5.0.1",
+            "version": "9.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ARCANEDEV/noCAPTCHA.git",
-                "reference": "c02d7f1ef25d281f304b9af460a13f4601bbc44c"
+                "reference": "f012c78b1c6b562c8ed692f121652f484d700248"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ARCANEDEV/noCAPTCHA/zipball/c02d7f1ef25d281f304b9af460a13f4601bbc44c",
-                "reference": "c02d7f1ef25d281f304b9af460a13f4601bbc44c",
+                "url": "https://api.github.com/repos/ARCANEDEV/noCAPTCHA/zipball/f012c78b1c6b562c8ed692f121652f484d700248",
+                "reference": "f012c78b1c6b562c8ed692f121652f484d700248",
                 "shasum": ""
             },
             "require": {
-                "arcanedev/support": "~4.0",
+                "arcanedev/php-html": "~2.0.0",
+                "arcanedev/support": "~4.5.0",
                 "ext-curl": "*",
                 "ext-json": "*",
-                "php": ">=7.0",
+                "php": ">=7.1.3",
                 "psr/http-message": "~1.0"
             },
             "require-dev": {
-                "arcanedev/laravel-html": "~5.0",
-                "phpunit/phpcov": "~4.0",
-                "phpunit/phpunit": "~6.0"
+                "arcanedev/laravel-html": "~5.8.0",
+                "orchestra/testbench": "~3.8.0",
+                "phpunit/phpcov": "~5.0|~6.0",
+                "phpunit/phpunit": "~7.0|~8.0"
             },
             "type": "library",
             "extra": {
                 "laravel": {
                     "providers": [
                         "Arcanedev\\NoCaptcha\\NoCaptchaServiceProvider"
-                    ],
-                    "aliases": {
-                        "Captcha": "Arcanedev\\NoCaptcha\\Facades\\NoCaptcha"
-                    }
+                    ]
                 }
             },
             "autoload": {
                 "psr-4": {
                     "Arcanedev\\NoCaptcha\\": "src/"
-                }
+                },
+                "files": [
+                    "helpers.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -122,9 +124,9 @@
             "authors": [
                 {
                     "name": "ARCANEDEV",
+                    "role": "Developer",
                     "email": "arcanedev.maroc@gmail.com",
-                    "homepage": "https://github.com/arcanedev-maroc",
-                    "role": "Developer"
+                    "homepage": "https://github.com/arcanedev-maroc"
                 }
             ],
             "description": "No CAPTCHA (new Google reCAPTCHA) with Laravel support",
@@ -137,7 +139,58 @@
                 "no-captcha",
                 "recaptcha"
             ],
-            "time": "2017-09-08T13:38:56+00:00"
+            "time": "2019-02-27T21:43:52+00:00"
+        },
+        {
+            "name": "arcanedev/php-html",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ARCANEDEV/php-html.git",
+                "reference": "9132616bbc817b7aaa7bec6bce26abe05c3aa5bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ARCANEDEV/php-html/zipball/9132616bbc817b7aaa7bec6bce26abe05c3aa5bd",
+                "reference": "9132616bbc817b7aaa7bec6bce26abe05c3aa5bd",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.8",
+                "php": ">=7.1.3"
+            },
+            "require-dev": {
+                "ext-dom": "*",
+                "phpunit/phpcov": "~5.0|~6.0",
+                "phpunit/phpunit": "~7.0|~8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Arcanedev\\Html\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ARCANEDEV",
+                    "role": "Developer",
+                    "email": "arcanedev.maroc@gmail.com",
+                    "homepage": "https://github.com/arcanedev-maroc"
+                }
+            ],
+            "description": "A simple way to create html tags with php.",
+            "homepage": "https://github.com/ARCANEDEV/php-html",
+            "keywords": [
+                "arcanedev",
+                "form",
+                "html",
+                "tags"
+            ],
+            "time": "2019-07-24T08:40:16+00:00"
         },
         {
             "name": "arcanedev/support",
@@ -243,9 +296,9 @@
             "authors": [
                 {
                     "name": "Marcel Pociot",
+                    "role": "Developer",
                     "email": "marcel@beyondco.de",
-                    "homepage": "https://beyondcode.de",
-                    "role": "Developer"
+                    "homepage": "https://beyondcode.de"
                 }
             ],
             "description": "Perform various self diagnosis tests on your Laravel application.",
@@ -359,9 +412,9 @@
             "authors": [
                 {
                     "name": "Jaco Tijssen",
+                    "role": "Developer",
                     "email": "jaco@creativeorange.nl",
-                    "homepage": "https://www.creativeorange.nl",
-                    "role": "Developer"
+                    "homepage": "https://www.creativeorange.nl"
                 }
             ],
             "description": "Gravatar for Laravel 5.0.x through 5.5.x package for retrieving gravatar image URLs or checking the existance of an image.",
@@ -1131,13 +1184,13 @@
             "authors": [
                 {
                     "name": "Neuman Vong",
-                    "email": "neuman+pear@twilio.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "neuman+pear@twilio.com"
                 },
                 {
                     "name": "Anant Narayanan",
-                    "email": "anant@php.net",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "anant@php.net"
                 }
             ],
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
@@ -2041,8 +2094,8 @@
             "authors": [
                 {
                     "name": "Luís Otávio Cobucci Oblonczyk",
-                    "email": "lcobucci@gmail.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "lcobucci@gmail.com"
                 }
             ],
             "description": "A simple library to work with JSON Web Token and JSON Web Signature",
@@ -2227,9 +2280,9 @@
             "authors": [
                 {
                     "name": "Ben Corlett",
+                    "role": "Developer",
                     "email": "bencorlett@me.com",
-                    "homepage": "http://www.webcomm.com.au",
-                    "role": "Developer"
+                    "homepage": "http://www.webcomm.com.au"
                 }
             ],
             "description": "OAuth 1.0 Client Library",
@@ -2296,15 +2349,15 @@
             "authors": [
                 {
                     "name": "Alex Bilbie",
+                    "role": "Developer",
                     "email": "hello@alexbilbie.com",
-                    "homepage": "http://www.alexbilbie.com",
-                    "role": "Developer"
+                    "homepage": "http://www.alexbilbie.com"
                 },
                 {
                     "name": "Andy Millington",
+                    "role": "Developer",
                     "email": "andrew@noexceptions.io",
-                    "homepage": "https://www.noexceptions.io",
-                    "role": "Developer"
+                    "homepage": "https://www.noexceptions.io"
                 }
             ],
             "description": "A lightweight and powerful OAuth 2.0 authorization and resource server library with support for all the core specification grants. This library will allow you to secure your API with OAuth and allow your applications users to approve apps that want to access their data from your API.",
@@ -4747,8 +4800,8 @@
             "authors": [
                 {
                     "name": "Tijs Verkoyen",
-                    "email": "css_to_inline_styles@verkoyen.eu",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "css_to_inline_styles@verkoyen.eu"
                 }
             ],
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
@@ -5929,18 +5982,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "email": "sebastian@phpeople.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpeople.de"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Component for reading phar.io manifest information from a PHP Archive (PHAR)",
@@ -5976,18 +6029,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "email": "sebastian@phpeople.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpeople.de"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library for handling version information and constraints",
@@ -6360,8 +6413,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "FilterIterator implementation that filters files based on a list of suffixes.",
@@ -6402,8 +6455,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Simple template engine.",
@@ -6451,8 +6504,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Utility class for timing",
@@ -7201,8 +7254,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
@@ -7514,8 +7567,8 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
