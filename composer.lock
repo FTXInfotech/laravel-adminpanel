@@ -196,22 +196,22 @@
         },
         {
             "name": "beyondcode/laravel-self-diagnosis",
-            "version": "1.2.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beyondcode/laravel-self-diagnosis.git",
-                "reference": "0d9a06d774a8cc20806879a2e831075b17d8f0ac"
+                "reference": "803bed67402f83881c402dfbeae7204d90730fc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beyondcode/laravel-self-diagnosis/zipball/0d9a06d774a8cc20806879a2e831075b17d8f0ac",
-                "reference": "0d9a06d774a8cc20806879a2e831075b17d8f0ac",
+                "url": "https://api.github.com/repos/beyondcode/laravel-self-diagnosis/zipball/803bed67402f83881c402dfbeae7204d90730fc0",
+                "reference": "803bed67402f83881c402dfbeae7204d90730fc0",
                 "shasum": ""
             },
             "require": {
                 "composer/semver": "^1.4",
                 "geerlingguy/ping": "^1.1",
-                "illuminate/support": "5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*",
+                "illuminate/support": "5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|^6.0",
                 "php": "^7.1",
                 "vlucas/phpdotenv": "~2.5|~3.3"
             },
@@ -254,7 +254,7 @@
                 "beyondcode",
                 "laravel-self-diagnosis"
             ],
-            "time": "2019-03-20T15:23:20+00:00"
+            "time": "2019-08-26T21:23:08+00:00"
         },
         {
             "name": "composer/semver",
