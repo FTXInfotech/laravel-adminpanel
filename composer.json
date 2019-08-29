@@ -13,7 +13,7 @@
     "require": {
         "php": ">=7.1.3",
         "arcanedev/log-viewer": "^4.5",
-        "arcanedev/no-captcha": "^5.0",
+        "arcanedev/no-captcha": "^9.0",
         "beyondcode/laravel-self-diagnosis": "^1.2",
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^5.0",

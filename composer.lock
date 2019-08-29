@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6c62966f217649933d96ee916365b8b",
+    "content-hash": "bc7cfbdcc12b751fca065d9e692de5fc",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -75,45 +75,47 @@
         },
         {
             "name": "arcanedev/no-captcha",
-            "version": "5.0.1",
+            "version": "9.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ARCANEDEV/noCAPTCHA.git",
-                "reference": "c02d7f1ef25d281f304b9af460a13f4601bbc44c"
+                "reference": "f012c78b1c6b562c8ed692f121652f484d700248"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ARCANEDEV/noCAPTCHA/zipball/c02d7f1ef25d281f304b9af460a13f4601bbc44c",
-                "reference": "c02d7f1ef25d281f304b9af460a13f4601bbc44c",
+                "url": "https://api.github.com/repos/ARCANEDEV/noCAPTCHA/zipball/f012c78b1c6b562c8ed692f121652f484d700248",
+                "reference": "f012c78b1c6b562c8ed692f121652f484d700248",
                 "shasum": ""
             },
             "require": {
-                "arcanedev/support": "~4.0",
+                "arcanedev/php-html": "~2.0.0",
+                "arcanedev/support": "~4.5.0",
                 "ext-curl": "*",
                 "ext-json": "*",
-                "php": ">=7.0",
+                "php": ">=7.1.3",
                 "psr/http-message": "~1.0"
             },
             "require-dev": {
-                "arcanedev/laravel-html": "~5.0",
-                "phpunit/phpcov": "~4.0",
-                "phpunit/phpunit": "~6.0"
+                "arcanedev/laravel-html": "~5.8.0",
+                "orchestra/testbench": "~3.8.0",
+                "phpunit/phpcov": "~5.0|~6.0",
+                "phpunit/phpunit": "~7.0|~8.0"
             },
             "type": "library",
             "extra": {
                 "laravel": {
                     "providers": [
                         "Arcanedev\\NoCaptcha\\NoCaptchaServiceProvider"
-                    ],
-                    "aliases": {
-                        "Captcha": "Arcanedev\\NoCaptcha\\Facades\\NoCaptcha"
-                    }
+                    ]
                 }
             },
             "autoload": {
                 "psr-4": {
                     "Arcanedev\\NoCaptcha\\": "src/"
-                }
+                },
+                "files": [
+                    "helpers.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -137,7 +139,58 @@
                 "no-captcha",
                 "recaptcha"
             ],
-            "time": "2017-09-08T13:38:56+00:00"
+            "time": "2019-02-27T21:43:52+00:00"
+        },
+        {
+            "name": "arcanedev/php-html",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ARCANEDEV/php-html.git",
+                "reference": "9132616bbc817b7aaa7bec6bce26abe05c3aa5bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ARCANEDEV/php-html/zipball/9132616bbc817b7aaa7bec6bce26abe05c3aa5bd",
+                "reference": "9132616bbc817b7aaa7bec6bce26abe05c3aa5bd",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.8",
+                "php": ">=7.1.3"
+            },
+            "require-dev": {
+                "ext-dom": "*",
+                "phpunit/phpcov": "~5.0|~6.0",
+                "phpunit/phpunit": "~7.0|~8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Arcanedev\\Html\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ARCANEDEV",
+                    "role": "Developer",
+                    "email": "arcanedev.maroc@gmail.com",
+                    "homepage": "https://github.com/arcanedev-maroc"
+                }
+            ],
+            "description": "A simple way to create html tags with php.",
+            "homepage": "https://github.com/ARCANEDEV/php-html",
+            "keywords": [
+                "arcanedev",
+                "form",
+                "html",
+                "tags"
+            ],
+            "time": "2019-07-24T08:40:16+00:00"
         },
         {
             "name": "arcanedev/support",
