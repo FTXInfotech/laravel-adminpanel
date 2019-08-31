@@ -13,7 +13,7 @@
     "require": {
         "php": ">=7.1.3",
         "arcanedev/log-viewer": "^4.5",
-        "arcanedev/no-captcha": "^5.0",
+        "arcanedev/no-captcha": "^9.0",
         "beyondcode/laravel-self-diagnosis": "^1.2",
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^5.0",
@@ -30,7 +30,7 @@
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
-        "bvipul/generator": "^5.8.1",
+        "bvipul/generator": "^5.8.2",
         "codedungeon/phpunit-result-printer": "^0.26.1",
         "filp/whoops": "^2.0",
         "friendsofphp/php-cs-fixer": "^2.14",
