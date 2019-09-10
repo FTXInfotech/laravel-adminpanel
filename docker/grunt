@@ -1,0 +1,2 @@
+#!/bin/bash
+docker/cli node_modules/grunt/bin/grunt "$@"
