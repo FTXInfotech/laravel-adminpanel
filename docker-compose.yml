@@ -1,15 +1,21 @@
 version: "3"
 
 services:
+  # proxy:
+  #   image: nginx # this will use the latest version of 1.11.x
+  #   ports:
+  #     - '80:80' # expose 80 on host and sent to 80 in container
+  #   volumes:
+  #     - ./docker/app/nginx.conf:/etc/nginx/conf.d/default.conf:ro
   app:
     image: lap-www
     container_name: lap-www
     build:
       context: ./docker/app
       dockerfile: Dockerfile
-    restart: always
     ports:
-      - 80:80
+      - '80:80'
+    restart: always
     volumes:
       - .:/var/www/html/
   mysql:
