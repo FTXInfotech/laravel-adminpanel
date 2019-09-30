@@ -8,20 +8,21 @@
     "packages": [
         {
             "name": "arcanedev/log-viewer",
-            "version": "4.7.2",
+            "version": "4.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ARCANEDEV/LogViewer.git",
-                "reference": "9ae1d23f67d5d1c7490c69636b34303457fb0af3"
+                "reference": "bb7bbce12d6220edff8bb4a2e45d1210cb4e08b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ARCANEDEV/LogViewer/zipball/9ae1d23f67d5d1c7490c69636b34303457fb0af3",
-                "reference": "9ae1d23f67d5d1c7490c69636b34303457fb0af3",
+                "url": "https://api.github.com/repos/ARCANEDEV/LogViewer/zipball/bb7bbce12d6220edff8bb4a2e45d1210cb4e08b6",
+                "reference": "bb7bbce12d6220edff8bb4a2e45d1210cb4e08b6",
                 "shasum": ""
             },
             "require": {
                 "arcanedev/support": "~4.5.0",
+                "ext-json": "*",
                 "php": ">=7.1.3",
                 "psr/log": "~1.0"
             },
@@ -71,7 +72,7 @@
                 "log-viewer",
                 "logviewer"
             ],
-            "time": "2019-04-13T10:01:41+00:00"
+            "time": "2019-09-12T19:13:38+00:00"
         },
         {
             "name": "arcanedev/no-captcha",
@@ -7618,8 +7619,8 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
