@@ -35,7 +35,7 @@ class ViewResponse implements Responsable
      */
     public function toResponse($request)
     {
-        if (! empty($this->with)) {
+        if (!empty($this->with)) {
             return view($this->view)->with($this->with);
         }
 

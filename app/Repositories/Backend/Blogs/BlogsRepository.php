@@ -228,7 +228,7 @@ class BlogsRepository extends BaseRepository
     {
         $avatar = $input['featured_image'];
 
-        if (isset($input['featured_image']) && ! empty($input['featured_image'])) {
+        if (isset($input['featured_image']) && !empty($input['featured_image'])) {
             $fileName = time().$avatar->getClientOriginalName();
 
             $this->storage->put($this->upload_path.$fileName, file_get_contents($avatar->getRealPath()));
