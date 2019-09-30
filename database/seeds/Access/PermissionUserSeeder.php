@@ -26,7 +26,7 @@ class PermissionUserSeeder extends Seeder
         $user = new $user_model();
         $user = $user::find(2);
         $permissions = $user->roles->first()->permissions->pluck('id');
-        if (! empty($permissions)) {
+        if (!empty($permissions)) {
             $user->permissions()->sync($permissions);
         }
 
@@ -35,7 +35,7 @@ class PermissionUserSeeder extends Seeder
         $user = new $user_model();
         $user = $user::find(3);
         $permissions = $user->roles->first()->permissions->pluck('id');
-        if (! empty($permissions)) {
+        if (!empty($permissions)) {
             $user->permissions()->sync($permissions);
         }
 
