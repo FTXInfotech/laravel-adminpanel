@@ -29,7 +29,7 @@ class AuthController extends APIController
         $credentials = $request->only(['email', 'password']);
 
         try {
-            if (!Auth::attempt($credentials)) {
+            if (! Auth::attempt($credentials)) {
                 return $this->throwValidation(trans('api.messages.login.failed'));
             }
 

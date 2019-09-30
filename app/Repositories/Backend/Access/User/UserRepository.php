@@ -102,7 +102,7 @@ class UserRepository extends BaseRepository
             if ($user->save()) {
 
                 //User Created, Validate Roles
-                if (!count($roles)) {
+                if (! count($roles)) {
                     throw new GeneralException(trans('exceptions.backend.access.users.role_needed_create'));
                 }
 
@@ -306,10 +306,12 @@ class UserRepository extends BaseRepository
         switch ($status) {
             case 0:
                 event(new UserDeactivated($user));
+
             break;
 
             case 1:
                 event(new UserReactivated($user));
+
             break;
         }
 
@@ -410,7 +412,7 @@ class UserRepository extends BaseRepository
      */
     public function getByPermission($permissions, $by = 'name')
     {
-        if (!is_array($permissions)) {
+        if (! is_array($permissions)) {
             $permissions = [$permissions];
         }
 
@@ -427,7 +429,7 @@ class UserRepository extends BaseRepository
      */
     public function getByRole($roles, $by = 'name')
     {
-        if (!is_array($roles)) {
+        if (! is_array($roles)) {
             $roles = [$roles];
         }
 

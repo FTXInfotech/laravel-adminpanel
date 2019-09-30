@@ -18,9 +18,13 @@ namespace App\Http\Utilities;
 abstract class Notification
 {
     protected $_message = null;
+
     protected $_devices = null;
+
     protected $_response = null;
+
     protected $_body = null;
+
     protected static $_url = null;
 
     /*
@@ -126,7 +130,7 @@ abstract class Notification
     public function raiseerror($errorCode)
     {
         $codeValue = $this->getErrorMessages();
-        if (!isset($codeValue[$errorCode])) {
+        if (! isset($codeValue[$errorCode])) {
             $errorException = 'Erro code '.$errorCode;
         } else {
             $errorException = $codeValue[$errorCode];

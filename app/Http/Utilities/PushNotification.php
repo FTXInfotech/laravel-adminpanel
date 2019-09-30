@@ -28,10 +28,12 @@ class PushNotification
                     return $this->_pushToIos($devicetoken, $msg);
 
                     return true;
+
                     break;
 
                 case 'android':
                     return $this->_pushToAndroid($devicetoken, $msg);
+
                     break;
 
                 default:
@@ -59,7 +61,7 @@ class PushNotification
      */
     public function _pushToAndroid($registrationIds, $msg)
     {
-        if (!is_array($registrationIds)) {
+        if (! is_array($registrationIds)) {
             $registrationIds = [$registrationIds];
         }
         $fields = [
@@ -106,7 +108,7 @@ class PushNotification
 
         //$fp = stream_socket_client('ssl://gateway.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
 
-        if (!$fp) {
+        if (! $fp) {
             exit("Failed to connect amarnew: $err $errstr".PHP_EOL);
         }
 
@@ -120,7 +122,7 @@ class PushNotification
 
         $result = fwrite($fp, $msg, strlen($msg));
 
-        if (!$result) {
+        if (! $result) {
             return false;
         } else {
             return true;

@@ -166,7 +166,7 @@ class EloquentHistoryRepository implements HistoryContract
     {
         $history = History::with('user')->latest();
         $history = $this->buildPagination($history, $limit, $paginate, $pagination);
-        if (!$history->count()) {
+        if (! $history->count()) {
             return trans('history.backend.none');
         }
 
@@ -186,7 +186,7 @@ class EloquentHistoryRepository implements HistoryContract
         $history = History::with('user');
         $history = $this->checkType($history, $type);
         $history = $this->buildPagination($history, $limit, $paginate, $pagination);
-        if (!$history->count()) {
+        if (! $history->count()) {
             return trans('history.backend.none_for_type');
         }
 
@@ -207,7 +207,7 @@ class EloquentHistoryRepository implements HistoryContract
         $history = History::with('user', 'type')->where('entity_id', $entity_id);
         $history = $this->checkType($history, $type);
         $history = $this->buildPagination($history, $limit, $paginate, $pagination);
-        if (!$history->count()) {
+        if (! $history->count()) {
             return trans('history.backend.none_for_entity', ['entity' => $type]);
         }
 
@@ -243,18 +243,22 @@ class EloquentHistoryRepository implements HistoryContract
                             switch (count($values)) {
                                 case 1:
                                     $text = str_replace('{'.$key.'}', link_to_route($values[0], $values[0]), $text);
+
                                 break;
 
                                 case 2:
                                     $text = str_replace('{'.$key.'}', link_to_route($values[0], $values[1]), $text);
+
                                 break;
 
                                 case 3:
                                     $text = str_replace('{'.$key.'}', link_to_route($values[0], $values[1], $values[2]), $text);
+
                                 break;
 
                                 case 4:
                                     $text = str_replace('{'.$key.'}', link_to_route($values[0], $values[1], $values[2], $values[3]), $text);
+
                                 break;
                             }
                         } else {
@@ -266,6 +270,7 @@ class EloquentHistoryRepository implements HistoryContract
 
                     case 'string':
                         $text = str_replace('{'.$key.'}', $values, $text);
+
                     break;
                 }
 

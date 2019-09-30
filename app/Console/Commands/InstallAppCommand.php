@@ -94,7 +94,7 @@ class InstallAppCommand extends Command
             $this->error('Missing '.ucfirst($missing_extension).' extension');
         }
 
-        if (!file_exists('.env')) {
+        if (! file_exists('.env')) {
             File::copy('.env.example', '.env');
         }
 
@@ -149,7 +149,7 @@ class InstallAppCommand extends Command
         $this->username = env('DB_USERNAME');
         $this->password = env('DB_PASSWORD');
 
-        while (!checkDatabaseConnection()) {
+        while (! checkDatabaseConnection()) {
             // Ask for database details
             $this->host = $this->ask('Enter a host name?', config('config-variables.default_db_host'));
             $this->port = $this->ask('Enter a database port?', config('config-variables.default_db_port'));
@@ -173,7 +173,7 @@ class InstallAppCommand extends Command
             $contents = preg_replace('/('.preg_quote('DB_USERNAME=').')(.*)/', 'DB_USERNAME='.$this->username, $contents);
             $contents = preg_replace('/('.preg_quote('DB_PASSWORD=').')(.*)/', 'DB_PASSWORD='.$this->password, $contents);
 
-            if (!$contents) {
+            if (! $contents) {
                 throw new Exception('Error while writing credentials to .env file.');
             }
 
@@ -187,7 +187,7 @@ class InstallAppCommand extends Command
             // Clear DB name in config
             unset($this->laravel['config']['database.connections.mysql.database']);
 
-            if (!checkDatabaseConnection()) {
+            if (! checkDatabaseConnection()) {
                 $this->error('Can not connect to database!');
             } else {
                 $this->info('Connected successfully!');
@@ -242,7 +242,7 @@ class InstallAppCommand extends Command
      */
     protected function createDatabase($database)
     {
-        if (!$database) {
+        if (! $database) {
             $this->info('Skipping creation of database as env(DB_DATABASE) is empty');
 
             return;
@@ -271,7 +271,7 @@ class InstallAppCommand extends Command
      */
     protected function dumpDB($database)
     {
-        if (!empty($database)) {
+        if (! empty($database)) {
             // Force the new login to be used
             DB::purge();
 

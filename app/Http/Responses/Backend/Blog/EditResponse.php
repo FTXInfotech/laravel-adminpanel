@@ -7,8 +7,11 @@ use Illuminate\Contracts\Support\Responsable;
 class EditResponse implements Responsable
 {
     protected $blog;
+
     protected $status;
+
     protected $blogTags;
+
     protected $blogCategories;
 
     public function __construct($blog, $status, $blogCategories, $blogTags)

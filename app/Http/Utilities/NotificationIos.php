@@ -7,11 +7,15 @@ class NotificationIos extends Notification
     const BADGE_ID = 0;
 
     protected $_passPhrase = null;            // for authentication of .pem file or password of .pem file
+
     protected $_pemFile = null;            // for send notificetion .pem file is must add in that code
+
     protected static $_url = 'ssl://gateway.sandbox.push.apple.com:2195';                                           // url for send push message
 
     const ERROR_PEM_NOTACCESSIBLE = 1;          // exception error for file not get
+
     const ERROR_PASSPHRASE_EMPTY = 2;          // exception error for passphrese empty
+
     const ERROR_CONNECTION_FAILED = 3;          // exception error for connection failed
 
     protected $sendNotification = 1;          // exception error for connection failed
@@ -50,7 +54,7 @@ class NotificationIos extends Notification
         stream_context_set_option($ctx, 'ssl', 'passphrase', $this->_passPhrase);
         $fp = stream_socket_client(self::$_url, $err, $errstr, 60, STREAM_CLIENT_CONNECT, $ctx);
 
-        if (!$fp) {
+        if (! $fp) {
             $this->raiseerror(self::ERROR_CONNECTION_FAILED);
         }
         //return 'Connected to APNS' . PHP_EOL;
@@ -68,7 +72,7 @@ class NotificationIos extends Notification
             $result = fwrite($fp, $msg, strlen($msg));
         }
         //echo "<br>-------<br>";
-        if (!$result) {
+        if (! $result) {
             return 'Message not delivered'.PHP_EOL;
         } else {
             return 'Message successfully delivered'.PHP_EOL;
@@ -103,7 +107,7 @@ class NotificationIos extends Notification
         // echo $_SERVER['DOCUMENT_ROOT'].'/app/Http/Controllers/Utilities/'.$pemFile;exit;
         //echo dirname(__FILE__); exit;
         // echo file_get_contents(dirname(__FILE__).'/'.$pemFile); exit;
-        if (!(file_exists($newPemFilePath)) && !(is_readable($newPemFilePath))) {
+        if (! (file_exists($newPemFilePath)) && ! (is_readable($newPemFilePath))) {
             $error = $this->raiseerror(self::ERROR_PEM_NOTACCESSIBLE);
         }
         $this->_pemFile = $newPemFilePath;

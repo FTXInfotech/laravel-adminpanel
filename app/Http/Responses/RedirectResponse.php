@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Responsable;
 class RedirectResponse implements Responsable
 {
     protected $route;
+
     protected $message;
 
     public function __construct($route, $message)
