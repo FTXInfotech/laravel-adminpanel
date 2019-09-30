@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 
 services:
   # proxy:
@@ -14,7 +14,7 @@ services:
       context: ./docker/app
       dockerfile: Dockerfile
     ports:
-      - '80:80'
+      - 8080:80
     restart: always
     volumes:
       - .:/var/www/html/
@@ -23,7 +23,7 @@ services:
     image: mysql:5.7
     restart: always
     ports:
-      - 13306:3306
+      - 3306:3306
     volumes:
       - mysql:/var/lib/mysql
     environment:
@@ -36,7 +36,7 @@ services:
     image: redis:4-alpine
     restart: always
     ports:
-      - 16379:6379
+      - 6379:6379
     volumes:
       - redis:/data
   phpmyadmin:
@@ -44,7 +44,7 @@ services:
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
-      - 8081:80
+      - 8001:80
     links:
       - mysql
     environment:
