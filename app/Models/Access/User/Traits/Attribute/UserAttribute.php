@@ -151,6 +151,7 @@ trait UserAttribute
 
                         return '<a class="'.$class.'" href="'.route('admin.access.user.mark', [$this, 1]).'"><i class="fa fa-check-square" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.activate').'"></i>'.$name.'</a>';
                     }
+
                     break;
 
                 case 1:
@@ -159,6 +160,7 @@ trait UserAttribute
 
                         return '<a class="'.$class.'" href="'.route('admin.access.user.mark', [$this, 0]).'"><i class="fa fa-square" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.backend.access.users.deactivate').'"></i>'.$name.'</a>';
                     }
+
                     break;
 
                 default:
@@ -313,6 +315,7 @@ trait UserAttribute
                 $button = ($counter <= 3) ? $this->getShowButtonAttribute($class) : '<li>'
                     .$this->getShowButtonAttribute($class).
                     '</li>';
+
                 break;
             case 'edit-user':
                 $button = ($counter <= 3) ? $this->getEditButtonAttribute($class) : '<li>'
@@ -321,6 +324,7 @@ trait UserAttribute
                 $button .= ($counter <= 3) ? $this->getChangePasswordButtonAttribute($class) : '<li>'
                     .$this->getChangePasswordButtonAttribute($class).
                     '</li>';
+
                 break;
             case 'activate-user':
                 if (\Route::currentRouteName() == 'admin.access.user.deactivated.get') {
@@ -330,6 +334,7 @@ trait UserAttribute
                 } else {
                     $button = '';
                 }
+
                 break;
             case 'deactivate-user':
                 if (\Route::currentRouteName() == 'admin.access.user.get') {
@@ -339,6 +344,7 @@ trait UserAttribute
                 } else {
                     $button = '';
                 }
+
                 break;
             case 'delete-user':
                 if (access()->user()->id != $this->id) {
@@ -348,6 +354,7 @@ trait UserAttribute
                 } else {
                     $button = '';
                 }
+
                 break;
             case 'login-as-user':
                 if (access()->user()->id != $this->id) {
@@ -357,6 +364,7 @@ trait UserAttribute
                 } else {
                     $button = '';
                 }
+
                 break;
             case 'clear-user-session':
                 if (access()->user()->id != $this->id) {
@@ -366,9 +374,11 @@ trait UserAttribute
                 } else {
                     $button = '';
                 }
+
                 break;
             default:
                 $button = '';
+
                 break;
         }
 

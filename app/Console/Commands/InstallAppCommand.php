@@ -8,6 +8,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use PDOException;
 use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
 use Symfony\Component\Console\Question\Question;
@@ -217,7 +218,7 @@ class InstallAppCommand extends Command
             $segments = array_reverse(explode(DIRECTORY_SEPARATOR, app_path()));
             $name = explode('.', $segments[1])[0];
 
-            return str_replace('-', '_', str_slug($name));
+            return str_replace('-', '_', Str::slug($name));
         } catch (Exception $e) {
             return '';
         }

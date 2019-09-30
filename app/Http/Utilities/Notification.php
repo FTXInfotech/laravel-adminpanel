@@ -18,9 +18,13 @@ namespace App\Http\Utilities;
 abstract class Notification
 {
     protected $_message = null;
+
     protected $_devices = null;
+
     protected $_response = null;
+
     protected $_body = null;
+
     protected static $_url = null;
 
     /*
