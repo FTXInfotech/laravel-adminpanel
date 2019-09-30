@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Backend\Blogs;
 
-use Illuminate\Support\Str;
 use App\Events\Backend\Blogs\BlogCreated;
 use App\Events\Backend\Blogs\BlogDeleted;
 use App\Events\Backend\Blogs\BlogUpdated;
@@ -16,6 +15,7 @@ use App\Repositories\BaseRepository;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * Class BlogsRepository.

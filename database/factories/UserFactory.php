@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Str;
 use App\Models\Access\User\User;
 use Faker\Generator;
+use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Generator $faker) {
     static $password;

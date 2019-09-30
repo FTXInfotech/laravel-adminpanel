@@ -2,13 +2,13 @@
 
 namespace App\Repositories\Backend\Pages;
 
-use Illuminate\Support\Str;
 use App\Events\Backend\Pages\PageCreated;
 use App\Events\Backend\Pages\PageDeleted;
 use App\Events\Backend\Pages\PageUpdated;
 use App\Exceptions\GeneralException;
 use App\Models\Page\Page;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Str;
 
 /**
  * Class PagesRepository.

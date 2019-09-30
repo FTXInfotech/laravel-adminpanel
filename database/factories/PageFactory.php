@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Str;
 use App\Models\Access\User\User;
 use App\Models\Page\Page;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 $factory->define(Page::class, function (Faker $faker) {
     $title = $faker->sentence;
