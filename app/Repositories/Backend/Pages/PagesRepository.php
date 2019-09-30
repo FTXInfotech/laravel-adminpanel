@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Backend\Pages;
 
+use Illuminate\Support\Str;
 use App\Events\Backend\Pages\PageCreated;
 use App\Events\Backend\Pages\PageDeleted;
 use App\Events\Backend\Pages\PageUpdated;
@@ -51,7 +52,7 @@ class PagesRepository extends BaseRepository
         }
 
         // Making extra fields
-        $input['page_slug'] = str_slug($input['title']);
+        $input['page_slug'] = Str::slug($input['title']);
         $input['status'] = isset($input['status']) ? 1 : 0;
         $input['created_by'] = auth()->id();
 
@@ -79,7 +80,7 @@ class PagesRepository extends BaseRepository
         }
 
         // Making extra fields
-        $input['page_slug'] = str_slug($input['title']);
+        $input['page_slug'] = Str::slug($input['title']);
         $input['status'] = isset($input['status']) ? 1 : 0;
         $input['updated_by'] = access()->user()->id;
 
