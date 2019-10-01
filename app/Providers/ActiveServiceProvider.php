@@ -5,12 +5,11 @@ namespace App\Providers;
 use App\Services\Active\Active;
 use Illuminate\Foundation\Application;
 use Illuminate\Routing\Events\RouteMatched;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
 
 class ActiveServiceProvider extends ServiceProvider
 {
-
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -48,7 +47,6 @@ class ActiveServiceProvider extends ServiceProvider
         $this->registerActive();
         $this->registerFacade();
 
-
         // $this->app->singleton(
         //     'active',
         //     function ($app) {
@@ -84,5 +82,4 @@ class ActiveServiceProvider extends ServiceProvider
             $loader->alias('Active', \App\Services\Access\Facades\Active::class);
         });
     }
-
 }
