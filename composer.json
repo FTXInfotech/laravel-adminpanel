@@ -12,14 +12,13 @@
     "type": "project",
     "require": {
         "php": "^7.2",
-        "arcanedev/log-viewer": "^5.0",
-        "arcanedev/no-captcha": "^9.0",
         "beyondcode/laravel-self-diagnosis": "^1.2",
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^5.0",
         "doctrine/dbal": "^2.9",
+        "arcanedev/no-captcha": "10.0.0",
+        "arcanedev/log-viewer": "^5.0",
         "fideloper/proxy": "^4.0",
-        "hieu-le/active": "^3.5",
         "laravel/framework": "^6.0",
         "laravel/passport": "^7.3.3",
         "laravel/socialite": "^4.2",
@@ -55,7 +54,8 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Helpers/helpers.php"
+            "app/Helpers/helpers.php",
+            "app/Helpers/activeHelpers.php"
         ]
     },
     "autoload-dev": {
