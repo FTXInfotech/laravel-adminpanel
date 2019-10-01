@@ -343,6 +343,9 @@ $-webkit-keyframes flipInX {
         left: auto;
         border: 1px solid #ddd;
         background: #fff;
+        a {
+          color: #333 !important;
+        }
       }
     }
   }
