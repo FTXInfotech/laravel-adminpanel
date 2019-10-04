@@ -20,7 +20,7 @@ class ActiveServiceProvider extends ServiceProvider
     public function boot()
     {
         // Update the instances each time a request is resolved and a route is matched
-        $instance = new Active(request());
+        $instance = app('active');
 
         if (version_compare(Application::VERSION, '5.2.0', '>=')) {
             app('router')->matched(
@@ -44,42 +44,13 @@ class ActiveServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerActive();
-        $this->registerFacade();
+        $this->app->singleton(
+            'active',
+            function ($app) {
+                $instance = new Active($app['router']->getCurrentRequest());
 
-        // $this->app->singleton(
-        //     'active',
-        //     function ($app) {
-
-        //         $instance = new Active($app['router']->getCurrentRequest());
-
-        //         return $instance;
-        //     }
-        // );
-    }
-
-    /**
-     * Register the application bindings.
-     *
-     * @return void
-     */
-    private function registerActive()
-    {
-        $this->app->bind('active', function ($app) {
-            return new Active($app['router']->getCurrentRequest());
-        });
-    }
-
-    /**
-     * Register the vault facade without the user having to add it to the app.php file.
-     *
-     * @return void
-     */
-    public function registerFacade()
-    {
-        $this->app->booting(function () {
-            $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-            $loader->alias('Active', \App\Services\Access\Facades\Active::class);
-        });
+                return $instance;
+            }
+        );
     }
 }

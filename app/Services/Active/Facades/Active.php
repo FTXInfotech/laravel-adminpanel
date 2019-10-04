@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Access\Facades;
+namespace App\Services\Active\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

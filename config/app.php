@@ -250,12 +250,13 @@ return [
         /*
          * Third Party Aliases
          */
+        'Active'      => App\Services\Active\Facades\Active::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
         'Captcha'     => Arcanedev\NoCaptcha\Facades\NoCaptcha::class,
         'Form'        => Collective\Html\FormFacade::class,
         'Gravatar'    => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Html'        => Collective\Html\HtmlFacade::class,
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
-        //'Datatables' => Yajra\DataTables\Facades\DataTables::class
+        //'Datatables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 ];

@@ -1,5 +1,4 @@
 <?php
-
 if (!function_exists('active_class')) {
     /**
      * Get the active class if the condition is not falsy.
@@ -15,7 +14,6 @@ if (!function_exists('active_class')) {
         return app('active')->getClassIf($condition, $activeClass, $inactiveClass);
     }
 }
-
 if (!function_exists('if_uri')) {
     /**
      * Check if the URI of the current request matches one of the specific URIs.
@@ -29,10 +27,9 @@ if (!function_exists('if_uri')) {
         return app('active')->checkUri($uris);
     }
 }
-
 if (!function_exists('if_uri_pattern')) {
     /**
-     * Check if the current URI matches one of specific patterns (using `Str::is`).
+     * Check if the current URI matches one of specific patterns (using `str_is`).
      *
      * @param array|string $patterns
      *
@@ -43,7 +40,6 @@ if (!function_exists('if_uri_pattern')) {
         return app('active')->checkUriPattern($patterns);
     }
 }
-
 if (!function_exists('if_query')) {
     /**
      * Check if one of the following condition is true:
@@ -62,7 +58,6 @@ if (!function_exists('if_query')) {
         return app('active')->checkQuery($key, $value);
     }
 }
-
 if (!function_exists('if_route')) {
     /**
      * Check if the name of the current route matches one of specific values.
@@ -76,7 +71,6 @@ if (!function_exists('if_route')) {
         return app('active')->checkRoute($routeNames);
     }
 }
-
 if (!function_exists('if_route_pattern')) {
     /**
      * Check the current route name with one or some patterns.
@@ -90,7 +84,6 @@ if (!function_exists('if_route_pattern')) {
         return app('active')->checkRoutePattern($patterns);
     }
 }
-
 if (!function_exists('if_route_param')) {
     /**
      * Check if the parameter of the current route has the correct value.
@@ -105,7 +98,6 @@ if (!function_exists('if_route_param')) {
         return app('active')->checkRouteParam($param, $value);
     }
 }
-
 if (!function_exists('if_action')) {
     /**
      * Return 'active' class if current route action match one of provided action names.
@@ -119,7 +111,6 @@ if (!function_exists('if_action')) {
         return app('active')->checkAction($actions);
     }
 }
-
 if (!function_exists('if_controller')) {
     /**
      * Check if the current controller class matches one of specific values.
@@ -133,10 +124,9 @@ if (!function_exists('if_controller')) {
         return app('active')->checkController($controllers);
     }
 }
-
 if (!function_exists('current_controller')) {
     /**
-     * Get the current controller class.
+     * Get the current controller class
      *
      * @return string
      */
@@ -145,10 +135,9 @@ if (!function_exists('current_controller')) {
         return app('active')->getController();
     }
 }
-
 if (!function_exists('current_method')) {
     /**
-     * Get the current controller method.
+     * Get the current controller method
      *
      * @return string
      */
@@ -157,10 +146,9 @@ if (!function_exists('current_method')) {
         return app('active')->getMethod();
     }
 }
-
 if (!function_exists('current_action')) {
     /**
-     * Get the current action string.
+     * Get the current action string
      *
      * @return string
      */
