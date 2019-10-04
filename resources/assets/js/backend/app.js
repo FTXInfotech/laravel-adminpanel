@@ -744,7 +744,7 @@ function _init() {
  */
 
 Vue.component('flash', require('../components/Flash.vue').default);
-Vue.component('export-component', require('../components/backend/Export.vue'));
+Vue.component('export-component', require('../components/backend/Export.vue').default);
 
 const app = new Vue({
   el: '#app'

@@ -31,7 +31,7 @@ var Backend = {
                 selector: 'textarea',
                 height: 200,
                 width: 725,
-                theme: 'modern',
+                theme: 'silver',
                 plugins: [
                   'advlist autolink lists link image charmap print preview hr anchor pagebreak',
                   'searchreplace wordcount visualblocks visualchars code fullscreen',
