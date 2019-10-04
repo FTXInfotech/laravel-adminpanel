@@ -175,8 +175,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Arcanedev\LogViewer\LogViewerServiceProvider::class,
-        Arcanedev\NoCaptcha\NoCaptchaServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Creativeorange\Gravatar\GravatarServiceProvider::class,
         //DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
