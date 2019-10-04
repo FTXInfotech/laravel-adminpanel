@@ -1,4 +1,5 @@
 <?php
+
 if (!function_exists('active_class')) {
     /**
      * Get the active class if the condition is not falsy.
@@ -126,7 +127,7 @@ if (!function_exists('if_controller')) {
 }
 if (!function_exists('current_controller')) {
     /**
-     * Get the current controller class
+     * Get the current controller class.
      *
      * @return string
      */
@@ -137,7 +138,7 @@ if (!function_exists('current_controller')) {
 }
 if (!function_exists('current_method')) {
     /**
-     * Get the current controller method
+     * Get the current controller method.
      *
      * @return string
      */
@@ -148,7 +149,7 @@ if (!function_exists('current_method')) {
 }
 if (!function_exists('current_action')) {
     /**
-     * Get the current action string
+     * Get the current action string.
      *
      * @return string
      */
