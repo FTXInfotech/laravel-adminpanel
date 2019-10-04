@@ -4,39 +4,40 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a52788c03bc5107176b1d53f0c6860f5",
+    "content-hash": "13dcf4a023a54a3a3a798e8b73053c78",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
-            "version": "5.0.3",
+            "version": "5.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ARCANEDEV/LogViewer.git",
-                "reference": "fc65898036e606d241236817484e16b8db1ba8fe"
+                "reference": "560d395293b1d5797443b836b9fa18da872204cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ARCANEDEV/LogViewer/zipball/fc65898036e606d241236817484e16b8db1ba8fe",
-                "reference": "fc65898036e606d241236817484e16b8db1ba8fe",
+                "url": "https://api.github.com/repos/ARCANEDEV/LogViewer/zipball/560d395293b1d5797443b836b9fa18da872204cc",
+                "reference": "560d395293b1d5797443b836b9fa18da872204cc",
                 "shasum": ""
             },
             "require": {
-                "arcanedev/support": "~5.0.0",
+                "arcanedev/support": "^5.0",
                 "ext-json": "*",
                 "php": ">=7.2.0",
-                "psr/log": "~1.0"
+                "psr/log": "^1.0"
             },
             "require-dev": {
-                "mockery/mockery": "~1.0",
-                "orchestra/testbench": "~4.0.0",
-                "phpunit/phpcov": "~6.0",
-                "phpunit/phpunit": "~8.0"
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^4.0",
+                "phpunit/phpcov": "^6.0",
+                "phpunit/phpunit": "^8.0"
             },
             "type": "library",
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Arcanedev\\LogViewer\\LogViewerServiceProvider"
+                        "Arcanedev\\LogViewer\\LogViewerServiceProvider",
+                        "Arcanedev\\LogViewer\\Providers\\DeferredServicesProvider"
                     ]
                 }
             },
@@ -72,150 +73,31 @@
                 "log-viewer",
                 "logviewer"
             ],
-            "time": "2019-09-25T11:07:09+00:00"
-        },
-        {
-            "name": "arcanedev/no-captcha",
-            "version": "10.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ARCANEDEV/noCAPTCHA.git",
-                "reference": "2c67130b04af01e6cbc122fc1d0c5804b262a289"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ARCANEDEV/noCAPTCHA/zipball/2c67130b04af01e6cbc122fc1d0c5804b262a289",
-                "reference": "2c67130b04af01e6cbc122fc1d0c5804b262a289",
-                "shasum": ""
-            },
-            "require": {
-                "arcanedev/php-html": "~3.0.0",
-                "arcanedev/support": "~5.0.0",
-                "ext-curl": "*",
-                "ext-json": "*",
-                "php": ">=7.2.0",
-                "psr/http-message": "~1.0"
-            },
-            "require-dev": {
-                "arcanedev/laravel-html": "~6.0.0",
-                "orchestra/testbench": "~4.0.0",
-                "phpunit/phpcov": "~6.0",
-                "phpunit/phpunit": "~8.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Arcanedev\\NoCaptcha\\NoCaptchaServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Arcanedev\\NoCaptcha\\": "src/"
-                },
-                "files": [
-                    "helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "ARCANEDEV",
-                    "email": "arcanedev.maroc@gmail.com",
-                    "homepage": "https://github.com/arcanedev-maroc",
-                    "role": "Developer"
-                }
-            ],
-            "description": "No CAPTCHA (new Google reCAPTCHA) with Laravel support",
-            "homepage": "https://github.com/ARCANEDEV/noCAPTCHA",
-            "keywords": [
-                "arcanedev",
-                "captcha",
-                "google",
-                "laravel",
-                "no-captcha",
-                "recaptcha"
-            ],
-            "time": "2019-09-04T14:03:15+00:00"
-        },
-        {
-            "name": "arcanedev/php-html",
-            "version": "3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ARCANEDEV/php-html.git",
-                "reference": "eacca0e9ce4946df4ef92009ca25172ef62b4765"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ARCANEDEV/php-html/zipball/eacca0e9ce4946df4ef92009ca25172ef62b4765",
-                "reference": "eacca0e9ce4946df4ef92009ca25172ef62b4765",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~6.0",
-                "php": ">=7.2.0"
-            },
-            "require-dev": {
-                "ext-dom": "*",
-                "phpunit/phpcov": "~6.0",
-                "phpunit/phpunit": "~8.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Arcanedev\\Html\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "ARCANEDEV",
-                    "email": "arcanedev.maroc@gmail.com",
-                    "homepage": "https://github.com/arcanedev-maroc",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A simple way to create html tags with php.",
-            "homepage": "https://github.com/ARCANEDEV/php-html",
-            "keywords": [
-                "arcanedev",
-                "form",
-                "html",
-                "tags"
-            ],
-            "time": "2019-09-04T13:13:12+00:00"
+            "time": "2019-10-03T13:08:24+00:00"
         },
         {
             "name": "arcanedev/support",
-            "version": "5.0.0",
+            "version": "5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ARCANEDEV/Support.git",
-                "reference": "cb32ca20be93a24bd2f86bb82263796023c5f761"
+                "reference": "cf731be18e7d0138223bd8e134f623a9d8c674d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ARCANEDEV/Support/zipball/cb32ca20be93a24bd2f86bb82263796023c5f761",
-                "reference": "cb32ca20be93a24bd2f86bb82263796023c5f761",
+                "url": "https://api.github.com/repos/ARCANEDEV/Support/zipball/cf731be18e7d0138223bd8e134f623a9d8c674d7",
+                "reference": "cf731be18e7d0138223bd8e134f623a9d8c674d7",
                 "shasum": ""
             },
             "require": {
-                "illuminate/filesystem": "~6.0.0",
-                "illuminate/support": "~6.0.0",
+                "illuminate/filesystem": "^6.0",
+                "illuminate/support": "^6.0",
                 "php": ">=7.2.0"
             },
             "require-dev": {
-                "orchestra/testbench": "~4.0.0",
-                "phpunit/phpcov": "~6.0",
-                "phpunit/phpunit": "~8.0"
+                "orchestra/testbench": "^4.0",
+                "phpunit/phpcov": "^6.0",
+                "phpunit/phpunit": "^8.0"
             },
             "type": "library",
             "autoload": {
@@ -246,7 +128,7 @@
                 "laravel",
                 "support"
             ],
-            "time": "2019-09-04T08:48:36+00:00"
+            "time": "2019-10-02T18:20:38+00:00"
         },
         {
             "name": "beyondcode/laravel-self-diagnosis",
@@ -1623,16 +1505,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.0.4",
+            "version": "v6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "372e0add8a58e0e3deb78f87cbb2dc40d3e0ff08"
+                "reference": "a365bea7ff0dea9a50f5904be9e41656def9af4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/372e0add8a58e0e3deb78f87cbb2dc40d3e0ff08",
-                "reference": "372e0add8a58e0e3deb78f87cbb2dc40d3e0ff08",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a365bea7ff0dea9a50f5904be9e41656def9af4b",
+                "reference": "a365bea7ff0dea9a50f5904be9e41656def9af4b",
                 "shasum": ""
             },
             "require": {
@@ -1728,7 +1610,7 @@
                 "league/flysystem-sftp": "Required to use the Flysystem SFTP driver (^1.0).",
                 "moontoast/math": "Required to use ordered UUIDs (^1.1).",
                 "pda/pheanstalk": "Required to use the beanstalk queue driver (^4.0).",
-                "pusher/pusher-php-server": "Required to use the Pusher broadcast driver (^3.0).",
+                "pusher/pusher-php-server": "Required to use the Pusher broadcast driver (^4.0).",
                 "symfony/cache": "Required to PSR-6 cache bridge (^4.3.4).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^1.2).",
                 "wildbit/swiftmailer-postmark": "Required to use Postmark mail driver (^3.0)."
@@ -1764,7 +1646,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-09-24T13:40:36+00:00"
+            "time": "2019-10-01T13:55:56+00:00"
         },
         {
             "name": "laravel/passport",
@@ -1966,28 +1848,28 @@
         },
         {
             "name": "laravelcollective/html",
-            "version": "v6.0.2",
+            "version": "v6.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelCollective/html.git",
-                "reference": "2f181aba73390eec13d398bf57877b1cc3bc2588"
+                "reference": "bcc317d21a7e04eebcc81c4109fa84feaab63590"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/2f181aba73390eec13d398bf57877b1cc3bc2588",
-                "reference": "2f181aba73390eec13d398bf57877b1cc3bc2588",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/bcc317d21a7e04eebcc81c4109fa84feaab63590",
+                "reference": "bcc317d21a7e04eebcc81c4109fa84feaab63590",
                 "shasum": ""
             },
             "require": {
-                "illuminate/http": "6.0.*",
-                "illuminate/routing": "6.0.*",
-                "illuminate/session": "6.0.*",
-                "illuminate/support": "6.0.*",
-                "illuminate/view": "6.0.*",
+                "illuminate/http": "^6.0",
+                "illuminate/routing": "^6.0",
+                "illuminate/session": "^6.0",
+                "illuminate/support": "^6.0",
+                "illuminate/view": "^6.0",
                 "php": ">=7.2"
             },
             "require-dev": {
-                "illuminate/database": "6.0.*",
+                "illuminate/database": "^6.0",
                 "mockery/mockery": "~1.0",
                 "phpunit/phpunit": "~7.1"
             },
@@ -2030,7 +1912,7 @@
             ],
             "description": "HTML and Form Builders for the Laravel Framework",
             "homepage": "https://laravelcollective.com",
-            "time": "2019-09-23T06:16:50+00:00"
+            "time": "2019-10-02T00:37:39+00:00"
         },
         {
             "name": "lcobucci/jwt",
@@ -2262,9 +2144,9 @@
             "authors": [
                 {
                     "name": "Ben Corlett",
-                    "role": "Developer",
                     "email": "bencorlett@me.com",
-                    "homepage": "http://www.webcomm.com.au"
+                    "homepage": "http://www.webcomm.com.au",
+                    "role": "Developer"
                 }
             ],
             "description": "OAuth 1.0 Client Library",
@@ -2444,16 +2326,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.24.0",
+            "version": "2.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "934459c5ac0658bc765ad1e53512c7c77adcac29"
+                "reference": "b70da677101cca7b584c7489770d2677c2733593"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/934459c5ac0658bc765ad1e53512c7c77adcac29",
-                "reference": "934459c5ac0658bc765ad1e53512c7c77adcac29",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/b70da677101cca7b584c7489770d2677c2733593",
+                "reference": "b70da677101cca7b584c7489770d2677c2733593",
                 "shasum": ""
             },
             "require": {
@@ -2500,14 +2382,14 @@
                     "homepage": "http://github.com/kylekatarnls"
                 }
             ],
-            "description": "A API extension for DateTime that supports 281 different languages.",
+            "description": "An API extension for DateTime that supports 281 different languages.",
             "homepage": "http://carbon.nesbot.com",
             "keywords": [
                 "date",
                 "datetime",
                 "time"
             ],
-            "time": "2019-08-31T16:37:55+00:00"
+            "time": "2019-09-30T16:22:22+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -4926,16 +4808,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v9.6.1",
+            "version": "v9.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "42cba7ffae2e7b41981dacf7257c681f00aee1a5"
+                "reference": "bb6ff7b76bd6253396cb7a5a7b6c51c5ab14b1a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/42cba7ffae2e7b41981dacf7257c681f00aee1a5",
-                "reference": "42cba7ffae2e7b41981dacf7257c681f00aee1a5",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/bb6ff7b76bd6253396cb7a5a7b6c51c5ab14b1a8",
+                "reference": "bb6ff7b76bd6253396cb7a5a7b6c51c5ab14b1a8",
                 "shasum": ""
             },
             "require": {
@@ -4993,7 +4875,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2019-09-26T08:35:02+00:00"
+            "time": "2019-10-02T05:58:48+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
@@ -5284,16 +5166,16 @@
         },
         {
             "name": "doctrine/annotations",
-            "version": "v1.7.0",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "fa4c4e861e809d6a1103bd620cce63ed91aedfeb"
+                "reference": "904dca4eb10715b92569fbcd79e201d5c349b6bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/fa4c4e861e809d6a1103bd620cce63ed91aedfeb",
-                "reference": "fa4c4e861e809d6a1103bd620cce63ed91aedfeb",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/904dca4eb10715b92569fbcd79e201d5c349b6bc",
+                "reference": "904dca4eb10715b92569fbcd79e201d5c349b6bc",
                 "shasum": ""
             },
             "require": {
@@ -5302,7 +5184,7 @@
             },
             "require-dev": {
                 "doctrine/cache": "1.*",
-                "phpunit/phpunit": "^7.5@dev"
+                "phpunit/phpunit": "^7.5"
             },
             "type": "library",
             "extra": {
@@ -5348,7 +5230,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2019-08-08T18:11:40+00:00"
+            "time": "2019-10-01T18:55:10+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -5462,16 +5344,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "1.9.0",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "40461a1f680171876c186dfff419b2a4c892995c"
+                "reference": "ca7ab4f49230cb57c62fedddc5245f5496b82065"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/40461a1f680171876c186dfff419b2a4c892995c",
-                "reference": "40461a1f680171876c186dfff419b2a4c892995c",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/ca7ab4f49230cb57c62fedddc5245f5496b82065",
+                "reference": "ca7ab4f49230cb57c62fedddc5245f5496b82065",
                 "shasum": ""
             },
             "require": {
@@ -5529,7 +5411,7 @@
                 "laravel",
                 "page"
             ],
-            "time": "2019-09-27T16:49:08+00:00"
+            "time": "2019-10-01T17:44:44+00:00"
         },
         {
             "name": "filp/whoops",
@@ -5900,16 +5782,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "1.2.3",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "4eff936d83eb809bde2c57a3cea0ee9643769031"
+                "reference": "b3453f75fd23d9fd41685f2148f4abeacabc6405"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/4eff936d83eb809bde2c57a3cea0ee9643769031",
-                "reference": "4eff936d83eb809bde2c57a3cea0ee9643769031",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/b3453f75fd23d9fd41685f2148f4abeacabc6405",
+                "reference": "b3453f75fd23d9fd41685f2148f4abeacabc6405",
                 "shasum": ""
             },
             "require": {
@@ -5923,7 +5805,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -5961,7 +5843,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2019-08-07T15:01:07+00:00"
+            "time": "2019-09-30T08:30:27+00:00"
         },
         {
             "name": "moontoast/math",
@@ -6429,22 +6311,22 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.8.1",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "1927e75f4ed19131ec9bcc3b002e07fb1173ee76"
+                "reference": "f6811d96d97bdf400077a0cc100ae56aa32b9203"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/1927e75f4ed19131ec9bcc3b002e07fb1173ee76",
-                "reference": "1927e75f4ed19131ec9bcc3b002e07fb1173ee76",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/f6811d96d97bdf400077a0cc100ae56aa32b9203",
+                "reference": "f6811d96d97bdf400077a0cc100ae56aa32b9203",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "php": "^5.3|^7.0",
-                "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0",
+                "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0|^5.0",
                 "sebastian/comparator": "^1.1|^2.0|^3.0",
                 "sebastian/recursion-context": "^1.0|^2.0|^3.0"
             },
@@ -6488,7 +6370,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2019-06-13T12:50:23+00:00"
+            "time": "2019-10-03T11:07:50+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -6744,16 +6626,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.3.5",
+            "version": "8.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "302faed7059fde575cf3403a78c730c5e3a62750"
+                "reference": "57e5e77b62086033528ee1f4063ae03035f57894"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/302faed7059fde575cf3403a78c730c5e3a62750",
-                "reference": "302faed7059fde575cf3403a78c730c5e3a62750",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/57e5e77b62086033528ee1f4063ae03035f57894",
+                "reference": "57e5e77b62086033528ee1f4063ae03035f57894",
                 "shasum": ""
             },
             "require": {
@@ -6797,7 +6679,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "8.3-dev"
+                    "dev-master": "8.4-dev"
                 }
             },
             "autoload": {
@@ -6823,7 +6705,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-09-14T09:12:03+00:00"
+            "time": "2019-10-04T03:12:25+00:00"
         },
         {
             "name": "scrivo/highlight.php",
@@ -7812,8 +7694,8 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "role": "Developer",
-                    "email": "arne@blankerts.de"
+                    "email": "arne@blankerts.de",
+                    "role": "Developer"
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
