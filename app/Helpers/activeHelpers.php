@@ -1,7 +1,7 @@
 <?php
 if (!function_exists('active_class')) {
     /**
-     * Get the active class if the condition is not falsy
+     * Get the active class if the condition is not falsy.
      *
      * @param        $condition
      * @param string $activeClass
@@ -16,7 +16,7 @@ if (!function_exists('active_class')) {
 }
 if (!function_exists('if_uri')) {
     /**
-     * Check if the URI of the current request matches one of the specific URIs
+     * Check if the URI of the current request matches one of the specific URIs.
      *
      * @param array|string $uris
      *
@@ -29,7 +29,7 @@ if (!function_exists('if_uri')) {
 }
 if (!function_exists('if_uri_pattern')) {
     /**
-     * Check if the current URI matches one of specific patterns (using `str_is`)
+     * Check if the current URI matches one of specific patterns (using `str_is`).
      *
      * @param array|string $patterns
      *
@@ -46,7 +46,7 @@ if (!function_exists('if_query')) {
      * + the value of $value is `false` and the current querystring contain the key $key
      * + the value of $value is not `false` and the current value of the $key key in the querystring equals to $value
      * + the value of $value is not `false` and the current value of the $key key in the querystring is an array that
-     * contains the $value
+     * contains the $value.
      *
      * @param string $key
      * @param mixed  $value
@@ -60,7 +60,7 @@ if (!function_exists('if_query')) {
 }
 if (!function_exists('if_route')) {
     /**
-     * Check if the name of the current route matches one of specific values
+     * Check if the name of the current route matches one of specific values.
      *
      * @param array|string $routeNames
      *
@@ -73,7 +73,7 @@ if (!function_exists('if_route')) {
 }
 if (!function_exists('if_route_pattern')) {
     /**
-     * Check the current route name with one or some patterns
+     * Check the current route name with one or some patterns.
      *
      * @param array|string $patterns
      *
@@ -86,7 +86,7 @@ if (!function_exists('if_route_pattern')) {
 }
 if (!function_exists('if_route_param')) {
     /**
-     * Check if the parameter of the current route has the correct value
+     * Check if the parameter of the current route has the correct value.
      *
      * @param $param
      * @param $value
@@ -100,7 +100,7 @@ if (!function_exists('if_route_param')) {
 }
 if (!function_exists('if_action')) {
     /**
-     * Return 'active' class if current route action match one of provided action names
+     * Return 'active' class if current route action match one of provided action names.
      *
      * @param array|string $actions
      *
@@ -113,7 +113,7 @@ if (!function_exists('if_action')) {
 }
 if (!function_exists('if_controller')) {
     /**
-     * Check if the current controller class matches one of specific values
+     * Check if the current controller class matches one of specific values.
      *
      * @param array|string $controllers
      *

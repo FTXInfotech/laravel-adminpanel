@@ -48,6 +48,7 @@ class ActiveServiceProvider extends ServiceProvider
             'active',
             function ($app) {
                 $instance = new Active($app['router']->getCurrentRequest());
+
                 return $instance;
             }
         );
