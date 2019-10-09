@@ -2,12 +2,12 @@
 
 namespace Tests;
 
-use JMac\Testing\Traits\HttpTestAssertions;
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use JMac\Testing\Traits\HttpTestAssertions;
 
 abstract class TestCase extends BaseTestCase
 {
