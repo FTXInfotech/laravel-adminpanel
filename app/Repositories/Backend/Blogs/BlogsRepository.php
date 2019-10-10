@@ -15,6 +15,7 @@ use App\Repositories\BaseRepository;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * Class BlogsRepository.
@@ -73,7 +74,7 @@ class BlogsRepository extends BaseRepository
         unset($input['tags'], $input['categories']);
 
         DB::transaction(function () use ($input, $tagsArray, $categoriesArray) {
-            $input['slug'] = str_slug($input['name']);
+            $input['slug'] = Str::slug($input['name']);
             $input['publish_datetime'] = Carbon::parse($input['publish_datetime']);
             $input = $this->uploadImage($input);
             $input['created_by'] = access()->user()->id;
@@ -110,7 +111,7 @@ class BlogsRepository extends BaseRepository
         $categoriesArray = $this->createCategories($input['categories']);
         unset($input['tags'], $input['categories']);
 
-        $input['slug'] = str_slug($input['name']);
+        $input['slug'] = Str::slug($input['name']);
         $input['publish_datetime'] = Carbon::parse($input['publish_datetime']);
         $input['updated_by'] = access()->user()->id;
 

@@ -8,6 +8,7 @@ use App\Events\Backend\Pages\PageUpdated;
 use App\Exceptions\GeneralException;
 use App\Models\Page\Page;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Str;
 
 /**
  * Class PagesRepository.
@@ -51,7 +52,7 @@ class PagesRepository extends BaseRepository
         }
 
         // Making extra fields
-        $input['page_slug'] = str_slug($input['title']);
+        $input['page_slug'] = Str::slug($input['title']);
         $input['status'] = isset($input['status']) ? 1 : 0;
         $input['created_by'] = auth()->id();
 
@@ -79,7 +80,7 @@ class PagesRepository extends BaseRepository
         }
 
         // Making extra fields
-        $input['page_slug'] = str_slug($input['title']);
+        $input['page_slug'] = Str::slug($input['title']);
         $input['status'] = isset($input['status']) ? 1 : 0;
         $input['updated_by'] = access()->user()->id;
 

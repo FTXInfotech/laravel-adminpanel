@@ -18,6 +18,7 @@ class NotificationRepository extends BaseRepository
      * @var object
      */
     public $model;
+
     public $timestamps = false;
 
     public function __construct(Notification $model)

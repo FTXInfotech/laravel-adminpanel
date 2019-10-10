@@ -7,11 +7,15 @@ class NotificationIos extends Notification
     const BADGE_ID = 0;
 
     protected $_passPhrase = null;            // for authentication of .pem file or password of .pem file
+
     protected $_pemFile = null;            // for send notificetion .pem file is must add in that code
+
     protected static $_url = 'ssl://gateway.sandbox.push.apple.com:2195';                                           // url for send push message
 
     const ERROR_PEM_NOTACCESSIBLE = 1;          // exception error for file not get
+
     const ERROR_PASSPHRASE_EMPTY = 2;          // exception error for passphrese empty
+
     const ERROR_CONNECTION_FAILED = 3;          // exception error for connection failed
 
     protected $sendNotification = 1;          // exception error for connection failed
