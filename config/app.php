@@ -178,7 +178,6 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Creativeorange\Gravatar\GravatarServiceProvider::class,
         //DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
-        //HieuLe\Active\ActiveServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
@@ -187,7 +186,6 @@ return [
          * Application Service Providers...
          */
         App\Providers\AccessServiceProvider::class,
-        App\Providers\ActiveServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\BladeServiceProvider::class,
@@ -199,6 +197,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Bvipul\Generator\Provider\CrudGeneratorServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        Krgupta\Active\ActiveServiceProvider::class,
     ],
 
     /*
@@ -250,7 +249,6 @@ return [
         /*
          * Third Party Aliases
          */
-        'Active'      => App\Services\Active\Facades\Active::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
         'Captcha'     => Arcanedev\NoCaptcha\Facades\NoCaptcha::class,
         'Form'        => Collective\Html\FormFacade::class,
@@ -258,5 +256,6 @@ return [
         'Html'        => Collective\Html\HtmlFacade::class,
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
         //'Datatables' => Yajra\DataTables\Facades\DataTables::class,
+        'Active'      => Krgupta\Active\Facades\Active::class,
     ],
 ];

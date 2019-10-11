@@ -608,7 +608,7 @@ var Backend = {}; // common variable used in all the files of the backend
                     selector: 'textarea',
                     height: 200,
                     width: 725,
-                    theme: 'silver',
+                    theme: 'silver', // New theme available in latest tinymce
                     plugins: [
                         'advlist autolink lists link image charmap print preview hr anchor pagebreak',
                         'searchreplace wordcount visualblocks visualchars code fullscreen',
