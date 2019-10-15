@@ -1505,16 +1505,16 @@
         },
         {
             "name": "krgupta/active",
-            "version": "1.1",
+            "version": "1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/krguptaa/active.git",
-                "reference": "688777bb721cf82970b0d406366d55184e1639ff"
+                "reference": "27f21d1fcd6033b53528b1483bd4cb654e989eb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/krguptaa/active/zipball/688777bb721cf82970b0d406366d55184e1639ff",
-                "reference": "688777bb721cf82970b0d406366d55184e1639ff",
+                "url": "https://api.github.com/repos/krguptaa/active/zipball/27f21d1fcd6033b53528b1483bd4cb654e989eb2",
+                "reference": "27f21d1fcd6033b53528b1483bd4cb654e989eb2",
                 "shasum": ""
             },
             "require": {
@@ -1530,7 +1530,7 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Krgupta\\Active\\ActiveServiceProvider"
+                        "Krgupta\\Active\\Providers\\ActiveServiceProvider"
                     ],
                     "aliases": {
                         "Active": "Krgupta\\Active\\Facades\\Active"
@@ -1543,7 +1543,7 @@
                     "Krgupta\\ActiveTest\\": "tests/"
                 },
                 "files": [
-                    "src/helpers.php"
+                    "src/Helpers/helpers.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1562,7 +1562,7 @@
                 "laravel",
                 "routing"
             ],
-            "time": "2019-10-11T09:29:00+00:00"
+            "time": "2019-10-14T11:50:30+00:00"
         },
         {
             "name": "laravel/framework",
