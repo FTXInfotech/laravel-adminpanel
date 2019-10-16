@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca49d08d1f770a227e34ebd9360d6072",
+    "content-hash": "435ed80cf9767956fea749bc7094ee39",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -1505,24 +1505,23 @@
         },
         {
             "name": "krgupta/active",
-            "version": "1.1",
+            "version": "4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/krguptaa/active.git",
-                "reference": "688777bb721cf82970b0d406366d55184e1639ff"
+                "reference": "ad33aeb8540f464ea0a5626973713576462150d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/krguptaa/active/zipball/688777bb721cf82970b0d406366d55184e1639ff",
-                "reference": "688777bb721cf82970b0d406366d55184e1639ff",
+                "url": "https://api.github.com/repos/krguptaa/active/zipball/ad33aeb8540f464ea0a5626973713576462150d3",
+                "reference": "ad33aeb8540f464ea0a5626973713576462150d3",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": "^6.0",
-                "php": "^7.2"
+                "php": ">=7.2"
             },
             "require-dev": {
-                "codeclimate/php-test-reporter": "dev-master",
                 "orchestra/testbench": "^4.0",
                 "phpunit/phpunit": "^8.0"
             },
@@ -1530,7 +1529,7 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Krgupta\\Active\\ActiveServiceProvider"
+                        "Krgupta\\Active\\Providers\\ActiveServiceProvider"
                     ],
                     "aliases": {
                         "Active": "Krgupta\\Active\\Facades\\Active"
@@ -1543,7 +1542,7 @@
                     "Krgupta\\ActiveTest\\": "tests/"
                 },
                 "files": [
-                    "src/helpers.php"
+                    "src/Helpers/helpers.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1562,7 +1561,7 @@
                 "laravel",
                 "routing"
             ],
-            "time": "2019-10-11T09:29:00+00:00"
+            "time": "2019-10-15T10:58:53+00:00"
         },
         {
             "name": "laravel/framework",
