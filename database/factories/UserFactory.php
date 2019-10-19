@@ -14,6 +14,8 @@ $factory->define(User::class, function (Generator $faker) {
         'password'          => $password ?: $password = bcrypt('secret'),
         'confirmation_code' => md5(uniqid(mt_rand(), true)),
         'remember_token'    => Str::random(10),
+        'status'            => 1,
+        'confirmed'         => 1
     ];
 });
 
