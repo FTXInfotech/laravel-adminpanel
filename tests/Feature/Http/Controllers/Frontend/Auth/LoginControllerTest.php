@@ -3,7 +3,6 @@
 namespace Tests\Feature\Http\Controllers\Frontend\Auth;
 
 use App\Models\Access\User\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -16,18 +15,19 @@ class LoginControllerTest extends TestCase
     {
         $this->get('/login')->assertStatus(200);
     }
+
     /**
      * @test
      */
     public function a_user_can_login_with_email_and_password()
     {
         $user = factory(User::class)->create([
-            'email' => 'john@example.com',
+            'email'    => 'john@example.com',
             'password' => 'secret',
         ]);
 
         $response = $this->post(route('frontend.auth.login'), [
-            'email' => 'john@example.com',
+            'email'    => 'john@example.com',
             'password' => 'secret',
         ]);
 
