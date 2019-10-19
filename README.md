@@ -94,7 +94,6 @@ Start the local development server
     php artisan serve
 
 
-
 You can now access the server at http://localhost:8000
 
 **Command list**
@@ -154,6 +153,7 @@ Feel free to create any pull requests for the project. For proposing any new cha
     (1) Viral Solani - viral.solani@gmail.com
     (2) Vipul Basapati - basapativipulkumar@gmail.com
     (3) Vallabh Kansagara - vrkansagara@gmail.com
+    (4) Kamlesh Gupta - webworldgk@gmail.com
 
 ## License
 

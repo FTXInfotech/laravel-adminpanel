@@ -28,10 +28,12 @@ class PushNotification
                     return $this->_pushToIos($devicetoken, $msg);
 
                     return true;
+
                     break;
 
                 case 'android':
                     return $this->_pushToAndroid($devicetoken, $msg);
+
                     break;
 
                 default:

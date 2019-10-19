@@ -3,6 +3,7 @@
 use App\Models\Access\User\User;
 use App\Models\Page\Page;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 $factory->define(Page::class, function (Faker $faker) {
     $title = $faker->sentence;
@@ -11,9 +12,9 @@ $factory->define(Page::class, function (Faker $faker) {
 
     return [
         'title'           => $title,
-        'page_slug'       => str_slug($title),
+        'page_slug'       => Str::slug($title),
         'description'     => $faker->paragraph,
-        'cannonical_link' => 'http://localhost:8000/'.str_slug($title),
+        'cannonical_link' => 'http://localhost:8000/'.Str::slug($title),
         'created_by'      => function () {
             return factory(User::class)->create()->id;
         },

@@ -25,6 +25,7 @@ class User extends Authenticatable
         UserRelationship,
         UserSendPasswordReset,
         HasApiTokens;
+
     /**
      * The database table used by the model.
      *

@@ -7,7 +7,9 @@ use Illuminate\Contracts\Support\Responsable;
 class CreateResponse implements Responsable
 {
     protected $status;
+
     protected $blogTags;
+
     protected $blogCategories;
 
     public function __construct($status, $blogCategories, $blogTags)

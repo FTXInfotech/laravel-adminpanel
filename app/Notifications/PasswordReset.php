@@ -16,6 +16,7 @@ class PasswordReset extends Notification
      * @return void
      */
     protected $user;
+
     protected $token;
 
     public function __construct($user, $token)

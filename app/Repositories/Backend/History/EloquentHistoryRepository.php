@@ -243,18 +243,22 @@ class EloquentHistoryRepository implements HistoryContract
                             switch (count($values)) {
                                 case 1:
                                     $text = str_replace('{'.$key.'}', link_to_route($values[0], $values[0]), $text);
+
                                 break;
 
                                 case 2:
                                     $text = str_replace('{'.$key.'}', link_to_route($values[0], $values[1]), $text);
+
                                 break;
 
                                 case 3:
                                     $text = str_replace('{'.$key.'}', link_to_route($values[0], $values[1], $values[2]), $text);
+
                                 break;
 
                                 case 4:
                                     $text = str_replace('{'.$key.'}', link_to_route($values[0], $values[1], $values[2], $values[3]), $text);
+
                                 break;
                             }
                         } else {
@@ -266,6 +270,7 @@ class EloquentHistoryRepository implements HistoryContract
 
                     case 'string':
                         $text = str_replace('{'.$key.'}', $values, $text);
+
                     break;
                 }
 
