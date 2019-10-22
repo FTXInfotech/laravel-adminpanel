@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "arcanedev/log-viewer",
-            "version": "5.1.4",
+            "version": "5.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ARCANEDEV/LogViewer.git",
-                "reference": "560d395293b1d5797443b836b9fa18da872204cc"
+                "reference": "451dbec9cdf7e6034be53730537ee9324a167a30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ARCANEDEV/LogViewer/zipball/560d395293b1d5797443b836b9fa18da872204cc",
-                "reference": "560d395293b1d5797443b836b9fa18da872204cc",
+                "url": "https://api.github.com/repos/ARCANEDEV/LogViewer/zipball/451dbec9cdf7e6034be53730537ee9324a167a30",
+                "reference": "451dbec9cdf7e6034be53730537ee9324a167a30",
                 "shasum": ""
             },
             "require": {
@@ -62,7 +62,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Provides a Log Viewer for Laravel 5",
+            "description": "Provides a Log Viewer for Laravel 5/6",
             "homepage": "https://github.com/ARCANEDEV/LogViewer",
             "keywords": [
                 "arcanedev",
@@ -73,7 +73,7 @@
                 "log-viewer",
                 "logviewer"
             ],
-            "time": "2019-10-03T13:08:24+00:00"
+            "time": "2019-10-22T21:21:41+00:00"
         },
         {
             "name": "arcanedev/support",
