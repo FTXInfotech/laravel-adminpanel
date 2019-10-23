@@ -197,7 +197,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Bvipul\Generator\Provider\CrudGeneratorServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
-        Krgupta\Active\ActiveServiceProvider::class,
+        Krgupta\Active\Providers\ActiveServiceProvider::class,
     ],
 
     /*
