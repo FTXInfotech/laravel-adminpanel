@@ -29,7 +29,7 @@
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
-        "bvipul/generator": "^5.8.2",
+        "bvipul/generator": "^v6",
         "codedungeon/phpunit-result-printer": "^0.26",
         "friendsofphp/php-cs-fixer": "^2.14",
         "fzaninotto/faker": "^1.4",
