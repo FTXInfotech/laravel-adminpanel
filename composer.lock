@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "435ed80cf9767956fea749bc7094ee39",
+    "content-hash": "7d803acd9b9b39a1296cc412339e2d45",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -5054,16 +5054,16 @@
         },
         {
             "name": "bvipul/generator",
-            "version": "v5.8.2",
+            "version": "v6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bvipul/generator.git",
-                "reference": "10df87f87965de6b6f9d18a084b2d2abe075a2a9"
+                "reference": "3acbcf43f2ddd2b1abfe288e365edeaec42700d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bvipul/generator/zipball/10df87f87965de6b6f9d18a084b2d2abe075a2a9",
-                "reference": "10df87f87965de6b6f9d18a084b2d2abe075a2a9",
+                "url": "https://api.github.com/repos/bvipul/generator/zipball/3acbcf43f2ddd2b1abfe288e365edeaec42700d5",
+                "reference": "3acbcf43f2ddd2b1abfe288e365edeaec42700d5",
                 "shasum": ""
             },
             "type": "package",
@@ -5083,7 +5083,7 @@
                 }
             ],
             "description": "To create a whole module with all related files like model, controller, repository, routes, views etc with a simple GUI.",
-            "time": "2019-08-31T16:00:50+00:00"
+            "time": "2019-11-22T04:31:02+00:00"
         },
         {
             "name": "codedungeon/php-cli-colors",
