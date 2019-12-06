@@ -24,7 +24,7 @@
     "webpack-rtl-plugin": "^2.0.0"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^4.4.1",
     "bootstrap-datetimepicker-npm": "^4.17.37-npm",
     "datatables.net": "^1.10.20",
     "datatables.net-buttons": "^1.6.0",
@@ -33,6 +33,6 @@
     "pluralize": "^8.0.0",
     "sass": "^1.23.0",
     "select2": "^4.0.10",
-    "tinymce": "^5.0.16"
+    "tinymce": "^5.1.3"
   }
 }
