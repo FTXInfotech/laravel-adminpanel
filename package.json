@@ -15,24 +15,24 @@
     "cross-env": "^6.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
-    "laravel-mix": "^4.1.4",
+    "laravel-mix": "^5.0.1",
     "lodash": "^4.17.13",
     "resolve-url-loader": "3.1.0",
     "sass-loader": "^7.3.1",
-    "vue": "^2.6.10",
-    "vue-template-compiler": "^2.6.10",
+    "vue": "^2.6.11",
+    "vue-template-compiler": "^2.6.11",
     "webpack-rtl-plugin": "^2.0.0"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^4.4.1",
     "bootstrap-datetimepicker-npm": "^4.17.37-npm",
     "datatables.net": "^1.10.20",
     "datatables.net-buttons": "^1.6.0",
     "moment": "^2.24.0",
     "nestable2": "^1.5.0",
     "pluralize": "^8.0.0",
-    "sass": "^1.23.0",
+    "sass": "^1.24.0",
     "select2": "^4.0.10",
-    "tinymce": "^5.0.16"
+    "tinymce": "^5.1.5"
   }
 }
