@@ -39,7 +39,7 @@ return [
             'Authorization',
         ],
 
-         'expose_headers' => [
+        'expose_headers' => [
             'Cache-Control',
             'Content-Language',
             'Content-Type',
