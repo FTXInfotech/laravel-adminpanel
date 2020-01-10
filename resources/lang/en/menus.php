@@ -50,7 +50,7 @@ return [
                 'add-new'           => 'Add new',
                 'deactivated-users' => 'Deactivated Users',
                 'deleted-users'     => 'Deleted Users',
-             ],
+            ],
         ],
 
         'log-viewer' => [

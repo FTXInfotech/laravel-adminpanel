@@ -89,7 +89,7 @@ return [
             'delete_error'   => 'Il y a eu un problème lors de la suppression de ce menu. Veuillez essayer à nouveau.',
             'not_found'      => "Ce menu n'existe pas.",
             'update_error'   => 'Il y a eu un problème lors de la mise à jour de ce menu. Veuillez essayer à nouveau.',
-         ],
+        ],
 
         'modules' => [
             'already_exists' => 'Ce module existe déjà. Veuillez choisr un autre nom.',
@@ -97,7 +97,7 @@ return [
             'delete_error'   => 'Il y a eu un problème lors de la suppression de ce module. Veuillez essayer à nouveau.',
             'not_found'      => "Ce module n'existe pas.",
             'update_error'   => 'Il y a eu un problème lors de la mise à jour de ce module. Veuillez essayer à nouveau.',
-          ],
+        ],
 
     ],
 
