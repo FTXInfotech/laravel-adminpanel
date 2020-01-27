@@ -71,7 +71,7 @@ class APIController extends Controller
                 'total_pages'  => ceil($items->total() / $items->perPage()),
                 'current_page' => $items->currentPage(),
                 'limit'        => $items->perPage(),
-             ],
+            ],
         ]);
 
         return $this->respond($data);
@@ -113,11 +113,11 @@ class APIController extends Controller
     public function respondWithError($message)
     {
         return $this->respond([
-                'error' => [
-                    'message'     => $message,
-                    'status_code' => $this->getStatusCode(),
-                ],
-            ]);
+            'error' => [
+                'message'     => $message,
+                'status_code' => $this->getStatusCode(),
+            ],
+        ]);
     }
 
     /**

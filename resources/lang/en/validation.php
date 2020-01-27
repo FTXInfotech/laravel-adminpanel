@@ -218,9 +218,9 @@ return [
                 ],
             ],
             'faqs' => [
-                    'question' => 'Question',
-                    'answer'   => 'Answer',
-                    'status'   => 'Status',
+                'question' => 'Question',
+                'answer'   => 'Answer',
+                'status'   => 'Status',
             ],
         ],
 
@@ -274,9 +274,9 @@ return [
             'city_required'  => 'Please enter city.',
         ],
         'confirmaccount' => [
-           'already_confirmed' => 'Account is already confirmed.',
-           'invalid_otp'       => 'Please enter valid otp.',
-            'invalid_email'    => 'Email is not register with fin builders',
+            'already_confirmed' => 'Account is already confirmed.',
+            'invalid_otp'       => 'Please enter valid otp.',
+            'invalid_email'     => 'Email is not register with fin builders',
         ],
     ],
 
