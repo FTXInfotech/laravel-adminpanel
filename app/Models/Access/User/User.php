@@ -17,14 +17,14 @@ use Laravel\Passport\HasApiTokens;
  */
 class User extends Authenticatable
 {
-    use UserScope,
-        UserAccess,
-        Notifiable,
-        SoftDeletes,
-        UserAttribute,
-        UserRelationship,
-        UserSendPasswordReset,
-        HasApiTokens;
+    use UserScope;
+    use UserAccess;
+    use Notifiable;
+    use SoftDeletes;
+    use UserAttribute;
+    use UserRelationship;
+    use UserSendPasswordReset;
+    use HasApiTokens;
 
     /**
      * The database table used by the model.
