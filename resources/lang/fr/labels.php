@@ -227,8 +227,8 @@ return [
                 'url'       => 'URL',
                 'url_type'  => 'URL Type',
                 'url_types' => [
-                  'route'  => 'Route',
-                  'static' => 'Statique',
+                    'route'  => 'Route',
+                    'static' => 'Statique',
                 ],
                 'open_in_new_tab'    => 'Ouvrir dans un nouvel onglet',
                 'view_permission_id' => 'Permission',
