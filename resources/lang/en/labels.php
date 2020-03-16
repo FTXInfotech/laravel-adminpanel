@@ -228,8 +228,8 @@ return [
                 'url'       => 'URL',
                 'url_type'  => 'URL Type',
                 'url_types' => [
-                  'route'  => 'Route',
-                  'static' => 'Static',
+                    'route'  => 'Route',
+                    'static' => 'Static',
                 ],
                 'open_in_new_tab'    => 'Open URL in new tab',
                 'view_permission_id' => 'Permission',

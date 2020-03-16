@@ -275,9 +275,9 @@ return [
             'city_required'  => 'Veuillez entrer une ville.',
         ],
         'confirmaccount' => [
-        'already_confirmed' => 'Le compte est déjà confirmé.',
-        'invalid_otp'       => 'Veuillez entrer un otp valide.',
-        'invalid_email'     => "L'email que vous avez entrée n'est pas enregistré",
+            'already_confirmed' => 'Le compte est déjà confirmé.',
+            'invalid_otp'       => 'Veuillez entrer un otp valide.',
+            'invalid_email'     => "L'email que vous avez entrée n'est pas enregistré",
         ],
     ],
 ];
