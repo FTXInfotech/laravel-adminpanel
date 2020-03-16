@@ -235,9 +235,9 @@ trait UserAttribute
                     'admin.access.user.login-as',
                     $this
                 ).'"><i class="fa fa-lock" data-toggle="tooltip" data-placement="top" title="'.trans(
-                        'buttons.backend.access.users.login_as',
-                        ['user' => $this->name]
-                    ).'"></i>'.$name.'</a>';
+                    'buttons.backend.access.users.login_as',
+                    ['user' => $this->name]
+                ).'"></i>'.$name.'</a>';
             }
         }
 
