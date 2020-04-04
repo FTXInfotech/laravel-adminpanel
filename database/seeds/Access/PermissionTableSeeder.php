@@ -10,7 +10,8 @@ use Illuminate\Database\Seeder;
  */
 class PermissionTableSeeder extends Seeder
 {
-    use DisableForeignKeys, TruncateTable;
+    use DisableForeignKeys;
+    use TruncateTable;
 
     /**
      * Run the database seed.
