@@ -39,7 +39,7 @@ class ForgotPasswordController extends APIController
 
         $user = $this->repository->findByEmail($request->get('email'));
 
-        if (!$user) {
+        if (! $user) {
             return $this->respondNotFound(trans('api.messages.forgot_password.validation.email_not_found'));
         }
 
