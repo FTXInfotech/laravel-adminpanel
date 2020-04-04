@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\DB;
  */
 class RoleTableSeeder extends Seeder
 {
-    use DisableForeignKeys, TruncateTable;
+    use DisableForeignKeys;
+    use TruncateTable;
 
     /**
      * Run the database seed.
