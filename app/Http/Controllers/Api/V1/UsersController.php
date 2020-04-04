@@ -124,7 +124,7 @@ class UsersController extends APIController
     {
         $ids = $request->get('ids');
 
-        if (isset($ids) && ! empty($ids)) {
+        if (isset($ids) && !empty($ids)) {
             $result = $this->repository->deleteAll($ids);
         }
 

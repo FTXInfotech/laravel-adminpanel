@@ -45,7 +45,7 @@ class RegisterController extends APIController
 
         $user = $this->repository->create($request->all());
 
-        if (! Config::get('api.register.release_token')) {
+        if (!Config::get('api.register.release_token')) {
             return $this->respondCreated([
                 'message'  => trans('api.messages.registeration.success'),
             ]);

@@ -54,7 +54,7 @@ class NotificationIos extends Notification
         stream_context_set_option($ctx, 'ssl', 'passphrase', $this->_passPhrase);
         $fp = stream_socket_client(self::$_url, $err, $errstr, 60, STREAM_CLIENT_CONNECT, $ctx);
 
-        if (! $fp) {
+        if (!$fp) {
             $this->raiseerror(self::ERROR_CONNECTION_FAILED);
         }
         //return 'Connected to APNS' . PHP_EOL;
@@ -72,7 +72,7 @@ class NotificationIos extends Notification
             $result = fwrite($fp, $msg, strlen($msg));
         }
         //echo "<br>-------<br>";
-        if (! $result) {
+        if (!$result) {
             return 'Message not delivered'.PHP_EOL;
         } else {
             return 'Message successfully delivered'.PHP_EOL;
@@ -107,7 +107,7 @@ class NotificationIos extends Notification
         // echo $_SERVER['DOCUMENT_ROOT'].'/app/Http/Controllers/Utilities/'.$pemFile;exit;
         //echo dirname(__FILE__); exit;
         // echo file_get_contents(dirname(__FILE__).'/'.$pemFile); exit;
-        if (! (file_exists($newPemFilePath)) && ! (is_readable($newPemFilePath))) {
+        if (!(file_exists($newPemFilePath)) && !(is_readable($newPemFilePath))) {
             $error = $this->raiseerror(self::ERROR_PEM_NOTACCESSIBLE);
         }
         $this->_pemFile = $newPemFilePath;
