@@ -26,7 +26,8 @@
         "laravelcollective/html": "6.0.*",
         "spatie/laravel-cors": "^1.6",
         "unisharp/laravel-filemanager": "~1.8",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "~9.0",
+        "laravel/ui": "^2.0"
     },
     "require-dev": {
         "bvipul/generator": "^v6",
