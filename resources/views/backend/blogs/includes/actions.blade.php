@@ -16,16 +16,6 @@
                    data-trans-button-confirm="@lang('buttons.general.crud.delete')"
                    data-trans-title="@lang('strings.backend.general.are_you_sure')"
                        class="dropdown-item">@lang('buttons.general.crud.delete')</a>
-
-                {{-- @switch($company->active)
-                    @case(0)
-                        <a href="{{ route('admin.company.mark', [$company, 1,]) }}" class="dropdown-item">@lang('buttons.backend.access.users.activate')</a>
-                    @break
-
-                    @case(1)
-                        <a href="{{ route('admin.company.mark', [$company, 0]) }}" class="dropdown-item">@lang('buttons.backend.access.users.deactivate')</a>
-                    @break
-                @endswitch --}}
             </div>
         </div>
     </div>

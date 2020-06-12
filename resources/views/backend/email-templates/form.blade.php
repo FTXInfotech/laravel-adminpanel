@@ -24,7 +24,7 @@
                 {{ Form::label('slug', trans('labels.backend.access.email-templates.table.slug'), ['class' => 'col-md-2 from-control-label required']) }}
                 
                 <div class="col-md-10">
-                    {{ Form::text('slug', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.email-templates.table.slug')]) }}
+                    {{ Form::text('slug', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.email-templates.table.slug'), 'disabled' => 'disabled']) }}
                 </div><!--col-->
             </div><!--form-group-->
 
@@ -32,7 +32,7 @@
                 {{ Form::label('content', trans('labels.backend.access.email-templates.table.content'), ['class' => 'col-md-2 from-control-label required']) }}
                 
                 <div class="col-md-10">
-                    {{ Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.email-templates.table.content'), 'required' => 'required']) }}
+                    {{ Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.email-templates.table.content')]) }}
                 </div><!--col-->
             </div><!--form-group-->
 

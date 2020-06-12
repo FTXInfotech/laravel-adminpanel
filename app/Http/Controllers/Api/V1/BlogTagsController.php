@@ -129,6 +129,7 @@ class BlogCategoriesController extends APIController
     {
         return [
             'name.required' => 'Please insert Blog Tag',
+            'name.unique'   => 'Blog tag name already taken. Please try with different name.',
             'name.max'      => 'Blog tag may not be greater than 191 characters.',
         ];
     }

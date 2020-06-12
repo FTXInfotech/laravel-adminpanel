@@ -35,40 +35,60 @@
                                 <th>{{ trans('labels.general.actions') }}</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        @forelse($blogs as $blog)
-                            <tr>
-                                <td>{{ $blog->name }}</td>
-                                <td>{{ $blog->publish_datetime }}</td>
-                                <td>{{ $blog->status }}</td>
-                                <td>{{ $blog->user_name }}</td>
-                                <td>{{ $blog->created_at }}</td>
-                                <td class="btn-td">
-                                    @include('backend.blogs.includes.actions', ['blog' => $blog])
-                                </td>
-                            </tr>
-                        @empty
-                            <tr><td colspan="4">No blogs found.</td></tr>
-                        @endforelse
-                        </tbody>
+                        
                     </table>
                 </div>
             </div><!--col-->
         </div><!--row-->
-        <div class="row">
-            <div class="col-7">
-                <div class="float-left">
-                    {!! $blogs->total() !!} {{ trans_choice('labels.backend.access.blogs.table.total', $blogs->total()) }}
-                </div>
-            </div><!--col-->
-
-            <div class="col-5">
-                <div class="float-right">
-                    {!! $blogs->render() !!}
-                </div>
-            </div><!--col-->
-        </div><!--row-->
+        
         
     </div><!--card-body-->
 </div><!--card-->
 @endsection
+
+@section('pagescript')
+
+    <script>
+        $(function () {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+    
+            var dataTable = $('#blogs-table').DataTable({
+                processing: false,
+                serverSide: true,
+                pagingType: "full_numbers",
+                ajax: {
+                    url: '{{ route("admin.blogs.get") }}',
+                    type: 'post'
+                },
+                columns: [
+                    {data: 'name', name: 'blogs.name'},
+                    {data: 'publish_datetime', name: 'blogs.publish_datetime'},
+                    {data: 'status', name: 'blogs.status'},
+                    {data: 'created_by', name: 'blogs.created_by'},
+                    {data: 'created_at', name: 'blogs.created_at'},
+                    {data: 'actions', name: 'actions', searchable: false, sortable: false}
+                ],
+                order: [[3, "asc"]],
+                searchDelay: 500,
+                dom: 'lBfrtip',
+                buttons: {
+                    buttons: [
+                        { extend: 'copy', className: 'copyButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4 ]  }},
+                        { extend: 'csv', className: 'csvButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4 ]  }},
+                        { extend: 'excel', className: 'excelButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4 ]  }},
+                        { extend: 'pdf', className: 'pdfButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4 ]  }},
+                        { extend: 'print', className: 'printButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4 ]  }}
+                    ]
+                },
+                "createdRow": function( row, data, dataIndex){
+                    Common.Utils.DataTables.CreateRow(row, data, dataIndex);
+                }
+            });
+        });
+    </script>
+@stop

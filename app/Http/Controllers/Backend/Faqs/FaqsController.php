@@ -12,12 +12,11 @@ use App\Http\Responses\RedirectResponse;
 use App\Http\Responses\ViewResponse;
 use App\Models\Faqs\Faq;
 use App\Repositories\Backend\Faqs\FaqsRepository;
-use Illuminate\Http\Request;
 
 class FaqsController extends Controller
 {
     /**
-     * @var PagesRepository
+     * @var FaqsRepository
      */
     protected $faq;
 
@@ -32,17 +31,17 @@ class FaqsController extends Controller
     /**
      * @param \App\Http\Requests\Backend\Faqs\ManageFaqsRequest $request
      *
-     * @return \App\Http\Responses\Backend\Faqs\IndexResponse
+     * @return ViewResponse
      */
     public function index(ManageFaqsRequest $request)
     {
-        return view('backend.faqs.index')->with(['faqs' => $this->faq->getActivePaginated(25, 'created_at', 'desc')]);
+        return new ViewResponse('backend.faqs.index');
     }
 
     /**
      * @param \App\Http\Requests\Backend\Faqs\CreateFaqsRequest $request
      *
-     * @return \App\Http\Responses\Backend\Faqs\IndexResponse
+     * @return ViewResponse
      */
     public function create(CreateFaqsRequest $request)
     {
@@ -62,10 +61,10 @@ class FaqsController extends Controller
     }
 
     /**
-     * @param \App\Models\Faqs\Faq                           $faq
+     * @param \App\Models\Faqs\Faq                              $faq
      * @param \App\Http\Requests\Backend\Faqs\ManagePageRequest $request
      *
-     * @return \App\Http\Responses\Backend\Faqs\EditResponse
+     * @return ViewResponse
      */
     public function edit(Faq $faq, ManageFaqsRequest $request)
     {
@@ -73,7 +72,7 @@ class FaqsController extends Controller
     }
 
     /**
-     * @param \App\Models\Faqs\Faq                            $faq
+     * @param \App\Models\Faqs\Faq                              $faq
      * @param \App\Http\Requests\Backend\Faqs\UpdateFaqsRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse

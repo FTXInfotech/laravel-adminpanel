@@ -253,6 +253,7 @@ return [
                     'content'           => 'Content',
                     'status'            => 'Status',
                     'createdat'         => 'Created At',
+                    'createdby'         => 'Created By',
                     'total'             => 'email templates total|email templates total',
                 ],
             ],

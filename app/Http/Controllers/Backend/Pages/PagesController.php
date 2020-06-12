@@ -13,7 +13,6 @@ use App\Http\Responses\RedirectResponse;
 use App\Http\Responses\ViewResponse;
 use App\Models\Pages\Page;
 use App\Repositories\Backend\Pages\PagesRepository;
-use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
@@ -33,17 +32,17 @@ class PagesController extends Controller
     /**
      * @param \App\Http\Requests\Backend\Pages\ManagePagesRequest $request
      *
-     * @return \App\Http\Responses\Backend\Page\IndexResponse
+     * @return ViewResponse
      */
     public function index(ManageBlogsRequest $request)
     {
-        return new ViewResponse('backend.pages.index', ['pages' => $this->page->getActivePaginated(25, 'id', 'desc')]);
+        return new ViewResponse('backend.pages.index');
     }
 
     /**
      * @param \App\Http\Requests\Backend\Pages\ManagePageRequest $request
      *
-     * @return mixed
+     * @return ViewResponse
      */
     public function create(ManagePageRequest $request)
     {
@@ -63,8 +62,8 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \App\Models\Pages\Page                           $blog
-     * @param \App\Http\Requests\Backend\Pages\ManagePageRequest $request
+     * @param \App\Models\Pages\Page                                $page
+     * @param \App\Http\Requests\Backend\Pages\ManagePageRequest    $request
      *
      * @return \App\Http\Responses\Backend\Blog\EditResponse
      */
@@ -74,8 +73,8 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \App\Models\Pages\Page                            $page
-     * @param \App\Http\Requests\Backend\Pages\UpdatePageRequest $request
+     * @param \App\Models\Pages\Page                                $page
+     * @param \App\Http\Requests\Backend\Pages\UpdatePageRequest    $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
@@ -89,8 +88,8 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \App\Models\Pages\Page                              $page
-     * @param \App\Http\Requests\Backend\Pages\DeletePageRequest $request
+     * @param \App\Models\Pages\Page                                $page
+     * @param \App\Http\Requests\Backend\Pages\DeletePageRequest    $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */

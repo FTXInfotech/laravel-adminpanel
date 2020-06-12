@@ -31,7 +31,7 @@ return [
         'general' => [
             'all_rights_reserved' => 'Todos los derechos reservados.',
             'are_you_sure' => '¿Está seguro?',
-            'boilerplate_link' => 'Laravel Boilerplate',
+            'boilerplate_link' => 'Laravel Starter',
             'continue' => 'Continuar',
             'member_since' => 'Miembro desde',
             'minutes' => ' minutos',

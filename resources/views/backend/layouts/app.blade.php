@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', app_name())</title>
-    <meta name="description" content="@yield('meta_description', 'Laravel Boilerplate')">
-    <meta name="author" content="@yield('meta_author', 'Anthony Rappa')">
+    <meta name="description" content="@yield('meta_description', 'Laravel Starter')">
+    <meta name="author" content="@yield('meta_author', 'FasTrax Infotech')">
     @yield('meta')
 
     {{-- See https://laravel.com/docs/5.5/blade#stacks for usage --}}
@@ -21,7 +21,9 @@
     {{ style(mix('css/backend.css')) }}
 
     <link media="all" type="text/css" rel="stylesheet" href="{{ asset('js/select2/select2.css') }}">
-    <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/backend-custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
 
     @stack('after-styles')
 </head>
@@ -83,12 +85,16 @@
     {!! script(mix('js/vendor.js')) !!}
     {!! script(mix('js/backend.js')) !!}
     @stack('after-scripts')
-    <script src="{{URL::asset('/js/bootstrap.min.js')}}"></script>
-    <script src="{{URL::asset('/js/moment.min.js')}}"></script>
-    <script src="{{URL::asset('/js/bootstrap-datetimepicker.min.js')}}"></script>
-    <script src="{{URL::asset('/js/select2/select2.min.js')}}"></script>
-    <script src="{{URL::asset('/js/tinymce/tinymce.min.js')}}"></script>
-    <script src="{{URL::asset('/js/backend/custom-file-input.js')}}"></script>
+    <script src="{{ asset('/js/backend/common.js')}}"></script>
+    <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment-with-locales.min.js"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker/js/demo.js') }}"></script>
+    <script src="{{ asset('/js/es.js')}}"></script>
+    <script src="{{ asset('/js/select2/select2.min.js')}}"></script>
+    <script src="{{ asset('/js/tinymce/tinymce.min.js')}}"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     @yield('pagescript')
 </body>
 </html>

@@ -113,11 +113,11 @@ var Blog = {}; // common variable used
             },
 
             init: function (locale) {
-                this.addHandlers();
+                this.addHandlers(locale);
                 Blog.tinyMCE.init(locale);
             },
 
-            addHandlers: function () {
+            addHandlers: function (locale) {
 
                 this.selectors.tags.select2({
                     tags: true,
@@ -134,7 +134,9 @@ var Blog = {}; // common variable used
                 });
 
                 //For Blog datetimepicker for publish_datetime
-                this.selectors.datetimepicker1.datetimepicker();
+                this.selectors.datetimepicker1.datetimepicker({
+                    locale: (locale === 'en_US' ? undefined : locale),
+                });
 
                 // For generating the Slug  //changing slug on blur event
                 // this.selectors.name.onblur = function (event) {

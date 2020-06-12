@@ -48,17 +48,11 @@
                         <img src="{{ asset('storage/img/blog/'.$blog->featured_image) }}" height="80" width="80">
                     </div>
                     <div class="col-lg-5">
-                        <div class="custom-file-input">
-                            <input type="file" name="featured_image" id="file-1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                            <label for="file-1"><i class="fa fa-upload"></i><span>Choose a file</span></label>
-                        </div>
+                        {{ Form::file('featured_image', ['id' => 'featured_image']) }}
                     </div>
                 @else
                     <div class="col-lg-5">
-                        <div class="custom-file-input">
-                                <input type="file" name="featured_image" id="file-1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                <label for="file-1"><i class="fa fa-upload"></i><span>Choose a file</span></label>
-                        </div>
+                        {{ Form::file('featured_image', ['id' => 'featured_image']) }}
                     </div>
                 @endif
             </div><!--form-group-->
@@ -137,12 +131,8 @@
 @section('pagescript')
     <script src="{{URL::asset('/js/backend/blogs.js')}}"></script>
     <script type="text/javascript">
-
-        Blog.Blog.init('en_US');
-
-        // $(function () {
-        //         $('#datetimepicker1').datetimepicker();
-        //     });
+        
+        Blog.Blog.init('{{ config('locale.languages.' . app()->getLocale())[1] }}');
 
     </script>
 @stop

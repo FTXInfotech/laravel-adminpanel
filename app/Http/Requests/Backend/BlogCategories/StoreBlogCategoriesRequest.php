@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Backend\BlogCategories;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class StoreBlogCategoriesRequest.
  */
-class StoreBlogCategoriesRequest extends Request
+class StoreBlogCategoriesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,7 @@ class StoreBlogCategoriesRequest extends Request
      */
     public function authorize()
     {
-        return access()->allow('create-blog-category');
+        return true;
     }
 
     /**
@@ -27,7 +27,7 @@ class StoreBlogCategoriesRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:191',
+            'name' => 'required|max:191|unique:blog_categories,name',
         ];
     }
 
@@ -40,6 +40,7 @@ class StoreBlogCategoriesRequest extends Request
     {
         return [
             'name.required' => 'Blog category name must required',
+            'name.unique'   => 'Blog category name already exist.',
             'name.max'      => 'Blog category may not be greater than 191 characters.',
         ];
     }

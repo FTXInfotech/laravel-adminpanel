@@ -24,7 +24,7 @@
                 {{ Form::label('answer', trans('labels.backend.access.faqs.table.answer'), ['class' => 'col-md-2 from-control-label required']) }}
                 
                 <div class="col-md-10">
-                    {{ Form::textarea('answer', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.faqs.table.answer'), 'required' => 'required']) }}
+                    {{ Form::textarea('answer', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.faqs.table.answer')]) }}
                 </div><!--col-->
             </div><!--form-group-->
 
@@ -42,11 +42,11 @@
 </div><!--card-body-->
 
 @section('pagescript')
-    <script src="{{URL::asset('/js/backend/faqs.js')}}"></script>
+    <script src="{{ asset('/js/backend/faqs.js') }}"></script>
 
     <script type="text/javascript">
         
-        Faq.Faq.init('en_US');
+        Faq.Faq.init('{{ config('locale.languages.' . app()->getLocale())[1] }}');
 
     </script>
 @stop

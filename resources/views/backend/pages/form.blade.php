@@ -89,7 +89,7 @@
 
     <script type="text/javascript">
 
-        Page.Page.init('en_US');
+        Page.Page.init('{{ config('locale.languages.' . app()->getLocale())[1] }}');
 
     </script>
 @stop

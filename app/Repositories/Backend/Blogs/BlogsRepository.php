@@ -46,6 +46,24 @@ class BlogsRepository extends BaseRepository
     }
 
     /**
+     * @return mixed
+     */
+    public function getForDataTable()
+    {
+        return $this->model->query()
+            ->leftjoin('users', 'users.id', '=', 'blogs.created_by')
+            ->select([
+                'blogs.id',
+                'blogs.name',
+                'blogs.publish_datetime',
+                'blogs.status',
+                'blogs.created_by',
+                'blogs.created_at',
+                'users.first_name as user_name',
+            ]);
+    }
+
+    /**
      * @param int    $paged
      * @param string $orderBy
      * @param string $sort

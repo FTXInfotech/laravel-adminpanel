@@ -61,6 +61,23 @@ class EmailTemplatesRepository extends BaseRepository
     }
 
     /**
+     * @return mixed
+     */
+    public function getForDataTable()
+    {
+        return $this->model->query()
+            ->leftjoin('users', 'users.id', '=', 'email_templates.created_by')
+            ->select([
+                'email_templates.id',
+                'email_templates.title',
+                'email_templates.status',
+                'email_templates.created_by',
+                'email_templates.created_at',
+                'users.first_name as user_name',
+            ]);
+    }
+
+    /**
      * @param array $input
      *
      * @throws \App\Exceptions\GeneralException
@@ -70,7 +87,7 @@ class EmailTemplatesRepository extends BaseRepository
     public function create(array $input)
     {
         DB::transaction(function () use ($input) {
-            $input['slug'] = Str::slug($input['slug']);
+            $input['slug'] = Str::slug($input['title']);
             $input['created_by'] = auth()->user()->id;
 
             if ($emailTemplate = EmailTemplate::create($input)) {

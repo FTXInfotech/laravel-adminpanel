@@ -40,7 +40,6 @@ class BlogCategoriesRepository extends BaseRepository
      */
     public function getActivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc')
     {
-        // dd($this->model->query());
         return $this->model->query()
             ->leftjoin('users', 'users.id', '=', 'blog_categories.created_by')
             ->select([
@@ -53,6 +52,23 @@ class BlogCategoriesRepository extends BaseRepository
             ])
             ->orderBy($orderBy, $sort)
             ->paginate($paged);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getForDataTable()
+    {
+        return $this->model->query()
+            ->leftjoin('users', 'users.id', '=', 'blog_categories.created_by')
+            ->select([
+                'blog_categories.id',
+                'blog_categories.name',
+                'blog_categories.status',
+                'blog_categories.created_by',
+                'blog_categories.created_at',
+                'users.first_name as user_name',
+            ]);
     }
 
     /**

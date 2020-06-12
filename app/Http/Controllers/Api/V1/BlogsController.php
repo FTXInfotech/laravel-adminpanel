@@ -81,7 +81,7 @@ class BlogsController extends APIController
      */
     public function update(Request $request, Blog $blog)
     {
-        $validation = $this->validateBlog($request, 'update');
+        $validation = $this->validateBlog($request, $blog->id, 'update');
 
         if ($validation->fails()) {
             return $this->throwValidation($validation->messages()->first());
@@ -117,14 +117,14 @@ class BlogsController extends APIController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function validateBlog(Request $request, $action = 'insert')
+    public function validateBlog(Request $request, $id = 0, $action = 'insert')
     {
         $featured_image = ($action == 'insert') ? 'required' : '';
 
         $publish_datetime = $request->publish_datetime !== '' ? 'required|date' : 'required';
 
         $validation = Validator::make($request->all(), [
-            'name'              => 'required|max:191',
+            'name'              => 'required|max:191|unique:blogs,name,'.$id,
             'featured_image'    => $featured_image,
             'publish_datetime'  => $publish_datetime,
             'content'           => 'required',
@@ -143,7 +143,8 @@ class BlogsController extends APIController
     public function messages()
     {
         return [
-            'name.required' => 'Please insert Blog Title',
+            'name.required' => 'Please insert Blog Title.',
+            'name.unique'   => 'The blog name already taken. Please try with different name.',
             'name.max'      => 'Blog Title may not be greater than 191 characters.',
         ];
     }

@@ -63,6 +63,23 @@ class PagesRepository extends BaseRepository
     }
 
     /**
+     * @return mixed
+     */
+    public function getForDataTable()
+    {
+        return $this->model->query()
+            ->leftjoin('users', 'users.id', '=', 'pages.created_by')
+            ->select([
+                'pages.id',
+                'pages.title',
+                'pages.status',
+                'pages.created_by',
+                'pages.created_at',
+                'users.first_name as user_name',
+            ]);
+    }
+
+    /**
      * @param array $input
      *
      * @throws \App\Exceptions\GeneralException

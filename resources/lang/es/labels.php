@@ -248,6 +248,7 @@ return [
                     'content'           => 'Contenido',
                     'status'            => 'Estado',
                     'createdat'         => 'Creado en',
+                    'createdby'         => 'Creado por',
                     'total'             => 'total de plantillas de correo electrónico|total de plantillas de correo electrónico',
                 ],
             ],

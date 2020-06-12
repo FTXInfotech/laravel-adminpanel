@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Backend\Blogs;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
-use App\Http\Responses\Backend\Blogs\IndexResponse;
-use App\Http\Responses\Backend\Blogs\CreateResponse;
 use App\Http\Responses\Backend\Blog\EditResponse;
 use App\Repositories\Backend\Blogs\BlogsRepository;
 use App\Models\Blogs\Blog;
@@ -14,7 +12,7 @@ use App\Models\BlogCategories\BlogCategory;
 use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
 use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
 use App\Http\Responses\RedirectResponse;
-use Request;
+use App\Http\Responses\ViewResponse;
 
 class BlogsController extends Controller
 {
@@ -44,24 +42,24 @@ class BlogsController extends Controller
     /**
      * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
-     * @return \App\Http\Responses\Backend\Blog\IndexResponse
+     * @return ViewResponse
      */
     public function index(ManageBlogsRequest $request)
     {
-        return new IndexResponse($this->status, $this->blog->getActivePaginated(25, 'id', 'desc'));
+        return new ViewResponse('backend.blogs.index');
     }
 
     /**
      * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
-     * @return mixed
+     * @return ViewResponse
      */
     public function create(ManageBlogsRequest $request)
     {
         $blogTags = BlogTag::getSelectData();
         $blogCategories = BlogCategory::getSelectData();
 
-        return new CreateResponse($this->status, $blogCategories, $blogTags);
+        return new ViewResponse('backend.blogs.create', ['status' => $this->status, 'blogCategories' => $blogCategories, 'blogTags' => $blogTags]);
     }
 
     /**

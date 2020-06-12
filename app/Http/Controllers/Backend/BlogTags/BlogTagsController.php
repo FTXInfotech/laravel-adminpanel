@@ -8,10 +8,8 @@ use App\Http\Requests\Backend\BlogTags\DeleteBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest;
-use App\Http\Responses\Backend\BlogTag\IndexResponse;
 use App\Http\Responses\ViewResponse;
 use App\Repositories\Backend\BlogTags\BlogTagsRepository;
-use Illuminate\Http\Request;
 use App\Models\BlogTags\BlogTag;
 use App\Http\Responses\Backend\BlogTag\EditResponse;
 use App\Http\Responses\RedirectResponse;
@@ -38,17 +36,18 @@ class BlogTagsController extends Controller
      */
     public function index(ManageBlogTagsRequest $request)
     {
-        return new IndexResponse($this->tag->getActivePaginated(25, 'created_at', 'desc'));
+        return new ViewResponse('backend.blog-tags.index');
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\Backend\BlogTags\CreateBlogTagsRequest
+     * 
+     * @return ViewResponse
      */
-    public function create()
+    public function create(CreateBlogTagsRequest $request)
     {
-        return view('backend.blog-tags.create');
+        return new ViewResponse('backend.blog-tags.create');
     }
 
     /**
@@ -64,7 +63,7 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogTags\BlogTag             $blogTag
+     * @param \App\Models\BlogTags\BlogTag                              $blogTag
      * @param \App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest $request
      *
      * @return \App\Http\Responses\Backend\BlogTag\EditResponse
@@ -75,7 +74,7 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogTags\BlogTag                               $blogTag
+     * @param \App\Models\BlogTags\BlogTag                                $blogTag
      * @param \App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest   $request
      *
      * @return \App\Http\Responses\RedirectResponse
@@ -91,7 +90,7 @@ class BlogTagsController extends Controller
      * @param \App\Models\BlogTags\BlogTag                              $blogTag
      * @param \App\Http\Requests\Backend\BlogTags\DeleteBlogTagsRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(BlogTag $blogTag, DeleteBlogTagsRequest $request)
     {

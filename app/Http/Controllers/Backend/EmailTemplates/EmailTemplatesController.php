@@ -8,10 +8,8 @@ use App\Http\Requests\Backend\EmailTemplates\DeleteEmailTemplatesRequest;
 use App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest;
 use App\Http\Requests\Backend\EmailTemplates\UpdateEmailTemplatesRequest;
 use App\Http\Requests\Backend\EmailTemplates\StoreEmailTemplatesRequest;
-use App\Http\Responses\Backend\EmailTemplates\IndexResponse;
 use App\Http\Responses\ViewResponse;
 use App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository;
-use Illuminate\Http\Request;
 use App\Models\EmailTemplates\EmailTemplate;
 use App\Http\Responses\Backend\EmailTemplates\EditResponse;
 use App\Http\Responses\RedirectResponse;
@@ -24,7 +22,7 @@ class EmailTemplatesController extends Controller
     protected $emailTemplate;
     
     /**
-     * @param \App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository $tag
+     * @param \App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository $emailTemplate
      */
     public function __construct(EmailTemplatesRepository $emailTemplate)
     {
@@ -38,17 +36,17 @@ class EmailTemplatesController extends Controller
      */
     public function index(ManageEmailTemplatesRequest $request)
     {
-        return new IndexResponse($this->emailTemplate->getActivePaginated(25, 'created_at', 'desc'));
+        return new ViewResponse('backend.email-templates.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * @param \App\Http\Requests\Backend\EmailTemplates\CreateEmailTemplatesRequest
      *
-     * @return \Illuminate\Http\Response
+     * @return ViewResponse
      */
     public function create(CreateEmailTemplatesRequest $request)
     {
-        return view('backend.email-templates.create');
+        return new ViewResponse('backend.email-templates.create');
     }
 
     /**
@@ -64,7 +62,7 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * @param \App\Models\EmailTemplates\EmailTemplate             $EmailTemplate
+     * @param \App\Models\EmailTemplates\EmailTemplate                              $emailTemplate
      * @param \App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest $request
      *
      * @return \App\Http\Responses\Backend\EmailTemplates\EditResponse
@@ -75,8 +73,8 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * @param \App\Models\EmailTemplates\EmailTemplate                               $EmailTemplate
-     * @param \App\Http\Requests\Backend\EmailTemplates\UpdateEmailTemplatesRequest   $request
+     * @param \App\Models\EmailTemplates\EmailTemplate                                  $emailTemplate
+     * @param \App\Http\Requests\Backend\EmailTemplates\UpdateEmailTemplatesRequest     $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
@@ -88,10 +86,10 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * @param \App\Models\EmailTemplates\EmailTemplate                              $EmailTemplate
+     * @param \App\Models\EmailTemplates\EmailTemplate                              $emailTemplate
      * @param \App\Http\Requests\Backend\EmailTemplates\DeleteEmailTemplatesRequest $request
      *
-     * @return mixed
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(EmailTemplate $emailTemplate, DeleteEmailTemplatesRequest $request)
     {

@@ -9,10 +9,10 @@ trait ModelTrait
      */
     public function getEditButtonAttribute($permission, $route)
     {
-        if (access()->allow($permission)) {
-            return '<a href="'.route($route, $this).'" class="btn btn-flat btn-default">
-                    <i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-pencil"></i>
-                </a>';
+        if (true) {
+            return '<a href="'.route($route, $this).'" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.general.crud.edit').'" class="btn btn-primary">
+                        <i class="fas fa-edit"></i>
+                    </a>';
         }
     }
 
@@ -21,9 +21,10 @@ trait ModelTrait
      */
     public function getDeleteButtonAttribute($permission, $route)
     {
-        if (access()->allow($permission)) {
+        if (true) {         //access()->allow($permission)
             return '<a href="'.route($route, $this).'" 
-                    class="btn btn-flat btn-default" data-method="delete"
+                    class="btn btn-primary btn-danger" 
+                    data-method="delete"
                     data-trans-button-cancel="'.trans('buttons.general.cancel').'"
                     data-trans-button-confirm="'.trans('buttons.general.crud.delete').'"
                     data-trans-title="'.trans('strings.backend.general.are_you_sure').'">
@@ -32,3 +33,5 @@ trait ModelTrait
         }
     }
 }
+
+            

@@ -24,7 +24,7 @@
         <div class="row mt-4">
             <div class="col">
                 <div class="table-responsive">
-                    <table id="blogs-table" class="table">
+                    <table id="pages-table" class="table">
                         <thead>
                             <tr>
                                 <th>{{ trans('labels.backend.access.pages.table.name') }}</th>
@@ -35,44 +35,60 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @forelse($pages as $page)
-                            <tr>
-                                <td>{{ $page->title }}</td>
-                                <td>
-                                    @if($page->status)
-                                    <span class="badge badge-success">Active</span>
-                                    @else
-                                    <label class="badge badge-danger">Inactive</label>
-                                    @endif
-                                </td>
-                                <td>{{ $page->user_name }}</td>
-                                <td>{{ $page->created_at }}</td>
-                                <td class="btn-td">
-                                    @include('backend.pages.includes.actions', ['page' => $page])
-                                </td>
-                            </tr>
-                        @empty
-                            <tr><td colspan="5">No pages found.</td></tr>
-                        @endforelse
                         </tbody>
                     </table>
-                </div>
-            </div><!--col-->
-        </div><!--row-->
-        <div class="row">
-            <div class="col-7">
-                <div class="float-left">
-                    {!! $pages->total() !!} {{ trans_choice('labels.backend.access.pages.table.total', $pages->total()) }}
-                </div>
-            </div><!--col-->
-
-            <div class="col-5">
-                <div class="float-right">
-                    {!! $pages->render() !!}
                 </div>
             </div><!--col-->
         </div><!--row-->
         
     </div><!--card-body-->
 </div><!--card-->
+@endsection
+
+@section('pagescript')
+
+    <script>
+        $(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var dataTable = $('#pages-table').dataTable({
+                processing: false,
+                serverSide: true,
+                ajax: {
+                    url: '{{ route("admin.pages.get") }}',
+                    type: 'post'
+                },
+                columns: [
+                    {data: 'title', name: 'pages.title'},
+                    {data: 'status', name: 'pages.status'},
+                    {data: 'created_by', name: 'pages.user_name'},
+                    {data: 'created_at', name: 'pages.created_at'},
+                    {data: 'actions', name: 'actions', searchable: false, sortable: false}
+                ],
+                order: [[1, "asc"]],
+                searchDelay: 500,
+                dom: 'lBfrtip',
+                buttons: {
+                    buttons: [
+                        { extend: 'copy', className: 'copyButton',  exportOptions: {columns: [ 0, 1, 2, 3 ]  }},
+                        { extend: 'csv', className: 'csvButton',  exportOptions: {columns: [ 0, 1, 2, 3 ]  }},
+                        { extend: 'excel', className: 'excelButton',  exportOptions: {columns: [ 0, 1, 2, 3 ]  }},
+                        { extend: 'pdf', className: 'pdfButton',  exportOptions: {columns: [ 0, 1, 2, 3 ]  }},
+                        { extend: 'print', className: 'printButton',  exportOptions: {columns: [ 0, 1, 2, 3 ]  }}
+                    ]
+                },
+                "createdRow": function( row, data, dataIndex){
+                    Common.Utils.DataTables.CreateRow(row, data, dataIndex);
+                }
+                // language: {
+                //     @lang('datatable.strings')
+                // }
+            });
+
+        });
+    </script>
 @endsection

@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Backend\BlogTags;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class CreateBlogTagsRequest.
  */
-class CreateBlogTagsRequest extends Request
+class CreateBlogTagsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,7 @@ class CreateBlogTagsRequest extends Request
      */
     public function authorize()
     {
-        return access()->allow('create-blog-tag');
+        return true;
     }
 
     /**

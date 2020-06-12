@@ -50,6 +50,21 @@ class FaqsRepository extends BaseRepository
     }
 
     /**
+     * @return mixed
+     */
+    public function getForDataTable()
+    {
+        return $this->model->query()
+            ->select([
+                'faqs.id',
+                'faqs.question',
+                'faqs.answer',
+                'faqs.created_at',
+                'faqs.status'
+            ]);
+    }
+
+    /**
      * @param array $input
      *
      * @throws \App\Exceptions\GeneralException

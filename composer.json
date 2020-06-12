@@ -1,7 +1,7 @@
 {
     "name": "rappasoft/laravel-boilerplate",
     "type": "project",
-    "description": "The Laravel Boilerplate Project.",
+    "description": "The Laravel Starter Project.",
     "keywords": [
         "framework",
         "laravel",

@@ -24,49 +24,19 @@
         <div class="row mt-4">
             <div class="col">
                 <div class="table-responsive">
-                    <table id="blogs-table" class="table">
+                    <table id="email-templates-table" class="table">
                         <thead>
                             <tr>
                                 <th>{{ trans('labels.backend.access.email-templates.table.title') }}</th>
                                 <th>{{ trans('labels.backend.access.email-templates.table.status') }}</th>
+                                <th>{{ trans('labels.backend.access.email-templates.table.createdby') }}</th>
                                 <th>{{ trans('labels.backend.access.email-templates.table.createdat') }}</th>
                                 <th>{{ trans('labels.general.actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @forelse($emailTemplates as $emailTemplate)
-                            <tr>
-                                <td>{{ $emailTemplate->title }}</td>
-                                <td>
-                                    @if($emailTemplate->status)
-                                    <span class="badge badge-success">Active</span>
-                                    @else
-                                    <label class="badge badge-danger">Inactive</label>
-                                    @endif
-                                </td>
-                                <td>{{ $emailTemplate->created_at }}</td>
-                                <td class="btn-td">
-                                    @include('backend.email-templates.includes.actions', ['emailTemplate' => $emailTemplate])
-                                </td>
-                            </tr>
-                        @empty
-                            <tr><td colspan="4">No email templates found.</td></tr>
-                        @endforelse
                         </tbody>
                     </table>
-                </div>
-            </div><!--col-->
-        </div><!--row-->
-        <div class="row">
-            <div class="col-7">
-                <div class="float-left">
-                    {!! $emailTemplates->total() !!} {{ trans_choice('labels.backend.access.email-templates.table.total', $emailTemplates->total()) }}
-                </div>
-            </div><!--col-->
-
-            <div class="col-5">
-                <div class="float-right">
-                    {!! $emailTemplates->render() !!}
                 </div>
             </div><!--col-->
         </div><!--row-->
@@ -74,3 +44,51 @@
     </div><!--card-body-->
 </div><!--card-->
 @endsection
+
+@section('pagescript')
+    <script>
+        $(function () {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+    
+            var dataTable = $('#email-templates-table').DataTable({
+                processing: false,
+                serverSide: true,
+                pagingType: "full_numbers",
+                ajax: {
+                    url: '{{ route("admin.emailTemplates.get") }}',
+                    type: 'post'
+                },
+                columns: [
+                    {data: 'title', name: 'email_templates.title'},
+                    {data: 'status', name: 'email_templates.status'},
+                    {data: 'created_by', name: 'email_templates.created_by'},
+                    {data: 'created_at', name: 'email_templates.created_at'},
+                    {data: 'actions', name: 'actions', searchable: false, sortable: false}
+                ],
+                order: [[3, "asc"]],
+                searchDelay: 500,
+                dom: 'lBfrtip',
+                buttons: {
+                    buttons: [
+                        { extend: 'copy', className: 'copyButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4 ]  }},
+                        { extend: 'csv', className: 'csvButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4 ]  }},
+                        { extend: 'excel', className: 'excelButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4 ]  }},
+                        { extend: 'pdf', className: 'pdfButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4 ]  }},
+                        { extend: 'print', className: 'printButton',  exportOptions: {columns: [ 0, 1, 2, 3, 4 ]  }}
+                    ]
+                },
+                "createdRow": function( row, data, dataIndex){
+                    Common.Utils.DataTables.CreateRow(row, data, dataIndex);
+                }
+                // "language": {
+                //     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                // }
+            });
+        });
+    </script>
+@stop

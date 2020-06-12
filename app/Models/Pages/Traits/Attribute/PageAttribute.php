@@ -13,8 +13,7 @@ trait PageAttribute
     public function getActionButtonsAttribute()
     {
         return '<div class="btn-group action-btn">
-                    '.$this->getEditButtonAttribute('edit-page', 'admin.pages.edit').'
-                    '.$this->getViewButtonAttribute().'                    
+                    '.$this->getEditButtonAttribute('edit-page', 'admin.pages.edit').'                    
                     '.$this->getDeleteButtonAttribute('delete-page', 'admin.pages.destroy').'
                 </div>';
     }

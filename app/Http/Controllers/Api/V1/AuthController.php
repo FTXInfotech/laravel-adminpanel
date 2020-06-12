@@ -79,9 +79,4 @@ class AuthController extends APIController
             'message'   => trans('api.messages.logout.success'),
         ]);
     }
-
-    public function milan()
-    {
-        dd('milan');
-    }
 }

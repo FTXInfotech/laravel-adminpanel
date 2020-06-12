@@ -59,6 +59,23 @@ class BlogTagsRepository extends BaseRepository
     }
 
     /**
+     * @return mixed
+     */
+    public function getForDataTable()
+    {
+        return $this->model->query()
+            ->leftjoin('users', 'users.id', '=', 'blog_tags.created_by')
+            ->select([
+                'blog_tags.id',
+                'blog_tags.name',
+                'blog_tags.status',
+                'blog_tags.created_by',
+                'blog_tags.created_at',
+                'users.first_name as user_name',
+            ]);
+    }
+
+    /**
      * @param array $input
      *
      * @throws \App\Exceptions\GeneralException
