@@ -1,0 +1,11 @@
+{
+    "presets": [
+        ["@babel/env", {
+            "forceAllTransforms": true,
+            "targets": {
+                "node": "current"
+            }
+        }]
+    ],
+    "sourceMaps": true
+}
