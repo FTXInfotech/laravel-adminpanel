@@ -66,6 +66,14 @@ abstract class BaseRepository implements RepositoryContract
     protected $scopes = [];
 
     /**
+     * @return mixed
+     */
+    public function getAll()
+    {
+        return $this->query()->get();
+    }
+
+    /**
      * Get all the model records in the database.
      *
      * @return \Illuminate\Database\Eloquent\Collection
@@ -121,6 +129,22 @@ abstract class BaseRepository implements RepositoryContract
         $this->unsetClauses();
 
         return $models;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCount()
+    {
+        return $this->query()->count();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function query()
+    {
+        return call_user_func(static::MODEL.'::query');
     }
 
     /**

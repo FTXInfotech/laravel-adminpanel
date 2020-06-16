@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Auth\User\ManageUserRequest;
 use App\Http\Requests\Backend\Auth\User\StoreUserRequest;
 use App\Http\Requests\Backend\Auth\User\UpdateUserRequest;
+use App\Http\Responses\ViewResponse;
 use App\Models\Auth\User;
 use App\Repositories\Backend\Auth\PermissionRepository;
 use App\Repositories\Backend\Auth\RoleRepository;
@@ -35,12 +36,11 @@ class UserController extends Controller
     /**
      * @param ManageUserRequest $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \App\Http\Responses\ViewResponse
      */
     public function index(ManageUserRequest $request)
     {
-        return view('backend.auth.user.index')
-            ->withUsers($this->userRepository->getActivePaginated(25, 'id', 'asc'));
+        return new ViewResponse('backend.auth.user.index');
     }
 
     /**

@@ -35,6 +35,39 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * @param int  $status
+     * @param bool $trashed
+     *
+     * @return mixed
+     */
+    public function getForDataTable($status = 1, $trashed = false)
+    {
+        /**
+         * Note: You must return deleted_at or the User getActionButtonsAttribute won't
+         * be able to differentiate what buttons to show for each row.
+         */
+        $dataTableQuery = $this->model->query()
+            ->select([
+                'users.id',
+                'users.first_name',
+                'users.last_name',
+                'users.email',
+                'users.active',
+                'users.confirmed',
+                'users.created_at',
+                'users.updated_at',
+                'users.deleted_at',
+            ]);
+
+        if ($trashed == 'true') {
+            return $dataTableQuery->onlyTrashed();
+        }
+
+        // active() is a scope on the UserScope trait
+        return $dataTableQuery->active($status);
+    }
+
+    /**
      * @return mixed
      */
     public function getUnconfirmedCount(): int

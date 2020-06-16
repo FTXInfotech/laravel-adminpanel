@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Backend\Auth\Role;
+namespace App\Http\Requests\Backend\Auth\Permission;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class ManageRoleRequest.
+ * Class EditPermissionRequest.
  */
-class ManageRoleRequest extends FormRequest
+class EditPermissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,7 @@ class ManageRoleRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->isAdmin();
+        return true;
     }
 
     /**
@@ -27,6 +27,7 @@ class ManageRoleRequest extends FormRequest
     public function rules()
     {
         return [
+
         ];
     }
 }

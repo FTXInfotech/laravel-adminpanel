@@ -4,10 +4,15 @@ namespace App\Http\Controllers\Backend\Auth\Role;
 
 use App\Events\Backend\Auth\Role\RoleDeleted;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\Auth\Role\EditRoleRequest;
 use App\Http\Requests\Backend\Auth\Role\ManageRoleRequest;
 use App\Http\Requests\Backend\Auth\Role\StoreRoleRequest;
 use App\Http\Requests\Backend\Auth\Role\UpdateRoleRequest;
-use App\Models\Auth\Role;
+use App\Http\Responses\Backend\Auth\Role\CreateResponse;
+use App\Http\Responses\Backend\Auth\Role\EditResponse;
+use App\Http\Responses\RedirectResponse;
+use App\Http\Responses\ViewResponse;
+use App\Models\Auth\Role\Role;
 use App\Repositories\Backend\Auth\PermissionRepository;
 use App\Repositories\Backend\Auth\RoleRepository;
 
@@ -19,12 +24,12 @@ class RoleController extends Controller
     /**
      * @var RoleRepository
      */
-    protected $roleRepository;
+    protected $roles;
 
     /**
      * @var PermissionRepository
      */
-    protected $permissionRepository;
+    protected $permissions;
 
     /**
      * @param RoleRepository       $roleRepository
@@ -32,8 +37,8 @@ class RoleController extends Controller
      */
     public function __construct(RoleRepository $roleRepository, PermissionRepository $permissionRepository)
     {
-        $this->roleRepository = $roleRepository;
-        $this->permissionRepository = $permissionRepository;
+        $this->roles        = $roleRepository;
+        $this->permissions  = $permissionRepository;
     }
 
     /**
@@ -43,67 +48,51 @@ class RoleController extends Controller
      */
     public function index(ManageRoleRequest $request)
     {
-        return view('backend.auth.role.index')
-            ->withRoles($this->roleRepository
-            ->with('users', 'permissions')
-            ->orderBy('id')
-            ->paginate());
+        return new ViewResponse('backend.auth.roles.index');
     }
 
     /**
      * @param ManageRoleRequest $request
      *
-     * @return mixed
+     * @return CreateResponse
      */
     public function create(ManageRoleRequest $request)
     {
-        return view('backend.auth.role.create')
-            ->withPermissions($this->permissionRepository->get());
+        return new CreateResponse($this->permissions, $this->roles);
     }
 
     /**
      * @param  StoreRoleRequest  $request
      *
-     * @return mixed
-     * @throws \App\Exceptions\GeneralException
-     * @throws \Throwable
+     * @return RedirectResponse
      */
     public function store(StoreRoleRequest $request)
     {
-        $this->roleRepository->create($request->only('name', 'associated-permissions', 'permissions', 'sort'));
+        $this->roles->create($request->all());
 
-        return redirect()->route('admin.auth.role.index')->withFlashSuccess(__('alerts.backend.roles.created'));
+        return new RedirectResponse(route('admin.access.role.index'), ['flash_success' => trans('alerts.backend.roles.created')]);
     }
 
     /**
      * @param ManageRoleRequest $request
      * @param Role              $role
      *
-     * @return mixed
+     * @return EditResponse
      */
-    public function edit(ManageRoleRequest $request, Role $role)
+    public function edit(Role $role, EditRoleRequest $request)
     {
-        if ($role->isAdmin()) {
-            return redirect()->route('admin.auth.role.index')->withFlashDanger('You can not edit the administrator role.');
-        }
-
-        return view('backend.auth.role.edit')
-            ->withRole($role)
-            ->withRolePermissions($role->permissions->pluck('name')->all())
-            ->withPermissions($this->permissionRepository->get());
+        return new EditResponse($role, $this->permissions);
     }
 
     /**
      * @param  UpdateRoleRequest  $request
      * @param  Role  $role
      *
-     * @return mixed
-     * @throws \App\Exceptions\GeneralException
-     * @throws \Throwable
+     * @return RedirectResponse
      */
-    public function update(UpdateRoleRequest $request, Role $role)
+    public function update(Role $role, UpdateRoleRequest $request)
     {
-        $this->roleRepository->update($role, $request->only('name', 'permissions'));
+        $this->roleRepository->update($role, $request->all());
 
         return redirect()->route('admin.auth.role.index')->withFlashSuccess(__('alerts.backend.roles.updated'));
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\Access\Role\RoleTableController;
 use App\Http\Controllers\Backend\Auth\Role\RoleController;
 use App\Http\Controllers\Backend\Auth\User\UserConfirmationController;
 use App\Http\Controllers\Backend\Auth\User\UserController;
@@ -17,6 +18,11 @@ Route::group([
 ], function () {
     // User Management
     Route::group(['namespace' => 'User'], function () {
+        /*
+        * For DataTables
+        */
+        Route::post('user/get', 'UserTableController')->name('user.get');
+        
         // User Status'
         Route::get('user/deactivated', [UserStatusController::class, 'getDeactivated'])->name('user.deactivated');
         Route::get('user/deleted', [UserStatusController::class, 'getDeleted'])->name('user.deleted');
@@ -62,6 +68,7 @@ Route::group([
 
     // Role Management
     Route::group(['namespace' => 'Role'], function () {
+
         Route::get('role', [RoleController::class, 'index'])->name('role.index');
         Route::get('role/create', [RoleController::class, 'create'])->name('role.create');
         Route::post('role', [RoleController::class, 'store'])->name('role.store');
@@ -71,5 +78,18 @@ Route::group([
             Route::patch('/', [RoleController::class, 'update'])->name('role.update');
             Route::delete('/', [RoleController::class, 'destroy'])->name('role.destroy');
         });
+
+        // For DataTables
+        Route::post('role/get', [RoleTableController::class, 'get'])->name('role.get');
+    });
+
+    /*
+    * Permission Management
+    */
+    Route::group(['namespace' => 'Permission'], function () {
+        Route::resource('permission', 'PermissionController', ['except' => ['show']]);
+
+        //For DataTables
+        Route::post('permission/get', 'PermissionTableController')->name('permission.get');
     });
 });

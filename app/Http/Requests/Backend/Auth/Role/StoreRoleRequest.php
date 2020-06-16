@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Backend\Auth\Role;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 /**
  * Class StoreRoleRequest.
@@ -17,7 +16,7 @@ class StoreRoleRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->isAdmin();
+        return auth()->user()->isAdmin();
     }
 
     /**
@@ -27,8 +26,22 @@ class StoreRoleRequest extends FormRequest
      */
     public function rules()
     {
+        $permissions = '';
+
+        if ($this->associated_permissions != 'all') {
+            $permissions = 'required';
+        }
+
         return [
-            'name' => ['required', Rule::unique('roles')],
+            'name'          => 'required|max:191',
+            'permissions'   => $permissions,
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'permissions.required' => 'You must select at least one permission for this role.',
         ];
     }
 }

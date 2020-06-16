@@ -5,9 +5,9 @@ namespace App\Http\Requests\Backend\Auth\Role;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class UpdateRoleRequest.
+ * Class DeleteRoleRequest.
  */
-class UpdateRoleRequest extends FormRequest
+class DeleteRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,22 +26,8 @@ class UpdateRoleRequest extends FormRequest
      */
     public function rules()
     {
-        $permissions = '';
-
-        if ($this->associated_permissions != 'all') {
-            $permissions = 'required';
-        }
-
         return [
-            'name'          => 'required|max:191',
-            'permissions'   => $permissions,
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'permissions.required' => 'You must select at least one permission for this role.',
+            //
         ];
     }
 }
