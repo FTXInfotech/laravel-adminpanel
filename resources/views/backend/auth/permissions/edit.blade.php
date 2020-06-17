@@ -1,11 +1,11 @@
 @extends ('backend.layouts.app')
 
-@section ('title', trans('labels.backend.auth.permissions.management') . ' | ' . trans('labels.backend.auth.permissions.edit'))
+@section ('title', trans('labels.backend.access.permissions.management') . ' | ' . trans('labels.backend.access.permissions.edit'))
 
 @section('page-header')
     <h1>
-        {{ trans('labels.backend.auth.permissions.management') }}
-        <small>{{ trans('labels.backend.auth.permissions.edit') }}</small>
+        {{ trans('labels.backend.access.permissions.management') }}
+        <small>{{ trans('labels.backend.access.permissions.edit') }}</small>
     </h1>
 @endsection
 

@@ -2,8 +2,8 @@
     <div class="row">
         <div class="col-sm-5">
             <h4 class="card-title mb-0">
-                {{ __('labels.backend.access.permission.management') }}
-                <small class="text-muted">{{ __('labels.backend.access.permission.create') }}</small>
+                {{ __('labels.backend.access.permissions.management') }}
+                <small class="text-muted">{{ __('labels.backend.access.permissions.create') }}</small>
             </h4>
         </div><!--col-->
     </div><!--row-->
@@ -29,10 +29,10 @@
             </div><!--form-group-->
 
             <div class="form-group row">
-                {{ Form::label('sort', trans('validation.attributes.backend.access.permissions.sort'), ['class' => 'col-lg-2 control-label']) }}
+                {{ Form::label('sort', trans('labels.backend.access.permissions.table.sort'), ['class' => 'col-lg-2 control-label']) }}
                 
                 <div class="col-md-10">
-                    {{ Form::text('sort', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.backend.access.permissions.sort')]) }}
+                    {{ Form::text('sort', null, ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.access.permissions.table.sort')]) }}
                 </div><!--col-->
             </div><!--form-group-->
 

@@ -107,6 +107,29 @@ return [
                 'view' => 'Ver Usuario',
             ],
 
+            'permissions' => [
+                'all'                   => 'Todos los permisos',
+                'active'                => 'Lista de permisos',
+                'create'                => 'Crear permiso',
+                'deactivated'           => 'Permiso desactivado',
+                'deleted'               => 'Permiso eliminado',
+                'edit'                  => 'Editar permiso',
+                'management'            => 'Gestión de permisos',
+
+                'table' => [
+                    'created'           => 'Creada',
+                    'id'                => 'CARNÉ DE IDENTIDAD',
+                    'last_updated'      => 'Última actualización',
+                    'permission'        => 'Permiso',
+                    'display_name'      => 'Nombre para mostrar',
+                    'sort'              => 'Ordenar',
+                    'status'            => 'Estado',
+                    'createdby'         => 'Creado por',
+                    'createdat'         => 'Creado en',
+                    'total'             => 'permisos totales|permisos totales',
+                ],
+            ],
+
             'blogs' => [
                 'all'                   => 'Todos los blogs',
                 'active'                => 'Lista de blogs',

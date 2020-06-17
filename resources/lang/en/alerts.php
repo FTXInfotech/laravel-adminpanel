@@ -35,6 +35,14 @@ return [
         ],
 
         'blogs' => [
+            'created'               => 'The permission was successfully created.',
+            'deleted'               => 'The permission was successfully deleted.',
+            'deleted_permanently'   => 'The permission was deleted permanently.',
+            'restored'              => 'The permission was successfully restored.',
+            'updated'               => 'The permission was successfully updated.'
+        ],
+
+        'blogs' => [
             'created'               => 'The blog was successfully created.',
             'deleted'               => 'The blog was successfully deleted.',
             'deleted_permanently'   => 'The blog was deleted permanently.',

@@ -34,6 +34,17 @@ return [
                 'main' => 'Usuario',
                 'view' => 'Ver Usuario',
             ],
+
+            'permissions' => [
+                'all'           => 'Todos los permisos',
+                'create'        => 'Crear permiso',
+                'deactivated'   => 'Permiso desactivado',
+                'deleted'       => 'Permisos eliminados',
+                'edit'          => 'Editar permiso',
+                'main'          => 'Permisos',
+                'view'          => 'Ver permiso',
+                'management'    => 'Gestión de permisos',
+            ],
         ],
 
         'log-viewer' => [

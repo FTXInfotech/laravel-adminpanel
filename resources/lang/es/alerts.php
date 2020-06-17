@@ -34,6 +34,14 @@ return [
             'updated_password' => 'La contraseña fue actualizada correctamente.',
         ],
 
+        'permissions' => [
+            'created'               => 'El permiso se creó correctamente.',
+            'deleted'               => 'El permiso fue eliminado exitosamente.',
+            'deleted_permanently'   => 'El permiso fue eliminado permanentemente.',
+            'restored'              => 'El permiso fue restaurado exitosamente.',
+            'updated'               => 'El permiso se actualizó correctamente.'
+        ],
+
         'blogs' => [
             'created'               => 'El blog fue creado exitosamente.',
             'deleted'               => 'El blog fue eliminado exitosamente.',

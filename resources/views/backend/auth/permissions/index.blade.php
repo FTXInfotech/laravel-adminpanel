@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', app_name() . ' | '. __('labels.backend.access.permission.management'))
+@section('title', app_name() . ' | '. __('labels.backend.access.permissions.management'))
 
 @section('content')
 <div class="card">
@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-sm-5">
                 <h4 class="card-title mb-0">
-                    @lang('labels.backend.access.permission.management')
+                    @lang('labels.backend.access.permissions.management')
                 </h4>
             </div><!--col-->
 
@@ -23,9 +23,9 @@
                     <table class="table" id="permissions-table">
                         <thead>
                         <tr>
-                            <th>Permission</th>
-                            <th>Display Name</th>
-                            <th>Sort</th>
+                            <th>{{ trans('labels.backend.access.permissions.table.permission') }}</th>
+                            <th>{{ trans('labels.backend.access.permissions.table.display_name') }}</th>
+                            <th>{{ trans('labels.backend.access.permissions.table.sort') }}</th>
                             <th>@lang('labels.general.actions')</th>
                         </tr>
                         </thead>

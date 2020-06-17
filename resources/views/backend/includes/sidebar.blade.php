@@ -56,7 +56,7 @@
                             <a class="nav-link {{
                                 active_class(Route::is('admin/auth/permission*'))
                             }}" href="{{ route('admin.auth.permission.index') }}">
-                                @lang('labels.backend.access.permission.management')
+                                @lang('labels.backend.access.permissions.management')
                             </a>
                         </li>
                     </ul>
