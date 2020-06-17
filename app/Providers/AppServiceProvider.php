@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -49,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
          * Set the session variable for whether or not the app is using RTL support
          * For use in the blade directive in BladeServiceProvider
          */
-        if (! app()->runningInConsole()) {
+        if (!app()->runningInConsole()) {
             if (config('locale.languages')[config('app.locale')][2]) {
                 session(['lang-rtl' => true]);
             } else {
@@ -83,5 +84,12 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('langrtl', function ($session_identifier = 'lang-rtl') {
             return session()->has($session_identifier);
         });
+
+
+        /* 
+         * Set the default string length for MySQL version below 5.7.7
+         * @see https://laravel-news.com/laravel-5-4-key-too-long-error 
+        */
+        Schema::defaultStringLength(191);
     }
 }

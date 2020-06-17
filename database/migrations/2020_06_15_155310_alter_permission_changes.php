@@ -15,7 +15,7 @@ class AlterPermissionChanges extends Migration
     {
         Schema::table('permissions', function (Blueprint $table) {
             $table->string('guard_name')->nullable()->change();
-            $table->string('display_name', 255)->unique()->nullable();
+            $table->string('display_name')->unique()->nullable();
             $table->smallInteger('sort')->unsigned()->default(0);
             $table->tinyInteger('status')->unsigned()->default(1);
             $table->bigInteger('created_by')->nullable();
