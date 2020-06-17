@@ -1,0 +1,14 @@
+version: "2"
+
+services:
+  app:
+    image: ${IMAGE_NAME}
+    container_name: ${IMAGE_NAME}
+    build:
+      context: ./docker/app
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - ${PORT_NUMBER}:80
+    volumes:
+      - .:/var/www/html/

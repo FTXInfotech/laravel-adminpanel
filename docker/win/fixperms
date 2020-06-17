@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "Correcting filesystem permissions..."
+
+docker/clinotty find var vendor pub/static pub/media app/etc -type f -exec chmod u+w {} \;
+docker/clinotty find var vendor pub/static pub/media app/etc -type d -exec chmod u+w {} \;
+docker/clinotty chmod u+x docker/magento
+
+echo "Filesystem permissions corrected."
