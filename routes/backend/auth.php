@@ -14,7 +14,7 @@ Route::group([
     'prefix' => 'auth',
     'as' => 'auth.',
     'namespace' => 'Auth',
-    'middleware' => 'role:'.config('access.users.admin_role'),
+    'middleware' => 'access.routeNeedsPermission:view-access-management',
 ], function () {
     // User Management
     Route::group(['namespace' => 'User'], function () {
@@ -22,7 +22,7 @@ Route::group([
         * For DataTables
         */
         Route::post('user/get', 'UserTableController')->name('user.get');
-        
+
         // User Status'
         Route::get('user/deactivated', [UserStatusController::class, 'getDeactivated'])->name('user.deactivated');
         Route::get('user/deleted', [UserStatusController::class, 'getDeleted'])->name('user.deleted');
@@ -80,7 +80,7 @@ Route::group([
         });
 
         // For DataTables
-        Route::post('role/get', [RoleTableController::class, 'get'])->name('role.get');
+        Route::post('role/get', 'RoleTableController')->name('role.get');
     });
 
     /*

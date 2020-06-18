@@ -1,3 +1,3 @@
 <div class="btn-toolbar float-right" role="toolbar" aria-label="@lang('labels.general.toolbar_btn_groups')">
-    <a href="{{ route('admin.auth.permission.create') }}" class="btn btn-success ml-1" data-toggle="tooltip" title="@lang('labels.general.create_new')"><i class="fas fa-plus-circle"></i></a>
+    <a href="{{ route('admin.auth.permission.create') }}" class="btn btn-primary btn-sm ml-1" data-toggle="tooltip" title="@lang('labels.general.create_new')">Add New Permission</a>
 </div><!--btn-toolbar-->

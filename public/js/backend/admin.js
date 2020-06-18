@@ -95,6 +95,97 @@ var Backend = {}; // common variable used in all the files of the backend
                 return urljson;
             },
 
+            setCSRF: function () {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': this.csrf
+                    }
+                });
+            },
+
+            dtAnchorToForm: function ($parent) {
+                console.log($('[data-method]', $parent));
+                $('[data-method]', $parent).append(function () {
+                    if (!$(this).find('form').length > 0) {
+                        return "\n<form action='" + $(this).attr('href') + "' method='POST' name='delete_item' style='display:none'>\n" +
+                            "<input type='hidden' name='_method' value='" + $(this).attr('data-method') + "'>\n" +
+                            "<input type='hidden' name='_token' value='" + $('meta[name="csrf-token"]').attr('content') + "'>\n" +
+                            '</form>\n';
+                    } else { return '' }
+                })
+                    .attr('href', '#')
+                    .attr('style', 'cursor:pointer;')
+                    .attr('onclick', '$(this).find("form").submit();');
+            },
+
+        },
+
+        Permission: {
+
+            selectors: {
+                permissions_table: $('#permissions-table'),
+            },
+            init: function () {
+
+                Backend.Utils.setCSRF();
+
+                this.selectors.permissions_table.dataTable({
+
+                    processing: false,
+                    serverSide: true,
+
+                    ajax: {
+                        url: this.selectors.permissions_table.data('ajax_url'),
+                        type: 'post',
+                    },
+                    columns: [
+                        { data: 'name', name: 'permissions.name' },
+                        { data: 'display_name', name: 'permissions.display_name', sortable: false },
+                        { data: 'sort', name: 'permissions.sort', sortable: false },
+                        { data: 'actions', name: 'actions', searchable: false, sortable: false }
+                    ],
+                    order: [[2, "asc"]],
+                    searchDelay: 500,
+                    "createdRow": function (row, data, dataIndex) {
+                        Backend.Utils.dtAnchorToForm(row);
+                    }
+                })
+            },
+        },
+
+        UserPage: {
+
+            selectors: {
+                users_table: $('#users-table'),
+            },
+            init: function () {
+
+                Backend.Utils.setCSRF();
+
+                this.selectors.users_table.dataTable({
+
+                    processing: false,
+                    serverSide: true,
+                    ajax: {
+                        url: this.selectors.users_table.data('ajax_url'),
+                        type: 'post',
+                        data: {status: 1, trashed: false}
+                    },
+                    columns: [
+
+                        {data: 'first_name', name: 'users.first_name'},
+                        {data: 'last_name', name: 'users.last_name'},
+                        {data: 'email', name: 'users.email'},
+                        {data: 'confirmed', name: 'users.confirmed'},
+                        {data: 'roles', name: 'users.name', sortable: false},
+                        {data: 'created_at', name: 'users.created_at'},
+                        {data: 'updated_at', name: 'users.updated_at'},
+                        {data: 'actions', name: 'actions', searchable: false, sortable: false}
+                    ],
+                    order: [[0, "asc"]],
+                    searchDelay: 500,
+                })
+            },
         },
 
         /**
@@ -659,7 +750,7 @@ var Backend = {}; // common variable used in all the files of the backend
                 Backend.tinyMCE.init(locale);
             },
 
-            addHandlers: function () {}
+            addHandlers: function () { }
         },
 
         /**

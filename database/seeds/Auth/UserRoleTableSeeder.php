@@ -2,13 +2,15 @@
 
 use App\Models\Auth\User;
 use Illuminate\Database\Seeder;
+use Database\DisableForeignKeys;
+use Database\TruncateTable;
 
 /**
  * Class UserRoleTableSeeder.
  */
 class UserRoleTableSeeder extends Seeder
 {
-    use DisableForeignKeys;
+    use DisableForeignKeys, TruncateTable;
 
     /**
      * Run the database seed.
@@ -16,9 +18,16 @@ class UserRoleTableSeeder extends Seeder
     public function run()
     {
         $this->disableForeignKeys();
+        $this->truncate("role_user");
 
-        User::find(1)->assignRole(config('access.users.admin_role'));
-        User::find(2)->assignRole(config('access.users.default_role'));
+        //Attach admin role to admin user
+        User::first()->attachRole(1);
+
+        //Attach executive role to executive user
+        User::find(2)->attachRole(2);
+
+        //Attach user role to general user
+        User::find(3)->attachRole(3);
 
         $this->enableForeignKeys();
     }

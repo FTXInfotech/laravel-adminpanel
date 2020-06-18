@@ -9,8 +9,8 @@ trait ModelTrait
      */
     public function getEditButtonAttribute($permission, $route)
     {
-        if (true) {
-            return '<a href="'.route($route, $this).'" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.general.crud.edit').'" class="btn btn-primary">
+        if (access()->allow($permission)) {
+            return '<a href="'.route($route, $this).'" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.general.crud.edit').'" class="btn btn-primary btn-sm">
                         <i class="fas fa-edit"></i>
                     </a>';
         }
@@ -21,9 +21,9 @@ trait ModelTrait
      */
     public function getDeleteButtonAttribute($permission, $route)
     {
-        if (true) {         //access()->allow($permission)
+        if (access()->allow($permission)) {
             return '<a href="'.route($route, $this).'" 
-                    class="btn btn-primary btn-danger" 
+                    class="btn btn-primary btn-danger btn-sm" 
                     data-method="delete"
                     data-trans-button-cancel="'.trans('buttons.general.cancel').'"
                     data-trans-button-confirm="'.trans('buttons.general.crud.delete').'"

@@ -31,6 +31,12 @@ class CreateUsersTable extends Migration
             $table->timestamp('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
             $table->boolean('to_be_logged_out')->default(false);
+            
+            $table->boolean('status')->default(1);
+            $table->integer('created_by')->unsigned();
+            $table->integer('updated_by')->unsigned()->nullable();
+            $table->boolean('is_term_accept')->default(0)->comment(' 0 = not accepted,1 = accepted');
+
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

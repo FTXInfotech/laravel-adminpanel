@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\Access;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
@@ -91,5 +92,9 @@ class AppServiceProvider extends ServiceProvider
          * @see https://laravel-news.com/laravel-5-4-key-too-long-error 
         */
         Schema::defaultStringLength(191);
+
+        $this->app->bind('access', function ($app) {
+            return new Access();
+        });
     }
 }

@@ -4,6 +4,8 @@ namespace App\Models\Auth\Traits\Relationship;
 
 use App\Models\Auth\PasswordHistory;
 use App\Models\Auth\SocialAccount;
+use App\Models\Auth\Permission\Permission;
+use App\Models\Auth\Role\Role;
 
 /**
  * Class UserRelationship.
@@ -24,5 +26,34 @@ trait UserRelationship
     public function passwordHistories()
     {
         return $this->hasMany(PasswordHistory::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function sessions()
+    {
+        return $this->hasMany(Session::class);
+    }
+
+    /**
+     * Many-to-Many relations with Role.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * Many-to-Many relations with Permission.
+     * ONLY GETS PERMISSIONS ARE NOT ASSOCIATED WITH A ROLE.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
     }
 }

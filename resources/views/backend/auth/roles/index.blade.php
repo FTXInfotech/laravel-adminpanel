@@ -60,8 +60,7 @@
                 columns: [
                     {data: 'name', name: 'roles.name'},
                     {data: 'permissions', name: '{{config('access.permissions_table')}}.display_name', sortable: false},
-                    {data: 'users', name: 'users', searchable: false, sortable: false},
-                    {data: 'sort', name: '{{config('access.roles_table')}}.sort'},
+                    {data: 'users', name: 'users', searchable: false, sortable: false},                    
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],
                 order: [[3, "asc"]],

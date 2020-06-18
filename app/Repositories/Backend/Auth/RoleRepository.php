@@ -30,21 +30,22 @@ class RoleRepository extends BaseRepository
     public function getForDataTable()
     {
         return $this->model->query()
+            ->leftJoin('role_user', 'role_user.role_id', '=', 'roles.id')
             ->leftJoin('users', 'role_user.user_id', '=', 'users.id')
             ->leftJoin('permission_role', 'permission_role.role_id', '=', 'roles.id')
             ->leftJoin('permissions', 'permission_role.permission_id', '=', 'permissions.id')
             ->select([
-                config('access.roles_table').'.id',
-                config('access.roles_table').'.name',
-                config('access.roles_table').'.all',
-                config('access.roles_table').'.sort',
-                config('access.roles_table').'.status',
-                config('access.roles_table').'.created_at',
-                config('access.roles_table').'.updated_at',
+                'roles'.'.id',
+                'roles'.'.name',
+                'roles'.'.all',
+                'roles'.'.sort',
+                'roles'.'.status',
+                'roles'.'.created_at',
+                'roles'.'.updated_at',
                 DB::raw("GROUP_CONCAT( DISTINCT permissions.display_name SEPARATOR '<br/>') as permission_name"),
                 DB::raw('(SELECT COUNT(role_user.id) FROM role_user LEFT JOIN users ON role_user.user_id = users.id WHERE role_user.role_id = roles.id AND users.deleted_at IS NULL) AS userCount'),
             ])
-            ->groupBy(config('access.roles_table').'.id', config('access.roles_table').'.name', config('access.roles_table').'.all', config('access.roles_table').'.sort');
+            ->groupBy('roles'.'.id', 'roles'.'.name', 'roles'.'.all', 'roles'.'.sort');
     }
 
     /**
@@ -58,10 +59,10 @@ class RoleRepository extends BaseRepository
     {
         // Make sure it doesn't already exist
         if ($this->roleExists($data['name'])) {
-            throw new GeneralException('A role already exists with the name '.e($data['name']));
+            throw new GeneralException('A role already exists with the name ' . e($data['name']));
         }
 
-        if (! isset($data['permissions']) || ! \count($data['permissions'])) {
+        if (!isset($data['permissions']) || !\count($data['permissions'])) {
             $data['permissions'] = [];
         }
 
@@ -102,11 +103,11 @@ class RoleRepository extends BaseRepository
         // If the name is changing make sure it doesn't already exist
         if ($role->name !== strtolower($data['name'])) {
             if ($this->roleExists($data['name'])) {
-                throw new GeneralException('A role already exists with the name '.$data['name']);
+                throw new GeneralException('A role already exists with the name ' . $data['name']);
             }
         }
 
-        if (! isset($data['permissions']) || ! \count($data['permissions'])) {
+        if (!isset($data['permissions']) || !\count($data['permissions'])) {
             $data['permissions'] = [];
         }
 

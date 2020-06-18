@@ -18,8 +18,8 @@ use Spatie\Permission\Traits\HasRoles;
  */
 abstract class BaseUser extends Authenticatable implements Recordable
 {
-    use HasRoles,
-        Eventually,
+    // use HasRoles,
+    use Eventually,
         Impersonate,
         Notifiable,
         RecordableTrait,

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Database\TruncateTable;
 
 class DatabaseSeeder extends Seeder
 {

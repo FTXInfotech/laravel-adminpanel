@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Access\Role;
+namespace App\Http\Controllers\Backend\Auth\Role;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Auth\Role\ManageRoleRequest;

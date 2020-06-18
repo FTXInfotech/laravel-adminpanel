@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
     return $request->user();
 });*/
 
-Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], function () {
+/* Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], function () {
     Route::group(['prefix' => 'auth', 'middleware' => ['guest']], function () {
         Route::post('register', 'RegisterController@register');
         Route::post('login', 'AuthController@login');
@@ -45,4 +45,4 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         // Blogs
         Route::resource('blogs', 'BlogsController', ['except' => ['create', 'edit']]);
     });
-});
+}); */

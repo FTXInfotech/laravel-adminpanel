@@ -19,6 +19,12 @@ return [
             'updated' => 'The role was successfully updated.',
         ],
 
+        'permissions' => [
+            'created' => 'The permission was successfully created.',
+            'deleted' => 'The permission was successfully deleted.',
+            'updated' => 'The permission was successfully updated.',
+        ],
+
         'users' => [
             'cant_resend_confirmation' => 'The application is currently set to manually approve users.',
             'confirmation_email' => 'A new confirmation e-mail has been sent to the address on file.',
@@ -32,14 +38,6 @@ return [
             'unconfirmed' => 'The user was successfully un-confirmed',
             'updated' => 'The user was successfully updated.',
             'updated_password' => "The user's password was successfully updated.",
-        ],
-
-        'blogs' => [
-            'created'               => 'The permission was successfully created.',
-            'deleted'               => 'The permission was successfully deleted.',
-            'deleted_permanently'   => 'The permission was deleted permanently.',
-            'restored'              => 'The permission was successfully restored.',
-            'updated'               => 'The permission was successfully updated.'
         ],
 
         'blogs' => [

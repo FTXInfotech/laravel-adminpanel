@@ -59,15 +59,8 @@ trait UserAttribute
      */
     public function getRolesLabelAttribute()
     {
-        $roles = $this->getRoleNames()->toArray();
-
-        if (\count($roles)) {
-            return implode(', ', array_map(function ($item) {
-                return ucwords($item);
-            }, $roles));
-        }
-
-        return 'N/A';
+        $roles = $this->roles->pluck('name')->map(function($name){return ucfirst($name);})->toArray();
+        return ($roles) ? $roles : 'N/A';
     }
 
     /**
@@ -250,8 +243,8 @@ trait UserAttribute
 
         if ($this->id != 1) {
 
-            $str .= '<div class="btn-group dropup">
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+            $str .= '<div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle btn-sm" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-option-vertical"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
@@ -281,11 +274,12 @@ trait UserAttribute
         // Check if role have all permission
         if (auth()->user()->isAdmin()) {
             return '<div class="btn-group" role="group" aria-label="'.trans('labels.backend.access.users.user_actions').'">
-                    '.$this->getShowButtonAttribute('btn btn-info').'
-                    '.$this->getEditButtonAttribute('btn btn-primary').'
-                    '.$this->getChangePasswordButtonAttribute('btn btn-warning').'
-                    '.$this->checkAdmin().'
+                    '.$this->getShowButtonAttribute('btn btn-info btn-sm').'
+                    '.$this->getEditButtonAttribute('btn btn-primary btn-sm').'
+                    '.$this->getChangePasswordButtonAttribute('btn btn-warning btn-sm').'
+                    
                 </div>';
+                // '.$this->checkAdmin().'
         } else {
             $userPermission = $this->getUserPermission();
             $permissionCounter = count($userPermission);
