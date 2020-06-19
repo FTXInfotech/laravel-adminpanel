@@ -195,9 +195,38 @@ var Backend = {}; // common variable used in all the files of the backend
          *
          */
         Pages: {
-            init: function (locale) {
-                Backend.tinyMCE.init(locale);
+            selectors: {
+                pages_table: $('#pages-table'),
             },
+            init: function (locale) {
+
+                Backend.Utils.setCSRF();
+
+                this.selectors.pages_table.dataTable({
+
+                    processing: false,
+                    serverSide: true,
+                    ajax: {
+                        url: this.selectors.pages_table.data('ajax_url'),
+                        type: 'post',
+                        data: { status: 1, trashed: false }
+                    },
+                    columns: [
+
+                        { data: 'title', name: 'title' },
+                        { data: 'status', name: 'status' },
+                        { data: 'created_by', name: 'user_name' },
+                        { data: 'created_at', name: 'created_at' },
+                        { data: 'actions', name: 'actions', searchable: false, sortable: false }
+
+                    ],
+                    order: [[0, "asc"]],
+                    searchDelay: 500,
+                    "createdRow": function (row, data, dataIndex) {
+                        Backend.Utils.dtAnchorToForm(row);
+                    }
+                });
+            }
         },
 
         RolePage: {
@@ -222,6 +251,39 @@ var Backend = {}; // common variable used in all the files of the backend
                         { data: 'permissions', name: 'permissions', sortable: false },
                         { data: 'users', name: 'users', searchable: false, sortable: false },
                         { data: 'actions', name: 'actions', searchable: false, sortable: false }
+                    ],
+                    order: [[3, "asc"]],
+                    searchDelay: 500,
+                    "createdRow": function (row, data, dataIndex) {
+                        Backend.Utils.dtAnchorToForm(row);
+                    }
+                })
+            },
+        },
+
+        EmailPage: {
+
+            selectors: {
+                email_table: $('#email-templates-table'),
+            },
+            init: function () {
+
+                Backend.Utils.setCSRF();
+
+                this.selectors.email_table.dataTable({
+
+                    processing: false,
+                    serverSide: true,
+                    ajax: {
+                        url: this.selectors.email_table.data('ajax_url'),
+                        type: 'post'
+                    },
+                    columns: [
+                        {data: 'title', name: 'title'},
+                        {data: 'status', name: 'status'},
+                        {data: 'created_by', name: 'created_by'},
+                        {data: 'created_at', name: 'created_at'},
+                        {data: 'actions', name: 'actions', searchable: false, sortable: false}
                     ],
                     order: [[3, "asc"]],
                     searchDelay: 500,
@@ -261,7 +323,7 @@ var Backend = {}; // common variable used in all the files of the backend
                 }
 
                 associated.onchange = function (event) {
-                    
+
                     if (associated_container != null) {
                         if (associated.value == "custom")
                             Backend.Utils.removeClass(associated_container, "hidden");
@@ -712,13 +774,14 @@ var Backend = {}; // common variable used in all the files of the backend
          */
         tinyMCE: {
             init: function (locale) {
+
                 tinymce.init({
                     language: (locale === 'en_US' ? undefined : locale),
                     path_absolute: "/",
                     selector: 'textarea',
                     height: 200,
                     width: 725,
-                    theme: 'silver', // New theme available in latest tinymce
+                    // theme: 'silver', // New theme available in latest tinymce
                     plugins: [
                         'advlist autolink lists link image charmap print preview hr anchor pagebreak',
                         'searchreplace wordcount visualblocks visualchars code fullscreen',
@@ -762,14 +825,43 @@ var Backend = {}; // common variable used in all the files of the backend
          *
          */
         Faq: {
-            selectors: {},
-
-            init: function (locale) {
-                // this.addHandlers();
-                Backend.tinyMCE.init(locale);
+            selectors: {
+                faqs_table: $('#faqs-table'),
             },
+            init: function (page, locale) {
 
-            addHandlers: function () { }
+                if (page == "edit") {
+                    Backend.tinyMCE.init(locale);
+                } else {
+
+                    Backend.Utils.setCSRF();
+
+                    this.selectors.faqs_table.dataTable({
+
+                        processing: false,
+                        serverSide: true,
+                        ajax: {
+                            url: this.selectors.faqs_table.data('ajax_url'),
+                            type: 'post',
+                            data: { status: 1, trashed: false }
+                        },
+                        columns: [
+
+                            { data: 'question', name: 'question' },
+                            { data: 'answer', name: 'answer' },
+                            { data: 'status', name: 'status' },
+                            { data: 'updated_at', name: 'updated_at' },
+                            { data: 'actions', name: 'actions', searchable: false, sortable: false }
+
+                        ],
+                        order: [[0, "asc"]],
+                        searchDelay: 500,
+                        "createdRow": function (row, data, dataIndex) {
+                            Backend.Utils.dtAnchorToForm(row);
+                        }
+                    });
+                }
+            }
         },
 
         /**

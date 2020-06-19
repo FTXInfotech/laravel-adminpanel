@@ -100,14 +100,19 @@
     @stack('after-scripts')
     <!-- <script src="{{ asset('/js/backend/common.js')}}"></script>
     <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment-with-locales.min.js"></script>
+    
     <script src="{{ asset('js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datetimepicker/js/demo.js') }}"></script>
-    <script src="{{ asset('/js/es.js')}}"></script>
+    
     <script src="{{ asset('/js/select2/select2.min.js')}}"></script>
-    <script src="{{ asset('/js/tinymce/tinymce.min.js')}}"></script>
+    
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script> -->
+
+    <script src="{{ asset('/js/backend/common.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment-with-locales.min.js"></script>
+    <script src="{{ asset('/js/es.js')}}"></script>
+    <script src="{{ asset('/js/tinymce/tinymce.min.js')}}"></script>
     @yield('pagescript')
 </body>
 
