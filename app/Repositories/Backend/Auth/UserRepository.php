@@ -12,6 +12,8 @@ use App\Events\Backend\Auth\User\UserRestored;
 use App\Events\Backend\Auth\User\UserUnconfirmed;
 use App\Events\Backend\Auth\User\UserUpdated;
 use App\Exceptions\GeneralException;
+use App\Http\Requests\Backend\Auth\User\StoreUserRequest;
+use App\Http\Requests\Backend\Auth\User\UpdateUserRequest;
 use App\Models\Auth\User;
 use App\Notifications\Backend\Auth\UserAccountActive;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
@@ -132,45 +134,49 @@ class UserRepository extends BaseRepository
      * @throws \Throwable
      * @return User
      */
-    public function create(array $data): User
+    public function create(StoreUserRequest $request)
     {
-        return DB::transaction(function () use ($data) {
-            $user = $this->model::create([
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'email' => $data['email'],
-                'password' => $data['password'],
-                'active' => isset($data['active']) && $data['active'] === '1',
-                'confirmation_code' => md5(uniqid(mt_rand(), true)),
-                'confirmed' => isset($data['confirmed']) && $data['confirmed'] === '1',
-            ]);
+        $data = $request->except('assignees_roles', 'permissions');
+        $roles = $request->get('assignees_roles');
+        $permissions = $request->get('permissions');
 
-            // See if adding any additional permissions
-            if (! isset($data['permissions']) || ! count($data['permissions'])) {
-                $data['permissions'] = [];
-            }
+        $user = new User();
+        $user->first_name = $data['first_name'];
+        $user->last_name = $data['last_name'];
+        $user->email = $data['email'];
+        $user->password = bcrypt($data['password']);
+        $user->status = isset($data['status']) ? 1 : 0;
+        $user->confirmation_code = md5(uniqid(mt_rand(), true));
+        $user->confirmed = isset($data['confirmed']) ? 1 : 0;
+        $user->created_by = access()->user()->id;
 
-            if ($user) {
-                // User must have at least one role
-                if (! count($data['roles'])) {
-                    throw new GeneralException(__('exceptions.backend.access.users.role_needed_create'));
+        $this->checkUserByEmail($user, $data['email']);
+
+        DB::transaction(function () use ($user, $data, $roles, $permissions) {
+            if ($user->save()) {
+
+                //User Created, Validate Roles
+                if (!count($roles)) {
+                    throw new GeneralException(trans('exceptions.backend.access.users.role_needed_create'));
                 }
 
-                // Add selected roles/permissions
-                $user->syncRoles($data['roles']);
-                $user->syncPermissions($data['permissions']);
+                //Attach new roles
+                $user->attachRoles($roles);
+
+                // Attach New Permissions
+                $user->attachPermissions($permissions);
 
                 //Send confirmation email if requested and account approval is off
-                if ($user->confirmed === false && isset($data['confirmation_email']) && ! config('access.users.requires_approval')) {
+                if (isset($data['confirmation_email']) && $user->confirmed == 0) {
                     $user->notify(new UserNeedsConfirmation($user->confirmation_code));
                 }
 
                 event(new UserCreated($user));
 
-                return $user;
+                return true;
             }
 
-            throw new GeneralException(__('exceptions.backend.access.users.create_error'));
+            throw new GeneralException(trans('exceptions.backend.access.users.create_error'));
         });
     }
 
@@ -183,32 +189,53 @@ class UserRepository extends BaseRepository
      * @throws \Throwable
      * @return User
      */
-    public function update(User $user, array $data): User
+    public function update(User $user, UpdateUserRequest $request)
     {
+        $data = $request->except('assignees_roles', 'permissions');
+        $roles = $request->get('assignees_roles');
+        $permissions = $request->get('permissions');
+
         $this->checkUserByEmail($user, $data['email']);
 
         // See if adding any additional permissions
-        if (! isset($data['permissions']) || ! count($data['permissions'])) {
+        if (!isset($data['permissions']) || !count($data['permissions'])) {
             $data['permissions'] = [];
         }
 
-        return DB::transaction(function () use ($user, $data) {
-            if ($user->update([
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'email' => $data['email'],
-            ])) {
-                // Add selected roles/permissions
-                $user->syncRoles($data['roles']);
-                $user->syncPermissions($data['permissions']);
+        DB::transaction(function () use ($user, $data, $roles, $permissions) {
+            if ($user->update($data)) {
+
+                $user->status = isset($data['status']) && $data['status'] == '1' ? 1 : 0;
+                $user->confirmed = isset($data['confirmed']) && $data['confirmed'] == '1' ? 1 : 0;
+
+                $user->save();
+
+                $this->checkUserRolesCount($roles);
+                
+                $user->roles()->sync($roles);
+                $user->permissions()->sync($permissions);
 
                 event(new UserUpdated($user));
 
-                return $user;
+                return true;
             }
 
-            throw new GeneralException(__('exceptions.backend.access.users.update_error'));
+            throw new GeneralException(trans('exceptions.backend.access.users.update_error'));
         });
+    }
+
+    /**
+     * @param  $roles
+     *
+     * @throws GeneralException
+     */
+    protected function checkUserRolesCount($roles)
+    {
+        //User Updated, Update Roles
+        //Validate that there's at least one role chosen
+        if (count($roles) == 0) {
+            throw new GeneralException(trans('exceptions.backend.access.users.role_needed'));
+        }
     }
 
     /**
@@ -247,10 +274,10 @@ class UserRepository extends BaseRepository
         switch ($status) {
             case 0:
                 event(new UserDeactivated($user));
-            break;
+                break;
             case 1:
                 event(new UserReactivated($user));
-            break;
+                break;
         }
 
         if ($user->save()) {
@@ -297,7 +324,7 @@ class UserRepository extends BaseRepository
      */
     public function unconfirm(User $user): User
     {
-        if (! $user->confirmed) {
+        if (!$user->confirmed) {
             throw new GeneralException(__('exceptions.backend.access.users.not_confirmed'));
         }
 

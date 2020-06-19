@@ -8,6 +8,8 @@ use App\Http\Requests\Backend\Auth\User\ManageUserRequest;
 use App\Http\Requests\Backend\Auth\User\StoreUserRequest;
 use App\Http\Requests\Backend\Auth\User\UpdateUserRequest;
 use App\Http\Responses\ViewResponse;
+use App\Models\Auth\Permission\Permission;
+use App\Models\Auth\Role\Role;
 use App\Models\Auth\User;
 use App\Repositories\Backend\Auth\PermissionRepository;
 use App\Repositories\Backend\Auth\RoleRepository;
@@ -53,8 +55,7 @@ class UserController extends Controller
     public function create(ManageUserRequest $request, RoleRepository $roleRepository, PermissionRepository $permissionRepository)
     {
         return view('backend.auth.user.create')
-            ->withRoles($roleRepository->with('permissions')->get(['id', 'name']))
-            ->withPermissions($permissionRepository->get(['id', 'name']));
+            ->withRoles(Role::all());
     }
 
     /**
@@ -65,17 +66,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $this->userRepository->create($request->only(
-            'first_name',
-            'last_name',
-            'email',
-            'password',
-            'active',
-            'confirmed',
-            'confirmation_email',
-            'roles',
-            'permissions'
-        ));
+        $this->userRepository->create($request);
 
         return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.users.created'));
     }
@@ -102,11 +93,13 @@ class UserController extends Controller
      */
     public function edit(ManageUserRequest $request, RoleRepository $roleRepository, PermissionRepository $permissionRepository, User $user)
     {
+        $permissions = Permission::getSelectData('display_name');
+        
         return view('backend.auth.user.edit')
             ->withUser($user)
             ->withRoles($roleRepository->get())
             ->withUserRoles($user->roles->pluck('id')->all())
-            ->withPermissions($permissionRepository->get(['id', 'name']))
+            ->withPermissions($permissions) 
             ->withUserPermissions($user->permissions->pluck('id')->all());
     }
 
@@ -120,14 +113,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        dd($request->all());
-        $this->userRepository->update($user, $request->only(
-            'first_name',
-            'last_name',
-            'email',
-            'roles',
-            'permissions'
-        ));
+        $this->userRepository->update($user, $request);
 
         return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.users.updated'));
     }

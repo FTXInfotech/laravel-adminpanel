@@ -18,7 +18,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->isAdmin();
+        return access()->allow('create-user');
     }
 
     /**
@@ -29,11 +29,24 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'email' => ['required', 'email', Rule::unique('users')],
-            'password' => PasswordRules::register($this->email),
-            'roles' => ['required', 'array'],
+            'first_name'      => 'required|max:255',
+            'last_name'       => 'required|max:255',
+            'email'           => ['required', 'email', 'max:255', Rule::unique('users')],
+            'password'        => 'required|min:6|confirmed',
+            'assignees_roles' => 'required',
+            'permissions'     => 'required',
+        ];
+    }
+
+    /**
+     * Get the validation massages that apply to the rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'assignees_roles' => 'Please Select Role',
         ];
     }
 }

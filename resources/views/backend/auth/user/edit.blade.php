@@ -3,144 +3,158 @@
 @section('title', __('labels.backend.access.users.management') . ' | ' . __('labels.backend.access.users.edit'))
 
 @section('breadcrumb-links')
-    @include('backend.auth.user.includes.breadcrumb-links')
+@include('backend.auth.user.includes.breadcrumb-links')
 @endsection
 
 @section('content')
-{{ html()->modelForm($user, 'PATCH', route('admin.auth.user.update', $user->id))->class('form-horizontal')->open() }}
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-5">
-                    <h4 class="card-title mb-0">
-                        @lang('labels.backend.access.users.management')
-                        <small class="text-muted">@lang('labels.backend.access.users.edit')</small>
-                    </h4>
-                </div><!--col-->
-            </div><!--row-->
 
-            <hr>
-        
-            <div class="row mt-4 mb-4">
-                <div class="col">
-                    <div class="form-group row">
-                    {{ html()->label(__('validation.attributes.backend.access.users.first_name'))->class('col-md-2 form-control-label')->for('first_name') }}
+{{ Form::model($user, ['route' => ['admin.auth.user.update', $user], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH']) }}
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-5">
+                <h4 class="card-title mb-0">
+                    @lang('labels.backend.access.users.management')
+                    <small class="text-muted">@lang('labels.backend.access.users.edit')</small>
+                </h4>
+            </div>
+            <!--col-->
+        </div>
+        <!--row-->
 
-                        <div class="col-md-10">
-                            {{ html()->text('first_name')
-                                ->class('form-control')
-                                ->placeholder(__('validation.attributes.backend.access.users.first_name'))
-                                ->attribute('maxlength', 191)
-                                ->required() }}
-                        </div><!--col-->
-                    </div><!--form-group-->
+        <hr>
 
-                    <div class="form-group row">
-                        {{ html()->label(__('validation.attributes.backend.access.users.last_name'))->class('col-md-2 form-control-label')->for('last_name') }}
+        <div class="row mt-4 mb-4">
+            <div class="col">
+                <div class="form-group row">
+                    {{ Form::label('first_name', __('validation.attributes.backend.access.users.first_name'), [ 'class'=>'col-md-2 form-control-label']) }}
 
-                        <div class="col-md-10">
-                            {{ html()->text('last_name')
-                                ->class('form-control')
-                                ->placeholder(__('validation.attributes.backend.access.users.last_name'))
-                                ->attribute('maxlength', 191)
-                                ->required() }}
-                        </div><!--col-->
-                    </div><!--form-group-->
+                    <div class="col-md-10">
+                        {{ Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.users.first_name'), 'required' => 'required']) }}
+                    </div>
+                    <!--col-->
+                </div>
+                <!--form-group-->
 
-                    <div class="form-group row">
-                        {{ html()->label(__('validation.attributes.backend.access.users.email'))->class('col-md-2 form-control-label')->for('email') }}
+                <div class="form-group row">
+                    {{ Form::label('last_name', __('validation.attributes.backend.access.users.last_name'), [ 'class'=>'col-md-2 form-control-label']) }}
 
-                        <div class="col-md-10">
-                            {{ html()->email('email')
-                                ->class('form-control')
-                                ->placeholder(__('validation.attributes.backend.access.users.email'))
-                                ->attribute('maxlength', 191)
-                                ->required() }}
-                        </div><!--col-->
-                    </div><!--form-group-->
+                    <div class="col-md-10">
+                        {{ Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.users.last_name'), 'required' => 'required']) }}
+                    </div>
+                    <!--col-->
+                </div>
+                <!--form-group-->
 
-                    <div class="form-group row">
-                        {{ html()->label('Abilities')->class('col-md-2 form-control-label') }}
+                <div class="form-group row">
+                    {{ Form::label('email', __('validation.attributes.backend.access.users.email'), [ 'class'=>'col-md-2 form-control-label']) }}
 
-                        <div class="table-responsive col-md-10">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>@lang('labels.backend.access.users.table.roles')</th>
-                                        <th>@lang('labels.backend.access.users.table.permissions')</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            @if($roles->count())
-                                                @foreach($roles as $role)
-                                                    <div class="card">
-                                                        <div class="card-header">
-                                                            <div class="checkbox d-flex align-items-center">
-                                                                {{ html()->label(
-                                                                        html()->checkbox('roles[]', in_array($role->name, $userRoles), $role->name)
-                                                                                ->class('switch-input')
-                                                                                ->id('role-'.$role->id)
-                                                                        . '<span class="switch-slider" data-checked="on" data-unchecked="off"></span>')
-                                                                    ->class('switch switch-label switch-pill switch-primary mr-2')
-                                                                    ->for('role-'.$role->id) }}
-                                                                {{ html()->label(ucwords($role->name))->for('role-'.$role->id) }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            @if($role->id != 1)
-                                                                @if($role->permissions->count())
-                                                                    @foreach($role->permissions as $permission)
-                                                                        <i class="fas fa-dot-circle"></i> {{ ucwords($permission->name) }}
-                                                                    @endforeach
-                                                                @else
-                                                                    @lang('labels.general.none')
-                                                                @endif
-                                                            @else
-                                                                @lang('labels.backend.access.users.all_permissions')
-                                                            @endif
-                                                        </div>
-                                                    </div><!--card-->
-                                                @endforeach
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if($permissions->count())
-                                                @foreach($permissions as $permission)
-                                                    <div class="checkbox d-flex align-items-center">
-                                                        {{ html()->label(
-                                                                html()->checkbox('permissions[]', in_array($permission->name, $userPermissions), $permission->name)
-                                                                        ->class('switch-input')
-                                                                        ->id('permission-'.$permission->id)
-                                                                    . '<span class="switch-slider" data-checked="on" data-unchecked="off"></span>')
-                                                                ->class('switch switch-label switch-pill switch-primary mr-2')
-                                                            ->for('permission-'.$permission->id) }}
-                                                        {{ html()->label(ucwords($permission->name))->for('permission-'.$permission->id) }}
-                                                    </div>
-                                                @endforeach
-                                            @endif
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div><!--col-->
-                    </div><!--form-group-->
-                </div><!--col-->
-            </div><!--row-->
-        </div><!--card-body-->
+                    <div class="col-md-10">
+                        {{ Form::text('email', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.users.email'), 'required' => 'required']) }}
+                    </div>
+                    <!--col-->
+                </div>
+                <!--form-group-->
 
-        <div class="card-footer">
-            <div class="row">
-                <div class="col">
-                    {{ form_cancel(route('admin.auth.user.index'), __('buttons.general.cancel')) }}
-                </div><!--col-->
+                @if ($user->id != 1)
 
-                <div class="col text-right">
-                    {{ form_submit(__('buttons.general.crud.update')) }}
-                </div><!--row-->
-            </div><!--row-->
-        </div><!--card-footer-->
-    </div><!--card-->
-{{ html()->closeModelForm() }}
+                <div class="form-group row">
+                    {{ Form::label('status', trans('validation.attributes.backend.access.users.active'), ['class' => 'col-md-2 control-label']) }}
+                    <div class="col-md-10">
+                        {{ Form::checkbox('status', '1', $user->status == 1) }}
+                    </div>
+                </div>
+                <!--form control-->
+
+                <div class="form-group row">
+                    {{ Form::label('confirmed', trans('validation.attributes.backend.access.users.confirmed'), ['class' => 'col-md-2 control-label']) }}
+                    <div class="col-md-10">
+                        {{ Form::checkbox('confirmed', '1', $user->confirmed == 1) }}
+                    </div>
+                </div>
+                <!--form control-->
+
+                <div class="form-group row">
+                    {{ Form::label('status', trans('validation.attributes.backend.access.users.associated_roles'), ['class' => 'col-md-2 control-label']) }}
+
+                    <div class="col-md-8">
+                        @if (count($roles) > 0)
+                        @foreach($roles as $role)
+                        <label for="role-{{$role->id}}" class="control">
+                            <input type="radio" value="{{$role->id}}" name="assignees_roles[]" {{ is_array(old('assignees_roles')) ? (in_array($role->id, old('assignees_roles')) ? 'checked' : '') : (in_array($role->id, $userRoles) ? 'checked' : '') }} id="role-{{$role->id}}" class="get-role-for-permissions" /> &nbsp;&nbsp;{!! $role->name !!}
+                        </label>
+                        <!--permission list-->
+                        @endforeach
+                        @else
+                        {{ trans('labels.backend.access.users.no_roles') }}
+                        @endif
+                    </div>
+                    <!--col-lg-3-->
+                </div>
+                <!--form control-->
+
+                <div class="form-group row">
+                    {{ Form::label('associated-permissions', trans('validation.attributes.backend.access.roles.associated_permissions'), ['class' => 'col-md-2 control-label']) }}
+                    <div class="col-md-10">
+                        <div id="available-permissions" style="width: 700px; height: 200px; overflow-x: hidden; overflow-y: scroll;">
+                            <div class="get-available-permissions">
+                                @if ($permissions)
+                                @foreach ($permissions as $id => $display_name)
+                                <div>
+                                    <input type="checkbox" name="permissions[{{ $id }}]" value="{{ $id }}" id="perm_{{ $id }}" {{ isset($userPermissions) && in_array($id, $userPermissions) ? 'checked' : '' }} /> <label for="perm_{{ $id }}"  style="margin-left:20px;">{{ $display_name }}</label>
+                                </div>
+                                @endforeach
+                                @else
+                                <p>There are no available permissions.</p>
+                                @endif
+                            </div>
+                            <!--col-lg-6-->
+
+                        </div>
+                        <!--available permissions-->
+                    </div>
+                    <!--col-lg-3-->
+                </div>
+                <!--form control-->
+                @endif
+            </div>
+            <!--col-->
+        </div>
+        <!--row-->
+    </div>
+    <!--card-body-->
+
+    <div class="card-footer">
+        <div class="row">
+            <div class="col">
+                {{ form_cancel(route('admin.auth.user.index'), __('buttons.general.cancel')) }}
+            </div>
+            <!--col-->
+
+            <div class="col text-right">
+                {{ form_submit(__('buttons.general.crud.update')) }}
+            </div>
+            <!--row-->
+        </div>
+        <!--row-->
+    </div>
+    <!--card-footer-->
+</div>
+<!--card-->
+@if ($user->id == 1)
+{{ Form::hidden('status', 1) }}
+{{ Form::hidden('confirmed', 1) }}
+{{ Form::hidden('assignees_roles[]', 1) }}
+@endif
+
+{{ Form::close() }}
+@endsection
+
+@section('pagescript')
+<script>
+    Backend.Utils.documentReady(function() {
+        Backend.Users.selectors.getPremissionURL = "{{ route('admin.get.permission') }}";
+        Backend.Users.init("edit");
+    });
+</script>
 @endsection

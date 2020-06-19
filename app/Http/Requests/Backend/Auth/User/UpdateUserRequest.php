@@ -16,7 +16,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->isAdmin();
+        return access()->allow('edit-user');
     }
 
     /**
@@ -27,10 +27,24 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'email'],
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'roles' => ['required', 'array'],
+            'email'           => 'required|email',
+            'first_name'      => 'required',
+            'last_name'       => 'required',
+            'permissions'     => 'required',
+            'assignees_roles' => 'required',
+        ];
+    }
+
+
+    /**
+     * Get the validation massages that apply to the rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'assignees_roles' => 'Please Select Role',
         ];
     }
 }

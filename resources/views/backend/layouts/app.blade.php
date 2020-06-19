@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 @langrtl
-    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl">
 @else
-    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @endlangrtl
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,11 +22,16 @@
     {{ style(mix('css/backend.css')) }}
 
     <link media="all" type="text/css" rel="stylesheet" href="{{ asset('js/select2/select2.css') }}">
-    <link rel="stylesheet" href="{{ asset('js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" />
+    <!-- <link rel="stylesheet" href="{{ asset('js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" /> -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" />
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
 
     @stack('after-styles')
+    <style>
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 
 {{--
@@ -51,6 +57,7 @@
      * // Footer options
      * 1. '.footer-fixed'					- Fixed footer
 --}}
+
 <body class="app header-fixed sidebar-fixed aside-menu-off-canvas sidebar-lg-show">
     @include('backend.includes.header')
 
@@ -66,16 +73,21 @@
                 <div class="animated fadeIn">
                     <div class="content-header">
                         @yield('page-header')
-                    </div><!--content-header-->
+                    </div>
+                    <!--content-header-->
 
                     @include('includes.partials.messages')
                     @yield('content')
-                </div><!--animated-->
-            </div><!--container-fluid-->
-        </main><!--main-->
+                </div>
+                <!--animated-->
+            </div>
+            <!--container-fluid-->
+        </main>
+        <!--main-->
 
         @include('backend.includes.aside')
-    </div><!--app-body-->
+    </div>
+    <!--app-body-->
 
     @include('backend.includes.footer')
 
@@ -98,4 +110,5 @@
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script> -->
     @yield('pagescript')
 </body>
+
 </html>

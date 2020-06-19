@@ -3,74 +3,104 @@
 @section('title', __('labels.backend.access.roles.management') . ' | ' . __('labels.backend.access.roles.edit'))
 
 @section('content')
-{{ html()->modelForm($role, 'PATCH', route('admin.auth.role.update', $role))->class('form-horizontal')->open() }}
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-5">
-                    <h4 class="card-title mb-0">
-                        @lang('labels.backend.access.roles.management')
-                        <small class="text-muted">@lang('labels.backend.access.roles.edit')</small>
-                    </h4>
-                </div><!--col-->
-            </div><!--row-->
-            <!--row-->
+{{ Form::model($role, ['route' => ['admin.auth.role.update', $role], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH', 'id' => 'edit-role']) }}
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-5">
+                <h4 class="card-title mb-0">
+                    @lang('labels.backend.access.roles.management')
+                    <small class="text-muted">@lang('labels.backend.access.roles.edit')</small>
+                </h4>
+            </div>
+            <!--col-->
+        </div>
+        <!--row-->
+        <!--row-->
 
-            <hr />
+        <hr />
 
-            <div class="row mt-4">
-                <div class="col">
-                    <div class="form-group row">
-                        {{ html()->label(__('validation.attributes.backend.access.roles.name'))
-                            ->class('col-md-2 form-control-label')
-                            ->for('name') }}
+        <div class="row mt-4">
+            <div class="col">
+                <div class="form-group row">
+                    {{ Form::label('name', __('validation.attributes.backend.access.roles.name'), [ 'class'=>'col-md-2 form-control-label']) }}
 
-                        <div class="col-md-10">
-                            {{ html()->text('name')
-                                ->class('form-control')
-                                ->placeholder(__('validation.attributes.backend.access.roles.name'))
-                                ->attribute('maxlength', 191)
-                                ->required() }}
-                        </div><!--col-->
-                    </div><!--form-group-->
+                    <div class="col-md-10">
+                        {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.roles.name'), 'required' => 'required']) }}
+                    </div>
+                    <!--col-->
+                </div>
+                <!--form-group-->
 
-                    <div class="form-group row">
-                        {{ html()->label(__('validation.attributes.backend.access.roles.associated_permissions'))
-                            ->class('col-md-2 form-control-label')
-                            ->for('permissions') }}
+                <div class="form-group row">
+                    {{ Form::label('associated_permissions', __('validation.attributes.backend.access.roles.associated_permissions'), [ 'class'=>'col-md-2 form-control-label']) }}
 
-                        <div class="col-md-10">
-                            @if($permissions->count())
-                                @foreach($permissions as $permission)
-                                    <div class="checkbox d-flex align-items-center">
-                                        {{ html()->label(
-                                                html()->checkbox('permissions[]', in_array($permission->name, $rolePermissions), $permission->name)
-                                                        ->class('switch-input')
-                                                        ->id('permission-'.$permission->id)
-                                                    . '<span class="switch-slider" data-checked="on" data-unchecked="off"></span>')
-                                                ->class('switch switch-label switch-pill switch-primary mr-2')
-                                            ->for('permission-'.$permission->id) }}
-                                        {{ html()->label(ucwords($permission->name))->for('permission-'.$permission->id) }}
+                    <div class="col-md-10">
+                        {{ Form::select('associated_permissions', ['all' => 'All', 'custom' => 'Custom'], $role->all ? 'all' : 'custom', ['class' => 'form-control select2']) }}
+
+                        <div id="available-permissions" class="hidden" style="width: 700px; height: 200px; overflow-x: hidden; overflow-y: scroll;margin-top:20px;">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    @if ($permissions->count())
+                                    @foreach ($permissions as $perm)
+                                    <div>
+                                        <input type="checkbox" name="permissions[{{ $perm->id }}]" value="{{ $perm->id }}" id="perm_{{ $perm->id }}" {{ is_array(old('permissions')) ? (in_array($perm->id, old('permissions')) ? 'checked' : '') : (in_array($perm->id, $rolePermissions) ? 'checked' : '') }} /> <label style="margin-left:20px;" for="perm_{{ $perm->id }}">{{ $perm->display_name }}</label>
                                     </div>
-                                @endforeach
-                            @endif
-                        </div><!--col-->
-                    </div><!--form-group-->
-                </div><!--col-->
-            </div><!--row-->
-        </div><!--card-body-->
+                                    @endforeach
+                                    @else
+                                    <p>There are no available permissions.</p>
+                                    @endif
+                                </div>
+                                <!--col-lg-6-->
+                            </div>
+                            <!--row-->
+                        </div>
+                        <!--available permissions-->
+                    </div>
+                    <!--col-->
+                </div>
+                <!--form-group-->
 
-        <div class="card-footer">
-            <div class="row">
-                <div class="col">
-                    {{ form_cancel(route('admin.auth.role.index'), __('buttons.general.cancel')) }}
-                </div><!--col-->
+                <div class="form-group row">
+                    {{ Form::label('sort', trans('validation.attributes.backend.access.roles.sort'), ['class' => 'col-md-2 control-label']) }}
 
-                <div class="col text-right">
-                    {{ form_submit(__('buttons.general.crud.update')) }}
-                </div><!--col-->
-            </div><!--row-->
-        </div><!--card-footer-->
-    </div><!--card-->
-{{ html()->closeModelForm() }}
+                    <div class="col-md-10">
+                        {{ Form::text('sort', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.roles.sort')]) }}
+                    </div>
+                    <!--col-lg-10-->
+                </div>
+                <!--form control-->
+            </div>
+            <!--col-->
+        </div>
+        <!--row-->
+    </div>
+    <!--card-body-->
+
+    <div class="card-footer">
+        <div class="row">
+            <div class="col">
+                {{ form_cancel(route('admin.auth.role.index'), __('buttons.general.cancel')) }}
+            </div>
+            <!--col-->
+
+            <div class="col text-right">
+                {{ form_submit(__('buttons.general.crud.update')) }}
+            </div>
+            <!--col-->
+        </div>
+        <!--row-->
+    </div>
+    <!--card-footer-->
+</div>
+<!--card-->
+{{ Form::close() }}
+@endsection
+
+@section('pagescript')
+<script>
+    Backend.Utils.documentReady(function() {
+        Backend.Roles.init("rolecreate")
+    });
+</script>
 @endsection

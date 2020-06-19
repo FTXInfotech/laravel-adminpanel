@@ -144,7 +144,8 @@ abstract class BaseRepository implements RepositoryContract
      */
     public function query()
     {
-        return call_user_func(static::MODEL.'::query');
+        return $this->model->query();
+        // return call_user_func(static::MODEL.'::query');
     }
 
     /**

@@ -16,9 +16,14 @@ use DB;
 class PermissionRepository extends BaseRepository
 {
     /**
-     * Associated Repository Model.
+     * RoleRepository constructor.
+     *
+     * @param  Role  $model
      */
-    const MODEL = Permission::class;
+    public function __construct(Permission $model)
+    {
+        $this->model = $model;
+    }
 
     /**
      * @return mixed
@@ -27,12 +32,12 @@ class PermissionRepository extends BaseRepository
     {
         return $this->query()
             ->select([
-                config('access.permissions_table').'.id',
-                config('access.permissions_table').'.name',
-                config('access.permissions_table').'.display_name',
-                config('access.permissions_table').'.sort',
-                config('access.permissions_table').'.created_at',
-                config('access.permissions_table').'.updated_at',
+                'permissions.id',
+                'permissions.name',
+                'permissions.display_name',
+                'permissions.sort',
+                'permissions.created_at',
+                'permissions.updated_at',
             ]);
     }
 
@@ -50,8 +55,7 @@ class PermissionRepository extends BaseRepository
         }
 
         DB::transaction(function () use ($input) {
-            $permission = self::MODEL;
-            $permission = new $permission();
+            $permission = new Permission();
             $permission->name = $input['name'];
             $permission->display_name = $input['display_name'];
             $permission->sort = isset($input['sort']) && strlen($input['sort']) > 0 && is_numeric($input['sort']) ? (int) $input['sort'] : 0;

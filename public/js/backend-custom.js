@@ -70,7 +70,7 @@ var Backend = {}; // common variable used in all the files of the backend
 
                 // when request is in the ready state change the details or perform success function
                 request.onreadystatechange = function () {
-                    if (request.readyState === XMLHttpRequest.DONE) {
+                    if (request.readyState === this.DONE) {
                         // Everything is good, the response was received.
                         request.onload = callback.success(request);
                     }
@@ -104,7 +104,6 @@ var Backend = {}; // common variable used in all the files of the backend
             },
 
             dtAnchorToForm: function ($parent) {
-                console.log($('[data-method]', $parent));
                 $('[data-method]', $parent).append(function () {
                     if (!$(this).find('form').length > 0) {
                         return "\n<form action='" + $(this).attr('href') + "' method='POST' name='delete_item' style='display:none'>\n" +
@@ -169,21 +168,24 @@ var Backend = {}; // common variable used in all the files of the backend
                     ajax: {
                         url: this.selectors.users_table.data('ajax_url'),
                         type: 'post',
-                        data: {status: 1, trashed: false}
+                        data: { status: 1, trashed: false }
                     },
                     columns: [
 
-                        {data: 'first_name', name: 'users.first_name'},
-                        {data: 'last_name', name: 'users.last_name'},
-                        {data: 'email', name: 'users.email'},
-                        {data: 'confirmed', name: 'users.confirmed'},
-                        {data: 'roles', name: 'users.name', sortable: false},
-                        {data: 'created_at', name: 'users.created_at'},
-                        {data: 'updated_at', name: 'users.updated_at'},
-                        {data: 'actions', name: 'actions', searchable: false, sortable: false}
+                        { data: 'first_name', name: 'users.first_name' },
+                        { data: 'last_name', name: 'users.last_name' },
+                        { data: 'email', name: 'users.email' },
+                        { data: 'confirmed', name: 'users.confirmed' },
+                        { data: 'roles', name: 'users.name', sortable: false },
+                        { data: 'created_at', name: 'users.created_at' },
+                        { data: 'updated_at', name: 'users.updated_at' },
+                        { data: 'actions', name: 'actions', searchable: false, sortable: false }
                     ],
                     order: [[0, "asc"]],
                     searchDelay: 500,
+                    "createdRow": function (row, data, dataIndex) {
+                        Backend.Utils.dtAnchorToForm(row);
+                    }
                 })
             },
         },
@@ -198,13 +200,44 @@ var Backend = {}; // common variable used in all the files of the backend
             },
         },
 
+        RolePage: {
+
+            selectors: {
+                role_table: $('#roles-table'),
+            },
+            init: function () {
+
+                Backend.Utils.setCSRF();
+
+                this.selectors.role_table.dataTable({
+
+                    processing: false,
+                    serverSide: true,
+                    ajax: {
+                        url: this.selectors.role_table.data('ajax_url'),
+                        type: 'post'
+                    },
+                    columns: [
+                        { data: 'name', name: 'name' },
+                        { data: 'permissions', name: 'permissions', sortable: false },
+                        { data: 'users', name: 'users', searchable: false, sortable: false },
+                        { data: 'actions', name: 'actions', searchable: false, sortable: false }
+                    ],
+                    order: [[3, "asc"]],
+                    searchDelay: 500,
+                    "createdRow": function (row, data, dataIndex) {
+                        Backend.Utils.dtAnchorToForm(row);
+                    }
+                })
+            },
+        },
         /**
          * Roles management
          */
         Roles: {
             selectors: {
                 associated: document.querySelector("select[name='associated_permissions']"),
-                associated_container: document.getElementById("#available-permissions"),
+                associated_container: document.getElementById("available-permissions"),
             },
             init: function (page) {
                 this.setSelectors();
@@ -219,18 +252,22 @@ var Backend = {}; // common variable used in all the files of the backend
                 var associated = this.selectors.associated;
                 var associated_container = this.selectors.associated_container;
 
-                if (associated_container != null)
+                if (associated_container != null) {
+
                     if (associated.value == "custom")
                         Backend.Utils.removeClass(associated_container, "hidden");
                     else
                         Backend.Utils.addClass(associated_container, 'hidden');
+                }
 
                 associated.onchange = function (event) {
-                    if (associated_container != null)
+                    
+                    if (associated_container != null) {
                         if (associated.value == "custom")
                             Backend.Utils.removeClass(associated_container, "hidden");
                         else
                             Backend.Utils.addClass(associated_container, 'hidden');
+                    }
                 };
             },
             setRolepermission: function (page) {
@@ -245,20 +282,19 @@ var Backend = {}; // common variable used in all the files of the backend
          */
         Users: {
             selectors: {
-                select2: jQuery(".select2"),
                 getPremissionURL: "",
-                showPermission: document.querySelectorAll(".show-permissions")
+                getRoleForPermissions: "",
+                getAvailabelPermissions: "",
+                Role3: "",
             },
             init: function (page) {
                 this.setSelectors();
                 this.addHandlers(page);
             },
             setSelectors: function () {
-                this.selectors.select2 = jQuery(".select2");
                 this.selectors.getRoleForPermissions = document.querySelectorAll(".get-role-for-permissions");
                 this.selectors.getAvailabelPermissions = document.querySelector(".get-available-permissions");
                 this.selectors.Role3 = document.getElementById("role-3");
-                this.showPermission = document.querySelectorAll(".show-permissions");
             },
             addHandlers: function (page) {
                 /**
@@ -267,6 +303,9 @@ var Backend = {}; // common variable used in all the files of the backend
 
                 this.selectors.getRoleForPermissions.forEach(function (element) {
                     element.onclick = function (event) {
+
+                        Backend.Utils.addClass(document.getElementById("available-permissions"), 'hidden');
+
                         callback = {
                             success: function (request) {
                                 if (request.status >= 200 && request.status < 400) {
@@ -290,7 +329,8 @@ var Backend = {}; // common variable used in all the files of the backend
                                                     addChecked = 'checked="checked"';
                                                 }
                                             }
-                                            htmlstring += '<label class="control control--checkbox"> <input type="checkbox" name="permissions[' + key + ']" value="' + key + '" id="perm_' + key + '" ' + addChecked + ' /> <label for="perm_' + key + '">' + permissions[key] + '</label> <div class="control__indicator"></div> </label> <br>';
+
+                                            htmlstring += '<div><input type="checkbox" name="permissions[' + key + ']" value="' + key + '" id="perm_' + key + '" ' + addChecked + '/><label for="perm_' + key + '" style="margin-left:10px;">' + permissions[key] + '</label></div>';
                                         }
                                     }
                                     Backend.Users.selectors.getAvailabelPermissions.innerHTML = htmlstring;
@@ -311,34 +351,13 @@ var Backend = {}; // common variable used in all the files of the backend
                         }, Backend.Utils.csrf, callback);
                     };
                 });
+
                 if (page == "create") {
                     Backend.Users.selectors.Role3.click();
                 }
-
-                this.selectors.select2.select2();
-
             },
             windowloadhandler: function () {
 
-                // scripts to be handeled on user create and edit when window is laoaded
-                Backend.Users.selectors.showPermission.forEach(function (element) {
-                    element.onclick = function (event) {
-                        event.preventDefault();
-                        var $this = this;
-                        var role = $this.getAttribute("data-role");
-
-                        var permissions = document.querySelector(".permission-list[data-role='" + role + "']");
-                        var hideText = $this.querySelector('.hide-text');
-                        var showText = $this.querySelector('.show-text');
-
-                        // show permission list
-                        Backend.Utils.toggleClass(permissions, 'hidden');
-
-                        // toggle the text Show/Hide for the link
-                        Backend.Utils.toggleClass(hideText, 'hidden');
-                        Backend.Utils.toggleClass(showText, 'hidden');
-                    };
-                });
             }
         },
 

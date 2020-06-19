@@ -70,7 +70,7 @@ class RoleController extends Controller
     {
         $this->roles->create($request->all());
 
-        return new RedirectResponse(route('admin.access.role.index'), ['flash_success' => trans('alerts.backend.roles.created')]);
+        return new RedirectResponse(route('admin.auth.role.index'), ['flash_success' => trans('alerts.backend.roles.created')]);
     }
 
     /**
@@ -92,7 +92,7 @@ class RoleController extends Controller
      */
     public function update(Role $role, UpdateRoleRequest $request)
     {
-        $this->roleRepository->update($role, $request->all());
+        $this->roles->update($role, $request->all());
 
         return redirect()->route('admin.auth.role.index')->withFlashSuccess(__('alerts.backend.roles.updated'));
     }
@@ -106,13 +106,7 @@ class RoleController extends Controller
      */
     public function destroy(ManageRoleRequest $request, Role $role)
     {
-        if ($role->isAdmin()) {
-            return redirect()->route('admin.auth.role.index')->withFlashDanger(__('exceptions.backend.access.roles.cant_delete_admin'));
-        }
-
-        $this->roleRepository->deleteById($role->id);
-
-        event(new RoleDeleted($role));
+        $this->roles->delete($role);
 
         return redirect()->route('admin.auth.role.index')->withFlashSuccess(__('alerts.backend.roles.deleted'));
     }
