@@ -24,9 +24,9 @@ mix.setPublicPath('public')
         'resources/js/backend/app.js',
         'resources/js/backend/after.js'
     ], 'js/backend.js')
-    .scripts([
+    /* .scripts([
         "public/js/backend/admin.js"
-    ], 'public/js/backend-custom.js')   
+    ], 'public/js/backend-custom.js')    */
     .extract([
         // Extract packages from node_modules to vendor.js
         'jquery',

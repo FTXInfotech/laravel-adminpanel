@@ -61,8 +61,8 @@ Route::group([
             Route::get('clear-session', [UserSessionController::class, 'clearSession'])->name('user.clear-session');
 
             // Deleted
-            Route::get('delete', [UserStatusController::class, 'delete'])->name('user.delete-permanently');
-            Route::get('restore', [UserStatusController::class, 'restore'])->name('user.restore');
+            Route::delete('delete-permanently', [UserStatusController::class, 'delete'])->name('user.delete-permanently');
+            Route::post('restore', [UserStatusController::class, 'restore'])->name('user.restore');
         });
     });
 

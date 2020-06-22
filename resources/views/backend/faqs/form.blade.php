@@ -37,9 +37,13 @@
             <div class="form-group row">
                 {{ Form::label('status', trans('labels.backend.access.faqs.table.status'), ['class' => 'col-md-2 from-control-label required']) }}
 
+                @php
+                $status = isset($faq) ? '' : 'checked'
+                @endphp
+                
                 <div class="col-md-10">
                     <div class="checkbox d-flex align-items-center">
-                        <label class="switch switch-label switch-pill switch-primary mr-2" for="role-1"><input class="switch-input" type="checkbox" name="status" id="role-1" value="1" {{ (isset($faq->status) && $faq->status === 1) ? "checked" : "" }}><span class="switch-slider" data-checked="on" data-unchecked="off"></span></label>
+                        <label class="switch switch-label switch-pill switch-primary mr-2" for="role-1"><input class="switch-input" type="checkbox" name="status" id="role-1" value="1" {{ (isset($faq->status) && $faq->status === 1) ? "checked" : $status }}><span class="switch-slider" data-checked="on" data-unchecked="off"></span></label>
                     </div>
                 </div>
                 <!--col-->

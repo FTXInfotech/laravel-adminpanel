@@ -30,19 +30,24 @@ class PagesTableController extends Controller
     public function __invoke(ManagePageRequest $request)
     {
         return Datatables::of($this->pages->getForDataTable())
-            ->escapeColumns(['title'])
-            ->addColumn('status', function ($page) {
+            ->filterColumn('status', function ($query, $keyword) {
+                if(in_array(strtolower($keyword), ['active', 'inactive'])) {
+                    $query->where('pages.status',(strtolower($keyword) == 'active') ? 1 : 0);
+                }
+            })
+            ->filterColumn('created_by', function ($query, $keyword) {
+                $query->whereRaw("users.first_name like ?", ["%{$keyword}%"]);
+            })
+            ->editColumn('status', function ($page) {
                 return $page->status_label;
             })
-            ->addColumn('created_at', function ($page) {
+            ->editColumn('created_at', function ($page) {
                 return $page->created_at->toDateString();
-            })
-            ->addColumn('created_by', function ($page) {
-                return $page->user_name;
             })
             ->addColumn('actions', function ($page) {
                 return $page->action_buttons;
             })
+            ->escapeColumns(['title'])
             ->make(true);
     }
 }

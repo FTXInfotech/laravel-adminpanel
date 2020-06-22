@@ -65,9 +65,8 @@ class BlogCategoriesRepository extends BaseRepository
                 'blog_categories.id',
                 'blog_categories.name',
                 'blog_categories.status',
-                'blog_categories.created_by',
                 'blog_categories.created_at',
-                'users.first_name as user_name',
+                'users.first_name as created_by',
             ]);
     }
 

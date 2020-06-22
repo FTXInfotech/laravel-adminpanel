@@ -31,19 +31,25 @@ class EmailTemplatesTableController extends Controller
     public function __invoke(ManageEmailTemplatesRequest $request)
     {
         return Datatables::of($this->emailTemplate->getForDataTable())
-            ->escapeColumns(['name'])
-            ->addColumn('status', function ($emailTemplate) {
+            ->filterColumn('status', function ($query, $keyword) {
+                if (in_array(strtolower($keyword), ['active', 'inactive'])) {
+                    $query->where('email_templates.status', (strtolower($keyword) == 'active') ? 1 : 0);
+                }
+            })
+            ->filterColumn('created_by', function ($query, $keyword) {
+                $query->whereRaw("users.first_name like ?", ["%{$keyword}%"]);
+            })
+            ->editColumn('status', function ($emailTemplate) {
                 return $emailTemplate->status_label;
             })
-            ->addColumn('created_by', function ($emailTemplate) {
-                return $emailTemplate->user_name;
-            })
-            ->addColumn('created_at', function ($emailTemplate) {
-                return Carbon::parse($emailTemplate->created_at)->toDateString();
+            ->editColumn('created_at', function ($emailTemplate) {
+                return $emailTemplate->created_at->toDateString();
             })
             ->addColumn('actions', function ($emailTemplate) {
                 return $emailTemplate->action_buttons;
             })
+            ->escapeColumns(['name'])
+            
             ->make(true);
     }
 }

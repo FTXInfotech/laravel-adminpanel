@@ -32,14 +32,16 @@ class FaqsTableController extends Controller
     {
         return Datatables::of($this->faqs->getForDataTable())
             ->escapeColumns(['question'])
-            ->addColumn('answer', function ($faqs) {
-                return $faqs->answer;
+            ->filterColumn('status', function ($query, $keyword) {
+                if (in_array(strtolower($keyword), ['active', 'inactive'])) {
+                    $query->where('faqs.status', (strtolower($keyword) == 'active') ? 1 : 0);
+                }
             })
-            ->addColumn('status', function ($faqs) {
+            ->editColumn('status', function ($faqs) {
                 return $faqs->status_label;
             })
-            ->addColumn('updated_at', function ($faqs) {
-                return Carbon::parse($faqs->updated_at)->toDateString();
+            ->editColumn('created_at', function ($faqs) {
+                return Carbon::parse($faqs->created_at)->toDateString();
             })
             ->addColumn('actions', function ($faqs) {
                 return $faqs->action_buttons;

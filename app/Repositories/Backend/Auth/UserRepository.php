@@ -5,6 +5,7 @@ namespace App\Repositories\Backend\Auth;
 use App\Events\Backend\Auth\User\UserConfirmed;
 use App\Events\Backend\Auth\User\UserCreated;
 use App\Events\Backend\Auth\User\UserDeactivated;
+use App\Events\Backend\Auth\User\UserDeleted;
 use App\Events\Backend\Auth\User\UserPasswordChanged;
 use App\Events\Backend\Auth\User\UserPermanentlyDeleted;
 use App\Events\Backend\Auth\User\UserReactivated;
@@ -54,7 +55,7 @@ class UserRepository extends BaseRepository
                 'users.first_name',
                 'users.last_name',
                 'users.email',
-                'users.active',
+                'users.status',
                 'users.confirmed',
                 'users.created_at',
                 'users.updated_at',
@@ -125,6 +126,30 @@ class UserRepository extends BaseRepository
             ->onlyTrashed()
             ->orderBy($orderBy, $sort)
             ->paginate($paged);
+    }
+
+    /**
+     * Delete User.
+     *
+     * @param Model $user
+     *
+     * @throws GeneralException
+     *
+     * @return bool
+     */
+    public function delete($user)
+    {
+        if (access()->id() == $user->id) {
+            throw new GeneralException(trans('exceptions.backend.access.users.cant_delete_self'));
+        }
+
+        if ($user->delete()) {
+            event(new UserDeleted($user));
+
+            return true;
+        }
+
+        throw new GeneralException(trans('exceptions.backend.access.users.delete_error'));
     }
 
     /**
@@ -247,7 +272,7 @@ class UserRepository extends BaseRepository
      */
     public function updatePassword(User $user, $input): User
     {
-        if ($user->update(['password' => $input['password']])) {
+        if ($user->update(['password' => bcrypt($input['password'])])) {
             event(new UserPasswordChanged($user));
 
             return $user;
@@ -265,11 +290,11 @@ class UserRepository extends BaseRepository
      */
     public function mark(User $user, $status): User
     {
-        if ($status === 0 && auth()->id() === $user->id) {
-            throw new GeneralException(__('exceptions.backend.access.users.cant_deactivate_self'));
+        if (access()->id() == $user->id && $status == 0) {
+            throw new GeneralException(trans('exceptions.backend.access.users.cant_deactivate_self'));
         }
 
-        $user->active = $status;
+        $user->status = $status;
 
         switch ($status) {
             case 0:
@@ -372,7 +397,7 @@ class UserRepository extends BaseRepository
             if ($user->forceDelete()) {
                 event(new UserPermanentlyDeleted($user));
 
-                return $user;
+                return $user;   
             }
 
             throw new GeneralException(__('exceptions.backend.access.users.delete_error'));

@@ -127,9 +127,7 @@ class UserController extends Controller
      */
     public function destroy(ManageUserRequest $request, User $user)
     {
-        $this->userRepository->deleteById($user->id);
-
-        event(new UserDeleted($user));
+        $this->userRepository->delete($user);
 
         return redirect()->route('admin.auth.user.deleted')->withFlashSuccess(__('alerts.backend.users.deleted'));
     }

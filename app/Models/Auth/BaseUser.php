@@ -47,6 +47,7 @@ abstract class BaseUser extends Authenticatable implements Recordable
         'last_login_at',
         'last_login_ip',
         'to_be_logged_out',
+        'status',
     ];
 
     /**

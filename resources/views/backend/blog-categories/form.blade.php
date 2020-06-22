@@ -25,7 +25,8 @@
                 
                 <div class="col-md-10">
                     <div class="checkbox d-flex align-items-center">
-                        <label class="switch switch-label switch-pill switch-primary mr-2" for="role-1"><input class="switch-input" type="checkbox" name="status" id="role-1" value="1" {{ (isset($blogCategory->status) && $blogCategory->status === 1) ? "checked" : "" }}><span class="switch-slider" data-checked="on" data-unchecked="off"></span></label>
+                        <label class="switch switch-label switch-pill switch-primary mr-2" for="role-1"><input class="switch-input" type="checkbox" name="status" id="role-1" value="1" 
+                        {{ (!isset($blogCategory->status) ||(isset($blogCategory->status) && $blogCategory->status === 1)) ? "checked" : "" }}><span class="switch-slider" data-checked="on" data-unchecked="off"></span></label>
                     </div>
                 </div><!--col-->
             </div><!--form-group-->

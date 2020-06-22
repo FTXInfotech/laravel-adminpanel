@@ -26,6 +26,7 @@ return [
 
             'users' => [
                 'all' => 'All Users',
+                'active' => 'Active Users',
                 'change-password' => 'Change Password',
                 'create' => 'Create User',
                 'deactivated' => 'Deactivated Users',

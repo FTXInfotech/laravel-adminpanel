@@ -31,19 +31,24 @@ class BlogCategoriesTableController extends Controller
     public function __invoke(ManageBlogCategoriesRequest $request)
     {
         return Datatables::of($this->blogcategory->getForDataTable())
-            ->escapeColumns(['name'])
-            ->addColumn('status', function ($blogcategory) {
+            ->filterColumn('status', function ($query, $keyword) {
+                if (in_array(strtolower($keyword), ['active', 'inactive'])) {
+                    $query->where('blog_categories.status', (strtolower($keyword) == 'active') ? 1 : 0);
+                }
+            })
+            ->filterColumn('created_by', function ($query, $keyword) {
+                $query->whereRaw("users.first_name like ?", ["%{$keyword}%"]);
+            })
+            ->editColumn('status', function ($blogcategory) {
                 return $blogcategory->status_label;
             })
-            ->addColumn('created_by', function ($blogcategory) {
-                return $blogcategory->user_name;
-            })
-            ->addColumn('created_at', function ($blogcategory) {
-                return Carbon::parse($blogcategory->created_at)->toDateString();
+            ->editColumn('created_at', function ($blogcategory) {
+                return $blogcategory->created_at->toDateString();
             })
             ->addColumn('actions', function ($blogcategory) {
                 return $blogcategory->action_buttons;
             })
+            ->escapeColumns(['name'])
             ->make(true);
     }
 }

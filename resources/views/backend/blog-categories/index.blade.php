@@ -62,10 +62,10 @@
                     type: 'post'
                 },
                 columns: [
-                    {data: 'name', name: 'blog_categories.name'},
-                    {data: 'status', name: 'blog_categories.status'},
-                    {data: 'created_by', name: 'blog_categories.created_by'},
-                    {data: 'created_at', name: 'blog_categories.created_at'},
+                    {data: 'name', name: 'name'},
+                    {data: 'status', name: 'status'},
+                    {data: 'created_by', name: 'created_by'},
+                    {data: 'created_at', name: 'created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],
                 order: [[3, "asc"]],

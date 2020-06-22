@@ -69,9 +69,8 @@ class BlogTagsRepository extends BaseRepository
                 'blog_tags.id',
                 'blog_tags.name',
                 'blog_tags.status',
-                'blog_tags.created_by',
                 'blog_tags.created_at',
-                'users.first_name as user_name',
+                'users.first_name as created_by',
             ]);
     }
 

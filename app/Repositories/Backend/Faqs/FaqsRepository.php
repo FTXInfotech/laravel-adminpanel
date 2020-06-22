@@ -56,11 +56,11 @@ class FaqsRepository extends BaseRepository
     {
         return $this->model->query()
             ->select([
-                'faqs.id',
-                'faqs.question',
-                'faqs.answer',
-                'faqs.created_at',
-                'faqs.status'
+                'id',
+                'question',
+                'answer',
+                'created_at',
+                'status'
             ]);
     }
 
@@ -76,6 +76,10 @@ class FaqsRepository extends BaseRepository
         return DB::transaction(function () use ($input) {
             $input['created_by'] = auth()->user()->id;
 
+            if(!array_key_exists('status', $input)) {
+                $input['status'] = 0;
+            }
+            
             if ($faq = Faq::create($input)) {
                 
                 event(new FaqCreated($faq));
@@ -97,6 +101,9 @@ class FaqsRepository extends BaseRepository
     {
         $input['updated_by'] = auth()->user()->id;
 
+        if(!array_key_exists('status',$input)) {
+            $input['status'] = 0;
+        }
         return DB::transaction(function () use ($faq, $input) {
             if ($faq->update($input)) {
 

@@ -104,12 +104,23 @@ var Backend = {}; // common variable used in all the files of the backend
             },
 
             dtAnchorToForm: function ($parent) {
+
+                $('td:last',$parent).addClass('btn-td');
+
                 $('[data-method]', $parent).append(function () {
                     if (!$(this).find('form').length > 0) {
-                        return "\n<form action='" + $(this).attr('href') + "' method='POST' name='delete_item' style='display:none'>\n" +
+                        var method = this.getAttribute('data-method');
+                        
+                        if(method == 'delete') {
+                            return "\n<form action='" + $(this).attr('href') + "' method='POST' name='delete_item' style='display:none'>\n" +
                             "<input type='hidden' name='_method' value='" + $(this).attr('data-method') + "'>\n" +
                             "<input type='hidden' name='_token' value='" + $('meta[name="csrf-token"]').attr('content') + "'>\n" +
                             '</form>\n';
+                        } else {
+                            return "\n<form action='" + $(this).attr('href') + "' method='POST' name='delete_item' style='display:none'>\n" +
+                            "<input type='hidden' name='_token' value='" + $('meta[name="csrf-token"]').attr('content') + "'>\n" +
+                            '</form>\n';
+                        }                        
                     } else { return '' }
                 })
                     .attr('href', '#')
@@ -157,9 +168,19 @@ var Backend = {}; // common variable used in all the files of the backend
             selectors: {
                 users_table: $('#users-table'),
             },
-            init: function () {
+            init: function (pageName) {
 
                 Backend.Utils.setCSRF();
+
+                var data = {};
+                
+                if(pageName == 'list') {
+                    data = { status: 1, trashed: false };
+                } else if(pageName == 'deleted') {
+                    data = {status: 0, trashed: true};
+                } else if(pageName == 'deactive') {
+                    data = {status: 0, trashed: false};
+                }
 
                 this.selectors.users_table.dataTable({
 
@@ -168,7 +189,7 @@ var Backend = {}; // common variable used in all the files of the backend
                     ajax: {
                         url: this.selectors.users_table.data('ajax_url'),
                         type: 'post',
-                        data: { status: 1, trashed: false }
+                        data: data
                     },
                     columns: [
 
@@ -215,7 +236,7 @@ var Backend = {}; // common variable used in all the files of the backend
 
                         { data: 'title', name: 'title' },
                         { data: 'status', name: 'status' },
-                        { data: 'created_by', name: 'user_name' },
+                        { data: 'created_by', name: 'created_by' },
                         { data: 'created_at', name: 'created_at' },
                         { data: 'actions', name: 'actions', searchable: false, sortable: false }
 
@@ -473,7 +494,7 @@ var Backend = {}; // common variable used in all the files of the backend
                 this.selectors.AllrestorePerms.forEach(function (element) {
 
                     element.onclick = function (event, element) {
-                        event.preventDefault();
+                          event.preventDefault();
 
                         var linkURL = this.getAttribute("href");
 
@@ -850,7 +871,7 @@ var Backend = {}; // common variable used in all the files of the backend
                             { data: 'question', name: 'question' },
                             { data: 'answer', name: 'answer' },
                             { data: 'status', name: 'status' },
-                            { data: 'updated_at', name: 'updated_at' },
+                            { data: 'created_at', name: 'created_at' },
                             { data: 'actions', name: 'actions', searchable: false, sortable: false }
 
                         ],

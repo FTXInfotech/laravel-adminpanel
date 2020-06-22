@@ -43,8 +43,7 @@ class UserStatusController extends Controller
      */
     public function getDeleted(ManageUserRequest $request)
     {
-        return view('backend.auth.user.deleted')
-            ->withUsers($this->userRepository->getDeletedPaginated(25, 'id', 'asc'));
+        return view('backend.auth.user.deleted');
     }
 
     /**

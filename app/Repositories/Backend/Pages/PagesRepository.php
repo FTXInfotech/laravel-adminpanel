@@ -73,9 +73,8 @@ class PagesRepository extends BaseRepository
                 'pages.id',
                 'pages.title',
                 'pages.status',
-                'pages.created_by',
+                'users.first_name as created_by',
                 'pages.created_at',
-                'users.first_name as user_name',
             ]);
     }
 
@@ -92,6 +91,10 @@ class PagesRepository extends BaseRepository
             $input['page_slug'] = Str::slug($input['title']);
             $input['created_by'] = auth()->user()->id;
 
+            if(!array_key_exists('status', $input)) {
+                $input['status'] = 0;
+            }
+            
             if ($page = Page::create($input)) {
                 
                 event(new PageCreated($page));
@@ -114,6 +117,10 @@ class PagesRepository extends BaseRepository
         $input['page_slug'] = Str::slug($input['title']);
         $input['updated_by'] = auth()->user()->id;
 
+        if(!array_key_exists('status', $input)) {
+            $input['status'] = 0;
+        }
+        
         return DB::transaction(function () use ($page, $input) {
             if ($page->update($input)) {
 

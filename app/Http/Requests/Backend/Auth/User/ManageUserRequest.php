@@ -16,7 +16,7 @@ class ManageUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->isAdmin();
+        return access()->allow('view-user-management');
     }
 
     /**

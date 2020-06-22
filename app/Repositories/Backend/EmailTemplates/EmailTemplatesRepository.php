@@ -71,9 +71,8 @@ class EmailTemplatesRepository extends BaseRepository
                 'email_templates.id',
                 'email_templates.title',
                 'email_templates.status',
-                'email_templates.created_by',
+                'users.first_name as created_by',
                 'email_templates.created_at',
-                'users.first_name as user_name',
             ]);
     }
 
@@ -89,6 +88,10 @@ class EmailTemplatesRepository extends BaseRepository
         DB::transaction(function () use ($input) {
             $input['slug'] = Str::slug($input['title']);
             $input['created_by'] = auth()->user()->id;
+
+            if(!array_key_exists('status', $input)) {
+                $input['status'] = 0;
+            }
 
             if ($emailTemplate = EmailTemplate::create($input)) {
                 
@@ -110,6 +113,10 @@ class EmailTemplatesRepository extends BaseRepository
     public function update(EmailTemplate $emailTemplate, array $input)
     {
         $input['updated_by'] = auth()->user()->id;
+
+        if(!array_key_exists('status', $input)) {
+            $input['status'] = 0;
+        }
 
         DB::transaction(function () use ($emailTemplate, $input) {
             if ($emailTemplate->update($input)) {

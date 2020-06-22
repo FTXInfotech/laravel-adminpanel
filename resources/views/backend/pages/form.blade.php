@@ -90,7 +90,7 @@
                 <div class="col-md-10">
                     <div class="checkbox d-flex align-items-center">
                         @php
-                        $status = 'checked';
+                        $status = isset($page) ? '' : 'checked';
                         @endphp
                         <label class="switch switch-label switch-pill switch-primary mr-2" for="role-1"><input class="switch-input" type="checkbox" name="status" id="role-1" value="1" {{ (isset($page->status) && $page->status === 1) ? "checked" : $status }}><span class="switch-slider" data-checked="on" data-unchecked="off"></span></label>
                     </div>

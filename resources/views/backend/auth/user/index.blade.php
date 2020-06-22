@@ -16,11 +16,6 @@
                 </h4>
             </div>
             <!--col-->
-
-            <div class="col-sm-7">
-                @include('backend.auth.user.includes.header-buttons')
-            </div>
-            <!--col-->
         </div>
         <!--row-->
 
@@ -57,7 +52,7 @@
 @section('pagescript')
 <script>
     Backend.Utils.documentReady(function() {
-        Backend.UserPage.init();
+        Backend.UserPage.init('list');
     });
 </script>
 @endsection

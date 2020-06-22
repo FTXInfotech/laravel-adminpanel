@@ -96,7 +96,7 @@
     {!! script(mix('js/manifest.js')) !!}
     {!! script(mix('js/vendor.js')) !!}
     {!! script(mix('js/backend.js')) !!}
-    {!! script(mix('js/backend-custom.js')) !!}
+    {!! script(asset('js/backend/admin.js')) !!}
     @stack('after-scripts')
     <!-- <script src="{{ asset('/js/backend/common.js')}}"></script>
     <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
