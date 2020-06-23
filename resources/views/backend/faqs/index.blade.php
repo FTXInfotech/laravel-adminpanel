@@ -16,11 +16,6 @@
                 </h4>
             </div>
             <!--col-->
-
-            <div class="col-sm-7">
-                @include('backend.faqs.includes.header-buttons')
-            </div>
-            <!--col-->
         </div>
         <!--row-->
 

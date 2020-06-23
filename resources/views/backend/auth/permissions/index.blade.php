@@ -2,6 +2,10 @@
 
 @section('title', app_name() . ' | '. __('labels.backend.access.permissions.management'))
 
+@section('breadcrumb-links')
+@include('backend.auth.permissions.includes.breadcrumb-links')
+@endsection
+
 @section('content')
 <div class="card">
     <div class="card-body">
@@ -10,10 +14,6 @@
                 <h4 class="card-title mb-0">
                     @lang('labels.backend.access.permissions.management')
                 </h4>
-            </div><!--col-->
-
-            <div class="col-sm-7 pull-right">
-                @include('backend.auth.permissions.includes.header-buttons')
             </div><!--col-->
         </div><!--row-->
 

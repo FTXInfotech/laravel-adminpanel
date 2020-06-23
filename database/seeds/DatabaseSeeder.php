@@ -24,6 +24,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(AuthTableSeeder::class);
+        $this->call(PagesTableSeeder::class);
+        $this->call(FaqTableSeeder::class);
+        $this->call(EmailTemplateSeeder::class);
 
         Model::reguard();
     }

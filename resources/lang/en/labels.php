@@ -40,6 +40,8 @@ return [
                 'create' => 'Create Role',
                 'edit' => 'Edit Role',
                 'management' => 'Role Management',
+                'label'   =>  'Roles',
+                'all'   =>  'Roles',
 
                 'table' => [
                     'number_of_users' => 'Number of Users',
@@ -120,6 +122,8 @@ return [
                 'deleted'               => 'Deleted Permission',
                 'edit'                  => 'Edit Permission',
                 'management'            => 'Permission Management',
+                'label'                 =>  'Permissions',
+                'list'                  =>  'Permission List',
 
                 'table' => [
                     'created'           => 'Created',
