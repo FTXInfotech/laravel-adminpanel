@@ -4,9 +4,6 @@ namespace App\Http\Requests\Backend\Pages;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Class DeletePageRequest.
- */
 class DeletePageRequest extends FormRequest
 {
     /**
@@ -16,7 +13,7 @@ class DeletePageRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('delete-page');
     }
 
     /**
