@@ -15,10 +15,6 @@
                 {{ __('labels.backend.access.blog-tag.management') }} <small class="text-muted">{{ __('labels.backend.access.blog-tag.active') }}</small>
                 </h4>
             </div><!--col-->
-
-            <div class="col-sm-7">
-                @include('backend.blog-tags.includes.header-buttons')
-            </div><!--col-->
         </div><!--row-->
 
         <div class="row mt-4">

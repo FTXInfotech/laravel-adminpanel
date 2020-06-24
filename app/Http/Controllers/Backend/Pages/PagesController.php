@@ -15,7 +15,6 @@ use App\Http\Responses\RedirectResponse;
 use App\Http\Responses\ViewResponse;
 use App\Models\Page;
 use App\Repositories\Backend\PagesRepository;
-use Yajra\DataTables\Facades\DataTables;
 
 class PagesController extends Controller
 {
@@ -59,7 +58,7 @@ class PagesController extends Controller
      */
     public function store(StorePageRequest $request)
     {
-        $this->repository->create($request->except('_token'));
+        $this->repository->create($request->except(['_token', '_method']));
 
         return new RedirectResponse(route('admin.pages.index'), ['flash_success' => trans('alerts.backend.pages.created')]);
     }

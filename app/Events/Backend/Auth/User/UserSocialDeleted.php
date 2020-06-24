@@ -2,6 +2,7 @@
 
 namespace App\Events\Backend\Auth\User;
 
+use App\Models\Auth\User;
 use Illuminate\Queue\SerializesModels;
 
 /**
@@ -12,7 +13,7 @@ class UserSocialDeleted
     use SerializesModels;
 
     /**
-     * @var
+     * @var \App\Models\Auth\User
      */
     public $user;
 
@@ -24,10 +25,10 @@ class UserSocialDeleted
     /**
      * UserSocialDeleted constructor.
      *
-     * @param $user
+     * @param \App\Models\Auth\User $user
      * @param $social
      */
-    public function __construct($user, $social)
+    public function __construct(User $user, $social)
     {
         $this->user = $user;
         $this->social = $social;

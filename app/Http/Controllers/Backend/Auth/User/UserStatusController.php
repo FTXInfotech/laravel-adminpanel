@@ -13,31 +13,31 @@ use App\Repositories\Backend\Auth\UserRepository;
 class UserStatusController extends Controller
 {
     /**
-     * @var UserRepository
+     * @var \App\Repositories\Backend\Auth\UserRepository
      */
-    protected $userRepository;
+    protected $repository;
 
     /**
-     * @param UserRepository $userRepository
+     * @param \App\Repositories\Backend\Auth\UserRepository $repository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $repository)
     {
-        $this->userRepository = $userRepository;
+        $this->repository = $repository;
     }
 
     /**
-     * @param ManageUserRequest $request
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
      *
      * @return mixed
      */
     public function getDeactivated(ManageUserRequest $request)
     {
         return view('backend.auth.user.deactivated')
-            ->withUsers($this->userRepository->getInactivePaginated(25, 'id', 'asc'));
+            ->withUsers($this->repository->getInactivePaginated(25, 'id', 'asc'));
     }
 
     /**
-     * @param ManageUserRequest $request
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
      *
      * @return mixed
      */
@@ -47,16 +47,16 @@ class UserStatusController extends Controller
     }
 
     /**
-     * @param ManageUserRequest $request
-     * @param User              $user
-     * @param                   $status
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
+     * @param \App\Models\Auth\User $user
+     * @param int $status
      *
      * @throws \App\Exceptions\GeneralException
      * @return mixed
      */
     public function mark(ManageUserRequest $request, User $user, $status)
     {
-        $this->userRepository->mark($user, (int) $status);
+        $this->repository->mark($user, (int) $status);
 
         return redirect()->route(
             (int) $status === 1 ?
@@ -66,8 +66,8 @@ class UserStatusController extends Controller
     }
 
     /**
-     * @param ManageUserRequest $request
-     * @param User              $deletedUser
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
+     * @param \App\Models\Auth\User $deletedUser
      *
      * @throws \App\Exceptions\GeneralException
      * @throws \Throwable
@@ -75,21 +75,21 @@ class UserStatusController extends Controller
      */
     public function delete(ManageUserRequest $request, User $deletedUser)
     {
-        $this->userRepository->forceDelete($deletedUser);
+        $this->repository->forceDelete($deletedUser);
 
         return redirect()->route('admin.auth.user.deleted')->withFlashSuccess(__('alerts.backend.users.deleted_permanently'));
     }
 
     /**
-     * @param ManageUserRequest $request
-     * @param User              $deletedUser
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
+     * @param \App\Models\Auth\User $deletedUser
      *
      * @throws \App\Exceptions\GeneralException
      * @return mixed
      */
     public function restore(ManageUserRequest $request, User $deletedUser)
     {
-        $this->userRepository->restore($deletedUser);
+        $this->repository->restore($deletedUser);
 
         return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.users.restored'));
     }

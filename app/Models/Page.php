@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
-use App\Models\ModelTrait;
-use App\Models\Traits\Page\PageAttributes;
-use App\Models\Traits\Page\PageRelationships;
+use App\Models\Traits\Attributes\PageAttributes;
+use App\Models\Traits\ModelAttributes;
+use App\Models\Traits\Relationships\PageRelationships;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Page extends BaseModel
 {   
-    use SoftDeletes, ModelTrait, PageRelationships, PageAttributes;
+    use SoftDeletes, ModelAttributes, PageRelationships, PageAttributes;
 
     /**
      * The guarded field which are not mass assignable.
@@ -29,9 +29,4 @@ class Page extends BaseModel
     ];
 
     protected $with = ['owner'];
-
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-    }
 }

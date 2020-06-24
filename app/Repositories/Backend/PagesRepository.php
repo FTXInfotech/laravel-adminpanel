@@ -2,12 +2,12 @@
 
 namespace App\Repositories\Backend;
 
+use App\Events\Backend\Pages\PageCreated;
+use App\Events\Backend\Pages\PageDeleted;
+use App\Events\Backend\Pages\PageUpdated;
+use App\Exceptions\GeneralException;
 use App\Models\Page;
 use App\Repositories\BaseRepository;
-use App\Events\Backend\PageCreated;
-use App\Events\Backend\PageUpdated;
-use App\Events\Backend\PageDeleted;
-use App\Exceptions\GeneralException;
 use Illuminate\Support\Str;
 
 class PagesRepository extends BaseRepository
@@ -53,7 +53,7 @@ class PagesRepository extends BaseRepository
         if ($page = Page::create($input)) {
 
             event(new PageCreated($page));
-
+            
             return $page;
         }
 
@@ -79,6 +79,7 @@ class PagesRepository extends BaseRepository
         if ($page->update($input)) {
 
             event(new PageUpdated($page));
+            
             return $page;
         }
 

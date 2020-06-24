@@ -12,37 +12,35 @@ use App\Http\Responses\Backend\Auth\Role\CreateResponse;
 use App\Http\Responses\Backend\Auth\Role\EditResponse;
 use App\Http\Responses\RedirectResponse;
 use App\Http\Responses\ViewResponse;
-use App\Models\Auth\Role\Role;
+use App\Models\Auth\Role;
 use App\Repositories\Backend\Auth\PermissionRepository;
 use App\Repositories\Backend\Auth\RoleRepository;
 
-/**
- * Class RoleController.
- */
 class RoleController extends Controller
 {
+    
     /**
-     * @var RoleRepository
+     * @var \App\Repositories\Backend\Auth\RoleRepository
      */
-    protected $roles;
+    protected $roleRepository;
 
     /**
-     * @var PermissionRepository
+     * @var \App\Repositories\Backend\Auth\PermissionRepository
      */
-    protected $permissions;
+    protected $permissionRepository;
 
     /**
-     * @param RoleRepository       $roleRepository
-     * @param PermissionRepository $permissionRepository
+     * @param \App\Repositories\Backend\Auth\RoleRepository $roleRepository
+     * @param \App\Repositories\Backend\Auth\PermissionRepository $permissionRepository
      */
     public function __construct(RoleRepository $roleRepository, PermissionRepository $permissionRepository)
     {
-        $this->roles        = $roleRepository;
-        $this->permissions  = $permissionRepository;
+        $this->roleRepository        = $roleRepository;
+        $this->permissionRepository  = $permissionRepository;
     }
 
     /**
-     * @param ManageRoleRequest $request
+     * @param \App\Http\Requests\Backend\Auth\Role\ManageRoleRequest $request
      *
      * @return mixed
      */
@@ -52,61 +50,61 @@ class RoleController extends Controller
     }
 
     /**
-     * @param ManageRoleRequest $request
+     * @param \App\Http\Requests\Backend\Auth\Role\ManageRoleRequest $request
      *
-     * @return CreateResponse
+     * @return \App\Http\Responses\Backend\Auth\Role\CreateResponse
      */
     public function create(ManageRoleRequest $request)
     {
-        return new CreateResponse($this->permissions, $this->roles);
+        return new CreateResponse($this->permissionRepository, $this->roleRepository);
     }
 
     /**
-     * @param  StoreRoleRequest  $request
+     * @param  \App\Http\Requests\Backend\Auth\Role\StoreRoleRequest $request
      *
-     * @return RedirectResponse
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StoreRoleRequest $request)
     {
-        $this->roles->create($request->all());
+        $this->roleRepository->create($request->except(['_token', '_method']));
 
         return new RedirectResponse(route('admin.auth.role.index'), ['flash_success' => trans('alerts.backend.roles.created')]);
     }
 
     /**
-     * @param ManageRoleRequest $request
-     * @param Role              $role
+     * @param \App\Http\Requests\Backend\Auth\Role\ManageRoleRequest $request
+     * @param \App\Models\Auth\Role $role
      *
-     * @return EditResponse
+     * @return \App\Http\Responses\Backend\Auth\Role\EditResponse
      */
     public function edit(Role $role, EditRoleRequest $request)
     {
-        return new EditResponse($role, $this->permissions);
+        return new EditResponse($role, $this->permissionRepository);
     }
 
     /**
-     * @param  UpdateRoleRequest  $request
-     * @param  Role  $role
+     * @param  \App\Http\Requests\Backend\Auth\RoleUpdateRoleRequest  $request
+     * @param  \App\Models\Auth\Role  $role
      *
-     * @return RedirectResponse
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function update(Role $role, UpdateRoleRequest $request)
     {
-        $this->roles->update($role, $request->all());
+        $this->roleRepository->update($role, $request->except(['_token', '_method']));
 
         return redirect()->route('admin.auth.role.index')->withFlashSuccess(__('alerts.backend.roles.updated'));
     }
 
     /**
-     * @param ManageRoleRequest $request
-     * @param Role              $role
+     * @param \App\Http\Requests\Backend\Auth\Role\ManageRoleRequest $request
+     * @param \App\Models\Auth\Role $role
      *
      * @throws \Exception
      * @return mixed
      */
     public function destroy(ManageRoleRequest $request, Role $role)
     {
-        $this->roles->delete($role);
+        $this->roleRepository->delete($role);
 
         return redirect()->route('admin.auth.role.index')->withFlashSuccess(__('alerts.backend.roles.deleted'));
     }

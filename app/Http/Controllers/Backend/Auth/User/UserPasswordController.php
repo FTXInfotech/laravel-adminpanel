@@ -8,46 +8,43 @@ use App\Http\Requests\Backend\Auth\User\UpdateUserPasswordRequest;
 use App\Models\Auth\User;
 use App\Repositories\Backend\Auth\UserRepository;
 
-/**
- * Class UserPasswordController.
- */
 class UserPasswordController extends Controller
 {
-    /**
-     * @var UserRepository
-     */
-    protected $userRepository;
 
     /**
-     * @param UserRepository $userRepository
+     * @var \App\Repositories\Backend\Auth\UserRepository
      */
-    public function __construct(UserRepository $userRepository)
+    protected $repository;
+
+    /**
+     * @param \App\Repositories\Backend\Auth\UserRepository $userRepository
+     */
+    public function __construct(UserRepository $repository)
     {
-        $this->userRepository = $userRepository;
+        $this->repository = $repository;
     }
 
     /**
-     * @param ManageUserRequest $request
-     * @param User              $user
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
+     * @param \App\Models\Auth\User $user
      *
      * @return mixed
      */
     public function edit(ManageUserRequest $request, User $user)
     {
-        return view('backend.auth.user.change-password')
-            ->withUser($user);
+        return view('backend.auth.user.change-password')->withUser($user);
     }
 
     /**
-     * @param UpdateUserPasswordRequest $request
-     * @param User                      $user
+     * @param \App\Http\Requests\Backend\Auth\User\UpdateUserPasswordRequest $request
+     * @param \App\Models\Auth\User $user
      *
      * @throws \App\Exceptions\GeneralException
      * @return mixed
      */
     public function update(UpdateUserPasswordRequest $request, User $user)
     {
-        $this->userRepository->updatePassword($user, $request->only('password'));
+        $this->repository->updatePassword($user, $request->only('password'));
 
         return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.users.updated_password'));
     }

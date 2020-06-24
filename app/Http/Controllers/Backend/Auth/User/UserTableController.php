@@ -16,14 +16,14 @@ class UserTableController extends Controller
     /**
      * @var \App\Repositories\Backend\Auth\UserRepository
      */
-    protected $users;
+    protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\Auth\UserRepository $users
+     * @param \App\Repositories\Backend\Auth\UserRepository $repository
      */
-    public function __construct(UserRepository $users)
+    public function __construct(UserRepository $repository)
     {
-        $this->users = $users;
+        $this->repository = $repository;
     }
 
     /**
@@ -33,7 +33,7 @@ class UserTableController extends Controller
      */
     public function __invoke(ManageUserRequest $request)
     {
-        return Datatables::make($this->users->getForDataTable($request->get('status'), $request->get('trashed')))
+        return Datatables::make($this->repository->getForDataTable($request->get('status'), $request->get('trashed')))
             ->escapeColumns(['first_name', 'email'])
             ->editColumn('confirmed', function ($user) {
                 return $user->confirmed_label;

@@ -4,26 +4,23 @@ namespace App\Http\Controllers\Backend\BlogTags;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest;
-use App\Repositories\Backend\BlogTags\BlogTagsRepository;
+use App\Repositories\Backend\BlogTagsRepository;
 use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
-/**
- * Class BlogTagsTableController.
- */
 class BlogTagsTableController extends Controller
 {
     /**
-     * @var \App\Repositories\Backend\BlogTags\BlogTagsRepository
+     * @var \App\Repositories\Backend\BlogTagsRepository
      */
-    protected $blogtags;
+    protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\BlogTags\BlogTagsRepository $blogtags
+     * @param \App\Repositories\Backend\BlogTagsRepository $repository
      */
-    public function __construct(BlogTagsRepository $blogtags)
+    public function __construct(BlogTagsRepository $repository)
     {
-        $this->blogtags = $blogtags;
+        $this->repository = $repository;
     }
 
     /**
@@ -33,7 +30,7 @@ class BlogTagsTableController extends Controller
      */
     public function __invoke(ManageBlogTagsRequest $request)
     {
-        return Datatables::of($this->blogtags->getForDataTable())
+        return Datatables::of($this->repository->getForDataTable())
             ->filterColumn('status', function ($query, $keyword) {
                 if (in_array(strtolower($keyword), ['active', 'inactive'])) {
                     $query->where('blog_tags.status', (strtolower($keyword) == 'active') ? 1 : 0);

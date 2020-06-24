@@ -44,7 +44,7 @@ class UnusedPassword implements Rule
 
         if (! $this->user instanceof User) {
             if (is_numeric($this->user)) {
-                $this->user = resolve(BackendUserRepository::class)->getById($this->user);
+                $this->user = resolve(BackendUserRepository::class)->find($this->user);
             } else {
                 $this->user = resolve(FrontendUserRepository::class)->findByPasswordResetToken($this->user);
             }

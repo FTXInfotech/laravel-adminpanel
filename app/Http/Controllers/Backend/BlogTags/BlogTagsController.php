@@ -9,24 +9,24 @@ use App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest;
 use App\Http\Responses\ViewResponse;
-use App\Repositories\Backend\BlogTags\BlogTagsRepository;
-use App\Models\BlogTags\BlogTag;
+use App\Repositories\Backend\BlogTagsRepository;
+use App\Models\BlogTag;
 use App\Http\Responses\Backend\BlogTag\EditResponse;
 use App\Http\Responses\RedirectResponse;
 
 class BlogTagsController extends Controller
 {
     /**
-     * @var BlogTagsRepository
+     * @var \App\Repositories\Backend\BlogTagsRepository
      */
-    protected $tag;
+    protected $repository;
     
     /**
-     * @param \App\Repositories\Backend\BlogTags\BlogTagsRepository $tag
+     * @param \App\Repositories\Backend\BlogTagsRepository $repository
      */
-    public function __construct(BlogTagsRepository $tag)
+    public function __construct(BlogTagsRepository $repository)
     {
-        $this->tag = $tag;
+        $this->repository = $repository;
     }
 
     /**
@@ -57,13 +57,13 @@ class BlogTagsController extends Controller
      */
     public function store(StoreBlogTagsRequest $request)
     {
-        $this->tag->create($request->except('token'));
+        $this->repository->create($request->except(['_token', '_method']));
 
         return new RedirectResponse(route('admin.blog-tags.index'), ['flash_success' => trans('alerts.backend.blog-tags.created')]);
     }
 
     /**
-     * @param \App\Models\BlogTags\BlogTag                              $blogTag
+     * @param \App\Models\BlogTag $blogTag
      * @param \App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest $request
      *
      * @return \App\Http\Responses\Backend\BlogTag\EditResponse
@@ -74,27 +74,27 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogTags\BlogTag                                $blogTag
-     * @param \App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest   $request
+     * @param \App\Models\BlogTag $blogTag
+     * @param \App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function update(BlogTag $blogTag, UpdateBlogTagsRequest $request)
     {
-        $this->tag->update($blogTag, $request->all());
+        $this->repository->update($blogTag, $request->except(['_token', '_method']));
 
         return new RedirectResponse(route('admin.blog-tags.index'), ['flash_success' => trans('alerts.backend.blog-tags.updated')]);
     }
 
     /**
-     * @param \App\Models\BlogTags\BlogTag                              $blogTag
+     * @param \App\Models\BlogTag $blogTag
      * @param \App\Http\Requests\Backend\BlogTags\DeleteBlogTagsRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(BlogTag $blogTag, DeleteBlogTagsRequest $request)
     {
-        $this->tag->delete($blogTag);
+        $this->repository->delete($blogTag);
 
         return new RedirectResponse(route('admin.blog-tags.index'), ['flash_success' => trans('alerts.backend.blog-tags.deleted')]);
     }

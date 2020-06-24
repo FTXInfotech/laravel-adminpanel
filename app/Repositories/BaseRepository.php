@@ -57,6 +57,19 @@ class BaseRepository
      */
     public function query()
     {
-        return call_user_func(static::MODEL.'::query');
+        return call_user_func(static::MODEL . '::query');
+    }
+
+    /**
+     * Generate drop-down select data with basic IDs.
+     *
+     * @param string $field_name
+     *
+     * @return array
+     */
+    public function getSelectData($field_name = 'name')
+    {
+        $collection = $this->getAll();
+        return call_user_func(static::MODEL . '::getItems', $collection, $field_name);
     }
 }

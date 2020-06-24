@@ -2,6 +2,7 @@
 
 namespace App\Events\Backend\Auth\User;
 
+use App\Models\Auth\User;
 use Illuminate\Queue\SerializesModels;
 
 /**
@@ -12,14 +13,14 @@ class UserDeactivated
     use SerializesModels;
 
     /**
-     * @var
+     * @var \App\Models\Auth\User
      */
     public $user;
 
     /**
-     * @param $user
+     * @param \App\Models\Auth\User $user
      */
-    public function __construct($user)
+    public function __construct(User $user)
     {
         $this->user = $user;
     }
