@@ -16,7 +16,7 @@ class ManageRoleRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->isAdmin();
+        return access()->allow('view-role-management');
     }
 
     /**

@@ -16,7 +16,7 @@ class EditBlogTagsRequest extends Request
      */
     public function authorize()
     {
-        return access()->allow('edit-blog-category');
+        return access()->allow('edit-blog-tag');
     }
 
     /**

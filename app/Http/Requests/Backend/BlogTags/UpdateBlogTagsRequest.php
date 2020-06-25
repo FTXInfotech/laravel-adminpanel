@@ -16,7 +16,7 @@ class UpdateBlogTagsRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('edit-blog-tag');
     }
 
     /**

@@ -16,7 +16,7 @@ class EditEmailTemplatesRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('edit-email-template');
     }
 
     /**

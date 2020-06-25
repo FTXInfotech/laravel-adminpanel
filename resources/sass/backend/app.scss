@@ -6,6 +6,10 @@
 // Import styles
 @import "~@coreui/coreui/scss/coreui";
 
+@import '~datatables.net-bs4/css/dataTables.bootstrap4.css';
+
+@import '~select2/dist/css/select2.css';
+
 // Fix inaccessible dropdown in .table-responsive dropdown buttons
 .table-responsive {
     overflow-x: inherit;

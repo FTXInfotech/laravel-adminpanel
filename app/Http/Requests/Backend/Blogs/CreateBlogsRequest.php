@@ -16,7 +16,7 @@ class CreateBlogsRequest extends Request
      */
     public function authorize()
     {
-        return true;//access()->allow('create-blog');
+        return access()->allow('create-blog');
     }
 
     /**

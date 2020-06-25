@@ -16,7 +16,7 @@ class ManageBlogsRequest extends Request
      */
     public function authorize()
     {
-        return true;//access()->allow('view-blog');
+        return access()->allow('view-blog');
     }
 
     /**

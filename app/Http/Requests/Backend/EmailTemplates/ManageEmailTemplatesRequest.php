@@ -16,7 +16,7 @@ class ManageEmailTemplatesRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('view-email-template');
     }
 
     /**

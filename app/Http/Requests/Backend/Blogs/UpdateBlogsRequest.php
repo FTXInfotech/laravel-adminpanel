@@ -16,7 +16,7 @@ class UpdateBlogsRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('edit-blog');
     }
 
     /**

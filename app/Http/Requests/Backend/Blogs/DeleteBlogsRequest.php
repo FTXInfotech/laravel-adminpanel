@@ -16,7 +16,7 @@ class DeleteBlogsRequest extends Request
      */
     public function authorize()
     {
-        return true;//access()->allow('delete-blog');
+        return access()->allow('delete-blog');
     }
 
     /**

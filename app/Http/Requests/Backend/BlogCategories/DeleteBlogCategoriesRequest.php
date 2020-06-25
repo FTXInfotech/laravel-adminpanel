@@ -16,7 +16,7 @@ class DeleteBlogCategoriesRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('delete-blog-category');
     }
 
     /**

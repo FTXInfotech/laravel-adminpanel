@@ -65,6 +65,7 @@
     },
     "dependencies": {
         "datatables.net": "^1.10.21",
-        "datatables.net-bs4": "^1.10.21"
+        "datatables.net-bs4": "^1.10.21",
+        "select2": "^4.0.13"
     }
 }

@@ -36,7 +36,8 @@ mix.setPublicPath('public')
         'sweetalert2',
         'lodash',
         'datatables.net',
-        'datatables.net-bs4'
+        'datatables.net-bs4',
+        'select2'
     ])
     .sourceMaps();
 

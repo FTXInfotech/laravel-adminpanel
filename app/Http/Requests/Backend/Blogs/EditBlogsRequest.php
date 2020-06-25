@@ -16,7 +16,7 @@ class EditBlogsRequest extends Request
      */
     public function authorize()
     {
-        return true;//access()->allow('edit-blog');
+        return access()->allow('edit-blog');
     }
 
     /**

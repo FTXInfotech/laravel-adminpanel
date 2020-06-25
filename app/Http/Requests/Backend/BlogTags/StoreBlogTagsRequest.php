@@ -16,7 +16,7 @@ class StoreBlogTagsRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('create-blog-tag');
     }
 
     /**

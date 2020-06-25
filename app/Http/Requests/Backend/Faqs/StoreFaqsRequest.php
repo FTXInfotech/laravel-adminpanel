@@ -13,7 +13,7 @@ class StoreFaqsRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('create-faq');
     }
 
     /**

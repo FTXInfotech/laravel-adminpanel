@@ -16,7 +16,7 @@ class StoreEmailTemplatesRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('create-email-template');
     }
 
     /**

@@ -17,7 +17,7 @@ class CreateBlogCategoriesRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('create-blog-category');
     }
 
     /**

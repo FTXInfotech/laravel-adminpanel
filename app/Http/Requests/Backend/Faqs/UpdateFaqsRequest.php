@@ -13,7 +13,7 @@ class UpdateFaqsRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('edit-faq');
     }
 
     /**

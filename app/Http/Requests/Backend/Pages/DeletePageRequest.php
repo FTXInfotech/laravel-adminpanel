@@ -16,7 +16,7 @@ class DeletePageRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('delete-page');
     }
 
     /**

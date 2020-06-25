@@ -16,7 +16,7 @@ class StoreBlogsRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->isAdmin();
+        return access()->allow('create-blog');
     }
 
     /**

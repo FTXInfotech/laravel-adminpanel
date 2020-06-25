@@ -13,7 +13,7 @@ class DeleteFaqsRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('delete-faq');
     }
 
     /**

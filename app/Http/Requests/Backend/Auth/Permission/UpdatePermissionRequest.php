@@ -16,7 +16,7 @@ class UpdatePermissionRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->isAdmin();
+        return access()->allow('edit-permission');
     }
 
     /**

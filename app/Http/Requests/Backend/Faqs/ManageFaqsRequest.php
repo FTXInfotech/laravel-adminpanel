@@ -13,7 +13,7 @@ class ManageFaqsRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('view-faq');
     }
 
     /**

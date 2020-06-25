@@ -16,7 +16,7 @@ class StorePageRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return access()->allow('create-page');
     }
 
     /**
