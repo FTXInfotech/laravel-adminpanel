@@ -12,8 +12,8 @@ use App\Models\Auth\User;
 class UserSessionController extends Controller
 {
     /**
-     * @param ManageUserRequest $request
-     * @param User              $user
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
+     * @param \App\Models\Auth\User $user
      *
      * @return mixed
      */

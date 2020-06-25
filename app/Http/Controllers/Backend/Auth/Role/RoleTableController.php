@@ -13,30 +13,30 @@ use Yajra\DataTables\Facades\DataTables;
 class RoleTableController extends Controller
 {
     /**
-     * @var RoleRepository
+     * @var \App\Repositories\Backend\Auth\RoleRepository
      */
-    protected $roles;
+    protected $repository;
 
     /**
-     * @param RoleRepository $roles
+     * @param \App\Repositories\Backend\Auth\RoleRepository $roles
      */
-    public function __construct(RoleRepository $roles)
+    public function __construct(RoleRepository $repository)
     {
-        $this->roles = $roles;
+        $this->repository = $repository;
     }
 
     /**
-     * @param ManageRoleRequest $request
+     * @param \App\Http\Requests\Backend\Auth\Role\ManageRoleRequest $request
      *
      * @return mixed
      */
     public function __invoke(ManageRoleRequest $request)
     {
-        return Datatables::of($this->roles->getForDataTable())
+        return Datatables::of($this->repository->getForDataTable())
             ->escapeColumns(['name', 'sort'])
             ->addColumn('permissions', function ($role) {
                 if ($role->all) {
-                    return '<span class="label label-success">'.trans('labels.general.all').'</span>';
+                    return '<span class="label label-success">' . trans('labels.general.all') . '</span>';
                 }
 
                 return $role->permission_name;

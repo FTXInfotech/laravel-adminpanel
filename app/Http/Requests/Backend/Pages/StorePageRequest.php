@@ -4,9 +4,6 @@ namespace App\Http\Requests\Backend\Pages;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Class StorePageRequest.
- */
 class StorePageRequest extends FormRequest
 {
     /**

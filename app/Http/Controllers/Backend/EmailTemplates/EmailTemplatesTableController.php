@@ -4,33 +4,33 @@ namespace App\Http\Controllers\Backend\EmailTemplates;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest;
-use App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository;
+use App\Repositories\Backend\EmailTemplatesRepository;
 use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
-/**
- * Class EmailTemplatesTableController.
- */
 class EmailTemplatesTableController extends Controller
 {
-    protected $emailTemplate;
+    /**
+     * @var \App\Repositories\Backend\EmailTemplatesRepository
+     */
+    protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository $cmspages
+     * @param \App\Repositories\Backend\EmailTemplatesRepository $repository
      */
-    public function __construct(EmailTemplatesRepository $emailTemplate)
+    public function __construct(EmailTemplatesRepository $repository)
     {
-        $this->emailTemplate = $emailTemplate;
+        $this->repository = $repository;
     }
 
-    /**P
+    /**
      * @param \App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest $request
      *
      * @return mixed
      */
     public function __invoke(ManageEmailTemplatesRequest $request)
     {
-        return Datatables::of($this->emailTemplate->getForDataTable())
+        return Datatables::of($this->repository->getForDataTable())
             ->filterColumn('status', function ($query, $keyword) {
                 if (in_array(strtolower($keyword), ['active', 'inactive'])) {
                     $query->where('email_templates.status', (strtolower($keyword) == 'active') ? 1 : 0);

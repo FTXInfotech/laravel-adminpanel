@@ -10,22 +10,22 @@ use App\Http\Requests\Backend\Faqs\StoreFaqsRequest;
 use App\Http\Requests\Backend\Faqs\UpdateFaqsRequest;
 use App\Http\Responses\RedirectResponse;
 use App\Http\Responses\ViewResponse;
-use App\Models\Faqs\Faq;
-use App\Repositories\Backend\Faqs\FaqsRepository;
+use App\Models\Faq;
+use App\Repositories\Backend\FaqsRepository;
 
 class FaqsController extends Controller
 {
     /**
-     * @var FaqsRepository
+     * @var \App\Repositories\Backend\FaqsRepository
      */
-    protected $faq;
+    protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\Faqs\FaqsRepository $faq
+     * @param \App\Repositories\Backend\FaqsRepository $faq
      */
-    public function __construct(FaqsRepository $faq)
+    public function __construct(FaqsRepository $repository)
     {
-        $this->faq = $faq;
+        $this->repository = $repository;
     }
 
     /**
@@ -55,13 +55,13 @@ class FaqsController extends Controller
      */
     public function store(StoreFaqsRequest $request)
     {
-        $this->faq->create($request->except('_token'));
+        $this->repository->create($request->except('_token'));
 
         return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => trans('alerts.backend.faqs.created')]);
     }
 
     /**
-     * @param \App\Models\Faqs\Faq                              $faq
+     * @param \App\Models\Faq $faq
      * @param \App\Http\Requests\Backend\Faqs\ManagePageRequest $request
      *
      * @return ViewResponse
@@ -72,29 +72,27 @@ class FaqsController extends Controller
     }
 
     /**
-     * @param \App\Models\Faqs\Faq                              $faq
+     * @param \App\Models\Faq $faq
      * @param \App\Http\Requests\Backend\Faqs\UpdateFaqsRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function update(Faq $faq, UpdateFaqsRequest $request)
     {
-        $input = $request->all();
-
-        $this->faq->update($faq, $request->except(['_token', '_method']));
+        $this->repository->update($faq, $request->except(['_token', '_method']));
 
         return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => trans('alerts.backend.faqs.updated')]);
     }
 
     /**
-     * @param \App\Models\Faqs\Faq                              $faq
+     * @param \App\Models\Faq $faq
      * @param \App\Http\Requests\Backend\Pages\DeleteFaqRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(Faq $faq, DeleteFaqsRequest $request)
     {
-        $this->faq->delete($faq);
+        $this->repository->delete($faq);
 
         return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => trans('alerts.backend.faqs.deleted')]);
     }

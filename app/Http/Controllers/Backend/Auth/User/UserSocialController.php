@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Auth\User\ManageUserRequest;
 use App\Models\Auth\SocialAccount;
 use App\Models\Auth\User;
-use App\Repositories\Backend\Access\User\SocialRepository;
+use App\Repositories\Backend\Auth\User\SocialRepository;
 
 /**
  * Class UserSocialController.
@@ -14,10 +14,10 @@ use App\Repositories\Backend\Access\User\SocialRepository;
 class UserSocialController extends Controller
 {
     /**
-     * @param ManageUserRequest $request
-     * @param SocialRepository  $socialRepository
-     * @param User              $user
-     * @param SocialAccount     $social
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
+     * @param \App\Repositories\Backend\Auth\User\SocialRepository  $socialRepository
+     * @param \App\Models\Auth\User $user
+     * @param \App\Models\Auth\SocialAccount $social
      *
      * @throws \App\Exceptions\GeneralException
      * @return mixed

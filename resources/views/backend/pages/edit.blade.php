@@ -19,7 +19,7 @@
                 </div><!--col-->
 
                 <div class="col text-right">
-                    {{ Form::submit(trans('buttons.general.crud.create'), ['class' => 'btn btn-success btn-sm pull-right']) }}
+                    {{ Form::submit(trans('buttons.general.crud.update'), ['class' => 'btn btn-success btn-sm pull-right']) }}
                 </div><!--row-->
             </div><!--row-->
         </div><!--card-footer-->

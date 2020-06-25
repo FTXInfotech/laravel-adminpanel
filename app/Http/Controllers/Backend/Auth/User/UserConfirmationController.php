@@ -8,27 +8,24 @@ use App\Models\Auth\User;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 use App\Repositories\Backend\Auth\UserRepository;
 
-/**
- * Class UserConfirmationController.
- */
 class UserConfirmationController extends Controller
 {
     /**
-     * @var UserRepository
+     * @var \App\Repositories\Backend\Auth\UserRepository
      */
-    protected $userRepository;
+    protected $repository;
 
     /**
-     * @param UserRepository $userRepository
+     * @param \App\Repositories\Backend\Auth\UserRepository $repository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $repository)
     {
-        $this->userRepository = $userRepository;
+        $this->repository = $repository;
     }
 
     /**
-     * @param ManageUserRequest $request
-     * @param User              $user
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
+     * @param \App\Models\Auth\User $user
      *
      * @return mixed
      */
@@ -49,29 +46,29 @@ class UserConfirmationController extends Controller
     }
 
     /**
-     * @param ManageUserRequest $request
-     * @param User              $user
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
+     * @param \App\Models\Auth\User $user
      *
      * @throws \App\Exceptions\GeneralException
      * @return mixed
      */
     public function confirm(ManageUserRequest $request, User $user)
     {
-        $this->userRepository->confirm($user);
+        $this->repository->confirm($user);
 
         return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.users.confirmed'));
     }
 
     /**
-     * @param ManageUserRequest $request
-     * @param User              $user
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
+     * @param \App\Models\Auth\User $user
      *
      * @throws \App\Exceptions\GeneralException
      * @return mixed
      */
     public function unconfirm(ManageUserRequest $request, User $user)
     {
-        $this->userRepository->unconfirm($user);
+        $this->repository->unconfirm($user);
 
         return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.users.unconfirmed'));
     }

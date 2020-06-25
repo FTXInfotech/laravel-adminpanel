@@ -2,20 +2,10 @@
 
 namespace App\Models\Auth;
 
-use App\Models\RecordingModel;
+use App\Models\RecordableModel;
 
-/**
- * Class SocialAccount.
- */
-class SocialAccount extends RecordingModel
+class SocialAccount extends RecordableModel
 {
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'social_accounts';
-
     /**
      * The attributes that are mass assignable.
      *

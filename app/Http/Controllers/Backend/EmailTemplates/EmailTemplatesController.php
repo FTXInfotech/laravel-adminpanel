@@ -9,24 +9,24 @@ use App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest;
 use App\Http\Requests\Backend\EmailTemplates\UpdateEmailTemplatesRequest;
 use App\Http\Requests\Backend\EmailTemplates\StoreEmailTemplatesRequest;
 use App\Http\Responses\ViewResponse;
-use App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository;
-use App\Models\EmailTemplates\EmailTemplate;
+use App\Repositories\Backend\EmailTemplatesRepository;
+use App\Models\EmailTemplate;
 use App\Http\Responses\Backend\EmailTemplates\EditResponse;
 use App\Http\Responses\RedirectResponse;
 
 class EmailTemplatesController extends Controller
 {
     /**
-     * @var EmailTemplatesRepository
+     * @var \App\Repositories\Backend\EmailTemplatesRepository
      */
-    protected $emailTemplate;
+    protected $repository;
     
     /**
-     * @param \App\Repositories\Backend\EmailTemplates\EmailTemplatesRepository $emailTemplate
+     * @param \App\Repositories\Backend\EmailTemplatesRepository $emailTemplate
      */
-    public function __construct(EmailTemplatesRepository $emailTemplate)
+    public function __construct(EmailTemplatesRepository $repository)
     {
-        $this->emailTemplate = $emailTemplate;
+        $this->repository = $repository;
     }
 
     /**
@@ -56,13 +56,13 @@ class EmailTemplatesController extends Controller
      */
     public function store(StoreEmailTemplatesRequest $request)
     {
-        $this->emailTemplate->create($request->except('token'));
+        $this->repository->create($request->except('token'));
 
         return new RedirectResponse(route('admin.email-templates.index'), ['flash_success' => trans('alerts.backend.email-templates.created')]);
     }
 
     /**
-     * @param \App\Models\EmailTemplates\EmailTemplate                              $emailTemplate
+     * @param \App\Models\EmailTemplate $emailTemplate
      * @param \App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest $request
      *
      * @return \App\Http\Responses\Backend\EmailTemplates\EditResponse
@@ -73,27 +73,27 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * @param \App\Models\EmailTemplates\EmailTemplate                                  $emailTemplate
-     * @param \App\Http\Requests\Backend\EmailTemplates\UpdateEmailTemplatesRequest     $request
+     * @param \App\Models\EmailTemplate $emailTemplate
+     * @param \App\Http\Requests\Backend\EmailTemplates\UpdateEmailTemplatesRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function update(EmailTemplate $emailTemplate, UpdateEmailTemplatesRequest $request)
     {
-        $this->emailTemplate->update($emailTemplate, $request->all());
+        $this->repository->update($emailTemplate, $request->except(['_token', '_method']));
 
         return new RedirectResponse(route('admin.email-templates.index'), ['flash_success' => trans('alerts.backend.email-templates.updated')]);
     }
 
     /**
-     * @param \App\Models\EmailTemplates\EmailTemplate                              $emailTemplate
+     * @param \App\Models\EmailTemplate $emailTemplate
      * @param \App\Http\Requests\Backend\EmailTemplates\DeleteEmailTemplatesRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(EmailTemplate $emailTemplate, DeleteEmailTemplatesRequest $request)
     {
-        $this->emailTemplate->delete($emailTemplate);
+        $this->repository->delete($emailTemplate);
 
         return new RedirectResponse(route('admin.email-templates.index'), ['flash_success' => trans('alerts.backend.email-templates.deleted')]);
     }

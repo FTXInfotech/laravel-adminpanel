@@ -4,9 +4,6 @@ namespace App\Http\Requests\Backend\Pages;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Class ManagePageRequest.
- */
 class ManagePageRequest extends FormRequest
 {
     /**

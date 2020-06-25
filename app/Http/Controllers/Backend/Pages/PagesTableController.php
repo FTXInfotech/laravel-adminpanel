@@ -3,33 +3,34 @@
 namespace App\Http\Controllers\Backend\Pages;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Pages\ManagePageRequest;
-use App\Repositories\Backend\Pages\PagesRepository;
 use Yajra\DataTables\Facades\DataTables;
 
-/**
- * Class PagesTableController.
- */
+use App\Repositories\Backend\PagesRepository;
+use App\Http\Requests\Backend\Pages\ManagePageRequest;
+
 class PagesTableController extends Controller
 {
-    protected $pages;
+    /**
+     * @var \App\Repositories\Backend\PagesRepository $repository
+     */
+    protected $repository;
 
     /**
-     * @param PagesRepository $pages
+     * @param \App\Repositories\Backend\PagesRepository $repository
      */
-    public function __construct(PagesRepository $pages)
+    public function __construct(PagesRepository $repository)
     {
-        $this->pages = $pages;
+        $this->repository = $repository;
     }
 
     /**
-     * @param ManagePageRequest $request
+     * @param \App\Http\Requests\Backend\Pages\ManagePageRequest $request
      *
      * @return mixed
      */
     public function __invoke(ManagePageRequest $request)
     {
-        return Datatables::of($this->pages->getForDataTable())
+        return Datatables::of($this->repository->getForDataTable())
             ->filterColumn('status', function ($query, $keyword) {
                 if(in_array(strtolower($keyword), ['active', 'inactive'])) {
                     $query->where('pages.status',(strtolower($keyword) == 'active') ? 1 : 0);

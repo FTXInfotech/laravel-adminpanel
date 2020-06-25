@@ -2,41 +2,41 @@
 
 namespace App\Http\Controllers\Backend\Auth\User;
 
-use App\Events\Backend\Auth\User\UserDeleted;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Auth\User\ManageUserRequest;
 use App\Http\Requests\Backend\Auth\User\StoreUserRequest;
 use App\Http\Requests\Backend\Auth\User\UpdateUserRequest;
 use App\Http\Responses\ViewResponse;
-use App\Models\Auth\Permission\Permission;
-use App\Models\Auth\Role\Role;
+use App\Models\Auth\Permission;
+use App\Models\Auth\Role;
 use App\Models\Auth\User;
 use App\Repositories\Backend\Auth\PermissionRepository;
 use App\Repositories\Backend\Auth\RoleRepository;
 use App\Repositories\Backend\Auth\UserRepository;
 
-/**
- * Class UserController.
- */
 class UserController extends Controller
 {
     /**
-     * @var UserRepository
+     * @var \App\Repositories\Backend\Auth\UserRepository
      */
     protected $userRepository;
 
     /**
-     * UserController constructor.
-     *
-     * @param UserRepository $userRepository
+     * @var \App\Repositories\Backend\Auth\RoleRepository
      */
-    public function __construct(UserRepository $userRepository)
+    protected $roleRepository;
+
+    /**
+     * @param \App\Repositories\Backend\Auth\UserRepository $userRepository
+     */
+    public function __construct(UserRepository $userRepository, RoleRepository $roleRepository)
     {
         $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
     }
 
     /**
-     * @param ManageUserRequest $request
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
      *
      * @return \App\Http\Responses\ViewResponse
      */
@@ -46,20 +46,20 @@ class UserController extends Controller
     }
 
     /**
-     * @param ManageUserRequest    $request
-     * @param RoleRepository       $roleRepository
-     * @param PermissionRepository $permissionRepository
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
+     * @param \App\Repositories\Backend\Auth\RoleRepository $roleRepository
+     * @param \App\Repositories\Backend\Auth\PermissionRepository $permissionRepository
      *
      * @return mixed
      */
     public function create(ManageUserRequest $request, RoleRepository $roleRepository, PermissionRepository $permissionRepository)
     {
         return view('backend.auth.user.create')
-            ->withRoles(Role::all());
+            ->withRoles($this->roleRepository->getAll());
     }
 
     /**
-     * @param StoreUserRequest $request
+     * @param \App\Http\Requests\Backend\Auth\User\StoreUserRequest $request
      *
      * @throws \Throwable
      * @return mixed
@@ -72,8 +72,8 @@ class UserController extends Controller
     }
 
     /**
-     * @param ManageUserRequest $request
-     * @param User              $user
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
+     * @param \App\Models\Auth\User $user
      *
      * @return mixed
      */
@@ -84,28 +84,24 @@ class UserController extends Controller
     }
 
     /**
-     * @param ManageUserRequest    $request
-     * @param RoleRepository       $roleRepository
-     * @param PermissionRepository $permissionRepository
-     * @param User                 $user
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
+     * @param \App\Models\Auth\User $user
      *
      * @return mixed
      */
-    public function edit(ManageUserRequest $request, RoleRepository $roleRepository, PermissionRepository $permissionRepository, User $user)
+    public function edit(ManageUserRequest $request, User $user, PermissionRepository $permissionRepository)
     {
-        $permissions = Permission::getSelectData('display_name');
-        
         return view('backend.auth.user.edit')
             ->withUser($user)
-            ->withRoles($roleRepository->get())
             ->withUserRoles($user->roles->pluck('id')->all())
-            ->withPermissions($permissions) 
+            ->withRoles($this->roleRepository->getAll())
+            ->withPermissions($permissionRepository->getSelectData('display_name')) 
             ->withUserPermissions($user->permissions->pluck('id')->all());
     }
 
     /**
-     * @param UpdateUserRequest $request
-     * @param User              $user
+     * @param \App\Http\Requests\Backend\Auth\User\UpdateUserRequest $request
+     * @param \App\Models\Auth\User $user
      *
      * @throws \App\Exceptions\GeneralException
      * @throws \Throwable
@@ -119,8 +115,8 @@ class UserController extends Controller
     }
 
     /**
-     * @param ManageUserRequest $request
-     * @param User              $user
+     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
+     * @param \App\Models\Auth\User $user
      *
      * @throws \Exception
      * @return mixed

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\Auth\Permission;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Auth\Permission\ManagePermissionRequest;
-use App\Repositories\Backend\Auth\Permission\PermissionRepository;
+use App\Repositories\Backend\Auth\PermissionRepository;
 use Yajra\DataTables\Facades\DataTables;
 
 /**
@@ -13,26 +13,26 @@ use Yajra\DataTables\Facades\DataTables;
 class PermissionTableController extends Controller
 {
     /**
-     * @var PermissionRepository
+     * @var \App\Repositories\Backend\Auth\PermissionRepository
      */
-    protected $permissions;
+    protected $repository;
 
     /**
-     * @param PermissionRepository $permissions
+     * @param \App\Repositories\Backend\Auth\PermissionRepository $repository
      */
-    public function __construct(PermissionRepository $permissions)
+    public function __construct(PermissionRepository $repository)
     {
-        $this->permissions = $permissions;
+        $this->repository = $repository;
     }
 
     /**
-     * @param ManagePermissionRequest $request
+     * @param App\Http\Requests\Backend\Auth\Permission\ManagePermissionRequest $request
      *
      * @return mixed
      */
     public function __invoke(ManagePermissionRequest $request)
     {
-        return Datatables::of($this->permissions->getForDataTable())
+        return Datatables::of($this->repository->getForDataTable())
             ->escapeColumns(['name', 'sort'])
             ->addColumn('permissions', function ($permission) {
                 if ($permission->all) {

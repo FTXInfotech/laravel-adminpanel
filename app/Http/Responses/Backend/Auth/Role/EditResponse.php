@@ -3,28 +3,29 @@
 namespace App\Http\Responses\Backend\Auth\Role;
 
 use App\Models\Auth\Permission\Permission;
+use App\Models\Auth\Role;
 use Illuminate\Contracts\Support\Responsable;
 
 class EditResponse implements Responsable
 {
     /**
-     * @var \App\Models\Auth\Role\Role
+     * @var \App\Models\Auth\Role
      */
     protected $role;
 
     /**
      * @var \App\Repositories\Backend\Auth\Permission\PermissionRepository
      */
-    protected $permissions;
+    protected $permissionRepository;
 
     /**
-     * @param \App\Models\Auth\Role\Role                                     $role
-     * @param \App\Repositories\Backend\Auth\Permission\PermissionRepository $permissions
+     * @param \App\Models\Auth\Role $role
+     * @param \App\Repositories\Backend\Auth\Permission\PermissionRepository $permissionRepository
      */
-    public function __construct($role, $permissions)
+    public function __construct($role, $permissionRepository)
     {
         $this->role = $role;
-        $this->permissions = $permissions;
+        $this->permissionRepository = $permissionRepository;
     }
 
     /**
@@ -39,6 +40,6 @@ class EditResponse implements Responsable
         return view('backend.auth.roles.edit')
             ->withRole($this->role)
             ->withRolePermissions($this->role->permissions->pluck('id')->all())
-            ->withPermissions($this->permissions->getAll());
+            ->withPermissions($this->permissionRepository->getAll());
     }
 }

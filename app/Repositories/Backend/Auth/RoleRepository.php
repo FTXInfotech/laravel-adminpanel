@@ -6,31 +6,24 @@ use App\Events\Backend\Auth\Role\RoleCreated;
 use App\Events\Backend\Auth\Role\RoleDeleted;
 use App\Events\Backend\Auth\Role\RoleUpdated;
 use App\Exceptions\GeneralException;
-use App\Models\Auth\Role\Role;
+use App\Models\Auth\Role;
 use App\Repositories\BaseRepository;
 use DB;
 
-/**
- * Class RoleRepository.
- */
 class RoleRepository extends BaseRepository
 {
+  
     /**
-     * RoleRepository constructor.
-     *
-     * @param  Role  $model
+     * Associated Repository Model.
      */
-    public function __construct(Role $model)
-    {
-        $this->model = $model;
-    }
+    const MODEL = Role::class;
 
     /**
      * @return mixed
      */
     public function getForDataTable()
     {
-        return $this->model->query()
+        return $this->query()
             ->leftJoin('permission_role', 'permission_role.role_id', '=', 'roles.id')
             ->leftJoin('permissions', 'permission_role.permission_id', '=', 'permissions.id')
             ->select([
@@ -52,7 +45,7 @@ class RoleRepository extends BaseRepository
      *
      * @throws GeneralException
      * @throws \Throwable
-     * @return Role
+     * @return \App\Models\Auth\Role
      */
     public function create(array $input)
     {
@@ -113,7 +106,7 @@ class RoleRepository extends BaseRepository
     }
 
     /**
-     * @param Role  $role
+     * @param \App\Models\Auth\Role  $role
      * @param array $data
      *
      * @throws GeneralException
@@ -194,13 +187,13 @@ class RoleRepository extends BaseRepository
      */
     protected function roleExists($name): bool
     {
-        return $this->model
+        return $this->query()
             ->where('name', strtolower($name))
             ->count() > 0;
     }
 
     /**
-     * @param Role $role
+     * @param \App\Models\Auth\Role $role
      *
      * @throws GeneralException
      *

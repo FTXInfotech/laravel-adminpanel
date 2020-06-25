@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\BlogCategories;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;
-use App\Repositories\Backend\BlogCategories\BlogCategoriesRepository;
+use App\Repositories\Backend\BlogCategoriesRepository;
 use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -13,14 +13,17 @@ use Yajra\DataTables\Facades\DataTables;
  */
 class BlogCategoriesTableController extends Controller
 {
-    protected $blogcategory;
+    /**
+     * @var \App\Repositories\Backend\BlogCategoriesRepository
+     */
+    protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\BlogCategories\BlogCategoriesRepository $cmspages
+     * @param \App\Repositories\Backend\BlogCategories\BlogCategoriesRepository $repository
      */
-    public function __construct(BlogCategoriesRepository $blogcategory)
+    public function __construct(BlogCategoriesRepository $repository)
     {
-        $this->blogcategory = $blogcategory;
+        $this->repository = $repository;
     }
 
     /**
@@ -30,7 +33,7 @@ class BlogCategoriesTableController extends Controller
      */
     public function __invoke(ManageBlogCategoriesRequest $request)
     {
-        return Datatables::of($this->blogcategory->getForDataTable())
+        return Datatables::of($this->repository->getForDataTable())
             ->filterColumn('status', function ($query, $keyword) {
                 if (in_array(strtolower($keyword), ['active', 'inactive'])) {
                     $query->where('blog_categories.status', (strtolower($keyword) == 'active') ? 1 : 0);

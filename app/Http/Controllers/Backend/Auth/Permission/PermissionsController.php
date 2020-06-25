@@ -13,25 +13,22 @@ use App\Http\Responses\Backend\Auth\Permission\CreateResponse;
 use App\Http\Responses\Backend\Auth\Permission\EditResponse;
 use App\Http\Responses\RedirectResponse;
 use App\Http\Responses\ViewResponse;
-use App\Models\Auth\Permission\Permission;
-use App\Repositories\Backend\Auth\Permission\PermissionRepository;
+use App\Models\Auth\Permission;
+use App\Repositories\Backend\Auth\PermissionRepository;
 
-/**
- * Class PermissionController.
- */
 class PermissionController extends Controller
 {
     /**
-     * @var PermissionRepository
+     * @var \App\Repositories\Backend\Auth\PermissionRepository
      */
-    protected $permissions;
+    protected $repository;
 
     /**
-     * @param PermissionRepository $permissions
+     * @param \App\Repositories\Backend\Auth\PermissionRepository $repository
      */
-    public function __construct(PermissionRepository $permissions)
+    public function __construct(PermissionRepository $repository)
     {
-        $this->permissions = $permissions;
+        $this->repository = $repository;
     }
 
     /**
@@ -45,30 +42,30 @@ class PermissionController extends Controller
     }
 
     /**
-     * @param CreatePermissionRequest $request
+     * @param \App\Http\Requests\Backend\Auth\Permission\CreatePermissionRequest $request
      *
      * @return \App\Http\Responses\Backend\Auth\Permission\CreateResponse
      */
     public function create(CreatePermissionRequest $request)
     {
-        return new CreateResponse($this->permissions);
+        return new CreateResponse($this->repository);
     }
 
     /**
-     * @param StorePermissionRequest $request
+     * @param \App\Http\Requests\Backend\Auth\Permission\StorePermissionRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StorePermissionRequest $request)
     {
-        $this->permissions->create($request->all());
+        $this->repository->create($request->except(['_token', '_method']));
 
         return new RedirectResponse(route('admin.auth.permission.index'), ['flash_success' => trans('alerts.backend.permissions.created')]);
     }
 
     /**
-     * @param Permission            $permission
-     * @param EditPermissionRequest $request
+     * @param \App\Models\Auth\Permission $permission
+     * @param \App\Http\Requests\Backend\Auth\Permission\EditPermissionRequest $request
      *
      * @return \App\Http\Responses\Backend\Auth\Permission\EditResponse
      */
@@ -78,27 +75,27 @@ class PermissionController extends Controller
     }
 
     /**
-     * @param Permission              $permission
-     * @param UpdatePermissionRequest $request
+     * @param App\Models\Auth\Permission $permission
+     * @param \App\Http\Requests\Backend\Auth\Permission\UpdatePermissionRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function update(Permission $permission, UpdatePermissionRequest $request)
     {
-        $this->permissions->update($permission, $request->all());
+        $this->repository->update($permission, $request->except(['_token', '_method']));
 
         return new RedirectResponse(route('admin.auth.permission.index'), ['flash_success' => trans('alerts.backend.permissions.updated')]);
     }
 
     /**
-     * @param Permission              $permission
-     * @param DeletePermissionRequest $request
+     * @param App\Models\Auth\Permission $permission
+     * @param \App\Http\Requests\Backend\Auth\Permission\DeletePermissionRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(Permission $permission, DeletePermissionRequest $request)
     {
-        $this->permissions->delete($permission);
+        $this->repository->delete($permission);
 
         return new RedirectResponse(route('admin.auth.permission.index'), ['flash_success' => trans('alerts.backend.permissions.deleted')]);
     }

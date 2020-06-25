@@ -27,15 +27,11 @@ use Illuminate\Support\Facades\DB;
  */
 class UserRepository extends BaseRepository
 {
+
     /**
-     * UserRepository constructor.
-     *
-     * @param  User  $model
+     * Associated Repository Model.
      */
-    public function __construct(User $model)
-    {
-        $this->model = $model;
-    }
+    const MODEL = User::class;
 
     /**
      * @param int  $status
@@ -49,7 +45,7 @@ class UserRepository extends BaseRepository
          * Note: You must return deleted_at or the User getActionButtonsAttribute won't
          * be able to differentiate what buttons to show for each row.
          */
-        $dataTableQuery = $this->model->query()
+        $dataTableQuery = $this->query()
             ->select([
                 'users.id',
                 'users.first_name',
@@ -71,88 +67,6 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @return mixed
-     */
-    public function getUnconfirmedCount(): int
-    {
-        return $this->model
-            ->where('confirmed', false)
-            ->count();
-    }
-
-    /**
-     * @param int    $paged
-     * @param string $orderBy
-     * @param string $sort
-     *
-     * @return mixed
-     */
-    public function getActivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc'): LengthAwarePaginator
-    {
-        return $this->model
-            ->with('roles', 'permissions', 'providers')
-            ->active()
-            ->orderBy($orderBy, $sort)
-            ->paginate($paged);
-    }
-
-    /**
-     * @param int    $paged
-     * @param string $orderBy
-     * @param string $sort
-     *
-     * @return LengthAwarePaginator
-     */
-    public function getInactivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc'): LengthAwarePaginator
-    {
-        return $this->model
-            ->with('roles', 'permissions', 'providers')
-            ->active(false)
-            ->orderBy($orderBy, $sort)
-            ->paginate($paged);
-    }
-
-    /**
-     * @param int    $paged
-     * @param string $orderBy
-     * @param string $sort
-     *
-     * @return LengthAwarePaginator
-     */
-    public function getDeletedPaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc'): LengthAwarePaginator
-    {
-        return $this->model
-            ->with('roles', 'permissions', 'providers')
-            ->onlyTrashed()
-            ->orderBy($orderBy, $sort)
-            ->paginate($paged);
-    }
-
-    /**
-     * Delete User.
-     *
-     * @param Model $user
-     *
-     * @throws GeneralException
-     *
-     * @return bool
-     */
-    public function delete($user)
-    {
-        if (access()->id() == $user->id) {
-            throw new GeneralException(trans('exceptions.backend.access.users.cant_delete_self'));
-        }
-
-        if ($user->delete()) {
-            event(new UserDeleted($user));
-
-            return true;
-        }
-
-        throw new GeneralException(trans('exceptions.backend.access.users.delete_error'));
-    }
-
-    /**
      * @param array $data
      *
      * @throws \Exception
@@ -165,15 +79,7 @@ class UserRepository extends BaseRepository
         $roles = $request->get('assignees_roles');
         $permissions = $request->get('permissions');
 
-        $user = new User();
-        $user->first_name = $data['first_name'];
-        $user->last_name = $data['last_name'];
-        $user->email = $data['email'];
-        $user->password = bcrypt($data['password']);
-        $user->status = isset($data['status']) ? 1 : 0;
-        $user->confirmation_code = md5(uniqid(mt_rand(), true));
-        $user->confirmed = isset($data['confirmed']) ? 1 : 0;
-        $user->created_by = access()->user()->id;
+        $user = $this->createUserStub($data);
 
         $this->checkUserByEmail($user, $data['email']);
 
@@ -206,13 +112,13 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param User  $user
+     * @param \App\Models\Auth\User  $user
      * @param array $data
      *
      * @throws GeneralException
      * @throws \Exception
      * @throws \Throwable
-     * @return User
+     * @return \App\Models\Auth\User
      */
     public function update(User $user, UpdateUserRequest $request)
     {
@@ -250,29 +156,40 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param  $roles
+     * Delete User.
+     *
+     * @param App\Models\Auth\User $user
      *
      * @throws GeneralException
+     *
+     * @return bool
      */
-    protected function checkUserRolesCount($roles)
+    public function delete(User $user)
     {
-        //User Updated, Update Roles
-        //Validate that there's at least one role chosen
-        if (count($roles) == 0) {
-            throw new GeneralException(trans('exceptions.backend.access.users.role_needed'));
+        if (access()->id() == $user->id) {
+            throw new GeneralException(trans('exceptions.backend.access.users.cant_delete_self'));
         }
+
+        if ($user->delete()) {
+            event(new UserDeleted($user));
+
+            return true;
+        }
+
+        throw new GeneralException(trans('exceptions.backend.access.users.delete_error'));
     }
 
     /**
-     * @param User $user
+     * @param \App\Models\Auth\User $user
      * @param      $input
      *
      * @throws GeneralException
-     * @return User
+     * @return \App\Models\Auth\User
      */
     public function updatePassword(User $user, $input): User
     {
         if ($user->update(['password' => bcrypt($input['password'])])) {
+            
             event(new UserPasswordChanged($user));
 
             return $user;
@@ -282,11 +199,11 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param User $user
-     * @param      $status
+     * @param \App\Models\Auth\User $user
+     * @param int $status
      *
      * @throws GeneralException
-     * @return User
+     * @return \App\Models\Auth\User
      */
     public function mark(User $user, $status): User
     {
@@ -313,10 +230,10 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param User $user
+     * @param \App\Models\Auth\User $user
      *
      * @throws GeneralException
-     * @return User
+     * @return \App\Models\Auth\User
      */
     public function confirm(User $user): User
     {
@@ -328,6 +245,7 @@ class UserRepository extends BaseRepository
         $confirmed = $user->save();
 
         if ($confirmed) {
+            
             event(new UserConfirmed($user));
 
             // Let user know their account was approved
@@ -342,10 +260,10 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param User $user
+     * @param \App\Models\Auth\User $user
      *
      * @throws GeneralException
-     * @return User
+     * @return \App\Models\Auth\User
      */
     public function unconfirm(User $user): User
     {
@@ -367,6 +285,7 @@ class UserRepository extends BaseRepository
         $unconfirmed = $user->save();
 
         if ($unconfirmed) {
+
             event(new UserUnconfirmed($user));
 
             return $user;
@@ -376,12 +295,12 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param User $user
+     * @param \App\Models\Auth\User $user
      *
      * @throws GeneralException
      * @throws \Exception
      * @throws \Throwable
-     * @return User
+     * @return \App\Models\Auth\User
      */
     public function forceDelete(User $user): User
     {
@@ -390,11 +309,13 @@ class UserRepository extends BaseRepository
         }
 
         return DB::transaction(function () use ($user) {
+            
             // Delete associated relationships
             $user->passwordHistories()->delete();
             $user->providers()->delete();
 
             if ($user->forceDelete()) {
+            
                 event(new UserPermanentlyDeleted($user));
 
                 return $user;   
@@ -405,10 +326,10 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param User $user
+     * @param \App\Models\Auth\User $user
      *
      * @throws GeneralException
-     * @return User
+     * @return \App\Models\Auth\User
      */
     public function restore(User $user): User
     {
@@ -417,6 +338,7 @@ class UserRepository extends BaseRepository
         }
 
         if ($user->restore()) {
+
             event(new UserRestored($user));
 
             return $user;
@@ -426,16 +348,109 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param User $user
-     * @param      $email
+     * @param \App\Models\Auth\User $user
+     * @param string $email
      *
      * @throws GeneralException
      */
     protected function checkUserByEmail(User $user, $email)
     {
         // Figure out if email is not the same and check to see if email exists
-        if ($user->email !== $email && $this->model->where('email', '=', $email)->first()) {
+        if ($user->email !== $email && $this->query()->where('email', '=', $email)->first()) {
             throw new GeneralException(trans('exceptions.backend.access.users.email_error'));
         }
     }
+
+    /**
+     * @param  $input
+     *
+     * @return mixed
+     */
+    protected function createUserStub($input)
+    {
+        $user = self::MODEL;
+        $user = new $user();
+        $user->first_name = $input['first_name'];
+        $user->last_name = $input['last_name'];
+        $user->email = $input['email'];
+        $user->password = bcrypt($input['password']);
+        $user->status = isset($input['status']) ? 1 : 0;
+        $user->confirmation_code = md5(uniqid(mt_rand(), true));
+        $user->confirmed = isset($input['confirmed']) ? 1 : 0;
+        $user->created_by = access()->user()->id;
+
+        return $user;
+    }
+
+    /**
+     * @param  $roles
+     *
+     * @throws GeneralException
+     */
+    protected function checkUserRolesCount($roles)
+    {
+        //User Updated, Update Roles
+        //Validate that there's at least one role chosen
+        if (count($roles) == 0) {
+            throw new GeneralException(trans('exceptions.backend.access.users.role_needed'));
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUnconfirmedCount(): int
+    {
+        return $this->query()
+            ->where('confirmed', false)
+            ->count();
+    }
+
+    /**
+     * @param int    $paged
+     * @param string $orderBy
+     * @param string $sort
+     *
+     * @return mixed
+     */
+    public function getActivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc'): LengthAwarePaginator
+    {
+        return $this->query()
+            ->with('roles', 'permissions', 'providers')
+            ->active()
+            ->orderBy($orderBy, $sort)
+            ->paginate($paged);
+    }
+
+    /**
+     * @param int    $paged
+     * @param string $orderBy
+     * @param string $sort
+     *
+     * @return LengthAwarePaginator
+     */
+    public function getInactivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc'): LengthAwarePaginator
+    {
+        return $this->query()
+            ->with('roles', 'permissions', 'providers')
+            ->active(false)
+            ->orderBy($orderBy, $sort)
+            ->paginate($paged);
+    }
+
+    /**
+     * @param int    $paged
+     * @param string $orderBy
+     * @param string $sort
+     *
+     * @return LengthAwarePaginator
+     */
+    public function getDeletedPaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc'): LengthAwarePaginator
+    {
+        return $this->query()
+            ->with('roles', 'permissions', 'providers')
+            ->onlyTrashed()
+            ->orderBy($orderBy, $sort)
+            ->paginate($paged);
+    }    
 }

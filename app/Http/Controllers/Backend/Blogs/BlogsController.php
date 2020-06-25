@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Backend\Blogs;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
 use App\Http\Responses\Backend\Blog\EditResponse;
-use App\Repositories\Backend\Blogs\BlogsRepository;
-use App\Models\Blogs\Blog;
-use App\Models\BlogTags\BlogTag;
-use App\Models\BlogCategories\BlogCategory;
+use App\Repositories\Backend\BlogsRepository;
+use App\Models\Blog;
+use App\Models\BlogTag;
+use App\Models\BlogCategory;
 use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
 use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
 use App\Http\Responses\RedirectResponse;
@@ -27,16 +27,16 @@ class BlogsController extends Controller
     ];
 
     /**
-     * @var BlogsRepository
+     * @var \App\Repositories\Backend\BlogsRepository
      */
-    protected $blog;
+    protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\Blogs\BlogsRepository $blog
+     * @param \App\Repositories\Backend\BlogsRepository $blog
      */
-    public function __construct(BlogsRepository $blog)
+    public function __construct(BlogsRepository $repository)
     {
-        $this->blog = $blog;
+        $this->repository = $repository;
     }
 
     /**
@@ -69,13 +69,13 @@ class BlogsController extends Controller
      */
     public function store(StoreBlogsRequest $request)
     {
-        $this->blog->create($request->except('_token'));
+        $this->repository->create($request->except(['_token', '_method']));
 
         return new RedirectResponse(route('admin.blogs.index'), ['flash_success' => trans('alerts.backend.blogs.created')]);
     }
 
     /**
-     * @param \App\Models\Blogs\Blog                              $blog
+     * @param \App\Models\Blog $blog
      * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
      * @return \App\Http\Responses\Backend\Blog\EditResponse
@@ -89,29 +89,27 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param \App\Models\Blogs\Blog                              $blog
+     * @param \App\Models\Blogs\Blog $blog
      * @param \App\Http\Requests\Backend\Blogs\UpdateBlogsRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function update(Blog $blog,  UpdateBlogsRequest $request)
     {
-        $input = $request->all();
-
-        $this->blog->update($blog, $request->except(['_token', '_method']));
+        $this->repository->update($blog, $request->except(['_token', '_method']));
 
         return new RedirectResponse(route('admin.blogs.index'), ['flash_success' => trans('alerts.backend.blogs.updated')]);
     }
 
     /**
-     * @param \App\Models\Blogs\Blog                              $blog
+     * @param \App\Models\Blog $blog
      * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(Blog $blog, ManageBlogsRequest $request)
     {
-        $this->blog->delete($blog);
+        $this->repository->delete($blog);
 
         return new RedirectResponse(route('admin.blogs.index'), ['flash_success' => trans('alerts.backend.blogs.deleted')]);
     }

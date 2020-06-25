@@ -2,9 +2,6 @@
 
 namespace App\Models\Auth\Traits\Access;
 
-/**
- * Class UserAccess.
- */
 trait UserAccess
 {
     /**
