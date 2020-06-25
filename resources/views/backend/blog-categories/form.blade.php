@@ -13,15 +13,15 @@
     <div class="row mt-4 mb-4">
         <div class="col">
             <div class="form-group row">
-                {{ Form::label('name', trans('labels.backend.access.blog-category.table.name'), ['class' => 'col-md-2 from-control-label required']) }}
+                {{ Form::label('name', trans('validation.attributes.backend.access.blog-categories.name'), ['class' => 'col-md-2 from-control-label required']) }}
                 
                 <div class="col-md-10">
-                    {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.blog-category.table.name'), 'required' => 'required']) }}
+                    {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.blog-categories.name'), 'required' => 'required']) }}
                 </div><!--col-->
             </div><!--form-group-->
 
             <div class="form-group row">
-                {{ Form::label('status', trans('labels.backend.access.blog-category.table.status'), ['class' => 'col-md-2 from-control-label required']) }}
+                {{ Form::label('status', trans('validation.attributes.backend.access.blog-categories.status'), ['class' => 'col-md-2 from-control-label required']) }}
                 
                 <div class="col-md-10">
                     <div class="checkbox d-flex align-items-center">

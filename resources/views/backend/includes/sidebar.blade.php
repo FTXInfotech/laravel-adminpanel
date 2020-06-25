@@ -95,34 +95,6 @@
                     </a>
                 </li>
 
-                {{-- <li class="nav-item nav-dropdown {{
-                    active_class(Route::is('admin/customer'), 'open')
-                }}">
-                    <a class="nav-link nav-dropdown-toggle {{
-                            active_class(Route::is('admin/customer*'))
-                        }}" href="#">
-                        <i class="nav-icon fas fa-users"></i> Masters
-                    </a>
-
-                    <ul class="nav-dropdown-items">
-                        <li class="nav-item">
-                            <a class="nav-link {{
-                            active_class(Route::is('admin/company'))
-                        }}" href="{{ route('admin.company.index') }}">
-                                Company Management
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link {{
-                            active_class(Route::is('admin/customer*'))
-                        }}" href="{{ route('admin.customer.index') }}">
-                                Customer Management
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
-
                 <li class="divider"></li>
 
                 <li class="nav-item nav-dropdown {{

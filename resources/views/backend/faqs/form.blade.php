@@ -15,27 +15,27 @@
     <div class="row mt-4 mb-4">
         <div class="col">
             <div class="form-group row">
-                {{ Form::label('question', trans('labels.backend.access.faqs.table.question'), ['class' => 'col-md-2 from-control-label required']) }}
+                {{ Form::label('question', trans('validation.attributes.backend.access.faqs.question'), ['class' => 'col-md-2 from-control-label required']) }}
 
                 <div class="col-md-10">
-                    {{ Form::text('question', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.faqs.table.question'), 'required' => 'required']) }}
+                    {{ Form::text('question', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.faqs.question'), 'required' => 'required']) }}
                 </div>
                 <!--col-->
             </div>
             <!--form-group-->
 
             <div class="form-group row">
-                {{ Form::label('answer', trans('labels.backend.access.faqs.table.answer'), ['class' => 'col-md-2 from-control-label required']) }}
+                {{ Form::label('answer', trans('validation.attributes.backend.access.faqs.answer'), ['class' => 'col-md-2 from-control-label required']) }}
 
                 <div class="col-md-10">
-                    {{ Form::textarea('answer', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.faqs.table.answer')]) }}
+                    {{ Form::textarea('answer', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.faqs.answer')]) }}
                 </div>
                 <!--col-->
             </div>
             <!--form-group-->
 
             <div class="form-group row">
-                {{ Form::label('status', trans('labels.backend.access.faqs.table.status'), ['class' => 'col-md-2 from-control-label required']) }}
+                {{ Form::label('status', trans('validation.attributes.backend.access.faqs.status'), ['class' => 'col-md-2 from-control-label required']) }}
 
                 @php
                 $status = isset($faq) ? '' : 'checked'

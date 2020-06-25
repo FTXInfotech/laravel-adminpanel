@@ -4,8 +4,8 @@
             <a class="btn dropdown-toggle" href="#" role="button" id="breadcrumb-dropdown-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ trans('labels.backend.access.email-templates.all') }}</a>
 
             <div class="dropdown-menu" aria-labelledby="breadcrumb-dropdown-1">
-                <a class="dropdown-item" href="{{ route('admin.email-templates.index') }}">{{ trans('labels.backend.access.email-templates.all') }}</a>
-                <a class="dropdown-item" href="{{ route('admin.email-templates.create') }}">{{ trans('labels.backend.access.email-templates.create') }}</a>
+                <a class="dropdown-item" href="{{ route('admin.email-templates.index') }}">@lang('menus.backend.access.email-templates.active')</a>
+                <a class="dropdown-item" href="{{ route('admin.email-templates.create') }}">@lang('menus.backend.access.email-templates.create')</a>
             </div>
         </div><!--dropdown-->
 

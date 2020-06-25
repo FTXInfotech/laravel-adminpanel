@@ -15,77 +15,77 @@
     <div class="row mt-4 mb-4">
         <div class="col">
             <div class="form-group row">
-                {{ Form::label('title', trans('labels.backend.access.pages.table.name'), ['class' => 'col-md-2 from-control-label required']) }}
+                {{ Form::label('title', trans('validation.attributes.backend.access.pages.name'), ['class' => 'col-md-2 from-control-label required']) }}
 
                 <div class="col-md-10">
-                    {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.pages.table.name'), 'required' => 'required']) }}
+                    {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.pages.name'), 'required' => 'required']) }}
                 </div>
                 <!--col-->
             </div>
             <!--form-group-->
 
             <div class="form-group row">
-                {{ Form::label('page_slug', trans('labels.backend.access.pages.table.page_slug'), ['class' => 'col-md-2 from-control-label required']) }}
+                {{ Form::label('page_slug', trans('validation.attributes.backend.access.pages.slug'), ['class' => 'col-md-2 from-control-label required']) }}
 
                 <div class="col-md-10">
-                    {{ Form::text('page_slug', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.pages.table.page_slug'), 'disabled' => 'disabled']) }}
+                    {{ Form::text('page_slug', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.pages.slug'), 'disabled' => 'disabled']) }}
                 </div>
                 <!--col-->
             </div>
             <!--form-group-->
 
             <div class="form-group row">
-                {{ Form::label('description', trans('labels.backend.access.pages.table.description'), ['class' => 'col-md-2 from-control-label required']) }}
+                {{ Form::label('description', trans('validation.attributes.backend.access.pages.description'), ['class' => 'col-md-2 from-control-label required']) }}
 
                 <div class="col-md-10">
-                    {{ Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.pages.table.description')]) }}
+                    {{ Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.pages.description')]) }}
                 </div>
                 <!--col-->
             </div>
             <!--form-group-->
 
             <div class="form-group row">
-                {{ Form::label('cannonical_link', trans('labels.backend.access.pages.table.cannonical_link'), ['class' => 'col-md-2 from-control-label required']) }}
+                {{ Form::label('cannonical_link', trans('validation.attributes.backend.access.pages.cannonical_link'), ['class' => 'col-md-2 from-control-label required']) }}
 
                 <div class="col-md-10">
-                    {{ Form::text('cannonical_link', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.pages.table.cannonical_link')]) }}
+                    {{ Form::text('cannonical_link', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.pages.cannonical_link')]) }}
                 </div>
                 <!--col-->
             </div>
             <!--form-group-->
 
             <div class="form-group row">
-                {{ Form::label('seo_title', trans('labels.backend.access.pages.table.seo_title'), ['class' => 'col-md-2 from-control-label required']) }}
+                {{ Form::label('seo_title', trans('validation.attributes.backend.access.pages.seo_title'), ['class' => 'col-md-2 from-control-label required']) }}
 
                 <div class="col-md-10">
-                    {{ Form::text('seo_title', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.pages.table.seo_title')]) }}
+                    {{ Form::text('seo_title', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.pages.seo_title')]) }}
                 </div>
                 <!--col-->
             </div>
             <!--form-group-->
 
             <div class="form-group row">
-                {{ Form::label('seo_keyword', trans('labels.backend.access.pages.table.seo_keyword'), ['class' => 'col-md-2 from-control-label required']) }}
+                {{ Form::label('seo_keyword', trans('validation.attributes.backend.access.pages.seo_keywords'), ['class' => 'col-md-2 from-control-label required']) }}
 
                 <div class="col-md-10">
-                    {{ Form::text('seo_keyword', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.pages.table.seo_keyword')]) }}
+                    {{ Form::text('seo_keyword', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.pages.seo_keywords')]) }}
                 </div>
                 <!--col-->
             </div>
             <!--form-group-->
 
             <div class="form-group row">
-                {{ Form::label('seo_description', trans('labels.backend.access.pages.table.seo_description'), ['class' => 'col-md-2 from-control-label required']) }}
+                {{ Form::label('seo_description', trans('validation.attributes.backend.access.pages.seo_description'), ['class' => 'col-md-2 from-control-label required']) }}
 
                 <div class="col-md-10">
-                    {{ Form::textarea('seo_description', null, ['class' => 'form-control', 'placeholder' => trans('labels.backend.access.blogs.table.seo_description')]) }}
+                    {{ Form::textarea('seo_description', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.pages.seo_description')]) }}
                 </div>
                 <!--col-->
             </div>
             <!--form-group-->
 
             <div class="form-group row">
-                {{ Form::label('status', trans('labels.backend.access.pages.table.status'), ['class' => 'col-md-2 from-control-label required']) }}
+                {{ Form::label('status', trans('validation.attributes.backend.access.pages.status'), ['class' => 'col-md-2 from-control-label required']) }}
 
                 <div class="col-md-10">
                     <div class="checkbox d-flex align-items-center">

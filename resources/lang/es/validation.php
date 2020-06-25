@@ -184,6 +184,55 @@ return [
                     'timezone' => 'Zona horaria',
                     'language' => 'Lenguaje',
                 ],
+
+                'pages' => [
+                    'name'              => 'Nombre de la página',
+                    'slug'              => 'Babosa de página',
+                    'description'       => 'Descripción',
+                    'cannonical_link'   => 'Enlace canónico',
+                    'seo_title'         => 'Meta palabras clave',
+                    'seo_keywords'      => 'Meta descripción',
+                    'seo_description'   => 'Descripción de SEO',
+                    'status'            => 'Estado'
+                ],
+
+                'faqs' => [
+                    'question'  => 'Pregunta',
+                    'answer'    => 'Responder',
+                    'status'    => 'Estado'
+                ],
+
+                'email-templates' => [
+                    'title'   => 'Título de plantilla de correo electrónico',
+                    'slug'    => 'Plantilla de correo electrónico Slug',
+                    'content' => 'Contenido',
+                    'status'  => 'Estado'
+                ],
+
+                'blog-categories' => [
+                    'name'   => 'Nombre de la categoría',
+                    'status' => 'Estado'
+                ],
+
+                'blog-tags' => [
+                    'name'   => 'Nombre de etiqueta',
+                    'status' => 'Estado'
+                ],
+
+                'blogs' => [
+                    'title'             => 'Titulo de Blog',
+                    'blog_categories'   => 'Categorías de blog',
+                    'publish_date_time' => 'Fecha y hora de publicación',
+                    'featured_image'    => 'Foto principal',
+                    'content'           => 'Contenido',
+                    'tags'              => 'Etiquetas',
+                    'meta_title'        => 'Meta título',
+                    'slug'              => 'Babosa de Blog',
+                    'cannonical_link'   => 'Enlace canónico',
+                    'meta_keywords'     => 'Meta palabras clave',
+                    'meta_description'  => 'Meta descripción',
+                    'status'            => 'Estado'
+                ],
             ],
         ],
 
