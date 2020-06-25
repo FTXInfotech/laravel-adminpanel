@@ -130,9 +130,10 @@
 
 @section('pagescript')
     <script src="{{URL::asset('/js/backend/blogs.js')}}"></script>
+    
     <script type="text/javascript">
-        
-        Blog.Blog.init('{{ config('locale.languages.' . app()->getLocale())[1] }}');
-
+        Blog.Utils.documentReady(function(){
+            Blog.Blog.init('{{ config('locale.languages.' . app()->getLocale())[1] }}');
+        });
     </script>
 @stop

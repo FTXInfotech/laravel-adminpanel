@@ -8,6 +8,7 @@
 
 @import '~datatables.net-bs4/css/dataTables.bootstrap4.css';
 @import '~select2/dist/css/select2.css';
+@import '~eonasdan-bootstrap-datetimepicker-bootstrap4beta/build/css/bootstrap-datetimepicker.min.css';
 // @import '~jstree/dist/themes/default/style.css';
 
 // Fix inaccessible dropdown in .table-responsive dropdown buttons
@@ -40,4 +41,40 @@
     line-height: 1.42857143;
     color: #333;
     white-space: nowrap;
+}
+
+.fa, .glyphicon {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+ 
+.glyphicon-calendar:before,
+.fa-calendar:before {
+    content: "\f073";
+}
+ 
+.glyphicon-chevron-left:before,
+.fa-chevron-left:before {
+    content: "\f053";
+}
+ 
+.glyphicon-chevron-right:before,
+.fa-chevron-right:before {
+    content: "\f054";
+}
+ 
+.glyphicon-time:before,
+.fa-clock-o:before {
+    content: "\f017";
+}
+ 
+.glyphicon-chevron-up:before {
+    content: "\f077";
+}
+ 
+.glyphicon-chevron-down:before {
+    content: "\f078";
 }

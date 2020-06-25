@@ -11,6 +11,9 @@ import 'bootstrap';
 import 'datatables.net';
 import 'datatables.net-bs4';
 import 'select2';
+import moment from 'moment';
+import 'moment-timezone';
+import 'eonasdan-bootstrap-datetimepicker-bootstrap4beta';
 // import 'jstree';
 
 /**
@@ -18,7 +21,7 @@ import 'select2';
  * for JavaScript based Bootstrap features such as modals and tabs. This
  * code may be modified to fit the specific needs of your application.
  */
-
+window.moment = moment;
 window.$ = window.jQuery = $;
 window.Swal = Swal;
 window._ = _; // Lodash

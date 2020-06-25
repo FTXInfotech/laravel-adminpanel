@@ -37,6 +37,9 @@ mix.setPublicPath('public')
         'lodash',
         'datatables.net',
         'datatables.net-bs4',
+        'moment',
+        'moment-timezone',
+        'eonasdan-bootstrap-datetimepicker-bootstrap4beta',
         'select2',
         // 'jstree'
     ])
