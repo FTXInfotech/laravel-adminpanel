@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\AuthTraits\Relationships;
+namespace App\Models\Auth\Traits\Relationships;
 
 use App\Models\Auth\PasswordHistory;
 use App\Models\Auth\Permission;
