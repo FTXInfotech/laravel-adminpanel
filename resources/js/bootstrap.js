@@ -10,6 +10,8 @@ import 'popper.js'; // Required for BS4
 import 'bootstrap';
 import 'datatables.net';
 import 'datatables.net-bs4';
+import 'select2';
+// import 'jstree';
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

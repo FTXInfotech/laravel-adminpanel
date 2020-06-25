@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Auth\Permission\Permission;
-use App\Models\Auth\Role\Role;
+use App\Models\Auth\Permission;
+use App\Models\Auth\Role;
 use Illuminate\Http\Request;
 
 /**
@@ -23,7 +23,7 @@ class DashboardController extends Controller
     /**
      * This function is used to get permissions details by role.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request\Request $request
      */
     public function getPermissionByRole(Request $request)
     {

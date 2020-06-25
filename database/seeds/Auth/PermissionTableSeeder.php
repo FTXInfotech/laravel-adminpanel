@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Auth\Permission\Permission;
+use App\Models\Auth\Permission;
 use Carbon\Carbon;
 use Database\DisableForeignKeys;
 use Database\TruncateTable;

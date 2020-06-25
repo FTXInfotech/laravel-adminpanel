@@ -37,7 +37,8 @@ mix.setPublicPath('public')
         'lodash',
         'datatables.net',
         'datatables.net-bs4',
-        'select2'
+        'select2',
+        // 'jstree'
     ])
     .sourceMaps();
 
