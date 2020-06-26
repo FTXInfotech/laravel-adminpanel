@@ -38,22 +38,20 @@
                     <div class="col-md-10">
                         {{ Form::select('associated_permissions', ['all' => 'All', 'custom' => 'Custom'], $role->all ? 'all' : 'custom', ['class' => 'form-control select2']) }}
 
-                        <div id="available-permissions" class="hidden" style="width: 700px; height: 200px; overflow-x: hidden; overflow-y: scroll;margin-top:20px;">
-                            <div class="row">
-                                <div class="col-md-10">
-                                    @if ($permissions->count())
-                                    @foreach ($permissions as $perm)
-                                    <div>
-                                        <input type="checkbox" name="permissions[{{ $perm->id }}]" value="{{ $perm->id }}" id="perm_{{ $perm->id }}" {{ is_array(old('permissions')) ? (in_array($perm->id, old('permissions')) ? 'checked' : '') : (in_array($perm->id, $rolePermissions) ? 'checked' : '') }} /> <label style="margin-left:20px;" for="perm_{{ $perm->id }}">{{ $perm->display_name }}</label>
-                                    </div>
-                                    @endforeach
-                                    @else
-                                    <p>There are no available permissions.</p>
-                                    @endif
+                        <input type="text" class="form-control search-button" placeholder="Search..." />
+                        
+                        <div id="available-permissions" style="width: 700px; height: 200px; overflow-x: hidden; overflow-y: scroll; border: 1px solid #f1f1f1; padding: 40px 0 0 7px;">
+                            <div class="get-available-permissions">
+                                @if ($permissions->count())
+                                @foreach ($permissions as $perm)
+                                <div>
+                                    <input type="checkbox" name="permissions[{{ $perm->id }}]" value="{{ $perm->id }}" id="perm_{{ $perm->id }}" {{ is_array(old('permissions')) ? (in_array($perm->id, old('permissions')) ? 'checked' : '') : (in_array($perm->id, $rolePermissions) ? 'checked' : '') }} /> <label style="margin-left:20px;" for="perm_{{ $perm->id }}">{{ $perm->display_name }}</label>
                                 </div>
-                                <!--col-lg-6-->
+                                @endforeach
+                                @else
+                                <p>There are no available permissions.</p>
+                                @endif
                             </div>
-                            <!--row-->
                         </div>
                         <!--available permissions-->
                     </div>

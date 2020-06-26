@@ -105,22 +105,22 @@ var Backend = {}; // common variable used in all the files of the backend
 
             dtAnchorToForm: function ($parent) {
 
-                $('td:last',$parent).addClass('btn-td');
+                $('td:last', $parent).addClass('btn-td');
 
                 $('[data-method]', $parent).append(function () {
                     if (!$(this).find('form').length > 0) {
                         var method = this.getAttribute('data-method');
-                        
-                        if(method == 'delete') {
+
+                        if (method == 'delete') {
                             return "\n<form action='" + $(this).attr('href') + "' method='POST' name='delete_item' style='display:none'>\n" +
-                            "<input type='hidden' name='_method' value='" + $(this).attr('data-method') + "'>\n" +
-                            "<input type='hidden' name='_token' value='" + $('meta[name="csrf-token"]').attr('content') + "'>\n" +
-                            '</form>\n';
+                                "<input type='hidden' name='_method' value='" + $(this).attr('data-method') + "'>\n" +
+                                "<input type='hidden' name='_token' value='" + $('meta[name="csrf-token"]').attr('content') + "'>\n" +
+                                '</form>\n';
                         } else {
                             return "\n<form action='" + $(this).attr('href') + "' method='POST' name='delete_item' style='display:none'>\n" +
-                            "<input type='hidden' name='_token' value='" + $('meta[name="csrf-token"]').attr('content') + "'>\n" +
-                            '</form>\n';
-                        }                        
+                                "<input type='hidden' name='_token' value='" + $('meta[name="csrf-token"]').attr('content') + "'>\n" +
+                                '</form>\n';
+                        }
                     } else { return '' }
                 })
                     .attr('href', '#')
@@ -173,13 +173,13 @@ var Backend = {}; // common variable used in all the files of the backend
                 Backend.Utils.setCSRF();
 
                 var data = {};
-                
-                if(pageName == 'list') {
+
+                if (pageName == 'list') {
                     data = { status: 1, trashed: false };
-                } else if(pageName == 'deleted') {
-                    data = {status: 0, trashed: true};
-                } else if(pageName == 'deactive') {
-                    data = {status: 0, trashed: false};
+                } else if (pageName == 'deleted') {
+                    data = { status: 0, trashed: true };
+                } else if (pageName == 'deactive') {
+                    data = { status: 0, trashed: false };
                 }
 
                 this.selectors.users_table.dataTable({
@@ -300,11 +300,11 @@ var Backend = {}; // common variable used in all the files of the backend
                         type: 'post'
                     },
                     columns: [
-                        {data: 'title', name: 'title'},
-                        {data: 'status', name: 'status'},
-                        {data: 'created_by', name: 'created_by'},
-                        {data: 'created_at', name: 'created_at'},
-                        {data: 'actions', name: 'actions', searchable: false, sortable: false}
+                        { data: 'title', name: 'title' },
+                        { data: 'status', name: 'status' },
+                        { data: 'created_by', name: 'created_by' },
+                        { data: 'created_at', name: 'created_at' },
+                        { data: 'actions', name: 'actions', searchable: false, sortable: false }
                     ],
                     order: [[3, "asc"]],
                     searchDelay: 500,
@@ -369,6 +369,7 @@ var Backend = {}; // common variable used in all the files of the backend
                 getRoleForPermissions: "",
                 getAvailabelPermissions: "",
                 Role3: "",
+                searchButton: "",
             },
             init: function (page) {
                 this.setSelectors();
@@ -377,6 +378,7 @@ var Backend = {}; // common variable used in all the files of the backend
             setSelectors: function () {
                 this.selectors.getRoleForPermissions = document.querySelectorAll(".get-role-for-permissions");
                 this.selectors.getAvailabelPermissions = document.querySelector(".get-available-permissions");
+                this.selectors.searchButton = document.querySelector(".search-button");
                 this.selectors.Role3 = document.getElementById("role-3");
             },
             addHandlers: function (page) {
@@ -386,6 +388,10 @@ var Backend = {}; // common variable used in all the files of the backend
 
                 this.selectors.getRoleForPermissions.forEach(function (element) {
                     element.onclick = function (event) {
+
+                        Backend.Users.selectors.searchButton.value = '';
+                        Backend.Utils.addClass(Backend.Users.selectors.searchButton, 'hidden');
+                        // Backend.Users.selectors.searchButton.dispatchEvent(new Event('keyup'));
 
                         Backend.Utils.addClass(document.getElementById("available-permissions"), 'hidden');
 
@@ -418,6 +424,7 @@ var Backend = {}; // common variable used in all the files of the backend
                                     }
                                     Backend.Users.selectors.getAvailabelPermissions.innerHTML = htmlstring;
                                     Backend.Utils.removeClass(document.getElementById("available-permissions"), 'hidden');
+                                    Backend.Utils.removeClass(Backend.Users.selectors.searchButton, 'hidden');
 
                                 } else {
                                     // We reached our target server, but it returned an error
@@ -433,6 +440,28 @@ var Backend = {}; // common variable used in all the files of the backend
                             role_id: event.target.value
                         }, Backend.Utils.csrf, callback);
                     };
+                });
+
+                this.selectors.searchButton.addEventListener('keyup', function (e) {
+
+                    var searchTerm = this.value.toLowerCase();
+
+                    Backend.Users.selectors.getAvailabelPermissions.children.forEach(function (el) {
+
+                        var shouldShow = true;
+
+                        searchTerm.split(" ").forEach(function (val) {
+                            if (shouldShow && (el.querySelector('label').innerHTML.toLowerCase().indexOf(val) == -1)) {
+                                shouldShow = false;
+                            }
+                        });
+
+                        if (shouldShow) {
+                            Backend.Utils.removeClass(el, 'hidden');
+                        } else {
+                            Backend.Utils.addClass(el, 'hidden');
+                        }
+                    });
                 });
 
                 if (page == "create") {
@@ -494,7 +523,7 @@ var Backend = {}; // common variable used in all the files of the backend
                 this.selectors.AllrestorePerms.forEach(function (element) {
 
                     element.onclick = function (event, element) {
-                          event.preventDefault();
+                        event.preventDefault();
 
                         var linkURL = this.getAttribute("href");
 
