@@ -535,11 +535,11 @@ var Backend = {}; // common variable used in all the files of the backend
             },
 
             init: function (locale) {
-                this.addHandlers();
+                this.addHandlers(locale);
                 Backend.tinyMCE.init(locale);
             },
 
-            addHandlers: function () {
+            addHandlers: function (locale) {
 
                 this.selectors.tags.select2({
                     tags: true,
@@ -549,7 +549,12 @@ var Backend = {}; // common variable used in all the files of the backend
                 this.selectors.status.select2();
 
                 //For Blog datetimepicker for publish_datetime
-                this.selectors.datetimepicker1.datetimepicker();
+                this.selectors.datetimepicker1.datetimepicker({
+                    // locale: locale,
+                    format: 'YYYY-MM-DD HH:mm',
+                    showTodayButton: true,
+                    showClear: true,
+                });
 
                 // For generating the Slug  //changing slug on blur event
                 this.selectors.name.onblur = function (event) {
