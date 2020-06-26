@@ -86,21 +86,7 @@
     </div>
     <!--card-body-->
 
-    <div class="card-footer">
-        <div class="row">
-            <div class="col">
-                {{ form_cancel(route('admin.auth.role.index'), __('buttons.general.cancel')) }}
-            </div>
-            <!--col-->
-
-            <div class="col text-right">
-                {{ form_submit(__('buttons.general.crud.create')) }}
-            </div>
-            <!--col-->
-        </div>
-        <!--row-->
-    </div>
-    <!--card-footer-->
+    @include('backend.components.footer-buttons', [ 'cancelRoute' => 'admin.auth.role.index' ])
 </div>
 <!--card-->
 {{ Form::close() }}

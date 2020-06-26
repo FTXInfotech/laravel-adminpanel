@@ -57,6 +57,9 @@ Route::group([
             Route::get('password/change', [UserPasswordController::class, 'edit'])->name('user.change-password');
             Route::patch('password/change', [UserPasswordController::class, 'update'])->name('user.change-password.post');
 
+            // log in as
+            Route::get('login-as', 'UserAccessController@loginAs')->name('user.login-as');
+
             // Session
             Route::get('clear-session', [UserSessionController::class, 'clearSession'])->name('user.clear-session');
 

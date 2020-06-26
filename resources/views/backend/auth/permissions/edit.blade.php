@@ -14,18 +14,7 @@
 
     <div class="card">
         @include('backend.auth.permissions.form')
-
-        <div class="card-footer">
-            <div class="row">
-                <div class="col">
-                    {{ link_to_route('admin.auth.permission.index', trans('buttons.general.cancel'), [], ['class' => 'btn btn-danger btn-sm']) }}
-                </div><!--col-->
-
-                <div class="col text-right">
-                    {{ Form::submit(trans('buttons.general.crud.update'), ['class' => 'btn btn-success btn-sm pull-right']) }}
-                </div><!--row-->
-            </div><!--row-->
-        </div><!--card-footer-->
+        @include('backend.components.footer-buttons', [ 'cancelRoute' => 'admin.auth.permission.index', 'id' => $permission->id ])
     </div><!--card-->
     {{ Form::close() }}
 @endsection

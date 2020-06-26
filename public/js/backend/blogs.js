@@ -136,9 +136,6 @@ var Blog = {}; // common variable used
                 //For Blog datetimepicker for publish_datetime
                 this.selectors.datetimepicker1.datetimepicker({
                     locale: (locale === 'en_US' ? undefined : locale),
-                    format: 'YYYY-MM-DD HH:mm',
-                    showTodayButton: true,
-                    showClear: true
                 });
 
                 // For generating the Slug  //changing slug on blur event

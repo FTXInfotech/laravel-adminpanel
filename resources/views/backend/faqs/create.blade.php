@@ -11,18 +11,7 @@
 
     <div class="card">
         @include('backend.faqs.form')
-
-        <div class="card-footer">
-            <div class="row">
-                <div class="col">
-                    {{ link_to_route('admin.faqs.index', trans('buttons.general.cancel'), [], ['class' => 'btn btn-danger btn-sm']) }}
-                </div><!--col-->
-
-                <div class="col text-right">
-                    {{ Form::submit(trans('buttons.general.crud.create'), ['class' => 'btn btn-success btn-sm pull-right']) }}
-                </div><!--row-->
-            </div><!--row-->
-        </div><!--card-footer-->
+        @include('backend.components.footer-buttons', [ 'cancelRoute' => 'admin.faqs.index' ])
     </div><!--card-->
     {{ Form::close() }}
 @endsection

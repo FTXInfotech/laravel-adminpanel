@@ -21,7 +21,6 @@
     <!-- Otherwise apply the normal LTR layouts -->
     {{ style(mix('css/backend.css')) }}
 
-    <link rel="stylesheet" href="{{ asset('js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" />
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
 
     @stack('after-styles')
@@ -98,8 +97,6 @@
     @stack('after-scripts')
     <script src="{{ asset('/js/tinymce/tinymce.min.js')}}"></script>
     <script src="{{ asset('/js/backend/common.js')}}"></script>
-
-    <script src="{{ asset('js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 
     <!-- <script src="{{ asset('/js/bootstrap.min.js')}}"></script> -->
     <!-- 

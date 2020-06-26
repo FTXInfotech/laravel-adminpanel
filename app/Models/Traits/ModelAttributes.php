@@ -28,7 +28,7 @@ trait ModelAttributes
                     data-trans-button-cancel="'.trans('buttons.general.cancel').'"
                     data-trans-button-confirm="'.trans('buttons.general.crud.delete').'"
                     data-trans-title="'.trans('strings.backend.general.are_you_sure').'">
-                        <i data-toggle="tooltip" data-placement="top" title="Delete" class="fa fa-trash"></i>
+                        <i data-toggle="tooltip" data-placement="top" title="'.trans('buttons.general.crud.delete').'" class="fa fa-trash"></i>
                 </a>';
         }
     }

@@ -5,9 +5,11 @@ Breadcrumbs::for('admin.email-templates.index', function ($trail) {
 });
 
 Breadcrumbs::for('admin.email-templates.create', function ($trail) {
+    $trail->parent('admin.email-templates.index');
     $trail->push(__('labels.backend.access.email-templates.management'), route('admin.email-templates.create'));
 });
 
 Breadcrumbs::for('admin.email-templates.edit', function ($trail, $id) {
+    $trail->parent('admin.email-templates.index');
     $trail->push(__('labels.backend.access.email-templates.management'), route('admin.email-templates.edit', $id));
 });

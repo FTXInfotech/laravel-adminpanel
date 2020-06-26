@@ -121,7 +121,7 @@ trait UserAttributes
     public function getDeleteButtonAttribute($class)
     {
         if ($this->id != access()->id() && access()->allow('delete-user')) {
-            $name = $class == '' ? 'Delete' : '';
+            $name = $class == '' ? trans('buttons.general.crud.delete') : '';
 
             return '<a class="' . $class . '" href="' . route('admin.auth.user.destroy', $this) . '"
                  data-method="delete"
@@ -179,7 +179,7 @@ trait UserAttributes
             switch ($this->status) {
                 case 0:
                     if (access()->allow('activate-user')) {
-                        $name = $class == '' ? 'Activate' : '';
+                        $name = $class == '' ? trans('buttons.backend.access.users.activate') : '';
 
                         return '<a class="' . $class . '" href="' . route('admin.auth.user.mark', [$this, 1]) . '"><i class="fa fa-check-square" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.backend.access.users.activate') . '"></i>' . $name . '</a>';
                     }
@@ -188,7 +188,7 @@ trait UserAttributes
 
                 case 1:
                     if (access()->allow('deactivate-user')) {
-                        $name = ($class == '') ? 'Deactivate' : '';
+                        $name = ($class == '') ? trans('buttons.backend.access.users.deactivate') : '';
 
                         return '<a class="' . $class . '" href="' . route('admin.auth.user.mark', [$this, 0]) . '"><i class="fa fa-square" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.backend.access.users.deactivate') . '"></i>' . $name . '</a>';
                     }
@@ -222,7 +222,7 @@ trait UserAttributes
     {
         $name = $class == '' ? 'Clear Session' : '';
 
-        if ($this->id != auth()->user->id() && config('session.driver') == 'database' && access()->allow('clear-user-session')) {
+        if ($this->id != auth()->user()->id && config('session.driver') == 'database' && access()->allow('clear-user-session')) {
             return '<div class="btn-group btn-group-sm" role="group">' .
                 '<button id="userActions" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' .
                 trans('labels.general.more') .
@@ -248,12 +248,14 @@ trait UserAttributes
         if ($this->id != 1) {
 
             $str .= '<div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle btn-sm" data-toggle="dropdown">
+                        <button type="button" class="btn btn-warning btn-flat dropdown-toggle btn-sm" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-option-vertical"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
                         <li>' . $this->getStatusButtonAttribute('') . '</li>
+                        <li>' . $this->getClearSessionButtonAttribute('') . '</li>
                         <li>' . $this->getDeleteButtonAttribute('') . '</li>
+                        <li>' . $this->getLoginAsButtonAttribute('') . '</li>
                         </ul>
                     </div>';
 
@@ -304,9 +306,9 @@ trait UserAttributes
         // Check if role have all permission
         if (access()->user()->roles[0]->all) {
             return '<div class="btn-group" role="group" aria-label="' . trans('labels.backend.access.users.user_actions') . '">
-                    ' . $this->getShowButtonAttribute('btn btn-info btn-sm') . '
+                    ' . $this->getShowButtonAttribute('btn btn-success btn-sm') . '
                     ' . $this->getEditButtonAttribute('btn btn-primary btn-sm') . '
-                    ' . $this->getChangePasswordButtonAttribute('btn btn-warning btn-sm') . '
+                    ' . $this->getChangePasswordButtonAttribute('btn btn-secondary btn-sm') . '
                     ' . $this->checkAdmin() . '    
                 </div>';
         } else {
