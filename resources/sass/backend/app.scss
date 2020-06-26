@@ -43,6 +43,24 @@
     white-space: nowrap;
 }
 
+.search-button {
+    border: none;
+    border-radius: unset;
+    border-bottom: 1px solid #e4e7ea;
+    width: 669px;
+    position: relative;
+    top: 36px;
+    left: 7px;
+    text-align: right;
+}
+
+.search-button:focus {
+    color: #5c6873;
+    border-color: #e4e7ea;
+    outline: 0;
+    box-shadow: 0px 4px 8px 1px #e4e7ea;
+}
+
 .fa, .glyphicon {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
