@@ -4,5 +4,6 @@
     "/css/frontend.css": "/css/frontend.css",
     "/css/backend.css": "/css/backend.css",
     "/js/manifest.js": "/js/manifest.js",
-    "/js/vendor.js": "/js/vendor.js"
+    "/js/vendor.js": "/js/vendor.js",
+    "/js/backend-custom.js": "/js/backend-custom.js"
 }

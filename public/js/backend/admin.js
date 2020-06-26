@@ -321,6 +321,7 @@ var Backend = {}; // common variable used in all the files of the backend
             selectors: {
                 associated: document.querySelector("select[name='associated_permissions']"),
                 associated_container: document.getElementById("available-permissions"),
+                searchButton: document.querySelector(".search-button"),
             },
             init: function (page) {
                 this.setSelectors();
@@ -330,26 +331,34 @@ var Backend = {}; // common variable used in all the files of the backend
             setSelectors: function () {
                 this.selectors.associated = document.querySelector("select[name='associated_permissions']");
                 this.selectors.associated_container = document.getElementById("available-permissions");
+                this.selectors.searchButton = document.querySelector(".search-button");
             },
             addHandlers: function () {
                 var associated = this.selectors.associated;
                 var associated_container = this.selectors.associated_container;
+                var searchButton = this.selectors.searchButton;
 
                 if (associated_container != null) {
 
-                    if (associated.value == "custom")
+                    if (associated.value == "custom") {
                         Backend.Utils.removeClass(associated_container, "hidden");
-                    else
+                        Backend.Utils.removeClass(searchButton, "hidden");
+                    } else {
                         Backend.Utils.addClass(associated_container, 'hidden');
+                        Backend.Utils.addClass(searchButton, 'hidden');
+                    }
                 }
 
                 associated.onchange = function (event) {
 
                     if (associated_container != null) {
-                        if (associated.value == "custom")
+                        if (associated.value == "custom") {
                             Backend.Utils.removeClass(associated_container, "hidden");
-                        else
+                            Backend.Utils.removeClass(searchButton, "hidden");
+                        } else {
                             Backend.Utils.addClass(associated_container, 'hidden');
+                            Backend.Utils.addClass(searchButton, 'hidden');
+                        }
                     }
                 };
             },

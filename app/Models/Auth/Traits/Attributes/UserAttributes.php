@@ -162,7 +162,7 @@ trait UserAttributes
      */
     public function getChangePasswordButtonAttribute($class)
     {
-        if (access()->user()->id == $this->id && access()->allow('edit-user')) {
+        if (access()->user()->isAdmin() || (access()->user()->id == $this->id)) {
             return '<a class="' . $class . '" href="' . route('admin.auth.user.change-password', $this) . '">
                         <i class="fa fa-refresh" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.backend.access.users.change_password') . '">
                         </i>
