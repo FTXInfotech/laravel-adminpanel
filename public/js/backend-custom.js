@@ -104,12 +104,23 @@ var Backend = {}; // common variable used in all the files of the backend
             },
 
             dtAnchorToForm: function ($parent) {
+
+                $('td:last', $parent).addClass('btn-td');
+
                 $('[data-method]', $parent).append(function () {
                     if (!$(this).find('form').length > 0) {
-                        return "\n<form action='" + $(this).attr('href') + "' method='POST' name='delete_item' style='display:none'>\n" +
-                            "<input type='hidden' name='_method' value='" + $(this).attr('data-method') + "'>\n" +
-                            "<input type='hidden' name='_token' value='" + $('meta[name="csrf-token"]').attr('content') + "'>\n" +
-                            '</form>\n';
+                        var method = this.getAttribute('data-method');
+
+                        if (method == 'delete') {
+                            return "\n<form action='" + $(this).attr('href') + "' method='POST' name='delete_item' style='display:none'>\n" +
+                                "<input type='hidden' name='_method' value='" + $(this).attr('data-method') + "'>\n" +
+                                "<input type='hidden' name='_token' value='" + $('meta[name="csrf-token"]').attr('content') + "'>\n" +
+                                '</form>\n';
+                        } else {
+                            return "\n<form action='" + $(this).attr('href') + "' method='POST' name='delete_item' style='display:none'>\n" +
+                                "<input type='hidden' name='_token' value='" + $('meta[name="csrf-token"]').attr('content') + "'>\n" +
+                                '</form>\n';
+                        }
                     } else { return '' }
                 })
                     .attr('href', '#')
@@ -157,9 +168,19 @@ var Backend = {}; // common variable used in all the files of the backend
             selectors: {
                 users_table: $('#users-table'),
             },
-            init: function () {
+            init: function (pageName) {
 
                 Backend.Utils.setCSRF();
+
+                var data = {};
+
+                if (pageName == 'list') {
+                    data = { status: 1, trashed: false };
+                } else if (pageName == 'deleted') {
+                    data = { status: 0, trashed: true };
+                } else if (pageName == 'deactive') {
+                    data = { status: 0, trashed: false };
+                }
 
                 this.selectors.users_table.dataTable({
 
@@ -168,17 +189,17 @@ var Backend = {}; // common variable used in all the files of the backend
                     ajax: {
                         url: this.selectors.users_table.data('ajax_url'),
                         type: 'post',
-                        data: { status: 1, trashed: false }
+                        data: data
                     },
                     columns: [
 
-                        { data: 'first_name', name: 'users.first_name' },
-                        { data: 'last_name', name: 'users.last_name' },
-                        { data: 'email', name: 'users.email' },
-                        { data: 'confirmed', name: 'users.confirmed' },
-                        { data: 'roles', name: 'users.name', sortable: false },
-                        { data: 'created_at', name: 'users.created_at' },
-                        { data: 'updated_at', name: 'users.updated_at' },
+                        { data: 'first_name', name: 'first_name' },
+                        { data: 'last_name', name: 'last_name' },
+                        { data: 'email', name: 'email' },
+                        { data: 'confirmed', name: 'confirmed' },
+                        { data: 'roles', name: 'roles', sortable: false },
+                        { data: 'created_at', name: 'created_at' },
+                        { data: 'updated_at', name: 'updated_at' },
                         { data: 'actions', name: 'actions', searchable: false, sortable: false }
                     ],
                     order: [[0, "asc"]],
@@ -215,7 +236,7 @@ var Backend = {}; // common variable used in all the files of the backend
 
                         { data: 'title', name: 'title' },
                         { data: 'status', name: 'status' },
-                        { data: 'created_by', name: 'user_name' },
+                        { data: 'created_by', name: 'created_by' },
                         { data: 'created_at', name: 'created_at' },
                         { data: 'actions', name: 'actions', searchable: false, sortable: false }
 
@@ -279,11 +300,11 @@ var Backend = {}; // common variable used in all the files of the backend
                         type: 'post'
                     },
                     columns: [
-                        {data: 'title', name: 'title'},
-                        {data: 'status', name: 'status'},
-                        {data: 'created_by', name: 'created_by'},
-                        {data: 'created_at', name: 'created_at'},
-                        {data: 'actions', name: 'actions', searchable: false, sortable: false}
+                        { data: 'title', name: 'title' },
+                        { data: 'status', name: 'status' },
+                        { data: 'created_by', name: 'created_by' },
+                        { data: 'created_at', name: 'created_at' },
+                        { data: 'actions', name: 'actions', searchable: false, sortable: false }
                     ],
                     order: [[3, "asc"]],
                     searchDelay: 500,
@@ -300,6 +321,7 @@ var Backend = {}; // common variable used in all the files of the backend
             selectors: {
                 associated: document.querySelector("select[name='associated_permissions']"),
                 associated_container: document.getElementById("available-permissions"),
+                searchButton = document.querySelector(".search-button"),
             },
             init: function (page) {
                 this.setSelectors();
@@ -309,26 +331,34 @@ var Backend = {}; // common variable used in all the files of the backend
             setSelectors: function () {
                 this.selectors.associated = document.querySelector("select[name='associated_permissions']");
                 this.selectors.associated_container = document.getElementById("available-permissions");
+                this.selectors.searchButton = document.querySelector(".search-button");
             },
             addHandlers: function () {
                 var associated = this.selectors.associated;
                 var associated_container = this.selectors.associated_container;
+                var searchButton = this.selectors.searchButton;
 
                 if (associated_container != null) {
 
-                    if (associated.value == "custom")
+                    if (associated.value == "custom") {
                         Backend.Utils.removeClass(associated_container, "hidden");
-                    else
+                        Backend.Utils.removeClass(searchButton, "hidden");
+                    } else {
                         Backend.Utils.addClass(associated_container, 'hidden');
+                        Backend.Utils.addClass(searchButton, 'hidden');
+                    }
                 }
 
                 associated.onchange = function (event) {
 
                     if (associated_container != null) {
-                        if (associated.value == "custom")
+                        if (associated.value == "custom") {
                             Backend.Utils.removeClass(associated_container, "hidden");
-                        else
+                            Backend.Utils.removeClass(searchButton, "hidden");
+                        } else {
                             Backend.Utils.addClass(associated_container, 'hidden');
+                            Backend.Utils.addClass(searchButton, 'hidden');
+                        }
                     }
                 };
             },
@@ -348,6 +378,7 @@ var Backend = {}; // common variable used in all the files of the backend
                 getRoleForPermissions: "",
                 getAvailabelPermissions: "",
                 Role3: "",
+                searchButton: "",
             },
             init: function (page) {
                 this.setSelectors();
@@ -356,6 +387,7 @@ var Backend = {}; // common variable used in all the files of the backend
             setSelectors: function () {
                 this.selectors.getRoleForPermissions = document.querySelectorAll(".get-role-for-permissions");
                 this.selectors.getAvailabelPermissions = document.querySelector(".get-available-permissions");
+                this.selectors.searchButton = document.querySelector(".search-button");
                 this.selectors.Role3 = document.getElementById("role-3");
             },
             addHandlers: function (page) {
@@ -365,6 +397,10 @@ var Backend = {}; // common variable used in all the files of the backend
 
                 this.selectors.getRoleForPermissions.forEach(function (element) {
                     element.onclick = function (event) {
+
+                        Backend.Users.selectors.searchButton.value = '';
+                        Backend.Utils.addClass(Backend.Users.selectors.searchButton, 'hidden');
+                        // Backend.Users.selectors.searchButton.dispatchEvent(new Event('keyup'));
 
                         Backend.Utils.addClass(document.getElementById("available-permissions"), 'hidden');
 
@@ -397,6 +433,7 @@ var Backend = {}; // common variable used in all the files of the backend
                                     }
                                     Backend.Users.selectors.getAvailabelPermissions.innerHTML = htmlstring;
                                     Backend.Utils.removeClass(document.getElementById("available-permissions"), 'hidden');
+                                    Backend.Utils.removeClass(Backend.Users.selectors.searchButton, 'hidden');
 
                                 } else {
                                     // We reached our target server, but it returned an error
@@ -412,6 +449,28 @@ var Backend = {}; // common variable used in all the files of the backend
                             role_id: event.target.value
                         }, Backend.Utils.csrf, callback);
                     };
+                });
+
+                this.selectors.searchButton.addEventListener('keyup', function (e) {
+
+                    var searchTerm = this.value.toLowerCase();
+
+                    Backend.Users.selectors.getAvailabelPermissions.children.forEach(function (el) {
+
+                        var shouldShow = true;
+
+                        searchTerm.split(" ").forEach(function (val) {
+                            if (shouldShow && (el.querySelector('label').innerHTML.toLowerCase().indexOf(val) == -1)) {
+                                shouldShow = false;
+                            }
+                        });
+
+                        if (shouldShow) {
+                            Backend.Utils.removeClass(el, 'hidden');
+                        } else {
+                            Backend.Utils.addClass(el, 'hidden');
+                        }
+                    });
                 });
 
                 if (page == "create") {
@@ -514,11 +573,11 @@ var Backend = {}; // common variable used in all the files of the backend
             },
 
             init: function (locale) {
-                this.addHandlers();
+                this.addHandlers(locale);
                 Backend.tinyMCE.init(locale);
             },
 
-            addHandlers: function () {
+            addHandlers: function (locale) {
 
                 this.selectors.tags.select2({
                     tags: true,
@@ -528,7 +587,12 @@ var Backend = {}; // common variable used in all the files of the backend
                 this.selectors.status.select2();
 
                 //For Blog datetimepicker for publish_datetime
-                this.selectors.datetimepicker1.datetimepicker();
+                this.selectors.datetimepicker1.datetimepicker({
+                    // locale: locale,
+                    format: 'YYYY-MM-DD HH:mm',
+                    showTodayButton: true,
+                    showClear: true,
+                });
 
                 // For generating the Slug  //changing slug on blur event
                 this.selectors.name.onblur = function (event) {
@@ -850,7 +914,7 @@ var Backend = {}; // common variable used in all the files of the backend
                             { data: 'question', name: 'question' },
                             { data: 'answer', name: 'answer' },
                             { data: 'status', name: 'status' },
-                            { data: 'updated_at', name: 'updated_at' },
+                            { data: 'created_at', name: 'created_at' },
                             { data: 'actions', name: 'actions', searchable: false, sortable: false }
 
                         ],
