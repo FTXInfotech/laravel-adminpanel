@@ -43,25 +43,43 @@
     white-space: nowrap;
 }
 
-.search-button {
-    border: none;
-    border-radius: unset;
-    border-bottom: 1px solid #e4e7ea;
-    width: 97%;
-    position: relative;
-    top: 36px;
-    left: 7px;
-    text-align: right;
-}
-.search-button + div{
-    width: 100%!important;
-}
+.search-permission {
 
-.search-button:focus {
-    color: #5c6873;
-    border-color: #e4e7ea;
-    outline: 0;
-    box-shadow: 0px 4px 8px 1px #e4e7ea;
+    min-height:236px;
+    
+    #available-permissions {
+
+        height: 200px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        border: 1px solid #f1f1f1;
+        
+        > div:first-child {
+
+            padding: 2px 13px;
+            background-color: #fff;
+            margin-bottom: 10px;
+            position: sticky;
+            top: 0px;
+            
+            .search-button {
+                border: none;
+                border-radius: unset;
+                border-bottom: 1px solid #e4e7ea;
+            }
+            
+            .search-button:focus {
+                color: #5c6873;
+                border-color: #e4e7ea;
+                outline: 0;
+                box-shadow: 0px 4px 6px -4px #e4e7ea;
+            }
+        }
+        
+        .get-available-permissions {
+            padding: 0px 15px;
+        }
+    }
 }
 
 .fa, .glyphicon {

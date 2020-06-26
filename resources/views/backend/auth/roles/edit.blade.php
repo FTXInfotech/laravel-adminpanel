@@ -39,12 +39,13 @@
                 <div class="form-group row">
                     {{ Form::label('associated_permissions', __('validation.attributes.backend.access.roles.associated_permissions'), [ 'class'=>'col-md-2 form-control-label']) }}
 
-                    <div class="col-md-10">
+                    <div class="col-md-10 search-permission" style="min-height: unset;">
                         {{ Form::select('associated_permissions', ['all' => 'All', 'custom' => 'Custom'], $role->all ? 'all' : 'custom', ['class' => 'form-control select2']) }}
 
-                        <input type="text" class="form-control search-button" placeholder="Search..." />
-                        
-                        <div id="available-permissions" style="width: 700px; height: 200px; overflow-x: hidden; overflow-y: scroll; border: 1px solid #f1f1f1; padding: 40px 0 0 7px;">
+                        <div id="available-permissions" style="margin-top: 20px;">
+                            <div>
+                                <input type="text" class="form-control search-button" placeholder="Search..." />
+                            </div>
                             <div class="get-available-permissions">
                                 @if ($permissions->count())
                                 @foreach ($permissions as $perm)
