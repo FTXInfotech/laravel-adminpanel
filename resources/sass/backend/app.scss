@@ -47,11 +47,14 @@
     border: none;
     border-radius: unset;
     border-bottom: 1px solid #e4e7ea;
-    width: 669px;
+    width: 97%;
     position: relative;
     top: 36px;
     left: 7px;
     text-align: right;
+}
+.search-button + div{
+    width: 100%!important;
 }
 
 .search-button:focus {
