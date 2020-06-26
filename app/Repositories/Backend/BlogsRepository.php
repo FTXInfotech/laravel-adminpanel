@@ -24,8 +24,6 @@ class BlogsRepository extends BaseRepository
      */
     const MODEL = Blog::class;
 
-    protected $blog;
-
     protected $upload_path;
 
     /**

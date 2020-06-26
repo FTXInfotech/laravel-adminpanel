@@ -45,6 +45,72 @@ return [
                 'view'          => 'Ver permiso',
                 'management'    => 'Gestión de permisos',
             ],
+
+            'pages' => [
+                'all'             => 'Todas las páginas',
+                'active'          => 'Páginas activas',
+                'create'          => 'Crear página',
+                'deactivated'     => 'Páginas desactivadas',
+                'deleted'         => 'Páginas eliminadas',
+                'edit'            => 'Editar página',
+                'main'            => 'Páginas',
+                'view'            => 'Ver pagina',
+            ],
+
+            'blogs' => [
+                'all'             => 'Todos los blogs',
+                'active'          => 'Blogs activos',
+                'create'          => 'Blog creativo',
+                'deactivated'     => 'Blogs desactivados',
+                'deleted'         => 'Blogs eliminados',
+                'edit'            => 'Editar blog',
+                'main'            => 'Blogs',
+                'view'            => 'Ver blog',
+            ],
+
+            'blog-categories' => [
+                'all'             => 'Todas las categorías del blog',
+                'active'          => 'Categorías de blog activas',
+                'create'          => 'Crear categoría de blog',
+                'deactivated'     => 'Categorías de blog desactivadas',
+                'deleted'         => 'Categorías de blog eliminadas',
+                'edit'            => 'Editar categoría del blog',
+                'main'            => 'Categorías de blog',
+                'view'            => 'Ver categoría del blog',
+            ],
+
+            'blog-tags' => [
+                'all'             => 'Todas las etiquetas de blog',
+                'active'          => 'Etiquetas de blog activas',
+                'create'          => 'Crear etiqueta de blog',
+                'deactivated'     => 'Etiquetas de blog desactivadas',
+                'deleted'         => 'Etiquetas de blog eliminadas',
+                'edit'            => 'Editar etiqueta de blog',
+                'main'            => 'Etiquetas de blog',
+                'view'            => 'Ver etiqueta de blog',
+            ],
+
+            'faqs' => [
+                'all'             => 'Todas las preguntas frecuentes',
+                'active'          => 'Preguntas frecuentes activas',
+                'create'          => 'Crear preguntas frecuentes',
+                'deactivated'     => 'Preguntas frecuentes desactivadas',
+                'deleted'         => 'Preguntas frecuentes eliminadas',
+                'edit'            => 'Editar preguntas frecuentes',
+                'main'            => 'Preguntas frecuentes del blog',
+                'view'            => 'Ver preguntas frecuentes',
+            ],
+
+            'email-templates' => [
+                'all'             => 'Todas las plantillas de correo electrónico',
+                'active'          => 'Plantillas de correo electrónico activas',
+                'create'          => 'Crear plantilla de correo electrónico',
+                'deactivated'     => 'Plantillas de correo electrónico desactivadas',
+                'deleted'         => 'Plantillas de correo electrónico eliminadas',
+                'edit'            => 'Editar plantilla de correo electrónico',
+                'main'            => 'Plantillas de correo electrónico de blog',
+                'view'            => 'Ver plantilla de correo electrónico',
+            ],
         ],
 
         'log-viewer' => [

@@ -99,7 +99,7 @@ trait UserAttributes
         /*
          * If the admin is currently NOT spoofing a user
          */
-        if (auth()->user()->isAdmin()) {
+        if (access()->allow('login-as-user') && (!session()->has('admin_user_id') || !session()->has('temp_user_id'))) {
             //Won't break, but don't let them "Login As" themselves
             if ($this->id != auth()->user()->id) {
                 return '<a class="' . $class . '" href="' . route(
@@ -120,7 +120,7 @@ trait UserAttributes
      */
     public function getDeleteButtonAttribute($class)
     {
-        if (true) {
+        if ($this->id != access()->id() && access()->allow('delete-user')) {
             $name = $class == '' ? 'Delete' : '';
 
             return '<a class="' . $class . '" href="' . route('admin.auth.user.destroy', $this) . '"
@@ -138,7 +138,7 @@ trait UserAttributes
      */
     public function getShowButtonAttribute($class)
     {
-        if (auth()->user()->isAdmin()) {
+        if (access()->allow('show-user')) {
             return '<a class="' . $class . '" data-toggle="tooltip" data-placement="top" href="' . route('admin.auth.user.show', $this) . '" title="' . trans('buttons.general.crud.view') . '"> 
                     <i class="fa fa-eye"></i>
                 </a>';
@@ -150,9 +150,9 @@ trait UserAttributes
      */
     public function getEditButtonAttribute($class)
     {
-        if (auth()->user()->isAdmin()) {
+        if (access()->allow('edit-user')) {
             return '<a class="' . $class . '" data-toggle="tooltip" data-placement="top" href="' . route('admin.auth.user.edit', $this) . '" title="' . trans('buttons.general.crud.edit') . '">
-                    <i class="fa fa-pencil"></i>
+                    <i class="fas fa-edit"></i>
                 </a>';
         }
     }
@@ -162,7 +162,7 @@ trait UserAttributes
      */
     public function getChangePasswordButtonAttribute($class)
     {
-        if (auth()->user()->isAdmin()) {
+        if (access()->user()->id == $this->id && access()->allow('edit-user')) {
             return '<a class="' . $class . '" href="' . route('admin.auth.user.change-password', $this) . '">
                         <i class="fa fa-refresh" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.backend.access.users.change_password') . '">
                         </i>
@@ -175,10 +175,10 @@ trait UserAttributes
      */
     public function getStatusButtonAttribute($class)
     {
-        if (auth()->user()->isAdmin()) {
+        if ($this->id != access()->id()) {
             switch ($this->status) {
                 case 0:
-                    if (auth()->user()->isAdmin()) {
+                    if (access()->allow('activate-user')) {
                         $name = $class == '' ? 'Activate' : '';
 
                         return '<a class="' . $class . '" href="' . route('admin.auth.user.mark', [$this, 1]) . '"><i class="fa fa-check-square" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.backend.access.users.activate') . '"></i>' . $name . '</a>';
@@ -187,7 +187,7 @@ trait UserAttributes
                     break;
 
                 case 1:
-                    if (auth()->user()->isAdmin()) {
+                    if (access()->allow('deactivate-user')) {
                         $name = ($class == '') ? 'Deactivate' : '';
 
                         return '<a class="' . $class . '" href="' . route('admin.auth.user.mark', [$this, 0]) . '"><i class="fa fa-square" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.backend.access.users.deactivate') . '"></i>' . $name . '</a>';
@@ -206,11 +206,23 @@ trait UserAttributes
     /**
      * @return string
      */
+    public function getConfirmedButtonAttribute($class)
+    {
+        if (!$this->isConfirmed() && access()->allow('edit-user')) {
+            return '<a class="'.$class.'" href="'.route('admin.access.user.account.confirm.resend', $this).'"><i class="fa fa-refresh" data-toggle="tooltip" data-placement="top" title='.trans('buttons.backend.access.users.resend_email').'"></i></a> ';
+        }
+
+        return '';
+    }
+
+    /**
+     * @return string
+     */
     public function getClearSessionButtonAttribute($class)
     {
         $name = $class == '' ? 'Clear Session' : '';
 
-        if ($this->id != auth()->user->id() && config('session.driver') == 'database') {
+        if ($this->id != auth()->user->id() && config('session.driver') == 'database' && access()->allow('clear-user-session')) {
             return '<div class="btn-group btn-group-sm" role="group">' .
                 '<button id="userActions" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' .
                 trans('labels.general.more') .
@@ -290,7 +302,7 @@ trait UserAttributes
         }
 
         // Check if role have all permission
-        if (auth()->user()->isAdmin()) {
+        if (access()->user()->roles[0]->all) {
             return '<div class="btn-group" role="group" aria-label="' . trans('labels.backend.access.users.user_actions') . '">
                     ' . $this->getShowButtonAttribute('btn btn-info btn-sm') . '
                     ' . $this->getEditButtonAttribute('btn btn-primary btn-sm') . '
@@ -303,7 +315,7 @@ trait UserAttributes
             $actionButton = '<div class="btn-group action-btn">';
             $i = 1;
 
-            if (auth()->user()->id == $this->id) {
+            if (access()->user()->id == $this->id) {
                 if (in_array('clear-user-session', $userPermission)) {
                     $permissionCounter = $permissionCounter - 1;
                 }

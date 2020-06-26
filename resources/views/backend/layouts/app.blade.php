@@ -21,13 +21,7 @@
     <!-- Otherwise apply the normal LTR layouts -->
     {{ style(mix('css/backend.css')) }}
 
-    <link media="all" type="text/css" rel="stylesheet" href="{{ asset('js/select2/select2.css') }}">
-<<<<<<< HEAD
     <link rel="stylesheet" href="{{ asset('js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" />
-=======
-    <!-- <link rel="stylesheet" href="{{ asset('js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" /> -->
-    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" /> -->
->>>>>>> origin/rakesh
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
 
     @stack('after-styles')
