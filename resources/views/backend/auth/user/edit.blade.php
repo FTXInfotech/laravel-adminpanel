@@ -95,9 +95,11 @@
 
                 <div class="form-group row">
                     {{ Form::label('associated-permissions', trans('validation.attributes.backend.access.roles.associated_permissions'), ['class' => 'col-md-2 control-label']) }}
-                    <div class="col-md-10" style="min-height:236px;">
-                        <input type="text" class="form-control search-button" placeholder="Search..." />
-                        <div id="available-permissions" style="width: 700px; height: 200px; overflow-x: hidden; overflow-y: scroll; border: 1px solid #f1f1f1; padding: 40px 0 0 7px;">
+                    <div class="col-md-10 search-permission">
+                        <div id="available-permissions">
+                            <div>
+                                <input type="text" class="form-control search-button" placeholder="Search..." />
+                            </div>
                             <div class="get-available-permissions">
                                 @if ($permissions)
                                 @foreach ($permissions as $id => $display_name)
