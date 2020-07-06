@@ -82,7 +82,7 @@
                     ]
                 },
                 "createdRow": function( row, data, dataIndex){
-                    Common.Utils.DataTables.CreateRow(row, data, dataIndex);
+                    Backend.Utils.dtAnchorToForm(row);
                 }
             });
         });

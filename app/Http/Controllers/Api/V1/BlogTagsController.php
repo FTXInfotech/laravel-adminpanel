@@ -8,7 +8,7 @@ use App\Repositories\Backend\BlogTagsRepository;
 use Illuminate\Http\Request;
 use Validator;
 
-class BlogCategoriesController extends APIController
+class BlogTagsController extends APIController
 {
     protected $repository;
 
