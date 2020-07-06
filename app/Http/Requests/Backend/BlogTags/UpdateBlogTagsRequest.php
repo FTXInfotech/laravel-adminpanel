@@ -39,7 +39,7 @@ class UpdateBlogTagsRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.unique'   => trans('exceptions.backend.access.blog-tag.already_exists'),
+            'name.unique'   => __('exceptions.backend.blog-tag.already_exists'),
             'name.required' => 'Blog tag name must required',
             'name.max'      => 'Blog tag may not be greater than 191 characters.',
         ];

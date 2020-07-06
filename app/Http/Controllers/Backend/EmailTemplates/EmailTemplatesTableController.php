@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Backend\EmailTemplates;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest;
 use App\Repositories\Backend\EmailTemplatesRepository;
-use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
 class EmailTemplatesTableController extends Controller

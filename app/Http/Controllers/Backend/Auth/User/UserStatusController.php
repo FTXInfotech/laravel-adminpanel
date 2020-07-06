@@ -62,7 +62,7 @@ class UserStatusController extends Controller
             (int) $status === 1 ?
             'admin.auth.user.index' :
             'admin.auth.user.deactivated'
-        )->withFlashSuccess(__('alerts.backend.users.updated'));
+        )->withFlashSuccess(__('alerts.backend.access.users.updated'));
     }
 
     /**
@@ -77,7 +77,7 @@ class UserStatusController extends Controller
     {
         $this->repository->forceDelete($deletedUser);
 
-        return redirect()->route('admin.auth.user.deleted')->withFlashSuccess(__('alerts.backend.users.deleted_permanently'));
+        return redirect()->route('admin.auth.user.deleted')->withFlashSuccess(__('alerts.backend.access.users.deleted_permanently'));
     }
 
     /**
@@ -91,6 +91,6 @@ class UserStatusController extends Controller
     {
         $this->repository->restore($deletedUser);
 
-        return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.users.restored'));
+        return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.access.users.restored'));
     }
 }

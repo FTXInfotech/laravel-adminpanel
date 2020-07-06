@@ -52,6 +52,31 @@ return [
                 ],
             ],
 
+            'permissions' => [
+                'all'                   => 'All Permissions',
+                'active'                => 'Permission List',
+                'create'                => 'Create Permission',
+                'deactivated'           => 'Deactivated Permission',
+                'deleted'               => 'Deleted Permission',
+                'edit'                  => 'Edit Permission',
+                'management'            => 'Permission Management',
+                'label'                 =>  'Permissions',
+                'list'                  =>  'Permission List',
+
+                'table' => [
+                    'created'           => 'Created',
+                    'id'                => 'ID',
+                    'last_updated'      => 'Last Updated',
+                    'permission'        => 'Permission',
+                    'display_name'      => 'Display Name',
+                    'sort'              => 'Sort',
+                    'status'            => 'Status',
+                    'createdby'         => 'Created By',
+                    'createdat'         => 'Created At',
+                    'total'             => 'permissions total|permissions total',
+                ],
+            ],
+
             'users' => [
                 'active'              => 'Active Users',
                 'all_permissions'     => 'All Permissions',
@@ -112,31 +137,6 @@ return [
                 ],
 
                 'view' => 'View User',
-            ],
-
-            'permissions' => [
-                'all'                   => 'All Permissions',
-                'active'                => 'Permission List',
-                'create'                => 'Create Permission',
-                'deactivated'           => 'Deactivated Permission',
-                'deleted'               => 'Deleted Permission',
-                'edit'                  => 'Edit Permission',
-                'management'            => 'Permission Management',
-                'label'                 =>  'Permissions',
-                'list'                  =>  'Permission List',
-
-                'table' => [
-                    'created'           => 'Created',
-                    'id'                => 'ID',
-                    'last_updated'      => 'Last Updated',
-                    'permission'        => 'Permission',
-                    'display_name'      => 'Display Name',
-                    'sort'              => 'Sort',
-                    'status'            => 'Status',
-                    'createdby'         => 'Created By',
-                    'createdat'         => 'Created At',
-                    'total'             => 'permissions total|permissions total',
-                ],
             ],
 
             'blogs' => [

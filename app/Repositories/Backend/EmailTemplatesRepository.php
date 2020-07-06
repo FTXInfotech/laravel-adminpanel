@@ -77,7 +77,7 @@ class EmailTemplatesRepository extends BaseRepository
             return true;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.email-templates.create_error'));
+        throw new GeneralException(__('exceptions.backend.email-templates.create_error'));
     }
 
     /**
@@ -96,7 +96,7 @@ class EmailTemplatesRepository extends BaseRepository
             return true;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.EmailTemplates.update_error'));
+        throw new GeneralException(__('exceptions.backend.email-templates.update_error'));
     }
 
     /**
@@ -115,6 +115,6 @@ class EmailTemplatesRepository extends BaseRepository
             return true;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.email-templates.delete_error'));
+        throw new GeneralException(__('exceptions.backend.email-templates.delete_error'));
     }
 }

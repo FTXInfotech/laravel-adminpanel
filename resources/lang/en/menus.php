@@ -141,8 +141,8 @@ return [
          * Be sure to add the new language in alphabetical order.
          */
         'langs' => [
+            'ar' => 'عربى (Arabic)',
             'en' => 'English',
-            'es' => 'Spanish',
         ],
     ],
 ];

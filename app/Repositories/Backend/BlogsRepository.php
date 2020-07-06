@@ -119,7 +119,7 @@ class BlogsRepository extends BaseRepository
                 return $blog;
             }
 
-            throw new GeneralException(trans('exceptions.backend.access.blogs.create_error'));
+            throw new GeneralException(__('exceptions.backend.blogs.create_error'));
         });
     }
 
@@ -163,7 +163,7 @@ class BlogsRepository extends BaseRepository
                 return $blog;
             }
 
-            throw new GeneralException(trans('exceptions.backend.access.blogs.update_error'));
+            throw new GeneralException(__('exceptions.backend.blogs.update_error'));
         });
     }
 
@@ -237,7 +237,7 @@ class BlogsRepository extends BaseRepository
                 return true;
             }
 
-            throw new GeneralException(trans('exceptions.backend.access.blogs.delete_error'));
+            throw new GeneralException(__('exceptions.backend.blogs.delete_error'));
         });
     }
 

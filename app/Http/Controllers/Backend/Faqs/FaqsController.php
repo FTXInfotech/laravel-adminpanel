@@ -57,7 +57,7 @@ class FaqsController extends Controller
     {
         $this->repository->create($request->except('_token'));
 
-        return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => trans('alerts.backend.faqs.created')]);
+        return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => __('alerts.backend.faqs.created')]);
     }
 
     /**
@@ -81,7 +81,7 @@ class FaqsController extends Controller
     {
         $this->repository->update($faq, $request->except(['_token', '_method']));
 
-        return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => trans('alerts.backend.faqs.updated')]);
+        return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => __('alerts.backend.faqs.updated')]);
     }
 
     /**
@@ -94,6 +94,6 @@ class FaqsController extends Controller
     {
         $this->repository->delete($faq);
 
-        return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => trans('alerts.backend.faqs.deleted')]);
+        return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => __('alerts.backend.faqs.deleted')]);
     }
 }

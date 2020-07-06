@@ -67,7 +67,7 @@ class BlogCategoriesRepository extends BaseRepository
     public function create(array $input)
     {
         if ($this->query()->where('name', $input['name'])->first()) {
-            throw new GeneralException(trans('exceptions.backend.access.blog-category.already_exists'));
+            throw new GeneralException(__('exceptions.backend.blog-category.already_exists'));
         }
 
         $input['status'] = isset($input['status']) ? 1 : 0;
@@ -79,7 +79,7 @@ class BlogCategoriesRepository extends BaseRepository
             return true;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.blog-category.create_error'));
+        throw new GeneralException(__('exceptions.backend.blog-category.create_error'));
     }
 
     /**
@@ -93,7 +93,7 @@ class BlogCategoriesRepository extends BaseRepository
     public function update(BlogCategory $blogcategory, array $input)
     {
         if ($this->query()->where('name', $input['name'])->where('id', '!=', $blogcategory->id)->first()) {
-            throw new GeneralException(trans('exceptions.backend.access.blog-category.already_exists'));
+            throw new GeneralException(__('exceptions.backend.blog-category.already_exists'));
         }
 
         $input['status'] = isset($input['status']) ? 1 : 0;
@@ -105,7 +105,7 @@ class BlogCategoriesRepository extends BaseRepository
             return true;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.blog-category.update_error'));
+        throw new GeneralException(__('exceptions.backend.blog-category.update_error'));
     }
 
     /**
@@ -123,6 +123,6 @@ class BlogCategoriesRepository extends BaseRepository
             return true;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.blog-category.delete_error'));
+        throw new GeneralException(__('exceptions.backend.blog-category.delete_error'));
     }
 }

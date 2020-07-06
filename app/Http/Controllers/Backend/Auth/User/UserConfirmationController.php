@@ -33,7 +33,7 @@ class UserConfirmationController extends Controller
     {
         // Shouldn't allow users to confirm their own accounts when the application is set to manual confirmation
         if (config('access.users.requires_approval')) {
-            return redirect()->back()->withFlashDanger(__('alerts.backend.users.cant_resend_confirmation'));
+            return redirect()->back()->withFlashDanger(__('alerts.backend.access.users.cant_resend_confirmation'));
         }
 
         if ($user->isConfirmed()) {
@@ -42,7 +42,7 @@ class UserConfirmationController extends Controller
 
         $user->notify(new UserNeedsConfirmation($user->confirmation_code));
 
-        return redirect()->back()->withFlashSuccess(__('alerts.backend.users.confirmation_email'));
+        return redirect()->back()->withFlashSuccess(__('alerts.backend.access.users.confirmation_email'));
     }
 
     /**
@@ -56,7 +56,7 @@ class UserConfirmationController extends Controller
     {
         $this->repository->confirm($user);
 
-        return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.users.confirmed'));
+        return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.access.users.confirmed'));
     }
 
     /**
@@ -70,6 +70,6 @@ class UserConfirmationController extends Controller
     {
         $this->repository->unconfirm($user);
 
-        return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.users.unconfirmed'));
+        return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.access.users.unconfirmed'));
     }
 }

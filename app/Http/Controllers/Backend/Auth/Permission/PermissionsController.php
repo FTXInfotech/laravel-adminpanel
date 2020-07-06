@@ -60,7 +60,7 @@ class PermissionController extends Controller
     {
         $this->repository->create($request->except(['_token', '_method']));
 
-        return new RedirectResponse(route('admin.auth.permission.index'), ['flash_success' => trans('alerts.backend.permissions.created')]);
+        return new RedirectResponse(route('admin.auth.permission.index'), ['flash_success' => __('alerts.backend.access.permissions.created')]);
     }
 
     /**
@@ -84,7 +84,7 @@ class PermissionController extends Controller
     {
         $this->repository->update($permission, $request->except(['_token', '_method']));
 
-        return new RedirectResponse(route('admin.auth.permission.index'), ['flash_success' => trans('alerts.backend.permissions.updated')]);
+        return new RedirectResponse(route('admin.auth.permission.index'), ['flash_success' => __('alerts.backend.access.permissions.updated')]);
     }
 
     /**
@@ -97,6 +97,6 @@ class PermissionController extends Controller
     {
         $this->repository->delete($permission);
 
-        return new RedirectResponse(route('admin.auth.permission.index'), ['flash_success' => trans('alerts.backend.permissions.deleted')]);
+        return new RedirectResponse(route('admin.auth.permission.index'), ['flash_success' => __('alerts.backend.access.permissions.deleted')]);
     }
 }

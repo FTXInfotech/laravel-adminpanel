@@ -66,7 +66,7 @@ class UserController extends Controller
     {
         $this->userRepository->create($request);
 
-        return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.users.created'));
+        return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.access.users.created'));
     }
 
     /**
@@ -109,7 +109,7 @@ class UserController extends Controller
     {
         $this->userRepository->update($user, $request);
 
-        return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.users.updated'));
+        return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.access.users.updated'));
     }
 
     /**
@@ -123,6 +123,6 @@ class UserController extends Controller
     {
         $this->userRepository->delete($user);
 
-        return redirect()->route('admin.auth.user.deleted')->withFlashSuccess(__('alerts.backend.users.deleted'));
+        return redirect()->route('admin.auth.user.deleted')->withFlashSuccess(__('alerts.backend.access.users.deleted'));
     }
 }

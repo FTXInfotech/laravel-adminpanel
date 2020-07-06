@@ -68,7 +68,7 @@ class RoleController extends Controller
     {
         $this->roleRepository->create($request->except(['_token', '_method']));
 
-        return new RedirectResponse(route('admin.auth.role.index'), ['flash_success' => trans('alerts.backend.roles.created')]);
+        return new RedirectResponse(route('admin.auth.role.index'), ['flash_success' => __('alerts.backend.access.roles.created')]);
     }
 
     /**
@@ -92,7 +92,7 @@ class RoleController extends Controller
     {
         $this->roleRepository->update($role, $request->except(['_token', '_method']));
 
-        return redirect()->route('admin.auth.role.index')->withFlashSuccess(__('alerts.backend.roles.updated'));
+        return redirect()->route('admin.auth.role.index')->withFlashSuccess(__('alerts.backend.access.roles.updated'));
     }
 
     /**
@@ -106,6 +106,6 @@ class RoleController extends Controller
     {
         $this->roleRepository->delete($role);
 
-        return redirect()->route('admin.auth.role.index')->withFlashSuccess(__('alerts.backend.roles.deleted'));
+        return redirect()->route('admin.auth.role.index')->withFlashSuccess(__('alerts.backend.access.roles.deleted'));
     }
 }

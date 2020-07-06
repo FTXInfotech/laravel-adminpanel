@@ -43,7 +43,7 @@ class PagesRepository extends BaseRepository
     public function create(array $input)
     {
         if ($this->query()->where('title', $input['title'])->first()) {
-            throw new GeneralException(trans('exceptions.backend.pages.already_exists'));
+            throw new GeneralException(__('exceptions.backend.pages.already_exists'));
         }
 
         $input['page_slug'] = Str::slug($input['title']);
@@ -57,7 +57,7 @@ class PagesRepository extends BaseRepository
             return $page;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.pages.create_error'));
+        throw new GeneralException(__('exceptions.backend.pages.create_error'));
     }
 
     /**
@@ -69,7 +69,7 @@ class PagesRepository extends BaseRepository
     public function update(Page $page, array $input)
     {
         if ($this->query()->where('title', $input['title'])->where('id', '!=', $page->id)->first()) {
-            throw new GeneralException(trans('exceptions.backend.pages.already_exists'));
+            throw new GeneralException(__('exceptions.backend.pages.already_exists'));
         }
 
         $input['page_slug'] = Str::slug($input['title']);
@@ -84,7 +84,7 @@ class PagesRepository extends BaseRepository
         }
 
         throw new GeneralException(
-            trans('exceptions.backend.access.pages.update_error')
+            __('exceptions.backend.pages.update_error')
         );
     }
 
@@ -104,6 +104,6 @@ class PagesRepository extends BaseRepository
             return true;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.pages.delete_error'));
+        throw new GeneralException(__('exceptions.backend.pages.delete_error'));
     }
 }

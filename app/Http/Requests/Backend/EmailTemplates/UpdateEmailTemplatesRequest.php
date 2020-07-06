@@ -39,7 +39,7 @@ class UpdateEmailTemplatesRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.unique'   => trans('exceptions.backend.access.email-templates.already_exists'),
+            'title.unique'   => __('exceptions.backend.email-templates.already_exists'),
             'title.required' => 'Email Template title must required',
             'title.max'      => 'Email template title may not be greater than 191 characters.',
         ];

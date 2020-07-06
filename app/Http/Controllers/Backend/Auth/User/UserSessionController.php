@@ -25,6 +25,6 @@ class UserSessionController extends Controller
 
         $user->update(['to_be_logged_out' => true]);
 
-        return redirect()->back()->withFlashSuccess(__('alerts.backend.users.session_cleared'));
+        return redirect()->back()->withFlashSuccess(__('alerts.backend.access.users.session_cleared'));
     }
 }

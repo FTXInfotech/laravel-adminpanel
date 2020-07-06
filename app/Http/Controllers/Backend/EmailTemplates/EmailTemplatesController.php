@@ -58,7 +58,7 @@ class EmailTemplatesController extends Controller
     {
         $this->repository->create($request->except('token'));
 
-        return new RedirectResponse(route('admin.email-templates.index'), ['flash_success' => trans('alerts.backend.email-templates.created')]);
+        return new RedirectResponse(route('admin.email-templates.index'), ['flash_success' => __('alerts.backend.email-templates.created')]);
     }
 
     /**
@@ -82,7 +82,7 @@ class EmailTemplatesController extends Controller
     {
         $this->repository->update($emailTemplate, $request->except(['_token', '_method']));
 
-        return new RedirectResponse(route('admin.email-templates.index'), ['flash_success' => trans('alerts.backend.email-templates.updated')]);
+        return new RedirectResponse(route('admin.email-templates.index'), ['flash_success' => __('alerts.backend.email-templates.updated')]);
     }
 
     /**
@@ -95,6 +95,6 @@ class EmailTemplatesController extends Controller
     {
         $this->repository->delete($emailTemplate);
 
-        return new RedirectResponse(route('admin.email-templates.index'), ['flash_success' => trans('alerts.backend.email-templates.deleted')]);
+        return new RedirectResponse(route('admin.email-templates.index'), ['flash_success' => __('alerts.backend.email-templates.deleted')]);
     }
 }

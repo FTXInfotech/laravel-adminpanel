@@ -59,7 +59,7 @@ class BlogTagsController extends Controller
     {
         $this->repository->create($request->except(['_token', '_method']));
 
-        return new RedirectResponse(route('admin.blog-tags.index'), ['flash_success' => trans('alerts.backend.blog-tags.created')]);
+        return new RedirectResponse(route('admin.blog-tags.index'), ['flash_success' => __('alerts.backend.blog-tags.created')]);
     }
 
     /**
@@ -83,7 +83,7 @@ class BlogTagsController extends Controller
     {
         $this->repository->update($blogTag, $request->except(['_token', '_method']));
 
-        return new RedirectResponse(route('admin.blog-tags.index'), ['flash_success' => trans('alerts.backend.blog-tags.updated')]);
+        return new RedirectResponse(route('admin.blog-tags.index'), ['flash_success' => __('alerts.backend.blog-tags.updated')]);
     }
 
     /**
@@ -96,6 +96,6 @@ class BlogTagsController extends Controller
     {
         $this->repository->delete($blogTag);
 
-        return new RedirectResponse(route('admin.blog-tags.index'), ['flash_success' => trans('alerts.backend.blog-tags.deleted')]);
+        return new RedirectResponse(route('admin.blog-tags.index'), ['flash_success' => __('alerts.backend.blog-tags.deleted')]);
     }
 }

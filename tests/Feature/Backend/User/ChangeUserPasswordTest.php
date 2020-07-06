@@ -65,7 +65,7 @@ class ChangeUserPasswordTest extends TestCase
             'password_confirmation' => 'OC4Nzu270N!QBVi%U%qX',
         ]);
 
-        $response->assertSessionHas(['flash_success' => __('alerts.backend.users.updated_password')]);
+        $response->assertSessionHas(['flash_success' => __('alerts.backend.access.users.updated_password')]);
 
         Event::assertDispatched(UserPasswordChanged::class);
     }
@@ -83,7 +83,7 @@ class ChangeUserPasswordTest extends TestCase
             'password_confirmation' => 'OC4Nzu270N!QBVi%U%qX',
         ]);
 
-        $response->assertSessionHas(['flash_success' => __('alerts.backend.users.updated_password')]);
+        $response->assertSessionHas(['flash_success' => __('alerts.backend.access.users.updated_password')]);
         $this->assertTrue(Hash::check('OC4Nzu270N!QBVi%U%qX', $user->fresh()->password));
     }
 

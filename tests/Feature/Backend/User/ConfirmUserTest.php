@@ -28,7 +28,7 @@ class ConfirmUserTest extends TestCase
         $this->assertSame(true, $user->fresh()->confirmed);
         Event::assertDispatched(UserConfirmed::class);
 
-        $response->assertSessionHas(['flash_success' => __('alerts.backend.users.confirmed')]);
+        $response->assertSessionHas(['flash_success' => __('alerts.backend.access.users.confirmed')]);
     }
 
     /** @test */
@@ -69,7 +69,7 @@ class ConfirmUserTest extends TestCase
         $this->assertSame(false, $user->fresh()->confirmed);
         Event::assertDispatched(UserUnconfirmed::class);
 
-        $response->assertSessionHas(['flash_success' => __('alerts.backend.users.unconfirmed')]);
+        $response->assertSessionHas(['flash_success' => __('alerts.backend.access.users.unconfirmed')]);
     }
 
     /** @test */

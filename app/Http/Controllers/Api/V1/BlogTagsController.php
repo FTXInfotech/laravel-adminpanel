@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Resources\BlogTagsResource;
-use App\Models\BlogTags\BlogTag;
-use App\Repositories\Backend\BlogTags\BlogTagsRepository;
+use App\Models\BlogTag;
+use App\Repositories\Backend\BlogTagsRepository;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -100,7 +100,7 @@ class BlogCategoriesController extends APIController
         $this->repository->delete($blogTag);
 
         return $this->respond([
-            'message' => trans('alerts.backend.blog-tags.deleted'),
+            'message' => __('alerts.backend.blog-tags.deleted'),
         ]);
     }
 

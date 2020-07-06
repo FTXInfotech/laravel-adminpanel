@@ -66,7 +66,7 @@ class BlogTagsRepository extends BaseRepository
     public function create(array $input)
     {
         if ($this->query()->where('name', $input['name'])->first()) {
-            throw new GeneralException(trans('exceptions.backend.access.blog-tag.already_exists'));
+            throw new GeneralException(__('exceptions.backend.blog-tag.already_exists'));
         }
 
         $input['status'] = isset($input['status']) ? 1 : 0;
@@ -78,7 +78,7 @@ class BlogTagsRepository extends BaseRepository
             return true;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.blog-tag.create_error'));
+        throw new GeneralException(__('exceptions.backend.blog-tag.create_error'));
     }
 
     /**
@@ -92,7 +92,7 @@ class BlogTagsRepository extends BaseRepository
     public function update(BlogTag $blogtag, array $input)
     {
         if ($this->query()->where('name', $input['name'])->where('id', '!=', $blogtag->id)->first()) {
-            throw new GeneralException(trans('exceptions.backend.access.blog-tag.already_exists'));
+            throw new GeneralException(__('exceptions.backend.blog-tag.already_exists'));
         }
 
         $input['status'] = isset($input['status']) ? 1 : 0;
@@ -105,7 +105,7 @@ class BlogTagsRepository extends BaseRepository
             return true;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.blog-tag.update_error'));
+        throw new GeneralException(__('exceptions.backend.blog-tag.update_error'));
     }
 
     /**
@@ -124,6 +124,6 @@ class BlogTagsRepository extends BaseRepository
             return true;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.blog-tag.delete_error'));
+        throw new GeneralException(__('exceptions.backend.blog-tag.delete_error'));
     }
 }

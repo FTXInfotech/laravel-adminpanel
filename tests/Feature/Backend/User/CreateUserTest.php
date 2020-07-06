@@ -91,7 +91,7 @@ class CreateUserTest extends TestCase
             ]
         );
 
-        $response->assertSessionHas(['flash_success' => __('alerts.backend.users.created')]);
+        $response->assertSessionHas(['flash_success' => __('alerts.backend.access.users.created')]);
         Event::assertDispatched(UserCreated::class);
     }
 
@@ -114,7 +114,7 @@ class CreateUserTest extends TestCase
             'roles' => [1 => 'administrator'],
         ]);
 
-        $response->assertSessionHas(['flash_success' => __('alerts.backend.users.created')]);
+        $response->assertSessionHas(['flash_success' => __('alerts.backend.access.users.created')]);
 
         $user = User::where('email', 'john@example.com')->first();
         Notification::assertSentTo($user, UserNeedsConfirmation::class);

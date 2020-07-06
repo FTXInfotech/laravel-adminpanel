@@ -26,7 +26,7 @@ class ManageUserSocialTest extends TestCase
         $this->assertSame(1, $user->fresh()->providers()->count());
         $response = $this->delete("/admin/auth/user/{$user->id}/social/{$provider->id}/unlink");
         $this->assertSame(0, $user->fresh()->providers()->count());
-        $response->assertSessionHas(['flash_success' => __('alerts.backend.users.social_deleted')]);
+        $response->assertSessionHas(['flash_success' => __('alerts.backend.access.users.social_deleted')]);
     }
 
     /** @test */
@@ -45,6 +45,6 @@ class ManageUserSocialTest extends TestCase
         $this->assertSame(1, $user->fresh()->providers()->count());
         $response = $this->delete("/admin/auth/user/{$user->id}/social/{$provider->id}/unlink");
         $this->assertSame(0, $user->fresh()->providers()->count());
-        $response->assertSessionHas(['flash_success' => __('alerts.backend.users.social_deleted')]);
+        $response->assertSessionHas(['flash_success' => __('alerts.backend.access.users.social_deleted')]);
     }
 }

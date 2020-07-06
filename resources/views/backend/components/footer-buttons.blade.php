@@ -5,7 +5,7 @@
         </div><!--col-->
 
         <div class="col text-right">
-            {{ Form::submit((isset($id)) ? trans('buttons.general.crud.edit') : trans('buttons.general.crud.create'), ['class' => 'btn btn-success btn-sm pull-right']) }}
+            {{ Form::submit((isset($id)) ? trans('buttons.general.crud.update') : trans('buttons.general.crud.create'), ['class' => 'btn btn-success btn-sm pull-right']) }}
         </div><!--row-->
     </div><!--row-->
 </div><!--card-footer-->

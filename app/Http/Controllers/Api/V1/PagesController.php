@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Resources\PagesResource;
-use App\Models\Pages\Page;
-use App\Repositories\Backend\Pages\PagesRepository;
+use App\Models\Page;
+use App\Repositories\Backend\PagesRepository;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -105,7 +105,7 @@ class PagesController extends APIController
         $this->repository->delete($page);
 
         return $this->respond([
-            'message' => trans('alerts.backend.pages.deleted'),
+            'message' => __('alerts.backend.pages.deleted'),
         ]);
     }
 

@@ -88,7 +88,7 @@ class UserRepository extends BaseRepository
 
                 //User Created, Validate Roles
                 if (!count($roles)) {
-                    throw new GeneralException(trans('exceptions.backend.access.users.role_needed_create'));
+                    throw new GeneralException(__('exceptions.backend.access.users.role_needed_create'));
                 }
 
                 //Attach new roles
@@ -107,7 +107,7 @@ class UserRepository extends BaseRepository
                 return true;
             }
 
-            throw new GeneralException(trans('exceptions.backend.access.users.create_error'));
+            throw new GeneralException(__('exceptions.backend.access.users.create_error'));
         });
     }
 
@@ -151,7 +151,7 @@ class UserRepository extends BaseRepository
                 return true;
             }
 
-            throw new GeneralException(trans('exceptions.backend.access.users.update_error'));
+            throw new GeneralException(__('exceptions.backend.access.users.update_error'));
         });
     }
 
@@ -167,7 +167,7 @@ class UserRepository extends BaseRepository
     public function delete(User $user)
     {
         if (access()->id() == $user->id) {
-            throw new GeneralException(trans('exceptions.backend.access.users.cant_delete_self'));
+            throw new GeneralException(__('exceptions.backend.access.users.cant_delete_self'));
         }
 
         if ($user->delete()) {
@@ -176,7 +176,7 @@ class UserRepository extends BaseRepository
             return true;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.users.delete_error'));
+        throw new GeneralException(__('exceptions.backend.access.users.delete_error'));
     }
 
     /**
@@ -208,7 +208,7 @@ class UserRepository extends BaseRepository
     public function mark(User $user, $status): User
     {
         if (access()->id() == $user->id && $status == 0) {
-            throw new GeneralException(trans('exceptions.backend.access.users.cant_deactivate_self'));
+            throw new GeneralException(__('exceptions.backend.access.users.cant_deactivate_self'));
         }
 
         $user->status = $status;
@@ -357,7 +357,7 @@ class UserRepository extends BaseRepository
     {
         // Figure out if email is not the same and check to see if email exists
         if ($user->email !== $email && $this->query()->where('email', '=', $email)->first()) {
-            throw new GeneralException(trans('exceptions.backend.access.users.email_error'));
+            throw new GeneralException(__('exceptions.backend.access.users.email_error'));
         }
     }
 
@@ -392,7 +392,7 @@ class UserRepository extends BaseRepository
         //User Updated, Update Roles
         //Validate that there's at least one role chosen
         if (count($roles) == 0) {
-            throw new GeneralException(trans('exceptions.backend.access.users.role_needed'));
+            throw new GeneralException(__('exceptions.backend.access.users.role_needed'));
         }
     }
 

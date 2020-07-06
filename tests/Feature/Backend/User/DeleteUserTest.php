@@ -42,7 +42,7 @@ class DeleteUserTest extends TestCase
         Event::fake();
 
         $response = $this->get("/admin/auth/user/{$user->id}/restore");
-        $response->assertSessionHas(['flash_success' => __('alerts.backend.users.restored')]);
+        $response->assertSessionHas(['flash_success' => __('alerts.backend.access.users.restored')]);
 
         $this->assertNull($user->fresh()->deleted_at);
         Event::assertDispatched(UserRestored::class);
@@ -58,7 +58,7 @@ class DeleteUserTest extends TestCase
         $response = $this->get("/admin/auth/user/{$user->id}/delete");
 
         $this->assertNull($user->fresh());
-        $response->assertSessionHas(['flash_success' => __('alerts.backend.users.deleted_permanently')]);
+        $response->assertSessionHas(['flash_success' => __('alerts.backend.access.users.deleted_permanently')]);
         Event::assertDispatched(UserPermanentlyDeleted::class);
     }
 
@@ -81,7 +81,7 @@ class DeleteUserTest extends TestCase
 
         $response = $this->delete("/admin/auth/user/{$user->id}");
 
-        $response->assertSessionHas(['flash_success' => __('alerts.backend.users.deleted')]);
+        $response->assertSessionHas(['flash_success' => __('alerts.backend.access.users.deleted')]);
         $this->assertDatabaseMissing('users', ['id' => $user->id, 'deleted_at' => null]);
     }
 }

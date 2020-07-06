@@ -59,7 +59,7 @@ class BlogCategoriesController extends Controller
     {
         $this->repository->create($request->except(['_token', '_method']));
 
-        return new RedirectResponse(route('admin.blog-categories.index'), ['flash_success' => trans('alerts.backend.blog-category.created')]);
+        return new RedirectResponse(route('admin.blog-categories.index'), ['flash_success' => __('alerts.backend.blog-category.created')]);
     }
 
     /**
@@ -83,7 +83,7 @@ class BlogCategoriesController extends Controller
     {
         $this->repository->update($blogCategory, $request->except(['_token', '_method']));
 
-        return new RedirectResponse(route('admin.blog-categories.index'), ['flash_success' => trans('alerts.backend.blog-category.updated')]);
+        return new RedirectResponse(route('admin.blog-categories.index'), ['flash_success' => __('alerts.backend.blog-category.updated')]);
     }
 
     /**
@@ -96,6 +96,6 @@ class BlogCategoriesController extends Controller
     {
         $this->repository->delete($blogCategory);
 
-        return new RedirectResponse(route('admin.blog-categories.index'), ['flash_success' => trans('alerts.backend.blog-category.deleted')]);
+        return new RedirectResponse(route('admin.blog-categories.index'), ['flash_success' => __('alerts.backend.blog-category.deleted')]);
     }
 }

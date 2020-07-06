@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Resources\BlogCategoriesResource;
-use App\Models\BlogCategories\BlogCategory;
-use App\Repositories\Backend\BlogCategories\BlogCategoriesRepository;
+use App\Models\BlogCategory;
+use App\Repositories\Backend\BlogCategoriesRepository;
 use Illuminate\Http\Request;
 use Validator;
 

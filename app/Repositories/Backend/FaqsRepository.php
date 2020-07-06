@@ -73,7 +73,7 @@ class FaqsRepository extends BaseRepository
             return $faq;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.faqs.create_error'));
+        throw new GeneralException(__('exceptions.backend.faqs.create_error'));
     }
 
     /**
@@ -92,7 +92,7 @@ class FaqsRepository extends BaseRepository
             return $faq;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.faqs.update_error'));
+        throw new GeneralException(__('exceptions.backend.faqs.update_error'));
     }
 
     /**
@@ -111,6 +111,6 @@ class FaqsRepository extends BaseRepository
             return true;
         }
 
-        throw new GeneralException(trans('exceptions.backend.access.faqs.delete_error'));
+        throw new GeneralException(__('exceptions.backend.faqs.delete_error'));
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Resources\FaqsResource;
-use App\Models\Faqs\Faq;
-use App\Repositories\Backend\Faqs\FaqsRepository;
+use App\Models\Faq;
+use App\Repositories\Backend\FaqsRepository;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -105,7 +105,7 @@ class FaqsController extends APIController
         $this->repository->delete($faq);
 
         return $this->respond([
-            'message' => trans('alerts.backend.faqs.deleted'),
+            'message' => __('alerts.backend.faqs.deleted'),
         ]);
     }
 

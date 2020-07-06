@@ -26,6 +26,6 @@ class UserSocialController extends Controller
     {
         $socialRepository->delete($user, $social);
 
-        return redirect()->back()->withFlashSuccess(__('alerts.backend.users.social_deleted'));
+        return redirect()->back()->withFlashSuccess(__('alerts.backend.access.users.social_deleted'));
     }
 }

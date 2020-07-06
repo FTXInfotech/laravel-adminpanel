@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Resources\BlogsResource;
-use App\Models\Blogs\Blog;
-use App\Repositories\Backend\Blogs\BlogsRepository;
+use App\Models\Blog;
+use App\Repositories\Backend\BlogsRepository;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -106,7 +106,7 @@ class BlogsController extends APIController
         $this->repository->delete($blog);
 
         return $this->respond([
-            'message' => trans('alerts.backend.blogs.deleted'),
+            'message' => __('alerts.backend.blogs.deleted'),
         ]);
     }
 
