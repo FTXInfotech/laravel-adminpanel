@@ -18,6 +18,7 @@
         "davejamesmiller/laravel-breadcrumbs": "^5.0",
         "facade/ignition": "^1.11",
         "fideloper/proxy": "^4.0",
+        "knuckleswtf/scribe": "^1.2",
         "lab404/laravel-impersonate": "^1.4",
         "langleyfoxall/laravel-nist-password-rules": "^4.0",
         "laravel/framework": "^6.3",
