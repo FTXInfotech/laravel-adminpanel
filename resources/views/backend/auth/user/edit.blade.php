@@ -141,9 +141,9 @@
 
 @section('pagescript')
 <script>
-    Backend.Utils.documentReady(function() {
-        Backend.Users.selectors.getPremissionURL = "{{ route('admin.get.permission') }}";
-        Backend.Users.init("edit");
+    FTX.Utils.documentReady(function() {
+        FTX.Users.edit.selectors.getPremissionURL = "{{ route('admin.get.permission') }}";
+        FTX.Users.edit.init();
     });
 </script>
 @endsection

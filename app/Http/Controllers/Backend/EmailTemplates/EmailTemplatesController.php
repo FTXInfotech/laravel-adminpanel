@@ -13,6 +13,7 @@ use App\Repositories\Backend\EmailTemplatesRepository;
 use App\Models\EmailTemplate;
 use App\Http\Responses\Backend\EmailTemplates\EditResponse;
 use App\Http\Responses\RedirectResponse;
+use Illuminate\Support\Facades\View;
 
 class EmailTemplatesController extends Controller
 {
@@ -27,6 +28,7 @@ class EmailTemplatesController extends Controller
     public function __construct(EmailTemplatesRepository $repository)
     {
         $this->repository = $repository;
+        View::share('js', ['email-templates']);
     }
 
     /**

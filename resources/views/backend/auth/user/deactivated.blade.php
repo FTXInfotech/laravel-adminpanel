@@ -52,8 +52,8 @@
 
 @section('pagescript')
 <script>
-    Backend.Utils.documentReady(function() {
-        Backend.UserPage.init('deactive');
+    FTX.Utils.documentReady(function() {
+        FTX.Users.list.init('deactive');
     });
 </script>
 @endsection

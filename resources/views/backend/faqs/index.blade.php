@@ -48,10 +48,9 @@
 @endsection
 
 @section('pagescript')
-
 <script>
-    Backend.Utils.documentReady(function() {
-        Backend.Faq.init();
+    FTX.Utils.documentReady(function() {
+        FTX.Faqs.list.init();
     });
 </script>
 

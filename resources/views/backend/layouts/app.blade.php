@@ -93,19 +93,18 @@
     {!! script(mix('js/manifest.js')) !!}
     {!! script(mix('js/vendor.js')) !!}
     {!! script(mix('js/backend.js')) !!}
-    {!! script(asset('js/backend/admin.js')) !!}
-    @stack('after-scripts')
     <script src="{{ asset('/js/tinymce/tinymce.min.js')}}"></script>
-    <script src="{{ asset('/js/backend/common.js')}}"></script>
+    {!! script(asset('js/backend/common.js')) !!}
 
-    <!-- <script src="{{ asset('/js/bootstrap.min.js')}}"></script> -->
-    <!-- 
-    <script src="{{ asset('js/bootstrap-datetimepicker/js/demo.js') }}"></script> 
-    <script src="{{ asset('/js/select2/select2.min.js')}}"></script>
-    <script src="{{ asset('/js/backend/common.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment-with-locales.min.js"></script>
-    <script src="{{ asset('/js/es.js')}}"></script>
-     -->
+
+    @isset($js)
+    @foreach($js as $j)
+    {!! script(asset('js/backend/'. $j. '.js')) !!}
+    @endforeach
+    @endif
+
+    @stack('after-scripts')
+
     @yield('pagescript')
 </body>
 

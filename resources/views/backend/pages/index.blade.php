@@ -49,8 +49,8 @@
 
 @section('pagescript')
 <script>
-    Backend.Utils.documentReady(function() {
-        Backend.Pages.init();
+    FTX.Utils.documentReady(function() {
+        FTX.Pages.list.init();
     });
 </script>
 @endsection

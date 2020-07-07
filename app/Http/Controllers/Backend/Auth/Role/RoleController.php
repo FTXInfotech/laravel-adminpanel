@@ -15,10 +15,11 @@ use App\Http\Responses\ViewResponse;
 use App\Models\Auth\Role;
 use App\Repositories\Backend\Auth\PermissionRepository;
 use App\Repositories\Backend\Auth\RoleRepository;
+use Illuminate\Support\Facades\View;
 
 class RoleController extends Controller
 {
-    
+
     /**
      * @var \App\Repositories\Backend\Auth\RoleRepository
      */
@@ -37,6 +38,7 @@ class RoleController extends Controller
     {
         $this->roleRepository        = $roleRepository;
         $this->permissionRepository  = $permissionRepository;
+        View::share('js', ['users','roles']);
     }
 
     /**

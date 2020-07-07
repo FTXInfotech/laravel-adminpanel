@@ -51,8 +51,8 @@
 
 @section('pagescript')
 <script>
-    Backend.Utils.documentReady(function() {
-        Backend.UserPage.init('list');
+    FTX.Utils.documentReady(function() {
+        FTX.Users.list.init('active');
     });
 </script>
 @endsection

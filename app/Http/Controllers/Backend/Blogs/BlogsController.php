@@ -13,6 +13,7 @@ use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
 use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
 use App\Http\Responses\RedirectResponse;
 use App\Http\Responses\ViewResponse;
+use Illuminate\Support\Facades\View;
 
 class BlogsController extends Controller
 {
@@ -37,6 +38,7 @@ class BlogsController extends Controller
     public function __construct(BlogsRepository $repository)
     {
         $this->repository = $repository;
+        View::share('js', ['blogs']);
     }
 
     /**

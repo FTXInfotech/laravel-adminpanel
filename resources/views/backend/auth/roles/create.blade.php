@@ -99,8 +99,8 @@
 
 @section('pagescript')
 <script>
-    Backend.Utils.documentReady(function() {
-        Backend.Roles.init("rolecreate")
+    FTX.Utils.documentReady(function() {
+        FTX.Roles.edit.init();
     });
 </script>
 @endsection

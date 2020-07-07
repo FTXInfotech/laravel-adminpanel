@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Auth\User\ManageUserRequest;
 use App\Models\Auth\User;
 use App\Repositories\Backend\Auth\UserRepository;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class UserStatusController.
@@ -23,6 +24,7 @@ class UserStatusController extends Controller
     public function __construct(UserRepository $repository)
     {
         $this->repository = $repository;
+        View::share('js', ['users']);
     }
 
     /**
@@ -60,8 +62,8 @@ class UserStatusController extends Controller
 
         return redirect()->route(
             (int) $status === 1 ?
-            'admin.auth.user.index' :
-            'admin.auth.user.deactivated'
+                'admin.auth.user.index' :
+                'admin.auth.user.deactivated'
         )->withFlashSuccess(__('alerts.backend.access.users.updated'));
     }
 

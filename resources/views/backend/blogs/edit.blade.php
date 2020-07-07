@@ -15,17 +15,3 @@
     </div><!--card-->
     {{ Form::close() }}
 @endsection
-
-@section('pagescript')
-    <script src="{{URL::asset('/js/moment.min.js')}}"></script>
-    <script src="{{URL::asset('/js/bootstrap-datetimepicker.min.js')}}"></script>
-    <script src="{{URL::asset('/js/select2/select2.min.js')}}"></script>
-    <script src="{{URL::asset('/js/tinymce/tinymce.min.js')}}"></script>
-    <script src="{{URL::asset('/js/backend/blogs.js')}}"></script>
-
-    <script type="text/javascript">
-
-        Blog.Blog.init('en_US');
-
-    </script>
-@stop

@@ -48,8 +48,8 @@
 
 @section('pagescript')
 <script>
-    Backend.Utils.documentReady(function() {
-        Backend.RolePage.init();
+    FTX.Utils.documentReady(function() {
+        FTX.Roles.list.init();
     });
 </script>
 @endsection

@@ -15,6 +15,7 @@ use App\Http\Responses\RedirectResponse;
 use App\Http\Responses\ViewResponse;
 use App\Models\Auth\Permission;
 use App\Repositories\Backend\Auth\PermissionRepository;
+use Illuminate\Support\Facades\View;
 
 class PermissionController extends Controller
 {
@@ -29,6 +30,7 @@ class PermissionController extends Controller
     public function __construct(PermissionRepository $repository)
     {
         $this->repository = $repository;
+        View::share('js', ['permissions']);
     }
 
     /**

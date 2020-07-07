@@ -15,6 +15,7 @@ use App\Http\Responses\RedirectResponse;
 use App\Http\Responses\ViewResponse;
 use App\Models\Page;
 use App\Repositories\Backend\PagesRepository;
+use Illuminate\Support\Facades\View;
 
 class PagesController extends Controller
 {
@@ -29,6 +30,7 @@ class PagesController extends Controller
     public function __construct(PagesRepository $repository)
     {
         $this->repository = $repository;
+        View::share('js', ['pages']);
     }
 
     /**

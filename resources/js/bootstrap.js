@@ -14,7 +14,7 @@ import 'select2';
 import moment from 'moment';
 import 'moment-timezone';
 import 'eonasdan-bootstrap-datetimepicker-bootstrap4beta';
-// import 'jstree';
+// require('tinymce');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

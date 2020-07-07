@@ -52,8 +52,8 @@
 
 @section('pagescript')
 <script>
-    Backend.Utils.documentReady(function() {
-        Backend.UserPage.init('deleted');
+    FTX.Utils.documentReady(function() {
+        FTX.Users.list.init('deleted');
     });
 </script>
 @endsection

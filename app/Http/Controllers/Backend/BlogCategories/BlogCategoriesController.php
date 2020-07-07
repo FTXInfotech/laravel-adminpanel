@@ -13,6 +13,7 @@ use App\Repositories\Backend\BlogCategoriesRepository;
 use App\Models\BlogCategory;
 use App\Http\Responses\Backend\BlogCategory\EditResponse;
 use App\Http\Responses\RedirectResponse;
+use Illuminate\Support\Facades\View;
 
 class BlogCategoriesController extends Controller
 {
@@ -27,6 +28,7 @@ class BlogCategoriesController extends Controller
     public function __construct(BlogCategoriesRepository $repository)
     {
         $this->repository = $repository;
+        View::share('js', ['blog-categories']);
     }
 
     /**

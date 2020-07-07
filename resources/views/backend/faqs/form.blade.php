@@ -58,8 +58,8 @@
 
 @section('pagescript')
 <script type="text/javascript">
-    Backend.Utils.documentReady(function() {
-        Backend.Faq.init('edit', "{{ config('locale.languages.' . app()->getLocale())[1] }}");
+    FTX.Utils.documentReady(function() {
+        FTX.Faqs.edit.init("{{ config('locale.languages.' . app()->getLocale())[1] }}");
     });
 </script>
 @stop

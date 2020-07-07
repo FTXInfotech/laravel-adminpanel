@@ -49,8 +49,8 @@
 
 @section('pagescript')
 <script>
-Backend.Utils.documentReady(function() {
-        Backend.EmailPage.init();
+    FTX.Utils.documentReady(function() {
+        FTX.EmailTemplate.list.init();
     });
 </script>
 @stop

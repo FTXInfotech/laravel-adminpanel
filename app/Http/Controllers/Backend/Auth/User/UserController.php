@@ -11,6 +11,7 @@ use App\Models\Auth\User;
 use App\Repositories\Backend\Auth\PermissionRepository;
 use App\Repositories\Backend\Auth\RoleRepository;
 use App\Repositories\Backend\Auth\UserRepository;
+use Illuminate\Support\Facades\View;
 
 class UserController extends Controller
 {
@@ -31,6 +32,7 @@ class UserController extends Controller
     {
         $this->userRepository = $userRepository;
         $this->roleRepository = $roleRepository;
+        View::share('js', ['users']);
     }
 
     /**

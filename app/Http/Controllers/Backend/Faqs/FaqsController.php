@@ -12,6 +12,7 @@ use App\Http\Responses\RedirectResponse;
 use App\Http\Responses\ViewResponse;
 use App\Models\Faq;
 use App\Repositories\Backend\FaqsRepository;
+use Illuminate\Support\Facades\View;
 
 class FaqsController extends Controller
 {
@@ -26,6 +27,7 @@ class FaqsController extends Controller
     public function __construct(FaqsRepository $repository)
     {
         $this->repository = $repository;
+        View::share('js', ['faqs']);
     }
 
     /**

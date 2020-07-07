@@ -13,6 +13,7 @@ use App\Repositories\Backend\BlogTagsRepository;
 use App\Models\BlogTag;
 use App\Http\Responses\Backend\BlogTag\EditResponse;
 use App\Http\Responses\RedirectResponse;
+use Illuminate\Support\Facades\View;
 
 class BlogTagsController extends Controller
 {
@@ -20,13 +21,14 @@ class BlogTagsController extends Controller
      * @var \App\Repositories\Backend\BlogTagsRepository
      */
     protected $repository;
-    
+
     /**
      * @param \App\Repositories\Backend\BlogTagsRepository $repository
      */
     public function __construct(BlogTagsRepository $repository)
     {
         $this->repository = $repository;
+        View::share('js', ['blog-tags']);
     }
 
     /**
