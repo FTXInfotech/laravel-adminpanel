@@ -53,6 +53,19 @@ class BaseRepository
     }
 
     /**
+     * Find Record based on specific column
+     * 
+     * @param string $value
+     * @param string $column_name
+     *
+     * @return mixed
+     */
+    public function getByColumn($value, $column_name='id')
+    {
+        return $this->query()->where($column_name, $value)->get();
+    }
+
+    /**
      * @return mixed
      */
     public function query()
@@ -72,4 +85,6 @@ class BaseRepository
         $collection = $this->getAll();
         return call_user_func(static::MODEL . '::getItems', $collection, $field_name);
     }
+
+
 }

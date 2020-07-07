@@ -35,6 +35,7 @@ class UpdatePasswordController extends Controller
     public function update(UpdatePasswordRequest $request)
     {
         $this->userRepository->updatePassword($request->only('old_password', 'password'));
+        //TODO: After password change, why user gets logout??
 
         return redirect()->route('frontend.user.account')->withFlashSuccess(__('strings.frontend.user.password_updated'));
     }
