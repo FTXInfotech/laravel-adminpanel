@@ -5,6 +5,7 @@ namespace App\Repositories\Frontend\Auth;
 use App\Events\Frontend\Auth\UserConfirmed;
 use App\Events\Frontend\Auth\UserProviderRegistered;
 use App\Exceptions\GeneralException;
+use App\Models\Auth\Role;
 use App\Models\Auth\SocialAccount;
 use App\Models\Auth\User;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
@@ -33,7 +34,7 @@ class UserRepository extends BaseRepository
      */
     public function updatePassword($input, $expired = false)
     {
-        
+
         $user = $this->find(auth()->id());
 
         if (Hash::check($input['old_password'], $user->password)) {
@@ -111,6 +112,106 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * @param array $data
+     *
+     * @throws \Exception
+     * @throws \Throwable
+     * @return \Illuminate\Database\Eloquent\Model|mixed
+     */
+    public function create(array $data)
+    {
+        $user = $this->createUserStub($data);
+        
+        return DB::transaction(function () use ($user, $data) {
+
+            if ($user->save()) {
+                //Attach new roles
+                if($roles = Role::where('name', config('access.users.default_role'))->get()->pluck('id')->toArray()) {
+                    $user->attachRoles($roles);
+                }
+            }
+
+            /*
+             * If users have to confirm their email and this is not a social account,
+             * and the account does not require admin approval
+             * send the confirmation email
+             *
+             * If this is a social account they are confirmed through the social provider by default
+             */
+            if (config('access.users.confirm_email')) {
+                // Pretty much only if account approval is off, confirm email is on, and this isn't a social account.
+                $user->notify(new UserNeedsConfirmation($user->confirmation_code));
+            }
+
+            // Return the user object
+            return $user;
+        });
+    }
+
+    /**
+     * @param  $input
+     *
+     * @return mixed
+     */
+    protected function createUserStub($input)
+    {
+        $user = self::MODEL;
+        $user = new $user();
+        $user->first_name = $input['first_name'];
+        $user->last_name = $input['last_name'];
+        $user->email = $input['email'];
+        $user->password = bcrypt($input['password']);
+        $user->confirmation_code = md5(uniqid(mt_rand(), true));
+        $user->confirmed = !(config('access.users.requires_approval') || config('access.users.confirm_email'));
+
+        return $user;
+    }
+    
+    /**
+     * @param $code
+     *
+     * @throws GeneralException
+     * @return bool
+     */
+    public function confirm($code)
+    {
+        $user = $this->findByConfirmationCode($code);
+
+        if ($user->confirmed === true) {
+            throw new GeneralException(__('exceptions.frontend.auth.confirmation.already_confirmed'));
+        }
+
+        if ($user->confirmation_code === $code) {
+            $user->confirmed = true;
+
+            event(new UserConfirmed($user));
+
+            return $user->save();
+        }
+
+        throw new GeneralException(__('exceptions.frontend.auth.confirmation.mismatch'));
+    }
+
+    /**
+     * @param $code
+     *
+     * @throws GeneralException
+     * @return mixed
+     */
+    public function findByConfirmationCode($code)
+    {
+        $user = $this->getByColumn($code, 'confirmation_code');
+
+        $model_name = static::MODEL;
+        
+        if ($user instanceof $model_name) {
+            return $user;
+        }
+
+        throw new GeneralException(__('exceptions.backend.access.users.not_found'));
+    }
+
+    /**
      * @param $token
      *
      * @return bool|\Illuminate\Database\Eloquent\Model
@@ -145,93 +246,9 @@ class UserRepository extends BaseRepository
         throw new GeneralException(__('exceptions.backend.access.users.not_found'));
     }
 
-    /**
-     * @param $code
-     *
-     * @throws GeneralException
-     * @return mixed
-     */
-    public function findByConfirmationCode($code)
-    {
-        $user = $this->model
-            ->where('confirmation_code', $code)
-            ->first();
+    
 
-        if ($user instanceof $this->model) {
-            return $user;
-        }
-
-        throw new GeneralException(__('exceptions.backend.access.users.not_found'));
-    }
-
-    /**
-     * @param array $data
-     *
-     * @throws \Exception
-     * @throws \Throwable
-     * @return \Illuminate\Database\Eloquent\Model|mixed
-     */
-    public function create(array $data)
-    {
-        return DB::transaction(function () use ($data) {
-            $user = $this->model::create([
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'email' => $data['email'],
-                'confirmation_code' => md5(uniqid(mt_rand(), true)),
-                'active' => true,
-                'password' => $data['password'],
-                // If users require approval or needs to confirm email
-                'confirmed' => !(config('access.users.requires_approval') || config('access.users.confirm_email')),
-            ]);
-
-            if ($user) {
-                // Add the default site role to the new user
-                $user->assignRole(config('access.users.default_role'));
-            }
-
-            /*
-             * If users have to confirm their email and this is not a social account,
-             * and the account does not require admin approval
-             * send the confirmation email
-             *
-             * If this is a social account they are confirmed through the social provider by default
-             */
-            if (config('access.users.confirm_email')) {
-                // Pretty much only if account approval is off, confirm email is on, and this isn't a social account.
-                $user->notify(new UserNeedsConfirmation($user->confirmation_code));
-            }
-
-            // Return the user object
-            return $user;
-        });
-    }
-
-
-    /**
-     * @param $code
-     *
-     * @throws GeneralException
-     * @return bool
-     */
-    public function confirm($code)
-    {
-        $user = $this->findByConfirmationCode($code);
-
-        if ($user->confirmed === true) {
-            throw new GeneralException(__('exceptions.frontend.auth.confirmation.already_confirmed'));
-        }
-
-        if ($user->confirmation_code === $code) {
-            $user->confirmed = true;
-
-            event(new UserConfirmed($user));
-
-            return $user->save();
-        }
-
-        throw new GeneralException(__('exceptions.frontend.auth.confirmation.mismatch'));
-    }
+    
 
     /**
      * @param $data

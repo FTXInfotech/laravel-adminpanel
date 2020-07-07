@@ -62,7 +62,7 @@ class BaseRepository
      */
     public function getByColumn($value, $column_name='id')
     {
-        return $this->query()->where($column_name, $value)->get();
+        return $this->query()->where($column_name, $value)->first();
     }
 
     /**
