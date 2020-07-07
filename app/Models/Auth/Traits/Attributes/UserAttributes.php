@@ -255,11 +255,12 @@ trait UserAttributes
                         <li>' . $this->getStatusButtonAttribute('') . '</li>
                         <li>' . $this->getClearSessionButtonAttribute('') . '</li>
                         <li>' . $this->getDeleteButtonAttribute('') . '</li>
-                        <li>' . $this->getLoginAsButtonAttribute('') . '</li>
+                        
                         </ul>
                     </div>';
 
             $str .= '';
+            // <li>' . $this->getLoginAsButtonAttribute('') . '</li>
         }
 
         return $str;
