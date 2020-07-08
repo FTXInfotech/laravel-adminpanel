@@ -40,7 +40,7 @@ class UpdateBlogTagsRequest extends FormRequest
     {
         return [
             'name.unique'   => __('exceptions.backend.blog-tag.already_exists'),
-            'name.required' => 'Blog tag name must required',
+            'name.required' => 'Please insert Blog Tag',
             'name.max'      => 'Blog tag may not be greater than 191 characters.',
         ];
     }

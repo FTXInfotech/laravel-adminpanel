@@ -1,0 +1,1156 @@
+{
+    "variables": [],
+    "info": {
+        "name": "Laravel Starter API",
+        "_postman_id": "4127ef3d-0e70-4333-ab4e-1055d5b85160",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "description": "\nClass AuthController\n\nFullfills all aspects related to authenticate a user.",
+            "item": [
+                {
+                    "name": "Attempt to login the user.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/auth\/login",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/auth\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"\\\"user@test.com\\\"\",\n    \"password\": \"\\\"abc@123_4\\\"\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "If login is successfull, you get an api_token in response. Use that api_token to authenticate yourself for further api calls.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Attempt to logout the user.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/auth\/logout",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/auth\/logout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "After successfull logut the token get invalidated and can not be used further.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Get the authenticated User.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/auth\/me",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/auth\/me"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Blog Categories Management",
+            "description": "\nClass BlogCategoriesController\n\nAPI's for Blog Categories Management",
+            "item": [
+                {
+                    "name": "Get all Blog Categories",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/blog_categories",
+                            "query": [
+                                {
+                                    "key": "paginate",
+                                    "value": "11",
+                                    "description": "Which page to show. Example :12",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "orderBy",
+                                    "value": "molestias",
+                                    "description": "Order by accending or descending. Example :ASC or DESC",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "sortBy",
+                                    "value": "enim",
+                                    "description": "Sort by any database column. Example :created_at",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_categories?paginate=11&orderBy=molestias&sortBy=enim"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer P8VghceZ3aD65fE1k46avdb"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This enpoint provides a paginated list of all blog categories. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Create a new Blog Category",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/blog_categories",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_categories"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer 3ehZ6E5vDP61b8adfa4Vkgc"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"illum\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint lets you careate new Blog Category",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Gives a specific Blog Category",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/blog_categories\/:blog_category",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_categories\/:blog_category"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer 3h68e4gv61acfVPDEdbZ5ak"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint provides you a single Blog Category.\nThe Blog Category is identified based on the ID provided as url parameter.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update Blog Category",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/blog_categories\/:blog_category",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_categories\/:blog_category"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer kD5Z6cvd3Ebe4gfP61Vha8a"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"est\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint allows you to update existing Blog Category with new data.\nThe Blog Category to be updated is identified based on the ID provided as url parameter.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Delete Blog Category",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/blog_categories\/:blog_category",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_categories\/:blog_category"
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer v6a5kh3DV8PZg1ef6Eda4bc"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint allows you to delete a Blog Category.\nThe Blog Category to be deleted is identified based on the ID provided as url parameter.",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Blog Management",
+            "description": "\nClass BlogsController\n\nAPI's for Blog Management",
+            "item": [
+                {
+                    "name": "Get all Blogs",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/blogs",
+                            "query": [
+                                {
+                                    "key": "paginate",
+                                    "value": "5",
+                                    "description": "Which page to show. Example :12",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "orderBy",
+                                    "value": "facilis",
+                                    "description": "Order by accending or descending. Example :ASC or DESC",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "sortBy",
+                                    "value": "non",
+                                    "description": "Sort by any database column. Example :created_at",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blogs?paginate=5&orderBy=facilis&sortBy=non"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer kbfh6g8aPZDe3Ev6c15Vd4a"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This enpoint provides a paginated list of all blogs. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Create a new Blog",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/blogs",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blogs"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer aZfkc13h8DbaEv6PdV4g56e"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"suscipit\",\n    \"publish_datetime\": \"2020-07-08T08:24:47+0000\",\n    \"content\": \"asperiores\",\n    \"categories\": \"odit\",\n    \"tags\": \"at\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint lets you careate new Blog",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Gives a specific Blog",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/blogs\/:blog",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blogs\/:blog"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer ZDd6fv18cgakPeEaV4h563b"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint provides you a single Blog.\nThe Blog is identified based on the ID provided as url parameter.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update Blog",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/blogs\/:blog",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blogs\/:blog"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer fakcZvePEb645VhD3168dga"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"qui\",\n    \"publish_datetime\": \"2020-07-08T08:24:47+0000\",\n    \"content\": \"aut\",\n    \"categories\": \"maxime\",\n    \"tags\": \"similique\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint allows you to update existing Blog with new data.\nThe Blog to be updated is identified based on the ID provided as url parameter.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Delete Blog",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/blogs\/:blog",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blogs\/:blog"
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer gP5fvaD14E638kcdaZ6ehVb"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint allows you to delete a Blog.\nThe Blog to be deleted is identified based on the ID provided as url parameter.",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Blog Tag Management",
+            "description": "\nClass BlogTagsController\n\nAPI's for Blog Tag Management",
+            "item": [
+                {
+                    "name": "Get all Blog Tag",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/blog_tags",
+                            "query": [
+                                {
+                                    "key": "paginate",
+                                    "value": "15",
+                                    "description": "Which page to show. Example :12",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "orderBy",
+                                    "value": "hic",
+                                    "description": "Order by accending or descending. Example :ASC or DESC",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "sortBy",
+                                    "value": "expedita",
+                                    "description": "Sort by any database column. Example :created_at",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_tags?paginate=15&orderBy=hic&sortBy=expedita"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer 5ZPafhv8c13gD6k6Vd4baEe"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This enpoint provides a paginated list of all blog tags. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Create a new Blog Tag",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/blog_tags",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_tags"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer Dde8k53Evhg1Pc6Za6baV4f"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"molestiae\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint lets you careate new Blog Tage",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update Blog Tag",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/blog_tags\/:blog_tag",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_tags\/:blog_tag"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer cf1veh8VEZd36Pa5k4bgDa6"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"quisquam\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint allows you to update existing Blog Tag with new data.\nThe Blog Tag to be updated is identified based on the ID provided as url parameter.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Delete Blog Category",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/blog_tags\/:blog_tag",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_tags\/:blog_tag"
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer kbf6VhPZEdaea8c5614D3gv"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint allows you to delete a Blog Category.\nThe Blog Category to be deleted is identified based on the ID provided as url parameter.",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Faq Management",
+            "description": "\nClass FaqsController\n\nAPI's for Faq Management",
+            "item": [
+                {
+                    "name": "Get all Faq",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/faqs",
+                            "query": [
+                                {
+                                    "key": "paginate",
+                                    "value": "11",
+                                    "description": "Which page to show. Example :12",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "orderBy",
+                                    "value": "esse",
+                                    "description": "Order by accending or descending. Example :ASC or DESC",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "sortBy",
+                                    "value": "quaerat",
+                                    "description": "Sort by any database column. Example :created_at",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/faqs?paginate=11&orderBy=esse&sortBy=quaerat"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer d4g1c8b3kfDe65aEvaZPV6h"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This enpoint provides a paginated list of all faqs. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Create a new Faq",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/faqs",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/faqs"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer 4eZa1gf36bhV5Pc8DvEdak6"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"question\": \"ut\",\n    \"answer\": \"earum\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint lets you careate new Faq",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Gives a specific Faq",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/faqs\/:faq",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/faqs\/:faq"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer f6h5VbZ4evdagD6kP3ca8E1"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint provides you a single Faq.\nThe Faq is identified based on the ID provided as url parameter.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update Faq",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/faqs\/:faq",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/faqs\/:faq"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer 3haE58a14bgeDVcZfk6Pdv6"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"question\": \"consequuntur\",\n    \"answer\": \"excepturi\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint allows you to update existing Faq with new data.\nThe Faq to be updated is identified based on the ID provided as url parameter.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Delete Faq",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/faqs\/:faq",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/faqs\/:faq"
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer v46351hkPcZfbeaEDa6Vg8d"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint allows you to delete a Faq.\nThe Faq to be deleted is identified based on the ID provided as url parameter.",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Pages Management",
+            "description": "\nClass PagesController\n\nAPI's for Pages Management",
+            "item": [
+                {
+                    "name": "Get all Pages",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/pages",
+                            "query": [
+                                {
+                                    "key": "paginate",
+                                    "value": "14",
+                                    "description": "Which page to show. Example :12",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "orderBy",
+                                    "value": "inventore",
+                                    "description": "Order by accending or descending. Example :ASC or DESC",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "sortBy",
+                                    "value": "nulla",
+                                    "description": "Sort by any database column. Example :created_at",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/pages?paginate=14&orderBy=inventore&sortBy=nulla"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer ec4gkdEvfZ35Va61h6bD8Pa"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This enpoint provides a paginated list of all pages. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Create a new Page",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/pages",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/pages"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer 6e68Padv5ck1DfZa4hgVE3b"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"perspiciatis\",\n    \"description\": \"debitis\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint lets you careate new Page",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Gives a specific Page",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/pages\/:page",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/pages\/:page"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer vhPf31eVak665Zd4bacDg8E"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint provides you a single Page.\nThe Page is identified based on the ID provided as url parameter.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update Page",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/pages\/:page",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/pages\/:page"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer fVe6E5gPv1Zhkaba8dc6D43"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"maiores\",\n    \"description\": \"quas\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint allows you to update existing Page with new data.\nThe Page to be updated is identified based on the ID provided as url parameter.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Delete Page",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "127.0.0.1:8000",
+                            "path": "api\/v1\/pages\/:page",
+                            "query": [],
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/pages\/:page"
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer eaE1bhZP46Dagv8Vkcdf563"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "description": "This endpoint allows you to delete a Page.\nThe Page to be deleted is identified based on the ID provided as url parameter.",
+                        "response": []
+                    }
+                }
+            ]
+        }
+    ]
+}

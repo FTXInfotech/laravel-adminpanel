@@ -76,7 +76,7 @@ class BlogCategoriesRepository extends BaseRepository
         if ($blogcategory = BlogCategory::create($input)) {
             event(new BlogCategoryCreated($blogcategory));
 
-            return true;
+            return $blogcategory;
         }
 
         throw new GeneralException(__('exceptions.backend.blog-category.create_error'));
@@ -102,7 +102,7 @@ class BlogCategoriesRepository extends BaseRepository
         if ($blogcategory->update($input)) {
             event(new BlogCategoryUpdated($blogcategory));
 
-            return true;
+            return $blogcategory;
         }
 
         throw new GeneralException(__('exceptions.backend.blog-category.update_error'));

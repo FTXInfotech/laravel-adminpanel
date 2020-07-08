@@ -48,7 +48,7 @@ return [
         /*
          * Set this to true if your API is authenticated.
          */
-        'enabled' => false,
+        'enabled' => true,
 
         /*
          * Where is the auth value meant to be sent in a request?
@@ -79,7 +79,7 @@ return [
      * Text to place in the "Introduction" section. Markdown and HTML are supported.
      */
     'intro_text' => <<<INTRO
-Welcome to our API documentation!
+Welcome to our Laravel Starter API documentation!
 
 <aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile), and you can switch the programming language of the examples with the tabs in the top right (or from the nav menu at the top left on mobile).</aside>
 INTRO
@@ -102,7 +102,7 @@ INTRO
      * The base URL to be used in examples.
      * If this is null, Scribe will use the value of config('app.url').
      */
-    'base_url' => null,
+    'base_url' => '',
 
     /*
      * The HTML <title> for the generated documentation, and the name of the generated Postman collection.
@@ -126,7 +126,7 @@ INTRO
          * The base URL to be used in the Postman collection.
          * If this is null, Scribe will use the value of base_url set above.
          */
-        'base_url' => null,
+        'base_url' => "http://127.0.0.1:8000",
 
         /*
          * The description for the exported Postman collection.
@@ -182,7 +182,7 @@ INTRO
                 /*
                  * Match only routes whose paths match this pattern (use * as a wildcard to match any characters). Example: 'users/*'.
                  */
-                'prefixes' => ['*'],
+                'prefixes' => ['api/*'],
 
                 /*
                  * (Dingo router only) Match only routes registered under this version.
@@ -229,7 +229,7 @@ INTRO
                      * API calls will be made only for routes in this group matching these HTTP methods (GET, POST, etc).
                      * List the methods here or use '*' to mean all methods. Leave empty to disable API calls.
                      */
-                    'methods' => ['GET'],
+                    'methods' => [],
 
                     /*
                      * Laravel config variables which should be set for the API call.

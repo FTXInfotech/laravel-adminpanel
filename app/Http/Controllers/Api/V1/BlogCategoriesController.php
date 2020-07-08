@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
+use App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest;
 use App\Http\Resources\BlogCategoriesResource;
 use App\Models\BlogCategory;
 use App\Repositories\Backend\BlogCategoriesRepository;
 use Illuminate\Http\Request;
-use Validator;
 
+/**
+ * @group Blog Categories Management
+ * 
+ * Class BlogCategoriesController
+ * 
+ * API's for Blog Categories Management
+ * 
+ * @authenticated
+ */
 class BlogCategoriesController extends APIController
 {
     protected $repository;
@@ -23,8 +33,20 @@ class BlogCategoriesController extends APIController
     }
 
     /**
-     * Return the blog categories.
+     * Get all Blog Categories
+     * 
+     * This enpoint provides a paginated list of all blog categories. You can customize how many records you want in each 
+     * returned response as well as sort records based on a key in specific order.     
+     * 
+     * @queryParam paginate Which page to show. Example :12
+     * @queryParam orderBy Order by accending or descending. Example :ASC or DESC
+     * @queryParam sortBy Sort by any database column. Example :created_at
      *
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/blog-category/blog-category-list.json
+     *
+     * @param \Illuminate\Http\Request $request
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
@@ -39,9 +61,17 @@ class BlogCategoriesController extends APIController
     }
 
     /**
-     * Return the specified resource.
+     * Gives a specific Blog Category
      *
-     * @param BlogCategory blogCategory
+     * This endpoint provides you a single Blog Category.
+     * The Blog Category is identified based on the ID provided as url parameter.
+     *
+     * @urlParam id required The ID of the Blog Category.
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/blog-category/blog-category-show.json
+     *
+     * @param \App\Models\BlogCategory $blogCategory
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -51,85 +81,64 @@ class BlogCategoriesController extends APIController
     }
 
     /**
-     * Creates the Resource for Blog Categories.
+     * Create a new Blog Category
      *
-     * @param Request $request
+     * This endpoint lets you careate new Blog Category
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile status=201 responses/blog-category/blog-category-store.json
      *
+     * @param \App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest $request
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreBlogCategoriesRequest $request)
     {
-        $validation = $this->validateBlogCategories($request);
-
-        if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
-        }
-
         return new BlogCategoriesResource($this->repository->create($request->all()));
     }
 
     /**
-     * Update blog category.
+     * Update Blog Category
      *
-     * @param BlogCategory    $blogCategory
-     * @param Request $request
+     * This endpoint allows you to update existing Blog Category with new data.
+     * The Blog Category to be updated is identified based on the ID provided as url parameter.
+     *
+     * @urlParam id required The ID of the Blog Category.
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/blog-category/blog-category-update.json
+     * 
+     * @param \App\Models\BlogCategory $blogCategory
+     * @param \App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, BlogCategory $blogCategory)
+    public function update(UpdateBlogCategoriesRequest $request, BlogCategory $blogCategory)
     {
-        $validation = $this->validateBlogCategories($request, $blogCategory->id);
-
-        if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
-        }
-
         return new BlogCategoriesResource($this->repository->update($blogCategory, $request->all()));
     }
 
     /**
-     * Delete Blog Category.
+     * Delete Blog Category
      *
-     * @param BlogCategory    $blogCategory
-     * @param Request $request
+     * This endpoint allows you to delete a Blog Category.
+     * The Blog Category to be deleted is identified based on the ID provided as url parameter.
      *
+     * @urlParam id required The ID of the Blog Category.
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/blog-category/blog-category-destroy.json
+     * 
+     * @param \App\Models\BlogCategory $blogCategory
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(BlogCategory $blogCategory, Request $request)
+    public function destroy(BlogCategory $blogCategory)
     {
         $this->repository->delete($blogCategory);
 
         return $this->respond([
-            'message' => trans('alerts.backend.blog-categories.deleted'),
+            'message' => __('alerts.backend.blog-category.deleted'),
         ]);
-    }
-
-    /**
-     * validate Blog Category.
-     *
-     * @param $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function validateBlogCategories(Request $request, $id = 0)
-    {
-        $validation = Validator::make($request->all(), [
-            'name' => 'required|max:191|unique:blog_categories,name,'.$id,
-        ]);
-
-        return $validation;
-    }
-
-    /**
-     * validate message for validate blog.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function messages()
-    {
-        return [
-            'name.required' => 'Please insert Blog Title',
-            'name.max'      => 'Blog Title may not be greater than 191 characters.',
-        ];
     }
 }

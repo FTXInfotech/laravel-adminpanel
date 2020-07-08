@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\Backend\Faqs\StoreFaqsRequest;
+use App\Http\Requests\Backend\Faqs\UpdateFaqsRequest;
 use App\Http\Resources\FaqsResource;
 use App\Models\Faq;
 use App\Repositories\Backend\FaqsRepository;
 use Illuminate\Http\Request;
-use Validator;
 
+/**
+ * @group Faq Management
+ * 
+ * Class FaqsController
+ * 
+ * API's for Faq Management
+ * 
+ * @authenticated
+ */
 class FaqsController extends APIController
 {
     protected $repository;
@@ -23,8 +33,20 @@ class FaqsController extends APIController
     }
 
     /**
-     * Return the faqs.
+     * Get all Faq
+     * 
+     * This enpoint provides a paginated list of all faqs. You can customize how many records you want in each 
+     * returned response as well as sort records based on a key in specific order.     
+     * 
+     * @queryParam paginate Which page to show. Example :12
+     * @queryParam orderBy Order by accending or descending. Example :ASC or DESC
+     * @queryParam sortBy Sort by any database column. Example :created_at
      *
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/faq/faq-list.json
+     *
+     * @param \Illuminate\Http\Request $request
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
@@ -39,9 +61,17 @@ class FaqsController extends APIController
     }
 
     /**
-     * Return the specified resource.
+     * Gives a specific Faq
      *
-     * @param Faq $faq
+     * This endpoint provides you a single Faq.
+     * The Faq is identified based on the ID provided as url parameter.
+     *
+     * @urlParam id required The ID of the Faq.
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/faq/faq-show.json
+     *
+     * @param \App\Models\Faq $faq
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -51,33 +81,39 @@ class FaqsController extends APIController
     }
 
     /**
-     * Creates the Resource for Faq.
+     * Create a new Faq
      *
-     * @param Request $request
+     * This endpoint lets you careate new Faq
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile status=201 responses/faq/faq-store.json
      *
+     * @param \App\Http\Requests\Backend\Faqs\StoreFaqsRequest $request
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreFaqsRequest $request)
     {
-        $validation = $this->validateFaq($request);
-        if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
-        }
-
-        $this->repository->create($request->all());
-
-        return new FaqsResource(Faq::orderBy('created_at', 'desc')->first());
+        return new FaqsResource($this->repository->create($request->all()));
     }
 
     /**
-     * Update Faq.
+     * Update Faq
      *
-     * @param Faq     $faq
-     * @param Request $request
+     * This endpoint allows you to update existing Faq with new data.
+     * The Faq to be updated is identified based on the ID provided as url parameter.
+     *
+     * @urlParam id required The ID of the Faq.
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/faq/faq-update.json
+     * 
+     * @param \App\Models\Faq $faq
+     * @param \App\Http\Requests\Backend\Faqs\UpdateFaqsRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Faq $faq)
+    public function update(UpdateFaqsRequest $request, Faq $faq)
     {
         $validation = $this->validateFaq($request);
 
@@ -93,36 +129,26 @@ class FaqsController extends APIController
     }
 
     /**
-     * Delete Faq.
+     * Delete Faq
      *
-     * @param Faq     $faq
-     * @param Request $request
+     * This endpoint allows you to delete a Faq.
+     * The Faq to be deleted is identified based on the ID provided as url parameter.
      *
+     * @urlParam id required The ID of the Faq.
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/faq/faq-destroy.json
+     * 
+     * @param \App\Models\Faq $faq
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Faq $faq, Request $request)
+    public function destroy(Faq $faq)
     {
         $this->repository->delete($faq);
 
         return $this->respond([
             'message' => __('alerts.backend.faqs.deleted'),
         ]);
-    }
-
-    /**
-     * validate Faq.
-     *
-     * @param $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function validateFaq(Request $request)
-    {
-        $validation = Validator::make($request->all(), [
-            'question' => 'required|max:191',
-            'answer'   => 'required',
-        ]);
-
-        return $validation;
     }
 }

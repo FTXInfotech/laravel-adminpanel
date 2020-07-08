@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
+use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
 use App\Http\Resources\BlogsResource;
 use App\Models\Blog;
 use App\Repositories\Backend\BlogsRepository;
 use Illuminate\Http\Request;
-use Validator;
 
+/**
+ * @group Blog Management
+ * 
+ * Class BlogsController
+ * 
+ * API's for Blog Management
+ * 
+ * @authenticated
+ */
 class BlogsController extends APIController
 {
     protected $repository;
@@ -23,8 +33,20 @@ class BlogsController extends APIController
     }
 
     /**
-     * Return the blogs.
+     * Get all Blogs
+     * 
+     * This enpoint provides a paginated list of all blogs. You can customize how many records you want in each 
+     * returned response as well as sort records based on a key in specific order.     
+     * 
+     * @queryParam paginate Which page to show. Example :12
+     * @queryParam orderBy Order by accending or descending. Example :ASC or DESC
+     * @queryParam sortBy Sort by any database column. Example :created_at
      *
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/blog/blog-list.json
+     *
+     * @param \Illuminate\Http\Request $request
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
@@ -39,9 +61,17 @@ class BlogsController extends APIController
     }
 
     /**
-     * Return the specified resource.
+     * Gives a specific Blog
      *
-     * @param Blog blog
+     * This endpoint provides you a single Blog.
+     * The Blog is identified based on the ID provided as url parameter.
+     *
+     * @urlParam id required The ID of the Blog.
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/blog/blog-show.json
+     *
+     * @param \App\Models\Blog blog
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -51,20 +81,19 @@ class BlogsController extends APIController
     }
 
     /**
-     * Creates the Resource for Blog.
+     * Create a new Blog
      *
-     * @param Request $request
+     * This endpoint lets you careate new Blog
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile status=201 responses/blog/blog-store.json
      *
+     * @param \App\Http\Requests\Backend\Blogs\StoreBlogsRequest $request
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreBlogsRequest $request)
     {
-        $validation = $this->validateBlog($request);
-
-        if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
-        }
-
         $request['categories'] = explode(',',trim($request->categories));
         $request['tags'] = explode(',',trim($request->tags));
 
@@ -72,21 +101,23 @@ class BlogsController extends APIController
     }
 
     /**
-     * Update blog.
+     * Update Blog
      *
-     * @param Blog    $blog
-     * @param Request $request
+     * This endpoint allows you to update existing Blog with new data.
+     * The Blog to be updated is identified based on the ID provided as url parameter.
+     *
+     * @urlParam id required The ID of the Blog.
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/blog/blog-update.json
+     * 
+     * @param \App\Models\Blog $blog
+     * @param \App\Http\Requests\Backend\Blogs\UpdateBlogsRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Blog $blog)
-    {
-        $validation = $this->validateBlog($request, $blog->id, 'update');
-
-        if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
-        }
-        
+    public function update(UpdateBlogsRequest $request, Blog $blog)
+    {   
         $request['categories'] = explode(',',trim($request->categories));
         $request['tags'] = explode(',',trim($request->tags));
 
@@ -94,11 +125,18 @@ class BlogsController extends APIController
     }
 
     /**
-     * Delete Blog.
+     * Delete Blog
      *
-     * @param Blog    $blog
-     * @param Request $request
+     * This endpoint allows you to delete a Blog.
+     * The Blog to be deleted is identified based on the ID provided as url parameter.
      *
+     * @urlParam id required The ID of the Blog.
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/blog/blog-destroy.json
+     * 
+     * @param \App\Models\Blog $blog
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Blog $blog, Request $request)
@@ -108,44 +146,5 @@ class BlogsController extends APIController
         return $this->respond([
             'message' => __('alerts.backend.blogs.deleted'),
         ]);
-    }
-
-    /**
-     * validate Blog.
-     *
-     * @param $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function validateBlog(Request $request, $id = 0, $action = 'insert')
-    {
-        $featured_image = ($action == 'insert') ? 'required' : '';
-
-        $publish_datetime = $request->publish_datetime !== '' ? 'required|date' : 'required';
-
-        $validation = Validator::make($request->all(), [
-            'name'              => 'required|max:191|unique:blogs,name,'.$id,
-            'featured_image'    => $featured_image,
-            'publish_datetime'  => $publish_datetime,
-            'content'           => 'required',
-            'categories'        => 'required',
-            'tags'              => 'required',
-        ]);
-
-        return $validation;
-    }
-
-    /**
-     * validate message for validate blog.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function messages()
-    {
-        return [
-            'name.required' => 'Please insert Blog Title.',
-            'name.unique'   => 'The blog name already taken. Please try with different name.',
-            'name.max'      => 'Blog Title may not be greater than 191 characters.',
-        ];
     }
 }

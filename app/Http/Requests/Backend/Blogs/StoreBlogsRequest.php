@@ -27,8 +27,7 @@ class StoreBlogsRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'              => 'required|max:191',
-            'featured_image'    => 'required',
+            'name'              => 'required|max:191|unique:blogs,name',
             'publish_datetime'  => 'required|date',
             'content'           => 'required',
             'categories'        => 'required',
@@ -46,6 +45,7 @@ class StoreBlogsRequest extends FormRequest
         return [
             'name.required' => 'Please insert Blog Title',
             'name.max'      => 'Blog Title may not be greater than 191 characters.',
+            'name.unique'   => 'The blog name already taken. Please try with different name.',
         ];
     }
 }

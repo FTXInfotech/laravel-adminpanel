@@ -75,7 +75,7 @@ class BlogTagsRepository extends BaseRepository
         if ($blogtag = BlogTag::create($input)) {
             event(new BlogTagCreated($blogtag));
 
-            return true;
+            return $blogtag;
         }
 
         throw new GeneralException(__('exceptions.backend.blog-tag.create_error'));
@@ -102,7 +102,7 @@ class BlogTagsRepository extends BaseRepository
 
             event(new BlogTagUpdated($blogtag));
 
-            return true;
+            return $blogtag;
         }
 
         throw new GeneralException(__('exceptions.backend.blog-tag.update_error'));

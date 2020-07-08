@@ -24,7 +24,7 @@ class StorePageRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'       => 'required|max:191',
+            'title'       => 'required|max:191|unique:pages,title',
             'description' => 'required',
         ];
     }

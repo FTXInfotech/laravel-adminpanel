@@ -1,0 +1,1756 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Laravel Starter</title>
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/style.css" media="screen" />
+        <link rel="stylesheet" href="css/print.css" media="print" />
+        <script src="js/all.js"></script>
+
+        <link rel="stylesheet" href="css/highlight-darcula.css" media="" />
+        <script src="js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="" data-languages="[&quot;bash&quot;,&quot;javascript&quot;]">
+<a href="#" id="nav-button">
+      <span>
+        NAV
+            <img src="images/navbar.png" alt="-image" class=""/>
+      </span>
+</a>
+<div class="tocify-wrapper">
+                <div class="lang-selector">
+                            <a href="#" data-language-name="bash">bash</a>
+                            <a href="#" data-language-name="javascript">javascript</a>
+                    </div>
+        <div class="search">
+        <input type="text" class="search" id="input-search" placeholder="Search">
+    </div>
+    <ul class="search-results"></ul>
+
+    <ul id="toc">
+    </ul>
+
+            <ul class="toc-footer" id="toc-footer">
+                            <li><a href="./collection.json">View Postman Collection</a></li>
+                            <li><a href='http://github.com/knuckleswtf/scribe'>Documentation powered by Scribe ✍</a></li>
+                    </ul>
+            <ul class="toc-footer" id="last-updated">
+            <li>Last updated: July 8 2020</li>
+        </ul>
+</div>
+<div class="page-wrapper">
+    <div class="dark-box"></div>
+    <div class="content">
+        <h1>Introduction</h1>
+<p>Welcome to our API documentation!</p>
+<aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile), and you can switch the programming language of the examples with the tabs in the top right (or from the nav menu at the top left on mobile).</aside><h1>Authenticating requests</h1>
+<p>This API is authenticated by sending an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {your-token}"</code></strong>.</p>
+<p>You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.</p><h1>Authentication</h1>
+<p>Class AuthController</p>
+<p>Fullfills all aspects related to authenticate a user.</p>
+<h2>Attempt to login the user.</h2>
+<p>If login is successfull, you get an api_token in response. Use that api_token to authenticate yourself for further api calls.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "/api/v1/auth/login" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"email":"\"user@test.com\"","password":"\"abc@123_4\""}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "/api/v1/auth/login"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "email": "\"user@test.com\"",
+    "password": "\"abc@123_4\""
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Login Successfull.",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTc1YjM0YmQ2Y2U5OWE3YTIwMTcxODY4NDcyNjJlOTRiOGYzZTExNTNjN2RhMzA0YzgwM2Q0NmY3YWVmMzRkMDFhZGIxY2JlY2M1YWZjNjUiLCJpYXQiOjE1OTQxOTA5MjksIm5iZiI6MTU5NDE5MDkyOSwiZXhwIjoxNjI1NzI2OTI5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.jkoXYrKQ9pV9qB1Kn4jIxBoSKSWYX3SgjFoefxdH9ZzDA2-XPAp7OFt1yHCjrzM3UJFSzd2BLNGQQmK-CE9-IAhz7DGQAnR7HIuTLGA2ze7mTR2BHofZe-KN0b-RXM_rEsDZLp-qX4zPS4hiJK38KCLM39TVPTZ4TcdvfgNwa1yqsAZko-kQ0-yCi4FkGExeogNuZwJ6ZsfQC-mW0QaPTgsDBXk7tXE4pd6kkDxTHSA-fo8-oL16UoFu70IxCQ8njVwpLJ6-Avb3TRtaedPGVeE8qja93Ly6QUnMns5yJSsKGjXRTTS-2vHCzPXcuW1eEQatwhD-ZMnLuLTHfQlSHz3q6Artqzpw9JjRNf3Fx7W2g4yBhs8FF-3nUl1B2nY2_uuPMoRdfFsrnHl4i7C-9cVAWQl34b4OmZyEf41Sqk1qvNnEUV3YJUcyO46iwAgSs2yuZ5fTQxCGVbMBJwfVAjgHBfozp2lqE2BixQwcRrU33H41JAQK3zRNmPuAOeODZisZkSYvdgRwJ5-GDJ0z9oHanrSrH4bfGbD5qPHp8PdE3Yez3UP0UxImDY7lX_d3_8iHbkNkrVDoOcvSOUqvqhjbVyCrnE9WzXBi9_igLZSff3Pwb6shVMnWLfUs9NpDXSDNFpwUm_O2rIhoLAmO78a3uwTxiYmBz1p3TmL0ZW0"
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-black">POST</small>
+<strong><code>api/v1/auth/login</code></strong></p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p><code><b>email</b></code>&nbsp; <small>string</small>     <br>
+Your email id.</p>
+<p><code><b>password</b></code>&nbsp; <small>string</small>     <br>
+Your Password.</p>
+<h2>Attempt to logout the user.</h2>
+<p>After successfull logut the token get invalidated and can not be used further.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "/api/v1/auth/logout" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "/api/v1/auth/logout"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Successfully logged out."
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-black">POST</small>
+<strong><code>api/v1/auth/logout</code></strong></p>
+<h2>Get the authenticated User.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "/api/v1/auth/me" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "/api/v1/auth/me"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "id": 1,
+    "uuid": "f62b88c6-36a4-4fbf-b7f3-03a62749ddd7",
+    "first_name": "Viral",
+    "last_name": "Solani",
+    "email": "admin@admin.com",
+    "avatar_type": "gravatar",
+    "avatar_location": null,
+    "password_changed_at": null,
+    "active": true,
+    "confirmation_code": "0ad265176572464826b6a61aaf98c4e0",
+    "confirmed": true,
+    "timezone": "America\/New_York",
+    "last_login_at": "2020-07-07 14:46:43",
+    "last_login_ip": "127.0.0.1",
+    "to_be_logged_out": false,
+    "status": 1,
+    "created_by": 1,
+    "updated_by": null,
+    "is_term_accept": 0,
+    "created_at": "2020-07-06 13:54:13",
+    "updated_at": "2020-07-07 14:46:43",
+    "deleted_at": null,
+    "full_name": "Viral Solani"
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-green">GET</small>
+<strong><code>api/v1/auth/me</code></strong></p><h1>Blog Categories Management</h1>
+<p>Class BlogCategoriesController</p>
+<p>API's for Blog Categories Management</p>
+<h2>Get all Blog Categories</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This enpoint provides a paginated list of all blog categories. You can customize how many records you want in each
+returned response as well as sort records based on a key in specific order.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://localhost/api/v1/blog_categories?paginate=16&amp;orderBy=nisi&amp;sortBy=veniam" \
+    -H "Authorization: Bearer 36ZfVE18kbedgvch5P4aaD6" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/blog_categories"
+);
+
+let params = {
+    "paginate": "16",
+    "orderBy": "nisi",
+    "sortBy": "veniam",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Authorization": "Bearer 36ZfVE18kbedgvch5P4aaD6",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": [
+        {
+            "id": 3,
+            "name": "Programming",
+            "status": "Active",
+            "created_at": "2020-07-07",
+            "created_by": "Viral"
+        },
+        {
+            "id": 4,
+            "name": "Business Management",
+            "status": "Active",
+            "created_at": "2020-07-08",
+            "created_by": "Viral"
+        },
+        {
+            "id": 5,
+            "name": "Software Development",
+            "status": "Active",
+            "created_at": "2020-07-08",
+            "created_by": "Viral"
+        }
+    ],
+    "links": {
+        "first": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_categories?page=1",
+        "last": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_categories?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "path": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_categories",
+        "per_page": 25,
+        "to": 3,
+        "total": 3
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-green">GET</small>
+<strong><code>api/v1/blog_categories</code></strong></p>
+<h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+<p><code><b>paginate</b></code>&nbsp;          <i>optional</i>    <br>
+Which page to show. Example :12</p>
+<p><code><b>orderBy</b></code>&nbsp;          <i>optional</i>    <br>
+Order by accending or descending. Example :ASC or DESC</p>
+<p><code><b>sortBy</b></code>&nbsp;          <i>optional</i>    <br>
+Sort by any database column. Example :created_at</p>
+<h2>Create a new Blog Category</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint lets you careate new Blog Category</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/api/v1/blog_categories" \
+    -H "Authorization: Bearer V6P5b64efcDkh1g8daaZ3vE" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"corporis"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/blog_categories"
+);
+
+let headers = {
+    "Authorization": "Bearer V6P5b64efcDkh1g8daaZ3vE",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "corporis"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (201):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 7,
+        "name": "Higher Studies",
+        "status": "InActive",
+        "created_at": "2020-07-08",
+        "created_by": "Viral"
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-black">POST</small>
+<strong><code>api/v1/blog_categories</code></strong></p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p><code><b>name</b></code>&nbsp; <small>string</small>     <br></p>
+<h2>Gives a specific Blog Category</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint provides you a single Blog Category.
+The Blog Category is identified based on the ID provided as url parameter.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://localhost/api/v1/blog_categories/1" \
+    -H "Authorization: Bearer 3aV1aP6e6vfchd5kbEZ4g8D" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/blog_categories/1"
+);
+
+let headers = {
+    "Authorization": "Bearer 3aV1aP6e6vfchd5kbEZ4g8D",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 7,
+        "name": "Higher Studies",
+        "status": "InActive",
+        "created_at": "2020-07-08",
+        "created_by": "Viral"
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-green">GET</small>
+<strong><code>api/v1/blog_categories/{blog_category}</code></strong></p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p><code><b>id</b></code>&nbsp;      <br>
+The ID of the Blog Category.</p>
+<h2>Update Blog Category</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint allows you to update existing Blog Category with new data.
+The Blog Category to be updated is identified based on the ID provided as url parameter.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT \
+    "http://localhost/api/v1/blog_categories/1" \
+    -H "Authorization: Bearer Z8v36k6EfaacbhVdg1P4D5e" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"repellendus"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/blog_categories/1"
+);
+
+let headers = {
+    "Authorization": "Bearer Z8v36k6EfaacbhVdg1P4D5e",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "repellendus"
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 7,
+        "name": "Higher Studies in India",
+        "status": "InActive",
+        "created_at": "2020-07-08",
+        "created_by": "Viral"
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-darkblue">PUT</small>
+<strong><code>api/v1/blog_categories/{blog_category}</code></strong></p>
+<p><small class="badge badge-purple">PATCH</small>
+<strong><code>api/v1/blog_categories/{blog_category}</code></strong></p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p><code><b>id</b></code>&nbsp;      <br>
+The ID of the Blog Category.</p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p><code><b>name</b></code>&nbsp; <small>string</small>     <br></p>
+<h2>Delete Blog Category</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint allows you to delete a Blog Category.
+The Blog Category to be deleted is identified based on the ID provided as url parameter.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE \
+    "http://localhost/api/v1/blog_categories/1" \
+    -H "Authorization: Bearer 4Pbdk1vfeagaE6cD3hV6Z58" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/blog_categories/1"
+);
+
+let headers = {
+    "Authorization": "Bearer 4Pbdk1vfeagaE6cD3hV6Z58",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "The blog category was successfully deleted."
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-red">DELETE</small>
+<strong><code>api/v1/blog_categories/{blog_category}</code></strong></p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p><code><b>id</b></code>&nbsp;      <br>
+The ID of the Blog Category.</p><h1>Blog Management</h1>
+<p>Class BlogsController</p>
+<p>API's for Blog Management</p>
+<h2>Get all Blogs</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This enpoint provides a paginated list of all blogs. You can customize how many records you want in each
+returned response as well as sort records based on a key in specific order.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://localhost/api/v1/blogs?paginate=1&amp;orderBy=officiis&amp;sortBy=et" \
+    -H "Authorization: Bearer EbdVgP63hfkc5a861evZ4aD" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/blogs"
+);
+
+let params = {
+    "paginate": "1",
+    "orderBy": "officiis",
+    "sortBy": "et",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Authorization": "Bearer EbdVgP63hfkc5a861evZ4aD",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": [
+        {
+            "id": 2,
+            "name": "Laravel in 2020",
+            "publish_datetime": "07\/07\/2020 05:24 PM",
+            "status": "Published",
+            "created_at": "2020-07-07",
+            "created_by": "Viral Solani"
+        }
+    ],
+    "links": {
+        "first": "http:\/\/127.0.0.1:8000\/api\/v1\/blogs?page=1",
+        "last": "http:\/\/127.0.0.1:8000\/api\/v1\/blogs?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "path": "http:\/\/127.0.0.1:8000\/api\/v1\/blogs",
+        "per_page": 25,
+        "to": 1,
+        "total": 1
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-green">GET</small>
+<strong><code>api/v1/blogs</code></strong></p>
+<h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+<p><code><b>paginate</b></code>&nbsp;          <i>optional</i>    <br>
+Which page to show. Example :12</p>
+<p><code><b>orderBy</b></code>&nbsp;          <i>optional</i>    <br>
+Order by accending or descending. Example :ASC or DESC</p>
+<p><code><b>sortBy</b></code>&nbsp;          <i>optional</i>    <br>
+Sort by any database column. Example :created_at</p>
+<h2>Create a new Blog</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint lets you careate new Blog</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/api/v1/blogs" \
+    -H "Authorization: Bearer cdD5aEZfe46kbgv8h13V6Pa" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"natus","publish_datetime":"2020-07-08T06:07:05+0000","content":"doloremque","categories":"error","tags":"omnis"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/blogs"
+);
+
+let headers = {
+    "Authorization": "Bearer cdD5aEZfe46kbgv8h13V6Pa",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "natus",
+    "publish_datetime": "2020-07-08T06:07:05+0000",
+    "content": "doloremque",
+    "categories": "error",
+    "tags": "omnis"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (201):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 3,
+        "name": "jQuery with React",
+        "publish_datetime": "07\/07\/2020 05:24 PM",
+        "status": null,
+        "created_at": "2020-07-08",
+        "created_by": "Viral Solani"
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-black">POST</small>
+<strong><code>api/v1/blogs</code></strong></p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p><code><b>name</b></code>&nbsp; <small>string</small>     <br></p>
+<p><code><b>publish_datetime</b></code>&nbsp; <small>string</small>     <br>
+The value must be a valid date.</p>
+<p><code><b>content</b></code>&nbsp; <small>string</small>     <br></p>
+<p><code><b>categories</b></code>&nbsp; <small>string</small>     <br></p>
+<p><code><b>tags</b></code>&nbsp; <small>string</small>     <br></p>
+<h2>Gives a specific Blog</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint provides you a single Blog.
+The Blog is identified based on the ID provided as url parameter.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://localhost/api/v1/blogs/1" \
+    -H "Authorization: Bearer 86fb6aPZ1ca4DV5Ekde3hgv" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/blogs/1"
+);
+
+let headers = {
+    "Authorization": "Bearer 86fb6aPZ1ca4DV5Ekde3hgv",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 2,
+        "name": "Laravel in 2020",
+        "publish_datetime": "07\/07\/2020 05:24 PM",
+        "status": "Published",
+        "created_at": "2020-07-07",
+        "created_by": "Viral Solani"
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-green">GET</small>
+<strong><code>api/v1/blogs/{blog}</code></strong></p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p><code><b>id</b></code>&nbsp;      <br>
+The ID of the Blog.</p>
+<h2>Update Blog</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint allows you to update existing Blog with new data.
+The Blog to be updated is identified based on the ID provided as url parameter.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT \
+    "http://localhost/api/v1/blogs/1" \
+    -H "Authorization: Bearer ek5V6bva864EchZ31dgPDfa" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"qui","publish_datetime":"2020-07-08T06:07:05+0000","content":"et","categories":"nihil","tags":"dolorum"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/blogs/1"
+);
+
+let headers = {
+    "Authorization": "Bearer ek5V6bva864EchZ31dgPDfa",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "qui",
+    "publish_datetime": "2020-07-08T06:07:05+0000",
+    "content": "et",
+    "categories": "nihil",
+    "tags": "dolorum"
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 3,
+        "name": "jQuery with React in 2020",
+        "publish_datetime": "07\/07\/2020 05:24 PM",
+        "status": "Published",
+        "created_at": "2020-07-08",
+        "created_by": "Viral Solani"
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-darkblue">PUT</small>
+<strong><code>api/v1/blogs/{blog}</code></strong></p>
+<p><small class="badge badge-purple">PATCH</small>
+<strong><code>api/v1/blogs/{blog}</code></strong></p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p><code><b>id</b></code>&nbsp;      <br>
+The ID of the Blog.</p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p><code><b>name</b></code>&nbsp; <small>string</small>     <br></p>
+<p><code><b>publish_datetime</b></code>&nbsp; <small>string</small>     <br>
+The value must be a valid date.</p>
+<p><code><b>content</b></code>&nbsp; <small>string</small>     <br></p>
+<p><code><b>categories</b></code>&nbsp; <small>string</small>     <br></p>
+<p><code><b>tags</b></code>&nbsp; <small>string</small>     <br></p>
+<h2>Delete Blog</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint allows you to delete a Blog.
+The Blog to be deleted is identified based on the ID provided as url parameter.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE \
+    "http://localhost/api/v1/blogs/1" \
+    -H "Authorization: Bearer vacbfaEDP613k58Vhge6Z4d" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/blogs/1"
+);
+
+let headers = {
+    "Authorization": "Bearer vacbfaEDP613k58Vhge6Z4d",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "The blog was successfully deleted."
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-red">DELETE</small>
+<strong><code>api/v1/blogs/{blog}</code></strong></p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p><code><b>id</b></code>&nbsp;      <br>
+The ID of the Blog.</p><h1>Blog Tag Management</h1>
+<p>Class BlogTagsController</p>
+<p>API's for Blog Tag Management</p>
+<h2>Get all Blog Tag</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This enpoint provides a paginated list of all blog tags. You can customize how many records you want in each
+returned response as well as sort records based on a key in specific order.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://localhost/api/v1/blog_tags?paginate=5&amp;orderBy=ipsam&amp;sortBy=sequi" \
+    -H "Authorization: Bearer 5ZcE8fePa1Db6d3a4Vgkvh6" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/blog_tags"
+);
+
+let params = {
+    "paginate": "5",
+    "orderBy": "ipsam",
+    "sortBy": "sequi",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Authorization": "Bearer 5ZcE8fePa1Db6d3a4Vgkvh6",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": [
+        {
+            "id": 4,
+            "name": "Laravel",
+            "status": "Active",
+            "created_at": "2020-07-08",
+            "created_by": "Viral"
+        },
+        {
+            "id": 5,
+            "name": "Codeigniter",
+            "status": "Active",
+            "created_at": "2020-07-08",
+            "created_by": "Viral"
+        }
+    ],
+    "links": {
+        "first": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_tags?page=1",
+        "last": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_tags?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "path": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_tags",
+        "per_page": 25,
+        "to": 2,
+        "total": 2
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-green">GET</small>
+<strong><code>api/v1/blog_tags</code></strong></p>
+<h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+<p><code><b>paginate</b></code>&nbsp;          <i>optional</i>    <br>
+Which page to show. Example :12</p>
+<p><code><b>orderBy</b></code>&nbsp;          <i>optional</i>    <br>
+Order by accending or descending. Example :ASC or DESC</p>
+<p><code><b>sortBy</b></code>&nbsp;          <i>optional</i>    <br>
+Sort by any database column. Example :created_at</p>
+<h2>Create a new Blog Tag</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint lets you careate new Blog Tage</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/api/v1/blog_tags" \
+    -H "Authorization: Bearer DV6Eg5d6kPeaZ138f4cabvh" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"pariatur"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/blog_tags"
+);
+
+let headers = {
+    "Authorization": "Bearer DV6Eg5d6kPeaZ138f4cabvh",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "pariatur"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 7,
+        "name": "Symphony 7",
+        "status": "InActive",
+        "created_at": "2020-07-08",
+        "created_by": "Viral"
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-black">POST</small>
+<strong><code>api/v1/blog_tags</code></strong></p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p><code><b>name</b></code>&nbsp; <small>string</small>     <br></p>
+<h2>Update Blog Tag</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint allows you to update existing Blog Tag with new data.
+The Blog Tag to be updated is identified based on the ID provided as url parameter.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT \
+    "http://localhost/api/v1/blog_tags/1" \
+    -H "Authorization: Bearer Z5aP1eEa6f4hVbdgc3Dv86k" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"incidunt"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/blog_tags/1"
+);
+
+let headers = {
+    "Authorization": "Bearer Z5aP1eEa6f4hVbdgc3Dv86k",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "incidunt"
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 7,
+        "name": "Symphony 6",
+        "status": "InActive",
+        "created_at": "2020-07-08",
+        "created_by": "Viral"
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-darkblue">PUT</small>
+<strong><code>api/v1/blog_tags/{blog_tag}</code></strong></p>
+<p><small class="badge badge-purple">PATCH</small>
+<strong><code>api/v1/blog_tags/{blog_tag}</code></strong></p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p><code><b>id</b></code>&nbsp;      <br>
+The ID of the Blog Tag.</p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p><code><b>name</b></code>&nbsp; <small>string</small>     <br></p>
+<h2>Delete Blog Category</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint allows you to delete a Blog Category.
+The Blog Category to be deleted is identified based on the ID provided as url parameter.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE \
+    "http://localhost/api/v1/blog_tags/1" \
+    -H "Authorization: Bearer VadEZfD46bak856chvPg31e" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/blog_tags/1"
+);
+
+let headers = {
+    "Authorization": "Bearer VadEZfD46bak856chvPg31e",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "The blog tag was successfully deleted."
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-red">DELETE</small>
+<strong><code>api/v1/blog_tags/{blog_tag}</code></strong></p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p><code><b>id</b></code>&nbsp;      <br>
+The ID of the Blog Category.</p><h1>Faq Management</h1>
+<p>Class FaqsController</p>
+<p>API's for Faq Management</p>
+<h2>Get all Faq</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This enpoint provides a paginated list of all faqs. You can customize how many records you want in each
+returned response as well as sort records based on a key in specific order.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://localhost/api/v1/faqs?paginate=12&amp;orderBy=repudiandae&amp;sortBy=inventore" \
+    -H "Authorization: Bearer 4fkc6aVv31Eeb8ZPD56hdag" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/faqs"
+);
+
+let params = {
+    "paginate": "12",
+    "orderBy": "repudiandae",
+    "sortBy": "inventore",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Authorization": "Bearer 4fkc6aVv31Eeb8ZPD56hdag",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": [
+        {
+            "id": 38,
+            "question": "Sint quia aut qui nobis quidem id fuga.",
+            "answer": "Voluptatem porro ut dolorem tenetur facilis suscipit. Sapiente enim sint ea et. Nihil laborum eos sunt. Dolore eligendi rerum maiores aperiam sapiente. Expedita quo harum magnam recusandae quia.",
+            "status": "InActive",
+            "created_at": "2020-06-26"
+        },
+        {
+            "id": 26,
+            "question": "Facilis modi ut et fuga.",
+            "answer": "Inventore delectus odio in excepturi consequatur. Nihil perspiciatis consequatur doloremque voluptas aut est architecto non. Repudiandae voluptas quos consequatur atque omnis omnis.",
+            "status": "InActive",
+            "created_at": "2020-06-27"
+        },
+        {
+            "id": 16,
+            "question": "Nisi fugit beatae id totam consequuntur qui.",
+            "answer": "Eum quibusdam voluptatum consequatur at et. Sunt eum consequuntur eveniet corrupti occaecati sequi qui nisi. Nulla unde qui similique et voluptates et. Placeat deserunt veritatis aut tenetur inventore.",
+            "status": "Active",
+            "created_at": "2020-06-27"
+        }
+    ],
+    "links": {
+        "first": "http:\/\/127.0.0.1:8000\/api\/v1\/faqs?page=1",
+        "last": "http:\/\/127.0.0.1:8000\/api\/v1\/faqs?page=17",
+        "prev": null,
+        "next": "http:\/\/127.0.0.1:8000\/api\/v1\/faqs?page=2"
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 17,
+        "path": "http:\/\/127.0.0.1:8000\/api\/v1\/faqs",
+        "per_page": "3",
+        "to": 3,
+        "total": 49
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-green">GET</small>
+<strong><code>api/v1/faqs</code></strong></p>
+<h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+<p><code><b>paginate</b></code>&nbsp;          <i>optional</i>    <br>
+Which page to show. Example :12</p>
+<p><code><b>orderBy</b></code>&nbsp;          <i>optional</i>    <br>
+Order by accending or descending. Example :ASC or DESC</p>
+<p><code><b>sortBy</b></code>&nbsp;          <i>optional</i>    <br>
+Sort by any database column. Example :created_at</p>
+<h2>Create a new Faq</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint lets you careate new Faq</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/api/v1/faqs" \
+    -H "Authorization: Bearer P481V5vkecDEZafa3hdgb66" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"question":"maxime","answer":"fugit"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/faqs"
+);
+
+let headers = {
+    "Authorization": "Bearer P481V5vkecDEZafa3hdgb66",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "question": "maxime",
+    "answer": "fugit"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (201):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 51,
+        "question": "Is this a question?",
+        "answer": "Yes this is a question.",
+        "status": "InActive",
+        "created_at": "2020-07-08"
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-black">POST</small>
+<strong><code>api/v1/faqs</code></strong></p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p><code><b>question</b></code>&nbsp; <small>string</small>     <br></p>
+<p><code><b>answer</b></code>&nbsp; <small>string</small>     <br></p>
+<h2>Gives a specific Faq</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint provides you a single Faq.
+The Faq is identified based on the ID provided as url parameter.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://localhost/api/v1/faqs/1" \
+    -H "Authorization: Bearer 4D3eVbZfaP68h5avEk1c6gd" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/faqs/1"
+);
+
+let headers = {
+    "Authorization": "Bearer 4D3eVbZfaP68h5avEk1c6gd",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 1,
+        "question": "Nisi praesentium commodi doloribus quis dolore.",
+        "answer": "Deserunt dignissimos ut repudiandae velit voluptatem ut et. Optio eos est laudantium corrupti. Corrupti non itaque corrupti ut. Est quia fugiat reprehenderit rerum in quaerat voluptatibus. Necessitatibus eos nesciunt iste dignissimos qui ea id.",
+        "status": "Active",
+        "created_at": "2020-07-05"
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-green">GET</small>
+<strong><code>api/v1/faqs/{faq}</code></strong></p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p><code><b>id</b></code>&nbsp;      <br>
+The ID of the Faq.</p>
+<h2>Update Faq</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint allows you to update existing Faq with new data.
+The Faq to be updated is identified based on the ID provided as url parameter.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT \
+    "http://localhost/api/v1/faqs/1" \
+    -H "Authorization: Bearer 64DfvkZ16d3a5Pchg8eVabE" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"question":"quas","answer":"quis"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/faqs/1"
+);
+
+let headers = {
+    "Authorization": "Bearer 64DfvkZ16d3a5Pchg8eVabE",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "question": "quas",
+    "answer": "quis"
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 51,
+        "question": "Is this a question?",
+        "answer": "Yes this is a question, but it is updated.",
+        "status": "InActive",
+        "created_at": "2020-07-08"
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-darkblue">PUT</small>
+<strong><code>api/v1/faqs/{faq}</code></strong></p>
+<p><small class="badge badge-purple">PATCH</small>
+<strong><code>api/v1/faqs/{faq}</code></strong></p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p><code><b>id</b></code>&nbsp;      <br>
+The ID of the Faq.</p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p><code><b>question</b></code>&nbsp; <small>string</small>     <br></p>
+<p><code><b>answer</b></code>&nbsp; <small>string</small>     <br></p>
+<h2>Delete Faq</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint allows you to delete a Faq.
+The Faq to be deleted is identified based on the ID provided as url parameter.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE \
+    "http://localhost/api/v1/faqs/1" \
+    -H "Authorization: Bearer E41gae6PvkcZa8Df3hd56Vb" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/faqs/1"
+);
+
+let headers = {
+    "Authorization": "Bearer E41gae6PvkcZa8Df3hd56Vb",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "The faq was successfully deleted."
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-red">DELETE</small>
+<strong><code>api/v1/faqs/{faq}</code></strong></p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p><code><b>id</b></code>&nbsp;      <br>
+The ID of the Faq.</p><h1>Pages Management</h1>
+<p>Class PagesController</p>
+<p>API's for Pages Management</p>
+<h2>Get all Pages</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This enpoint provides a paginated list of all pages. You can customize how many records you want in each
+returned response as well as sort records based on a key in specific order.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "/api/v1/pages?paginate=14&amp;orderBy=inventore&amp;sortBy=nulla" \
+    -H "Authorization: Bearer ec4gkdEvfZ35Va61h6bD8Pa" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "/api/v1/pages"
+);
+
+let params = {
+    "paginate": "14",
+    "orderBy": "inventore",
+    "sortBy": "nulla",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Authorization": "Bearer ec4gkdEvfZ35Va61h6bD8Pa",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": [
+        {
+            "id": 23,
+            "title": "Aspernatur hic voluptatem molestiae.",
+            "status_label": "&lt;label class='label label-success'&gt;Active&lt;\/label&gt;",
+            "status": "Active",
+            "created_at": "2020-06-26",
+            "created_by": "Vipul"
+        },
+        {
+            "id": 21,
+            "title": "Commodi consequatur velit odit odit.",
+            "status_label": "&lt;label class='label label-danger'&gt;Inactive&lt;\/label&gt;",
+            "status": "InActive",
+            "created_at": "2020-06-27",
+            "created_by": "Viral"
+        }
+    ],
+    "links": {
+        "first": "http:\/\/127.0.0.1:8000\/api\/v1\/pages?page=1",
+        "last": "http:\/\/127.0.0.1:8000\/api\/v1\/pages?page=25",
+        "prev": null,
+        "next": "http:\/\/127.0.0.1:8000\/api\/v1\/pages?page=2"
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 25,
+        "path": "http:\/\/127.0.0.1:8000\/api\/v1\/pages",
+        "per_page": "2",
+        "to": 2,
+        "total": 50
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-green">GET</small>
+<strong><code>api/v1/pages</code></strong></p>
+<h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+<p><code><b>paginate</b></code>&nbsp;          <i>optional</i>    <br>
+Which page to show. Example :12</p>
+<p><code><b>orderBy</b></code>&nbsp;          <i>optional</i>    <br>
+Order by accending or descending. Example :ASC or DESC</p>
+<p><code><b>sortBy</b></code>&nbsp;          <i>optional</i>    <br>
+Sort by any database column. Example :created_at</p>
+<h2>Create a new Page</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint lets you careate new Page</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "/api/v1/pages" \
+    -H "Authorization: Bearer 6e68Padv5ck1DfZa4hgVE3b" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"title":"perspiciatis","description":"debitis"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "/api/v1/pages"
+);
+
+let headers = {
+    "Authorization": "Bearer 6e68Padv5ck1DfZa4hgVE3b",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "title": "perspiciatis",
+    "description": "debitis"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (201):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 51,
+        "title": "Page Title",
+        "status_label": "&lt;label class='label label-danger'&gt;Inactive&lt;\/label&gt;",
+        "status": "InActive",
+        "created_at": "2020-07-08",
+        "created_by": "Viral"
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-black">POST</small>
+<strong><code>api/v1/pages</code></strong></p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p><code><b>title</b></code>&nbsp; <small>string</small>     <br></p>
+<p><code><b>description</b></code>&nbsp; <small>string</small>     <br></p>
+<h2>Gives a specific Page</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint provides you a single Page.
+The Page is identified based on the ID provided as url parameter.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "/api/v1/pages/1" \
+    -H "Authorization: Bearer vhPf31eVak665Zd4bacDg8E" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "/api/v1/pages/1"
+);
+
+let headers = {
+    "Authorization": "Bearer vhPf31eVak665Zd4bacDg8E",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 21,
+        "title": "Commodi consequatur velit odit odit.",
+        "status_label": "&lt;label class='label label-danger'&gt;Inactive&lt;\/label&gt;",
+        "status": "InActive",
+        "created_at": "2020-06-27",
+        "created_by": "Viral"
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-green">GET</small>
+<strong><code>api/v1/pages/{page}</code></strong></p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p><code><b>id</b></code>&nbsp;      <br>
+The ID of the Page.</p>
+<h2>Update Page</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint allows you to update existing Page with new data.
+The Page to be updated is identified based on the ID provided as url parameter.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT \
+    "/api/v1/pages/1" \
+    -H "Authorization: Bearer fVe6E5gPv1Zhkaba8dc6D43" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"title":"maiores","description":"quas"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "/api/v1/pages/1"
+);
+
+let headers = {
+    "Authorization": "Bearer fVe6E5gPv1Zhkaba8dc6D43",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "title": "maiores",
+    "description": "quas"
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": 51,
+        "title": "Page Title Updated",
+        "status_label": "&lt;label class='label label-danger'&gt;Inactive&lt;\/label&gt;",
+        "status": "InActive",
+        "created_at": "2020-07-08",
+        "created_by": "Viral"
+    }
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-darkblue">PUT</small>
+<strong><code>api/v1/pages/{page}</code></strong></p>
+<p><small class="badge badge-purple">PATCH</small>
+<strong><code>api/v1/pages/{page}</code></strong></p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p><code><b>id</b></code>&nbsp;      <br>
+The ID of the Page.</p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p><code><b>title</b></code>&nbsp; <small>string</small>     <br></p>
+<p><code><b>description</b></code>&nbsp; <small>string</small>     <br></p>
+<h2>Delete Page</h2>
+<p><small class="badge badge-darkred">requires authentication</small></p>
+<p>This endpoint allows you to delete a Page.
+The Page to be deleted is identified based on the ID provided as url parameter.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE \
+    "/api/v1/pages/1" \
+    -H "Authorization: Bearer eaE1bhZP46Dagv8Vkcdf563" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "/api/v1/pages/1"
+);
+
+let headers = {
+    "Authorization": "Bearer eaE1bhZP46Dagv8Vkcdf563",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401, api_key not provided):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "The page was successfully deleted."
+}</code></pre>
+<h3>Request</h3>
+<p><small class="badge badge-red">DELETE</small>
+<strong><code>api/v1/pages/{page}</code></strong></p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p><code><b>id</b></code>&nbsp;      <br>
+The ID of the Page.</p>
+    </div>
+    <div class="dark-box">
+                    <div class="lang-selector">
+                                    <a href="#" data-language-name="bash">bash</a>
+                                    <a href="#" data-language-name="javascript">javascript</a>
+                            </div>
+            </div>
+</div>
+<script>
+    $(function () {
+        var languages = ["bash","javascript"];
+        setupLanguages(languages);
+    });
+</script>
+</body>
+</html>

@@ -2,12 +2,23 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\Backend\Pages\StorePageRequest;
+use App\Http\Requests\Backend\Pages\UpdatePageRequest;
 use App\Http\Resources\PagesResource;
 use App\Models\Page;
 use App\Repositories\Backend\PagesRepository;
 use Illuminate\Http\Request;
 use Validator;
 
+/**
+ * @group Pages Management
+ * 
+ * Class PagesController
+ * 
+ * API's for Pages Management
+ * 
+ * @authenticated
+ */
 class PagesController extends APIController
 {
     protected $repository;
@@ -23,8 +34,20 @@ class PagesController extends APIController
     }
 
     /**
-     * Return the pages.
+     * Get all Pages
+     * 
+     * This enpoint provides a paginated list of all pages. You can customize how many records you want in each 
+     * returned response as well as sort records based on a key in specific order.     
+     * 
+     * @queryParam paginate Which page to show. Example :12
+     * @queryParam orderBy Order by accending or descending. Example :ASC or DESC
+     * @queryParam sortBy Sort by any database column. Example :created_at
      *
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/page/page-list.json
+     *
+     * @param \Illuminate\Http\Request $request
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
@@ -39,9 +62,17 @@ class PagesController extends APIController
     }
 
     /**
-     * Return the specified resource.
+     * Gives a specific Page
      *
-     * @param Pages $page
+     * This endpoint provides you a single Page.
+     * The Page is identified based on the ID provided as url parameter.
+     *
+     * @urlParam id required The ID of the Page.
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/page/page-show.json
+     *
+     * @param \App\Models\Page $page
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -51,79 +82,64 @@ class PagesController extends APIController
     }
 
     /**
-     * Creates the Resource for Page.
+     * Create a new Page
      *
-     * @param Request $request
+     * This endpoint lets you careate new Page
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile status=201 responses/page/page-store.json
      *
+     * @param \App\Http\Requests\Backend\Pages\StorePageRequest $request
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(StorePageRequest $request)
     {
-        $validation = $this->validatePages($request);
-        if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
-        }
-
-        $page = $this->repository->create($request->all());
-
-        return new PagesResource($page);
+        return new PagesResource($this->repository->create($request->all()));
     }
 
     /**
-     *  Update Page.
+     * Update Page
      *
-     * @param Page    $page
-     * @param Request $request
+     * This endpoint allows you to update existing Page with new data.
+     * The Page to be updated is identified based on the ID provided as url parameter.
+     *
+     * @urlParam id required The ID of the Page.
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/page/page-update.json
+     * 
+     * @param \App\Models\Page $page
+     * @param \App\Http\Requests\Backend\Pages\UpdatePageRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Page $page)
+    public function update(UpdatePageRequest $request, Page $page)
     {
-        $validation = $this->validatePages($request, $page->id);
-
-        if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
-        }
-
-        $this->repository->update($page, $request->all());
-
-        $page = Page::findOrfail($page->id);
-
-        return new PagesResource($page);
+        return new PagesResource($this->repository->update($page, $request->all()));
     }
 
     /**
-     *  Delete Page.
+     * Delete Page
      *
-     * @param Page              $page
-     * @param DeletePageRequest $request
+     * This endpoint allows you to delete a Page.
+     * The Page to be deleted is identified based on the ID provided as url parameter.
      *
+     * @urlParam id required The ID of the Page.
+     * 
+     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile responses/page/page-destroy.json
+     * 
+     * @param \App\Models\Page $page
+     * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Page $page, Request $request)
+    public function destroy(Page $page)
     {
         $this->repository->delete($page);
 
         return $this->respond([
             'message' => __('alerts.backend.pages.deleted'),
         ]);
-    }
-
-    /**
-     * validateUser Pages Requests.
-     *
-     * @param Request $request
-     * @param int     $id
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function validatePages(Request $request, $id = 0)
-    {
-        $validation = Validator::make($request->all(), [
-            'title'       => 'required|max:191|unique:pages,title,'.$id,
-            'description' => 'required',
-        ]);
-
-        return $validation;
     }
 }

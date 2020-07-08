@@ -8,6 +8,7 @@ use App\Events\Backend\Pages\PageUpdated;
 use App\Exceptions\GeneralException;
 use App\Models\Page;
 use App\Repositories\BaseRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 
 class PagesRepository extends BaseRepository
@@ -16,6 +17,29 @@ class PagesRepository extends BaseRepository
      * Associated Repository Model.
      */
     const MODEL = Page::class;
+
+    /**
+     * @param int    $paged
+     * @param string $orderBy
+     * @param string $sort
+     *
+     * @return mixed
+     */
+    public function getActivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc') : LengthAwarePaginator
+    {
+        return $this->query()
+            ->leftjoin('users', 'users.id', '=', 'pages.created_by')
+            ->select([
+                'pages.id',
+                'pages.title',
+                'pages.status',
+                'pages.created_by',
+                'pages.created_at',
+                'users.first_name as user_name',
+            ])
+            ->orderBy($orderBy, $sort)
+            ->paginate($paged);
+    }
 
     /**
      * @return mixed
