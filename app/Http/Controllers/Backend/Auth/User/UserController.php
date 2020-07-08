@@ -47,12 +47,10 @@ class UserController extends Controller
 
     /**
      * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     * @param \App\Repositories\Backend\Auth\RoleRepository $roleRepository
-     * @param \App\Repositories\Backend\Auth\PermissionRepository $permissionRepository
      *
      * @return mixed
      */
-    public function create(ManageUserRequest $request, RoleRepository $roleRepository, PermissionRepository $permissionRepository)
+    public function create(ManageUserRequest $request)
     {
         return view('backend.auth.user.create')
             ->withRoles($this->roleRepository->getAll());
@@ -66,7 +64,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $this->userRepository->create($request);
+        $this->userRepository->create($request->all());
 
         return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.access.users.created'));
     }
@@ -109,7 +107,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $this->userRepository->update($user, $request);
+        $this->userRepository->update($user, $request->all());
 
         return redirect()->route('admin.auth.user.index')->withFlashSuccess(__('alerts.backend.access.users.updated'));
     }

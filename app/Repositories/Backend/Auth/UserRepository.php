@@ -13,8 +13,6 @@ use App\Events\Backend\Auth\User\UserRestored;
 use App\Events\Backend\Auth\User\UserUnconfirmed;
 use App\Events\Backend\Auth\User\UserUpdated;
 use App\Exceptions\GeneralException;
-use App\Http\Requests\Backend\Auth\User\StoreUserRequest;
-use App\Http\Requests\Backend\Auth\User\UpdateUserRequest;
 use App\Models\Auth\User;
 use App\Notifications\Backend\Auth\UserAccountActive;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
@@ -73,17 +71,25 @@ class UserRepository extends BaseRepository
      * @throws \Throwable
      * @return User
      */
-    public function create(StoreUserRequest $request)
+    public function create(array $data)
     {
-        $data = $request->except('assignees_roles', 'permissions');
-        $roles = $request->get('assignees_roles');
-        $permissions = $request->get('permissions');
+        $roles = $permissions = [];
+
+        if(isset(($data['assignees_roles']))) {
+            $roles = $data['assignees_roles'];
+            unset($data['assignees_roles']);
+        }
+
+        if(isset(($data['permissions']))) {
+            $permissions = $data['permissions'];
+            unset($data['permissions']);
+        }
 
         $user = $this->createUserStub($data);
 
         $this->checkUserByEmail($user, $data['email']);
 
-        DB::transaction(function () use ($user, $data, $roles, $permissions) {
+        return DB::transaction(function () use ($user, $data, $roles, $permissions) {
             if ($user->save()) {
 
                 //User Created, Validate Roles
@@ -104,7 +110,7 @@ class UserRepository extends BaseRepository
 
                 event(new UserCreated($user));
 
-                return true;
+                return $user;
             }
 
             throw new GeneralException(__('exceptions.backend.access.users.create_error'));
@@ -120,11 +126,19 @@ class UserRepository extends BaseRepository
      * @throws \Throwable
      * @return \App\Models\Auth\User
      */
-    public function update(User $user, UpdateUserRequest $request)
+    public function update(User $user, array $data)
     {
-        $data = $request->except('assignees_roles', 'permissions');
-        $roles = $request->get('assignees_roles');
-        $permissions = $request->get('permissions');
+        $roles = $permissions = [];
+
+        if(isset(($data['assignees_roles']))) {
+            $roles = $data['assignees_roles'];
+            unset($data['assignees_roles']);
+        }
+
+        if(isset(($data['permissions']))) {
+            $permissions = $data['permissions'];
+            unset($data['permissions']);
+        }
 
         $this->checkUserByEmail($user, $data['email']);
 
@@ -148,7 +162,7 @@ class UserRepository extends BaseRepository
 
                 event(new UserUpdated($user));
 
-                return true;
+                return $user;
             }
 
             throw new GeneralException(__('exceptions.backend.access.users.update_error'));
@@ -302,7 +316,7 @@ class UserRepository extends BaseRepository
      * @throws \Throwable
      * @return \App\Models\Auth\User
      */
-    public function forceDelete(User $user): User
+    public function forceDelete(User $user)
     {
         if ($user->deleted_at === null) {
             throw new GeneralException(__('exceptions.backend.access.users.delete_first'));
@@ -318,7 +332,7 @@ class UserRepository extends BaseRepository
             
                 event(new UserPermanentlyDeleted($user));
 
-                return $user;   
+                return true;
             }
 
             throw new GeneralException(__('exceptions.backend.access.users.delete_error'));

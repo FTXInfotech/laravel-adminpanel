@@ -27,19 +27,20 @@ $factory->define(User::class, function (Generator $faker) {
         'remember_token' => Str::random(10),
         'confirmation_code' => md5(uniqid(mt_rand(), true)),
         'active' => true,
+        'status' => true,
         'confirmed' => true,
     ];
 });
 
 $factory->state(User::class, 'active', function () {
     return [
-        'active' => true,
+        'status' => true,
     ];
 });
 
 $factory->state(User::class, 'inactive', function () {
     return [
-        'active' => false,
+        'status' => false,
     ];
 });
 
