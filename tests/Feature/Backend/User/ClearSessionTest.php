@@ -13,7 +13,7 @@ class ClearSessionTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    /** @test- */
     public function an_admin_can_clear_a_user_session()
     {
         $this->loginAsAdmin();

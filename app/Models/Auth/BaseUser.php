@@ -59,6 +59,7 @@ abstract class BaseUser extends Authenticatable implements Recordable
      * @var array
      */
     protected $casts = [
+        'status' => 'boolean',
         'active' => 'boolean',
         'confirmed' => 'boolean',
         'to_be_logged_out' => 'boolean',

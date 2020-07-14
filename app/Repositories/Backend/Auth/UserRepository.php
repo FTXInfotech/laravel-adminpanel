@@ -73,29 +73,17 @@ class UserRepository extends BaseRepository
      */
     public function create(array $data)
     {
-        $roles = $permissions = [];
+        $roles = $data['assignees_roles'];
+        $permissions = $data['permissions'];
 
-        if(isset(($data['assignees_roles']))) {
-            $roles = $data['assignees_roles'];
-            unset($data['assignees_roles']);
-        }
-
-        if(isset(($data['permissions']))) {
-            $permissions = $data['permissions'];
-            unset($data['permissions']);
-        }
+        unset($data['assignees_roles']);
+        unset($data['permissions']);
 
         $user = $this->createUserStub($data);
 
-        $this->checkUserByEmail($user, $data['email']);
-
         return DB::transaction(function () use ($user, $data, $roles, $permissions) {
-            if ($user->save()) {
 
-                //User Created, Validate Roles
-                if (!count($roles)) {
-                    throw new GeneralException(__('exceptions.backend.access.users.role_needed_create'));
-                }
+            if ($user->save()) {
 
                 //Attach new roles
                 $user->attachRoles($roles);
@@ -104,7 +92,7 @@ class UserRepository extends BaseRepository
                 $user->attachPermissions($permissions);
 
                 //Send confirmation email if requested and account approval is off
-                if (isset($data['confirmation_email']) && $user->confirmed == 0) {
+                if (isset($data['confirmation_email']) && $user->confirmed == 0) {                    
                     $user->notify(new UserNeedsConfirmation($user->confirmation_code));
                 }
 
@@ -128,34 +116,18 @@ class UserRepository extends BaseRepository
      */
     public function update(User $user, array $data)
     {
-        $roles = $permissions = [];
+        $roles = $data['assignees_roles'];
+        $permissions = $data['permissions'];
 
-        if(isset(($data['assignees_roles']))) {
-            $roles = $data['assignees_roles'];
-            unset($data['assignees_roles']);
-        }
+        unset($data['assignees_roles']);
+        unset($data['permissions']);
 
-        if(isset(($data['permissions']))) {
-            $permissions = $data['permissions'];
-            unset($data['permissions']);
-        }
+        return DB::transaction(function () use ($user, $data, $roles, $permissions) {
 
-        $this->checkUserByEmail($user, $data['email']);
+            $user->status = isset($data['status']) && $data['status'] == '1' ? 1 : 0;
+            $user->confirmed = isset($data['confirmed']) && $data['confirmed'] == '1' ? 1 : 0;
 
-        // See if adding any additional permissions
-        if (!isset($data['permissions']) || !count($data['permissions'])) {
-            $data['permissions'] = [];
-        }
-
-        DB::transaction(function () use ($user, $data, $roles, $permissions) {
             if ($user->update($data)) {
-
-                $user->status = isset($data['status']) && $data['status'] == '1' ? 1 : 0;
-                $user->confirmed = isset($data['confirmed']) && $data['confirmed'] == '1' ? 1 : 0;
-
-                $user->save();
-
-                $this->checkUserRolesCount($roles);
                 
                 $user->roles()->sync($roles);
                 $user->permissions()->sync($permissions);
@@ -203,7 +175,7 @@ class UserRepository extends BaseRepository
     public function updatePassword(User $user, $input): User
     {
         if ($user->update(['password' => bcrypt($input['password'])])) {
-            
+
             event(new UserPasswordChanged($user));
 
             return $user;
@@ -259,7 +231,7 @@ class UserRepository extends BaseRepository
         $confirmed = $user->save();
 
         if ($confirmed) {
-            
+
             event(new UserConfirmed($user));
 
             // Let user know their account was approved
@@ -323,13 +295,13 @@ class UserRepository extends BaseRepository
         }
 
         return DB::transaction(function () use ($user) {
-            
+
             // Delete associated relationships
             $user->passwordHistories()->delete();
             $user->providers()->delete();
 
             if ($user->forceDelete()) {
-            
+
                 event(new UserPermanentlyDeleted($user));
 
                 return true;
@@ -359,20 +331,6 @@ class UserRepository extends BaseRepository
         }
 
         throw new GeneralException(__('exceptions.backend.access.users.restore_error'));
-    }
-
-    /**
-     * @param \App\Models\Auth\User $user
-     * @param string $email
-     *
-     * @throws GeneralException
-     */
-    protected function checkUserByEmail(User $user, $email)
-    {
-        // Figure out if email is not the same and check to see if email exists
-        if ($user->email !== $email && $this->query()->where('email', '=', $email)->first()) {
-            throw new GeneralException(__('exceptions.backend.access.users.email_error'));
-        }
     }
 
     /**
@@ -466,5 +424,5 @@ class UserRepository extends BaseRepository
             ->onlyTrashed()
             ->orderBy($orderBy, $sort)
             ->paginate($paged);
-    }    
+    }
 }

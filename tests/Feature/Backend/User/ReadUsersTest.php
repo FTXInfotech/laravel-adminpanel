@@ -15,10 +15,7 @@ class ReadUsersTest extends TestCase
     {
         $this->loginAsAdmin();
 
-        $response = $this->get('/admin/auth/user/create');
-
-        $response->assertStatus(200)
-            ->assertSee('E-mail Address');
+        $this->get(route('admin.auth.user.index'))->assertStatus(200)->assertSee('E-mail');
     }
 
     /** @test */
@@ -27,9 +24,6 @@ class ReadUsersTest extends TestCase
         $this->loginAsAdmin();
         $user = factory(User::class)->create();
 
-        $response = $this->get("/admin/auth/user/{$user->id}");
-
-        $response->assertStatus(200)
-            ->assertSee('Overview');
+        $this->get(route("admin.auth.user.show", $user))->assertStatus(200)->assertSee('Overview');
     }
 }

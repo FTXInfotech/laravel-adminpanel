@@ -17,6 +17,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        if(!auth()->user()->isAdmin())
+        {
+            return redirect(route('frontend.user.dashboard'))->withFlashDanger("You are not authorized to view admin dashboard.");
+        }
         return view('backend.dashboard');
     }
 

@@ -5,7 +5,7 @@ namespace Tests\Feature\Backend\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ReadRolesTest extends TestCase
+class ReadRoleTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -14,6 +14,6 @@ class ReadRolesTest extends TestCase
     {
         $this->loginAsAdmin();
 
-        $this->get('/admin/auth/role')->assertStatus(200);
+        $this->get(route('admin.auth.role.index'))->assertStatus(200);
     }
 }

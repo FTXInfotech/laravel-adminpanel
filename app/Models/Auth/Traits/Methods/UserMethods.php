@@ -78,7 +78,7 @@ trait UserMethods
      */
     public function isActive()
     {
-        return $this->active;
+        return $this->status;
     }
 
     /**

@@ -49,11 +49,6 @@ class RoleRepository extends BaseRepository
      */
     public function create(array $input)
     {
-        // Make sure it doesn't already exist
-        if ($this->query()->where('name', $input['name'])->first()) {
-            throw new GeneralException(__('exceptions.backend.access.roles.already_exists'));
-        }
-
         //See if the role has all access
         $all = $input['associated_permissions'] == 'all' ? true : false;
 
@@ -115,11 +110,6 @@ class RoleRepository extends BaseRepository
      */
     public function update(Role $role, array $input)
     {
-        // Make sure it doesn't already exist
-        if ($this->query()->where('name', $input['name'])->where('id', '<>', $role->id)->first()) {
-            throw new GeneralException(__('exceptions.backend.access.roles.already_exists'));
-        }
-
         //See if the role has all access, administrator always has all access
         if ($role->id == 1) {
             $all = true;
@@ -211,7 +201,7 @@ class RoleRepository extends BaseRepository
             throw new GeneralException(__('exceptions.backend.access.roles.has_users'));
         }
 
-        DB::transaction(function () use ($role) {
+        return DB::transaction(function () use ($role) {
             //Detach all associated roles
             $role->permissions()->sync([]);
 

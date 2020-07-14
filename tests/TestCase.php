@@ -15,6 +15,18 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
 
     /**
+     * This method allows us to call private or protected methods of an object.
+     * 
+     * @see https://stackoverflow.com/questions/249664/best-practices-to-test-protected-methods-with-phpunit
+     */
+    public function callPrivateMethod($obj, $name, array $args) {
+        $class = new \ReflectionClass($obj);
+        $method = $class->getMethod($name);
+        $method->setAccessible(true);
+        return $method->invokeArgs($obj, $args);
+    }
+
+    /**
      * Create the admin role or return it if it already exists.
      *
      * @return mixed
@@ -25,8 +37,7 @@ abstract class TestCase extends BaseTestCase
             return $role;
         }
 
-        $adminRole = factory(Role::class)->create(['name' => config('access.users.admin_role')]);
-        $adminRole->givePermissionTo(factory(Permission::class)->create(['name' => 'view backend']));
+        $adminRole = factory(Role::class)->create(['name' => config('access.users.admin_role'), 'all' => 1]);
 
         return $adminRole;
     }
@@ -42,7 +53,7 @@ abstract class TestCase extends BaseTestCase
     {
         $adminRole = $this->getAdminRole();
         $admin = factory(User::class)->create($attributes);
-        $admin->assignRole($adminRole);
+        $admin->attachRoles([$adminRole->id]);
 
         return $admin;
     }

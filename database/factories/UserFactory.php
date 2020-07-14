@@ -18,11 +18,11 @@ use Ramsey\Uuid\Uuid;
 
 $factory->define(User::class, function (Generator $faker) {
     return [
-        'uuid' => Uuid::uuid4()->toString(),
+        // 'uuid' => Uuid::uuid4()->toString(),
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
-        'password' => 'secret',
+        'password' => bcrypt('1234'),
         'password_changed_at' => null,
         'remember_token' => Str::random(10),
         'confirmation_code' => md5(uniqid(mt_rand(), true)),

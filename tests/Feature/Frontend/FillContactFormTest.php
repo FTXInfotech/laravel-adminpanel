@@ -9,9 +9,9 @@ use Tests\TestCase;
 class FillContactFormTest extends TestCase
 {
     /** @test */
-    public function the_contact_route_exists()
+    public function the_contact_form_get_route_exists()
     {
-        $this->get('/contact')->assertStatus(200);
+        $this->get(route('frontend.contact'))->assertStatus(200);
     }
 
     /** @test */
@@ -19,7 +19,7 @@ class FillContactFormTest extends TestCase
     {
         Mail::fake();
 
-        $response = $this->post('/contact/send', [
+        $response = $this->post(route('frontend.contact.send'), [
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'phone' => '+49 123 456 78',
@@ -33,14 +33,14 @@ class FillContactFormTest extends TestCase
     /** @test */
     public function it_redirects_back_after_success()
     {
-        $response = $this->from('/contact')->post('/contact/send', [
+        $response = $this->from(route('frontend.contact'))->post(route('frontend.contact.send'), [
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'phone' => '+49 123 456 78',
             'message' => 'This is a test message',
         ]);
 
-        $response->assertRedirect('/contact');
+        $response->assertRedirect(route('frontend.contact'));
     }
 
     /** @test */
@@ -48,7 +48,7 @@ class FillContactFormTest extends TestCase
     {
         Mail::fake();
 
-        $response = $this->from('/contact')->post('/contact/send', [
+        $response = $this->from(route('frontend.contact'))->post(route('frontend.contact.send'), [
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'message' => 'This is a test message',
@@ -61,7 +61,7 @@ class FillContactFormTest extends TestCase
     /** @test */
     public function name_is_required()
     {
-        $response = $this->from('/contact')->post('/contact/send', [
+        $response = $this->from(route('frontend.contact'))->post(route('frontend.contact.send'), [
             'email' => 'john@example.com',
             'message' => 'This is a test message',
         ]);
@@ -72,7 +72,7 @@ class FillContactFormTest extends TestCase
     /** @test */
     public function email_is_required()
     {
-        $response = $this->from('/contact')->post('/contact/send', [
+        $response = $this->from(route('frontend.contact'))->post(route('frontend.contact.send'), [
             'name' => 'John Doe',
             'message' => 'This is a test message',
         ]);
@@ -83,7 +83,7 @@ class FillContactFormTest extends TestCase
     /** @test */
     public function message_is_required()
     {
-        $response = $this->from('/contact')->post('/contact/send', [
+        $response = $this->from(route('frontend.contact'))->post(route('frontend.contact.send'), [
             'name' => 'John Doe',
             'email' => 'john@example.com',
         ]);

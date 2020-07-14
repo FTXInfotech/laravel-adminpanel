@@ -19,11 +19,14 @@ class ConfirmUserTest extends TestCase
     public function an_admin_can_confirm_a_user()
     {
         $this->loginAsAdmin();
+
         $user = factory(User::class)->states('unconfirmed')->create();
 
-        Event::fake();
+        Event::fake([
+            UserConfirmed::class,
+        ]);
 
-        $response = $this->get("/admin/auth/user/{$user->id}/confirm");
+        $response = $this->get(route("admin.auth.user.confirm", $user));
 
         $this->assertSame(true, $user->fresh()->confirmed);
         Event::assertDispatched(UserConfirmed::class);
@@ -37,8 +40,9 @@ class ConfirmUserTest extends TestCase
         $this->loginAsAdmin();
         $user = factory(User::class)->states('confirmed')->create();
 
-        $response = $this->get("/admin/auth/user/{$user->id}/confirm");
+        $response = $this->get(route("admin.auth.user.confirm", $user));
         $response->assertSessionHas(['flash_danger' => __('exceptions.backend.access.users.already_confirmed')]);
+
     }
 
     /** @test */
@@ -51,7 +55,7 @@ class ConfirmUserTest extends TestCase
 
         Notification::fake();
 
-        $this->get("/admin/auth/user/{$user->id}/confirm");
+        $this->get(route("admin.auth.user.confirm", $user));
 
         Notification::assertSentTo($user, UserAccountActive::class);
     }
@@ -62,11 +66,14 @@ class ConfirmUserTest extends TestCase
         $this->loginAsAdmin();
         $user = factory(User::class)->states('confirmed')->create();
 
-        Event::fake();
+        Event::fake(
+            UserUnconfirmed::class,
+        );
 
-        $response = $this->get("/admin/auth/user/{$user->id}/unconfirm");
+        $response = $this->get(route("admin.auth.user.unconfirm", $user));
 
         $this->assertSame(false, $user->fresh()->confirmed);
+
         Event::assertDispatched(UserUnconfirmed::class);
 
         $response->assertSessionHas(['flash_success' => __('alerts.backend.access.users.unconfirmed')]);
@@ -78,7 +85,7 @@ class ConfirmUserTest extends TestCase
         $this->loginAsAdmin();
         $user = factory(User::class)->states('unconfirmed')->create();
 
-        $response = $this->get("/admin/auth/user/{$user->id}/unconfirm");
+        $response = $this->get(route("admin.auth.user.unconfirm", $user));
         $response->assertSessionHas(['flash_danger' => __('exceptions.backend.access.users.not_confirmed')]);
     }
 
@@ -89,19 +96,18 @@ class ConfirmUserTest extends TestCase
         $second_admin = $this->createAdmin();
         $this->actingAs($second_admin);
 
-        $response = $this->get("/admin/auth/user/{$admin->id}/unconfirm");
+        $response = $this->get(route("admin.auth.user.unconfirm", $admin));
         $response->assertSessionHas(['flash_danger' => __('exceptions.backend.access.users.cant_unconfirm_admin')]);
     }
 
     /** @test */
     public function a_user_cannot_unconfirm_self()
     {
-        $this->loginAsAdmin();
+        factory(User::class)->create(); // First create a user so id of the user which we want to test will not be 1, because we consider a user with id 1 as administrator.
 
-        $second_admin = $this->createAdmin();
-        $this->actingAs($second_admin);
+        $user = $this->loginAsAdmin();
 
-        $response = $this->get("/admin/auth/user/{$second_admin->id}/unconfirm");
+        $response = $this->get(route("admin.auth.user.unconfirm", $user));
         $response->assertSessionHas(['flash_danger' => __('exceptions.backend.access.users.cant_unconfirm_self')]);
     }
 
@@ -111,9 +117,9 @@ class ConfirmUserTest extends TestCase
         $this->loginAsAdmin();
         $user = factory(User::class)->states(['unconfirmed', 'softDeleted'])->create();
 
-        $this->get("/admin/auth/user/{$user->id}/confirm");
+        $this->get(route("admin.auth.user.confirm", $user));
 
-        $this->assertSame(true, $user->fresh()->confirmed);
+        $this->assertSame(true, $user->refresh()->confirmed);
     }
 
     /** @test */
@@ -122,8 +128,8 @@ class ConfirmUserTest extends TestCase
         $this->loginAsAdmin();
         $user = factory(User::class)->states(['confirmed', 'softDeleted'])->create();
 
-        $this->get("/admin/auth/user/{$user->id}/unconfirm");
+        $this->get(route("admin.auth.user.unconfirm", $user));
 
-        $this->assertSame(false, $user->fresh()->confirmed);
+        $this->assertSame(false, $user->refresh()->confirmed);
     }
 }

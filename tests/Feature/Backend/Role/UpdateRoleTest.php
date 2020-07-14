@@ -3,9 +3,11 @@
 namespace Tests\Feature\Backend\Role;
 
 use App\Events\Backend\Auth\Role\RoleUpdated;
+use App\Models\Auth\Permission;
 use App\Models\Auth\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
+use Session;
 use Tests\TestCase;
 
 class UpdateRoleTest extends TestCase
@@ -18,7 +20,7 @@ class UpdateRoleTest extends TestCase
         $role = factory(Role::class)->create();
         $this->loginAsAdmin();
 
-        $this->get("/admin/auth/role/{$role->id}/edit")->assertStatus(200);
+        $this->get(route('admin.auth.role.edit', $role))->assertStatus(200);
     }
 
     /** @test */
@@ -27,9 +29,29 @@ class UpdateRoleTest extends TestCase
         $role = factory(Role::class)->create();
         $this->loginAsAdmin();
 
-        $response = $this->patch("/admin/auth/role/{$role->id}", ['name' => '']);
+        $response = $this->patch(route("admin.auth.role.update", $role), ['name' => '']);
 
         $response->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function the_name_must_be_unique()
+    {
+        $oldRole = factory(Role::class)->create(['name' => 'First Role']);
+        $role = factory(Role::class)->create(['name' => 'Second Role']);
+
+        $this->loginAsAdmin();
+
+        $permission = factory(Permission::class)->create();
+
+        $roleData = [
+            'name' => $oldRole->name,
+            'associated_permissions' => 'custom',
+            'permissions' => [$permission->id]
+        ];
+
+        $response = $this->patch(route("admin.auth.role.update", $role), $roleData);
+        $response->assertSessionHasErrors("name");
     }
 
     /** @test */
@@ -38,30 +60,36 @@ class UpdateRoleTest extends TestCase
         $role = factory(Role::class)->create();
         $this->loginAsAdmin();
 
-        $response = $this->patch("/admin/auth/role/{$role->id}", ['name' => 'new role']);
-
-        $response->assertSessionHas(['flash_danger' => __('exceptions.backend.access.roles.needs_permission')]);
+        $response = $this->patch(route("admin.auth.role.update", $role), ['name' => 'new role']);
+        $response->assertSessionHasErrors('permissions');
     }
 
-    /** @test */
+    /** 
+     * @test
+    */
     public function a_role_name_can_be_updated()
     {
-        $role = factory(Role::class)->create();
+        $role = factory(Role::class)->create(['id' => 2]);  //Changed Id because we are considering 1 as id of admin role.
+
         $this->loginAsAdmin();
 
-        $this->patch("/admin/auth/role/{$role->id}", ['name' => 'new name', 'permissions' => ['view backend']]);
+        $permission = factory(Permission::class)->create();
 
-        $this->assertSame('new name', $role->fresh()->name);
-    }
+        $roleData = [
+            'name' => 'new role',
+            'associated_permissions' => 'custom',
+            'permissions' => [$permission->id]
+        ];
 
-    /** @test */
-    public function an_event_gets_dispatched()
-    {
-        $role = factory(Role::class)->create();
-        Event::fake();
-        $this->loginAsAdmin();
+        Event::fake([
+            RoleUpdated::class,
+        ]);
 
-        $this->patch("/admin/auth/role/{$role->id}", ['name' => 'new name', 'permissions' => ['view backend']]);
+        $this->patch(route("admin.auth.role.update", $role), $roleData);
+
+        $role->refresh();
+        $this->assertSame($roleData['name'], $role->name);
+        $this->assertSame($permission->id, $role->permissions()->first()->id);
 
         Event::assertDispatched(RoleUpdated::class);
     }
