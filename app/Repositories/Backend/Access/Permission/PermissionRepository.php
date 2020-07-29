@@ -88,7 +88,7 @@ class PermissionRepository extends BaseRepository
         $permission->status = 1;
         $permission->updated_by = access()->user()->id;
 
-        DB::transaction(function () use ($permission, $input) {
+        DB::transaction(function () use ($permission) {
             if ($permission->save()) {
                 event(new PermissionUpdated($permission));
 
