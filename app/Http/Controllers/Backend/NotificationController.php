@@ -58,7 +58,7 @@ class NotificationController extends Controller
          * pass jsonencode array
          */
         echo json_encode($passArray);
-        die;
+        exit;
     }
 
     /*
@@ -68,7 +68,7 @@ class NotificationController extends Controller
     {
         $userId = Auth::user()->id;
         echo $this->notification->clearNotifications(5);
-        die;
+        exit;
     }
 
     /**
