@@ -74,7 +74,7 @@ class DashboardController extends Controller
             $results['rolePermissions'] = $rolePermissions;
             $results['allPermissions'] = $rsRolePermissions->all;
             echo json_encode($results);
-            die;
+            exit;
         }
     }
 }
