@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 class PagesTableSeeder extends Seeder
 {
-    use DisableForeignKeys, TruncateTable;
+    use DisableForeignKeys;
+    use TruncateTable;
 
     /**
      * Run the database seeds.

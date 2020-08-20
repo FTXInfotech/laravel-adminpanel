@@ -40,13 +40,13 @@ return [
         ],
 
          'expose_headers' => [
-            'Cache-Control',
-            'Content-Language',
-            'Content-Type',
-            'Expires',
-            'Last-Modified',
-            'Pragma',
-        ],
+             'Cache-Control',
+             'Content-Language',
+             'Content-Type',
+             'Expires',
+             'Last-Modified',
+             'Pragma',
+         ],
 
         'forbidden_response' => [
             'message' => 'Forbidden (cors).',

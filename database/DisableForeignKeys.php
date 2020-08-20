@@ -14,12 +14,12 @@ trait DisableForeignKeys
      */
     private $commands = [
         'mysql' => [
-          'enable'  => 'SET FOREIGN_KEY_CHECKS=1;',
-          'disable' => 'SET FOREIGN_KEY_CHECKS=0;',
+            'enable'  => 'SET FOREIGN_KEY_CHECKS=1;',
+            'disable' => 'SET FOREIGN_KEY_CHECKS=0;',
         ],
         'sqlite' => [
-          'enable'  => 'PRAGMA foreign_keys = ON;',
-          'disable' => 'PRAGMA foreign_keys = OFF;',
+            'enable'  => 'PRAGMA foreign_keys = ON;',
+            'disable' => 'PRAGMA foreign_keys = OFF;',
         ],
         'sqlsrv' => [
             'enable'  => 'EXEC sp_msforeachtable @command1="print \'?\'", @command2="ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all";',
