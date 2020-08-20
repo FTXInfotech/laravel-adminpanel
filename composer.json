@@ -11,7 +11,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^7.2",
+        "php": "^7.3",
         "arcanedev/log-viewer": "^5.1",
         "beyondcode/laravel-self-diagnosis": "^1.2",
         "creativeorange/gravatar": "~1.0",
