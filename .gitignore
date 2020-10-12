@@ -31,3 +31,5 @@ coverage.xml
 
 access.log
 error.log
+
+/reports

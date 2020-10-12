@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Backend\Pages;
 
-use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EditPageRequest extends FormRequest

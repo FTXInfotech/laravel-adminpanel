@@ -46,4 +46,7 @@
         <server name="REGISTRATION_CAPTCHA_STATUS" value="false"/>
         <server name="SESSION_DRIVER" value="array"/>
     </php>
+    <logging>
+        <log type="coverage-html" target="reports/html" lowUpperBound="50" highLowerBound="80" />
+    </logging>
 </phpunit>
