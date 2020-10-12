@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend\EmailTemplates;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest;
-use App\Repositories\Backend\EmailTemplatesRepository;
 use Yajra\DataTables\Facades\DataTables;
+use App\Repositories\Backend\EmailTemplatesRepository;
+use App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest;
 
 class EmailTemplatesTableController extends Controller
 {
@@ -36,7 +36,7 @@ class EmailTemplatesTableController extends Controller
                 }
             })
             ->filterColumn('created_by', function ($query, $keyword) {
-                $query->whereRaw("users.first_name like ?", ["%{$keyword}%"]);
+                $query->whereRaw('users.first_name like ?', ["%{$keyword}%"]);
             })
             ->editColumn('status', function ($emailTemplate) {
                 return $emailTemplate->status_label;
@@ -48,7 +48,7 @@ class EmailTemplatesTableController extends Controller
                 return $emailTemplate->action_buttons;
             })
             ->escapeColumns(['name'])
-            
+
             ->make(true);
     }
 }

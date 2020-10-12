@@ -34,8 +34,8 @@ class BaseModel extends Model
 
         foreach ($collection as $model) {
             $items[$model->id] = [
-                'id'    => $model->id,
-                'name'  => $model->$field_name,
+                'id' => $model->id,
+                'name' => $model->$field_name,
                 'model' => $model,
             ];
         }

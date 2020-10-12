@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Spatie\Permission\PermissionRegistrar;
 use Database\TruncateTable;
+use Illuminate\Database\Seeder;
 use Database\DisableForeignKeys;
+use Spatie\Permission\PermissionRegistrar;
 
 /**
  * Class AuthTableSeeder.
@@ -31,7 +31,7 @@ class AuthTableSeeder extends Seeder
         $this->call(UserTableSeeder::class);
         $this->call(RoleTableSeeder::class);
         $this->call(UserRoleTableSeeder::class);
-        $this->call(PermissionTableSeeder::class);        
+        $this->call(PermissionTableSeeder::class);
         $this->call(PermissionRoleSeeder::class);
         $this->call(PermissionUserSeeder::class);
 

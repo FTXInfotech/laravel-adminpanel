@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Backend\Pages;
 
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
-
 use App\Repositories\Backend\PagesRepository;
 use App\Http\Requests\Backend\Pages\ManagePageRequest;
 
 class PagesTableController extends Controller
 {
     /**
-     * @var \App\Repositories\Backend\PagesRepository $repository
+     * @var \App\Repositories\Backend\PagesRepository
      */
     protected $repository;
 
@@ -32,12 +31,12 @@ class PagesTableController extends Controller
     {
         return Datatables::of($this->repository->getForDataTable())
             ->filterColumn('status', function ($query, $keyword) {
-                if(in_array(strtolower($keyword), ['active', 'inactive'])) {
-                    $query->where('pages.status',(strtolower($keyword) == 'active') ? 1 : 0);
+                if (in_array(strtolower($keyword), ['active', 'inactive'])) {
+                    $query->where('pages.status', (strtolower($keyword) == 'active') ? 1 : 0);
                 }
             })
             ->filterColumn('created_by', function ($query, $keyword) {
-                $query->whereRaw("users.first_name like ?", ["%{$keyword}%"]);
+                $query->whereRaw('users.first_name like ?', ["%{$keyword}%"]);
             })
             ->editColumn('status', function ($page) {
                 return $page->status_label;

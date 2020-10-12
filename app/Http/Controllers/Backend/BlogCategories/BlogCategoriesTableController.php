@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend\BlogCategories;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;
-use App\Repositories\Backend\BlogCategoriesRepository;
 use Yajra\DataTables\Facades\DataTables;
+use App\Repositories\Backend\BlogCategoriesRepository;
+use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;
 
 /**
  * Class BlogCategoriesTableController.
@@ -39,7 +39,7 @@ class BlogCategoriesTableController extends Controller
                 }
             })
             ->filterColumn('created_by', function ($query, $keyword) {
-                $query->whereRaw("users.first_name like ?", ["%{$keyword}%"]);
+                $query->whereRaw('users.first_name like ?', ["%{$keyword}%"]);
             })
             ->editColumn('status', function ($blogcategory) {
                 return $blogcategory->status_label;

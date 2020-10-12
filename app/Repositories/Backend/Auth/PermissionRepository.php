@@ -2,17 +2,16 @@
 
 namespace App\Repositories\Backend\Auth;
 
+use DB;
+use App\Models\Auth\Permission;
+use App\Exceptions\GeneralException;
+use App\Repositories\BaseRepository;
 use App\Events\Backend\Auth\Permission\PermissionCreated;
 use App\Events\Backend\Auth\Permission\PermissionDeleted;
 use App\Events\Backend\Auth\Permission\PermissionUpdated;
-use App\Exceptions\GeneralException;
-use App\Models\Auth\Permission;
-use App\Repositories\BaseRepository;
-use DB;
 
 class PermissionRepository extends BaseRepository
 {
-
     /**
      * Associated Repository Model.
      */
@@ -48,7 +47,6 @@ class PermissionRepository extends BaseRepository
         }
 
         DB::transaction(function () use ($input) {
-
             $permission = new Permission();
 
             $permission->name = $input['name'];
@@ -58,7 +56,6 @@ class PermissionRepository extends BaseRepository
             $permission->created_by = auth()->user()->id;
 
             if ($permission->save()) {
-
                 event(new PermissionCreated($permission));
 
                 return true;
@@ -109,7 +106,6 @@ class PermissionRepository extends BaseRepository
     public function delete($permission)
     {
         if ($permission->delete()) {
-
             event(new PermissionDeleted($permission));
 
             return true;

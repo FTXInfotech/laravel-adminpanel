@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 Breadcrumbs::for('admin.blog-categories.index', function ($trail) {
     $trail->push(__('labels.backend.access.blog-category.management'), route('admin.blog-categories.index'));

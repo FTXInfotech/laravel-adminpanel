@@ -27,7 +27,6 @@ class EditPermissionRequest extends FormRequest
     public function rules()
     {
         return [
-
         ];
     }
 }

@@ -28,10 +28,10 @@ class BaseRepository
             return $this->query()->where('status', $active)
                 ->orderBy($order_by, $sort)
                 ->paginate($per_page);
-        } else {
-            return $this->query()->orderBy($order_by, $sort)
-                ->paginate($per_page);
         }
+
+        return $this->query()->orderBy($order_by, $sort)
+            ->paginate($per_page);
     }
 
     /**
@@ -53,14 +53,14 @@ class BaseRepository
     }
 
     /**
-     * Find Record based on specific column
-     * 
+     * Find Record based on specific column.
+     *
      * @param string $value
      * @param string $column_name
      *
      * @return mixed
      */
-    public function getByColumn($value, $column_name='id')
+    public function getByColumn($value, $column_name = 'id')
     {
         return $this->query()->where($column_name, $value)->first();
     }
@@ -70,7 +70,7 @@ class BaseRepository
      */
     public function query()
     {
-        return call_user_func(static::MODEL . '::query');
+        return call_user_func(static::MODEL.'::query');
     }
 
     /**
@@ -83,8 +83,7 @@ class BaseRepository
     public function getSelectData($field_name = 'name')
     {
         $collection = $this->getAll();
-        return call_user_func(static::MODEL . '::getItems', $collection, $field_name);
+
+        return call_user_func(static::MODEL.'::getItems', $collection, $field_name);
     }
-
-
 }

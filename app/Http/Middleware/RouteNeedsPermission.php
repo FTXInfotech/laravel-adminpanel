@@ -15,9 +15,7 @@ class RouteNeedsPermission
      */
     public function handle($request, Closure $next, $permission, $needsAll = false)
     {
-        /*
-         * Permission array
-         */
+        // Permission array
         if (strpos($permission, ';') !== false) {
             $permissions = explode(';', $permission);
             $access = access()->allowMultiple($permissions, ($needsAll === 'true' ? true : false));
@@ -28,7 +26,7 @@ class RouteNeedsPermission
             $access = access()->allow($permission);
         }
 
-        if (!$access) {
+        if (! $access) {
             return redirect()
                 ->route('frontend.index')
                 ->withFlashDanger(trans('auth.general_error'));

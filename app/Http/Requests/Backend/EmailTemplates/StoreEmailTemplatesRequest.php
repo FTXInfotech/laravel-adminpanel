@@ -39,9 +39,9 @@ class StoreEmailTemplatesRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required'    => 'Email template title must required',
-            'title.max'         => 'Email template title may not be greater than 191 characters.',
-            'title.unique'      => __('exceptions.backend.email-templates.already_exists')
+            'title.required' => 'Email template title must required',
+            'title.max' => 'Email template title may not be greater than 191 characters.',
+            'title.unique' => __('exceptions.backend.email-templates.already_exists'),
         ];
     }
 }

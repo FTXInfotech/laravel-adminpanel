@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Attributes\FaqAttributes;
 use App\Models\Traits\ModelAttributes;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Traits\Attributes\FaqAttributes;
 
 class Faq extends BaseModel
 {
@@ -16,5 +16,4 @@ class Faq extends BaseModel
      * @var array
      */
     protected $fillable = ['question', 'answer', 'status'];
-    
 }

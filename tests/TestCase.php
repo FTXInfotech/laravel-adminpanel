@@ -5,7 +5,6 @@ namespace Tests;
 use App\Models\Auth\Role;
 use App\Models\Auth\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Spatie\Permission\Models\Permission;
 
 /**
  * Class TestCase.
@@ -16,13 +15,15 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * This method allows us to call private or protected methods of an object.
-     * 
+     *
      * @see https://stackoverflow.com/questions/249664/best-practices-to-test-protected-methods-with-phpunit
      */
-    public function callPrivateMethod($obj, $name, array $args) {
+    public function callPrivateMethod($obj, $name, array $args)
+    {
         $class = new \ReflectionClass($obj);
         $method = $class->getMethod($name);
         $method->setAccessible(true);
+
         return $method->invokeArgs($obj, $args);
     }
 

@@ -2,17 +2,15 @@
 
 namespace Tests\Feature\Backend\User;
 
-use App\Events\Backend\Auth\User\UserCreated;
-use App\Models\Auth\Permission;
+use Tests\TestCase;
 use App\Models\Auth\Role;
 use App\Models\Auth\User;
-use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Auth\Permission;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Session;
-use Tests\TestCase;
+use App\Events\Backend\Auth\User\UserCreated;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 
 class CreateUserTest extends TestCase
 {
@@ -112,7 +110,7 @@ class CreateUserTest extends TestCase
     public function when_an_unconfirmed_user_is_created_a_notification_will_be_sent()
     {
         $this->markTestIncomplete("Notification gets logged in file. Maybe thatswhy assertSentTo don't work.");
-        
+
         $this->loginAsAdmin();
 
         $role = factory(Role::class)->create();

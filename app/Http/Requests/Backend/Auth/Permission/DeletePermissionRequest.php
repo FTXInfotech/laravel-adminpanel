@@ -27,7 +27,6 @@ class DeletePermissionRequest extends FormRequest
     public function rules()
     {
         return [
-
         ];
     }
 }

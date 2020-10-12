@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Backend\User;
 
+use Tests\TestCase;
 use App\Models\Auth\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class ReadUsersTest extends TestCase
 {
@@ -24,6 +24,6 @@ class ReadUsersTest extends TestCase
         $this->loginAsAdmin();
         $user = factory(User::class)->create();
 
-        $this->get(route("admin.auth.user.show", $user))->assertStatus(200)->assertSee('Overview');
+        $this->get(route('admin.auth.user.show', $user))->assertStatus(200)->assertSee('Overview');
     }
 }

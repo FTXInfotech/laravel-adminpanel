@@ -2,29 +2,28 @@
 
 namespace Tests\Unit;
 
-use App\Events\Backend\Auth\User\UserConfirmed;
-use App\Events\Backend\Auth\User\UserCreated;
-use App\Events\Backend\Auth\User\UserDeactivated;
-use App\Events\Backend\Auth\User\UserDeleted;
-use App\Events\Backend\Auth\User\UserPasswordChanged;
-use App\Events\Backend\Auth\User\UserPermanentlyDeleted;
-use App\Events\Backend\Auth\User\UserReactivated;
-use App\Events\Backend\Auth\User\UserRestored;
-use App\Events\Backend\Auth\User\UserUnconfirmed;
-use App\Events\Backend\Auth\User\UserUpdated;
-use App\Exceptions\GeneralException;
-use App\Models\Auth\Permission;
+use Tests\TestCase;
 use App\Models\Auth\Role;
 use App\Models\Auth\User;
-use App\Notifications\Backend\Auth\UserAccountActive;
-use App\Repositories\Backend\Auth\UserRepository;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
+use App\Models\Auth\Permission;
+use App\Exceptions\GeneralException;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;
+use App\Events\Backend\Auth\User\UserCreated;
+use App\Events\Backend\Auth\User\UserDeleted;
+use App\Events\Backend\Auth\User\UserUpdated;
+use App\Events\Backend\Auth\User\UserRestored;
+use App\Events\Backend\Auth\User\UserConfirmed;
+use App\Events\Backend\Auth\User\UserDeactivated;
+use App\Events\Backend\Auth\User\UserReactivated;
+use App\Events\Backend\Auth\User\UserUnconfirmed;
+use App\Repositories\Backend\Auth\UserRepository;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Events\Backend\Auth\User\UserPasswordChanged;
+use App\Notifications\Backend\Auth\UserAccountActive;
+use App\Events\Backend\Auth\User\UserPermanentlyDeleted;
 
 class UserRepositoryTest extends TestCase
 {
@@ -114,24 +113,24 @@ class UserRepositoryTest extends TestCase
         $this->actingAs(factory(User::class)->create());
 
         $role = factory(Role::class)->create([
-            'name'  =>  'Employee',
-            'all'   =>  0,
-            'status' =>  1,
+            'name' => 'Employee',
+            'all' => 0,
+            'status' => 1,
         ]);
 
         $permissions = factory(Permission::class, 3)->create([
-            'status'    =>  1,
+            'status' => 1,
         ]);
 
         $userData = [
-            'first_name'        =>  $this->faker->firstName,
-            'last_name'         =>  $this->faker->lastName,
-            'email'             =>  $this->faker->safeEmail,
-            'password'          =>  $this->faker->password(8),
-            'status'            =>  1,
-            'confirmed'         =>  1,
-            'permissions'       =>  $permissions->pluck('id', 'id')->toArray(),
-            'assignees_roles'   =>  [$role->id],
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'email' => $this->faker->safeEmail,
+            'password' => $this->faker->password(8),
+            'status' => 1,
+            'confirmed' => 1,
+            'permissions' => $permissions->pluck('id', 'id')->toArray(),
+            'assignees_roles' => [$role->id],
         ];
 
         Event::fake([
@@ -142,12 +141,12 @@ class UserRepositoryTest extends TestCase
 
         $this->assertSame(2, User::count());
         $this->assertDatabaseHas('users', [
-            'first_name'    =>  $userData['first_name'],
-            'last_name'     =>  $userData['last_name'],
-            'email'         =>  $userData['email'],
-            'first_name'    =>  $userData['first_name'],
-            'status'        =>  $userData['status'],
-            'confirmed'     =>  $userData['confirmed'],
+            'first_name' => $userData['first_name'],
+            'last_name' => $userData['last_name'],
+            'email' => $userData['email'],
+            'first_name' => $userData['first_name'],
+            'status' => $userData['status'],
+            'confirmed' => $userData['confirmed'],
         ]);
 
         $this->assertTrue($user->hasRole($role->id));
@@ -166,22 +165,22 @@ class UserRepositoryTest extends TestCase
         // We need at least one role to create a user
 
         $role = factory(Role::class)->create([
-            'name'  =>  'Employee',
-            'all'   =>  0,
-            'status' =>  1,
+            'name' => 'Employee',
+            'all' => 0,
+            'status' => 1,
         ]);
 
         $permissions = factory(Permission::class, 3)->create([
-            'status'    =>  1,
+            'status' => 1,
         ]);
 
         $user = factory(User::class)->create([
-            'first_name'        =>  $this->faker->firstName,
-            'last_name'         =>  $this->faker->lastName,
-            'email'             =>  $this->faker->safeEmail,
-            'password'          =>  $this->faker->password(8),
-            'status'            =>  1,
-            'confirmed'         =>  1,
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'email' => $this->faker->safeEmail,
+            'password' => $this->faker->password(8),
+            'status' => 1,
+            'confirmed' => 1,
         ]);
 
         $user->attachRoles([$role->id]);
@@ -194,15 +193,15 @@ class UserRepositoryTest extends TestCase
         // Now we'll try to update this user
 
         $newRole = factory(Role::class)->create([
-            'name'  =>  'Staff',
-            'all'   =>  0,
-            'status' =>  1,
+            'name' => 'Staff',
+            'all' => 0,
+            'status' => 1,
         ]);
 
         $updateUserData = [
-            'first_name'        =>  $this->faker->firstName,
-            'permissions'       =>  factory(Permission::class, 2)->create()->push($permissions->random(1))->flatten()->pluck('id', 'id')->sort()->toArray(),
-            'assignees_roles'   =>  [$newRole->id],
+            'first_name' => $this->faker->firstName,
+            'permissions' => factory(Permission::class, 2)->create()->push($permissions->random(1))->flatten()->pluck('id', 'id')->sort()->toArray(),
+            'assignees_roles' => [$newRole->id],
         ];
 
         $updatedUser = $this->userRepository->update($user, $updateUserData);
@@ -224,7 +223,7 @@ class UserRepositoryTest extends TestCase
         $user = factory(User::class)->create();
 
         Event::fake([
-            UserDeleted::class
+            UserDeleted::class,
         ]);
 
         $this->userRepository->delete($user);
@@ -305,7 +304,7 @@ class UserRepositoryTest extends TestCase
         ]);
 
         $updatedUser = $this->userRepository->updatePassword($user, [
-            'password'  =>  $newPassword,
+            'password' => $newPassword,
         ]);
 
         $this->assertTrue(Hash::check($newPassword, $updatedUser->password));
@@ -422,10 +421,10 @@ class UserRepositoryTest extends TestCase
         $this->actingAs($user);
 
         $input = [
-            'first_name'    =>  $this->faker->firstName(),
-            'last_name'     =>  $this->faker->lastName(),
-            'email'         =>  $this->faker->safeEmail,
-            'password'      =>  $this->faker->password(8),
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'email' => $this->faker->safeEmail,
+            'password' => $this->faker->password(8),
         ];
 
         $result = $this->callPrivateMethod($this->userRepository, 'createUserStub', [$input]);
@@ -448,8 +447,8 @@ class UserRepositoryTest extends TestCase
     {
         $aciveUsers = factory(User::class, 6)->state('active')->create();
         $inactiveUsers = factory(User::class, 5)->state('inactive')->create();
-        $activeDeletesUsers = factory(User::class, 4)->states('active', 'softDeleted',)->create();
-        $inactiveDeletedUsers = factory(User::class, 3)->states('inactive', 'softDeleted',)->create();
+        $activeDeletesUsers = factory(User::class, 4)->states('active', 'softDeleted', )->create();
+        $inactiveDeletedUsers = factory(User::class, 3)->states('inactive', 'softDeleted', )->create();
 
         $this->assertCount($aciveUsers->count(), $this->userRepository->getForDataTable(1, false)->get()->toArray());
     }
@@ -461,8 +460,8 @@ class UserRepositoryTest extends TestCase
     {
         $aciveUsers = factory(User::class, 6)->state('active')->create();
         $inactiveUsers = factory(User::class, 5)->state('inactive')->create();
-        $activeDeletesUsers = factory(User::class, 4)->states('active', 'softDeleted',)->create();
-        $inactiveDeletedUsers = factory(User::class, 3)->states('inactive', 'softDeleted',)->create();
+        $activeDeletesUsers = factory(User::class, 4)->states('active', 'softDeleted', )->create();
+        $inactiveDeletedUsers = factory(User::class, 3)->states('inactive', 'softDeleted', )->create();
 
         $this->assertCount($inactiveUsers->count(), $this->userRepository->getForDataTable(0, false)->get()->toArray());
     }
@@ -474,8 +473,8 @@ class UserRepositoryTest extends TestCase
     {
         $aciveUsers = factory(User::class, 6)->state('active')->create();
         $inactiveUsers = factory(User::class, 5)->state('inactive')->create();
-        $activeDeletesUsers = factory(User::class, 4)->states('active', 'softDeleted',)->create();
-        $inactiveDeletedUsers = factory(User::class, 3)->states('inactive', 'softDeleted',)->create();
+        $activeDeletesUsers = factory(User::class, 4)->states('active', 'softDeleted', )->create();
+        $inactiveDeletedUsers = factory(User::class, 3)->states('inactive', 'softDeleted', )->create();
 
         $deletedUserCount = $activeDeletesUsers->count() + $inactiveDeletedUsers->count();
 
@@ -494,7 +493,7 @@ class UserRepositoryTest extends TestCase
 
         $this->assertSame($aciveUsers->count(), $result->count());
 
-        $result =  $result->first()->toArray();
+        $result = $result->first()->toArray();
 
         $this->assertIsArray($result);
 

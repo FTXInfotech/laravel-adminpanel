@@ -2,13 +2,12 @@
 
 namespace App\Repositories\Backend;
 
-use App\Events\Backend\Faqs\FaqDeleted;
-use App\Events\Backend\Faqs\FaqCreated;
-use App\Events\Backend\Faqs\FaqUpdated;
-use App\Exceptions\GeneralException;
 use App\Models\Faq;
+use App\Exceptions\GeneralException;
 use App\Repositories\BaseRepository;
-use DB;
+use App\Events\Backend\Faqs\FaqCreated;
+use App\Events\Backend\Faqs\FaqDeleted;
+use App\Events\Backend\Faqs\FaqUpdated;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class FaqsRepository extends BaseRepository
@@ -33,7 +32,7 @@ class FaqsRepository extends BaseRepository
                 'faqs.question',
                 'faqs.answer',
                 'faqs.created_at',
-                'faqs.status'
+                'faqs.status',
             ])
             ->orderBy($orderBy, $sort)
             ->paginate($paged);
@@ -50,7 +49,7 @@ class FaqsRepository extends BaseRepository
                 'question',
                 'answer',
                 'created_at',
-                'status'
+                'status',
             ]);
     }
 
@@ -67,7 +66,6 @@ class FaqsRepository extends BaseRepository
         $input['status'] = isset($input['status']) ? 1 : 0;
 
         if ($faq = Faq::create($input)) {
-
             event(new FaqCreated($faq));
 
             return $faq;
@@ -86,7 +84,6 @@ class FaqsRepository extends BaseRepository
         $input['status'] = isset($input['status']) ? 1 : 0;
 
         if ($faq->update($input)) {
-
             event(new FaqUpdated($faq));
 
             return $faq;
@@ -105,7 +102,6 @@ class FaqsRepository extends BaseRepository
     public function delete(Faq $faq)
     {
         if ($faq->delete()) {
-
             event(new FaqDeleted($faq));
 
             return true;

@@ -1,11 +1,11 @@
 <?php
 
 use App\Models\Auth\User;
-use Illuminate\Database\Seeder;
-use Carbon\Carbon as Carbon;
-use Database\DisableForeignKeys;
 use Database\TruncateTable;
 use Illuminate\Support\Str;
+use Carbon\Carbon as Carbon;
+use Illuminate\Database\Seeder;
+use Database\DisableForeignKeys;
 
 /**
  * Class UserTableSeeder.
@@ -25,46 +25,46 @@ class UserTableSeeder extends Seeder
         //Add the master administrator, user id of 1
         $users = [
             [
-                'first_name'        => 'Alan',
-                'last_name'         => 'Whitmore',
-                'email'             => 'admin@admin.com',
-                'password'          => bcrypt('1234'),
+                'first_name' => 'Alan',
+                'last_name' => 'Whitmore',
+                'email' => 'admin@admin.com',
+                'password' => bcrypt('1234'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
-                'confirmed'         => true,
-                'created_by'        => 1,
-                'updated_by'        => null,
-                'created_at'        => Carbon::now(),
-                'updated_at'        => Carbon::now(),
-                'deleted_at'        => null,
-                'uuid'              => Str::uuid(),
+                'confirmed' => true,
+                'created_by' => 1,
+                'updated_by' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'deleted_at' => null,
+                'uuid' => Str::uuid(),
             ],
             [
-                'first_name'        => 'Justin',
-                'last_name'         => 'Bevan',
-                'email'             => 'executive@executive.com',
-                'password'          => bcrypt('1234'),
+                'first_name' => 'Justin',
+                'last_name' => 'Bevan',
+                'email' => 'executive@executive.com',
+                'password' => bcrypt('1234'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
-                'confirmed'         => true,
-                'created_by'        => 1,
-                'updated_by'        => null,
-                'created_at'        => Carbon::now(),
-                'updated_at'        => Carbon::now(),
-                'deleted_at'        => null,
-                'uuid'              => Str::uuid(),
+                'confirmed' => true,
+                'created_by' => 1,
+                'updated_by' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'deleted_at' => null,
+                'uuid' => Str::uuid(),
             ],
             [
-                'first_name'        => 'User',
-                'last_name'         => 'Test',
-                'email'             => 'user@user.com',
-                'password'          => bcrypt('1234'),
+                'first_name' => 'User',
+                'last_name' => 'Test',
+                'email' => 'user@user.com',
+                'password' => bcrypt('1234'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
-                'confirmed'         => true,
-                'created_by'        => 1,
-                'updated_by'        => null,
-                'created_at'        => Carbon::now(),
-                'updated_at'        => Carbon::now(),
-                'deleted_at'        => null,
-                'uuid'              => Str::uuid(),
+                'confirmed' => true,
+                'created_by' => 1,
+                'updated_by' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'deleted_at' => null,
+                'uuid' => Str::uuid(),
             ],
         ];
 

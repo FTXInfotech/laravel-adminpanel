@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 Breadcrumbs::for('admin.pages.index', function ($trail) {
     $trail->push(__('labels.backend.access.pages.management'), route('admin.pages.index'));

@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Application Is In Read Only Mode
@@ -202,9 +201,7 @@ return [
         App\Providers\ObserverServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        /*
-         * Application Service Providers...
-         */
+        // Application Service Providers...
         Collective\Html\HtmlServiceProvider::class,
     ],
 
@@ -256,10 +253,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        /*
-         * Third Party Aliases
-         */
-        'Form'        => Collective\Html\FormFacade::class,
-        'Html'        => Collective\Html\HtmlFacade::class,
+        // Third Party Aliases
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 ];

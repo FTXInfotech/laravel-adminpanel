@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\BaseModel;
-use App\Models\Traits\Attributes\PageAttributes;
 use App\Models\Traits\ModelAttributes;
-use App\Models\Traits\Relationships\PageRelationships;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Traits\Attributes\PageAttributes;
+use App\Models\Traits\Relationships\PageRelationships;
 
 class Page extends BaseModel
-{   
+{
     use SoftDeletes, ModelAttributes, PageRelationships, PageAttributes;
 
     /**

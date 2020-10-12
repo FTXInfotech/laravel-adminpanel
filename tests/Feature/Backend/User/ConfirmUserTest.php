@@ -2,14 +2,14 @@
 
 namespace Tests\Backend\User;
 
-use App\Events\Backend\Auth\User\UserConfirmed;
-use App\Events\Backend\Auth\User\UserUnconfirmed;
+use Tests\TestCase;
 use App\Models\Auth\User;
-use App\Notifications\Backend\Auth\UserAccountActive;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
-use Tests\TestCase;
+use App\Events\Backend\Auth\User\UserConfirmed;
+use App\Events\Backend\Auth\User\UserUnconfirmed;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Notifications\Backend\Auth\UserAccountActive;
 
 class ConfirmUserTest extends TestCase
 {
@@ -26,7 +26,7 @@ class ConfirmUserTest extends TestCase
             UserConfirmed::class,
         ]);
 
-        $response = $this->get(route("admin.auth.user.confirm", $user));
+        $response = $this->get(route('admin.auth.user.confirm', $user));
 
         $this->assertSame(true, $user->fresh()->confirmed);
         Event::assertDispatched(UserConfirmed::class);
@@ -40,9 +40,8 @@ class ConfirmUserTest extends TestCase
         $this->loginAsAdmin();
         $user = factory(User::class)->states('confirmed')->create();
 
-        $response = $this->get(route("admin.auth.user.confirm", $user));
+        $response = $this->get(route('admin.auth.user.confirm', $user));
         $response->assertSessionHas(['flash_danger' => __('exceptions.backend.access.users.already_confirmed')]);
-
     }
 
     /** @test */
@@ -55,7 +54,7 @@ class ConfirmUserTest extends TestCase
 
         Notification::fake();
 
-        $this->get(route("admin.auth.user.confirm", $user));
+        $this->get(route('admin.auth.user.confirm', $user));
 
         Notification::assertSentTo($user, UserAccountActive::class);
     }
@@ -70,7 +69,7 @@ class ConfirmUserTest extends TestCase
             UserUnconfirmed::class,
         );
 
-        $response = $this->get(route("admin.auth.user.unconfirm", $user));
+        $response = $this->get(route('admin.auth.user.unconfirm', $user));
 
         $this->assertSame(false, $user->fresh()->confirmed);
 
@@ -85,7 +84,7 @@ class ConfirmUserTest extends TestCase
         $this->loginAsAdmin();
         $user = factory(User::class)->states('unconfirmed')->create();
 
-        $response = $this->get(route("admin.auth.user.unconfirm", $user));
+        $response = $this->get(route('admin.auth.user.unconfirm', $user));
         $response->assertSessionHas(['flash_danger' => __('exceptions.backend.access.users.not_confirmed')]);
     }
 
@@ -96,7 +95,7 @@ class ConfirmUserTest extends TestCase
         $second_admin = $this->createAdmin();
         $this->actingAs($second_admin);
 
-        $response = $this->get(route("admin.auth.user.unconfirm", $admin));
+        $response = $this->get(route('admin.auth.user.unconfirm', $admin));
         $response->assertSessionHas(['flash_danger' => __('exceptions.backend.access.users.cant_unconfirm_admin')]);
     }
 
@@ -107,7 +106,7 @@ class ConfirmUserTest extends TestCase
 
         $user = $this->loginAsAdmin();
 
-        $response = $this->get(route("admin.auth.user.unconfirm", $user));
+        $response = $this->get(route('admin.auth.user.unconfirm', $user));
         $response->assertSessionHas(['flash_danger' => __('exceptions.backend.access.users.cant_unconfirm_self')]);
     }
 
@@ -117,7 +116,7 @@ class ConfirmUserTest extends TestCase
         $this->loginAsAdmin();
         $user = factory(User::class)->states(['unconfirmed', 'softDeleted'])->create();
 
-        $this->get(route("admin.auth.user.confirm", $user));
+        $this->get(route('admin.auth.user.confirm', $user));
 
         $this->assertSame(true, $user->refresh()->confirmed);
     }
@@ -128,7 +127,7 @@ class ConfirmUserTest extends TestCase
         $this->loginAsAdmin();
         $user = factory(User::class)->states(['confirmed', 'softDeleted'])->create();
 
-        $this->get(route("admin.auth.user.unconfirm", $user));
+        $this->get(route('admin.auth.user.unconfirm', $user));
 
         $this->assertSame(false, $user->refresh()->confirmed);
     }

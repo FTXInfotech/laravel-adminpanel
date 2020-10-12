@@ -2,18 +2,18 @@
 
 namespace Tests\Feature\Frontend;
 
-use App\Events\Frontend\Auth\UserConfirmed;
-use App\Events\Frontend\Auth\UserRegistered;
+use Tests\TestCase;
 use App\Models\Auth\Role;
 use App\Models\Auth\User;
-use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
-use App\Repositories\Backend\Auth\UserRepository;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Database\Eloquent\Model;
+use App\Events\Frontend\Auth\UserConfirmed;
+use App\Events\Frontend\Auth\UserRegistered;
 use Illuminate\Support\Facades\Notification;
-use Tests\TestCase;
+use App\Repositories\Backend\Auth\UserRepository;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 
 class UserRegistrationTest extends TestCase
 {
@@ -62,7 +62,7 @@ class UserRegistrationTest extends TestCase
         ]);
 
         $newUser = resolve(UserRepository::class)->getByColumn('john@example.com', 'email');
-        
+
         $this->assertSame($newUser->first_name, 'John');
         $this->assertSame($newUser->last_name, 'Doe');
         $this->assertTrue(Hash::check('OC4Nzu270N!QBVi%U%qX', $newUser->password));

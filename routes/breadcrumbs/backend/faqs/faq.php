@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 Breadcrumbs::for('admin.faqs.index', function ($trail) {
     $trail->push(__('labels.backend.access.faqs.management'), route('admin.faqs.index'));

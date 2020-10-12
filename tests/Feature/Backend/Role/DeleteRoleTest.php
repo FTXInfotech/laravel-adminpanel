@@ -2,20 +2,20 @@
 
 namespace Tests\Feature\Backend\Role;
 
-use App\Events\Backend\Auth\Role\RoleDeleted;
+use Tests\TestCase;
 use App\Models\Auth\Role;
 use App\Models\Auth\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
+use App\Events\Backend\Auth\Role\RoleDeleted;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DeleteRoleTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** 
-     * @test 
-    */
+    /**
+     * @test
+     */
     public function a_role_can_be_deleted()
     {
         $this->loginAsAdmin();
@@ -25,7 +25,7 @@ class DeleteRoleTest extends TestCase
         $this->assertDatabaseHas('roles', ['id' => $role->id]);
 
         Event::fake([
-            RoleDeleted::class
+            RoleDeleted::class,
         ]);
 
         $this->delete(route('admin.auth.role.destroy', $role));
@@ -34,9 +34,9 @@ class DeleteRoleTest extends TestCase
         Event::assertDispatched(RoleDeleted::class);
     }
 
-    /** 
+    /**
      * @test
-    */
+     */
     public function a_role_with_assigned_users_cant_be_deleted()
     {
         $this->loginAsAdmin();
@@ -50,13 +50,13 @@ class DeleteRoleTest extends TestCase
         $response->assertSessionHas(['flash_danger' => __('exceptions.backend.access.roles.has_users')]);
     }
 
-    /** 
-     * @test 
-    */
+    /**
+     * @test
+     */
     public function admin_role_cant_be_deleted()
     {
         $role = factory(Role::class)->create(['id' => 1]);  //We consider 1 as administrator
-        
+
         $this->loginAsAdmin();
 
         $response = $this->delete(route('admin.auth.role.destroy', $role));

@@ -16,7 +16,7 @@ class EditResponse implements Responsable
     public function toResponse($request)
     {
         return view('backend.email-templates.edit')->with([
-            'emailTemplate'               => $this->emailTemplate
+            'emailTemplate' => $this->emailTemplate,
         ]);
     }
 }

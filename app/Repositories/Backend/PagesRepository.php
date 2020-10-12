@@ -2,14 +2,14 @@
 
 namespace App\Repositories\Backend;
 
+use App\Models\Page;
+use Illuminate\Support\Str;
+use App\Exceptions\GeneralException;
+use App\Repositories\BaseRepository;
 use App\Events\Backend\Pages\PageCreated;
 use App\Events\Backend\Pages\PageDeleted;
 use App\Events\Backend\Pages\PageUpdated;
-use App\Exceptions\GeneralException;
-use App\Models\Page;
-use App\Repositories\BaseRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Str;
 
 class PagesRepository extends BaseRepository
 {
@@ -75,9 +75,8 @@ class PagesRepository extends BaseRepository
         $input['status'] = isset($input['status']) ? 1 : 0;
 
         if ($page = Page::create($input)) {
-
             event(new PageCreated($page));
-            
+
             return $page;
         }
 
@@ -101,9 +100,8 @@ class PagesRepository extends BaseRepository
         $input['status'] = isset($input['status']) ? 1 : 0;
 
         if ($page->update($input)) {
-
             event(new PageUpdated($page));
-            
+
             return $page;
         }
 
@@ -122,7 +120,6 @@ class PagesRepository extends BaseRepository
     public function delete(Page $page)
     {
         if ($page->delete()) {
-
             event(new PageDeleted($page));
 
             return true;

@@ -2,30 +2,29 @@
 
 namespace App\Repositories\Backend\Auth;
 
-use App\Events\Backend\Auth\User\UserConfirmed;
-use App\Events\Backend\Auth\User\UserCreated;
-use App\Events\Backend\Auth\User\UserDeactivated;
-use App\Events\Backend\Auth\User\UserDeleted;
-use App\Events\Backend\Auth\User\UserPasswordChanged;
-use App\Events\Backend\Auth\User\UserPermanentlyDeleted;
-use App\Events\Backend\Auth\User\UserReactivated;
-use App\Events\Backend\Auth\User\UserRestored;
-use App\Events\Backend\Auth\User\UserUnconfirmed;
-use App\Events\Backend\Auth\User\UserUpdated;
-use App\Exceptions\GeneralException;
 use App\Models\Auth\User;
-use App\Notifications\Backend\Auth\UserAccountActive;
-use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
-use App\Repositories\BaseRepository;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\GeneralException;
+use App\Repositories\BaseRepository;
+use App\Events\Backend\Auth\User\UserCreated;
+use App\Events\Backend\Auth\User\UserDeleted;
+use App\Events\Backend\Auth\User\UserUpdated;
+use App\Events\Backend\Auth\User\UserRestored;
+use App\Events\Backend\Auth\User\UserConfirmed;
+use Illuminate\Pagination\LengthAwarePaginator;
+use App\Events\Backend\Auth\User\UserDeactivated;
+use App\Events\Backend\Auth\User\UserReactivated;
+use App\Events\Backend\Auth\User\UserUnconfirmed;
+use App\Events\Backend\Auth\User\UserPasswordChanged;
+use App\Notifications\Backend\Auth\UserAccountActive;
+use App\Events\Backend\Auth\User\UserPermanentlyDeleted;
+use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 
 /**
  * Class UserRepository.
  */
 class UserRepository extends BaseRepository
 {
-
     /**
      * Associated Repository Model.
      */
@@ -82,9 +81,7 @@ class UserRepository extends BaseRepository
         $user = $this->createUserStub($data);
 
         return DB::transaction(function () use ($user, $data, $roles, $permissions) {
-
             if ($user->save()) {
-
                 //Attach new roles
                 $user->attachRoles($roles);
 
@@ -92,7 +89,7 @@ class UserRepository extends BaseRepository
                 $user->attachPermissions($permissions);
 
                 //Send confirmation email if requested and account approval is off
-                if (isset($data['confirmation_email']) && $user->confirmed == 0) {                    
+                if (isset($data['confirmation_email']) && $user->confirmed == 0) {
                     $user->notify(new UserNeedsConfirmation($user->confirmation_code));
                 }
 
@@ -123,12 +120,10 @@ class UserRepository extends BaseRepository
         unset($data['permissions']);
 
         return DB::transaction(function () use ($user, $data, $roles, $permissions) {
-
             $user->status = isset($data['status']) && $data['status'] == '1' ? 1 : 0;
             $user->confirmed = isset($data['confirmed']) && $data['confirmed'] == '1' ? 1 : 0;
 
             if ($user->update($data)) {
-                
                 $user->roles()->sync($roles);
                 $user->permissions()->sync($permissions);
 
@@ -175,7 +170,6 @@ class UserRepository extends BaseRepository
     public function updatePassword(User $user, $input): User
     {
         if ($user->update(['password' => bcrypt($input['password'])])) {
-
             event(new UserPasswordChanged($user));
 
             return $user;
@@ -231,7 +225,6 @@ class UserRepository extends BaseRepository
         $confirmed = $user->save();
 
         if ($confirmed) {
-
             event(new UserConfirmed($user));
 
             // Let user know their account was approved
@@ -253,7 +246,7 @@ class UserRepository extends BaseRepository
      */
     public function unconfirm(User $user): User
     {
-        if (!$user->confirmed) {
+        if (! $user->confirmed) {
             throw new GeneralException(__('exceptions.backend.access.users.not_confirmed'));
         }
 
@@ -271,7 +264,6 @@ class UserRepository extends BaseRepository
         $unconfirmed = $user->save();
 
         if ($unconfirmed) {
-
             event(new UserUnconfirmed($user));
 
             return $user;
@@ -295,13 +287,11 @@ class UserRepository extends BaseRepository
         }
 
         return DB::transaction(function () use ($user) {
-
             // Delete associated relationships
             $user->passwordHistories()->delete();
             $user->providers()->delete();
 
             if ($user->forceDelete()) {
-
                 event(new UserPermanentlyDeleted($user));
 
                 return true;
@@ -324,7 +314,6 @@ class UserRepository extends BaseRepository
         }
 
         if ($user->restore()) {
-
             event(new UserRestored($user));
 
             return $user;

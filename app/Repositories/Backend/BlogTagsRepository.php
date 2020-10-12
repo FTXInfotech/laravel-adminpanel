@@ -2,13 +2,12 @@
 
 namespace App\Repositories\Backend;
 
+use App\Models\BlogTag;
+use App\Exceptions\GeneralException;
+use App\Repositories\BaseRepository;
 use App\Events\Backend\BlogTags\BlogTagCreated;
 use App\Events\Backend\BlogTags\BlogTagDeleted;
 use App\Events\Backend\BlogTags\BlogTagUpdated;
-use App\Exceptions\GeneralException;
-use App\Models\BlogTag;
-use App\Repositories\BaseRepository;
-use DB;
 
 class BlogTagsRepository extends BaseRepository
 {
@@ -99,7 +98,6 @@ class BlogTagsRepository extends BaseRepository
         $input['updated_by'] = auth()->user()->id;
 
         if ($blogtag->update($input)) {
-
             event(new BlogTagUpdated($blogtag));
 
             return $blogtag;
@@ -118,7 +116,6 @@ class BlogTagsRepository extends BaseRepository
     public function delete(BlogTag $blogtag)
     {
         if ($blogtag->delete()) {
-            
             event(new BlogTagDeleted($blogtag));
 
             return true;

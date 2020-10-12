@@ -2,14 +2,13 @@
 
 namespace Tests\Feature\Backend\User;
 
-use App\Events\Backend\Auth\User\UserPasswordChanged;
-use App\Models\Auth\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
+use App\Models\Auth\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Events\Backend\Auth\User\UserPasswordChanged;
 
 class ChangeUserPasswordTest extends TestCase
 {
@@ -21,13 +20,13 @@ class ChangeUserPasswordTest extends TestCase
         $this->loginAsAdmin();
         $user = factory(User::class)->create();
 
-        $newPassword = "Abc@123_45";
+        $newPassword = 'Abc@123_45';
 
         Event::fake([
             UserPasswordChanged::class,
         ]);
 
-        $response = $this->patch(route("admin.auth.user.change-password", $user), [
+        $response = $this->patch(route('admin.auth.user.change-password', $user), [
             'password' => $newPassword,
             'password_confirmation' => $newPassword,
         ]);
@@ -44,7 +43,7 @@ class ChangeUserPasswordTest extends TestCase
         $this->loginAsAdmin();
         $user = factory(User::class)->create();
 
-        $response = $this->get(route("admin.auth.user.change-password", $user));
+        $response = $this->get(route('admin.auth.user.change-password', $user));
 
         $response->assertStatus(200);
     }
@@ -55,7 +54,7 @@ class ChangeUserPasswordTest extends TestCase
         $this->loginAsAdmin();
         $user = factory(User::class)->create();
 
-        $response = $this->patch(route("admin.auth.user.change-password", $user), [
+        $response = $this->patch(route('admin.auth.user.change-password', $user), [
             'password' => 'Boilerplate',
             'password_confirmation' => 'Boilerplate01',
         ]);
@@ -73,7 +72,7 @@ class ChangeUserPasswordTest extends TestCase
 
         $newPassword = $this->faker->password(8);
 
-        $response = $this->patch(route("admin.auth.user.change-password", $user), [
+        $response = $this->patch(route('admin.auth.user.change-password', $user), [
             'password' => $newPassword,
             'password_confirmation' => $newPassword,
         ]);
@@ -92,12 +91,12 @@ class ChangeUserPasswordTest extends TestCase
 
         $newPassword = $this->faker->password(8);
 
-        $this->patch(route("admin.auth.user.change-password", $user), [
+        $this->patch(route('admin.auth.user.change-password', $user), [
             'password' => $newPassword,
             'password_confirmation' => $newPassword,
         ]);
 
-        $response = $this->patch(route("admin.auth.user.change-password", $user), [
+        $response = $this->patch(route('admin.auth.user.change-password', $user), [
             'password' => $newPassword,
             'password_confirmation' => $newPassword,
         ])->assertSessionHasErrors(['password' => __('auth.password_used')]);

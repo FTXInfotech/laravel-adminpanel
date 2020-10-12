@@ -17,12 +17,12 @@ class BlogsResource extends Resource
     {
         // dd($request);
         return [
-            'id'                => $this->id,
-            'name'              => $this->name,
-            'publish_datetime'  => $this->publish_datetime->format('d/m/Y h:i A'),
-            'status'            => $this->status,
-            'created_at'        => optional($this->created_at)->toDateString(),
-            'created_by'        => $request->user()->first_name.' '.$request->user()->last_name,
+            'id' => $this->id,
+            'name' => $this->name,
+            'publish_datetime' => $this->publish_datetime->format('d/m/Y h:i A'),
+            'status' => $this->status,
+            'created_at' => optional($this->created_at)->toDateString(),
+            'created_by' => $request->user()->first_name.' '.$request->user()->last_name,
         ];
     }
 }

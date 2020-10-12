@@ -2,8 +2,6 @@
 
 namespace App\Http\Responses\Backend\Auth\Role;
 
-use App\Models\Auth\Permission\Permission;
-use App\Models\Auth\Role;
 use Illuminate\Contracts\Support\Responsable;
 
 class EditResponse implements Responsable

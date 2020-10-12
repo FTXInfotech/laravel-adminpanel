@@ -26,7 +26,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
     });
 
     Route::group(['middleware' => ['auth:api']], function () {
-        
         Route::group(['prefix' => 'auth'], function () {
             Route::post('logout', 'AuthController@logout');
             Route::get('me', 'AuthController@me');

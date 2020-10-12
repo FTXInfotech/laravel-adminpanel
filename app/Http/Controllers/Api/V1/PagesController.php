@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Models\Page;
+use Illuminate\Http\Request;
+use App\Http\Resources\PagesResource;
+use App\Repositories\Backend\PagesRepository;
 use App\Http\Requests\Backend\Pages\StorePageRequest;
 use App\Http\Requests\Backend\Pages\UpdatePageRequest;
-use App\Http\Resources\PagesResource;
-use App\Models\Page;
-use App\Repositories\Backend\PagesRepository;
-use Illuminate\Http\Request;
-use Validator;
 
 /**
  * @group Pages Management
- * 
+ *
  * Class PagesController
- * 
+ *
  * API's for Pages Management
- * 
+ *
  * @authenticated
  */
 class PagesController extends APIController
@@ -34,11 +33,11 @@ class PagesController extends APIController
     }
 
     /**
-     * Get all Pages
-     * 
-     * This enpoint provides a paginated list of all pages. You can customize how many records you want in each 
-     * returned response as well as sort records based on a key in specific order.     
-     * 
+     * Get all Pages.
+     *
+     * This enpoint provides a paginated list of all pages. You can customize how many records you want in each
+     * returned response as well as sort records based on a key in specific order.
+     *
      * @queryParam paginate Which page to show. Example :12
      * @queryParam orderBy Order by accending or descending. Example :ASC or DESC
      * @queryParam sortBy Sort by any database column. Example :created_at
@@ -47,7 +46,7 @@ class PagesController extends APIController
      * @responseFile responses/page/page-list.json
      *
      * @param \Illuminate\Http\Request $request
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
@@ -62,13 +61,13 @@ class PagesController extends APIController
     }
 
     /**
-     * Gives a specific Page
+     * Gives a specific Page.
      *
      * This endpoint provides you a single Page.
      * The Page is identified based on the ID provided as url parameter.
      *
      * @urlParam id required The ID of the Page.
-     * 
+     *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/page/page-show.json
      *
@@ -82,15 +81,15 @@ class PagesController extends APIController
     }
 
     /**
-     * Create a new Page
+     * Create a new Page.
      *
      * This endpoint lets you careate new Page
-     * 
+     *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile status=201 responses/page/page-store.json
      *
      * @param \App\Http\Requests\Backend\Pages\StorePageRequest $request
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StorePageRequest $request)
@@ -99,16 +98,16 @@ class PagesController extends APIController
     }
 
     /**
-     * Update Page
+     * Update Page.
      *
      * This endpoint allows you to update existing Page with new data.
      * The Page to be updated is identified based on the ID provided as url parameter.
      *
      * @urlParam id required The ID of the Page.
-     * 
+     *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/page/page-update.json
-     * 
+     *
      * @param \App\Models\Page $page
      * @param \App\Http\Requests\Backend\Pages\UpdatePageRequest $request
      *
@@ -120,18 +119,18 @@ class PagesController extends APIController
     }
 
     /**
-     * Delete Page
+     * Delete Page.
      *
      * This endpoint allows you to delete a Page.
      * The Page to be deleted is identified based on the ID provided as url parameter.
      *
      * @urlParam id required The ID of the Page.
-     * 
+     *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/page/page-destroy.json
-     * 
+     *
      * @param \App\Models\Page $page
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Page $page)

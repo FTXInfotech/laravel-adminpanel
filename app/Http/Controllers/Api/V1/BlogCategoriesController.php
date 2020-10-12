@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Models\BlogCategory;
+use Illuminate\Http\Request;
+use App\Http\Resources\BlogCategoriesResource;
+use App\Repositories\Backend\BlogCategoriesRepository;
 use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest;
-use App\Http\Resources\BlogCategoriesResource;
-use App\Models\BlogCategory;
-use App\Repositories\Backend\BlogCategoriesRepository;
-use Illuminate\Http\Request;
 
 /**
  * @group Blog Categories Management
- * 
+ *
  * Class BlogCategoriesController
- * 
+ *
  * API's for Blog Categories Management
- * 
+ *
  * @authenticated
  */
 class BlogCategoriesController extends APIController
@@ -33,11 +33,11 @@ class BlogCategoriesController extends APIController
     }
 
     /**
-     * Get all Blog Categories
-     * 
-     * This enpoint provides a paginated list of all blog categories. You can customize how many records you want in each 
-     * returned response as well as sort records based on a key in specific order.     
-     * 
+     * Get all Blog Categories.
+     *
+     * This enpoint provides a paginated list of all blog categories. You can customize how many records you want in each
+     * returned response as well as sort records based on a key in specific order.
+     *
      * @queryParam paginate Which page to show. Example :12
      * @queryParam orderBy Order by accending or descending. Example :ASC or DESC
      * @queryParam sortBy Sort by any database column. Example :created_at
@@ -46,7 +46,7 @@ class BlogCategoriesController extends APIController
      * @responseFile responses/blog-category/blog-category-list.json
      *
      * @param \Illuminate\Http\Request $request
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
@@ -61,13 +61,13 @@ class BlogCategoriesController extends APIController
     }
 
     /**
-     * Gives a specific Blog Category
+     * Gives a specific Blog Category.
      *
      * This endpoint provides you a single Blog Category.
      * The Blog Category is identified based on the ID provided as url parameter.
      *
      * @urlParam id required The ID of the Blog Category.
-     * 
+     *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-category/blog-category-show.json
      *
@@ -81,15 +81,15 @@ class BlogCategoriesController extends APIController
     }
 
     /**
-     * Create a new Blog Category
+     * Create a new Blog Category.
      *
      * This endpoint lets you careate new Blog Category
-     * 
+     *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile status=201 responses/blog-category/blog-category-store.json
      *
      * @param \App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest $request
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreBlogCategoriesRequest $request)
@@ -98,16 +98,16 @@ class BlogCategoriesController extends APIController
     }
 
     /**
-     * Update Blog Category
+     * Update Blog Category.
      *
      * This endpoint allows you to update existing Blog Category with new data.
      * The Blog Category to be updated is identified based on the ID provided as url parameter.
      *
      * @urlParam id required The ID of the Blog Category.
-     * 
+     *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-category/blog-category-update.json
-     * 
+     *
      * @param \App\Models\BlogCategory $blogCategory
      * @param \App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest $request
      *
@@ -119,18 +119,18 @@ class BlogCategoriesController extends APIController
     }
 
     /**
-     * Delete Blog Category
+     * Delete Blog Category.
      *
      * This endpoint allows you to delete a Blog Category.
      * The Blog Category to be deleted is identified based on the ID provided as url parameter.
      *
      * @urlParam id required The ID of the Blog Category.
-     * 
+     *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-category/blog-category-destroy.json
-     * 
+     *
      * @param \App\Models\BlogCategory $blogCategory
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(BlogCategory $blogCategory)

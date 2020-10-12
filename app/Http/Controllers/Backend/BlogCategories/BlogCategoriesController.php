@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Backend\BlogCategories;
 
+use App\Models\BlogCategory;
 use App\Http\Controllers\Controller;
+use App\Http\Responses\ViewResponse;
+use Illuminate\Support\Facades\View;
+use App\Http\Responses\RedirectResponse;
+use App\Repositories\Backend\BlogCategoriesRepository;
+use App\Http\Responses\Backend\BlogCategory\EditResponse;
+use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\CreateBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\DeleteBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;
-use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest;
-use App\Http\Responses\ViewResponse;
-use App\Repositories\Backend\BlogCategoriesRepository;
-use App\Models\BlogCategory;
-use App\Http\Responses\Backend\BlogCategory\EditResponse;
-use App\Http\Responses\RedirectResponse;
-use Illuminate\Support\Facades\View;
 
 class BlogCategoriesController extends Controller
 {
@@ -21,7 +21,7 @@ class BlogCategoriesController extends Controller
      * @var \App\Repositories\Backend\BlogCategoriesRepository
      */
     protected $repository;
-    
+
     /**
      * @param \App\Repositories\Backend\BlogCategoriesRepository $repository
      */
@@ -55,7 +55,7 @@ class BlogCategoriesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest  $request
-     * @return \App\Http\Responses\RedirectResponse 
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StoreBlogCategoriesRequest $request)
     {

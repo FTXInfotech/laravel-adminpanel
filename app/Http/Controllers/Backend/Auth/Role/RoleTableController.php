@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend\Auth\Role;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Auth\Role\ManageRoleRequest;
-use App\Repositories\Backend\Auth\RoleRepository;
 use Yajra\DataTables\Facades\DataTables;
+use App\Repositories\Backend\Auth\RoleRepository;
+use App\Http\Requests\Backend\Auth\Role\ManageRoleRequest;
 
 /**
  * Class RoleTableController.
@@ -36,7 +36,7 @@ class RoleTableController extends Controller
             ->escapeColumns(['name', 'sort'])
             ->addColumn('permissions', function ($role) {
                 if ($role->all) {
-                    return '<span class="label label-success">' . trans('labels.general.all') . '</span>';
+                    return '<span class="label label-success">'.trans('labels.general.all').'</span>';
                 }
 
                 return $role->permission_name;

@@ -48,7 +48,7 @@ trait UserAccess
     public function hasRoles($roles, $needsAll = false)
     {
         //If not an array, make a one item array
-        if (!is_array($roles)) {
+        if (! is_array($roles)) {
             $roles = [$roles];
         }
 
@@ -85,14 +85,10 @@ trait UserAccess
      */
     public function allow($nameOrId)
     {
-        /*
-         *
-         * Update for this function due to issue of user custom permission
-         */
+        // Update for this function due to issue of user custom permission
 
         //Check permissions directly tied to user
         foreach ($this->permissions as $perm) {
-
             //First check to see if it's an ID
             if (is_numeric($nameOrId)) {
                 if ($perm->id == $nameOrId) {
@@ -150,7 +146,7 @@ trait UserAccess
     public function allowMultiple($permissions, $needsAll = false)
     {
         //If not an array, make a one item array
-        if (!is_array($permissions)) {
+        if (! is_array($permissions)) {
             $permissions = [$permissions];
         }
 
@@ -203,8 +199,6 @@ trait UserAccess
      * Alias to eloquent many-to-many relation's attach() method.
      *
      * @param mixed $role
-     *
-     * @return void
      */
     public function attachRole($role)
     {
@@ -223,8 +217,6 @@ trait UserAccess
      * Alias to eloquent many-to-many relation's detach() method.
      *
      * @param mixed $role
-     *
-     * @return void
      */
     public function detachRole($role)
     {
@@ -243,8 +235,6 @@ trait UserAccess
      * Attach multiple roles to a user.
      *
      * @param mixed $roles
-     *
-     * @return void
      */
     public function attachRoles($roles)
     {
@@ -257,8 +247,6 @@ trait UserAccess
      * Detach multiple roles from a user.
      *
      * @param mixed $roles
-     *
-     * @return void
      */
     public function detachRoles($roles)
     {
@@ -271,8 +259,6 @@ trait UserAccess
      * Attach multiple Permissions to a user.
      *
      * @param mixed $permissions
-     *
-     * @return void
      */
     public function attachPermissions($permissions)
     {
@@ -285,8 +271,6 @@ trait UserAccess
      * Alias to eloquent many-to-many relation's attach() method.
      *
      * @param mixed $permission
-     *
-     * @return void
      */
     public function attachPermission($permission)
     {
@@ -305,8 +289,6 @@ trait UserAccess
      * Detach multiple permissions from current role.
      *
      * @param mixed $permissions
-     *
-     * @return void
      */
     public function detachPermissions($permissions)
     {
@@ -319,8 +301,6 @@ trait UserAccess
      * Detach permission form current User.
      *
      * @param object|array $permission
-     *
-     * @return void
      */
     public function detachPermission($permission)
     {

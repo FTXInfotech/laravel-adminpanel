@@ -2,17 +2,16 @@
 
 namespace App\Repositories\Backend\Auth;
 
+use DB;
+use App\Models\Auth\Role;
+use App\Exceptions\GeneralException;
+use App\Repositories\BaseRepository;
 use App\Events\Backend\Auth\Role\RoleCreated;
 use App\Events\Backend\Auth\Role\RoleDeleted;
 use App\Events\Backend\Auth\Role\RoleUpdated;
-use App\Exceptions\GeneralException;
-use App\Models\Auth\Role;
-use App\Repositories\BaseRepository;
-use DB;
 
 class RoleRepository extends BaseRepository
 {
-  
     /**
      * Associated Repository Model.
      */
@@ -52,12 +51,12 @@ class RoleRepository extends BaseRepository
         //See if the role has all access
         $all = $input['associated_permissions'] == 'all' ? true : false;
 
-        if (!isset($input['permissions'])) {
+        if (! isset($input['permissions'])) {
             $input['permissions'] = [];
         }
 
         //This config is only required if all is false
-        if (!$all) {
+        if (! $all) {
             //See if the role must contain a permission as per config
             if (config('access.roles.role_must_contain_permission') && count($input['permissions']) == 0) {
                 throw new GeneralException(__('exceptions.backend.access.roles.needs_permission'));
@@ -65,7 +64,6 @@ class RoleRepository extends BaseRepository
         }
 
         DB::transaction(function () use ($input, $all) {
-
             $role = new Role();
             $role->name = $input['name'];
             $role->sort = isset($input['sort']) && strlen($input['sort']) > 0 && is_numeric($input['sort']) ? (int) $input['sort'] : 0;
@@ -77,7 +75,7 @@ class RoleRepository extends BaseRepository
             $role->created_by = access()->user()->id;
 
             if ($role->save()) {
-                if (!$all) {
+                if (! $all) {
                     $permissions = [];
 
                     if (is_array($input['permissions']) && count($input['permissions'])) {
@@ -117,12 +115,12 @@ class RoleRepository extends BaseRepository
             $all = $input['associated_permissions'] == 'all' ? true : false;
         }
 
-        if (!isset($input['permissions'])) {
+        if (! isset($input['permissions'])) {
             $input['permissions'] = [];
         }
 
         //This config is only required if all is false
-        if (!$all) {
+        if (! $all) {
             //See if the role must contain a permission as per config
             if (config('access.roles.role_must_contain_permission') && count($input['permissions']) == 0) {
                 throw new GeneralException(__('exceptions.backend.access.roles.needs_permission'));

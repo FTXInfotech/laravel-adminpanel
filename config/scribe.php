@@ -8,9 +8,7 @@ return [
      */
     'type' => 'static',
 
-    /*
-     * Settings for `static` type output.
-     */
+    // Settings for `static` type output.
     'static' => [
         /*
          * HTML documentation, assets and Postman collection will be generated to this folder.
@@ -19,9 +17,7 @@ return [
         'output_path' => 'public/docs',
     ],
 
-    /*
-     * Settings for `laravel` type output.
-     */
+    // Settings for `laravel` type output.
     'laravel' => [
         /*
          * Whether to automatically create a docs endpoint for you to view your generated docs.
@@ -35,19 +31,13 @@ return [
          */
         'docs_url' => '/docs',
 
-        /*
-         * Middleware to attach to the docs endpoint (if `add_routes` is true).
-         */
+        // Middleware to attach to the docs endpoint (if `add_routes` is true).
         'middleware' => [],
     ],
 
-    /*
-     * How is your API authenticated? This information will be used in the displayed docs, generated examples and response calls.
-     */
+    // How is your API authenticated? This information will be used in the displayed docs, generated examples and response calls.
     'auth' => [
-        /*
-         * Set this to true if your API is authenticated.
-         */
+        // Set this to true if your API is authenticated.
         'enabled' => true,
 
         /*
@@ -56,9 +46,7 @@ return [
          */
         'in' => 'bearer',
 
-        /*
-         * The name of the parameter (eg token, key, apiKey) or header (eg Authorization, Api-Key).
-         */
+        // The name of the parameter (eg token, key, apiKey) or header (eg Authorization, Api-Key).
         'name' => 'token',
 
         /*
@@ -75,10 +63,8 @@ return [
         'extra_info' => 'You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.',
     ],
 
-    /*
-     * Text to place in the "Introduction" section. Markdown and HTML are supported.
-     */
-    'intro_text' => <<<INTRO
+    // Text to place in the "Introduction" section. Markdown and HTML are supported.
+    'intro_text' => <<<'INTRO'
 Welcome to our Laravel Starter API documentation!
 
 <aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile), and you can switch the programming language of the examples with the tabs in the top right (or from the nav menu at the top left on mobile).</aside>
@@ -117,20 +103,16 @@ INTRO
      * Setting `laravel.autoload` to true (above) will add routes for both the HTML and the Postman collection.
      */
     'postman' => [
-        /*
-         * Specify whether the Postman collection should be generated.
-         */
+        // Specify whether the Postman collection should be generated.
         'enabled' => true,
 
         /*
          * The base URL to be used in the Postman collection.
          * If this is null, Scribe will use the value of base_url set above.
          */
-        'base_url' => "http://127.0.0.1:8000",
+        'base_url' => 'http://127.0.0.1:8000',
 
-        /*
-         * The description for the exported Postman collection.
-         */
+        // The description for the exported Postman collection.
         'description' => null,
 
         /*
@@ -140,9 +122,7 @@ INTRO
         'auth' => null,
     ],
 
-    /*
-     * Name for the group of endpoints which do not have a @group set.
-     */
+    // Name for the group of endpoints which do not have a @group set.
     'default_group' => 'Endpoints',
 
     /*
@@ -157,9 +137,7 @@ INTRO
      */
     'logo' => false,
 
-    /*
-     * The router your API is using (Laravel or Dingo).
-     */
+    // The router your API is using (Laravel or Dingo).
     'router' => 'laravel',
 
     /*
@@ -174,14 +152,10 @@ INTRO
              * A route must fulfill ALL conditions to pass.
              */
             'match' => [
-                /*
-                 * Match only routes whose domains match this pattern (use * as a wildcard to match any characters). Example: 'api.*'.
-                 */
+                // Match only routes whose domains match this pattern (use * as a wildcard to match any characters). Example: 'api.*'.
                 'domains' => ['*'],
 
-                /*
-                 * Match only routes whose paths match this pattern (use * as a wildcard to match any characters). Example: 'users/*'.
-                 */
+                // Match only routes whose paths match this pattern (use * as a wildcard to match any characters). Example: 'users/*'.
                 'prefixes' => ['api/*'],
 
                 /*
@@ -207,13 +181,9 @@ INTRO
                 // '/health', 'admin.*'
             ],
 
-            /*
-             * Specify rules to be applied to all the routes in this group when generating documentation
-             */
+            // Specify rules to be applied to all the routes in this group when generating documentation
             'apply' => [
-                /*
-                 * Specify headers to be added to the example requests
-                 */
+                // Specify headers to be added to the example requests
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json',
@@ -242,23 +212,17 @@ INTRO
                         // 'app.debug' => false,
                     ],
 
-                    /*
-                     * Cookies which should be sent with the API call.
-                     */
+                    // Cookies which should be sent with the API call.
                     'cookies' => [
                         // 'name' => 'value'
                     ],
 
-                    /*
-                     * Query parameters which should be sent with the API call.
-                     */
+                    // Query parameters which should be sent with the API call.
                     'queryParams' => [
                         // 'key' => 'value',
                     ],
 
-                    /*
-                     * Body parameters which should be sent with the API call.
-                     */
+                    // Body parameters which should be sent with the API call.
                     'bodyParams' => [
                         // 'key' => 'value',
                     ],
@@ -275,9 +239,7 @@ INTRO
         ],
     ],
 
-    /*
-     * Configure how responses are transformed using @transformer and @transformerCollection (requires league/fractal package)
-     */
+    // Configure how responses are transformed using @transformer and @transformerCollection (requires league/fractal package)
     'fractal' => [
         /* If you are using a custom serializer with league/fractal, you can specify it here.
          * Leave as null to use no serializer or return simple JSON.
@@ -291,7 +253,7 @@ INTRO
      */
     'faker_seed' => null,
 
-    /**
+    /*
      * The strategies Scribe will use to extract information about your routes at each stage.
      * If you write or install a custom strategy, add it here. Unless you know what you're doing, you shouldn't remove any of the default strategies.
      */

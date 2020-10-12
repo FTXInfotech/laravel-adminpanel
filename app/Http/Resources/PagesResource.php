@@ -16,12 +16,12 @@ class PagesResource extends Resource
     public function toArray($request)
     {
         return [
-            'id'            => $this->id,
-            'title'         => $this->title,
-            'status_label'  => $this->status_label,
-            'status'        => ($this->isActive()) ? 'Active' : 'InActive',
-            'created_at'    => $this->created_at->toDateString(),
-            'created_by'    => is_int($this->created_by) ? optional($this->owner)->first_name : $this->created_by,
+            'id' => $this->id,
+            'title' => $this->title,
+            'status_label' => $this->status_label,
+            'status' => ($this->isActive()) ? 'Active' : 'InActive',
+            'created_at' => $this->created_at->toDateString(),
+            'created_by' => is_int($this->created_by) ? optional($this->owner)->first_name : $this->created_by,
         ];
     }
 }

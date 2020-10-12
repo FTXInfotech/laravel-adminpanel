@@ -1,4 +1,5 @@
 <?php
+
 namespace Database;
 
 use Illuminate\Support\Facades\DB;

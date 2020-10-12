@@ -2,9 +2,8 @@
 
 namespace Tests\Feature\Middleware;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SwitchLanguageTest extends TestCase
 {

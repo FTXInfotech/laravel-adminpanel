@@ -2,20 +2,20 @@
 
 namespace App\Repositories\Backend;
 
+use DB;
+use Carbon\Carbon;
+use App\Models\Blog;
+use App\Models\BlogTag;
+use App\Models\BlogMapTag;
+use Illuminate\Support\Str;
+use App\Models\BlogCategory;
+use App\Models\BlogMapCategory;
+use App\Exceptions\GeneralException;
+use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\Storage;
 use App\Events\Backend\Blogs\BlogCreated;
 use App\Events\Backend\Blogs\BlogDeleted;
 use App\Events\Backend\Blogs\BlogUpdated;
-use App\Exceptions\GeneralException;
-use App\Models\BlogCategory;
-use App\Models\BlogMapCategory;
-use App\Models\BlogMapTag;
-use App\Models\Blog;
-use App\Models\BlogTag;
-use App\Repositories\BaseRepository;
-use Carbon\Carbon;
-use DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class BlogsRepository extends BaseRepository
 {
@@ -62,7 +62,7 @@ class BlogsRepository extends BaseRepository
             ->orderBy($orderBy, $sort)
             ->paginate($paged);
     }
-    
+
     /**
      * @return mixed
      */
@@ -94,9 +94,8 @@ class BlogsRepository extends BaseRepository
         $categoriesArray = $this->createCategories($input['categories']);
 
         unset($input['tags'], $input['categories']);
-        
-        return DB::transaction(function () use ($input, $tagsArray, $categoriesArray) {
 
+        return DB::transaction(function () use ($input, $tagsArray, $categoriesArray) {
             $input['slug'] = Str::slug($input['name']);
             $input['publish_datetime'] = Carbon::parse($input['publish_datetime']);
             $input['created_by'] = auth()->user()->id;
@@ -113,7 +112,7 @@ class BlogsRepository extends BaseRepository
                 if (count($tagsArray)) {
                     $blog->tags()->sync($tagsArray);
                 }
-                
+
                 event(new BlogCreated($blog));
 
                 return $blog;
@@ -145,9 +144,7 @@ class BlogsRepository extends BaseRepository
         }
 
         return DB::transaction(function () use ($blog, $input, $tagsArray, $categoriesArray) {
-
             if ($blog->update($input)) {
-
                 // Updateing associated category's id in mapper table
                 if (count($categoriesArray)) {
                     $blog->categories()->sync($categoriesArray);
@@ -226,9 +223,7 @@ class BlogsRepository extends BaseRepository
     public function delete(Blog $blog)
     {
         DB::transaction(function () use ($blog) {
-
             if ($blog->delete()) {
-
                 BlogMapCategory::where('blog_id', $blog->id)->delete();
                 BlogMapTag::where('blog_id', $blog->id)->delete();
 
@@ -252,8 +247,7 @@ class BlogsRepository extends BaseRepository
     {
         $avatar = $input['featured_image'];
 
-        if (isset($input['featured_image']) && !empty($input['featured_image'])) {
-            
+        if (isset($input['featured_image']) && ! empty($input['featured_image'])) {
             $fileName = time().$avatar->getClientOriginalName();
 
             $this->storage->put($this->upload_path.$fileName, file_get_contents($avatar->getRealPath()));

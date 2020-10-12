@@ -27,14 +27,13 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'      => 'required|max:255',
-            'last_name'       => 'required|max:255',
-            'email'           => 'required|email|max:255|unique:users,email,' . $this->segment(4),
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users,email,'.$this->segment(4),
             'assignees_roles' => 'required',
-            'permissions'     => 'required',
+            'permissions' => 'required',
         ];
     }
-
 
     /**
      * Get the validation massages that apply to the rules.

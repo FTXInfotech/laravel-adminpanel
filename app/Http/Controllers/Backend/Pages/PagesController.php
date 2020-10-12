@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers\Backend\Pages;
 
+use App\Models\Page;
 use App\Http\Controllers\Controller;
-
-use App\Http\Requests\Backend\Pages\CreatePageRequest;
-use App\Http\Requests\Backend\Pages\DeletePageRequest;
+use App\Http\Responses\ViewResponse;
+use Illuminate\Support\Facades\View;
+use App\Http\Responses\RedirectResponse;
+use App\Repositories\Backend\PagesRepository;
+use App\Http\Responses\Backend\Page\EditResponse;
 use App\Http\Requests\Backend\Pages\EditPageRequest;
 use App\Http\Requests\Backend\Pages\StorePageRequest;
-use App\Http\Requests\Backend\Pages\UpdatePageRequest;
+use App\Http\Requests\Backend\Pages\CreatePageRequest;
+use App\Http\Requests\Backend\Pages\DeletePageRequest;
 use App\Http\Requests\Backend\Pages\ManagePageRequest;
-use App\Http\Responses\Backend\Page\EditResponse;
-use App\Http\Responses\RedirectResponse;
-use App\Http\Responses\ViewResponse;
-use App\Models\Page;
-use App\Repositories\Backend\PagesRepository;
-use Illuminate\Support\Facades\View;
+use App\Http\Requests\Backend\Pages\UpdatePageRequest;
 
 class PagesController extends Controller
 {
     /**
-     * @var \App\Repositories\Backend\PagesRepository $repository
+     * @var \App\Repositories\Backend\PagesRepository
      */
     protected $repository;
 

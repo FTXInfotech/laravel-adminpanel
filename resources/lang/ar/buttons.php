@@ -32,14 +32,14 @@ return [
 
     'emails' => [
         'auth' => [
-            'confirm_account'   => 'تأكيد الحساب',
-            'reset_password'    => 'إعادة تعيين كلمة المرور',
+            'confirm_account' => 'تأكيد الحساب',
+            'reset_password' => 'إعادة تعيين كلمة المرور',
         ],
     ],
 
     'general' => [
         'cancel' => 'إلغاء',
-        'continue'  => 'استمر',
+        'continue' => 'استمر',
 
         'crud' => [
             'create' => 'إنشاء',

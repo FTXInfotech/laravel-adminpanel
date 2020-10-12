@@ -2,11 +2,11 @@
 
 namespace App\Listeners\Frontend\Auth;
 
-use App\Events\Frontend\Auth\UserConfirmed;
 use App\Events\Frontend\Auth\UserLoggedIn;
+use App\Events\Frontend\Auth\UserConfirmed;
 use App\Events\Frontend\Auth\UserLoggedOut;
-use App\Events\Frontend\Auth\UserProviderRegistered;
 use App\Events\Frontend\Auth\UserRegistered;
+use App\Events\Frontend\Auth\UserProviderRegistered;
 
 /**
  * Class UserEventListener.
@@ -37,7 +37,7 @@ class UserEventListener
         }
 
         $event->user->save();
-		logger('Milan Soni');
+        logger('Milan Soni');
         logger('User Logged In: '.$event->user->full_name);
     }
 

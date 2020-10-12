@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Backend\Blogs;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
-use App\Http\Responses\Backend\Blog\EditResponse;
-use App\Repositories\Backend\BlogsRepository;
 use App\Models\Blog;
 use App\Models\BlogTag;
 use App\Models\BlogCategory;
-use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
-use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
-use App\Http\Responses\RedirectResponse;
+use App\Http\Controllers\Controller;
 use App\Http\Responses\ViewResponse;
 use Illuminate\Support\Facades\View;
+use App\Http\Responses\RedirectResponse;
+use App\Repositories\Backend\BlogsRepository;
+use App\Http\Responses\Backend\Blog\EditResponse;
+use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
+use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
+use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
 
 class BlogsController extends Controller
 {
@@ -22,8 +22,8 @@ class BlogsController extends Controller
      */
     protected $status = [
         'Published' => 'Published',
-        'Draft'     => 'Draft',
-        'InActive'  => 'InActive',
+        'Draft' => 'Draft',
+        'InActive' => 'InActive',
         'Scheduled' => 'Scheduled',
     ];
 
@@ -96,7 +96,7 @@ class BlogsController extends Controller
      *
      * @return \App\Http\Responses\RedirectResponse
      */
-    public function update(Blog $blog,  UpdateBlogsRequest $request)
+    public function update(Blog $blog, UpdateBlogsRequest $request)
     {
         $this->repository->update($blog, $request->except(['_token', '_method']));
 

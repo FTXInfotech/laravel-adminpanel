@@ -2,14 +2,12 @@
 
 namespace Tests\Feature\Backend\Role;
 
-use App\Events\Backend\Auth\Role\RoleCreated;
-use App\Models\Auth\Permission;
-use App\Models\Auth\Role;
-use App\Models\Auth\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
+use App\Models\Auth\Role;
+use App\Models\Auth\Permission;
+use Illuminate\Support\Facades\Event;
+use App\Events\Backend\Auth\Role\RoleCreated;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateRoleTest extends TestCase
 {
@@ -40,7 +38,7 @@ class CreateRoleTest extends TestCase
 
         $response = $this->post(route('admin.auth.role.store'), ['name' => config('access.users.admin_role'), 'associated_permissions' => 'all']);
 
-        $response->assertSessionHasErrors("name");
+        $response->assertSessionHasErrors('name');
     }
 
     /** @test */
@@ -63,7 +61,7 @@ class CreateRoleTest extends TestCase
         $roleData = [
             'name' => 'new role',
             'associated_permissions' => 'custom',
-            'permissions' => [$permission->id]
+            'permissions' => [$permission->id],
         ];
 
         Event::fake([
@@ -75,9 +73,9 @@ class CreateRoleTest extends TestCase
         $role = Role::where(['name' => 'new role'])->first();
 
         $this->assertDatabaseHas('roles', [
-            'name'  => $roleData['name'],
+            'name' => $roleData['name'],
         ]);
-        
+
         $this->assertSame($permission->id, $role->permissions()->first()->id);
 
         Event::assertDispatched(RoleCreated::class);

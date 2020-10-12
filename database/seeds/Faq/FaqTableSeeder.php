@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Faker\Generator as Faker;
 use Database\TruncateTable;
+use Faker\Generator as Faker;
+use Illuminate\Database\Seeder;
 use Database\DisableForeignKeys;
 
 class FaqTableSeeder extends Seeder
@@ -11,8 +11,6 @@ class FaqTableSeeder extends Seeder
 
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(Faker $faker)
     {
@@ -22,13 +20,12 @@ class FaqTableSeeder extends Seeder
         $faqs = [];
 
         for ($i = 0; $i < 50; $i++) {
-
             $title = $faker->sentence(4);
 
             $faqs[] = [
-                'question' =>  $faker->sentence(),
-                'answer' =>  $faker->paragraph(),
-                'status' =>  $faker->randomElement([0, 1]),
+                'question' => $faker->sentence(),
+                'answer' => $faker->paragraph(),
+                'status' => $faker->randomElement([0, 1]),
                 'created_at' => $faker->dateTimeBetween('-10 days', 'now'),
             ];
         }

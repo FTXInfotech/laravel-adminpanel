@@ -2,15 +2,15 @@
 
 namespace Tests\Feature\Backend\User;
 
-use App\Events\Backend\Auth\User\UserUpdated;
-use App\Models\Auth\Permission;
+use Tests\TestCase;
 use App\Models\Auth\Role;
 use App\Models\Auth\User;
-use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Auth\Permission;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
-use Tests\TestCase;
+use App\Events\Backend\Auth\User\UserUpdated;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 
 class UpdateUserTest extends TestCase
 {
@@ -30,14 +30,14 @@ class UpdateUserTest extends TestCase
     /** @test  */
     public function an_admin_can_resend_users_confirmation_email()
     {
-        $this->markTestIncomplete("See here notification working, but not logging.");
+        $this->markTestIncomplete('See here notification working, but not logging.');
 
         $this->loginAsAdmin();
         $user = factory(User::class)->states('unconfirmed')->create();
 
         Notification::fake();
 
-        $this->get(route("admin.auth.user.account.confirm.resend", $user));
+        $this->get(route('admin.auth.user.account.confirm.resend', $user));
 
         Notification::assertSentTo($user, UserNeedsConfirmation::class);
     }
@@ -56,7 +56,7 @@ class UpdateUserTest extends TestCase
         $this->assertNotSame('Doe', $user->last_name);
         $this->assertNotSame('john@example.com', $user->email);
 
-        $this->patch(route("admin.auth.user.update", $user), [
+        $this->patch(route('admin.auth.user.update', $user), [
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'john@example.com',

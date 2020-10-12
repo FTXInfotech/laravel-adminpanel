@@ -1,13 +1,12 @@
 <?php
 
-use App\Http\Controllers\Backend\Access\Role\RoleTableController;
 use App\Http\Controllers\Backend\Auth\Role\RoleController;
-use App\Http\Controllers\Backend\Auth\User\UserConfirmationController;
 use App\Http\Controllers\Backend\Auth\User\UserController;
-use App\Http\Controllers\Backend\Auth\User\UserPasswordController;
-use App\Http\Controllers\Backend\Auth\User\UserSessionController;
 use App\Http\Controllers\Backend\Auth\User\UserSocialController;
 use App\Http\Controllers\Backend\Auth\User\UserStatusController;
+use App\Http\Controllers\Backend\Auth\User\UserSessionController;
+use App\Http\Controllers\Backend\Auth\User\UserPasswordController;
+use App\Http\Controllers\Backend\Auth\User\UserConfirmationController;
 
 // All route names are prefixed with 'admin.auth'.
 Route::group([
@@ -18,9 +17,7 @@ Route::group([
 ], function () {
     // User Management
     Route::group(['namespace' => 'User'], function () {
-        /*
-        * For DataTables
-        */
+        // For DataTables
         Route::post('user/get', 'UserTableController')->name('user.get');
 
         // User Status'
@@ -71,7 +68,6 @@ Route::group([
 
     // Role Management
     Route::group(['namespace' => 'Role'], function () {
-
         Route::get('role', [RoleController::class, 'index'])->name('role.index');
         Route::get('role/create', [RoleController::class, 'create'])->name('role.create');
         Route::post('role', [RoleController::class, 'store'])->name('role.store');
@@ -86,9 +82,7 @@ Route::group([
         Route::post('role/get', 'RoleTableController')->name('role.get');
     });
 
-    /*
-    * Permission Management
-    */
+    // Permission Management
     Route::group(['namespace' => 'Permission'], function () {
         Route::resource('permission', 'PermissionController', ['except' => ['show']]);
 

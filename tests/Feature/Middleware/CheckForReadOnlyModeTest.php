@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Middleware;
 
+use Tests\TestCase;
 use App\Models\Auth\Role;
 use App\Models\Auth\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CheckForReadOnlyModeTest extends TestCase
 {
@@ -22,7 +22,7 @@ class CheckForReadOnlyModeTest extends TestCase
 
         $response = $this->delete("/admin/auth/role/{$role->id}");
 
-        $this->assertEquals($response->getStatusCode(), Response::HTTP_UNAUTHORIZED);
+        $this->assertSame($response->getStatusCode(), Response::HTTP_UNAUTHORIZED);
         $this->assertDatabaseHas(config('permission.table_names.roles'), ['id' => $role->id]);
     }
 
@@ -37,7 +37,7 @@ class CheckForReadOnlyModeTest extends TestCase
         $response = $this->followingRedirects()
             ->delete("/admin/auth/role/{$role->id}");
 
-        $this->assertEquals($response->getStatusCode(), Response::HTTP_OK);
+        $this->assertSame($response->getStatusCode(), Response::HTTP_OK);
         $this->assertDatabaseMissing(config('permission.table_names.roles'), ['id' => $role->id]);
     }
 

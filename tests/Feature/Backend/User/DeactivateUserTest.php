@@ -2,12 +2,12 @@
 
 namespace Tests\Backend\User;
 
+use Tests\TestCase;
+use App\Models\Auth\User;
+use Illuminate\Support\Facades\Event;
 use App\Events\Backend\Auth\User\UserDeactivated;
 use App\Events\Backend\Auth\User\UserReactivated;
-use App\Models\Auth\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
 
 class DeactivateUserTest extends TestCase
 {
@@ -30,7 +30,7 @@ class DeactivateUserTest extends TestCase
 
         Event::fake([UserDeactivated::class]);
 
-        $this->get(route("admin.auth.user.mark", ['user' => $user, 'status' => 0]));
+        $this->get(route('admin.auth.user.mark', ['user' => $user, 'status' => 0]));
 
         $this->assertSame(false, $user->refresh()->status);
         Event::assertDispatched(UserDeactivated::class);
@@ -45,7 +45,7 @@ class DeactivateUserTest extends TestCase
 
         Event::fake();
 
-        $this->get(route("admin.auth.user.mark", ['user' => $user, 'status' => 1]));
+        $this->get(route('admin.auth.user.mark', ['user' => $user, 'status' => 1]));
 
         $this->assertSame(true, $user->fresh()->status);
         Event::assertDispatched(UserReactivated::class);
@@ -56,7 +56,7 @@ class DeactivateUserTest extends TestCase
     {
         $admin = $this->loginAsAdmin();
 
-        $response = $this->from(route('admin.auth.user.index'))->get(route("admin.auth.user.mark", ['user' => $admin, 'status' => 0]));
+        $response = $this->from(route('admin.auth.user.index'))->get(route('admin.auth.user.mark', ['user' => $admin, 'status' => 0]));
 
         $response->assertSessionHas(['flash_danger' => __('exceptions.backend.access.users.cant_deactivate_self')]);
         $response->assertRedirect(route('admin.auth.user.index'));

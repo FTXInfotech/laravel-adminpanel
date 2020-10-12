@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use App\Models\Auth\Permission;
 use App\Models\Auth\Role;
 use Illuminate\Http\Request;
+use App\Models\Auth\Permission;
+use App\Http\Controllers\Controller;
 
 /**
  * Class DashboardController.
@@ -17,10 +17,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        if(!auth()->user()->isAdmin())
-        {
-            return redirect(route('frontend.user.dashboard'))->withFlashDanger("You are not authorized to view admin dashboard.");
+        if (! auth()->user()->isAdmin()) {
+            return redirect(route('frontend.user.dashboard'))->withFlashDanger('You are not authorized to view admin dashboard.');
         }
+
         return view('backend.dashboard');
     }
 

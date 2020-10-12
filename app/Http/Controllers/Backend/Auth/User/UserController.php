@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Backend\Auth\User;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Auth\User\ManageUserRequest;
-use App\Http\Requests\Backend\Auth\User\StoreUserRequest;
-use App\Http\Requests\Backend\Auth\User\UpdateUserRequest;
-use App\Http\Responses\ViewResponse;
 use App\Models\Auth\User;
-use App\Repositories\Backend\Auth\PermissionRepository;
+use App\Http\Controllers\Controller;
+use App\Http\Responses\ViewResponse;
+use Illuminate\Support\Facades\View;
 use App\Repositories\Backend\Auth\RoleRepository;
 use App\Repositories\Backend\Auth\UserRepository;
-use Illuminate\Support\Facades\View;
+use App\Repositories\Backend\Auth\PermissionRepository;
+use App\Http\Requests\Backend\Auth\User\StoreUserRequest;
+use App\Http\Requests\Backend\Auth\User\ManageUserRequest;
+use App\Http\Requests\Backend\Auth\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -93,7 +93,7 @@ class UserController extends Controller
             ->withUser($user)
             ->withUserRoles($user->roles->pluck('id')->all())
             ->withRoles($this->roleRepository->getAll())
-            ->withPermissions($permissionRepository->getSelectData('display_name')) 
+            ->withPermissions($permissionRepository->getSelectData('display_name'))
             ->withUserPermissions($user->permissions->pluck('id')->all());
     }
 

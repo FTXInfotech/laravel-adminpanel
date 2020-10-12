@@ -33,8 +33,8 @@ class UpdateRoleRequest extends FormRequest
         }
 
         return [
-            'name'          => 'required|max:191|unique:roles,name,' . $this->segment(4),
-            'permissions'   => $permissions,
+            'name' => 'required|max:191|unique:roles,name,'.$this->segment(4),
+            'permissions' => $permissions,
         ];
     }
 

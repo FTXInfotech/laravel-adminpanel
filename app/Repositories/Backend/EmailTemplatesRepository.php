@@ -2,14 +2,13 @@
 
 namespace App\Repositories\Backend;
 
+use Str;
+use App\Models\EmailTemplate;
+use App\Exceptions\GeneralException;
+use App\Repositories\BaseRepository;
 use App\Events\Backend\EmailTemplates\EmailTemplateCreated;
 use App\Events\Backend\EmailTemplates\EmailTemplateDeleted;
 use App\Events\Backend\EmailTemplates\EmailTemplateUpdated;
-use App\Exceptions\GeneralException;
-use App\Models\EmailTemplate;
-use App\Repositories\BaseRepository;
-use DB;
-use Str;
 
 class EmailTemplatesRepository extends BaseRepository
 {
@@ -71,7 +70,6 @@ class EmailTemplatesRepository extends BaseRepository
         $input['status'] = isset($input['status']) ? 1 : 0;
 
         if ($emailTemplate = EmailTemplate::create($input)) {
-
             event(new EmailTemplateCreated($emailTemplate));
 
             return true;
@@ -90,7 +88,6 @@ class EmailTemplatesRepository extends BaseRepository
         $input['status'] = isset($input['status']) ? 1 : 0;
 
         if ($emailTemplate->update($input)) {
-
             event(new EmailTemplateUpdated($emailTemplate));
 
             return true;
@@ -109,7 +106,6 @@ class EmailTemplatesRepository extends BaseRepository
     public function delete(EmailTemplate $emailTemplate)
     {
         if ($emailTemplate->delete()) {
-
             event(new EmailTemplateDeleted($emailTemplate));
 
             return true;

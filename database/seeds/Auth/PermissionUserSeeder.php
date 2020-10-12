@@ -1,9 +1,9 @@
 <?php
 
 use App\Models\Auth\User;
-use Database\DisableForeignKeys;
 use Database\TruncateTable;
 use Illuminate\Database\Seeder;
+use Database\DisableForeignKeys;
 
 /**
  * Class PermissionUserSeeder.
@@ -14,25 +14,25 @@ class PermissionUserSeeder extends Seeder
 
     /**
      * Run the database seed.
-     *
-     * @return void
      */
     public function run()
     {
         $this->disableForeignKeys();
-        $this->truncate("permission_user");
+        $this->truncate('permission_user');
 
         // Attach executive user permission
         $user = User::find(2);
         $permissions = $user->roles->first()->permissions->pluck('id');
-        if (!empty($permissions)) {
+
+        if (! empty($permissions)) {
             $user->permissions()->sync($permissions);
         }
 
         // Attach frontend user permission
         $user = User::find(3);
         $permissions = $user->roles->first()->permissions->pluck('id');
-        if (!empty($permissions)) {
+
+        if (! empty($permissions)) {
             $user->permissions()->sync($permissions);
         }
 

@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Auth\Permission;
 use Carbon\Carbon;
-use Database\DisableForeignKeys;
 use Database\TruncateTable;
+use App\Models\Auth\Permission;
 use Illuminate\Database\Seeder;
+use Database\DisableForeignKeys;
 
 /**
  * Class PermissionTableSeeder.
@@ -15,13 +15,11 @@ class PermissionTableSeeder extends Seeder
 
     /**
      * Run the database seed.
-     *
-     * @return void
      */
     public function run()
     {
         $this->disableForeignKeys();
-        $this->truncateMultiple(["permissions", "permission_role"]);
+        $this->truncateMultiple(['permissions', 'permission_role']);
 
         /**
          * Don't need to assign any permissions to administrator because the all flag is set to true
@@ -31,7 +29,6 @@ class PermissionTableSeeder extends Seeder
         /**
          * Misc Access Permissions.
          */
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'view-backend';
         $viewBackend->display_name = 'View Backend';
@@ -43,7 +40,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewFrontend = new Permission();
         $viewFrontend->name = 'view-frontend';
         $viewFrontend->display_name = 'View Frontend';
@@ -58,7 +54,6 @@ class PermissionTableSeeder extends Seeder
         /**
          * Access Management.
          */
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'view-access-management';
         $viewBackend->display_name = 'View Access Management';
@@ -73,7 +68,6 @@ class PermissionTableSeeder extends Seeder
         /**
          * User Management.
          */
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'view-user-management';
         $viewBackend->display_name = 'View User Management';
@@ -85,7 +79,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'view-active-user';
         $viewBackend->display_name = 'View Active User';
@@ -97,7 +90,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'view-deactive-user';
         $viewBackend->display_name = 'View Deactive User';
@@ -109,7 +101,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'view-deleted-user';
         $viewBackend->display_name = 'View Deleted User';
@@ -121,7 +112,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'show-user';
         $viewBackend->display_name = 'Show User Details';
@@ -133,7 +123,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'create-user';
         $viewBackend->display_name = 'Create User';
@@ -145,7 +134,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'edit-user';
         $viewBackend->display_name = 'Edit User';
@@ -157,7 +145,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'delete-user';
         $viewBackend->display_name = 'Delete User';
@@ -169,7 +156,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'activate-user';
         $viewBackend->display_name = 'Activate User';
@@ -181,7 +167,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'deactivate-user';
         $viewBackend->display_name = 'Deactivate User';
@@ -193,7 +178,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'login-as-user';
         $viewBackend->display_name = 'Login As User';
@@ -205,7 +189,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'clear-user-session';
         $viewBackend->display_name = 'Clear User Session';
@@ -220,7 +203,6 @@ class PermissionTableSeeder extends Seeder
         /**
          * Role Management.
          */
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'view-role-management';
         $viewBackend->display_name = 'View Role Management';
@@ -232,7 +214,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'create-role';
         $viewBackend->display_name = 'Create Role';
@@ -244,7 +225,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'edit-role';
         $viewBackend->display_name = 'Edit Role';
@@ -256,7 +236,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'delete-role';
         $viewBackend->display_name = 'Delete Role';
@@ -271,7 +250,6 @@ class PermissionTableSeeder extends Seeder
         /**
          * Permission Management.
          */
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'view-permission-management';
         $viewBackend->display_name = 'View Permission Management';
@@ -283,7 +261,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'create-permission';
         $viewBackend->display_name = 'Create Permission';
@@ -295,7 +272,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'edit-permission';
         $viewBackend->display_name = 'Edit Permission';
@@ -307,7 +283,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'delete-permission';
         $viewBackend->display_name = 'Delete Permission';
@@ -322,7 +297,6 @@ class PermissionTableSeeder extends Seeder
         /**
          * Pages.
          */
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'view-page';
         $viewBackend->display_name = 'View Page';
@@ -334,7 +308,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'create-page';
         $viewBackend->display_name = 'Create Page';
@@ -346,7 +319,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'edit-page';
         $viewBackend->display_name = 'Edit Page';
@@ -358,7 +330,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'delete-page';
         $viewBackend->display_name = 'Delete Page';
@@ -373,7 +344,6 @@ class PermissionTableSeeder extends Seeder
         /**
          * Email Templates.
          */
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'view-email-template';
         $viewBackend->display_name = 'View Email Templates';
@@ -385,7 +355,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'create-email-template';
         $viewBackend->display_name = 'Create Email Templates';
@@ -397,7 +366,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'edit-email-template';
         $viewBackend->display_name = 'Edit Email Templates';
@@ -409,7 +377,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'delete-email-template';
         $viewBackend->display_name = 'Delete Email Templates';
@@ -424,7 +391,6 @@ class PermissionTableSeeder extends Seeder
         /**
          * Settings.
          */
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'edit-settings';
         $viewBackend->display_name = 'Edit Settings';
@@ -439,7 +405,6 @@ class PermissionTableSeeder extends Seeder
         /**
          * Blog Categories Management.
          */
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'view-blog-category';
         $viewBackend->display_name = 'View Blog Categories Management';
@@ -451,7 +416,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'create-blog-category';
         $viewBackend->display_name = 'Create Blog Category';
@@ -463,7 +427,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'edit-blog-category';
         $viewBackend->display_name = 'Edit Blog Category';
@@ -475,7 +438,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'delete-blog-category';
         $viewBackend->display_name = 'Delete Blog Category';
@@ -490,7 +452,6 @@ class PermissionTableSeeder extends Seeder
         /**
          * Blog Tags Management.
          */
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'view-blog-tag';
         $viewBackend->display_name = 'View Blog Tags Management';
@@ -502,7 +463,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'create-blog-tag';
         $viewBackend->display_name = 'Create Blog Tag';
@@ -514,7 +474,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'edit-blog-tag';
         $viewBackend->display_name = 'Edit Blog Tag';
@@ -526,7 +485,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'delete-blog-tag';
         $viewBackend->display_name = 'Delete Blog Tag';
@@ -541,7 +499,6 @@ class PermissionTableSeeder extends Seeder
         /**
          * Blogs Management.
          */
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'view-blog';
         $viewBackend->display_name = 'View Blogs Management';
@@ -553,7 +510,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'create-blog';
         $viewBackend->display_name = 'Create Blog';
@@ -565,7 +521,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'edit-blog';
         $viewBackend->display_name = 'Edit Blog';
@@ -577,7 +532,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'delete-blog';
         $viewBackend->display_name = 'Delete Blog';
@@ -592,7 +546,6 @@ class PermissionTableSeeder extends Seeder
         /**
          * FAQs.
          */
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'view-faq';
         $viewBackend->display_name = 'View FAQ Management';
@@ -604,7 +557,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'create-faq';
         $viewBackend->display_name = 'Create FAQ';
@@ -616,7 +568,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'edit-faq';
         $viewBackend->display_name = 'Edit FAQ';
@@ -628,7 +579,6 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->deleted_at = null;
         $viewBackend->save();
 
-        
         $viewBackend = new Permission();
         $viewBackend->name = 'delete-faq';
         $viewBackend->display_name = 'Delete FAQ';

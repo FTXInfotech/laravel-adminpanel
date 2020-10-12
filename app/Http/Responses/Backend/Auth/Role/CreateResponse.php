@@ -2,8 +2,6 @@
 
 namespace App\Http\Responses\Backend\Auth\Role;
 
-use App\Repositories\Backend\Auth\PermissionRepository;
-use App\Repositories\Backend\Auth\RoleRepository;
 use Illuminate\Contracts\Support\Responsable;
 
 class CreateResponse implements Responsable
@@ -24,8 +22,8 @@ class CreateResponse implements Responsable
      */
     public function __construct($permissions, $roles)
     {
-        $this->permissionRepository  = $permissions;
-        $this->roleRepository        = $roles;
+        $this->permissionRepository = $permissions;
+        $this->roleRepository = $roles;
     }
 
     /**

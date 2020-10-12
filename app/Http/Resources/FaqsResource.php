@@ -16,11 +16,11 @@ class FaqsResource extends Resource
     public function toArray($request)
     {
         return [
-            'id'            => $this->id,
-            'question'      => $this->question,
-            'answer'        => $this->answer,
-            'status'        => ($this->isActive()) ? 'Active' : 'InActive',
-            'created_at'    => $this->created_at->toDateString(),
+            'id' => $this->id,
+            'question' => $this->question,
+            'answer' => $this->answer,
+            'status' => ($this->isActive()) ? 'Active' : 'InActive',
+            'created_at' => $this->created_at->toDateString(),
         ];
     }
 }

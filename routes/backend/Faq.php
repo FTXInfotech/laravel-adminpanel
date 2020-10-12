@@ -1,8 +1,6 @@
-<?php 
+<?php
 
-/*
- * Faq Management
- */
+// Faq Management
 Route::group(['namespace' => 'Faqs'], function () {
     Route::resource('faqs', 'FaqsController', ['except' => ['show']]);
 

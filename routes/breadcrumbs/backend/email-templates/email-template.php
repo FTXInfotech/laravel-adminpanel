@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 Breadcrumbs::for('admin.email-templates.index', function ($trail) {
     $trail->push(__('labels.backend.access.email-templates.management'), route('admin.email-templates.index'));

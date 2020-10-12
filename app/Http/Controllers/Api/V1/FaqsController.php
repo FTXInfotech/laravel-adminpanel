@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Models\Faq;
+use Illuminate\Http\Request;
+use App\Http\Resources\FaqsResource;
+use App\Repositories\Backend\FaqsRepository;
 use App\Http\Requests\Backend\Faqs\StoreFaqsRequest;
 use App\Http\Requests\Backend\Faqs\UpdateFaqsRequest;
-use App\Http\Resources\FaqsResource;
-use App\Models\Faq;
-use App\Repositories\Backend\FaqsRepository;
-use Illuminate\Http\Request;
 
 /**
  * @group Faq Management
- * 
+ *
  * Class FaqsController
- * 
+ *
  * API's for Faq Management
- * 
+ *
  * @authenticated
  */
 class FaqsController extends APIController
@@ -33,11 +33,11 @@ class FaqsController extends APIController
     }
 
     /**
-     * Get all Faq
-     * 
-     * This enpoint provides a paginated list of all faqs. You can customize how many records you want in each 
-     * returned response as well as sort records based on a key in specific order.     
-     * 
+     * Get all Faq.
+     *
+     * This enpoint provides a paginated list of all faqs. You can customize how many records you want in each
+     * returned response as well as sort records based on a key in specific order.
+     *
      * @queryParam paginate Which page to show. Example :12
      * @queryParam orderBy Order by accending or descending. Example :ASC or DESC
      * @queryParam sortBy Sort by any database column. Example :created_at
@@ -46,7 +46,7 @@ class FaqsController extends APIController
      * @responseFile responses/faq/faq-list.json
      *
      * @param \Illuminate\Http\Request $request
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
@@ -61,13 +61,13 @@ class FaqsController extends APIController
     }
 
     /**
-     * Gives a specific Faq
+     * Gives a specific Faq.
      *
      * This endpoint provides you a single Faq.
      * The Faq is identified based on the ID provided as url parameter.
      *
      * @urlParam id required The ID of the Faq.
-     * 
+     *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/faq/faq-show.json
      *
@@ -81,15 +81,15 @@ class FaqsController extends APIController
     }
 
     /**
-     * Create a new Faq
+     * Create a new Faq.
      *
      * This endpoint lets you careate new Faq
-     * 
+     *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile status=201 responses/faq/faq-store.json
      *
      * @param \App\Http\Requests\Backend\Faqs\StoreFaqsRequest $request
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreFaqsRequest $request)
@@ -98,16 +98,16 @@ class FaqsController extends APIController
     }
 
     /**
-     * Update Faq
+     * Update Faq.
      *
      * This endpoint allows you to update existing Faq with new data.
      * The Faq to be updated is identified based on the ID provided as url parameter.
      *
      * @urlParam id required The ID of the Faq.
-     * 
+     *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/faq/faq-update.json
-     * 
+     *
      * @param \App\Models\Faq $faq
      * @param \App\Http\Requests\Backend\Faqs\UpdateFaqsRequest $request
      *
@@ -129,18 +129,18 @@ class FaqsController extends APIController
     }
 
     /**
-     * Delete Faq
+     * Delete Faq.
      *
      * This endpoint allows you to delete a Faq.
      * The Faq to be deleted is identified based on the ID provided as url parameter.
      *
      * @urlParam id required The ID of the Faq.
-     * 
+     *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/faq/faq-destroy.json
-     * 
+     *
      * @param \App\Models\Faq $faq
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Faq $faq)

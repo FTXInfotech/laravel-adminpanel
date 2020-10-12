@@ -2,14 +2,13 @@
 
 namespace Tests\Feature\Backend\User;
 
-use App\Events\Backend\Auth\User\UserDeleted;
-use App\Events\Backend\Auth\User\UserPermanentlyDeleted;
-use App\Events\Backend\Auth\User\UserRestored;
-use App\Models\Auth\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
+use App\Models\Auth\User;
+use Illuminate\Support\Facades\Event;
+use App\Events\Backend\Auth\User\UserDeleted;
+use App\Events\Backend\Auth\User\UserRestored;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Events\Backend\Auth\User\UserPermanentlyDeleted;
 
 class DeleteUserTest extends TestCase
 {
@@ -33,18 +32,18 @@ class DeleteUserTest extends TestCase
 
         Event::fake();
 
-        $response = $this->delete(route("admin.auth.user.destroy", $userToDelete));
+        $response = $this->delete(route('admin.auth.user.destroy', $userToDelete));
 
         $response->assertSessionHas(['flash_success' => __('alerts.backend.access.users.deleted')]);
         $this->assertDatabaseMissing('users', ['id' => $userToDelete->id, 'deleted_at' => null]);
 
-        Event::assertDispatched(UserDeleted::class, function($event) use($userToDelete) {
+        Event::assertDispatched(UserDeleted::class, function ($event) use ($userToDelete) {
             return $event->user->id == $userToDelete->id;
         });
 
         $this->assertSoftDeleted('users', [
-            'id'    =>  $userToDelete->id,
-            'email' =>  $userToDelete->email,
+            'id' => $userToDelete->id,
+            'email' => $userToDelete->email,
         ]);
     }
 
@@ -53,7 +52,7 @@ class DeleteUserTest extends TestCase
     {
         $user = $this->loginAsAdmin();
 
-        $response = $this->delete(route("admin.auth.user.destroy", $user));
+        $response = $this->delete(route('admin.auth.user.destroy', $user));
 
         $response->assertSessionHas(['flash_danger' => __('exceptions.backend.access.users.cant_delete_self')]);
 
@@ -67,7 +66,7 @@ class DeleteUserTest extends TestCase
 
         $user = factory(User::class)->create();
 
-        $response = $this->delete(route("admin.auth.user.delete-permanently", $user));
+        $response = $this->delete(route('admin.auth.user.delete-permanently', $user));
         $response->assertSessionHas(['flash_danger' => __('exceptions.backend.access.users.delete_first')]);
         $this->assertDatabaseHas('users', ['id' => $user->id, 'deleted_at' => null]);
     }
@@ -81,7 +80,7 @@ class DeleteUserTest extends TestCase
 
         Event::fake();
 
-        $response = $this->delete(route("admin.auth.user.delete-permanently", $user));
+        $response = $this->delete(route('admin.auth.user.delete-permanently', $user));
 
         $response->assertSessionHas(['flash_success' => __('alerts.backend.access.users.deleted_permanently')]);
         Event::assertDispatched(UserPermanentlyDeleted::class);
@@ -101,7 +100,7 @@ class DeleteUserTest extends TestCase
 
         $this->assertNull($user->refresh()->deleted_at);
         Event::assertDispatched(UserRestored::class);
-    }    
+    }
 
     /** @test */
     public function a_not_soft_deleted_user_cant_be_restored()
