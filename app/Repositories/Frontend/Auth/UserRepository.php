@@ -233,11 +233,11 @@ class UserRepository extends BaseRepository
      */
     public function findByUuid($uuid)
     {
-        $user = $this->model
+        $user = (new User)
             ->uuid($uuid)
             ->first();
 
-        if ($user instanceof $this->model) {
+        if ($user instanceof User) {
             return $user;
         }
 
@@ -273,7 +273,7 @@ class UserRepository extends BaseRepository
             // Get users first name and last name from their full name
             $nameParts = $this->getNameParts($data->getName());
 
-            $user = $this->model::create([
+            $user = User::create([
                 'first_name' => $nameParts['first_name'],
                 'last_name' => $nameParts['last_name'],
                 'email' => $user_email,

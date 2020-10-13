@@ -30,15 +30,17 @@ class CheckForReadOnlyModeTest extends TestCase
     public function a_user_can_alter_data_if_read_only_mode_is_disabled()
     {
         config(['app.read_only' => false]);
-        $role = factory(Role::class)->create();
+        $role = factory(Role::class)->create([
+            'id' => 123,
+        ]);
 
         $this->loginAsAdmin();
 
-        $response = $this->followingRedirects()
-            ->delete("/admin/auth/role/{$role->id}");
+        $this->followingRedirects()
+            ->delete("/admin/auth/role/{$role->id}")
+            ->assertOk();
 
-        $this->assertSame($response->getStatusCode(), Response::HTTP_OK);
-        $this->assertDatabaseMissing(config('permission.table_names.roles'), ['id' => $role->id]);
+        $this->assertSoftDeleted(config('permission.table_names.roles'), ['id' => $role->id]);
     }
 
     /** @test */

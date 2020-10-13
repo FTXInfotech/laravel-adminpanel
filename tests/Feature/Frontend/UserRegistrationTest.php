@@ -24,9 +24,11 @@ class UserRegistrationTest extends TestCase
      * @param array $userData
      * @return \Illuminate\Foundation\Testing\TestResponse
      */
-    protected function registerUser($userData = [])
+    protected function registerUser($userData = [], $roleData = [])
     {
-        factory(Role::class)->create(['name' => 'user']);
+        factory(Role::class)->create(array_merge([
+            'name' => 'user',
+        ], $roleData));
 
         return $this->post('/register', array_merge([
             'first_name' => 'John',
@@ -100,9 +102,10 @@ class UserRegistrationTest extends TestCase
 
         $user = factory(User::class)->states('unconfirmed')->create();
 
-        $response = $this->get('/account/confirm/resend/'.$user->uuid);
-
-        $response->assertSessionHas(['flash_success' => __('exceptions.frontend.auth.confirmation.resent')]);
+        $this->get('/account/confirm/resend/'.$user->uuid)
+            ->assertSessionHas([
+                'flash_success' => __('exceptions.frontend.auth.confirmation.resent'),
+            ]);
 
         Notification::assertSentTo($user, UserNeedsConfirmation::class);
     }
@@ -219,7 +222,7 @@ class UserRegistrationTest extends TestCase
     {
         config(['access.users.confirm_email' => false]);
 
-        $response = $this->registerUser();
+        $response = $this->registerUser([], ['all' => 0]);
 
         $response->assertRedirect('/dashboard');
     }
