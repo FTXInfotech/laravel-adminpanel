@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\BlogTag;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Resources\BlogTagsResource;
 use App\Repositories\Backend\BlogTagsRepository;
 use App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest;
+use App\Http\Requests\Backend\BlogTags\DeleteBlogTagsRequest;
+use App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest;
 
 /**
@@ -20,6 +22,11 @@ use App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest;
  */
 class BlogTagsController extends APIController
 {
+    /**
+     * Repository.
+     *
+     * @var BlogTagsRepository
+     */
     protected $repository;
 
     /**
@@ -35,29 +42,25 @@ class BlogTagsController extends APIController
     /**
      * Get all Blog Tag.
      *
-     * This enpoint provides a paginated list of all blog tags. You can customize how many records you want in each
+     * This endpoint provides a paginated list of all blog tags. You can customize how many records you want in each
      * returned response as well as sort records based on a key in specific order.
      *
      * @queryParam paginate Which page to show. Example :12
-     * @queryParam orderBy Order by accending or descending. Example :ASC or DESC
+     * @queryParam orderBy Order by ascending or descending. Example :ASC or DESC
      * @queryParam sortBy Sort by any database column. Example :created_at
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-tag/blog-tag-list.json
      *
-     * @param \Illuminate\Http\Request $request
+     * @param ManageBlogTagsRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(ManageBlogTagsRequest $request)
     {
-        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
-        $orderBy = $request->get('orderBy') ? $request->get('orderBy') : 'ASC';
-        $sortBy = $request->get('sortBy') ? $request->get('sortBy') : 'created_at';
+        $collection = $this->repository->retrieveList($request->all());
 
-        return BlogTagsResource::collection(
-            $this->repository->getActivePaginated($limit, $sortBy, $orderBy)
-        );
+        return BlogTagsResource::collection($collection);
     }
 
     /**
@@ -71,11 +74,12 @@ class BlogTagsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-tag/blog-tag-show.json
      *
-     * @param \App\Models\BlogTag blogTag
+     * @param ManageBlogTagsRequest $request
+     * @param BlogTag $blogTag
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(BlogTag $blogTag)
+    public function show(ManageBlogTagsRequest $request, BlogTag $blogTag)
     {
         return new BlogTagsResource($blogTag);
     }
@@ -83,7 +87,7 @@ class BlogTagsController extends APIController
     /**
      * Create a new Blog Tag.
      *
-     * This endpoint lets you careate new Blog Tage
+     * This endpoint lets you create new Blog Tag
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-tag/blog-tag-store.json
@@ -94,7 +98,9 @@ class BlogTagsController extends APIController
      */
     public function store(StoreBlogTagsRequest $request)
     {
-        return new BlogTagsResource($this->repository->create($request->all()));
+        return (new BlogTagsResource($this->repository->create($request->validated())))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
@@ -108,14 +114,16 @@ class BlogTagsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-tag/blog-tag-update.json
      *
-     * @param \App\Models\BlogTag $blogTag
-     * @param \App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest $request
+     * @param UpdateBlogTagsRequest $request
+     * @param BlogTag $blogTag
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateBlogTagsRequest $request, BlogTag $blogTag)
     {
-        return new BlogTagsResource($this->repository->update($blogTag, $request->all()));
+        $blogTag = $this->repository->update($blogTag, $request->validated());
+
+        return new BlogTagsResource($blogTag);
     }
 
     /**
@@ -129,16 +137,15 @@ class BlogTagsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-tag/blog-tag-destroy.json
      *
-     * @param \App\Models\BlogTag $blogTag
+     * @param DeleteBlogTagsRequest $request
+     * @param BlogTag $blogTag
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(BlogTag $blogTag)
+    public function destroy(DeleteBlogTagsRequest $request, BlogTag $blogTag)
     {
         $this->repository->delete($blogTag);
 
-        return $this->respond([
-            'message' => __('alerts.backend.blog-tags.deleted'),
-        ]);
+        return response()->noContent();
     }
 }

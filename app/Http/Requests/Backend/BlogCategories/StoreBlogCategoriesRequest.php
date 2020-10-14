@@ -27,7 +27,8 @@ class StoreBlogCategoriesRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:191|unique:blog_categories,name',
+            'name' => ['required', 'max:191', 'unique:blog_categories,name'],
+            'status' => ['boolean'],
         ];
     }
 

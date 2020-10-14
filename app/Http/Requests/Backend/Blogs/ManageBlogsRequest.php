@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Backend\Blogs;
 
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class ManageBlogsRequest.
  */
-class ManageBlogsRequest extends Request
+class ManageBlogsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

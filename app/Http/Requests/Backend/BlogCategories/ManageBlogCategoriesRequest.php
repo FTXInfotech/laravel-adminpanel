@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Backend\BlogCategories;
 
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class ManageBlogCategoriesRequest.
  */
-class ManageBlogCategoriesRequest extends Request
+class ManageBlogCategoriesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

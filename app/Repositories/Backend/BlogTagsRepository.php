@@ -17,26 +17,41 @@ class BlogTagsRepository extends BaseRepository
     const MODEL = BlogTag::class;
 
     /**
-     * @param int    $paged
-     * @param string $orderBy
-     * @param string $sort
+     * Sortable.
      *
-     * @return mixed
+     * @var array
      */
-    public function getActivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc')
+    private $sortable = [
+        'id',
+        'name',
+        'status',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Retrieve List.
+     *
+     * @var array
+     * @return Collection
+     */
+    public function retrieveList(array $options = [])
     {
-        return $this->query()
-            ->leftjoin('users', 'users.id', '=', 'blog_tags.created_by')
-            ->select([
-                'blog_tags.id',
-                'blog_tags.name',
-                'blog_tags.status',
-                'blog_tags.created_by',
-                'blog_tags.created_at',
-                'users.first_name as user_name',
+        $perPage = isset($options['per_page']) ? (int) $options['per_page'] : 20;
+        $orderBy = isset($options['order_by']) && in_array($options['order_by'], $this->sortable) ? $options['order_by'] : 'created_at';
+        $order = isset($options['order']) && in_array($options['order'], ['asc', 'desc']) ? $options['order'] : 'desc';
+        $query = $this->query()
+            ->with([
+                'creator',
+                'updater',
             ])
-            ->orderBy($orderBy, $sort)
-            ->paginate($paged);
+            ->orderBy($orderBy, $order);
+
+        if ($perPage == -1) {
+            return $query->get();
+        }
+
+        return $query->paginate($perPage);
     }
 
     /**
@@ -68,7 +83,7 @@ class BlogTagsRepository extends BaseRepository
             throw new GeneralException(__('exceptions.backend.blog-tag.already_exists'));
         }
 
-        $input['status'] = isset($input['status']) ? 1 : 0;
+        $input['status'] = $input['status'] ?? 0;
         $input['created_by'] = auth()->user()->id;
 
         if ($blogtag = BlogTag::create($input)) {
@@ -94,7 +109,7 @@ class BlogTagsRepository extends BaseRepository
             throw new GeneralException(__('exceptions.backend.blog-tag.already_exists'));
         }
 
-        $input['status'] = isset($input['status']) ? 1 : 0;
+        $input['status'] = $input['status'] ?? 0;
         $input['updated_by'] = auth()->user()->id;
 
         if ($blogtag->update($input)) {

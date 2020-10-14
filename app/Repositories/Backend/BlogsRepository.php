@@ -27,6 +27,23 @@ class BlogsRepository extends BaseRepository
     protected $upload_path;
 
     /**
+     * Sortable.
+     *
+     * @var array
+     */
+    private $sortable = [
+        'id',
+        'name',
+        'slug',
+        'publish_datetime',
+        'content',
+        'meta_title',
+        'status',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
      * Storage Class Object.
      *
      * @var \Illuminate\Support\Facades\Storage
@@ -40,27 +57,28 @@ class BlogsRepository extends BaseRepository
     }
 
     /**
-     * @param int    $paged
-     * @param string $orderBy
-     * @param string $sort
+     * Retrieve List.
      *
-     * @return mixed
+     * @var array
+     * @return Collection
      */
-    public function getActivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc')
+    public function retrieveList(array $options = [])
     {
-        return $this->query()
-            ->leftjoin('users', 'users.id', '=', 'blogs.created_by')
-            ->select([
-                'blogs.id',
-                'blogs.name',
-                'blogs.publish_datetime',
-                'blogs.status',
-                'blogs.created_by',
-                'blogs.created_at',
-                'users.first_name as user_name',
+        $perPage = isset($options['per_page']) ? (int) $options['per_page'] : 20;
+        $orderBy = isset($options['order_by']) && in_array($options['order_by'], $this->sortable) ? $options['order_by'] : 'created_at';
+        $order = isset($options['order']) && in_array($options['order'], ['asc', 'desc']) ? $options['order'] : 'desc';
+        $query = $this->query()
+            ->with([
+                'owner',
+                'updater',
             ])
-            ->orderBy($orderBy, $sort)
-            ->paginate($paged);
+            ->orderBy($orderBy, $order);
+
+        if ($perPage == -1) {
+            return $query->get();
+        }
+
+        return $query->paginate($perPage);
     }
 
     /**
@@ -245,17 +263,16 @@ class BlogsRepository extends BaseRepository
      */
     public function uploadImage($input)
     {
-        $avatar = $input['featured_image'];
-
         if (isset($input['featured_image']) && ! empty($input['featured_image'])) {
+            $avatar = $input['featured_image'];
             $fileName = time().$avatar->getClientOriginalName();
 
             $this->storage->put($this->upload_path.$fileName, file_get_contents($avatar->getRealPath()));
 
             $input = array_merge($input, ['featured_image' => $fileName]);
-
-            return $input;
         }
+
+        return $input;
     }
 
     /**

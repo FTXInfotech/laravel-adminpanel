@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Blog;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Resources\BlogsResource;
 use App\Repositories\Backend\BlogsRepository;
 use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
+use App\Http\Requests\Backend\Blogs\DeleteBlogsRequest;
+use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
 use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
 
 /**
@@ -20,6 +22,11 @@ use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
  */
 class BlogsController extends APIController
 {
+    /**
+     * Repository.
+     *
+     * @var BlogsRepository
+     */
     protected $repository;
 
     /**
@@ -35,29 +42,25 @@ class BlogsController extends APIController
     /**
      * Get all Blogs.
      *
-     * This enpoint provides a paginated list of all blogs. You can customize how many records you want in each
+     * This endpoint provides a paginated list of all blogs. You can customize how many records you want in each
      * returned response as well as sort records based on a key in specific order.
      *
      * @queryParam paginate Which page to show. Example :12
-     * @queryParam orderBy Order by accending or descending. Example :ASC or DESC
+     * @queryParam orderBy Order by ascending or descending. Example :ASC or DESC
      * @queryParam sortBy Sort by any database column. Example :created_at
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog/blog-list.json
      *
-     * @param \Illuminate\Http\Request $request
+     * @param ManageBlogsRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(ManageBlogsRequest $request)
     {
-        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
-        $orderBy = $request->get('orderBy') ? $request->get('orderBy') : 'ASC';
-        $sortBy = $request->get('sortBy') ? $request->get('sortBy') : 'created_at';
+        $collection = $this->repository->retrieveList($request->all());
 
-        return BlogsResource::collection(
-            $this->repository->getActivePaginated($limit, $sortBy, $orderBy)
-        );
+        return BlogsResource::collection($collection);
     }
 
     /**
@@ -75,7 +78,7 @@ class BlogsController extends APIController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Blog $blog)
+    public function show(ManageBlogsRequest $request, Blog $blog)
     {
         return new BlogsResource($blog);
     }
@@ -83,12 +86,12 @@ class BlogsController extends APIController
     /**
      * Create a new Blog.
      *
-     * This endpoint lets you careate new Blog
+     * This endpoint lets you create new Blog
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile status=201 responses/blog/blog-store.json
      *
-     * @param \App\Http\Requests\Backend\Blogs\StoreBlogsRequest $request
+     * @param StoreBlogsRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -97,7 +100,9 @@ class BlogsController extends APIController
         $request['categories'] = explode(',', trim($request->categories));
         $request['tags'] = explode(',', trim($request->tags));
 
-        return new BlogsResource($this->repository->create($request->all()));
+        return (new BlogsResource($this->repository->create($request->all())))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
@@ -135,16 +140,15 @@ class BlogsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog/blog-destroy.json
      *
+     * @param DeleteBlogsRequest $request
      * @param \App\Models\Blog $blog
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Blog $blog, Request $request)
+    public function destroy(DeleteBlogsRequest $request, Blog $blog)
     {
         $this->repository->delete($blog);
 
-        return $this->respond([
-            'message' => __('alerts.backend.blogs.deleted'),
-        ]);
+        return response()->noContent();
     }
 }

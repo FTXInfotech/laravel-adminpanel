@@ -11,5 +11,33 @@ class BlogTag extends BaseModel
 {
     use ModelAttributes, SoftDeletes, BlogTagAttributes, BlogTagRelationships;
 
-    protected $fillable = ['name', 'status', 'created_by', 'updated_by'];
+    /**
+     * Fillable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'status',
+        'created_by',
+        'updated_by',
+    ];
+
+    /**
+     * Casts.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
+    /**
+     * Appends.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'display_status',
+    ];
 }

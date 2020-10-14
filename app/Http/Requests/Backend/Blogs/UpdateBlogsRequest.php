@@ -27,7 +27,7 @@ class UpdateBlogsRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:191|unique:blogs,name,'.$this->segment(3),
+            'name' => 'required|max:191|unique:blogs,name,'.$this->route('blog')->id,
             'publish_datetime' => 'required|date',
             'content' => 'required',
             'categories' => 'required',

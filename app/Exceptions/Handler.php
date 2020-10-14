@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
@@ -64,27 +65,27 @@ class Handler extends ExceptionHandler
             Log::debug('API Request Exception - '.$request->url().' - '.$exception->getMessage().(! empty($request->all()) ? ' - '.json_encode($request->except(['password'])) : ''));
 
             if ($exception instanceof AuthorizationException) {
-                return $this->setStatusCode(403)->respondWithError($exception->getMessage());
+                return $this->setStatusCode(Response::HTTP_FORBIDDEN)->respondWithError($exception->getMessage());
             }
 
             if ($exception instanceof MethodNotAllowedHttpException) {
-                return $this->setStatusCode(403)->respondWithError('Please check HTTP Request Method. - MethodNotAllowedHttpException');
+                return $this->setStatusCode(Response::HTTP_METHOD_NOT_ALLOWED)->respondWithError('Please check HTTP Request Method. - MethodNotAllowedHttpException');
             }
 
             if ($exception instanceof NotFoundHttpException) {
-                return $this->setStatusCode(403)->respondWithError('Please check your URL to make sure request is formatted properly. - NotFoundHttpException');
+                return $this->setStatusCode(Response::HTTP_NOT_FOUND)->respondWithError('Please check your URL to make sure request is formatted properly. - NotFoundHttpException');
             }
 
             if ($exception instanceof GeneralException) {
-                return $this->setStatusCode(403)->respondWithError($exception->getMessage());
+                return $this->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR)->respondWithError($exception->getMessage());
             }
 
             if ($exception instanceof ModelNotFoundException) {
-                return $this->setStatusCode(403)->respondWithError('Item could not be found. Please check identifier.');
+                return $this->setStatusCode(Response::HTTP_NOT_FOUND)->respondWithError('Item could not be found. Please check identifier.');
             }
 
             if ($exception instanceof AuthenticationException) {
-                return $this->setStatusCode(401)->respondWithError('Unauthenticated.');
+                return $this->setStatusCode(Response::HTTP_UNAUTHORIZED)->respondWithError('Unauthenticated.');
             }
 
             if ($exception instanceof ValidationException) {

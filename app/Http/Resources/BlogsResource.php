@@ -15,14 +15,20 @@ class BlogsResource extends Resource
      */
     public function toArray($request)
     {
-        // dd($request);
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'publish_datetime' => $this->publish_datetime->format('d/m/Y h:i A'),
+            'publish_datetime' => optional($this->publish_datetime)->format('d/m/Y h:i A'),
+            'content' => $this->content,
+            'meta_title' => $this->meta_title,
+            'cannonical_link' => $this->cannonical_link,
+            'meta_keywords' => $this->meta_keywords,
+            'meta_description' => $this->meta_description,
             'status' => $this->status,
             'created_at' => optional($this->created_at)->toDateString(),
-            'created_by' => $request->user()->first_name.' '.$request->user()->last_name,
+            'created_by' => $request->user()->full_name,
+            'updated_at' => optional($this->updated_at)->toDateTimeString(),
+            'updated_by' => optional($this->updater)->full_name,
         ];
     }
 }

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\BlogCategory;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Resources\BlogCategoriesResource;
 use App\Repositories\Backend\BlogCategoriesRepository;
 use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
+use App\Http\Requests\Backend\BlogCategories\DeleteBlogCategoriesRequest;
+use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest;
 
 /**
@@ -20,6 +22,11 @@ use App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest;
  */
 class BlogCategoriesController extends APIController
 {
+    /**
+     * Repository.
+     *
+     * @var BlogCategoriesRepository
+     */
     protected $repository;
 
     /**
@@ -35,29 +42,25 @@ class BlogCategoriesController extends APIController
     /**
      * Get all Blog Categories.
      *
-     * This enpoint provides a paginated list of all blog categories. You can customize how many records you want in each
+     * This endpoint provides a paginated list of all blog categories. You can customize how many records you want in each
      * returned response as well as sort records based on a key in specific order.
      *
      * @queryParam paginate Which page to show. Example :12
-     * @queryParam orderBy Order by accending or descending. Example :ASC or DESC
+     * @queryParam orderBy Order by ascending or descending. Example :ASC or DESC
      * @queryParam sortBy Sort by any database column. Example :created_at
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-category/blog-category-list.json
      *
-     * @param \Illuminate\Http\Request $request
+     * @param ManageBlogCategoriesRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(ManageBlogCategoriesRequest $request)
     {
-        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
-        $orderBy = $request->get('orderBy') ? $request->get('orderBy') : 'ASC';
-        $sortBy = $request->get('sortBy') ? $request->get('sortBy') : 'created_at';
+        $collection = $this->repository->retrieveList($request->all());
 
-        return BlogCategoriesResource::collection(
-            $this->repository->getActivePaginated($limit, $sortBy, $orderBy)
-        );
+        return BlogCategoriesResource::collection($collection);
     }
 
     /**
@@ -71,11 +74,12 @@ class BlogCategoriesController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-category/blog-category-show.json
      *
-     * @param \App\Models\BlogCategory $blogCategory
+     * @param ManageBlogCategoriesRequest $request
+     * @param BlogCategory $blogCategory
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(BlogCategory $blogCategory)
+    public function show(ManageBlogCategoriesRequest $request, BlogCategory $blogCategory)
     {
         return new BlogCategoriesResource($blogCategory);
     }
@@ -83,18 +87,22 @@ class BlogCategoriesController extends APIController
     /**
      * Create a new Blog Category.
      *
-     * This endpoint lets you careate new Blog Category
+     * This endpoint lets you create new Blog Category
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile status=201 responses/blog-category/blog-category-store.json
      *
-     * @param \App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest $request
+     * @param StoreBlogCategoriesRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreBlogCategoriesRequest $request)
     {
-        return new BlogCategoriesResource($this->repository->create($request->all()));
+        $blogCategory = $this->repository->create($request->validated());
+
+        return (new BlogCategoriesResource($blogCategory))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
@@ -108,14 +116,16 @@ class BlogCategoriesController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-category/blog-category-update.json
      *
-     * @param \App\Models\BlogCategory $blogCategory
-     * @param \App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest $request
+     * @param UpdateBlogCategoriesRequest $request
+     * @param BlogCategory $blogCategory
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateBlogCategoriesRequest $request, BlogCategory $blogCategory)
     {
-        return new BlogCategoriesResource($this->repository->update($blogCategory, $request->all()));
+        $blogCategory = $this->repository->update($blogCategory, $request->validated());
+
+        return new BlogCategoriesResource($blogCategory);
     }
 
     /**
@@ -129,16 +139,15 @@ class BlogCategoriesController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-category/blog-category-destroy.json
      *
-     * @param \App\Models\BlogCategory $blogCategory
+     * @param DeleteBlogCategoriesRequest $request
+     * @param BlogCategory $blogCategory
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(BlogCategory $blogCategory)
+    public function destroy(DeleteBlogCategoriesRequest $request, BlogCategory $blogCategory)
     {
         $this->repository->delete($blogCategory);
 
-        return $this->respond([
-            'message' => __('alerts.backend.blog-category.deleted'),
-        ]);
+        return response()->noContent();
     }
 }

@@ -31,4 +31,12 @@ trait BlogRelationships
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    /**
+     * Blogs updated by User.
+     */
+    public function updater()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }
