@@ -13,4 +13,12 @@ trait PageRelationships
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    /**
+     * Page belongs to relationship with user.
+     */
+    public function updater()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }

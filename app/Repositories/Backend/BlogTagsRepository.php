@@ -115,7 +115,7 @@ class BlogTagsRepository extends BaseRepository
         if ($blogtag->update($input)) {
             event(new BlogTagUpdated($blogtag));
 
-            return $blogtag;
+            return $blogtag->fresh();
         }
 
         throw new GeneralException(__('exceptions.backend.blog-tag.update_error'));

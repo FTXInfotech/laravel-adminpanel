@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Faq;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Resources\FaqsResource;
 use App\Repositories\Backend\FaqsRepository;
 use App\Http\Requests\Backend\Faqs\StoreFaqsRequest;
+use App\Http\Requests\Backend\Faqs\DeleteFaqsRequest;
+use App\Http\Requests\Backend\Faqs\ManageFaqsRequest;
 use App\Http\Requests\Backend\Faqs\UpdateFaqsRequest;
 
 /**
@@ -20,6 +22,11 @@ use App\Http\Requests\Backend\Faqs\UpdateFaqsRequest;
  */
 class FaqsController extends APIController
 {
+    /**
+     * Repository.
+     *
+     * @var FaqsRepository
+     */
     protected $repository;
 
     /**
@@ -35,29 +42,25 @@ class FaqsController extends APIController
     /**
      * Get all Faq.
      *
-     * This enpoint provides a paginated list of all faqs. You can customize how many records you want in each
+     * This endpoint provides a paginated list of all faqs. You can customize how many records you want in each
      * returned response as well as sort records based on a key in specific order.
      *
      * @queryParam paginate Which page to show. Example :12
-     * @queryParam orderBy Order by accending or descending. Example :ASC or DESC
+     * @queryParam orderBy Order by ascending or descending. Example :ASC or DESC
      * @queryParam sortBy Sort by any database column. Example :created_at
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/faq/faq-list.json
      *
-     * @param \Illuminate\Http\Request $request
+     * @param ManageFaqsRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(ManageFaqsRequest $request)
     {
-        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
-        $orderBy = $request->get('orderBy') ? $request->get('orderBy') : 'ASC';
-        $sortBy = $request->get('sortBy') ? $request->get('sortBy') : 'created_at';
+        $collection = $this->repository->retrieveList($request->all());
 
-        return FaqsResource::collection(
-            $this->repository->getActivePaginated($limit, $sortBy, $orderBy)
-        );
+        return FaqsResource::collection($collection);
     }
 
     /**
@@ -71,11 +74,12 @@ class FaqsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/faq/faq-show.json
      *
+     * @param ManageFaqsRequest $request
      * @param \App\Models\Faq $faq
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Faq $faq)
+    public function show(ManageFaqsRequest $request, Faq $faq)
     {
         return new FaqsResource($faq);
     }
@@ -83,7 +87,7 @@ class FaqsController extends APIController
     /**
      * Create a new Faq.
      *
-     * This endpoint lets you careate new Faq
+     * This endpoint lets you create new Faq
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile status=201 responses/faq/faq-store.json
@@ -94,7 +98,9 @@ class FaqsController extends APIController
      */
     public function store(StoreFaqsRequest $request)
     {
-        return new FaqsResource($this->repository->create($request->all()));
+        return (new FaqsResource($this->repository->create($request->validated())))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
@@ -115,15 +121,7 @@ class FaqsController extends APIController
      */
     public function update(UpdateFaqsRequest $request, Faq $faq)
     {
-        $validation = $this->validateFaq($request);
-
-        if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
-        }
-
-        $this->repository->update($faq, $request->all());
-
-        $faq = Faq::findOrfail($faq->id);
+        $faq = $this->repository->update($faq, $request->validated());
 
         return new FaqsResource($faq);
     }
@@ -143,12 +141,10 @@ class FaqsController extends APIController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Faq $faq)
+    public function destroy(DeleteFaqsRequest $request, Faq $faq)
     {
         $this->repository->delete($faq);
 
-        return $this->respond([
-            'message' => __('alerts.backend.faqs.deleted'),
-        ]);
+        return response()->noContent();
     }
 }

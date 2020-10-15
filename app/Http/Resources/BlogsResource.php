@@ -25,8 +25,9 @@ class BlogsResource extends Resource
             'meta_keywords' => $this->meta_keywords,
             'meta_description' => $this->meta_description,
             'status' => $this->status,
+            'display_status' => $this->display_status,
             'created_at' => optional($this->created_at)->toDateString(),
-            'created_by' => $request->user()->full_name,
+            'created_by' => optional($this->owner)->full_name,
             'updated_at' => optional($this->updated_at)->toDateTimeString(),
             'updated_by' => optional($this->updater)->full_name,
         ];

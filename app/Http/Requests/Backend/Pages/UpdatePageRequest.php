@@ -24,8 +24,13 @@ class UpdatePageRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:191|unique:pages,title,'.$this->segment(3),
-            'description' => 'required',
+            'title' => ['required', 'max:191', 'unique:pages,title,'.$this->route('page')->id],
+            'description' => ['required', 'string'],
+            'status' => ['boolean'],
+            'cannonical_link' => ['string', 'nullable', 'url'],
+            'seo_title' => ['string', 'nullable'],
+            'seo_keyword' => ['string', 'nullable'],
+            'seo_description' => ['string', 'nullable'],
         ];
     }
 }

@@ -8,7 +8,6 @@ use App\Repositories\BaseRepository;
 use App\Events\Backend\Faqs\FaqCreated;
 use App\Events\Backend\Faqs\FaqDeleted;
 use App\Events\Backend\Faqs\FaqUpdated;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class FaqsRepository extends BaseRepository
 {
@@ -18,24 +17,38 @@ class FaqsRepository extends BaseRepository
     const MODEL = Faq::class;
 
     /**
-     * @param int    $paged
-     * @param string $orderBy
-     * @param string $sort
+     * Sortable.
      *
-     * @return mixed
+     * @var array
      */
-    public function getActivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc'): LengthAwarePaginator
+    private $sortable = [
+        'id',
+        'question',
+        'answer',
+        'status',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Retrieve List.
+     *
+     * @var array
+     * @return Collection
+     */
+    public function retrieveList(array $options = [])
     {
-        return $this->query()
-            ->select([
-                'faqs.id',
-                'faqs.question',
-                'faqs.answer',
-                'faqs.created_at',
-                'faqs.status',
-            ])
-            ->orderBy($orderBy, $sort)
-            ->paginate($paged);
+        $perPage = isset($options['per_page']) ? (int) $options['per_page'] : 20;
+        $orderBy = isset($options['order_by']) && in_array($options['order_by'], $this->sortable) ? $options['order_by'] : 'created_at';
+        $order = isset($options['order']) && in_array($options['order'], ['asc', 'desc']) ? $options['order'] : 'desc';
+        $query = $this->query()
+            ->orderBy($orderBy, $order);
+
+        if ($perPage == -1) {
+            return $query->get();
+        }
+
+        return $query->paginate($perPage);
     }
 
     /**
@@ -63,7 +76,7 @@ class FaqsRepository extends BaseRepository
     public function create(array $input)
     {
         $input['created_by'] = auth()->user()->id;
-        $input['status'] = isset($input['status']) ? 1 : 0;
+        $input['status'] = $input['status'] ?? 0;
 
         if ($faq = Faq::create($input)) {
             event(new FaqCreated($faq));
@@ -81,12 +94,12 @@ class FaqsRepository extends BaseRepository
     public function update(Faq $faq, array $input)
     {
         $input['updated_by'] = auth()->user()->id;
-        $input['status'] = isset($input['status']) ? 1 : 0;
+        $input['status'] = $input['status'] ?? 0;
 
         if ($faq->update($input)) {
             event(new FaqUpdated($faq));
 
-            return $faq;
+            return $faq->fresh();
         }
 
         throw new GeneralException(__('exceptions.backend.faqs.update_error'));

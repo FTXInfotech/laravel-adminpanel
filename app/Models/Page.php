@@ -19,13 +19,29 @@ class Page extends BaseModel
     protected $guarded = ['id'];
 
     /**
-     * The default values for attributes.
+     * Fillable.
      *
      * @var array
      */
-    protected $attributes = [
-        'created_by' => 1,
+    protected $fillable = [
+        'title',
+        'page_slug',
+        'description',
+        'cannonical_link',
+        'seo_title',
+        'seo_keyword',
+        'seo_description',
+        'status',
+        'created_by',
+        'updated_by',
     ];
 
-    protected $with = ['owner'];
+    /**
+     * Casts.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'status' => 'boolean',
+    ];
 }

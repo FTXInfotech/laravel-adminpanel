@@ -9,7 +9,6 @@ use App\Repositories\BaseRepository;
 use App\Events\Backend\Pages\PageCreated;
 use App\Events\Backend\Pages\PageDeleted;
 use App\Events\Backend\Pages\PageUpdated;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PagesRepository extends BaseRepository
 {
@@ -19,26 +18,44 @@ class PagesRepository extends BaseRepository
     const MODEL = Page::class;
 
     /**
-     * @param int    $paged
-     * @param string $orderBy
-     * @param string $sort
+     * Sortable.
      *
-     * @return mixed
+     * @var array
      */
-    public function getActivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc') : LengthAwarePaginator
+    private $sortable = [
+        'id',
+        'title',
+        'page_slug',
+        'description',
+        'seo_title',
+        'status',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Retrieve List.
+     *
+     * @var array
+     * @return Collection
+     */
+    public function retrieveList(array $options = [])
     {
-        return $this->query()
-            ->leftjoin('users', 'users.id', '=', 'pages.created_by')
-            ->select([
-                'pages.id',
-                'pages.title',
-                'pages.status',
-                'pages.created_by',
-                'pages.created_at',
-                'users.first_name as user_name',
+        $perPage = isset($options['per_page']) ? (int) $options['per_page'] : 20;
+        $orderBy = isset($options['order_by']) && in_array($options['order_by'], $this->sortable) ? $options['order_by'] : 'created_at';
+        $order = isset($options['order']) && in_array($options['order'], ['asc', 'desc']) ? $options['order'] : 'desc';
+        $query = $this->query()
+            ->with([
+                'owner',
+                'updater',
             ])
-            ->orderBy($orderBy, $sort)
-            ->paginate($paged);
+            ->orderBy($orderBy, $order);
+
+        if ($perPage == -1) {
+            return $query->get();
+        }
+
+        return $query->paginate($perPage);
     }
 
     /**
@@ -72,12 +89,12 @@ class PagesRepository extends BaseRepository
 
         $input['page_slug'] = Str::slug($input['title']);
         $input['created_by'] = auth()->user()->id;
-        $input['status'] = isset($input['status']) ? 1 : 0;
+        $input['status'] = $input['status'] ?? 0;
 
         if ($page = Page::create($input)) {
             event(new PageCreated($page));
 
-            return $page;
+            return $page->fresh();
         }
 
         throw new GeneralException(__('exceptions.backend.pages.create_error'));
@@ -97,7 +114,7 @@ class PagesRepository extends BaseRepository
 
         $input['page_slug'] = Str::slug($input['title']);
         $input['updated_by'] = auth()->user()->id;
-        $input['status'] = isset($input['status']) ? 1 : 0;
+        $input['status'] = $input['status'] ?? 0;
 
         if ($page->update($input)) {
             event(new PageUpdated($page));

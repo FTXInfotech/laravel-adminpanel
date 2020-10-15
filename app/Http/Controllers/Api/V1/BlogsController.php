@@ -97,10 +97,7 @@ class BlogsController extends APIController
      */
     public function store(StoreBlogsRequest $request)
     {
-        $request['categories'] = explode(',', trim($request->categories));
-        $request['tags'] = explode(',', trim($request->tags));
-
-        return (new BlogsResource($this->repository->create($request->all())))
+        return (new BlogsResource($this->repository->create($request->validated())))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
     }
@@ -123,10 +120,7 @@ class BlogsController extends APIController
      */
     public function update(UpdateBlogsRequest $request, Blog $blog)
     {
-        $request['categories'] = explode(',', trim($request->categories));
-        $request['tags'] = explode(',', trim($request->tags));
-
-        return new BlogsResource($this->repository->update($blog, $request->all()));
+        return new BlogsResource($this->repository->update($blog, $request->validated()));
     }
 
     /**

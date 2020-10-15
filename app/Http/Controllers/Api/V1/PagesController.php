@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Page;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Resources\PagesResource;
 use App\Repositories\Backend\PagesRepository;
 use App\Http\Requests\Backend\Pages\StorePageRequest;
+use App\Http\Requests\Backend\Pages\DeletePageRequest;
+use App\Http\Requests\Backend\Pages\ManagePageRequest;
 use App\Http\Requests\Backend\Pages\UpdatePageRequest;
 
 /**
@@ -20,6 +22,11 @@ use App\Http\Requests\Backend\Pages\UpdatePageRequest;
  */
 class PagesController extends APIController
 {
+    /**
+     * Repository.
+     *
+     * @var PagesRepository
+     */
     protected $repository;
 
     /**
@@ -35,29 +42,25 @@ class PagesController extends APIController
     /**
      * Get all Pages.
      *
-     * This enpoint provides a paginated list of all pages. You can customize how many records you want in each
+     * This endpoint provides a paginated list of all pages. You can customize how many records you want in each
      * returned response as well as sort records based on a key in specific order.
      *
      * @queryParam paginate Which page to show. Example :12
-     * @queryParam orderBy Order by accending or descending. Example :ASC or DESC
+     * @queryParam orderBy Order by ascending or descending. Example :ASC or DESC
      * @queryParam sortBy Sort by any database column. Example :created_at
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/page/page-list.json
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\ManagePageRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(ManagePageRequest $request)
     {
-        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
-        $orderBy = $request->get('orderBy') ? $request->get('orderBy') : 'ASC';
-        $sortBy = $request->get('sortBy') ? $request->get('sortBy') : config('module.pages.table', 'pages').'.created_at';
+        $collection = $this->repository->retrieveList($request->all());
 
-        return PagesResource::collection(
-            $this->repository->getActivePaginated($limit, $sortBy, $orderBy)
-        );
+        return PagesResource::collection($collection);
     }
 
     /**
@@ -71,11 +74,12 @@ class PagesController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/page/page-show.json
      *
+     * @param ManagePageRequest $request
      * @param \App\Models\Page $page
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Page $page)
+    public function show(ManagePageRequest $request, Page $page)
     {
         return new PagesResource($page);
     }
@@ -83,7 +87,7 @@ class PagesController extends APIController
     /**
      * Create a new Page.
      *
-     * This endpoint lets you careate new Page
+     * This endpoint lets you create new Page
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile status=201 responses/page/page-store.json
@@ -94,7 +98,11 @@ class PagesController extends APIController
      */
     public function store(StorePageRequest $request)
     {
-        return new PagesResource($this->repository->create($request->all()));
+        $page = $this->repository->create($request->validated());
+
+        return (new PagesResource($page))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
@@ -115,7 +123,9 @@ class PagesController extends APIController
      */
     public function update(UpdatePageRequest $request, Page $page)
     {
-        return new PagesResource($this->repository->update($page, $request->all()));
+        $page = $this->repository->update($page, $request->validated());
+
+        return new PagesResource($page);
     }
 
     /**
@@ -133,12 +143,10 @@ class PagesController extends APIController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Page $page)
+    public function destroy(DeletePageRequest $request, Page $page)
     {
         $this->repository->delete($page);
 
-        return $this->respond([
-            'message' => __('alerts.backend.pages.deleted'),
-        ]);
+        return response()->noContent();
     }
 }

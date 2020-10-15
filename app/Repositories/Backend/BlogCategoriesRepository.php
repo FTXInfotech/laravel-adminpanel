@@ -115,7 +115,7 @@ class BlogCategoriesRepository extends BaseRepository
         if ($blogcategory->update($input)) {
             event(new BlogCategoryUpdated($blogcategory));
 
-            return $blogcategory;
+            return $blogcategory->fresh();
         }
 
         throw new GeneralException(__('exceptions.backend.blog-category.update_error'));

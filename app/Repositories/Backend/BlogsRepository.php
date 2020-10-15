@@ -175,7 +175,7 @@ class BlogsRepository extends BaseRepository
 
                 event(new BlogUpdated($blog));
 
-                return $blog;
+                return $blog->fresh();
             }
 
             throw new GeneralException(__('exceptions.backend.blogs.update_error'));
@@ -198,7 +198,16 @@ class BlogsRepository extends BaseRepository
             if (is_numeric($tag)) {
                 $tags_array[] = $tag;
             } else {
-                $newTag = BlogTag::create(['name' => $tag, 'status' => 1, 'created_by' => 1]);
+                $newTag = BlogTag::firstOrCreate(
+                    [
+                        'name' => $tag,
+                    ],
+                    [
+                        'name' => $tag,
+                        'status' => 1,
+                        'created_by' => auth()->user()->id,
+                    ]
+                );
                 $tags_array[] = $newTag->id;
             }
         }
@@ -222,7 +231,16 @@ class BlogsRepository extends BaseRepository
             if (is_numeric($category)) {
                 $categories_array[] = $category;
             } else {
-                $newCategory = BlogCategory::create(['name' => $category, 'status' => 1, 'created_by' => 1]);
+                $newCategory = BlogCategory::firstOrCreate(
+                    [
+                        'name' => $category,
+                    ],
+                    [
+                        'name' => $category,
+                        'status' => 1,
+                        'created_by' => auth()->user()->id,
+                    ]
+                );
 
                 $categories_array[] = $newCategory->id;
             }

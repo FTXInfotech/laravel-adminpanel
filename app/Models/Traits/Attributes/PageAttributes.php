@@ -44,4 +44,14 @@ trait PageAttributes
     {
         return $this->status == 1;
     }
+
+    /**
+     * Get Display Status Attribute.
+     *
+     * @var string
+     */
+    public function getDisplayStatusAttribute(): string
+    {
+        return $this->isActive() ? 'Active' : 'InActive';
+    }
 }

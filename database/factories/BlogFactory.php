@@ -16,12 +16,7 @@ $factory->define(Blog::class, function (Faker $faker) {
         'cannonical_link' => $faker->url,
         'meta_keywords' => $faker->word,
         'meta_description' => $faker->paragraph,
-        'status' => $faker->randomElement([
-            'Published',
-            'Draft',
-            'InActive',
-            'Scheduled',
-        ]),
+        'status' => $faker->numberBetween(0, 3),
         'created_by' => function () {
             return factory(User::class)->state('active')->create()->id;
         },

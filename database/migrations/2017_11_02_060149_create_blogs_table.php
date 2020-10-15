@@ -21,7 +21,7 @@ class CreateBlogsTable extends Migration
             $table->string('slug', 191)->nullable();
             $table->text('meta_description', 65535)->nullable();
             $table->text('meta_keywords', 65535)->nullable();
-            $table->enum('status', ['Published', 'Draft', 'InActive', 'Scheduled']);
+            $table->tinyInteger('status')->default(0)->comment('0 => InActive, 1 => Published, 2 => Draft, 3 => Scheduled');
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();

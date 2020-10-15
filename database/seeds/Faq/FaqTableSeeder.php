@@ -1,37 +1,22 @@
 <?php
 
-use Database\TruncateTable;
-use Faker\Generator as Faker;
+use App\Models\Faq;
 use Illuminate\Database\Seeder;
-use Database\DisableForeignKeys;
+use Illuminate\Database\Eloquent\Model;
 
 class FaqTableSeeder extends Seeder
 {
-    use TruncateTable, DisableForeignKeys;
-
     /**
      * Run the database seeds.
      */
-    public function run(Faker $faker)
+    public function run()
     {
-        $this->disableForeignKeys();
-        $this->truncate('faqs');
+        if (! \App::environment(['production'])) {
+            Model::unguard();
 
-        $faqs = [];
+            factory(Faq::class, 10)->create();
 
-        for ($i = 0; $i < 50; $i++) {
-            $title = $faker->sentence(4);
-
-            $faqs[] = [
-                'question' => $faker->sentence(),
-                'answer' => $faker->paragraph(),
-                'status' => $faker->randomElement([0, 1]),
-                'created_at' => $faker->dateTimeBetween('-10 days', 'now'),
-            ];
+            Model::reguard();
         }
-
-        DB::table('faqs')->insert($faqs);
-
-        $this->enableForeignKeys();
     }
 }

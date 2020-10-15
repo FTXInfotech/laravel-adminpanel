@@ -32,10 +32,10 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         });
 
         // Page
-        Route::resource('pages', 'PagesController', ['except' => ['create', 'edit']]);
+        Route::apiResource('pages', 'PagesController');
 
         // Faqs
-        Route::resource('faqs', 'FaqsController', ['except' => ['create', 'edit']]);
+        Route::apiResource('faqs', 'FaqsController');
 
         // Blog Categories
         Route::apiResource('blog-categories', 'BlogCategoriesController');

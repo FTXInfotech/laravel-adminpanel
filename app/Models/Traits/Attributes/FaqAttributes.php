@@ -34,4 +34,14 @@ trait FaqAttributes
                 $this->getDeleteButtonAttribute('delete-faq', 'admin.faqs.destroy').
                 '</div>';
     }
+
+    /**
+     * Get Display Status Attribute.
+     *
+     * @var string
+     */
+    public function getDisplayStatusAttribute(): string
+    {
+        return $this->isActive() ? 'Active' : 'InActive';
+    }
 }

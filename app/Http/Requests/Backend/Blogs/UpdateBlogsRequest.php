@@ -27,11 +27,19 @@ class UpdateBlogsRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:191|unique:blogs,name,'.$this->route('blog')->id,
-            'publish_datetime' => 'required|date',
-            'content' => 'required',
-            'categories' => 'required',
-            'tags' => 'required',
+            'name' => ['required', 'max:191', 'unique:blogs,name,'.$this->route('blog')->id],
+            'publish_datetime' => ['required', 'date'],
+            'content' => ['required', 'string'],
+            'categories' => ['required', 'array'],
+            'categories.*' => ['string'],
+            'tags' => ['required', 'array'],
+            'tags.*' => ['string'],
+            'status' => ['integer', 'between:0,3'],
+            'meta_title' => ['string', 'nullable'],
+            'cannonical_link' => ['string', 'nullable', 'url'],
+            'meta_keywords' => ['string', 'nullable'],
+            'meta_description' => ['string', 'nullable'],
+            'featured_image' => ['nullable', 'image'],
         ];
     }
 
