@@ -22,7 +22,7 @@
 
                         { data: 'name', name: 'blogs.name' },
                         { data: 'publish_datetime', name: 'blogs.publish_datetime' },
-                        { data: 'status', name: 'blogs.status' },
+                        { data: 'display_status', name: 'blogs.status' },
                         { data: 'created_by', name: 'blogs.created_by' },
                         { data: 'created_at', name: 'blogs.created_at' },
                         { data: 'actions', name: 'actions', searchable: false, sortable: false }

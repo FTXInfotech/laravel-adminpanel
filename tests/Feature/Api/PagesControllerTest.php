@@ -146,7 +146,7 @@ class PagesControllerTest extends BaseApiTestCase
             ->assertJson([
                 'data' => [
                     'title' => 'Page Title Updated',
-                    // 'description' => 'Updated Description',
+                    'description' => 'Updated Description',
                     'status' => true,
                 ],
             ])

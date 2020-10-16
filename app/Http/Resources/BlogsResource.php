@@ -26,6 +26,8 @@ class BlogsResource extends Resource
             'meta_description' => $this->meta_description,
             'status' => $this->status,
             'display_status' => $this->display_status,
+            'categories' => $this->categories->count() ? (BlogCategoriesResource::collection($this->categories)) : null,
+            'tags' => $this->tags->count() ? (BlogTagsResource::collection($this->tags)) : null,
             'created_at' => optional($this->created_at)->toDateString(),
             'created_by' => optional($this->owner)->full_name,
             'updated_at' => optional($this->updated_at)->toDateTimeString(),

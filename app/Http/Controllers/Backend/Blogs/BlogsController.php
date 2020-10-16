@@ -18,16 +18,6 @@ use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
 class BlogsController extends Controller
 {
     /**
-     * Blog Status.
-     */
-    protected $status = [
-        'Published' => 'Published',
-        'Draft' => 'Draft',
-        'InActive' => 'InActive',
-        'Scheduled' => 'Scheduled',
-    ];
-
-    /**
      * @var \App\Repositories\Backend\BlogsRepository
      */
     protected $repository;
@@ -56,12 +46,12 @@ class BlogsController extends Controller
      *
      * @return ViewResponse
      */
-    public function create(ManageBlogsRequest $request)
+    public function create(ManageBlogsRequest $request, Blog $blog)
     {
         $blogTags = BlogTag::getSelectData();
         $blogCategories = BlogCategory::getSelectData();
 
-        return new ViewResponse('backend.blogs.create', ['status' => $this->status, 'blogCategories' => $blogCategories, 'blogTags' => $blogTags]);
+        return new ViewResponse('backend.blogs.create', ['status' => $blog->statuses, 'blogCategories' => $blogCategories, 'blogTags' => $blogTags]);
     }
 
     /**
@@ -87,7 +77,7 @@ class BlogsController extends Controller
         $blogCategories = BlogCategory::getSelectData();
         $blogTags = BlogTag::getSelectData();
 
-        return new EditResponse($blog, $this->status, $blogCategories, $blogTags);
+        return new EditResponse($blog, $blog->statuses, $blogCategories, $blogTags);
     }
 
     /**
