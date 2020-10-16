@@ -1,10 +1,10 @@
 <?php
 
-use Carbon\Carbon;
-use Database\TruncateTable;
 use App\Models\Auth\Permission;
-use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 use Database\DisableForeignKeys;
+use Database\TruncateTable;
+use Illuminate\Database\Seeder;
 
 /**
  * Class PermissionTableSeeder.

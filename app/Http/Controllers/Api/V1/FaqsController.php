@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Faq;
-use Illuminate\Http\Response;
-use App\Http\Resources\FaqsResource;
-use App\Repositories\Backend\FaqsRepository;
-use App\Http\Requests\Backend\Faqs\StoreFaqsRequest;
 use App\Http\Requests\Backend\Faqs\DeleteFaqsRequest;
 use App\Http\Requests\Backend\Faqs\ManageFaqsRequest;
+use App\Http\Requests\Backend\Faqs\StoreFaqsRequest;
 use App\Http\Requests\Backend\Faqs\UpdateFaqsRequest;
+use App\Http\Resources\FaqsResource;
+use App\Models\Faq;
+use App\Repositories\Backend\FaqsRepository;
+use Illuminate\Http\Response;
 
 /**
  * @group Faq Management

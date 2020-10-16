@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\BlogCategory;
-use Illuminate\Http\Response;
-use App\Http\Resources\BlogCategoriesResource;
-use App\Repositories\Backend\BlogCategoriesRepository;
-use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\DeleteBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;
+use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest;
+use App\Http\Resources\BlogCategoriesResource;
+use App\Models\BlogCategory;
+use App\Repositories\Backend\BlogCategoriesRepository;
+use Illuminate\Http\Response;
 
 /**
  * @group Blog Categories Management
