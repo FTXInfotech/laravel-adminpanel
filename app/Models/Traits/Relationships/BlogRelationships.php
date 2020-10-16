@@ -2,9 +2,9 @@
 
 namespace App\Models\Traits\Relationships;
 
-use App\Models\BlogTag;
 use App\Models\Auth\User;
 use App\Models\BlogCategory;
+use App\Models\BlogTag;
 
 trait BlogRelationships
 {

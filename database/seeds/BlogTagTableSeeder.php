@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\BlogTag;
 use App\Models\Auth\User;
-use Illuminate\Database\Seeder;
+use App\Models\BlogTag;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class BlogTagTableSeeder extends Seeder
 {

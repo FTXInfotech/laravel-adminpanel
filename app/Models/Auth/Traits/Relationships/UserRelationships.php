@@ -2,10 +2,10 @@
 
 namespace App\Models\Auth\Traits\Relationships;
 
-use App\Models\Auth\Role;
-use App\Models\Auth\Permission;
-use App\Models\Auth\SocialAccount;
 use App\Models\Auth\PasswordHistory;
+use App\Models\Auth\Permission;
+use App\Models\Auth\Role;
+use App\Models\Auth\SocialAccount;
 
 trait UserRelationships
 {
