@@ -2,18 +2,18 @@
 
 namespace App\Repositories\Frontend\Auth;
 
-use App\Models\Auth\Role;
-use App\Models\Auth\User;
-use Illuminate\Http\UploadedFile;
-use App\Models\Auth\SocialAccount;
-use Illuminate\Support\Facades\DB;
-use App\Exceptions\GeneralException;
-use App\Repositories\BaseRepository;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use App\Events\Frontend\Auth\UserConfirmed;
 use App\Events\Frontend\Auth\UserProviderRegistered;
+use App\Exceptions\GeneralException;
+use App\Models\Auth\Role;
+use App\Models\Auth\SocialAccount;
+use App\Models\Auth\User;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
+use App\Repositories\BaseRepository;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class UserRepository.
@@ -121,7 +121,7 @@ class UserRepository extends BaseRepository
     {
         $user = $this->createUserStub($data);
 
-        return DB::transaction(function () use ($user, $data) {
+        return DB::transaction(function () use ($user) {
             if ($user->save()) {
                 //Attach new roles
                 if ($roles = Role::where('name', config('access.users.default_role'))->get()->pluck('id')->toArray()) {

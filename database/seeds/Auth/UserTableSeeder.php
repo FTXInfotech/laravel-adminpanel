@@ -1,11 +1,11 @@
 <?php
 
 use App\Models\Auth\User;
-use Database\TruncateTable;
-use Illuminate\Support\Str;
 use Carbon\Carbon as Carbon;
-use Illuminate\Database\Seeder;
 use Database\DisableForeignKeys;
+use Database\TruncateTable;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 /**
  * Class UserTableSeeder.

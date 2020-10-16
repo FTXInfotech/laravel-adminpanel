@@ -1,11 +1,11 @@
 <?php
 
-use App\Models\Blog;
-use App\Models\BlogTag;
 use App\Models\Auth\User;
+use App\Models\Blog;
 use App\Models\BlogCategory;
-use Illuminate\Database\Seeder;
+use App\Models\BlogTag;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class BlogTableSeeder extends Seeder
 {

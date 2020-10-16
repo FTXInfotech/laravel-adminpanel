@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Page;
-use Illuminate\Http\Response;
-use App\Http\Resources\PagesResource;
-use App\Repositories\Backend\PagesRepository;
-use App\Http\Requests\Backend\Pages\StorePageRequest;
 use App\Http\Requests\Backend\Pages\DeletePageRequest;
 use App\Http\Requests\Backend\Pages\ManagePageRequest;
+use App\Http\Requests\Backend\Pages\StorePageRequest;
 use App\Http\Requests\Backend\Pages\UpdatePageRequest;
+use App\Http\Resources\PagesResource;
+use App\Models\Page;
+use App\Repositories\Backend\PagesRepository;
+use Illuminate\Http\Response;
 
 /**
  * @group Pages Management

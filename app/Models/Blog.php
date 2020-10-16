@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Traits\ModelAttributes;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Traits\Attributes\BlogAttributes;
+use App\Models\Traits\ModelAttributes;
 use App\Models\Traits\Relationships\BlogRelationships;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Blog extends BaseModel
 {
