@@ -4,19 +4,19 @@ Class PagesController
 
 API's for Pages Management
 
-## Get all Pages
+## Get all Pages.
 
 <small class="badge badge-darkred">requires authentication</small>
 
-This enpoint provides a paginated list of all pages. You can customize how many records you want in each
+This endpoint provides a paginated list of all pages. You can customize how many records you want in each
 returned response as well as sort records based on a key in specific order.
 
 > Example request:
 
 ```bash
 curl -X GET \
-    -G "/api/v1/pages?paginate=14&orderBy=inventore&sortBy=nulla" \
-    -H "Authorization: Bearer ec4gkdEvfZ35Va61h6bD8Pa" \
+    -G "/api/v1/pages?paginate=6&orderBy=dignissimos&sortBy=voluptas" \
+    -H "Authorization: Bearer had81g4ca6VPfEv65ZD3kbe" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -27,15 +27,15 @@ const url = new URL(
 );
 
 let params = {
-    "paginate": "14",
-    "orderBy": "inventore",
-    "sortBy": "nulla",
+    "paginate": "6",
+    "orderBy": "dignissimos",
+    "sortBy": "voluptas",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
 
 let headers = {
-    "Authorization": "Bearer ec4gkdEvfZ35Va61h6bD8Pa",
+    "Authorization": "Bearer had81g4ca6VPfEv65ZD3kbe",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -54,7 +54,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (200):
@@ -106,28 +109,28 @@ fetch(url, {
     Which page to show. Example :12
 
 <code><b>orderBy</b></code>&nbsp;          <i>optional</i>    <br>
-    Order by accending or descending. Example :ASC or DESC
+    Order by ascending or descending. Example :ASC or DESC
 
 <code><b>sortBy</b></code>&nbsp;          <i>optional</i>    <br>
     Sort by any database column. Example :created_at
 
 
 
-## Create a new Page
+## Create a new Page.
 
 <small class="badge badge-darkred">requires authentication</small>
 
-This endpoint lets you careate new Page
+This endpoint lets you create new Page
 
 > Example request:
 
 ```bash
 curl -X POST \
     "/api/v1/pages" \
-    -H "Authorization: Bearer 6e68Padv5ck1DfZa4hgVE3b" \
+    -H "Authorization: Bearer cdD4kb5V1P8a6ahgf3E6veZ" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"perspiciatis","description":"debitis"}'
+    -d '{"title":"sapiente","description":"laudantium","status":false,"cannonical_link":"https:\/\/www.hudson.biz\/aliquam-dicta-ex-ad-quia-harum-dolore-consectetur","seo_title":"nihil","seo_keyword":"iure","seo_description":"et"}'
 
 ```
 
@@ -137,14 +140,19 @@ const url = new URL(
 );
 
 let headers = {
-    "Authorization": "Bearer 6e68Padv5ck1DfZa4hgVE3b",
+    "Authorization": "Bearer cdD4kb5V1P8a6ahgf3E6veZ",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
 
 let body = {
-    "title": "perspiciatis",
-    "description": "debitis"
+    "title": "sapiente",
+    "description": "laudantium",
+    "status": false,
+    "cannonical_link": "https:\/\/www.hudson.biz\/aliquam-dicta-ex-ad-quia-harum-dolore-consectetur",
+    "seo_title": "nihil",
+    "seo_keyword": "iure",
+    "seo_description": "et"
 }
 
 fetch(url, {
@@ -161,7 +169,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (201):
@@ -190,9 +201,24 @@ fetch(url, {
 <code><b>description</b></code>&nbsp; <small>string</small>     <br>
     
 
+<code><b>status</b></code>&nbsp; <small>boolean</small>         <i>optional</i>    <br>
+    
+
+<code><b>cannonical_link</b></code>&nbsp; <small>string</small>         <i>optional</i>    <br>
+    The value must be a valid URL.
+
+<code><b>seo_title</b></code>&nbsp; <small>string</small>         <i>optional</i>    <br>
+    
+
+<code><b>seo_keyword</b></code>&nbsp; <small>string</small>         <i>optional</i>    <br>
+    
+
+<code><b>seo_description</b></code>&nbsp; <small>string</small>         <i>optional</i>    <br>
+    
 
 
-## Gives a specific Page
+
+## Gives a specific Page.
 
 <small class="badge badge-darkred">requires authentication</small>
 
@@ -204,7 +230,7 @@ The Page is identified based on the ID provided as url parameter.
 ```bash
 curl -X GET \
     -G "/api/v1/pages/1" \
-    -H "Authorization: Bearer vhPf31eVak665Zd4bacDg8E" \
+    -H "Authorization: Bearer eh8vE6D4Zgk5abdP3ca1V6f" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -215,7 +241,7 @@ const url = new URL(
 );
 
 let headers = {
-    "Authorization": "Bearer vhPf31eVak665Zd4bacDg8E",
+    "Authorization": "Bearer eh8vE6D4Zgk5abdP3ca1V6f",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -234,7 +260,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (200):
@@ -262,94 +291,7 @@ fetch(url, {
 
 
 
-## Update Page
-
-<small class="badge badge-darkred">requires authentication</small>
-
-This endpoint allows you to update existing Page with new data.
-The Page to be updated is identified based on the ID provided as url parameter.
-
-> Example request:
-
-```bash
-curl -X PUT \
-    "/api/v1/pages/1" \
-    -H "Authorization: Bearer fVe6E5gPv1Zhkaba8dc6D43" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"title":"maiores","description":"quas"}'
-
-```
-
-```javascript
-const url = new URL(
-    "/api/v1/pages/1"
-);
-
-let headers = {
-    "Authorization": "Bearer fVe6E5gPv1Zhkaba8dc6D43",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "title": "maiores",
-    "description": "quas"
-}
-
-fetch(url, {
-    method: "PUT",
-    headers: headers,
-    body: body
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (401, api_key not provided):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-> Example response (200):
-
-```json
-{
-    "data": {
-        "id": 51,
-        "title": "Page Title Updated",
-        "status_label": "<label class='label label-danger'>Inactive<\/label>",
-        "status": "InActive",
-        "created_at": "2020-07-08",
-        "created_by": "Viral"
-    }
-}
-```
-
-### Request
-<small class="badge badge-darkblue">PUT</small>
- **`api/v1/pages/{page}`**
-
-<small class="badge badge-purple">PATCH</small>
- **`api/v1/pages/{page}`**
-
-<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-<code><b>id</b></code>&nbsp;      <br>
-    The ID of the Page.
-
-<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-<code><b>title</b></code>&nbsp; <small>string</small>     <br>
-    
-
-<code><b>description</b></code>&nbsp; <small>string</small>     <br>
-    
-
-
-
-## Delete Page
+## Delete Page.
 
 <small class="badge badge-darkred">requires authentication</small>
 
@@ -361,7 +303,7 @@ The Page to be deleted is identified based on the ID provided as url parameter.
 ```bash
 curl -X DELETE \
     "/api/v1/pages/1" \
-    -H "Authorization: Bearer eaE1bhZP46Dagv8Vkcdf563" \
+    -H "Authorization: Bearer 53k8acbEDdv16fZ4ghP6Vea" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -372,7 +314,7 @@ const url = new URL(
 );
 
 let headers = {
-    "Authorization": "Bearer eaE1bhZP46Dagv8Vkcdf563",
+    "Authorization": "Bearer 53k8acbEDdv16fZ4ghP6Vea",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -391,7 +333,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (200):

@@ -45,11 +45,12 @@ class BlogCategoriesController extends APIController
      * This endpoint provides a paginated list of all blog categories. You can customize how many records you want in each
      * returned response as well as sort records based on a key in specific order.
      *
-     * @queryParam paginate Which page to show. Example :12
-     * @queryParam orderBy Order by ascending or descending. Example :ASC or DESC
-     * @queryParam sortBy Sort by any database column. Example :created_at
+     * @queryParam page Which page to show. Example: 12
+     * @queryParam per_page Number of records per page. (use -1 to retrieve all) Example: 20
+     * @queryParam order_by Order by database column. Example: created_at
+     * @queryParam order Order direction ascending (asc) or descending (desc). Example: asc
      *
-     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
      * @responseFile responses/blog-category/blog-category-list.json
      *
      * @param ManageBlogCategoriesRequest $request
@@ -71,7 +72,7 @@ class BlogCategoriesController extends APIController
      *
      * @urlParam id required The ID of the Blog Category.
      *
-     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
      * @responseFile responses/blog-category/blog-category-show.json
      *
      * @param ManageBlogCategoriesRequest $request
@@ -89,7 +90,7 @@ class BlogCategoriesController extends APIController
      *
      * This endpoint lets you create new Blog Category
      *
-     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
      * @responseFile status=201 responses/blog-category/blog-category-store.json
      *
      * @param StoreBlogCategoriesRequest $request
@@ -113,8 +114,8 @@ class BlogCategoriesController extends APIController
      *
      * @urlParam id required The ID of the Blog Category.
      *
-     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
-     * @responseFile responses/blog-category/blog-category-update.json
+     * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
+     * @responseFile status=200 responses/blog-category/blog-category-update.json
      *
      * @param UpdateBlogCategoriesRequest $request
      * @param BlogCategory $blogCategory
@@ -136,8 +137,8 @@ class BlogCategoriesController extends APIController
      *
      * @urlParam id required The ID of the Blog Category.
      *
-     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
-     * @responseFile responses/blog-category/blog-category-destroy.json
+     * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
+     * @responseFile status=204 scenario="When the record is deleted" responses/blog-category/blog-category-destroy.json
      *
      * @param DeleteBlogCategoriesRequest $request
      * @param BlogCategory $blogCategory

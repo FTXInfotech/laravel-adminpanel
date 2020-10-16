@@ -2,7 +2,7 @@
     "variables": [],
     "info": {
         "name": "Laravel Starter API",
-        "_postman_id": "4127ef3d-0e70-4333-ab4e-1055d5b85160",
+        "_postman_id": "ad1cf49d-801e-4991-b25f-2ad9b49eaece",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
     },
@@ -120,39 +120,45 @@
             "description": "\nClass BlogCategoriesController\n\nAPI's for Blog Categories Management",
             "item": [
                 {
-                    "name": "Get all Blog Categories",
+                    "name": "Get all Blog Categories.",
                     "request": {
                         "url": {
                             "protocol": "http",
                             "host": "127.0.0.1:8000",
-                            "path": "api\/v1\/blog_categories",
+                            "path": "api\/v1\/blog-categories",
                             "query": [
                                 {
-                                    "key": "paginate",
-                                    "value": "11",
-                                    "description": "Which page to show. Example :12",
+                                    "key": "page",
+                                    "value": "12",
+                                    "description": "Which page to show.",
                                     "disabled": false
                                 },
                                 {
-                                    "key": "orderBy",
-                                    "value": "molestias",
-                                    "description": "Order by accending or descending. Example :ASC or DESC",
+                                    "key": "per_page",
+                                    "value": "20",
+                                    "description": "Number of records per page. (use -1 to retrieve all)",
                                     "disabled": false
                                 },
                                 {
-                                    "key": "sortBy",
-                                    "value": "enim",
-                                    "description": "Sort by any database column. Example :created_at",
+                                    "key": "order_by",
+                                    "value": "created_at",
+                                    "description": "Order by database column.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "order",
+                                    "value": "asc",
+                                    "description": "Order direction ascending (asc) or descending (desc).",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_categories?paginate=11&orderBy=molestias&sortBy=enim"
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog-categories?page=12&per_page=20&order_by=created_at&order=asc"
                         },
                         "method": "GET",
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer P8VghceZ3aD65fE1k46avdb"
+                                "value": "Bearer chdPZ8fD6e1bag5k6v4Va3E"
                             },
                             {
                                 "key": "Content-Type",
@@ -172,25 +178,25 @@
                                 }
                             }
                         },
-                        "description": "This enpoint provides a paginated list of all blog categories. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
+                        "description": "This endpoint provides a paginated list of all blog categories. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
                         "response": []
                     }
                 },
                 {
-                    "name": "Create a new Blog Category",
+                    "name": "Create a new Blog Category.",
                     "request": {
                         "url": {
                             "protocol": "http",
                             "host": "127.0.0.1:8000",
-                            "path": "api\/v1\/blog_categories",
+                            "path": "api\/v1\/blog-categories",
                             "query": [],
-                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_categories"
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog-categories"
                         },
                         "method": "POST",
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer 3ehZ6E5vDP61b8adfa4Vkgc"
+                                "value": "Bearer 5he8kV4dfDbcagaE1Z6P3v6"
                             },
                             {
                                 "key": "Content-Type",
@@ -203,32 +209,32 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"illum\"\n}",
+                            "raw": "{\n    \"name\": \"Software\",\n    \"status\": true\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
                                 }
                             }
                         },
-                        "description": "This endpoint lets you careate new Blog Category",
+                        "description": "This endpoint lets you create new Blog Category",
                         "response": []
                     }
                 },
                 {
-                    "name": "Gives a specific Blog Category",
+                    "name": "Gives a specific Blog Category.",
                     "request": {
                         "url": {
                             "protocol": "http",
                             "host": "127.0.0.1:8000",
-                            "path": "api\/v1\/blog_categories\/:blog_category",
+                            "path": "api\/v1\/blog-categories\/:blog_category",
                             "query": [],
-                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_categories\/:blog_category"
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog-categories\/:blog_category"
                         },
                         "method": "GET",
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer 3h68e4gv61acfVPDEdbZ5ak"
+                                "value": "Bearer ecEf45kgdbha66aVPD3v1Z8"
                             },
                             {
                                 "key": "Content-Type",
@@ -253,58 +259,20 @@
                     }
                 },
                 {
-                    "name": "Update Blog Category",
+                    "name": "Delete Blog Category.",
                     "request": {
                         "url": {
                             "protocol": "http",
                             "host": "127.0.0.1:8000",
-                            "path": "api\/v1\/blog_categories\/:blog_category",
+                            "path": "api\/v1\/blog-categories\/:blog_category",
                             "query": [],
-                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_categories\/:blog_category"
-                        },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer kD5Z6cvd3Ebe4gfP61Vha8a"
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"name\": \"est\"\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        },
-                        "description": "This endpoint allows you to update existing Blog Category with new data.\nThe Blog Category to be updated is identified based on the ID provided as url parameter.",
-                        "response": []
-                    }
-                },
-                {
-                    "name": "Delete Blog Category",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "127.0.0.1:8000",
-                            "path": "api\/v1\/blog_categories\/:blog_category",
-                            "query": [],
-                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_categories\/:blog_category"
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog-categories\/:blog_category"
                         },
                         "method": "DELETE",
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer v6a5kh3DV8PZg1ef6Eda4bc"
+                                "value": "Bearer PgcEe84Zakva5f3V6dh6bD1"
                             },
                             {
                                 "key": "Content-Type",
@@ -335,7 +303,7 @@
             "description": "\nClass BlogsController\n\nAPI's for Blog Management",
             "item": [
                 {
-                    "name": "Get all Blogs",
+                    "name": "Get all Blogs.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -344,30 +312,30 @@
                             "query": [
                                 {
                                     "key": "paginate",
-                                    "value": "5",
+                                    "value": "1",
                                     "description": "Which page to show. Example :12",
                                     "disabled": false
                                 },
                                 {
                                     "key": "orderBy",
-                                    "value": "facilis",
-                                    "description": "Order by accending or descending. Example :ASC or DESC",
+                                    "value": "officia",
+                                    "description": "Order by ascending or descending. Example :ASC or DESC",
                                     "disabled": false
                                 },
                                 {
                                     "key": "sortBy",
-                                    "value": "non",
+                                    "value": "facilis",
                                     "description": "Sort by any database column. Example :created_at",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blogs?paginate=5&orderBy=facilis&sortBy=non"
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blogs?paginate=1&orderBy=officia&sortBy=facilis"
                         },
                         "method": "GET",
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer kbfh6g8aPZDe3Ev6c15Vd4a"
+                                "value": "Bearer DPa3dg18aZV6E5hvbke4cf6"
                             },
                             {
                                 "key": "Content-Type",
@@ -387,12 +355,12 @@
                                 }
                             }
                         },
-                        "description": "This enpoint provides a paginated list of all blogs. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
+                        "description": "This endpoint provides a paginated list of all blogs. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
                         "response": []
                     }
                 },
                 {
-                    "name": "Create a new Blog",
+                    "name": "Create a new Blog.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -405,11 +373,11 @@
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer aZfkc13h8DbaEv6PdV4g56e"
+                                "value": "Bearer 68V1d3cbEa5ZgfDhkve4a6P"
                             },
                             {
                                 "key": "Content-Type",
-                                "value": "application\/json"
+                                "value": "multipart\/form-data"
                             },
                             {
                                 "key": "Accept",
@@ -417,20 +385,75 @@
                             }
                         ],
                         "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"name\": \"suscipit\",\n    \"publish_datetime\": \"2020-07-08T08:24:47+0000\",\n    \"content\": \"asperiores\",\n    \"categories\": \"odit\",\n    \"tags\": \"at\"\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "quod",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "publish_datetime",
+                                    "value": "2020-10-16T14:12:40+0000",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "content",
+                                    "value": "error",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "categories",
+                                    "value": [
+                                        "dolores"
+                                    ],
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "tags",
+                                    "value": [
+                                        "iusto"
+                                    ],
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": 15,
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "meta_title",
+                                    "value": "dignissimos",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "cannonical_link",
+                                    "value": "http:\/\/www.beatty.info\/",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "meta_keywords",
+                                    "value": "sit",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "meta_description",
+                                    "value": "quasi",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "featured_image",
+                                    "src": [],
+                                    "type": "file"
                                 }
-                            }
+                            ]
                         },
-                        "description": "This endpoint lets you careate new Blog",
+                        "description": "This endpoint lets you create new Blog",
                         "response": []
                     }
                 },
                 {
-                    "name": "Gives a specific Blog",
+                    "name": "Gives a specific Blog.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -443,7 +466,7 @@
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer ZDd6fv18cgakPeEaV4h563b"
+                                "value": "Bearer vcaZegDdb8a3fE65kVh6P14"
                             },
                             {
                                 "key": "Content-Type",
@@ -468,45 +491,7 @@
                     }
                 },
                 {
-                    "name": "Update Blog",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "127.0.0.1:8000",
-                            "path": "api\/v1\/blogs\/:blog",
-                            "query": [],
-                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blogs\/:blog"
-                        },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer fakcZvePEb645VhD3168dga"
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"name\": \"qui\",\n    \"publish_datetime\": \"2020-07-08T08:24:47+0000\",\n    \"content\": \"aut\",\n    \"categories\": \"maxime\",\n    \"tags\": \"similique\"\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        },
-                        "description": "This endpoint allows you to update existing Blog with new data.\nThe Blog to be updated is identified based on the ID provided as url parameter.",
-                        "response": []
-                    }
-                },
-                {
-                    "name": "Delete Blog",
+                    "name": "Delete Blog.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -519,7 +504,7 @@
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer gP5fvaD14E638kcdaZ6ehVb"
+                                "value": "Bearer eD13d4cbgahEZ66fkaP85vV"
                             },
                             {
                                 "key": "Content-Type",
@@ -550,39 +535,45 @@
             "description": "\nClass BlogTagsController\n\nAPI's for Blog Tag Management",
             "item": [
                 {
-                    "name": "Get all Blog Tag",
+                    "name": "Get all Blog Tag.",
                     "request": {
                         "url": {
                             "protocol": "http",
                             "host": "127.0.0.1:8000",
-                            "path": "api\/v1\/blog_tags",
+                            "path": "api\/v1\/blog-tags",
                             "query": [
                                 {
-                                    "key": "paginate",
-                                    "value": "15",
-                                    "description": "Which page to show. Example :12",
+                                    "key": "page",
+                                    "value": "12",
+                                    "description": "Which page to show.",
                                     "disabled": false
                                 },
                                 {
-                                    "key": "orderBy",
-                                    "value": "hic",
-                                    "description": "Order by accending or descending. Example :ASC or DESC",
+                                    "key": "per_page",
+                                    "value": "20",
+                                    "description": "Number of records per page. (use -1 to retrieve all)",
                                     "disabled": false
                                 },
                                 {
-                                    "key": "sortBy",
-                                    "value": "expedita",
-                                    "description": "Sort by any database column. Example :created_at",
+                                    "key": "order_by",
+                                    "value": "created_at",
+                                    "description": "Order by database column.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "order",
+                                    "value": "asc",
+                                    "description": "Order direction ascending (asc) or descending (desc).",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_tags?paginate=15&orderBy=hic&sortBy=expedita"
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog-tags?page=12&per_page=20&order_by=created_at&order=asc"
                         },
                         "method": "GET",
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer 5ZPafhv8c13gD6k6Vd4baEe"
+                                "value": "Bearer Ea8v5bZh6D13k6fPag4ecdV"
                             },
                             {
                                 "key": "Content-Type",
@@ -602,25 +593,25 @@
                                 }
                             }
                         },
-                        "description": "This enpoint provides a paginated list of all blog tags. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
+                        "description": "This endpoint provides a paginated list of all blog tags. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
                         "response": []
                     }
                 },
                 {
-                    "name": "Create a new Blog Tag",
+                    "name": "Create a new Blog Tag.",
                     "request": {
                         "url": {
                             "protocol": "http",
                             "host": "127.0.0.1:8000",
-                            "path": "api\/v1\/blog_tags",
+                            "path": "api\/v1\/blog-tags",
                             "query": [],
-                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_tags"
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog-tags"
                         },
                         "method": "POST",
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer Dde8k53Evhg1Pc6Za6baV4f"
+                                "value": "Bearer h6cb5a163E8k4gVavPfDdZe"
                             },
                             {
                                 "key": "Content-Type",
@@ -633,70 +624,32 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"molestiae\"\n}",
+                            "raw": "{\n    \"name\": \"omnis\",\n    \"status\": false\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
                                 }
                             }
                         },
-                        "description": "This endpoint lets you careate new Blog Tage",
+                        "description": "This endpoint lets you create new Blog Tag",
                         "response": []
                     }
                 },
                 {
-                    "name": "Update Blog Tag",
+                    "name": "Delete Blog Category.",
                     "request": {
                         "url": {
                             "protocol": "http",
                             "host": "127.0.0.1:8000",
-                            "path": "api\/v1\/blog_tags\/:blog_tag",
+                            "path": "api\/v1\/blog-tags\/:blog_tag",
                             "query": [],
-                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_tags\/:blog_tag"
-                        },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer cf1veh8VEZd36Pa5k4bgDa6"
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"name\": \"quisquam\"\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        },
-                        "description": "This endpoint allows you to update existing Blog Tag with new data.\nThe Blog Tag to be updated is identified based on the ID provided as url parameter.",
-                        "response": []
-                    }
-                },
-                {
-                    "name": "Delete Blog Category",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "127.0.0.1:8000",
-                            "path": "api\/v1\/blog_tags\/:blog_tag",
-                            "query": [],
-                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_tags\/:blog_tag"
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/blog-tags\/:blog_tag"
                         },
                         "method": "DELETE",
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer kbf6VhPZEdaea8c5614D3gv"
+                                "value": "Bearer P6458VZac6afh1kDgvd3bEe"
                             },
                             {
                                 "key": "Content-Type",
@@ -727,7 +680,7 @@
             "description": "\nClass FaqsController\n\nAPI's for Faq Management",
             "item": [
                 {
-                    "name": "Get all Faq",
+                    "name": "Get all Faq.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -736,30 +689,30 @@
                             "query": [
                                 {
                                     "key": "paginate",
-                                    "value": "11",
+                                    "value": "19",
                                     "description": "Which page to show. Example :12",
                                     "disabled": false
                                 },
                                 {
                                     "key": "orderBy",
-                                    "value": "esse",
-                                    "description": "Order by accending or descending. Example :ASC or DESC",
+                                    "value": "ut",
+                                    "description": "Order by ascending or descending. Example :ASC or DESC",
                                     "disabled": false
                                 },
                                 {
                                     "key": "sortBy",
-                                    "value": "quaerat",
+                                    "value": "reiciendis",
                                     "description": "Sort by any database column. Example :created_at",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/faqs?paginate=11&orderBy=esse&sortBy=quaerat"
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/faqs?paginate=19&orderBy=ut&sortBy=reiciendis"
                         },
                         "method": "GET",
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer d4g1c8b3kfDe65aEvaZPV6h"
+                                "value": "Bearer afa68VZD1vh3g4Pdb56kEce"
                             },
                             {
                                 "key": "Content-Type",
@@ -779,12 +732,12 @@
                                 }
                             }
                         },
-                        "description": "This enpoint provides a paginated list of all faqs. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
+                        "description": "This endpoint provides a paginated list of all faqs. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
                         "response": []
                     }
                 },
                 {
-                    "name": "Create a new Faq",
+                    "name": "Create a new Faq.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -797,7 +750,7 @@
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer 4eZa1gf36bhV5Pc8DvEdak6"
+                                "value": "Bearer 3ZbPE4fd1kv68h6D5Vacgae"
                             },
                             {
                                 "key": "Content-Type",
@@ -810,19 +763,19 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"question\": \"ut\",\n    \"answer\": \"earum\"\n}",
+                            "raw": "{\n    \"question\": \"nostrum\",\n    \"answer\": \"quidem\",\n    \"status\": false\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
                                 }
                             }
                         },
-                        "description": "This endpoint lets you careate new Faq",
+                        "description": "This endpoint lets you create new Faq",
                         "response": []
                     }
                 },
                 {
-                    "name": "Gives a specific Faq",
+                    "name": "Gives a specific Faq.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -835,7 +788,7 @@
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer f6h5VbZ4evdagD6kP3ca8E1"
+                                "value": "Bearer 53a8vD1PaeVE4Zhbcfgd66k"
                             },
                             {
                                 "key": "Content-Type",
@@ -860,7 +813,7 @@
                     }
                 },
                 {
-                    "name": "Update Faq",
+                    "name": "Update Faq.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -873,7 +826,7 @@
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer 3haE58a14bgeDVcZfk6Pdv6"
+                                "value": "Bearer 3DfEhdgabc618av5ZVk6Pe4"
                             },
                             {
                                 "key": "Content-Type",
@@ -886,7 +839,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"question\": \"consequuntur\",\n    \"answer\": \"excepturi\"\n}",
+                            "raw": "{\n    \"question\": \"libero\",\n    \"answer\": \"itaque\",\n    \"status\": false\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -898,7 +851,7 @@
                     }
                 },
                 {
-                    "name": "Delete Faq",
+                    "name": "Delete Faq.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -911,7 +864,7 @@
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer v46351hkPcZfbeaEDa6Vg8d"
+                                "value": "Bearer eD4E15ak6ah3bc8PZvgdf6V"
                             },
                             {
                                 "key": "Content-Type",
@@ -942,7 +895,7 @@
             "description": "\nClass PagesController\n\nAPI's for Pages Management",
             "item": [
                 {
-                    "name": "Get all Pages",
+                    "name": "Get all Pages.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -951,30 +904,30 @@
                             "query": [
                                 {
                                     "key": "paginate",
-                                    "value": "14",
+                                    "value": "6",
                                     "description": "Which page to show. Example :12",
                                     "disabled": false
                                 },
                                 {
                                     "key": "orderBy",
-                                    "value": "inventore",
-                                    "description": "Order by accending or descending. Example :ASC or DESC",
+                                    "value": "dignissimos",
+                                    "description": "Order by ascending or descending. Example :ASC or DESC",
                                     "disabled": false
                                 },
                                 {
                                     "key": "sortBy",
-                                    "value": "nulla",
+                                    "value": "voluptas",
                                     "description": "Sort by any database column. Example :created_at",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/pages?paginate=14&orderBy=inventore&sortBy=nulla"
+                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/pages?paginate=6&orderBy=dignissimos&sortBy=voluptas"
                         },
                         "method": "GET",
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer ec4gkdEvfZ35Va61h6bD8Pa"
+                                "value": "Bearer had81g4ca6VPfEv65ZD3kbe"
                             },
                             {
                                 "key": "Content-Type",
@@ -994,12 +947,12 @@
                                 }
                             }
                         },
-                        "description": "This enpoint provides a paginated list of all pages. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
+                        "description": "This endpoint provides a paginated list of all pages. You can customize how many records you want in each\nreturned response as well as sort records based on a key in specific order.",
                         "response": []
                     }
                 },
                 {
-                    "name": "Create a new Page",
+                    "name": "Create a new Page.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -1012,7 +965,7 @@
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer 6e68Padv5ck1DfZa4hgVE3b"
+                                "value": "Bearer cdD4kb5V1P8a6ahgf3E6veZ"
                             },
                             {
                                 "key": "Content-Type",
@@ -1025,19 +978,19 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"title\": \"perspiciatis\",\n    \"description\": \"debitis\"\n}",
+                            "raw": "{\n    \"title\": \"sapiente\",\n    \"description\": \"laudantium\",\n    \"status\": false,\n    \"cannonical_link\": \"https:\\\/\\\/www.hudson.biz\\\/aliquam-dicta-ex-ad-quia-harum-dolore-consectetur\",\n    \"seo_title\": \"nihil\",\n    \"seo_keyword\": \"iure\",\n    \"seo_description\": \"et\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
                                 }
                             }
                         },
-                        "description": "This endpoint lets you careate new Page",
+                        "description": "This endpoint lets you create new Page",
                         "response": []
                     }
                 },
                 {
-                    "name": "Gives a specific Page",
+                    "name": "Gives a specific Page.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -1050,7 +1003,7 @@
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer vhPf31eVak665Zd4bacDg8E"
+                                "value": "Bearer eh8vE6D4Zgk5abdP3ca1V6f"
                             },
                             {
                                 "key": "Content-Type",
@@ -1075,45 +1028,7 @@
                     }
                 },
                 {
-                    "name": "Update Page",
-                    "request": {
-                        "url": {
-                            "protocol": "http",
-                            "host": "127.0.0.1:8000",
-                            "path": "api\/v1\/pages\/:page",
-                            "query": [],
-                            "raw": "http:\/\/127.0.0.1:8000\/api\/v1\/pages\/:page"
-                        },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer fVe6E5gPv1Zhkaba8dc6D43"
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"title\": \"maiores\",\n    \"description\": \"quas\"\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        },
-                        "description": "This endpoint allows you to update existing Page with new data.\nThe Page to be updated is identified based on the ID provided as url parameter.",
-                        "response": []
-                    }
-                },
-                {
-                    "name": "Delete Page",
+                    "name": "Delete Page.",
                     "request": {
                         "url": {
                             "protocol": "http",
@@ -1126,7 +1041,7 @@
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer eaE1bhZP46Dagv8Vkcdf563"
+                                "value": "Bearer 53k8acbEDdv16fZ4ghP6Vea"
                             },
                             {
                                 "key": "Content-Type",

@@ -40,14 +40,15 @@ class BlogTagsController extends APIController
     }
 
     /**
-     * Get all Blog Tag.
+     * Get all Blog Tags.
      *
      * This endpoint provides a paginated list of all blog tags. You can customize how many records you want in each
      * returned response as well as sort records based on a key in specific order.
      *
-     * @queryParam paginate Which page to show. Example :12
-     * @queryParam orderBy Order by ascending or descending. Example :ASC or DESC
-     * @queryParam sortBy Sort by any database column. Example :created_at
+     * @queryParam page Which page to show. Example: 12
+     * @queryParam per_page Number of records per page. (use -1 to retrieve all) Example: 20
+     * @queryParam order_by Order by database column. Example: created_at
+     * @queryParam order Order direction ascending (asc) or descending (desc). Example: asc
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-tag/blog-tag-list.json

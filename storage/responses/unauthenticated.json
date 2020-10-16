@@ -1,1 +1,1 @@
-{"message":"Unauthenticated."}
+{"error":{"message":"Unauthenticated.","status_code":401}}
