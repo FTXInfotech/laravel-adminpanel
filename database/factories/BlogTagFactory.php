@@ -1,15 +1,17 @@
 <?php
 
-use App\Models\Access\User\User;
-use App\Models\BlogTags\BlogTag;
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+use App\Models\BlogTag;
+use App\Models\Auth\User;
 use Faker\Generator as Faker;
 
 $factory->define(BlogTag::class, function (Faker $faker) {
     return [
-        'name'       => $faker->word,
-        'status'     => $faker->numberBetween(0, 1),
+        'name' => $faker->unique()->word,
+        'status' => $faker->boolean,
         'created_by' => function () {
-            return factory(User::class)->create()->id;
+            return factory(User::class)->state('active')->create()->id;
         },
     ];
 });

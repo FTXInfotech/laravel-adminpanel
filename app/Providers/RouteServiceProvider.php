@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-use App\Models\Access\User\User;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use App\Models\Auth\User;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 /**
  * Class RouteServiceProvider.
@@ -21,22 +22,22 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'App\Http\Controllers';
 
     /**
-     * Define your route model bindings, pattern filters, etc.
+     * The path to the "home" route for your application.
      *
-     * @return void
+     * @var string
+     */
+    public const HOME = '/';
+
+    /**
+     * Define your route model bindings, pattern filters, etc.
      */
     public function boot()
     {
-        /*
-         * Register route model bindings
-         */
+        // Register route model bindings
 
-        /*
-         * This allows us to use the Route Model Binding with SoftDeletes on
-         * On a model by model basis
-         */
-        $this->bind('deletedUser', function ($value) {
-            $user = new User();
+        // Allow this to select all users regardless of status
+        $this->bind('user', function ($value) {
+            $user = new User;
 
             return User::withTrashed()->where($user->getRouteKeyName(), $value)->first();
         });
@@ -46,8 +47,6 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define the routes for the application.
-     *
-     * @return void
      */
     public function map()
     {
@@ -62,28 +61,30 @@ class RouteServiceProvider extends ServiceProvider
      * Define the "web" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
      */
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
+
+        // For the 'Login As' functionality from the 404labfr/laravel-impersonate package
+        Route::middleware('web')
+            ->group(function (Router $router) {
+                $router->impersonate();
+            });
     }
 
     /**
      * Define the "api" routes for the application.
      *
      * These routes are typically stateless.
-     *
-     * @return void
      */
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
     }
 }

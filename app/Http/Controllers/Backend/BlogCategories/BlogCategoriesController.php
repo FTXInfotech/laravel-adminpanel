@@ -2,32 +2,33 @@
 
 namespace App\Http\Controllers\Backend\BlogCategories;
 
+use App\Models\BlogCategory;
 use App\Http\Controllers\Controller;
+use App\Http\Responses\ViewResponse;
+use Illuminate\Support\Facades\View;
+use App\Http\Responses\RedirectResponse;
+use App\Repositories\Backend\BlogCategoriesRepository;
+use App\Http\Responses\Backend\BlogCategory\EditResponse;
+use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\CreateBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\DeleteBlogCategoriesRequest;
-use App\Http\Requests\Backend\BlogCategories\EditBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;
-use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest;
-use App\Http\Responses\Backend\BlogCategory\EditResponse;
-use App\Http\Responses\RedirectResponse;
-use App\Http\Responses\ViewResponse;
-use App\Models\BlogCategories\BlogCategory;
-use App\Repositories\Backend\BlogCategories\BlogCategoriesRepository;
 
-/**
- * Class BlogCategoriesController.
- */
 class BlogCategoriesController extends Controller
 {
-    protected $blogcategory;
+    /**
+     * @var \App\Repositories\Backend\BlogCategoriesRepository
+     */
+    protected $repository;
 
     /**
-     * @param BlogCategoriesRepository $blogcategory
+     * @param \App\Repositories\Backend\BlogCategoriesRepository $repository
      */
-    public function __construct(BlogCategoriesRepository $blogcategory)
+    public function __construct(BlogCategoriesRepository $repository)
     {
-        $this->blogcategory = $blogcategory;
+        $this->repository = $repository;
+        View::share('js', ['blog-categories']);
     }
 
     /**
@@ -37,7 +38,7 @@ class BlogCategoriesController extends Controller
      */
     public function index(ManageBlogCategoriesRequest $request)
     {
-        return new ViewResponse('backend.blogcategories.index');
+        return new ViewResponse('backend.blog-categories.index');
     }
 
     /**
@@ -47,55 +48,56 @@ class BlogCategoriesController extends Controller
      */
     public function create(CreateBlogCategoriesRequest $request)
     {
-        return new ViewResponse('backend.blogcategories.create');
+        return new ViewResponse('backend.blog-categories.create');
     }
 
     /**
-     * @param \App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest $request
+     * Store a newly created resource in storage.
      *
-     * @return mixed
+     * @param  \App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest  $request
+     * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StoreBlogCategoriesRequest $request)
     {
-        $this->blogcategory->create($request->all());
+        $this->repository->create($request->except(['_token', '_method']));
 
-        return new RedirectResponse(route('admin.blogCategories.index'), ['flash_success' => trans('alerts.backend.blogcategories.created')]);
+        return new RedirectResponse(route('admin.blog-categories.index'), ['flash_success' => __('alerts.backend.blog-category.created')]);
     }
 
     /**
-     * @param \App\Models\BlogCategories\BlogCategory                             $blogCategory
-     * @param \App\Http\Requests\Backend\BlogCategories\EditBlogCategoriesRequest $request
+     * @param \App\Models\BlogCategory $blogCategory
+     * @param \App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest $request
      *
      * @return \App\Http\Responses\Backend\BlogCategory\EditResponse
      */
-    public function edit(BlogCategory $blogCategory, EditBlogCategoriesRequest $request)
+    public function edit(BlogCategory $blogCategory, ManageBlogCategoriesRequest $request)
     {
         return new EditResponse($blogCategory);
     }
 
     /**
-     * @param \App\Models\BlogCategories\BlogCategory                               $blogCategory
+     * @param \App\Models\BlogCategory $blogCategory
      * @param \App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function update(BlogCategory $blogCategory, UpdateBlogCategoriesRequest $request)
     {
-        $this->blogcategory->update($blogCategory, $request->all());
+        $this->repository->update($blogCategory, $request->except(['_token', '_method']));
 
-        return new RedirectResponse(route('admin.blogCategories.index'), ['flash_success' => trans('alerts.backend.blogcategories.updated')]);
+        return new RedirectResponse(route('admin.blog-categories.index'), ['flash_success' => __('alerts.backend.blog-category.updated')]);
     }
 
     /**
-     * @param \App\Models\BlogCategories\BlogCategory                               $blogCategory
+     * @param \App\Models\BlogCategory $blogCategory
      * @param \App\Http\Requests\Backend\BlogCategories\DeleteBlogCategoriesRequest $request
      *
-     * @return \App\Http\Responses\RedirectResponse
+     * @return mixed
      */
     public function destroy(BlogCategory $blogCategory, DeleteBlogCategoriesRequest $request)
     {
-        $this->blogcategory->delete($blogCategory);
+        $this->repository->delete($blogCategory);
 
-        return new RedirectResponse(route('admin.blogCategories.index'), ['flash_success' => trans('alerts.backend.blogcategories.deleted')]);
+        return new RedirectResponse(route('admin.blog-categories.index'), ['flash_success' => __('alerts.backend.blog-category.deleted')]);
     }
 }

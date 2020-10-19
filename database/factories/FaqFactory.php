@@ -1,12 +1,14 @@
 <?php
 
-use App\Models\Faqs\Faq;
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+use App\Models\Faq;
 use Faker\Generator as Faker;
 
 $factory->define(Faq::class, function (Faker $faker) {
     return [
-        'question'  => rtrim($faker->sentence, '.').'?',
-        'answer'    => $faker->paragraph,
-        'status'    => $faker->numberBetween(0, 1),
+        'question' => $faker->sentence,
+        'answer' => $faker->paragraph,
+        'status' => $faker->boolean,
     ];
 });

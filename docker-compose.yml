@@ -2,50 +2,13 @@ version: "2"
 
 services:
   app:
-    image: lap-www
-    container_name: lap-www
+    image: ${IMAGE_NAME}
+    container_name: ${IMAGE_NAME}
     build:
       context: ./docker/app
       dockerfile: Dockerfile
     restart: always
     ports:
-      - 8080:80
+      - ${PORT_NUMBER}:80
     volumes:
       - .:/var/www/html/
-  mysql:
-    container_name: lap-mysql
-    image: mysql:5.7
-    restart: always
-    ports:
-      - 13306:3306
-    volumes:
-      - mysql:/var/lib/mysql
-    environment:
-      MYSQL_DATABASE: laravel-admin-panel
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
-  redis:
-    container_name: lap-redis
-    image: redis:4-alpine
-    restart: always
-    ports:
-      - 16379:6379
-    volumes:
-      - redis:/data
-  phpmyadmin:
-    container_name: lap-phpmyadmin
-    image: phpmyadmin/phpmyadmin
-    restart: always
-    ports:
-      - 8081:80
-    links:
-      - mysql
-    environment:
-      PMA_HOST: mysql
-
-volumes:
-  mysql:
-    driver: "local"
-  redis:
-    driver: "local"

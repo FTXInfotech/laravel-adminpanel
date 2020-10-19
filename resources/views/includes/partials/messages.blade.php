@@ -1,87 +1,71 @@
-@php
-    $message = '';
-    $type = '';
-    $dontHide = false;
+ @if($errors->any())
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
 
-    if(session()->has('dontHide')) {
-        $dontHide = session()->get('dontHide');
-    }
-@endphp
-@if ($errors->any())
-    @php
-        $type = 'danger';
-    @endphp
-    @foreach ($errors->all() as $error)
-        @php
-            $message .= $error . '<br/>';
-        @endphp
-    @endforeach
-@elseif (session()->get('flash_success'))
-    @php
-        $type = 'success';
-    @endphp
-    @if(is_array(json_decode(session()->get('flash_success'), true)))
-        @php
-            $message = implode('', session()->get('flash_success')->all(':message<br/>'));
-        @endphp
-    @else
-        @php
-            $message = session()->get('flash_success');
-        @endphp
-    @endif
-@elseif (session()->get('flash_warning'))
-    @php
-        $type = 'warning';
-    @endphp
-    @if(is_array(json_decode(session()->get('flash_warning'), true)))
-        @php
-            $message = implode('', session()->get('flash_warning')->all(':message<br/>'));
-        @endphp
-    @else
-        @php
-            $message = session()->get('flash_warning');
-        @endphp
-    @endif
-@elseif (session()->get('flash_info'))
-    @php
-        $type = 'info';
-    @endphp
-    @if(is_array(json_decode(session()->get('flash_info'), true)))
-        @php
-            $message = implode('', session()->get('flash_info')->all(':message<br/>'));
-        @endphp
-    @else
-        @php
-            $message = session()->get('flash_info');
-        @endphp
-    @endif
-@elseif (session()->get('flash_danger'))
-    @php
-        $type = 'danger';
-    @endphp
-    @if(is_array(json_decode(session()->get('flash_danger'), true)))
-        @php
-            $message = implode('', session()->get('flash_danger')->all(':message<br/>'));
-        @endphp
-    @else
-        @php
-            $message = session()->get('flash_danger');
-        @endphp
-    @endif
-@elseif (session()->get('flash_message'))
-    @php
-        $type = 'info';
-    @endphp
-    @if(is_array(json_decode(session()->get('flash_message'), true)))
-        @php
-            $message = implode('', session()->get('flash_message')->all(':message<br/>'));
-        @endphp
-    @else
-        @php
-            $message = session()->get('flash_message');
-        @endphp
-    @endif
+        @foreach($errors->all() as $error)
+            {!! $error !!}<br/>
+        @endforeach
+    </div>
+@elseif(session()->get('flash_success'))
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+        @if(is_array(json_decode(session()->get('flash_success'), true)))
+            {!! implode('', session()->get('flash_success')->all(':message<br/>')) !!}
+        @else
+            {!! session()->get('flash_success') !!}
+        @endif
+    </div>
+@elseif(session()->get('flash_warning'))
+    <div class="alert alert-warning" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+        @if(is_array(json_decode(session()->get('flash_warning'), true)))
+            {!! implode('', session()->get('flash_warning')->all(':message<br/>')) !!}
+        @else
+            {!! session()->get('flash_warning') !!}
+        @endif
+    </div>
+@elseif(session()->get('flash_info'))
+    <div class="alert alert-info" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+        @if(is_array(json_decode(session()->get('flash_info'), true)))
+            {!! implode('', session()->get('flash_info')->all(':message<br/>')) !!}
+        @else
+            {!! session()->get('flash_info') !!}
+        @endif
+    </div>
+@elseif(session()->get('flash_danger'))
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+        @if(is_array(json_decode(session()->get('flash_danger'), true)))
+            {!! implode('', session()->get('flash_danger')->all(':message<br/>')) !!}
+        @else
+            {!! session()->get('flash_danger') !!}
+        @endif
+    </div>
+@elseif(session()->get('flash_message'))
+    <div class="alert alert-info" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+        @if(is_array(json_decode(session()->get('flash_message'), true)))
+            {!! implode('', session()->get('flash_message')->all(':message<br/>')) !!}
+        @else
+            {!! session()->get('flash_message') !!}
+        @endif
+    </div>
 @endif
-
-<!-- Flash Message Vue component -->
-<flash message="{!! $message !!}" type="{{ $type }}" dont-hide="{{ $dontHide }}"></flash>

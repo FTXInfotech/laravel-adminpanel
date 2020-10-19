@@ -3,46 +3,51 @@
 namespace App\Http\Controllers\Backend\Pages;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Pages\ManagePageRequest;
-use App\Repositories\Backend\Pages\PagesRepository;
 use Yajra\DataTables\Facades\DataTables;
+use App\Repositories\Backend\PagesRepository;
+use App\Http\Requests\Backend\Pages\ManagePageRequest;
 
-/**
- * Class PagesTableController.
- */
 class PagesTableController extends Controller
 {
-    protected $pages;
+    /**
+     * @var \App\Repositories\Backend\PagesRepository
+     */
+    protected $repository;
 
     /**
-     * @param PagesRepository $pages
+     * @param \App\Repositories\Backend\PagesRepository $repository
      */
-    public function __construct(PagesRepository $pages)
+    public function __construct(PagesRepository $repository)
     {
-        $this->pages = $pages;
+        $this->repository = $repository;
     }
 
     /**
-     * @param ManagePageRequest $request
+     * @param \App\Http\Requests\Backend\Pages\ManagePageRequest $request
      *
      * @return mixed
      */
     public function __invoke(ManagePageRequest $request)
     {
-        return Datatables::of($this->pages->getForDataTable())
-            ->escapeColumns(['title'])
-            ->addColumn('status', function ($page) {
+        return Datatables::of($this->repository->getForDataTable())
+            ->filterColumn('status', function ($query, $keyword) {
+                if (in_array(strtolower($keyword), ['active', 'inactive'])) {
+                    $query->where('pages.status', (strtolower($keyword) == 'active') ? 1 : 0);
+                }
+            })
+            ->filterColumn('created_by', function ($query, $keyword) {
+                $query->whereRaw('users.first_name like ?', ["%{$keyword}%"]);
+            })
+            ->editColumn('status', function ($page) {
                 return $page->status_label;
             })
-            ->addColumn('created_at', function ($page) {
+            ->editColumn('created_at', function ($page) {
                 return $page->created_at->toDateString();
-            })
-            ->addColumn('created_by', function ($page) {
-                return $page->created_by;
             })
             ->addColumn('actions', function ($page) {
                 return $page->action_buttons;
             })
+            ->escapeColumns(['title'])
             ->make(true);
     }
 }

@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Backend\BlogTags;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class ManageBlogTagsRequest.
  */
-class ManageBlogTagsRequest extends Request
+class ManageBlogTagsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

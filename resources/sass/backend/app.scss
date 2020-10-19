@@ -1,0 +1,119 @@
+@import "../global";
+
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+
+@import '~datatables.net-bs4/css/dataTables.bootstrap4.css';
+@import '~select2/dist/css/select2.css';
+@import '~eonasdan-bootstrap-datetimepicker-bootstrap4beta/build/css/bootstrap-datetimepicker.min.css';
+// @import '~jstree/dist/themes/default/style.css';
+
+// Fix inaccessible dropdown in .table-responsive dropdown buttons
+.table-responsive {
+    overflow-x: inherit;
+    td:not(.btn-td) {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 200px;
+    }
+}
+
+// Fix mobile footer
+.app-footer {
+    flex: 0 0;
+    padding-top: map-get($spacers, 3);
+    padding-bottom: map-get($spacers, 3);
+}
+
+.dropdown-menu>li>a>.fa, .dropdown-menu>li>a>.glyphicon, .dropdown-menu>li>a>.ion {
+    margin-right: 10px;
+}
+
+.dropdown-menu>li>a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+
+.search-permission {
+
+    min-height:236px;
+    
+    #available-permissions {
+
+        height: 200px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        border: 1px solid #f1f1f1;
+        
+        > div:first-child {
+
+            padding: 2px 13px;
+            background-color: #fff;
+            margin-bottom: 10px;
+            position: sticky;
+            top: 0px;
+            
+            .search-button {
+                border: none;
+                border-radius: unset;
+                border-bottom: 1px solid #e4e7ea;
+            }
+            
+            .search-button:focus {
+                color: #5c6873;
+                border-color: #e4e7ea;
+                outline: 0;
+                box-shadow: 0px 4px 6px -4px #e4e7ea;
+            }
+        }
+        
+        .get-available-permissions {
+            padding: 0px 15px;
+        }
+    }
+}
+
+.fa, .glyphicon {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+ 
+.glyphicon-calendar:before,
+.fa-calendar:before {
+    content: "\f073";
+}
+ 
+.glyphicon-chevron-left:before,
+.fa-chevron-left:before {
+    content: "\f053";
+}
+ 
+.glyphicon-chevron-right:before,
+.fa-chevron-right:before {
+    content: "\f054";
+}
+ 
+.glyphicon-time:before,
+.fa-clock-o:before {
+    content: "\f017";
+}
+ 
+.glyphicon-chevron-up:before {
+    content: "\f077";
+}
+ 
+.glyphicon-chevron-down:before {
+    content: "\f078";
+}

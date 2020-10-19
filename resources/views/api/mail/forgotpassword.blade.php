@@ -1,1 +1,0 @@
-your one time otp is {{$otp}}

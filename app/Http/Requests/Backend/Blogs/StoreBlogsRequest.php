@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Backend\Blogs;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class StoreBlogsRequest.
  */
-class StoreBlogsRequest extends Request
+class StoreBlogsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,12 +27,19 @@ class StoreBlogsRequest extends Request
     public function rules()
     {
         return [
-            'name'              => 'required|max:191',
-            'featured_image'    => 'required',
-            'publish_datetime'  => 'required|date',
-            'content'           => 'required',
-            'categories'        => 'required',
-            'tags'              => 'required',
+            'name' => ['required', 'max:191', 'unique:blogs,name'],
+            'publish_datetime' => ['required', 'date'],
+            'content' => ['required', 'string'],
+            'categories' => ['required', 'array'],
+            'categories.*' => ['string'],
+            'tags' => ['required', 'array'],
+            'tags.*' => ['string'],
+            'status' => ['integer', 'between:0,3'],
+            'meta_title' => ['string', 'nullable'],
+            'cannonical_link' => ['string', 'nullable', 'url'],
+            'meta_keywords' => ['string', 'nullable'],
+            'meta_description' => ['string', 'nullable'],
+            'featured_image' => ['nullable', 'image'],
         ];
     }
 
@@ -45,7 +52,8 @@ class StoreBlogsRequest extends Request
     {
         return [
             'name.required' => 'Please insert Blog Title',
-            'name.max'      => 'Blog Title may not be greater than 191 characters.',
+            'name.max' => 'Blog Title may not be greater than 191 characters.',
+            'name.unique' => 'The blog name already taken. Please try with different name.',
         ];
     }
 }

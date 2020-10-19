@@ -1,33 +1,13 @@
 <?php
 
-use App\Models\Access\Role\Role;
-use Faker\Generator;
+use App\Models\Auth\Role;
+use Faker\Generator as Faker;
 
-/*
- * Roles
- */
-$factory->define(Role::class, function (Generator $faker) {
+$factory->define(Role::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'all'  => 0,
+        'name' => $faker->word,
+        'all' => $faker->randomElement([0, 1]),
         'sort' => $faker->numberBetween(1, 100),
-    ];
-});
-
-$factory->state(Role::class, 'admin', function () {
-    return [
-        'all' => 1,
-    ];
-});
-
-$factory->state(Role::class, 'active', function () {
-    return [
-        'status' => 1,
-    ];
-});
-
-$factory->state(Role::class, 'inactive', function () {
-    return [
-        'status' => 0,
+        'status' => $faker->randomElement([0, 1]),
     ];
 });

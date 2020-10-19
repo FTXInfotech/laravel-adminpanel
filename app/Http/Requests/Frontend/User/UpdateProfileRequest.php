@@ -2,13 +2,14 @@
 
 namespace App\Http\Requests\Frontend\User;
 
-use App\Http\Requests\Request;
 use Illuminate\Validation\Rule;
+use App\Helpers\Auth\SocialiteHelper;
+use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class UpdateProfileRequest.
  */
-class UpdateProfileRequest extends Request
+class UpdateProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,9 +29,11 @@ class UpdateProfileRequest extends Request
     public function rules()
     {
         return [
-            'first_name' => 'required|max:255',
-            'last_name'  => 'required|max:255',
-            'email'      => ['sometimes', 'required', 'email', 'max:255', Rule::unique('users')],
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'email' => ['sometimes', 'required', 'email'],
+            'avatar_type' => ['required', Rule::in(array_merge(['gravatar', 'storage'], (new SocialiteHelper)->getAcceptedProviders()))],
+            'avatar_location' => ['sometimes', 'image'],
         ];
     }
 }

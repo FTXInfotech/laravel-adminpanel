@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use App\Models\Access\Permission\Permission;
-use App\Models\Access\Role\Role;
-use App\Models\Access\User\User;
-use App\Models\Settings\Setting;
+use App\Models\Auth\Role;
 use Illuminate\Http\Request;
+use App\Models\Auth\Permission;
+use App\Http\Controllers\Controller;
 
 /**
  * Class DashboardController.
@@ -19,47 +17,17 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $settingData = Setting::first();
-        $google_analytics = $settingData->google_analytics;
-
-        return view('backend.dashboard', compact('google_analytics', $google_analytics));
-    }
-
-    /**
-     * Used to display form for edit profile.
-     *
-     * @return view
-     */
-    public function editProfile(Request $request)
-    {
-        return view('backend.access.users.profile-edit')
-            ->withLoggedInUser(access()->user());
-    }
-
-    /**
-     * Used to update profile.
-     *
-     * @return view
-     */
-    public function updateProfile(Request $request)
-    {
-        $input = $request->all();
-        $userId = access()->user()->id;
-        $user = User::find($userId);
-        $user->first_name = $input['first_name'];
-        $user->last_name = $input['last_name'];
-        $user->updated_by = access()->user()->id;
-
-        if ($user->save()) {
-            return redirect()->route('admin.profile.edit')
-                ->withFlashSuccess(trans('labels.backend.profile_updated'));
+        if (! auth()->user()->isAdmin()) {
+            return redirect(route('frontend.user.dashboard'))->withFlashDanger('You are not authorized to view admin dashboard.');
         }
+
+        return view('backend.dashboard');
     }
 
     /**
      * This function is used to get permissions details by role.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request\Request $request
      */
     public function getPermissionByRole(Request $request)
     {

@@ -1,28 +1,33 @@
 <?php
 
-use Illuminate\Database\Eloquent\Model;
+use Database\TruncateTable;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class DatabaseSeeder.
- */
 class DatabaseSeeder extends Seeder
 {
+    use TruncateTable;
+
     /**
-     * Run the database seeds.
-     *
-     * @return void
+     * Seed the application's database.
      */
     public function run()
     {
         Model::unguard();
 
-        $this->call(AccessTableSeeder::class);
-        $this->call(HistoryTypeTableSeeder::class);
-        $this->call(SettingsTableSeeder::class);
+        $this->truncateMultiple([
+            'cache',
+            'failed_jobs',
+            'ledgers',
+            'jobs',
+            'sessions',
+        ]);
+
+        $this->call(AuthTableSeeder::class);
         $this->call(PagesTableSeeder::class);
-        $this->call(MenuTableSeeder::class);
-        $this->call(ModulesTableSeeder::class);
+        $this->call(FaqTableSeeder::class);
+        $this->call(EmailTemplateSeeder::class);
+        $this->call(BlogTableSeeder::class);
 
         Model::reguard();
     }

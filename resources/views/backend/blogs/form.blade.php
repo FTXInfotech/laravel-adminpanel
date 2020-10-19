@@ -1,134 +1,165 @@
-<div class="box-body">
-    <div class="form-group">
-        {{ Form::label('name', trans('validation.attributes.backend.blogs.title'), ['class' => 'col-lg-2 control-label required']) }}
+<div class="card-body">
+    <div class="row">
+        <div class="col-sm-5">
+            <h4 class="card-title mb-0">
+                {{ __('labels.backend.access.blogs.management') }}
+                <small class="text-muted">{{ (isset($blog)) ? __('labels.backend.access.blogs.edit') : __('labels.backend.access.blogs.create') }}</small>
+            </h4>
+        </div>
+        <!--col-->
+    </div>
+    <!--row-->
 
-        <div class="col-lg-10">
-            {{ Form::text('name', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.backend.blogs.title'), 'required' => 'required']) }}
-        </div><!--col-lg-10-->
-    </div><!--form control-->
+    <hr>
 
-    <div class="form-group">
-        {{ Form::label('categories', trans('validation.attributes.backend.blogs.category'), ['class' => 'col-lg-2 control-label required']) }}
+    <div class="row mt-4 mb-4">
+        <div class="col">
+            <div class="form-group row">
+                {{ Form::label('name', trans('validation.attributes.backend.access.blogs.title'), ['class' => 'col-md-2 from-control-label required']) }}
 
-        <div class="col-lg-10">
-        @if(!empty($selectedCategories))
-            {{ Form::select('categories[]', $blogCategories, $selectedCategories, ['class' => 'form-control tags box-size', 'required' => 'required', 'multiple' => 'multiple']) }}
-        @else
-            {{ Form::select('categories[]', $blogCategories, null, ['class' => 'form-control tags box-size', 'required' => 'required', 'multiple' => 'multiple']) }}
-        @endif
-        </div><!--col-lg-10-->
-    </div><!--form control-->
-
-    <div class="form-group">
-        {{ Form::label('publish_datetime', trans('validation.attributes.backend.blogs.publish'), ['class' => 'col-lg-2 control-label required']) }}
-
-        <div class="col-lg-10">
-            @if(!empty($blog->publish_datetime))
-                {{ Form::text('publish_datetime', \Carbon\Carbon::parse($blog->publish_datetime)->format('m/d/Y h:i a'), ['class' => 'form-control datetimepicker1 box-size', 'placeholder' => trans('validation.attributes.backend.blogs.publish'), 'required' => 'required', 'id' => 'datetimepicker1']) }}
-            @else
-                {{ Form::text('publish_datetime', null, ['class' => 'form-control datetimepicker1 box-size', 'placeholder' => trans('validation.attributes.backend.blogs.publish'), 'required' => 'required', 'id' => 'datetimepicker1']) }}
-            @endif
-        </div><!--col-lg-10-->
-    </div><!--form control-->
-
-    <div class="form-group">
-        {{ Form::label('featured_image', trans('validation.attributes.backend.blogs.image'), ['class' => 'col-lg-2 control-label required']) }}
-        @if(!empty($blog->featured_image))
-            <div class="col-lg-1">
-                <img src="{{ Storage::disk('public')->url('img/blog/' . $blog->featured_image) }}" height="80" width="80">
-            </div>
-            <div class="col-lg-5">
-                <div class="custom-file-input">
-                    <input type="file" name="featured_image" id="file-1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                    <label for="file-1"><i class="fa fa-upload"></i><span>Choose a file</span></label>
+                <div class="col-md-10">
+                    {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.blogs.title'), 'required' => 'required']) }}
                 </div>
+                <!--col-->
             </div>
-        @else
-            <div class="col-lg-5">
-                <div class="custom-file-input">
-                        <input type="file" name="featured_image" id="file-1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                        <label for="file-1"><i class="fa fa-upload"></i><span>Choose a file</span></label>
+            <!--form-group-->
+
+            <div class="form-group row">
+                {{ Form::label('categories', trans('validation.attributes.backend.access.blogs.blog_categories'), ['class' => 'col-md-2 from-control-label required']) }}
+
+                <div class="col-md-10">
+                    {{ Form::select('categories[]', $blogCategories, null, ['class' => 'form-control categories box-size', 'data-placeholder' => trans('validation.attributes.backend.access.blogs.blog_categories'), 'required' => 'required', 'multiple' => 'multiple']) }}
                 </div>
+                <!--col-->
             </div>
-        @endif
-    </div><!--form control-->
+            <!--form-group-->
 
-    <div class="form-group">
-        {{ Form::label('content', trans('validation.attributes.backend.blogs.content'), ['class' => 'col-lg-2 control-label required']) }}
+            <div class="form-group row">
+                {{ Form::label('publish_datetime', trans('validation.attributes.backend.access.blogs.publish_date_time'), ['class' => 'col-md-2 from-control-label required']) }}
 
-        <div class="col-lg-10 mce-box">
-            {{ Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.blogs.content')]) }}
-        </div><!--col-lg-10-->
-    </div><!--form control-->
+                <div class="col-md-10">
+                    @if(!empty($blog->publish_datetime))
+                    {{ Form::text('publish_datetime', \Carbon\Carbon::parse($blog->publish_datetime)->format('m/d/Y h:i a'), ['class' => 'form-control publish_datetime box-size', 'placeholder' => trans('validation.attributes.backend.access.blogs.publish_date_time'), 'required' => 'required', 'id' => 'publish_datetime']) }}
+                    @else
+                    {{ Form::text('publish_datetime', null, ['class' => 'form-control publish_datetime box-size', 'placeholder' => trans('validation.attributes.backend.access.blogs.publish_date_time'), 'required' => 'required', 'id' => 'publish_datetime']) }}
+                    @endif
+                </div>
+                <!--col-->
+            </div>
+            <!--form-group-->
 
-    <div class="form-group">
-        {{ Form::label('tags', trans('validation.attributes.backend.blogs.tags'), ['class' => 'col-lg-2 control-label required']) }}
+            <div class="form-group row">
+                {{ Form::label('featured_image', trans('validation.attributes.backend.access.blogs.featured_image'), ['class' => 'col-md-2 from-control-label required']) }}
 
-        <div class="col-lg-10">
-        @if(!empty($selectedtags))
-           {{ Form::select('tags[]', $blogTags, $selectedtags, ['class' => 'form-control tags box-size', 'required' => 'required', 'multiple' => 'multiple']) }}
-        @else
-            {{ Form::select('tags[]', $blogTags, null, ['class' => 'form-control tags box-size', 'required' => 'required', 'multiple' => 'multiple']) }}
-        @endif
-        </div><!--col-lg-3-->
-    </div><!--form control-->
+                @if(!empty($blog->featured_image))
+                <div class="col-lg-1">
+                    <img src="{{ asset('storage/img/blog/'.$blog->featured_image) }}" height="80" width="80">
+                </div>
+                <div class="col-lg-5">
+                    {{ Form::file('featured_image', ['id' => 'featured_image']) }}
+                </div>
+                @else
+                <div class="col-lg-5">
+                    {{ Form::file('featured_image', ['id' => 'featured_image']) }}
+                </div>
+                @endif
+            </div>
+            <!--form-group-->
 
-    <div class="form-group">
-        {{ Form::label('meta_title', trans('validation.attributes.backend.blogs.meta-title'), ['class' => 'col-lg-2 control-label']) }}
+            <div class="form-group row">
+                {{ Form::label('content', trans('validation.attributes.backend.access.blogs.content'), ['class' => 'col-md-2 from-control-label required']) }}
 
-        <div class="col-lg-10">
-            {{ Form::text('meta_title', null, ['class' => 'form-control box-size ', 'placeholder' => trans('validation.attributes.backend.blogs.meta-title')]) }}
-        </div><!--col-lg-10-->
-    </div><!--form control-->
+                <div class="col-md-10">
+                    {{ Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.blogs.content')]) }}
+                </div>
+                <!--col-->
+            </div>
+            <!--form-group-->
 
-    <div class="form-group">
-        {{ Form::label('slug', trans('validation.attributes.backend.blogs.slug'), ['class' => 'col-lg-2 control-label']) }}
+            <div class="form-group row">
+                {{ Form::label('tags', trans('validation.attributes.backend.access.blogs.tags'), ['class' => 'col-md-2 from-control-label required']) }}
 
-        <div class="col-lg-10">
-            {{ Form::text('slug', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.backend.blogs.slug'), 'disabled' => 'disabled']) }}
-        </div><!--col-lg-10-->
-    </div><!--form control-->
+                <div class="col-md-10">
+                    @if(!empty($selectedtags))
+                    {{ Form::select('tags[]', $blogTags, $selectedtags, ['class' => 'form-control tags', 'placeholder' => trans('validation.attributes.backend.access.blogs.tags'), 'required' => 'required', 'multiple' => 'multiple']) }}
+                    @else
+                    {{ Form::select('tags[]', $blogTags, null, ['class' => 'form-control tags', 'data-placeholder' => trans('validation.attributes.backend.access.blogs.tags'), 'required' => 'required', 'multiple' => 'multiple']) }}
+                    @endif
+                </div>
+                <!--col-->
+            </div>
+            <!--form-group-->
 
-    <div class="form-group">
-        {{ Form::label('cannonical_link', trans('validation.attributes.backend.blogs.cannonical_link'), ['class' => 'col-lg-2 control-label']) }}
+            <div class="form-group row">
+                {{ Form::label('meta_title', trans('validation.attributes.backend.access.blogs.meta_title'), ['class' => 'col-md-2 from-control-label required']) }}
 
-        <div class="col-lg-10">
-            {{ Form::text('cannonical_link', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.backend.blogs.cannonical_link')]) }}
-        </div><!--col-lg-10-->
-    </div><!--form control-->
+                <div class="col-md-10">
+                    {{ Form::text('meta_title', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.blogs.meta_title')]) }}
+                </div>
+                <!--col-->
+            </div>
+            <!--form-group-->
 
+            <div class="form-group row">
+                {{ Form::label('slug', trans('validation.attributes.backend.access.blogs.slug'), ['class' => 'col-md-2 from-control-label required']) }}
 
-    <div class="form-group">
-        {{ Form::label('meta_keywords', trans('validation.attributes.backend.blogs.meta_keyword'), ['class' => 'col-lg-2 control-label']) }}
+                <div class="col-md-10">
+                    {{ Form::text('slug', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.blogs.slug'), 'disabled' => 'disabled']) }}
+                </div>
+                <!--col-->
+            </div>
+            <!--form-group-->
 
-        <div class="col-lg-10">
-            {{ Form::text('meta_keywords', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.backend.blogs.meta_keyword')]) }}
-        </div><!--col-lg-10-->
-    </div><!--form control-->
+            <div class="form-group row">
+                {{ Form::label('cannonical_link', trans('validation.attributes.backend.access.blogs.cannonical_link'), ['class' => 'col-md-2 from-control-label required']) }}
 
-    <div class="form-group">
-        {{ Form::label('meta_description', trans('validation.attributes.backend.blogs.meta_description'), ['class' => 'col-lg-2 control-label']) }}
+                <div class="col-md-10">
+                    {{ Form::text('cannonical_link', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.blogs.cannonical_link')]) }}
+                </div>
+                <!--col-->
+            </div>
+            <!--form-group-->
 
-        <div class="col-lg-10 mce-box">
-            {{ Form::textarea('meta_description', null,['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.blogs.meta_description')]) }}
-        </div><!--col-lg-3-->
-    </div><!--form control-->
+            <div class="form-group row">
+                {{ Form::label('meta_keywords', trans('validation.attributes.backend.access.blogs.meta_keywords'), ['class' => 'col-md-2 from-control-label required']) }}
 
-    <div class="form-group">
-        {{ Form::label('status', trans('validation.attributes.backend.blogs.status'), ['class' => 'col-lg-2 control-label required']) }}
+                <div class="col-md-10">
+                    {{ Form::text('meta_keywords', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.blogs.meta_keywords')]) }}
+                </div>
+                <!--col-->
+            </div>
+            <!--form-group-->
 
-        <div class="col-lg-10">
-           {{ Form::select('status', $status, null, ['class' => 'form-control select2 status box-size', 'placeholder' => trans('validation.attributes.backend.blogs.status'), 'required' => 'required']) }}
-        </div><!--col-lg-3-->
-    </div><!--form control-->
+            <div class="form-group row">
+                {{ Form::label('meta_description', trans('validation.attributes.backend.access.blogs.meta_description'), ['class' => 'col-md-2 from-control-label required']) }}
+
+                <div class="col-md-10">
+                    {{ Form::textarea('meta_description', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.blogs.meta_description')]) }}
+                </div>
+                <!--col-->
+            </div>
+            <!--form-group-->
+
+            <div class="form-group row">
+                {{ Form::label('status', trans('validation.attributes.backend.access.blogs.status'), ['class' => 'col-md-2 from-control-label required']) }}
+
+                <div class="col-md-10">
+                    {{ Form::select('status', $status, null, ['class' => 'form-control select2 status box-size', 'placeholder' => trans('validation.attributes.backend.access.blogs.status'), 'required' => 'required']) }}
+                </div>
+                <!--col-->
+            </div>
+            <!--form-group-->
+        </div>
+        <!--col-->
+    </div>
+    <!--row-->
 </div>
+<!--card-body-->
 
-@section("after-scripts")
-    <script type="text/javascript">
-
-        Backend.Blog.selectors.GenerateSlugUrl = "{{route('admin.generate.slug')}}";
-        Backend.Blog.selectors.SlugUrl = "{{url('/')}}";
-        Backend.Blog.init('{{ config('locale.languages.' . app()->getLocale())[1] }}');
-        
-    </script>
-@endsection
+@section('pagescript')
+<script type="text/javascript">
+    FTX.Utils.documentReady(function() {
+        FTX.Blogs.edit.init("{{ config('locale.languages.' . app()->getLocale())[1] }}");
+    });
+</script>
+@stop

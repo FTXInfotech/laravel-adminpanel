@@ -1,126 +1,71 @@
-<header class="main-header">
-
-    <a href="{{ route('frontend.index') }}" class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini">
-           {{ substr(app_name(), 0, 1) }}
-        </span>
-
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg">
-           {{--  @php
-                 $settings = settings();
-            @endphp
-            @if($settings->logo)
-                <img height="48" width="226" class="navbar-brand" src="{{route('frontend.index')}}/img/site_logo/{{$settings->logo}}">
-            @else --}}
-                {{ app_name() }}
-           {{--  @endif --}}
-        </span>
+<header class="app-header navbar">
+    <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">
+        <img class="navbar-brand-full" src="{{ asset('img/backend/brand/logo.svg') }}" width="89" height="25" alt="CoreUI Logo">
+        <img class="navbar-brand-minimized" src="{{ asset('img/backend/brand/sygnet.svg') }}" width="30" height="30" alt="CoreUI Logo">
     </a>
+    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <nav class="navbar navbar-static-top" role="navigation">
-        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">{{ trans('labels.general.toggle_navigation') }}</span>
-        </a>
+    <ul class="nav navbar-nav d-md-down-none">
+        <li class="nav-item px-3">
+            <a class="nav-link" href="{{ route('frontend.index') }}"><i class="fas fa-home"></i></a>
+        </li>
 
-        <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
+        <li class="nav-item px-3">
+            <a class="nav-link" href="{{ route('admin.dashboard') }}">@lang('navs.frontend.dashboard')</a>
+        </li>
 
-                @if (config('locale.status') && count(config('locale.languages')) > 1)
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            <i class="fa fa-language"></i> {{ trans('menus.language-picker.language') }} <span class="caret"></span>
-                        </a>
-                        @include('includes.partials.lang')
-                    </li>
-                @endif
+        @if(config('locale.status') && count(config('locale.languages')) > 1)
+            <li class="nav-item px-3 dropdown">
+                <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="d-md-down-none">@lang('menus.language-picker.language') ({{ strtoupper(app()->getLocale()) }})</span>
+                </a>
 
-                <li class="dropdown messages-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="label label-info">0</span>
-                    </a>
+                @include('includes.partials.lang')
+            </li>
+        @endif
+    </ul>
 
-                    <ul class="dropdown-menu">
-                        <li class="header">{{ trans_choice('strings.backend.general.you_have.messages', 0, ['number' => 0]) }}</li>
-                        <li class="footer">
-                            {{ link_to('#', trans('strings.backend.general.see_all.messages')) }}
-                        </li>
-                    </ul>
-                </li><!-- /.messages-menu -->
+    <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item d-md-down-none">
+            <a class="nav-link" href="#">
+                <i class="fas fa-bell"></i>
+            </a>
+        </li>
+        <li class="nav-item d-md-down-none">
+            <a class="nav-link" href="#">
+                <i class="fas fa-list"></i>
+            </a>
+        </li>
+        <li class="nav-item d-md-down-none">
+            <a class="nav-link" href="#">
+                <i class="fas fa-map-marker-alt"></i>
+            </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <img src="{{ $logged_in_user->picture }}" class="img-avatar" alt="{{ $logged_in_user->email }}">
+            <span class="d-md-down-none">{{ $logged_in_user->full_name }}</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-header text-center">
+              <strong>Account</strong>
+            </div>
+            <a class="dropdown-item" href="{{ route('frontend.auth.logout') }}">
+                <i class="fas fa-lock"></i> @lang('navs.general.logout')
+            </a>
+          </div>
+        </li>
+    </ul>
 
-                <li class="dropdown notifications-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
-                        <span class="label label-info notification-counter"></span>
-                    </a>
-
-                    <ul class="dropdown-menu notification-menu-container">
-                    </ul>
-                </li><!-- /.notifications-menu -->
-
-                <li class="dropdown tasks-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-flag-o"></i>
-                        <span class="label label-info">0</span>
-                    </a>
-
-                    <ul class="dropdown-menu">
-                        <li class="header">{{ trans_choice('strings.backend.general.you_have.tasks', 0, ['number' => 0]) }}</li>
-                        <li class="footer">
-                            {{ link_to('#', trans('strings.backend.general.see_all.tasks')) }}
-                        </li>
-                    </ul>
-                </li><!-- /.tasks-menu -->
-
-                <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ access()->user()->picture }}" class="user-image" alt="User Avatar"/>
-                        <span class="hidden-xs">{{ access()->user()->first_name }}</span>
-                        <div class="clearfix"></div>
-                    </a>
-
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li class="user-header">
-                            <img src="{{ access()->user()->picture }}" class="img-circle" alt="User Avatar" />
-                            <p>
-                                {{-- access()->user()->name }} - {{ implode(", ", access()->user()->roles->lists('name')->toArray()) --}}
-                                <small>{{ trans('strings.backend.general.member_since') }} {{ access()->user()->created_at->format("m/d/Y") }}</small>
-                            </p>
-                        </li>
-
-                        <li class="user-body">
-                            <div class="col-xs-12 text-center">
-                                {{ link_to_route("admin.profile.edit", 'Edit Profile') }}
-                            </div>
-                        </li>
-                        <li class="user-body border-left">
-                            <div class="col-xs-12 text-center">
-                                {{ link_to_route('admin.access.user.change-password','Change Password', access()->user()->id) }}
-                            </div>
-                            {{-- <div class="col-xs-4 text-center">
-                                {{ link_to_route('dashboard', 'Link') }}
-                            </div> --}}
-                        </li>
-
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="{!! route('frontend.index') !!}" class="btn btn-default btn-flat">
-                                    <i class="fa fa-home"></i>
-                                    {{ trans('navs.general.home') }}
-                                </a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="{!! route('frontend.auth.logout') !!}" class="btn btn-danger btn-flat">
-                                    <i class="fa fa-sign-out"></i>
-                                    {{ trans('navs.general.logout') }}
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div><!-- /.navbar-custom-menu -->
-    </nav>
+    <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" data-toggle="aside-menu-lg-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <button class="navbar-toggler aside-menu-toggler d-lg-none" type="button" data-toggle="aside-menu-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 </header>

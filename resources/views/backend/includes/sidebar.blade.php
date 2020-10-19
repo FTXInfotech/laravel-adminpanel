@@ -1,138 +1,168 @@
-<!-- Left side column. contains the logo and sidebar -->
-<aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-        <!-- Sidebar Menu -->
-        <ul class="sidebar-menu">
-            <li class="header">{{ trans('menus.backend.sidebar.general') }}</li>
-
-            <li class="{{ active_class(Active::checkUriPattern('admin/dashboard')) }}">
-                <a href="{{ route('admin.dashboard') }}">
-                    <i class="fa fa-dashboard"></i>
-                    <span>{{ trans('menus.backend.sidebar.dashboard') }}</span>
+<div class="sidebar">
+    <nav class="sidebar-nav">
+        <ul class="nav">
+            <li class="nav-title">
+                @lang('menus.backend.sidebar.general')
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{
+                    active_class(Route::is('admin/dashboard'))
+                }}" href="{{ route('admin.dashboard') }}">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    @lang('menus.backend.sidebar.dashboard')
                 </a>
             </li>
 
-            <li class="header">{{ trans('menus.backend.sidebar.system') }}</li>
-
-            @permission('view-access-management')
-            <li class="{{ active_class(Active::checkUriPattern('admin/access/*')) }} treeview">
-                <a href="#">
-                    <i class="fa fa-users"></i>
-                    <span>{{ trans('menus.backend.access.title') }}</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-
-                <ul class="treeview-menu {{ active_class(Active::checkUriPattern('admin/access/*'), 'menu-open') }}" style="display: none; {{ active_class(Active::checkUriPattern('admin/access/*'), 'display: block;') }}">
-                    @permission('view-user-management')
-                    <li class="{{ active_class(Active::checkUriPattern('admin/access/user*')) }}">
-                        <a href="{{ route('admin.access.user.index') }}">
-                            <span>{{ trans('labels.backend.access.users.management') }}</span>
-                        </a>
-                    </li>
-                    @endauth
-                    @permission('view-role-management')
-                    <li class="{{ active_class(Active::checkUriPattern('admin/access/role*')) }}">
-                        <a href="{{ route('admin.access.role.index') }}">
-                            <span>{{ trans('labels.backend.access.roles.management') }}</span>
-                        </a>
-                    </li>
-                    @endauth
-                    @permission('view-permission-management')
-                    <li class="{{ active_class(Active::checkUriPattern('admin/access/permission*')) }}">
-                        <a href="{{ route('admin.access.permission.index') }}">
-                            <span>{{ trans('labels.backend.access.permissions.management') }}</span>
-                        </a>
-                    </li>
-                    @endauth
-                </ul>
-            </li>
-            @endauth
-            @permission('view-page')
-            <li class="{{ active_class(Active::checkUriPattern('admin/pages*')) }}">
-                <a href="{{ route('admin.pages.index') }}">
-                    <i class="fa fa-file-text"></i>
-                    <span>{{ trans('labels.backend.pages.title') }}</span>
-                </a>
-            </li>
-            @endauth
-            @permission('edit-settings')
-            <li class="{{ active_class(Active::checkUriPattern('admin/settings*')) }}">
-                <a href="{{ route('admin.settings.edit', 1 ) }}">
-                    <i class="fa fa-gear"></i>
-                    <span>{{ trans('labels.backend.settings.title') }}</span>
-                </a>
-            </li>
-            @endauth
-            <li class="{{ active_class(Active::checkUriPattern('admin/modules*')) }}">
-                <a href="{{ route('admin.modules.index') }}">
-                    <i class="fa fa-gear"></i>
-                    <span>{{ trans('generator::menus.modules.management') }}</span>
-                </a>
-            </li>
-            @permission('view-blog')
-            <li class="{{ active_class(Active::checkUriPattern('admin/blog*')) }} treeview">
-                <a href="#">
-                    <i class="fa fa-commenting"></i>
-                    <span>{{ trans('menus.backend.blog.management') }}</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-
-                <ul class="treeview-menu {{ active_class(Active::checkUriPattern('admin/blog*'), 'menu-open') }}" style="display: none; {{ active_class(Active::checkUriPattern('admin/blog*'), 'display: block;') }}">
-                    @permission('view-blog-category')
-                    <li class="{{ active_class(Active::checkUriPattern('admin/blogCategories*')) }}">
-                        <a href="{{ route('admin.blogCategories.index') }}">
-                            <span>{{ trans('menus.backend.blogcategories.management') }}</span>
-                        </a>
-                    </li>
-                    @endauth
-                    @permission('view-blog-tag')
-                    <li class="{{ active_class(Active::checkUriPattern('admin/blogTags*')) }}">
-                        <a href="{{ route('admin.blogTags.index') }}">
-                            <span>{{ trans('menus.backend.blogtags.management') }}</span>
-                        </a>
-                    </li>
-                    @endauth
-                    @permission('view-blog')
-                    <li class="{{ active_class(Active::checkUriPattern('admin/blogs*')) }}">
-                        <a href="{{ route('admin.blogs.index') }}">
-                            <span>{{ trans('menus.backend.blog.management') }}</span>
-                        </a>
-                    </li>
-                    @endauth
-                </ul>
-            </li>
-            @endauth
-
-            @permission('view-faq')
-                <li class="{{ active_class(Active::checkUriPattern('admin/faqs*')) }}">
-                <a href="{{ route('admin.faqs.index')}}">
-                    <i class="fa fa-question-circle"></i>
-                    <span>{{ trans('labels.backend.faqs.title') }}</span>
-                </a>
+            @if ($logged_in_user->isAdmin())
+                <li class="nav-title">
+                    @lang('menus.backend.sidebar.system')
                 </li>
-            @endauth
 
-            <li class="{{ active_class(Active::checkUriPattern('admin/log-viewer*')) }} treeview">
-                <a href="#">
-                    <i class="fa fa-list"></i>
-                    <span>{{ trans('menus.backend.log-viewer.main') }}</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu {{ active_class(Active::checkUriPattern('admin/log-viewer*'), 'menu-open') }}" style="display: none; {{ active_class(Active::checkUriPattern('admin/log-viewer*'), 'display: block;') }}">
-                    <li class="{{ active_class(Active::checkUriPattern('admin/log-viewer')) }}">
-                        <a href="{{ route('log-viewer::dashboard') }}">
-                            <span>{{ trans('menus.backend.log-viewer.dashboard') }}</span>
-                        </a>
-                    </li>
+                <li class="nav-item nav-dropdown {{
+                    active_class(Route::is('admin/auth*'), 'open')
+                }}">
+                    <a class="nav-link nav-dropdown-toggle {{
+                        active_class(Route::is('admin/auth*'))
+                    }}" href="#">
+                        <i class="nav-icon far fa-user"></i>
+                        @lang('menus.backend.access.title')
 
-                    <li class="{{ active_class(Active::checkUriPattern('admin/log-viewer/logs')) }}">
-                        <a href="{{ route('log-viewer::logs.list') }}">
-                            <span>{{ trans('menus.backend.log-viewer.logs') }}</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul><!-- /.sidebar-menu -->
-    </section><!-- /.sidebar -->
-</aside>
+                        @if ($pending_approval > 0)
+                            <span class="badge badge-danger">{{ $pending_approval }}</span>
+                        @endif
+                    </a>
+
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a class="nav-link {{
+                                active_class(Route::is('admin/auth/user*'))
+                            }}" href="{{ route('admin.auth.user.index') }}">
+                                @lang('labels.backend.access.users.management')
+
+                                @if ($pending_approval > 0)
+                                    <span class="badge badge-danger">{{ $pending_approval }}</span>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{
+                                active_class(Route::is('admin/auth/role*'))
+                            }}" href="{{ route('admin.auth.role.index') }}">
+                                @lang('labels.backend.access.roles.management')
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{
+                                active_class(Route::is('admin/auth/permission*'))
+                            }}" href="{{ route('admin.auth.permission.index') }}">
+                                @lang('labels.backend.access.permissions.management')
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="divider"></li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{
+                        active_class(Route::is('admin/pages'))
+                    }}" href="{{ route('admin.pages.index') }}">
+                        <i class="nav-icon fas fa-file"></i>
+                        @lang('menus.backend.sidebar.pages')
+                    </a>
+                </li>
+
+                <li class="divider"></li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{
+                        active_class(Route::is('admin/faqs'))
+                    }}" href="{{ route('admin.faqs.index') }}">
+                        <i class="nav-icon fas fa-question-circle"></i>
+                        @lang('menus.backend.sidebar.faqs')
+                    </a>
+                </li>
+
+                <li class="divider"></li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{
+                        active_class(Route::is('admin/email-templates'))
+                    }}" href="{{ route('admin.email-templates.index') }}">
+                        <i class="nav-icon fas fa-envelope"></i>
+                        @lang('menus.backend.sidebar.email-templates')
+                    </a>
+                </li>
+
+                <li class="divider"></li>
+
+                <li class="nav-item nav-dropdown {{
+                    active_class(Route::is('admin/blogs'), 'open')
+                }}">
+                    <a class="nav-link nav-dropdown-toggle {{
+                            active_class(Route::is('admin/blogs*'))
+                        }}" href="#">
+                        <i class="nav-icon fas fa-rss"></i> @lang('menus.backend.sidebar.blogs')
+                    </a>
+
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a class="nav-link {{
+                            active_class(Route::is('admin/blogs/blog-categories*'))
+                        }}" href="{{ route('admin.blog-categories.index') }}">
+                                @lang('labels.backend.access.blog-category.management')
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{
+                            active_class(Route::is('admin/blogs/blog-tags*'))
+                        }}" href="{{ route('admin.blog-tags.index') }}">
+                                @lang('labels.backend.access.blog-tag.management')
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ active_class(Route::is('admin/blogs')) }}" 
+                                href="{{ route('admin.blogs.index') }}">
+                                @lang('labels.backend.access.blogs.management')
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="divider"></li>
+
+                <li class="nav-item nav-dropdown {{
+                    active_class(Route::is('admin/log-viewer*'), 'open')
+                }}">
+                        <a class="nav-link nav-dropdown-toggle {{
+                            active_class(Route::is('admin/log-viewer*'))
+                        }}" href="#">
+                        <i class="nav-icon fas fa-list"></i> @lang('menus.backend.log-viewer.main')
+                    </a>
+
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a class="nav-link {{
+                            active_class(Route::is('admin/log-viewer'))
+                        }}" href="{{ route('log-viewer::dashboard') }}">
+                                @lang('menus.backend.log-viewer.dashboard')
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{
+                            active_class(Route::is('admin/log-viewer/logs*'))
+                        }}" href="{{ route('log-viewer::logs.list') }}">
+                                @lang('menus.backend.log-viewer.logs')
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
+        </ul>
+    </nav>
+
+    <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+</div><!--sidebar-->

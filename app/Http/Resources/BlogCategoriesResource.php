@@ -16,11 +16,14 @@ class BlogCategoriesResource extends Resource
     public function toArray($request)
     {
         return [
-            'id'            => $this->id,
-            'name'          => $this->name,
-            'status'        => ($this->isActive()) ? 'Active' : 'InActive',
-            'created_at'    => optional($this->created_at)->toDateString(),
-            'created_by'    => (isset($this->creator)) ? optional($this->creator)->first_name : $this->user_name,
+            'id' => $this->id,
+            'name' => $this->name,
+            'status' => $this->status,
+            'display_status' => $this->display_status,
+            'created_at' => optional($this->created_at)->toDateTimeString(),
+            'created_by' => optional($this->creator)->full_name,
+            'updated_at' => optional($this->updated_at)->toDateTimeString(),
+            'updated_by' => optional($this->updater)->full_name,
         ];
     }
 }

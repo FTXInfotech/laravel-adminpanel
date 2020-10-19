@@ -9,8 +9,7 @@ class BaseModel extends Model
     /**
      * Generate drop-down select data with basic IDs.
      *
-     * @param null $id
-     * @param null $val
+     * @param string $field_name
      *
      * @return array
      */
@@ -25,6 +24,7 @@ class BaseModel extends Model
      * Generate items for drop-down select data with basic IDs.
      *
      * @param $collection
+     * @param string $field_name
      *
      * @return array
      */
@@ -34,8 +34,8 @@ class BaseModel extends Model
 
         foreach ($collection as $model) {
             $items[$model->id] = [
-                'id'    => $model->id,
-                'name'  => $model->$field_name,
+                'id' => $model->id,
+                'name' => $model->$field_name,
                 'model' => $model,
             ];
         }

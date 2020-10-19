@@ -1,5 +1,4 @@
 const mix = require('laravel-mix');
-const WebpackRTLPlugin = require('webpack-rtl-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,57 +11,57 @@ const WebpackRTLPlugin = require('webpack-rtl-plugin');
  |
  */
 
-mix.sass('resources/assets/sass/frontend/app.scss', 'public/css/frontend.css')
-    .sass('resources/assets/sass/backend/app.scss', 'public/css/backend.css')
-    .styles([
-        'public/css/plugin/datatables/jquery.dataTables.min.css',
-        'public/css/backend/plugin/datatables/dataTables.bootstrap.min.css',
-        'public/css/plugin/datatables/buttons.dataTables.min.css',
-        'public/js/select2/select2.css',
-        'public/css/bootstrap.min.css',
-        'public/css/custom-style.css',
-        'public/css/loader.css',
-        'public/css/bootstrap-datetimepicker.min.css',
-        'client/build/client-modules.min.css',
-    ], 'public/css/backend-custom.css')
+mix.setPublicPath('public')
+    .setResourceRoot('../') // Turns assets paths in css relative to css file
+    // .options({
+    //     processCssUrls: false,
+    // })
+    .sass('resources/sass/frontend/app.scss', 'css/frontend.css')
+    .sass('resources/sass/backend/app.scss', 'css/backend.css')
+    .js('resources/js/frontend/app.js', 'js/frontend.js')
     .js([
-        'resources/assets/js/frontend/app.js',
-        'resources/assets/js/plugin/sweetalert/sweetalert.min.js',
-        'resources/assets/js/plugins.js',
-        'client/build/client-modules.min.js',
-    ], 'public/js/frontend.js')
-    .js([
-        'resources/assets/js/backend/app.js',
-        'resources/assets/js/plugin/sweetalert/sweetalert.min.js',
-        'resources/assets/js/plugins.js'
-    ], 'public/js/backend.js')
-    //Copying all directories of tinymce to public folder
-    .copyDirectory('node_modules/tinymce/plugins', 'public/js/plugins')
-    .copyDirectory('node_modules/tinymce/skins', 'public/js/skins')
-    .copyDirectory('node_modules/tinymce/themes', 'public/js/themes')
-    .scripts([
-        "node_modules/moment/moment.js",
-        "node_modules/select2/dist/js/select2.full.js",
-        "public/js/bootstrap-datetimepicker.min.js",
-        "public/js/backend/custom-file-input.js",
-        "public/js/backend/notification.js",
+        'resources/js/backend/before.js',
+        'resources/js/backend/app.js',
+        'resources/js/backend/after.js'
+    ], 'js/backend.js')
+    /* .scripts([
         "public/js/backend/admin.js"
-    ], 'public/js/backend-custom.js')
-    //Datatable js
-    .scripts([
-        'node_modules/datatables.net/js/jquery.dataTables.js',
-        'public/js/plugin/datatables/dataTables.bootstrap.min.js',
-        'node_modules/datatables.net-buttons/js/dataTables.buttons.js',
-        'node_modules/datatables.net-buttons/js/buttons.flash.js',
-        'public/js/plugin/datatables/jszip.min.js',
-        'public/js/plugin/datatables/pdfmake.min.js',
-        'public/js/plugin/datatables/vfs_fonts.js',
-        'node_modules/datatables.net-buttons/js/buttons.html5.js',
-        'node_modules/datatables.net-buttons/js/buttons.print.js',
-    ], 'public/js/dataTable.js')
-    .webpackConfig({
-        plugins: [
-            new WebpackRTLPlugin('/css/[name].rtl.css')
-        ]
-    })
-    .version();
+    ], 'public/js/backend-custom.js')    */
+    // .copyDirectory('node_modules/tinymce/plugins', 'public/js/plugins')
+    // .copyDirectory('node_modules/tinymce/skins', 'public/js/skins')
+    // .copyDirectory('node_modules/tinymce/themes', 'public/js/themes')
+    // .copyDirectory('node_modules/tinymce/icons', 'public/js/icons')
+    .extract([
+        // Extract packages from node_modules to vendor.js
+        'jquery',
+        'bootstrap',
+        'popper.js',
+        'axios',
+        'sweetalert2',
+        'lodash',
+        'datatables.net',
+        'datatables.net-bs4',
+        'moment',
+        'moment-timezone',
+        'eonasdan-bootstrap-datetimepicker-bootstrap4beta',
+        'select2',
+        // 'tinymce'
+    ])
+    .sourceMaps();
+
+if (mix.inProduction()) {
+    mix.version()
+        .options({
+            // Optimize JS minification process
+            terser: {
+                cache: true,
+                parallel: true,
+                sourceMap: true
+            }
+        });
+} else {
+    // Uses inline source-maps on development
+    mix.webpackConfig({
+        devtool: 'inline-source-map'
+    });
+}

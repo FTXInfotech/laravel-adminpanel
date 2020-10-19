@@ -28,7 +28,7 @@ class EditResponse implements Responsable
      */
     public function toResponse($request)
     {
-        return view('backend.blogcategories.edit')
-            ->with('blogcategory', $this->blogCategory);
+        return view('backend.blog-categories.edit')
+            ->with('blogCategory', $this->blogCategory);
     }
 }

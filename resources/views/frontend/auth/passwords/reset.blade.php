@@ -1,60 +1,78 @@
 @extends('frontend.layouts.app')
 
+@section('title', app_name() . ' | ' . __('labels.frontend.passwords.reset_password_box_title'))
+
 @section('content')
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+    <div class="row justify-content-center align-items-center">
+        <div class="col col-sm-6 align-self-center">
+            <div class="card">
+                <div class="card-header">
+                    <strong>
+                        @lang('labels.frontend.passwords.reset_password_box_title')
+                    </strong>
+                </div><!--card-header-->
 
-            @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
-            @endif
+                <div class="card-body">
 
-            <div class="panel panel-default">
+                    @if(session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
-                <div class="panel-heading">{{ trans('labels.frontend.passwords.reset_password_box_title') }}</div>
+                    {{ html()->form('POST', route('frontend.auth.password.reset'))->class('form-horizontal')->open() }}
+                        {{ html()->hidden('token', $token) }}
 
-                <div class="panel-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    {{ html()->label(__('validation.attributes.frontend.email'))->for('email') }}
 
-                    {{ Form::open(['route' => 'frontend.auth.password.reset', 'class' => 'form-horizontal']) }}
+                                    {{ html()->email('email')
+                                        ->class('form-control')
+                                        ->placeholder(__('validation.attributes.frontend.email'))
+                                        ->attribute('maxlength', 191)
+                                        ->required() }}
+                                </div><!--form-group-->
+                            </div><!--col-->
+                        </div><!--row-->
 
-                    <input type="hidden" name="token" value="{{ $token }}">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    {{ html()->label(__('validation.attributes.frontend.password'))->for('password') }}
 
-                        <div class="form-group">
-                            {{ Form::label('email', trans('validation.attributes.frontend.register-user.email'), ['class' => 'col-md-4 control-label']) }}
-                            <div class="col-md-6">
-                                <p class="form-control-static">{{ $email }}</p>
-                                {{ Form::input('hidden', 'email', $email, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.register-user.email')]) }}
-                            </div><!--col-md-6-->
-                        </div><!--form-group-->
+                                    {{ html()->password('password')
+                                        ->class('form-control')
+                                        ->placeholder(__('validation.attributes.frontend.password'))
+                                        ->required() }}
+                                </div><!--form-group-->
+                            </div><!--col-->
+                        </div><!--row-->
 
-                    <div class="form-group">
-                        {{ Form::label('password', trans('validation.attributes.frontend.register-user.password'), ['class' => 'col-md-4 control-label']) }}
-                        <div class="col-md-6">
-                            {{ Form::input('password', 'password', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.register-user.password')]) }}
-                        </div><!--col-md-6-->
-                    </div><!--form-group-->
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    {{ html()->label(__('validation.attributes.frontend.password_confirmation'))->for('password_confirmation') }}
 
-                    <div class="form-group">
-                        {{ Form::label('password_confirmation', trans('validation.attributes.frontend.register-user.password_confirmation'), ['class' => 'col-md-4 control-label']) }}
-                        <div class="col-md-6">
-                            {{ Form::input('password', 'password_confirmation', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.register-user.password_confirmation')]) }}
-                        </div><!--col-md-6-->
-                    </div><!--form-group-->
+                                    {{ html()->password('password_confirmation')
+                                        ->class('form-control')
+                                        ->placeholder(__('validation.attributes.frontend.password_confirmation'))
+                                        ->required() }}
+                                </div><!--form-group-->
+                            </div><!--col-->
+                        </div><!--row-->
 
-                    <div class="form-group">
-                        <div class="col-md-6 col-md-offset-4">
-                            {{ Form::submit(trans('labels.frontend.passwords.reset_password_button'), ['class' => 'btn btn-primary']) }}
-                        </div><!--col-md-6-->
-                    </div><!--form-group-->
-
-                    {{ Form::close() }}
-
-                </div><!-- panel body -->
-
-            </div><!-- panel -->
-
-        </div><!-- col-md-8 -->
-
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group mb-0 clearfix">
+                                    {{ form_submit(__('labels.frontend.passwords.reset_password_button')) }}
+                                </div><!--form-group-->
+                            </div><!--col-->
+                        </div><!--row-->
+                    {{ html()->form()->close() }}
+                </div><!-- card-body -->
+            </div><!-- card -->
+        </div><!-- col-6 -->
     </div><!-- row -->
 @endsection

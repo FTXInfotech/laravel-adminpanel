@@ -1,42 +1,63 @@
 <?php
 
-use App\Models\Access\User\User;
 use Faker\Generator;
+use Ramsey\Uuid\Uuid;
+use App\Models\Auth\User;
 use Illuminate\Support\Str;
 
-$factory->define(User::class, function (Generator $faker) {
-    static $password;
+/*
+|--------------------------------------------------------------------------
+| Model Factories
+|--------------------------------------------------------------------------
+|
+| Here you may define all of your model factories. Model factories give
+| you a convenient way to create models for testing and seeding your
+| database. Just tell the factory how a default model should look.
+|
+*/
 
+$factory->define(User::class, function (Generator $faker) {
     return [
-        'first_name'        => $faker->name,
-        'last_name'         => $faker->name,
-        'email'             => $faker->safeEmail,
-        'password'          => $password ?: $password = bcrypt('secret'),
+        // 'uuid' => Uuid::uuid4()->toString(),
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'email' => $faker->unique()->safeEmail,
+        'password' => bcrypt('1234'),
+        'password_changed_at' => null,
+        'remember_token' => Str::random(10),
         'confirmation_code' => md5(uniqid(mt_rand(), true)),
-        'remember_token'    => Str::random(10),
+        'active' => true,
+        'status' => true,
+        'confirmed' => true,
     ];
 });
 
 $factory->state(User::class, 'active', function () {
     return [
-        'status' => 1,
+        'status' => true,
     ];
 });
 
 $factory->state(User::class, 'inactive', function () {
     return [
-        'status' => 0,
+        'status' => false,
     ];
 });
 
 $factory->state(User::class, 'confirmed', function () {
     return [
-        'confirmed' => 1,
+        'confirmed' => true,
     ];
 });
 
 $factory->state(User::class, 'unconfirmed', function () {
     return [
-        'confirmed' => 0,
+        'confirmed' => false,
+    ];
+});
+
+$factory->state(User::class, 'softDeleted', function () {
+    return [
+        'deleted_at' => now(),
     ];
 });

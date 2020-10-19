@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -11,45 +13,37 @@
 |
 */
 
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});*/
+
 Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], function () {
     Route::group(['prefix' => 'auth', 'middleware' => ['guest']], function () {
-        Route::post('register', 'RegisterController@register');
+        // Route::post('register', 'RegisterController@register');
         Route::post('login', 'AuthController@login');
         // Password Reset
-        Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
+        // Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
     });
 
     Route::group(['middleware' => ['auth:api']], function () {
         Route::group(['prefix' => 'auth'], function () {
             Route::post('logout', 'AuthController@logout');
-            // Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
+            Route::get('me', 'AuthController@me');
         });
-        // Users
-        Route::resource('users', 'UsersController', ['except' => ['create', 'edit']]);
-        Route::post('users/delete-all', 'UsersController@deleteAll');
-        //@todo need to change the route name and related changes
-        Route::get('deactivated-users', 'DeactivatedUsersController@index');
-        Route::get('deleted-users', 'DeletedUsersController@index');
-
-        // Roles
-        Route::resource('roles', 'RolesController', ['except' => ['create', 'edit']]);
-
-        // Permission
-        Route::resource('permissions', 'PermissionController', ['except' => ['create', 'edit']]);
 
         // Page
-        Route::resource('pages', 'PagesController', ['except' => ['create', 'edit']]);
+        Route::apiResource('pages', 'PagesController');
 
         // Faqs
-        Route::resource('faqs', 'FaqsController', ['except' => ['create', 'edit']]);
+        Route::apiResource('faqs', 'FaqsController');
 
         // Blog Categories
-        Route::resource('blog_categories', 'BlogCategoriesController', ['except' => ['create', 'edit']]);
+        Route::apiResource('blog-categories', 'BlogCategoriesController');
 
         // Blog Tags
-        Route::resource('blog_tags', 'BlogTagsController', ['except' => ['create', 'edit']]);
+        Route::apiResource('blog-tags', 'BlogTagsController');
 
         // Blogs
-        Route::resource('blogs', 'BlogsController', ['except' => ['create', 'edit']]);
+        Route::apiResource('blogs', 'BlogsController');
     });
 });

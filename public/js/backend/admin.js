@@ -70,7 +70,7 @@ var Backend = {}; // common variable used in all the files of the backend
 
                 // when request is in the ready state change the details or perform success function
                 request.onreadystatechange = function () {
-                    if (request.readyState === XMLHttpRequest.DONE) {
+                    if (request.readyState === this.DONE) {
                         // Everything is good, the response was received.
                         request.onload = callback.success(request);
                     }
@@ -95,6 +95,120 @@ var Backend = {}; // common variable used in all the files of the backend
                 return urljson;
             },
 
+            setCSRF: function () {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': this.csrf
+                    }
+                });
+            },
+
+            dtAnchorToForm: function ($parent) {
+
+                $('td:last', $parent).addClass('btn-td');
+
+                $('[data-method]', $parent).append(function () {
+                    if (!$(this).find('form').length > 0) {
+                        var method = this.getAttribute('data-method');
+
+                        if (method == 'delete') {
+                            return "\n<form action='" + $(this).attr('href') + "' method='POST' name='delete_item' style='display:none'>\n" +
+                                "<input type='hidden' name='_method' value='" + $(this).attr('data-method') + "'>\n" +
+                                "<input type='hidden' name='_token' value='" + $('meta[name="csrf-token"]').attr('content') + "'>\n" +
+                                '</form>\n';
+                        } else {
+                            return "\n<form action='" + $(this).attr('href') + "' method='POST' name='delete_item' style='display:none'>\n" +
+                                "<input type='hidden' name='_token' value='" + $('meta[name="csrf-token"]').attr('content') + "'>\n" +
+                                '</form>\n';
+                        }
+                    } else { return '' }
+                })
+                    .attr('href', '#')
+                    .attr('style', 'cursor:pointer;')
+                    .attr('onclick', '$(this).find("form").submit();');
+            },
+
+        },
+
+        Permission: {
+
+            selectors: {
+                permissions_table: $('#permissions-table'),
+            },
+            init: function () {
+
+                Backend.Utils.setCSRF();
+
+                this.selectors.permissions_table.dataTable({
+
+                    processing: false,
+                    serverSide: true,
+
+                    ajax: {
+                        url: this.selectors.permissions_table.data('ajax_url'),
+                        type: 'post',
+                    },
+                    columns: [
+                        { data: 'name', name: 'permissions.name' },
+                        { data: 'display_name', name: 'permissions.display_name', sortable: false },
+                        { data: 'sort', name: 'permissions.sort', sortable: false },
+                        { data: 'actions', name: 'actions', searchable: false, sortable: false }
+                    ],
+                    order: [[2, "asc"]],
+                    searchDelay: 500,
+                    "createdRow": function (row, data, dataIndex) {
+                        Backend.Utils.dtAnchorToForm(row);
+                    }
+                })
+            },
+        },
+
+        UserPage: {
+
+            selectors: {
+                users_table: $('#users-table'),
+            },
+            init: function (pageName) {
+
+                Backend.Utils.setCSRF();
+
+                var data = {};
+
+                if (pageName == 'list') {
+                    data = { status: 1, trashed: false };
+                } else if (pageName == 'deleted') {
+                    data = { status: 0, trashed: true };
+                } else if (pageName == 'deactive') {
+                    data = { status: 0, trashed: false };
+                }
+
+                this.selectors.users_table.dataTable({
+
+                    processing: false,
+                    serverSide: true,
+                    ajax: {
+                        url: this.selectors.users_table.data('ajax_url'),
+                        type: 'post',
+                        data: data
+                    },
+                    columns: [
+
+                        { data: 'first_name', name: 'first_name' },
+                        { data: 'last_name', name: 'last_name' },
+                        { data: 'email', name: 'email' },
+                        { data: 'confirmed', name: 'confirmed' },
+                        { data: 'roles', name: 'roles', sortable: false },
+                        { data: 'created_at', name: 'created_at' },
+                        { data: 'updated_at', name: 'updated_at' },
+                        { data: 'actions', name: 'actions', searchable: false, sortable: false }
+                    ],
+                    order: [[0, "asc"]],
+                    searchDelay: 500,
+                    "createdRow": function (row, data, dataIndex) {
+                        Backend.Utils.dtAnchorToForm(row);
+                    }
+                })
+            },
         },
 
         /**
@@ -102,18 +216,112 @@ var Backend = {}; // common variable used in all the files of the backend
          *
          */
         Pages: {
+            selectors: {
+                pages_table: $('#pages-table'),
+            },
             init: function (locale) {
-                Backend.tinyMCE.init(locale);
+
+                Backend.Utils.setCSRF();
+
+                this.selectors.pages_table.dataTable({
+
+                    processing: false,
+                    serverSide: true,
+                    ajax: {
+                        url: this.selectors.pages_table.data('ajax_url'),
+                        type: 'post',
+                        data: { status: 1, trashed: false }
+                    },
+                    columns: [
+
+                        { data: 'title', name: 'title' },
+                        { data: 'status', name: 'status' },
+                        { data: 'created_by', name: 'created_by' },
+                        { data: 'created_at', name: 'created_at' },
+                        { data: 'actions', name: 'actions', searchable: false, sortable: false }
+
+                    ],
+                    order: [[0, "asc"]],
+                    searchDelay: 500,
+                    "createdRow": function (row, data, dataIndex) {
+                        Backend.Utils.dtAnchorToForm(row);
+                    }
+                });
+            }
+        },
+
+        RolePage: {
+
+            selectors: {
+                role_table: $('#roles-table'),
+            },
+            init: function () {
+
+                Backend.Utils.setCSRF();
+
+                this.selectors.role_table.dataTable({
+
+                    processing: false,
+                    serverSide: true,
+                    ajax: {
+                        url: this.selectors.role_table.data('ajax_url'),
+                        type: 'post'
+                    },
+                    columns: [
+                        { data: 'name', name: 'name' },
+                        { data: 'permissions', name: 'permissions', sortable: false },
+                        { data: 'users', name: 'users', searchable: false, sortable: false },
+                        { data: 'actions', name: 'actions', searchable: false, sortable: false }
+                    ],
+                    order: [[3, "asc"]],
+                    searchDelay: 500,
+                    "createdRow": function (row, data, dataIndex) {
+                        Backend.Utils.dtAnchorToForm(row);
+                    }
+                })
             },
         },
 
+        EmailPage: {
+
+            selectors: {
+                email_table: $('#email-templates-table'),
+            },
+            init: function () {
+
+                Backend.Utils.setCSRF();
+
+                this.selectors.email_table.dataTable({
+
+                    processing: false,
+                    serverSide: true,
+                    ajax: {
+                        url: this.selectors.email_table.data('ajax_url'),
+                        type: 'post'
+                    },
+                    columns: [
+                        { data: 'title', name: 'title' },
+                        { data: 'status', name: 'status' },
+                        { data: 'created_by', name: 'created_by' },
+                        { data: 'created_at', name: 'created_at' },
+                        { data: 'actions', name: 'actions', searchable: false, sortable: false }
+                    ],
+                    order: [[3, "asc"]],
+                    searchDelay: 500,
+                    "createdRow": function (row, data, dataIndex) {
+                        Backend.Utils.dtAnchorToForm(row);
+                    }
+                })
+            },
+        },
         /**
          * Roles management
          */
         Roles: {
             selectors: {
                 associated: document.querySelector("select[name='associated_permissions']"),
-                associated_container: document.getElementById("#available-permissions"),
+                associated_container: document.getElementById("available-permissions"),
+                searchButton: document.querySelector(".search-button"),
             },
             init: function (page) {
                 this.setSelectors();
@@ -123,23 +331,35 @@ var Backend = {}; // common variable used in all the files of the backend
             setSelectors: function () {
                 this.selectors.associated = document.querySelector("select[name='associated_permissions']");
                 this.selectors.associated_container = document.getElementById("available-permissions");
+                this.selectors.searchButton = document.querySelector(".search-button");
             },
             addHandlers: function () {
                 var associated = this.selectors.associated;
                 var associated_container = this.selectors.associated_container;
+                var searchButton = this.selectors.searchButton;
 
-                if (associated_container != null)
-                    if (associated.value == "custom")
+                if (associated_container != null) {
+
+                    if (associated.value == "custom") {
                         Backend.Utils.removeClass(associated_container, "hidden");
-                    else
+                        Backend.Utils.removeClass(searchButton, "hidden");
+                    } else {
                         Backend.Utils.addClass(associated_container, 'hidden');
+                        Backend.Utils.addClass(searchButton, 'hidden');
+                    }
+                }
 
                 associated.onchange = function (event) {
-                    if (associated_container != null)
-                        if (associated.value == "custom")
+
+                    if (associated_container != null) {
+                        if (associated.value == "custom") {
                             Backend.Utils.removeClass(associated_container, "hidden");
-                        else
+                            Backend.Utils.removeClass(searchButton, "hidden");
+                        } else {
                             Backend.Utils.addClass(associated_container, 'hidden');
+                            Backend.Utils.addClass(searchButton, 'hidden');
+                        }
+                    }
                 };
             },
             setRolepermission: function (page) {
@@ -154,20 +374,21 @@ var Backend = {}; // common variable used in all the files of the backend
          */
         Users: {
             selectors: {
-                select2: jQuery(".select2"),
                 getPremissionURL: "",
-                showPermission: document.querySelectorAll(".show-permissions")
+                getRoleForPermissions: "",
+                getAvailabelPermissions: "",
+                Role3: "",
+                searchButton: "",
             },
             init: function (page) {
                 this.setSelectors();
                 this.addHandlers(page);
             },
             setSelectors: function () {
-                this.selectors.select2 = jQuery(".select2");
                 this.selectors.getRoleForPermissions = document.querySelectorAll(".get-role-for-permissions");
                 this.selectors.getAvailabelPermissions = document.querySelector(".get-available-permissions");
+                this.selectors.searchButton = document.querySelector(".search-button");
                 this.selectors.Role3 = document.getElementById("role-3");
-                this.showPermission = document.querySelectorAll(".show-permissions");
             },
             addHandlers: function (page) {
                 /**
@@ -176,6 +397,13 @@ var Backend = {}; // common variable used in all the files of the backend
 
                 this.selectors.getRoleForPermissions.forEach(function (element) {
                     element.onclick = function (event) {
+
+                        Backend.Users.selectors.searchButton.value = '';
+                        Backend.Utils.addClass(Backend.Users.selectors.searchButton, 'hidden');
+                        // Backend.Users.selectors.searchButton.dispatchEvent(new Event('keyup'));
+
+                        Backend.Utils.addClass(document.getElementById("available-permissions"), 'hidden');
+
                         callback = {
                             success: function (request) {
                                 if (request.status >= 200 && request.status < 400) {
@@ -199,11 +427,13 @@ var Backend = {}; // common variable used in all the files of the backend
                                                     addChecked = 'checked="checked"';
                                                 }
                                             }
-                                            htmlstring += '<label class="control control--checkbox"> <input type="checkbox" name="permissions[' + key + ']" value="' + key + '" id="perm_' + key + '" ' + addChecked + ' /> <label for="perm_' + key + '">' + permissions[key] + '</label> <div class="control__indicator"></div> </label> <br>';
+
+                                            htmlstring += '<div><input type="checkbox" name="permissions[' + key + ']" value="' + key + '" id="perm_' + key + '" ' + addChecked + '/><label for="perm_' + key + '" style="margin-left:10px;">' + permissions[key] + '</label></div>';
                                         }
                                     }
                                     Backend.Users.selectors.getAvailabelPermissions.innerHTML = htmlstring;
                                     Backend.Utils.removeClass(document.getElementById("available-permissions"), 'hidden');
+                                    Backend.Utils.removeClass(Backend.Users.selectors.searchButton, 'hidden');
 
                                 } else {
                                     // We reached our target server, but it returned an error
@@ -220,34 +450,35 @@ var Backend = {}; // common variable used in all the files of the backend
                         }, Backend.Utils.csrf, callback);
                     };
                 });
+
+                this.selectors.searchButton.addEventListener('keyup', function (e) {
+
+                    var searchTerm = this.value.toLowerCase();
+
+                    Backend.Users.selectors.getAvailabelPermissions.children.forEach(function (el) {
+
+                        var shouldShow = true;
+
+                        searchTerm.split(" ").forEach(function (val) {
+                            if (shouldShow && (el.querySelector('label').innerHTML.toLowerCase().indexOf(val) == -1)) {
+                                shouldShow = false;
+                            }
+                        });
+
+                        if (shouldShow) {
+                            Backend.Utils.removeClass(el, 'hidden');
+                        } else {
+                            Backend.Utils.addClass(el, 'hidden');
+                        }
+                    });
+                });
+
                 if (page == "create") {
                     Backend.Users.selectors.Role3.click();
                 }
-
-                this.selectors.select2.select2();
-
             },
             windowloadhandler: function () {
 
-                // scripts to be handeled on user create and edit when window is laoaded
-                Backend.Users.selectors.showPermission.forEach(function (element) {
-                    element.onclick = function (event) {
-                        event.preventDefault();
-                        var $this = this;
-                        var role = $this.getAttribute("data-role");
-
-                        var permissions = document.querySelector(".permission-list[data-role='" + role + "']");
-                        var hideText = $this.querySelector('.hide-text');
-                        var showText = $this.querySelector('.show-text');
-
-                        // show permission list
-                        Backend.Utils.toggleClass(permissions, 'hidden');
-
-                        // toggle the text Show/Hide for the link
-                        Backend.Utils.toggleClass(hideText, 'hidden');
-                        Backend.Utils.toggleClass(showText, 'hidden');
-                    };
-                });
             }
         },
 
@@ -342,11 +573,11 @@ var Backend = {}; // common variable used in all the files of the backend
             },
 
             init: function (locale) {
-                this.addHandlers();
+                this.addHandlers(locale);
                 Backend.tinyMCE.init(locale);
             },
 
-            addHandlers: function () {
+            addHandlers: function (locale) {
 
                 this.selectors.tags.select2({
                     tags: true,
@@ -356,7 +587,12 @@ var Backend = {}; // common variable used in all the files of the backend
                 this.selectors.status.select2();
 
                 //For Blog datetimepicker for publish_datetime
-                this.selectors.datetimepicker1.datetimepicker();
+                this.selectors.datetimepicker1.datetimepicker({
+                    // locale: locale,
+                    format: 'YYYY-MM-DD HH:mm',
+                    showTodayButton: true,
+                    showClear: true,
+                });
 
                 // For generating the Slug  //changing slug on blur event
                 this.selectors.name.onblur = function (event) {
@@ -602,13 +838,14 @@ var Backend = {}; // common variable used in all the files of the backend
          */
         tinyMCE: {
             init: function (locale) {
+
                 tinymce.init({
                     language: (locale === 'en_US' ? undefined : locale),
                     path_absolute: "/",
                     selector: 'textarea',
                     height: 200,
                     width: 725,
-                    theme: 'silver', // New theme available in latest tinymce
+                    // theme: 'silver', // New theme available in latest tinymce
                     plugins: [
                         'advlist autolink lists link image charmap print preview hr anchor pagebreak',
                         'searchreplace wordcount visualblocks visualchars code fullscreen',
@@ -652,14 +889,43 @@ var Backend = {}; // common variable used in all the files of the backend
          *
          */
         Faq: {
-            selectors: {},
-
-            init: function (locale) {
-                // this.addHandlers();
-                Backend.tinyMCE.init(locale);
+            selectors: {
+                faqs_table: $('#faqs-table'),
             },
+            init: function (page, locale) {
 
-            addHandlers: function () {}
+                if (page == "edit") {
+                    Backend.tinyMCE.init(locale);
+                } else {
+
+                    Backend.Utils.setCSRF();
+
+                    this.selectors.faqs_table.dataTable({
+
+                        processing: false,
+                        serverSide: true,
+                        ajax: {
+                            url: this.selectors.faqs_table.data('ajax_url'),
+                            type: 'post',
+                            data: { status: 1, trashed: false }
+                        },
+                        columns: [
+
+                            { data: 'question', name: 'question' },
+                            { data: 'answer', name: 'answer' },
+                            { data: 'status', name: 'status' },
+                            { data: 'created_at', name: 'created_at' },
+                            { data: 'actions', name: 'actions', searchable: false, sortable: false }
+
+                        ],
+                        order: [[0, "asc"]],
+                        searchDelay: 500,
+                        "createdRow": function (row, data, dataIndex) {
+                            Backend.Utils.dtAnchorToForm(row);
+                        }
+                    });
+                }
+            }
         },
 
         /**

@@ -2,42 +2,38 @@
 
 namespace App\Http\Controllers\Backend\Faqs;
 
+use App\Models\Faq;
 use App\Http\Controllers\Controller;
+use App\Http\Responses\ViewResponse;
+use Illuminate\Support\Facades\View;
+use App\Http\Responses\RedirectResponse;
+use App\Repositories\Backend\FaqsRepository;
+use App\Http\Requests\Backend\Faqs\StoreFaqsRequest;
 use App\Http\Requests\Backend\Faqs\CreateFaqsRequest;
 use App\Http\Requests\Backend\Faqs\DeleteFaqsRequest;
-use App\Http\Requests\Backend\Faqs\EditFaqsRequest;
 use App\Http\Requests\Backend\Faqs\ManageFaqsRequest;
-use App\Http\Requests\Backend\Faqs\StoreFaqsRequest;
 use App\Http\Requests\Backend\Faqs\UpdateFaqsRequest;
-use App\Http\Responses\Backend\Faq\EditResponse;
-use App\Http\Responses\RedirectResponse;
-use App\Http\Responses\ViewResponse;
-use App\Models\Faqs\Faq;
-use App\Repositories\Backend\Faqs\FaqsRepository;
 
 class FaqsController extends Controller
 {
     /**
-     * Faq Repository.
-     *
-     * @var \App\Repositories\Backend\Faqs\FaqsRepository
+     * @var \App\Repositories\Backend\FaqsRepository
      */
-    protected $faq;
+    protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\Faqs\FaqsRepository $faq
+     * @param \App\Repositories\Backend\FaqsRepository $faq
      */
-    public function __construct(FaqsRepository $faq)
+    public function __construct(FaqsRepository $repository)
     {
-        $this->faq = $faq;
+        $this->repository = $repository;
+        View::share('js', ['faqs']);
     }
 
     /**
-     * Display a listing of the resource.
-     *
      * @param \App\Http\Requests\Backend\Faqs\ManageFaqsRequest $request
      *
-     * @return \App\Http\Responses\ViewResponse
+     * @return ViewResponse
      */
     public function index(ManageFaqsRequest $request)
     {
@@ -45,11 +41,9 @@ class FaqsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
      * @param \App\Http\Requests\Backend\Faqs\CreateFaqsRequest $request
      *
-     * @return \App\Http\Responses\ViewResponse
+     * @return ViewResponse
      */
     public function create(CreateFaqsRequest $request)
     {
@@ -57,59 +51,51 @@ class FaqsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @param \App\Http\Requests\Backend\Faqs\StoreFaqsRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StoreFaqsRequest $request)
     {
-        $this->faq->create($request->all());
+        $this->repository->create($request->except('_token'));
 
-        return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => trans('alerts.backend.faqs.created')]);
+        return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => __('alerts.backend.faqs.created')]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * @param \App\Models\Faq $faq
+     * @param \App\Http\Requests\Backend\Faqs\ManagePageRequest $request
      *
-     * @param \App\Models\Faqs\Faq                            $faq
-     * @param \App\Http\Requests\Backend\Faqs\EditFaqsRequest $request
-     *
-     * @return \App\Http\Responses\Backend\Faq\EditResponse
+     * @return ViewResponse
      */
-    public function edit(Faq $faq, EditFaqsRequest $request)
+    public function edit(Faq $faq, ManageFaqsRequest $request)
     {
-        return new EditResponse($faq);
+        return new ViewResponse('backend.faqs.edit', ['faq' => $faq]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
+     * @param \App\Models\Faq $faq
      * @param \App\Http\Requests\Backend\Faqs\UpdateFaqsRequest $request
-     * @param \App\Models\Faqs\Faq                              $id
      *
      * @return \App\Http\Responses\RedirectResponse
      */
-    public function update(UpdateFaqsRequest $request, Faq $faq)
+    public function update(Faq $faq, UpdateFaqsRequest $request)
     {
-        $this->faq->update($faq, $request->all());
+        $this->repository->update($faq, $request->except(['_token', '_method']));
 
-        return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => trans('alerts.backend.faqs.updated')]);
+        return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => __('alerts.backend.faqs.updated')]);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Faqs\Faq                              $faq
-     * @param \App\Http\Requests\Backend\Faqs\DeleteFaqsRequest $request
+     * @param \App\Models\Faq $faq
+     * @param \App\Http\Requests\Backend\Pages\DeleteFaqRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(Faq $faq, DeleteFaqsRequest $request)
     {
-        $this->faq->delete($faq);
+        $this->repository->delete($faq);
 
-        return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => trans('alerts.backend.faqs.deleted')]);
+        return new RedirectResponse(route('admin.faqs.index'), ['flash_success' => __('alerts.backend.faqs.deleted')]);
     }
 }

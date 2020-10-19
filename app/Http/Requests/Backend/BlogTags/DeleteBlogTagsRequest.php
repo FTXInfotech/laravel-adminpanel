@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Backend\BlogTags;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class DeleteBlogTagsRequest.
  */
-class DeleteBlogTagsRequest extends Request
+class DeleteBlogTagsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -2,90 +2,78 @@
 
 namespace Tests;
 
-use App\Models\Access\Role\Role;
-use App\Models\Access\User\User;
+use App\Models\Auth\Role;
+use App\Models\Auth\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\DB;
 
+/**
+ * Class TestCase.
+ */
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
     /**
-     * @var
+     * This method allows us to call private or protected methods of an object.
+     *
+     * @see https://stackoverflow.com/questions/249664/best-practices-to-test-protected-methods-with-phpunit
      */
-    protected $admin;
-
-    /**
-     * @var
-     */
-    protected $executive;
-
-    /**
-     * @var
-     */
-    protected $user;
-
-    /**
-     * @var
-     */
-    protected $adminRole;
-
-    /**
-     * @var
-     */
-    protected $executiveRole;
-
-    /**
-     * @var
-     */
-    protected $userRole;
-
-    public function signIn($user = null)
+    public function callPrivateMethod($obj, $name, array $args)
     {
-        $user = $user ?: create('App\User');
+        $class = new \ReflectionClass($obj);
+        $method = $class->getMethod($name);
+        $method->setAccessible(true);
 
-        $this->be($user);
-
-        return $this;
+        return $method->invokeArgs($obj, $args);
     }
 
     /**
-     * Set up tests.
+     * Create the admin role or return it if it already exists.
+     *
+     * @return mixed
      */
-    protected function setUp(): void
+    protected function getAdminRole()
     {
-        parent::setUp();
-
-        if (config('database.default') == 'sqlite') {
-            $db = app()->make('db');
-            $db->connection()->getPdo()->exec('pragma foreign_keys=0');
+        if ($role = Role::whereName(config('access.users.admin_role'))->first()) {
+            return $role;
         }
 
-        $this->withoutExceptionHandling();
+        $adminRole = factory(Role::class)->create(['name' => config('access.users.admin_role'), 'all' => 1]);
 
-        // Set up the database
-        Artisan::call('migrate:refresh');
-        Artisan::call('db:seed');
-
-        /*
-         * Create class properties to be used in tests
-         */
-        $this->admin = User::find(1);
-        $this->executive = User::find(2);
-        $this->user = User::find(3);
-        $this->adminRole = Role::find(1);
-        $this->executiveRole = Role::find(2);
-        $this->userRole = Role::find(3);
+        return $adminRole;
     }
 
-    protected function tearDown(): void
+    /**
+     * Create an administrator.
+     *
+     * @param array $attributes
+     *
+     * @return mixed
+     */
+    protected function createAdmin(array $attributes = [])
     {
-        $this->beforeApplicationDestroyed(function () {
-            DB::disconnect();
-        });
+        $adminRole = $this->getAdminRole();
+        $admin = factory(User::class)->create($attributes);
+        $admin->attachRoles([$adminRole->id]);
 
-        parent::tearDown();
+        return $admin;
+    }
+
+    /**
+     * Login the given administrator or create the first if none supplied.
+     *
+     * @param bool $admin
+     *
+     * @return bool|mixed
+     */
+    protected function loginAsAdmin($admin = false)
+    {
+        if (! $admin) {
+            $admin = $this->createAdmin();
+        }
+
+        $this->actingAs($admin);
+
+        return $admin;
     }
 }

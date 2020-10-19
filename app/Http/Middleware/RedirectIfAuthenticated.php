@@ -3,32 +3,24 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class RedirectIfAuthenticated.
+ */
 class RedirectIfAuthenticated
 {
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     * @param string|null              $guard
-     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string|null  $guard
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/');
-        }
-
-        if ($request->wantsJson() && auth()->guard('api')->user()) {
-            return response([
-                'error' => [
-                    'message'     => 'Not allowed',
-                    'status_code' => 403,
-                ],
-            ], 403);
+        if (auth()->guard($guard)->check()) {
+            return redirect()->route(home_route());
         }
 
         return $next($request);

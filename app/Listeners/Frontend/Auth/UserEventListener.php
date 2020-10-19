@@ -2,6 +2,12 @@
 
 namespace App\Listeners\Frontend\Auth;
 
+use App\Events\Frontend\Auth\UserLoggedIn;
+use App\Events\Frontend\Auth\UserConfirmed;
+use App\Events\Frontend\Auth\UserLoggedOut;
+use App\Events\Frontend\Auth\UserRegistered;
+use App\Events\Frontend\Auth\UserProviderRegistered;
+
 /**
  * Class UserEventListener.
  */
@@ -12,10 +18,27 @@ class UserEventListener
      */
     public function onLoggedIn($event)
     {
-        \Log::info('User Logged In: '.$event->user->first_name);
+        $ip_address = request()->getClientIp();
 
-        // Generating notification
-        createNotification('User Logged In: '.$event->user->first_name, 1);
+        // Update the logging in users time & IP
+        $event->user->fill([
+            'last_login_at' => now()->toDateTimeString(),
+            'last_login_ip' => $ip_address,
+        ]);
+
+        // Update the timezone via IP address
+        $geoip = geoip($ip_address);
+
+        if ($event->user->timezone !== $geoip['timezone']) {
+            // Update the users timezone
+            $event->user->fill([
+                'timezone' => $geoip['timezone'],
+            ]);
+        }
+
+        $event->user->save();
+        logger('Milan Soni');
+        logger('User Logged In: '.$event->user->full_name);
     }
 
     /**
@@ -23,7 +46,7 @@ class UserEventListener
      */
     public function onLoggedOut($event)
     {
-        \Log::info('User Logged Out: '.$event->user->first_name);
+        logger('User Logged Out: '.$event->user->full_name);
     }
 
     /**
@@ -31,7 +54,15 @@ class UserEventListener
      */
     public function onRegistered($event)
     {
-        \Log::info('User Registered: '.$event->user->full_name);
+        logger('User Registered: '.$event->user->full_name);
+    }
+
+    /**
+     * @param $event
+     */
+    public function onProviderRegistered($event)
+    {
+        logger('User Provider Registered: '.$event->user->full_name);
     }
 
     /**
@@ -39,7 +70,7 @@ class UserEventListener
      */
     public function onConfirmed($event)
     {
-        \Log::info('User Confirmed: '.$event->user->first_name);
+        logger('User Confirmed: '.$event->user->full_name);
     }
 
     /**
@@ -50,22 +81,27 @@ class UserEventListener
     public function subscribe($events)
     {
         $events->listen(
-            \App\Events\Frontend\Auth\UserLoggedIn::class,
+            UserLoggedIn::class,
             'App\Listeners\Frontend\Auth\UserEventListener@onLoggedIn'
         );
 
         $events->listen(
-            \App\Events\Frontend\Auth\UserLoggedOut::class,
+            UserLoggedOut::class,
             'App\Listeners\Frontend\Auth\UserEventListener@onLoggedOut'
         );
 
         $events->listen(
-            \App\Events\Frontend\Auth\UserRegistered::class,
+            UserRegistered::class,
             'App\Listeners\Frontend\Auth\UserEventListener@onRegistered'
         );
 
         $events->listen(
-            \App\Events\Frontend\Auth\UserConfirmed::class,
+            UserProviderRegistered::class,
+            'App\Listeners\Frontend\Auth\UserEventListener@onProviderRegistered'
+        );
+
+        $events->listen(
+            UserConfirmed::class,
             'App\Listeners\Frontend\Auth\UserEventListener@onConfirmed'
         );
     }

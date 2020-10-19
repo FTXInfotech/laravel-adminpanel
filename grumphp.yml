@@ -1,0 +1,10 @@
+grumphp:
+    ascii:
+        failed: ~
+        succeeded: ~
+    fixer:
+        enabled: false
+    tasks:
+        phpcsfixer:
+            config: .php_cs.dist
+            using_cache: false

@@ -1,25 +1,23 @@
 <?php
 
-use App\Models\Access\User\User;
-use App\Models\Page\Page;
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+use App\Models\Page;
+use App\Models\Auth\User;
 use Faker\Generator as Faker;
-use Illuminate\Support\Str;
 
 $factory->define(Page::class, function (Faker $faker) {
-    $title = $faker->sentence;
-
-    $newestPage = Page::orderBy('id', 'desc')->first();
-
     return [
-        'title'           => $title,
-        'page_slug'       => Str::slug($title),
-        'description'     => $faker->paragraph,
-        'cannonical_link' => 'http://localhost:8000/'.Str::slug($title),
-        'created_by'      => function () {
-            return factory(User::class)->create()->id;
+        'title' => $faker->words(4, true),
+        'page_slug' => $faker->slug,
+        'description' => $faker->paragraph,
+        'cannonical_link' => $faker->url,
+        'seo_title' => $faker->word,
+        'seo_keyword' => $faker->word,
+        'seo_description' => $faker->paragraph,
+        'status' => $faker->boolean,
+        'created_by' => function () {
+            return factory(User::class)->state('active')->create()->id;
         },
-        'status'      => 1,
-        'created_at'  => Carbon\Carbon::now(),
-        'updated_at'  => Carbon\Carbon::now(),
     ];
 });

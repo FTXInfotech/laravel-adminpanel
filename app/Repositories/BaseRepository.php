@@ -2,9 +2,6 @@
 
 namespace App\Repositories;
 
-/**
- * Class BaseRepository.
- */
 class BaseRepository
 {
     /**
@@ -31,10 +28,10 @@ class BaseRepository
             return $this->query()->where('status', $active)
                 ->orderBy($order_by, $sort)
                 ->paginate($per_page);
-        } else {
-            return $this->query()->orderBy($order_by, $sort)
-                ->paginate($per_page);
         }
+
+        return $this->query()->orderBy($order_by, $sort)
+            ->paginate($per_page);
     }
 
     /**
@@ -56,10 +53,37 @@ class BaseRepository
     }
 
     /**
+     * Find Record based on specific column.
+     *
+     * @param string $value
+     * @param string $column_name
+     *
+     * @return mixed
+     */
+    public function getByColumn($value, $column_name = 'id')
+    {
+        return $this->query()->where($column_name, $value)->first();
+    }
+
+    /**
      * @return mixed
      */
     public function query()
     {
         return call_user_func(static::MODEL.'::query');
+    }
+
+    /**
+     * Generate drop-down select data with basic IDs.
+     *
+     * @param string $field_name
+     *
+     * @return array
+     */
+    public function getSelectData($field_name = 'name')
+    {
+        $collection = $this->getAll();
+
+        return call_user_func(static::MODEL.'::getItems', $collection, $field_name);
     }
 }

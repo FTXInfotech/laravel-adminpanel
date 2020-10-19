@@ -2,12 +2,9 @@
 
 namespace App\Http\Requests\Backend\Pages;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Class UpdatePageRequest.
- */
-class UpdatePageRequest extends Request
+class UpdatePageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,8 +24,13 @@ class UpdatePageRequest extends Request
     public function rules()
     {
         return [
-            'title'       => 'required|max:191',
-            'description' => 'required',
+            'title' => ['required', 'max:191', 'unique:pages,title,'.optional($this->route('page'))->id],
+            'description' => ['required', 'string'],
+            'status' => ['boolean'],
+            'cannonical_link' => ['string', 'nullable', 'url'],
+            'seo_title' => ['string', 'nullable'],
+            'seo_keyword' => ['string', 'nullable'],
+            'seo_description' => ['string', 'nullable'],
         ];
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Alert Language Lines
@@ -14,67 +13,75 @@ return [
     */
 
     'backend' => [
-        'roles' => [
-            'created' => 'The role was successfully created.',
-            'deleted' => 'The role was successfully deleted.',
-            'updated' => 'The role was successfully updated.',
-        ],
+        'access' => [
+            'roles' => [
+                'created' => 'The role was successfully created.',
+                'updated' => 'The role was successfully updated.',
+                'deleted' => 'The role was successfully deleted.',
+            ],
 
-        'permissions' => [
-            'created' => 'The permission was successfully created.',
-            'deleted' => 'The permission was successfully deleted.',
-            'updated' => 'The permission was successfully updated.',
-        ],
+            'permissions' => [
+                'created' => 'The permission was successfully created.',
+                'updated' => 'The permission was successfully updated.',
+                'deleted' => 'The permission was successfully deleted.',
+            ],
 
-        'users' => [
-            'confirmation_email'  => 'A new confirmation e-mail has been sent to the address on file.',
-            'created'             => 'The user was successfully created.',
-            'deleted'             => 'The user was successfully deleted.',
-            'deleted_permanently' => 'The user was deleted permanently.',
-            'restored'            => 'The user was successfully restored.',
-            'session_cleared'     => "The user's session was successfully cleared.",
-            'updated'             => 'The user was successfully updated.',
-            'updated_password'    => "The user's password was successfully updated.",
-        ],
-
-        'pages' => [
-            'created' => 'The Page was successfully created.',
-            'deleted' => 'The Page was successfully deleted.',
-            'updated' => 'The Page was successfully updated.',
-        ],
-
-        'blogcategories' => [
-            'created' => 'The Blog Category was successfully created.',
-            'deleted' => 'The Blog Category was successfully deleted.',
-            'updated' => 'The Blog Category was successfully updated.',
-        ],
-
-        'blogtags' => [
-            'created' => 'The Blog Tag was successfully created.',
-            'deleted' => 'The Blog Tag was successfully deleted.',
-            'updated' => 'The Blog Tag was successfully updated.',
+            'users' => [
+                'created' => 'The user was successfully created.',
+                'updated' => 'The user was successfully updated.',
+                'deleted' => 'The user was successfully deleted.',
+                'deleted_permanently' => 'The user was deleted permanently.',
+                'restored' => 'The user was successfully restored.',
+                'cant_resend_confirmation' => 'The application is currently set to manually approve users.',
+                'confirmation_email' => 'A new confirmation e-mail has been sent to the address on file.',
+                'confirmed' => 'The user was successfully confirmed.',
+                'session_cleared' => "The user's session was successfully cleared.",
+                'social_deleted' => 'Social Account Successfully Removed',
+                'unconfirmed' => 'The user was successfully un-confirmed',
+                'updated_password' => "The user's password was successfully updated.",
+            ],
         ],
 
         'blogs' => [
-            'created' => 'The Blog was successfully created.',
-            'deleted' => 'The Blog was successfully deleted.',
-            'updated' => 'The Blog was successfully updated.',
+            'created' => 'The blog was successfully created.',
+            'updated' => 'The blog was successfully updated.',
+            'deleted' => 'The blog was successfully deleted.',
         ],
 
-        'settings' => [
-            'updated' => 'The Setting was successfully updated.',
+        'blog-category' => [
+            'created' => 'The blog category was successfully created.',
+            'updated' => 'The blog category was successfully updated.',
+            'deleted' => 'The blog category was successfully deleted.',
+        ],
+
+        'blog-tags' => [
+            'created' => 'The blog tag was successfully created.',
+            'updated' => 'The blog tag was successfully updated.',
+            'deleted' => 'The blog tag was successfully deleted.',
+        ],
+
+        'pages' => [
+            'created' => 'The page was successfully created.',
+            'updated' => 'The page was successfully updated.',
+            'deleted' => 'The page was successfully deleted.',
         ],
 
         'faqs' => [
-            'created' => 'The Faq was successfully created.',
-            'deleted' => 'The Faq was successfully deleted.',
-            'updated' => 'The Faq was successfully updated.',
+            'created' => 'The faq was successfully created.',
+            'updated' => 'The faq was successfully updated.',
+            'deleted' => 'The faq was successfully deleted.',
         ],
 
-        'menus' => [
-            'created' => 'The Menu was successfully created.',
-            'deleted' => 'The Menu was successfully deleted.',
-            'updated' => 'The Menu was successfully updated.',
+        'email-templates' => [
+            'created' => 'The email template was successfully created.',
+            'updated' => 'The email template was successfully updated.',
+            'deleted' => 'The email template was successfully deleted.',
+        ],
+    ],
+
+    'frontend' => [
+        'contact' => [
+            'sent' => 'Your information was successfully sent. We will respond back to the e-mail provided as soon as we can.',
         ],
     ],
 ];

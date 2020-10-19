@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Backend\BlogCategories;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class DeleteBlogCategoriesRequest.
  */
-class DeleteBlogCategoriesRequest extends Request
+class DeleteBlogCategoriesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

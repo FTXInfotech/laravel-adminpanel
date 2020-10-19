@@ -14,7 +14,9 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $listen = [];
+    protected $listen = [
+        //
+    ];
 
     /**
      * Class event subscribers.
@@ -22,40 +24,35 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $subscribe = [
-        /*
-         * Frontend Subscribers
-         */
+        // Frontend Subscribers
 
-        /*
-         * Auth Subscribers
-         */
+        // Auth Subscribers
         \App\Listeners\Frontend\Auth\UserEventListener::class,
 
-        /*
-         * Backend Subscribers
-         */
+        // Backend Subscribers
 
-        /*
-         * Access Subscribers
-         */
-        \App\Listeners\Backend\Access\User\UserEventListener::class,
-        \App\Listeners\Backend\Access\Role\RoleEventListener::class,
-        \App\Listeners\Backend\Access\Permission\PermissionEventListener::class,
-        \App\Listeners\Backend\Pages\PageEventListener::class,
-        \App\Listeners\Backend\BlogCategories\BlogCategoryEventListener::class,
-        \App\Listeners\Backend\BlogTags\BlogTagEventListener::class,
-        \App\Listeners\Backend\Blogs\BlogEventListener::class,
+        // Auth Subscribers
+        \App\Listeners\Backend\Auth\User\UserEventListener::class,
+        \App\Listeners\Backend\Auth\Role\RoleEventListener::class,
     ];
 
     /**
      * Register any events for your application.
-     *
-     * @return void
      */
     public function boot()
     {
         parent::boot();
 
         //
+    }
+
+    /**
+     * Determine if events and listeners should be automatically discovered.
+     *
+     * @return bool
+     */
+    public function shouldDiscoverEvents()
+    {
+        return false;
     }
 }

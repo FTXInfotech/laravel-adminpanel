@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Responsable;
 class EditResponse implements Responsable
 {
     /**
-     * @var \App\Models\BlogTags\BlogTag
+     * @var \App\Models\BlogTags\BlogCategory
      */
     protected $blogTag;
 
@@ -28,7 +28,7 @@ class EditResponse implements Responsable
      */
     public function toResponse($request)
     {
-        return view('backend.blogtags.edit')
-            ->with('blogtag', $this->blogTag);
+        return view('backend.blog-tags.edit')
+            ->with('blogTag', $this->blogTag);
     }
 }

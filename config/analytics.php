@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Google Analytics
@@ -9,5 +8,5 @@ return [
     |
     | Found in views/includes/partials/ga.blade.php
     */
-    'google-analytics' => 'UA-XXXXX-X',
+    'google-analytics' => env('GOOGLE_ANALYTICS', 'UA-XXXXX-X'),
 ];

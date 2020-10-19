@@ -1,9 +1,7 @@
 <?php
 
 return [
-    /*
-     * DataTables search options.
-     */
+    // DataTables search options.
     'search' => [
         /*
          * Smart search will enclose search keyword with wildcard string "%keyword%".
@@ -11,9 +9,7 @@ return [
          */
         'smart' => true,
 
-        /*
-         * Multi-term search will explode search keyword using spaces resulting into multiple term search.
-         */
+        // Multi-term search will explode search keyword using spaces resulting into multiple term search.
         'multi_term' => true,
 
         /*
@@ -27,38 +23,45 @@ return [
          * SQL: column LIKE "%k%e%y%w%o%r%d%"
          */
         'use_wildcards' => false,
+
+        /*
+         * Perform a search which starts with the given keyword.
+         * SQL: column LIKE "keyword%"
+         */
+        'starts_with' => false,
     ],
 
-    /*
-     * DataTables internal index id response column name.
-     */
-    'index_column' => 'DT_Row_Index',
+    // DataTables internal index id response column name.
+    'index_column' => 'DT_RowIndex',
 
     /*
      * List of available builders for DataTables.
      * This is where you can register your custom dataTables builder.
      */
     'engines' => [
-        'eloquent'   => \Yajra\DataTables\EloquentDataTable::class,
-        'query'      => \Yajra\DataTables\QueryDataTable::class,
-        'collection' => \Yajra\DataTables\CollectionDataTable::class,
+        'eloquent' => Yajra\DataTables\EloquentDataTable::class,
+        'query' => Yajra\DataTables\QueryDataTable::class,
+        'collection' => Yajra\DataTables\CollectionDataTable::class,
+        'resource' => Yajra\DataTables\ApiResourceDataTable::class,
     ],
 
     /*
      * DataTables accepted builder to engine mapping.
+     * This is where you can override which engine a builder should use
+     * Note, only change this if you know what you are doing!
      */
     'builders' => [
-        Illuminate\Database\Eloquent\Relations\Relation::class => 'eloquent',
-        Illuminate\Database\Eloquent\Builder::class            => 'eloquent',
-        Illuminate\Database\Query\Builder::class               => 'query',
-        Illuminate\Support\Collection::class                   => 'collection',
+        //Illuminate\Database\Eloquent\Relations\Relation::class => 'eloquent',
+        //Illuminate\Database\Eloquent\Builder::class            => 'eloquent',
+        //Illuminate\Database\Query\Builder::class               => 'query',
+        //Illuminate\Support\Collection::class                   => 'collection',
     ],
 
     /*
-     * Nulls last sql pattern for Posgresql & Oracle.
-     * For MySQL, use '-%s %s'
+     * Nulls last sql pattern for PostgreSQL & Oracle.
+     * For MySQL, use 'CASE WHEN :column IS NULL THEN 1 ELSE 0 END, :column :direction'
      */
-    'nulls_last_sql' => '%s %s NULLS LAST',
+    'nulls_last_sql' => ':column :direction NULLS LAST',
 
     /*
      * User friendly message to be displayed on user if error occurs.
@@ -69,13 +72,9 @@ return [
      */
     'error' => env('DATATABLES_ERROR', null),
 
-    /*
-     * Default columns definition of dataTable utility functions.
-     */
+    // Default columns definition of dataTable utility functions.
     'columns' => [
-        /*
-         * List of columns hidden/removed on json response.
-         */
+        // List of columns hidden/removed on json response.
         'excess' => ['rn', 'row_num'],
 
         /*
@@ -90,9 +89,7 @@ return [
          */
         'raw' => ['action'],
 
-        /*
-         * List of columns are are forbidden from being searched/sorted.
-         */
+        // List of columns are are forbidden from being searched/sorted.
         'blacklist' => ['password', 'remember_token'],
 
         /*
@@ -102,12 +99,9 @@ return [
         'whitelist' => '*',
     ],
 
-    /*
-     * JsonResponse header and options config.
-     */
+    // JsonResponse header and options config.
     'json' => [
-        'header'  => [],
+        'header' => [],
         'options' => 0,
     ],
-
 ];

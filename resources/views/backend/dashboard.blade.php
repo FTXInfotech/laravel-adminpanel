@@ -1,22 +1,18 @@
 @extends('backend.layouts.app')
 
-@section('page-header')
-    <h1>
-        {{ app_name() }}
-        <small>{{ trans('strings.backend.dashboard.title') }}</small>
-    </h1>
-@endsection
+@section('title', app_name() . ' | ' . __('strings.backend.dashboard.title'))
 
 @section('content')
-    <div class="box box-info">
-        <div class="box-header with-border">
-            <h3 class="box-title">{{ trans('history.backend.recent_history') }}</h3>
-            <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            </div><!-- /.box tools -->
-        </div><!-- /.box-header -->
-        <div class="box-body">
-            {!! history()->render() !!}
-        </div><!-- /.box-body -->
-    </div><!--box box-info-->
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <strong>@lang('strings.backend.dashboard.welcome') {{ $logged_in_user->name }}!</strong>
+                </div><!--card-header-->
+                <div class="card-body">
+                    {!! __('strings.backend.welcome') !!}
+                </div><!--card-body-->
+            </div><!--card-->
+        </div><!--col-->
+    </div><!--row-->
 @endsection

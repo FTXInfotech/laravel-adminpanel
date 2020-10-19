@@ -2,12 +2,9 @@
 
 namespace App\Http\Requests\Backend\Pages;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Class CreatePageRequest.
- */
-class CreatePageRequest extends Request
+class CreatePageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Throwable;
 
 /**
  * Class GeneralException.
@@ -10,28 +11,42 @@ use Exception;
 class GeneralException extends Exception
 {
     /**
-     * message.
-     *
-     * @var string
+     * @var
      */
     public $message;
 
     /**
-     * dontHide.
+     * GeneralException constructor.
      *
-     * @var bool
+     * @param string         $message
+     * @param int            $code
+     * @param Throwable|null $previous
      */
-    public $dontHide;
+    public function __construct($message = '', $code = 0, Throwable $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
+    }
 
     /**
-     * Constructor function.
-     *
-     * @param string $message
-     * @param bool   $dontHide
+     * Report the exception.
      */
-    public function __construct($message, $dontHide = false)
+    public function report()
     {
-        $this->message = $message;
-        $this->dontHide = $dontHide;
+        //
+    }
+
+    /**
+     * Render the exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function render($request)
+    {
+        // All instances of GeneralException redirect back with a flash message to show a bootstrap alert-error
+        return redirect()
+            ->back()
+            ->withInput()
+            ->withFlashDanger($this->message);
     }
 }

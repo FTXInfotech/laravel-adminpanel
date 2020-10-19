@@ -1,30 +1,49 @@
-{{ Form::open(['route' => ['frontend.auth.password.change'], 'class' => 'form-horizontal', 'method' => 'patch']) }}
+{{ html()->form('PATCH', route('frontend.auth.password.update'))->class('form-horizontal')->open() }}
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                {{ html()->label(__('validation.attributes.frontend.old_password'))->for('old_password') }}
 
-    <div class="form-group">
-        {{ Form::label('old_password', trans('validation.attributes.frontend.register-user.old_password'), ['class' => 'col-md-4 control-label']) }}
-        <div class="col-md-6">
-            {{ Form::input('password', 'old_password', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.register-user.old_password')]) }}
-        </div>
-    </div>
+                {{ html()->password('old_password')
+                    ->class('form-control')
+                    ->placeholder(__('validation.attributes.frontend.old_password'))
+                    ->autofocus()
+                    ->required() }}
+            </div><!--form-group-->
+        </div><!--col-->
+    </div><!--row-->
 
-    <div class="form-group">
-        {{ Form::label('password', trans('validation.attributes.frontend.register-user.new_password'), ['class' => 'col-md-4 control-label']) }}
-        <div class="col-md-6">
-            {{ Form::input('password', 'password', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.register-user.new_password')]) }}
-        </div>
-    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                {{ html()->label(__('validation.attributes.frontend.password'))->for('password') }}
 
-    <div class="form-group">
-        {{ Form::label('password_confirmation', trans('validation.attributes.frontend.register-user.new_password_confirmation'), ['class' => 'col-md-4 control-label']) }}
-        <div class="col-md-6">
-            {{ Form::input('password', 'password_confirmation', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.register-user.new_password_confirmation')]) }}
-        </div>
-    </div>
+                {{ html()->password('password')
+                    ->class('form-control')
+                    ->placeholder(__('validation.attributes.frontend.password'))
+                    ->required() }}
+            </div><!--form-group-->
+        </div><!--col-->
+    </div><!--row-->
 
-    <div class="form-group">
-        <div class="col-md-6 col-md-offset-4">
-            {{ Form::submit(trans('labels.general.buttons.update'), ['class' => 'btn btn-primary', 'id' => 'change-password']) }}
-        </div>
-    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                {{ html()->label(__('validation.attributes.frontend.password_confirmation'))->for('password_confirmation') }}
 
-{{ Form::close() }}
+                {{ html()->password('password_confirmation')
+                    ->class('form-control')
+                    ->placeholder(__('validation.attributes.frontend.password_confirmation'))
+                    ->required() }}
+            </div><!--form-group-->
+        </div><!--col-->
+    </div><!--row-->
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group mb-0 clearfix">
+                {{ form_submit(__('labels.general.buttons.update') . ' ' . __('validation.attributes.frontend.password')) }}
+            </div><!--form-group-->
+        </div><!--col-->
+    </div><!--row-->
+{{ html()->form()->close() }}

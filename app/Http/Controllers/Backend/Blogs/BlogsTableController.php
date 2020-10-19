@@ -3,23 +3,26 @@
 namespace App\Http\Controllers\Backend\Blogs;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
-use App\Repositories\Backend\Blogs\BlogsRepository;
 use Yajra\DataTables\Facades\DataTables;
+use App\Repositories\Backend\BlogsRepository;
+use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
 
 /**
  * Class BlogsTableController.
  */
 class BlogsTableController extends Controller
 {
-    protected $blogs;
+    /**
+     * @var \App\Repositories\Backend\BlogsRepository
+     */
+    protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\Blogs\BlogsRepository $cmspages
+     * @param \App\Repositories\Backend\BlogsRepository $repository
      */
-    public function __construct(BlogsRepository $blogs)
+    public function __construct(BlogsRepository $repository)
     {
-        $this->blogs = $blogs;
+        $this->repository = $repository;
     }
 
     /**
@@ -29,7 +32,7 @@ class BlogsTableController extends Controller
      */
     public function __invoke(ManageBlogsRequest $request)
     {
-        return Datatables::of($this->blogs->getForDataTable())
+        return Datatables::of($this->repository->getForDataTable())
             ->escapeColumns(['name'])
             ->addColumn('status', function ($blogs) {
                 return $blogs->status;

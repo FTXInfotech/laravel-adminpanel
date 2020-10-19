@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Backend\BlogTags;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class UpdateBlogTagsRequest.
  */
-class UpdateBlogTagsRequest extends Request
+class UpdateBlogTagsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,8 @@ class UpdateBlogTagsRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:191|unique:blog_tags,name,'.$this->segment(3),
+            'name' => ['required', 'max:191', 'unique:blog_tags,name,'.optional($this->route('blog_tag'))->id],
+            'status' => ['boolean'],
         ];
     }
 
@@ -39,9 +40,28 @@ class UpdateBlogTagsRequest extends Request
     public function messages()
     {
         return [
-            'name.unique'   => 'Blog Tag name already exists, please enter a different name.',
-            'name.required' => 'Blog Tag name is a required field.',
-            'name.max'      => 'Blog Tag may not be greater than 191 characters.',
+            'name.unique' => __('exceptions.backend.blog-tag.already_exists'),
+            'name.required' => 'Please insert Blog Tag',
+            'name.max' => 'Blog tag may not be greater than 191 characters.',
+        ];
+    }
+
+    /**
+     * Body Parameters : Used by scribe to generate doc.
+     *
+     * @return array
+     */
+    public function bodyParameters()
+    {
+        return [
+            'name' => [
+                'description' => 'Name of the tag.',
+                'example' => 'Software',
+            ],
+            'status' => [
+                'description' => 'Status of the tag.',
+                'example' => 1,
+            ],
         ];
     }
 }

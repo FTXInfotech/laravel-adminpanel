@@ -2,14 +2,31 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Models\BlogCategory;
+use Illuminate\Http\Response;
 use App\Http\Resources\BlogCategoriesResource;
-use App\Models\BlogCategories\BlogCategory;
-use App\Repositories\Backend\BlogCategories\BlogCategoriesRepository;
-use Illuminate\Http\Request;
-use Validator;
+use App\Repositories\Backend\BlogCategoriesRepository;
+use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
+use App\Http\Requests\Backend\BlogCategories\DeleteBlogCategoriesRequest;
+use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;
+use App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest;
 
+/**
+ * @group Blog Categories Management
+ *
+ * Class BlogCategoriesController
+ *
+ * APIs for Blog Categories Management
+ *
+ * @authenticated
+ */
 class BlogCategoriesController extends APIController
 {
+    /**
+     * Repository.
+     *
+     * @var BlogCategoriesRepository
+     */
     protected $repository;
 
     /**
@@ -23,103 +40,115 @@ class BlogCategoriesController extends APIController
     }
 
     /**
-     * Return the blog-categories.
+     * Get all Blog Categories.
      *
-     * @param Request $request
+     * This endpoint provides a paginated list of all blog categories. You can customize how many records you want in each
+     * returned response as well as sort records based on a key in specific order.
      *
-     *@return \Illuminate\Http\JsonResponse
+     * @queryParam page Which page to show. Example: 12
+     * @queryParam per_page Number of records per page. (use -1 to retrieve all) Example: 20
+     * @queryParam order_by Order by database column. Example: created_at
+     * @queryParam order Order direction ascending (asc) or descending (desc). Example: asc
+     *
+     * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
+     * @responseFile responses/blog-category/blog-category-list.json
+     *
+     * @param ManageBlogCategoriesRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(ManageBlogCategoriesRequest $request)
     {
-        $limit = $request->get('paginate') ? $request->get('paginate') : 25;
-        $orderBy = $request->get('orderBy') ? $request->get('orderBy') : 'ASC';
-        $sortBy = $request->get('sortBy') ? $request->get('sortBy') : 'created_at';
+        $collection = $this->repository->retrieveList($request->all());
 
-        return BlogCategoriesResource::collection(
-            $this->repository->getForDataTable()->orderBy($sortBy, $orderBy)->paginate($limit)
-        );
+        return BlogCategoriesResource::collection($collection);
     }
 
     /**
-     * Return the specified resource.
+     * Gives a specific Blog Category.
      *
-     * @param BlogCategory $blog_category
+     * This endpoint provides you a single Blog Category
+     * The Blog Category is identified based on the ID provided as url parameter.
      *
-     *@return \Illuminate\Http\JsonResponse
+     * @urlParam id required The ID of the Blog Category
+     *
+     * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
+     * @responseFile responses/blog-category/blog-category-show.json
+     *
+     * @param ManageBlogCategoriesRequest $request
+     * @param BlogCategory $blogCategory
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(BlogCategory $blog_category)
+    public function show(ManageBlogCategoriesRequest $request, BlogCategory $blogCategory)
     {
-        return new BlogCategoriesResource($blog_category);
+        return new BlogCategoriesResource($blogCategory);
     }
 
     /**
-     * Creates the Resource for BlogCategory.
+     * Create a new Blog Category.
      *
-     * @param Request $request
+     * This endpoint lets you create new Blog Category
      *
-     *@return \Illuminate\Http\JsonResponse
+     * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
+     * @responseFile status=201 responses/blog-category/blog-category-store.json
+     *
+     * @param StoreBlogCategoriesRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreBlogCategoriesRequest $request)
     {
-        $validation = $this->validateBlogCategory($request);
-        if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
-        }
+        $blogCategory = $this->repository->create($request->validated());
 
-        $this->repository->create($request->all());
-
-        return new BlogCategoriesResource(BlogCategory::orderBy('created_at', 'desc')->first());
+        return (new BlogCategoriesResource($blogCategory))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
-     * @param BlogCategory $blog_category
-     * @param Request      $request
+     * Update Blog Category.
      *
-     * @return mixed
+     * This endpoint allows you to update existing Blog Category with new data.
+     * The Blog Category to be updated is identified based on the ID provided as url parameter.
+     *
+     * @urlParam id required The ID of the Blog Category
+     *
+     * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
+     * @responseFile status=200 responses/blog-category/blog-category-update.json
+     *
+     * @param UpdateBlogCategoriesRequest $request
+     * @param BlogCategory $blogCategory
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, BlogCategory $blog_category)
+    public function update(UpdateBlogCategoriesRequest $request, BlogCategory $blogCategory)
     {
-        $validation = $this->validateBlogCategory($request);
+        $blogCategory = $this->repository->update($blogCategory, $request->validated());
 
-        if ($validation->fails()) {
-            return $this->throwValidation($validation->messages()->first());
-        }
-
-        $this->repository->update($blog_category, $request->all());
-
-        $blog_category = BlogCategory::findOrfail($blog_category->id);
-
-        return new BlogCategoriesResource($blog_category);
+        return new BlogCategoriesResource($blogCategory);
     }
 
     /**
-     * @param BlogCategory $blog_category
-     * @param Request      $request
+     * Delete Blog Category.
      *
-     * @return mixed
+     * This endpoint allows you to delete a Blog Category
+     * The Blog Category to be deleted is identified based on the ID provided as url parameter.
+     *
+     * @urlParam id required The ID of the Blog Category
+     *
+     * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
+     * @responseFile status=204 scenario="When the record is deleted" responses/blog-category/blog-category-destroy.json
+     *
+     * @param DeleteBlogCategoriesRequest $request
+     * @param BlogCategory $blogCategory
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(BlogCategory $blog_category, Request $request)
+    public function destroy(DeleteBlogCategoriesRequest $request, BlogCategory $blogCategory)
     {
-        $this->repository->delete($blog_category);
+        $this->repository->delete($blogCategory);
 
-        return $this->respond([
-            'message' => trans('alerts.backend.blogcategories.deleted'),
-        ]);
-    }
-
-    /**
-     * validateUser BlogCategory Requests.
-     *
-     * @param Request $request
-     *
-     * @return Validator object
-     */
-    public function validateBlogCategory(Request $request)
-    {
-        $validation = Validator::make($request->all(), [
-            'name' => 'required|max:191',
-        ]);
-
-        return $validation;
+        return response()->noContent();
     }
 }

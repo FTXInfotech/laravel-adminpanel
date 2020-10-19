@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Backend\BlogCategories;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class CreateBlogCategoriesRequest.
  */
-class CreateBlogCategoriesRequest extends Request
+class CreateBlogCategoriesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

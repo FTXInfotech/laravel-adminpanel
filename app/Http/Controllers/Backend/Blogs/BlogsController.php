@@ -2,68 +2,56 @@
 
 namespace App\Http\Controllers\Backend\Blogs;
 
+use App\Models\Blog;
+use App\Models\BlogTag;
+use App\Models\BlogCategory;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
-use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
-use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
-use App\Http\Responses\Backend\Blog\CreateResponse;
-use App\Http\Responses\Backend\Blog\EditResponse;
-use App\Http\Responses\Backend\Blog\IndexResponse;
+use App\Http\Responses\ViewResponse;
+use Illuminate\Support\Facades\View;
 use App\Http\Responses\RedirectResponse;
-use App\Models\BlogCategories\BlogCategory;
-use App\Models\Blogs\Blog;
-use App\Models\BlogTags\BlogTag;
-use App\Repositories\Backend\Blogs\BlogsRepository;
+use App\Repositories\Backend\BlogsRepository;
+use App\Http\Responses\Backend\Blog\EditResponse;
+use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
+use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
+use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
 
-/**
- * Class BlogsController.
- */
 class BlogsController extends Controller
 {
     /**
-     * Blog Status.
+     * @var \App\Repositories\Backend\BlogsRepository
      */
-    protected $status = [
-        'Published' => 'Published',
-        'Draft'     => 'Draft',
-        'InActive'  => 'InActive',
-        'Scheduled' => 'Scheduled',
-    ];
+    protected $repository;
 
     /**
-     * @var BlogsRepository
+     * @param \App\Repositories\Backend\BlogsRepository $blog
      */
-    protected $blog;
-
-    /**
-     * @param \App\Repositories\Backend\Blogs\BlogsRepository $blog
-     */
-    public function __construct(BlogsRepository $blog)
+    public function __construct(BlogsRepository $repository)
     {
-        $this->blog = $blog;
+        $this->repository = $repository;
+        View::share('js', ['blogs']);
     }
 
     /**
      * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
-     * @return \App\Http\Responses\Backend\Blog\IndexResponse
+     * @return ViewResponse
      */
     public function index(ManageBlogsRequest $request)
     {
-        return new IndexResponse($this->status);
+        return new ViewResponse('backend.blogs.index');
     }
 
     /**
      * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
-     * @return mixed
+     * @return ViewResponse
      */
-    public function create(ManageBlogsRequest $request)
+    public function create(ManageBlogsRequest $request, Blog $blog)
     {
         $blogTags = BlogTag::getSelectData();
         $blogCategories = BlogCategory::getSelectData();
 
-        return new CreateResponse($this->status, $blogCategories, $blogTags);
+        return new ViewResponse('backend.blogs.create', ['status' => $blog->statuses, 'blogCategories' => $blogCategories, 'blogTags' => $blogTags]);
     }
 
     /**
@@ -73,13 +61,13 @@ class BlogsController extends Controller
      */
     public function store(StoreBlogsRequest $request)
     {
-        $this->blog->create($request->except('_token'));
+        $this->repository->create($request->except(['_token', '_method']));
 
-        return new RedirectResponse(route('admin.blogs.index'), ['flash_success' => trans('alerts.backend.blogs.created')]);
+        return new RedirectResponse(route('admin.blogs.index'), ['flash_success' => __('alerts.backend.blogs.created')]);
     }
 
     /**
-     * @param \App\Models\Blogs\Blog                              $blog
+     * @param \App\Models\Blog $blog
      * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
      * @return \App\Http\Responses\Backend\Blog\EditResponse
@@ -89,34 +77,32 @@ class BlogsController extends Controller
         $blogCategories = BlogCategory::getSelectData();
         $blogTags = BlogTag::getSelectData();
 
-        return new EditResponse($blog, $this->status, $blogCategories, $blogTags);
+        return new EditResponse($blog, $blog->statuses, $blogCategories, $blogTags);
     }
 
     /**
-     * @param \App\Models\Blogs\Blog                              $blog
+     * @param \App\Models\Blogs\Blog $blog
      * @param \App\Http\Requests\Backend\Blogs\UpdateBlogsRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function update(Blog $blog, UpdateBlogsRequest $request)
     {
-        $input = $request->all();
+        $this->repository->update($blog, $request->except(['_token', '_method']));
 
-        $this->blog->update($blog, $request->except(['_token', '_method']));
-
-        return new RedirectResponse(route('admin.blogs.index'), ['flash_success' => trans('alerts.backend.blogs.updated')]);
+        return new RedirectResponse(route('admin.blogs.index'), ['flash_success' => __('alerts.backend.blogs.updated')]);
     }
 
     /**
-     * @param \App\Models\Blogs\Blog                              $blog
+     * @param \App\Models\Blog $blog
      * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
      *
      * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(Blog $blog, ManageBlogsRequest $request)
     {
-        $this->blog->delete($blog);
+        $this->repository->delete($blog);
 
-        return new RedirectResponse(route('admin.blogs.index'), ['flash_success' => trans('alerts.backend.blogs.deleted')]);
+        return new RedirectResponse(route('admin.blogs.index'), ['flash_success' => __('alerts.backend.blogs.deleted')]);
     }
 }

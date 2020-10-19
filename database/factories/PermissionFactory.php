@@ -1,30 +1,15 @@
 <?php
 
-use App\Models\Access\Permission\Permission;
-use Faker\Generator;
+use Faker\Generator as Faker;
+use App\Models\Auth\Permission;
 
-/*
- * Permissions
- */
-
-$factory->define(Permission::class, function (Generator $faker) {
-    $name = $faker->word;
+$factory->define(Permission::class, function (Faker $faker) {
+    $name = $faker->name();
 
     return [
-        'name'          => $name,
-        'display_name'  => $name,
-        'sort'          => $faker->numberBetween(1, 100),
-    ];
-});
-
-$factory->state(Permission::class, 'active', function () {
-    return [
-        'status' => 1,
-    ];
-});
-
-$factory->state(Permission::class, 'inactive', function () {
-    return [
-        'status' => 0,
+        'name' => $name,
+        'display_name' => $name,
+        'sort' => $faker->numberBetween(1, 100),
+        'status' => $faker->randomElement([0, 1]),
     ];
 });
