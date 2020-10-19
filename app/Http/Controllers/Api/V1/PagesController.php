@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Models\Page;
+use Illuminate\Http\Response;
+use App\Http\Resources\PagesResource;
+use App\Repositories\Backend\PagesRepository;
+use App\Http\Requests\Backend\Pages\StorePageRequest;
 use App\Http\Requests\Backend\Pages\DeletePageRequest;
 use App\Http\Requests\Backend\Pages\ManagePageRequest;
-use App\Http\Requests\Backend\Pages\StorePageRequest;
 use App\Http\Requests\Backend\Pages\UpdatePageRequest;
-use App\Http\Resources\PagesResource;
-use App\Models\Page;
-use App\Repositories\Backend\PagesRepository;
-use Illuminate\Http\Response;
 
 /**
  * @group Pages Management
  *
  * Class PagesController
  *
- * API's for Pages Management
+ * APIs for Pages Management
  *
  * @authenticated
  */
@@ -45,9 +45,10 @@ class PagesController extends APIController
      * This endpoint provides a paginated list of all pages. You can customize how many records you want in each
      * returned response as well as sort records based on a key in specific order.
      *
-     * @queryParam paginate Which page to show. Example :12
-     * @queryParam orderBy Order by ascending or descending. Example :ASC or DESC
-     * @queryParam sortBy Sort by any database column. Example :created_at
+     * @queryParam page Which page to show. Example: 12
+     * @queryParam per_page Number of records per page. (use -1 to retrieve all) Example: 20
+     * @queryParam order_by Order by database column. Example: created_at
+     * @queryParam order Order direction ascending (asc) or descending (desc). Example: asc
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/page/page-list.json
@@ -66,10 +67,10 @@ class PagesController extends APIController
     /**
      * Gives a specific Page.
      *
-     * This endpoint provides you a single Page.
+     * This endpoint provides you a single Page
      * The Page is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Page.
+     * @urlParam id required The ID of the Page
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/page/page-show.json
@@ -111,7 +112,7 @@ class PagesController extends APIController
      * This endpoint allows you to update existing Page with new data.
      * The Page to be updated is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Page.
+     * @urlParam id required The ID of the Page
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/page/page-update.json
@@ -131,13 +132,13 @@ class PagesController extends APIController
     /**
      * Delete Page.
      *
-     * This endpoint allows you to delete a Page.
+     * This endpoint allows you to delete a Page
      * The Page to be deleted is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Page.
+     * @urlParam id required The ID of the Page
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
-     * @responseFile responses/page/page-destroy.json
+     * @responseFile status=204 scenario="When the record is deleted" responses/page/page-destroy.json
      *
      * @param \App\Models\Page $page
      *

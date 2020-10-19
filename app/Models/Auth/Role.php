@@ -2,13 +2,13 @@
 
 namespace App\Models\Auth;
 
-use App\Models\Auth\Traits\Access\RoleAccess;
-use App\Models\Auth\Traits\Attributes\RoleAttributes;
-use App\Models\Auth\Traits\Relationships\RoleRelationships;
-use App\Models\Auth\Traits\Scopes\RoleScopes;
 use App\Models\BaseModel;
 use App\Models\Traits\ModelAttributes;
+use App\Models\Auth\Traits\Access\RoleAccess;
+use App\Models\Auth\Traits\Scopes\RoleScopes;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Auth\Traits\Attributes\RoleAttributes;
+use App\Models\Auth\Traits\Relationships\RoleRelationships;
 
 class Role extends BaseModel
 {

@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Models\Faq;
+use Illuminate\Http\Response;
+use App\Http\Resources\FaqsResource;
+use App\Repositories\Backend\FaqsRepository;
+use App\Http\Requests\Backend\Faqs\StoreFaqsRequest;
 use App\Http\Requests\Backend\Faqs\DeleteFaqsRequest;
 use App\Http\Requests\Backend\Faqs\ManageFaqsRequest;
-use App\Http\Requests\Backend\Faqs\StoreFaqsRequest;
 use App\Http\Requests\Backend\Faqs\UpdateFaqsRequest;
-use App\Http\Resources\FaqsResource;
-use App\Models\Faq;
-use App\Repositories\Backend\FaqsRepository;
-use Illuminate\Http\Response;
 
 /**
  * @group Faq Management
  *
  * Class FaqsController
  *
- * API's for Faq Management
+ * APIs for Faq Management
  *
  * @authenticated
  */
@@ -45,9 +45,10 @@ class FaqsController extends APIController
      * This endpoint provides a paginated list of all faqs. You can customize how many records you want in each
      * returned response as well as sort records based on a key in specific order.
      *
-     * @queryParam paginate Which page to show. Example :12
-     * @queryParam orderBy Order by ascending or descending. Example :ASC or DESC
-     * @queryParam sortBy Sort by any database column. Example :created_at
+     * @queryParam page Which page to show. Example: 12
+     * @queryParam per_page Number of records per page. (use -1 to retrieve all) Example: 20
+     * @queryParam order_by Order by database column. Example: created_at
+     * @queryParam order Order direction ascending (asc) or descending (desc). Example: asc
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/faq/faq-list.json
@@ -66,10 +67,10 @@ class FaqsController extends APIController
     /**
      * Gives a specific Faq.
      *
-     * This endpoint provides you a single Faq.
+     * This endpoint provides you a single Faq
      * The Faq is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Faq.
+     * @urlParam id required The ID of the Faq
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/faq/faq-show.json
@@ -109,7 +110,7 @@ class FaqsController extends APIController
      * This endpoint allows you to update existing Faq with new data.
      * The Faq to be updated is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Faq.
+     * @urlParam id required The ID of the Faq
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/faq/faq-update.json
@@ -129,13 +130,13 @@ class FaqsController extends APIController
     /**
      * Delete Faq.
      *
-     * This endpoint allows you to delete a Faq.
+     * This endpoint allows you to delete a Faq
      * The Faq to be deleted is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Faq.
+     * @urlParam id required The ID of the Faq
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
-     * @responseFile responses/faq/faq-destroy.json
+     * @responseFile status=204 scenario="When the record is deleted" responses/faq/faq-destroy.json
      *
      * @param \App\Models\Faq $faq
      *

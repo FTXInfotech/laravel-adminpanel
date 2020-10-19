@@ -2,13 +2,13 @@
 
 namespace App\Repositories\Backend\Auth;
 
+use DB;
+use App\Models\Auth\Role;
+use App\Exceptions\GeneralException;
+use App\Repositories\BaseRepository;
 use App\Events\Backend\Auth\Role\RoleCreated;
 use App\Events\Backend\Auth\Role\RoleDeleted;
 use App\Events\Backend\Auth\Role\RoleUpdated;
-use App\Exceptions\GeneralException;
-use App\Models\Auth\Role;
-use App\Repositories\BaseRepository;
-use DB;
 
 class RoleRepository extends BaseRepository
 {

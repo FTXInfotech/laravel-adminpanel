@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Backend\EmailTemplates;
 
+use App\Models\EmailTemplate;
 use App\Http\Controllers\Controller;
+use App\Http\Responses\ViewResponse;
+use Illuminate\Support\Facades\View;
+use App\Http\Responses\RedirectResponse;
+use App\Repositories\Backend\EmailTemplatesRepository;
+use App\Http\Responses\Backend\EmailTemplates\EditResponse;
+use App\Http\Requests\Backend\EmailTemplates\StoreEmailTemplatesRequest;
 use App\Http\Requests\Backend\EmailTemplates\CreateEmailTemplatesRequest;
 use App\Http\Requests\Backend\EmailTemplates\DeleteEmailTemplatesRequest;
 use App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest;
-use App\Http\Requests\Backend\EmailTemplates\StoreEmailTemplatesRequest;
 use App\Http\Requests\Backend\EmailTemplates\UpdateEmailTemplatesRequest;
-use App\Http\Responses\Backend\EmailTemplates\EditResponse;
-use App\Http\Responses\RedirectResponse;
-use App\Http\Responses\ViewResponse;
-use App\Models\EmailTemplate;
-use App\Repositories\Backend\EmailTemplatesRepository;
-use Illuminate\Support\Facades\View;
 
 class EmailTemplatesController extends Controller
 {

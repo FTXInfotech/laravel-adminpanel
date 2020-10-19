@@ -2,8 +2,8 @@
 
 namespace App\Helpers\General;
 
-use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Support\HtmlString;
+use Illuminate\Contracts\Routing\UrlGenerator;
 
 /**
  * Class HtmlHelper.

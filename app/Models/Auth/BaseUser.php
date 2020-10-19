@@ -2,15 +2,15 @@
 
 namespace App\Models\Auth;
 
-use Altek\Accountant\Contracts\Recordable;
-use Altek\Accountant\Recordable as RecordableTrait;
-use Altek\Eventually\Eventually;
-use App\Models\Auth\Traits\SendUserPasswordReset;
 use App\Models\Traits\Uuid;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Altek\Eventually\Eventually;
 use Illuminate\Notifications\Notifiable;
+use Altek\Accountant\Contracts\Recordable;
 use Lab404\Impersonate\Models\Impersonate;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Auth\Traits\SendUserPasswordReset;
+use Altek\Accountant\Recordable as RecordableTrait;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 abstract class BaseUser extends Authenticatable implements Recordable
 {
