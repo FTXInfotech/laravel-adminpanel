@@ -2,11 +2,11 @@
 
 namespace App\Models\Auth;
 
+use App\Models\Auth\Traits\Attributes\PermissionAttributes;
+use App\Models\Auth\Traits\Relationships\PermissionRelationships;
 use App\Models\BaseModel;
 use App\Models\Traits\ModelAttributes;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Auth\Traits\Attributes\PermissionAttributes;
-use App\Models\Auth\Traits\Relationships\PermissionRelationships;
 
 /**
  * Class Permission.

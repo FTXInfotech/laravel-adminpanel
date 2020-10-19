@@ -2,28 +2,28 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
+use App\Events\Backend\Auth\User\UserConfirmed;
+use App\Events\Backend\Auth\User\UserCreated;
+use App\Events\Backend\Auth\User\UserDeactivated;
+use App\Events\Backend\Auth\User\UserDeleted;
+use App\Events\Backend\Auth\User\UserPasswordChanged;
+use App\Events\Backend\Auth\User\UserPermanentlyDeleted;
+use App\Events\Backend\Auth\User\UserReactivated;
+use App\Events\Backend\Auth\User\UserRestored;
+use App\Events\Backend\Auth\User\UserUnconfirmed;
+use App\Events\Backend\Auth\User\UserUpdated;
+use App\Exceptions\GeneralException;
+use App\Models\Auth\Permission;
 use App\Models\Auth\Role;
 use App\Models\Auth\User;
-use App\Models\Auth\Permission;
-use App\Exceptions\GeneralException;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Notification;
-use App\Events\Backend\Auth\User\UserCreated;
-use App\Events\Backend\Auth\User\UserDeleted;
-use App\Events\Backend\Auth\User\UserUpdated;
-use App\Events\Backend\Auth\User\UserRestored;
-use App\Events\Backend\Auth\User\UserConfirmed;
-use App\Events\Backend\Auth\User\UserDeactivated;
-use App\Events\Backend\Auth\User\UserReactivated;
-use App\Events\Backend\Auth\User\UserUnconfirmed;
+use App\Notifications\Backend\Auth\UserAccountActive;
 use App\Repositories\Backend\Auth\UserRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Events\Backend\Auth\User\UserPasswordChanged;
-use App\Notifications\Backend\Auth\UserAccountActive;
-use App\Events\Backend\Auth\User\UserPermanentlyDeleted;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
+use Tests\TestCase;
 
 class UserRepositoryTest extends TestCase
 {

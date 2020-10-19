@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Blog;
-use Illuminate\Http\Response;
-use App\Http\Resources\BlogsResource;
-use App\Repositories\Backend\BlogsRepository;
-use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
 use App\Http\Requests\Backend\Blogs\DeleteBlogsRequest;
 use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
+use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
 use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
+use App\Http\Resources\BlogsResource;
+use App\Models\Blog;
+use App\Repositories\Backend\BlogsRepository;
+use Illuminate\Http\Response;
 
 /**
  * @group Blog Management

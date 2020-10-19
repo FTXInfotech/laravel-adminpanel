@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Backend\Auth\Permission;
 
-use App\Models\Auth\Permission;
 use App\Http\Controllers\Controller;
-use App\Http\Responses\ViewResponse;
-use Illuminate\Support\Facades\View;
-use App\Http\Responses\RedirectResponse;
-use App\Repositories\Backend\Auth\PermissionRepository;
-use App\Http\Responses\Backend\Auth\Permission\EditResponse;
-use App\Http\Responses\Backend\Auth\Permission\CreateResponse;
-use App\Http\Requests\Backend\Auth\Permission\EditPermissionRequest;
-use App\Http\Requests\Backend\Auth\Permission\StorePermissionRequest;
 use App\Http\Requests\Backend\Auth\Permission\CreatePermissionRequest;
 use App\Http\Requests\Backend\Auth\Permission\DeletePermissionRequest;
+use App\Http\Requests\Backend\Auth\Permission\EditPermissionRequest;
 use App\Http\Requests\Backend\Auth\Permission\ManagePermissionRequest;
+use App\Http\Requests\Backend\Auth\Permission\StorePermissionRequest;
 use App\Http\Requests\Backend\Auth\Permission\UpdatePermissionRequest;
+use App\Http\Responses\Backend\Auth\Permission\CreateResponse;
+use App\Http\Responses\Backend\Auth\Permission\EditResponse;
+use App\Http\Responses\RedirectResponse;
+use App\Http\Responses\ViewResponse;
+use App\Models\Auth\Permission;
+use App\Repositories\Backend\Auth\PermissionRepository;
+use Illuminate\Support\Facades\View;
 
 class PermissionsController extends Controller
 {

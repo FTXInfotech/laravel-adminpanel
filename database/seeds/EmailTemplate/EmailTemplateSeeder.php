@@ -1,9 +1,9 @@
 <?php
 
+use Database\DisableForeignKeys;
 use Database\TruncateTable;
 use Faker\Generator as Faker;
 use Illuminate\Database\Seeder;
-use Database\DisableForeignKeys;
 
 class EmailTemplateSeeder extends Seeder
 {
