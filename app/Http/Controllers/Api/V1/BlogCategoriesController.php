@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Models\BlogCategory;
+use Illuminate\Http\Response;
+use App\Http\Resources\BlogCategoriesResource;
+use App\Repositories\Backend\BlogCategoriesRepository;
+use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\DeleteBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest;
-use App\Http\Requests\Backend\BlogCategories\StoreBlogCategoriesRequest;
 use App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest;
-use App\Http\Resources\BlogCategoriesResource;
-use App\Models\BlogCategory;
-use App\Repositories\Backend\BlogCategoriesRepository;
-use Illuminate\Http\Response;
 
 /**
  * @group Blog Categories Management
  *
  * Class BlogCategoriesController
  *
- * API's for Blog Categories Management
+ * APIs for Blog Categories Management
  *
  * @authenticated
  */
@@ -67,10 +67,10 @@ class BlogCategoriesController extends APIController
     /**
      * Gives a specific Blog Category.
      *
-     * This endpoint provides you a single Blog Category.
+     * This endpoint provides you a single Blog Category
      * The Blog Category is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Blog Category.
+     * @urlParam id required The ID of the Blog Category
      *
      * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
      * @responseFile responses/blog-category/blog-category-show.json
@@ -112,7 +112,7 @@ class BlogCategoriesController extends APIController
      * This endpoint allows you to update existing Blog Category with new data.
      * The Blog Category to be updated is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Blog Category.
+     * @urlParam id required The ID of the Blog Category
      *
      * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
      * @responseFile status=200 responses/blog-category/blog-category-update.json
@@ -132,10 +132,10 @@ class BlogCategoriesController extends APIController
     /**
      * Delete Blog Category.
      *
-     * This endpoint allows you to delete a Blog Category.
+     * This endpoint allows you to delete a Blog Category
      * The Blog Category to be deleted is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Blog Category.
+     * @urlParam id required The ID of the Blog Category
      *
      * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
      * @responseFile status=204 scenario="When the record is deleted" responses/blog-category/blog-category-destroy.json
