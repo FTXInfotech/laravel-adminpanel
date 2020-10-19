@@ -2,8 +2,8 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Page;
 use App\Models\Auth\User;
+use App\Models\Page;
 use Faker\Generator as Faker;
 
 $factory->define(Page::class, function (Faker $faker) {
