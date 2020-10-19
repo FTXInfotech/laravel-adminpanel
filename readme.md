@@ -1,18 +1,16 @@
-## Laravel Starter (Current: Laravel 6.*) ([Demo](http://134.209.123.206/))
+## Laravel Admin Panel (Current: Laravel 6.*) ([Demo](http://134.209.123.206/))
 
-[![Latest Stable Version](https://poser.pugx.org/rappasoft/laravel-boilerplate/v/stable)](https://packagist.org/packages/rappasoft/laravel-boilerplate)
-[![Latest Unstable Version](https://poser.pugx.org/rappasoft/laravel-boilerplate/v/unstable)](https://packagist.org/packages/rappasoft/laravel-boilerplate) 
-<br/>
-[![StyleCI](https://styleci.io/repos/30171828/shield?style=plastic)](https://github.styleci.io/repos/30171828)
-<br/>
-![GitHub contributors](https://img.shields.io/github/contributors/rappasoft/laravel-boilerplate.svg)
-![GitHub stars](https://img.shields.io/github/stars/rappasoft/laravel-boilerplate.svg?style=social)
+[![StyleCI](https://styleci.io/repos/105789824/shield?style=plastic)](https://github.styleci.io/repos/105789824)
+![GitHub contributors](https://img.shields.io/github/contributors/FTXInfotech/laravel-adminpanel.svg)
+![GitHub stars](https://img.shields.io/github/stars/FTXInfotech/laravel-adminpanel.svg?style=social)
 
 ### Introduction
 ---
-Laravel Starter provides you with a massive head start on any size web application. It comes with a full featured access control system out of the box with an easy to learn API and is built on a Bootstrap foundation with a front and backend architecture. We have put a lot of work into it and we hope it serves you well and saves you time!
+Laravel Admin Panel provides you with a massive head start on any size web application. It comes with a full featured access control system out of the box with an easy to learn API and is built on a Bootstrap foundation with a front and backend architecture. We have put a lot of work into it and we hope it serves you well and saves you time!
 
-*MIT: [http://anthony.mit-license.org](http://anthony.mit-license.org)*
+* The project is based on the [Rappasoft Laravel Boilerplate](https://github.com/rappasoft/laravel-boilerplate/releases/tag/v6.0.1), with enhancements and many modules pre-made, just for you.
+* Article on our Admin Panel on CodeWall : [https://www.codewall.co.uk/the-laravel-admin-panel-that-you-need/](https://www.codewall.co.uk/the-laravel-admin-panel-that-you-need/)
+* MIT: [http://anthony.mit-license.org](http://anthony.mit-license.org)
 
 ### Setup
 ---
@@ -27,7 +25,7 @@ Clone the repo and follow below steps.
 7. Run `npm i` (Recommended node version `>= V10.0`)
 8. Run `npm run dev` or `npm run prod` as per your environment
 
-Thats it... Run the command `php artisan serve` and cheers, you are good to go with your new **Laravel Starter** application.
+Thats it... Run the command `php artisan serve` and cheers, you are good to go with your new **Laravel Admin Panel** application.
 
 
 ### Using docker to run the application
@@ -69,3 +67,23 @@ The application uses [GrumPHP](https://github.com/phpro/grumphp) for the git pre
     + The test cases report will be placed in the `reports` directory
 + To generate scribe API documentation: `php artisan scribe:generate`
     + Documentation will be generated and placed in the `public/docs` directory
+
+## ScreenShots
+
+## Dashboard
+![Screenshot](screenshots/dashboard.png)
+
+## User Listing
+![Screenshot](screenshots/users.png)
+
+## Log Viewer
+![Screenshot](screenshots/log-viewer.png)
+
+## Issues
+If you come across any issues please report them [here](https://github.com/FTXInfotech/laravel-adminpanel/issues).
+
+## Contribution
+Feel free to create any pull requests for the project. For proposing any new changes or features you want to add to the project, you can send us an email at following addresses.
+
+    1. Alan Whitmore - alan.whitmore@ftxinfotech.com
+    2. Vicky Patel - ftx.vicky@gmail.com
