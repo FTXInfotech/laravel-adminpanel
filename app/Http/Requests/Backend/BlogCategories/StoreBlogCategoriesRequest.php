@@ -45,4 +45,23 @@ class StoreBlogCategoriesRequest extends FormRequest
             'name.max' => 'Blog category may not be greater than 191 characters.',
         ];
     }
+
+    /**
+     * Body Parameters : Used by scribe to generate doc.
+     *
+     * @return array
+     */
+    public function bodyParameters()
+    {
+        return [
+            'name' => [
+                'description' => 'Name of the category.',
+                'example' => 'Software',
+            ],
+            'status' => [
+                'description' => 'Status of the category.',
+                'example' => 1,
+            ],
+        ];
+    }
 }

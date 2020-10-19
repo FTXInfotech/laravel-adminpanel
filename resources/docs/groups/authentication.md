@@ -49,7 +49,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (200):
@@ -112,7 +115,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (200):
@@ -167,7 +173,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (200):

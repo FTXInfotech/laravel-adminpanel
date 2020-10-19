@@ -4,38 +4,38 @@ Class FaqsController
 
 API's for Faq Management
 
-## Get all Faq
+## Get all Faq.
 
 <small class="badge badge-darkred">requires authentication</small>
 
-This enpoint provides a paginated list of all faqs. You can customize how many records you want in each
+This endpoint provides a paginated list of all faqs. You can customize how many records you want in each
 returned response as well as sort records based on a key in specific order.
 
 > Example request:
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/faqs?paginate=12&orderBy=repudiandae&sortBy=inventore" \
-    -H "Authorization: Bearer 4fkc6aVv31Eeb8ZPD56hdag" \
+    -G "/api/v1/faqs?paginate=19&orderBy=ut&sortBy=reiciendis" \
+    -H "Authorization: Bearer afa68VZD1vh3g4Pdb56kEce" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/faqs"
+    "/api/v1/faqs"
 );
 
 let params = {
-    "paginate": "12",
-    "orderBy": "repudiandae",
-    "sortBy": "inventore",
+    "paginate": "19",
+    "orderBy": "ut",
+    "sortBy": "reiciendis",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
 
 let headers = {
-    "Authorization": "Bearer 4fkc6aVv31Eeb8ZPD56hdag",
+    "Authorization": "Bearer afa68VZD1vh3g4Pdb56kEce",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -54,7 +54,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (200):
@@ -111,45 +114,46 @@ fetch(url, {
     Which page to show. Example :12
 
 <code><b>orderBy</b></code>&nbsp;          <i>optional</i>    <br>
-    Order by accending or descending. Example :ASC or DESC
+    Order by ascending or descending. Example :ASC or DESC
 
 <code><b>sortBy</b></code>&nbsp;          <i>optional</i>    <br>
     Sort by any database column. Example :created_at
 
 
 
-## Create a new Faq
+## Create a new Faq.
 
 <small class="badge badge-darkred">requires authentication</small>
 
-This endpoint lets you careate new Faq
+This endpoint lets you create new Faq
 
 > Example request:
 
 ```bash
 curl -X POST \
-    "http://localhost/api/v1/faqs" \
-    -H "Authorization: Bearer P481V5vkecDEZafa3hdgb66" \
+    "/api/v1/faqs" \
+    -H "Authorization: Bearer 3ZbPE4fd1kv68h6D5Vacgae" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"question":"maxime","answer":"fugit"}'
+    -d '{"question":"nostrum","answer":"quidem","status":false}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/faqs"
+    "/api/v1/faqs"
 );
 
 let headers = {
-    "Authorization": "Bearer P481V5vkecDEZafa3hdgb66",
+    "Authorization": "Bearer 3ZbPE4fd1kv68h6D5Vacgae",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
 
 let body = {
-    "question": "maxime",
-    "answer": "fugit"
+    "question": "nostrum",
+    "answer": "quidem",
+    "status": false
 }
 
 fetch(url, {
@@ -166,7 +170,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (201):
@@ -194,9 +201,12 @@ fetch(url, {
 <code><b>answer</b></code>&nbsp; <small>string</small>     <br>
     
 
+<code><b>status</b></code>&nbsp; <small>boolean</small>         <i>optional</i>    <br>
+    
 
 
-## Gives a specific Faq
+
+## Gives a specific Faq.
 
 <small class="badge badge-darkred">requires authentication</small>
 
@@ -207,19 +217,19 @@ The Faq is identified based on the ID provided as url parameter.
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/faqs/1" \
-    -H "Authorization: Bearer 4D3eVbZfaP68h5avEk1c6gd" \
+    -G "/api/v1/faqs/1" \
+    -H "Authorization: Bearer 53a8vD1PaeVE4Zhbcfgd66k" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/faqs/1"
+    "/api/v1/faqs/1"
 );
 
 let headers = {
-    "Authorization": "Bearer 4D3eVbZfaP68h5avEk1c6gd",
+    "Authorization": "Bearer 53a8vD1PaeVE4Zhbcfgd66k",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -238,7 +248,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (200):
@@ -265,7 +278,7 @@ fetch(url, {
 
 
 
-## Update Faq
+## Update Faq.
 
 <small class="badge badge-darkred">requires authentication</small>
 
@@ -276,28 +289,29 @@ The Faq to be updated is identified based on the ID provided as url parameter.
 
 ```bash
 curl -X PUT \
-    "http://localhost/api/v1/faqs/1" \
-    -H "Authorization: Bearer 64DfvkZ16d3a5Pchg8eVabE" \
+    "/api/v1/faqs/1" \
+    -H "Authorization: Bearer 3DfEhdgabc618av5ZVk6Pe4" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"question":"quas","answer":"quis"}'
+    -d '{"question":"libero","answer":"itaque","status":false}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/faqs/1"
+    "/api/v1/faqs/1"
 );
 
 let headers = {
-    "Authorization": "Bearer 64DfvkZ16d3a5Pchg8eVabE",
+    "Authorization": "Bearer 3DfEhdgabc618av5ZVk6Pe4",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
 
 let body = {
-    "question": "quas",
-    "answer": "quis"
+    "question": "libero",
+    "answer": "itaque",
+    "status": false
 }
 
 fetch(url, {
@@ -314,7 +328,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (200):
@@ -349,9 +366,12 @@ fetch(url, {
 <code><b>answer</b></code>&nbsp; <small>string</small>     <br>
     
 
+<code><b>status</b></code>&nbsp; <small>boolean</small>         <i>optional</i>    <br>
+    
 
 
-## Delete Faq
+
+## Delete Faq.
 
 <small class="badge badge-darkred">requires authentication</small>
 
@@ -362,19 +382,19 @@ The Faq to be deleted is identified based on the ID provided as url parameter.
 
 ```bash
 curl -X DELETE \
-    "http://localhost/api/v1/faqs/1" \
-    -H "Authorization: Bearer E41gae6PvkcZa8Df3hd56Vb" \
+    "/api/v1/faqs/1" \
+    -H "Authorization: Bearer eD4E15ak6ah3bc8PZvgdf6V" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/faqs/1"
+    "/api/v1/faqs/1"
 );
 
 let headers = {
-    "Authorization": "Bearer E41gae6PvkcZa8Df3hd56Vb",
+    "Authorization": "Bearer eD4E15ak6ah3bc8PZvgdf6V",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -393,7 +413,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (200):

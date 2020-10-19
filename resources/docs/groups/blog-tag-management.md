@@ -4,38 +4,39 @@ Class BlogTagsController
 
 API's for Blog Tag Management
 
-## Get all Blog Tag
+## Get all Blog Tag.
 
 <small class="badge badge-darkred">requires authentication</small>
 
-This enpoint provides a paginated list of all blog tags. You can customize how many records you want in each
+This endpoint provides a paginated list of all blog tags. You can customize how many records you want in each
 returned response as well as sort records based on a key in specific order.
 
 > Example request:
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/v1/blog_tags?paginate=5&orderBy=ipsam&sortBy=sequi" \
-    -H "Authorization: Bearer 5ZcE8fePa1Db6d3a4Vgkvh6" \
+    -G "/api/v1/blog-tags?page=12&per_page=20&order_by=created_at&order=asc" \
+    -H "Authorization: Bearer Ea8v5bZh6D13k6fPag4ecdV" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/blog_tags"
+    "/api/v1/blog-tags"
 );
 
 let params = {
-    "paginate": "5",
-    "orderBy": "ipsam",
-    "sortBy": "sequi",
+    "page": "12",
+    "per_page": "20",
+    "order_by": "created_at",
+    "order": "asc",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
 
 let headers = {
-    "Authorization": "Bearer 5ZcE8fePa1Db6d3a4Vgkvh6",
+    "Authorization": "Bearer Ea8v5bZh6D13k6fPag4ecdV",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -54,7 +55,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (200):
@@ -63,23 +67,109 @@ fetch(url, {
 {
     "data": [
         {
+            "id": 10,
+            "name": "aut",
+            "status": false,
+            "display_status": "InActive",
+            "created_at": "2020-10-15 10:35:09",
+            "created_by": "Gaylord Grimes",
+            "updated_at": "2020-10-15 10:35:09",
+            "updated_by": null
+        },
+        {
+            "id": 1,
+            "name": "totam",
+            "status": true,
+            "display_status": "Active",
+            "created_at": "2020-10-15 10:35:08",
+            "created_by": "Gaylord Grimes",
+            "updated_at": "2020-10-15 10:35:08",
+            "updated_by": null
+        },
+        {
+            "id": 2,
+            "name": "sed",
+            "status": true,
+            "display_status": "Active",
+            "created_at": "2020-10-15 10:35:08",
+            "created_by": "Gaylord Grimes",
+            "updated_at": "2020-10-15 10:35:08",
+            "updated_by": null
+        },
+        {
+            "id": 3,
+            "name": "consequuntur",
+            "status": false,
+            "display_status": "InActive",
+            "created_at": "2020-10-15 10:35:08",
+            "created_by": "Gaylord Grimes",
+            "updated_at": "2020-10-15 10:35:08",
+            "updated_by": null
+        },
+        {
             "id": 4,
-            "name": "Laravel",
-            "status": "Active",
-            "created_at": "2020-07-08",
-            "created_by": "Viral"
+            "name": "vero",
+            "status": false,
+            "display_status": "InActive",
+            "created_at": "2020-10-15 10:35:08",
+            "created_by": "Gaylord Grimes",
+            "updated_at": "2020-10-15 10:35:08",
+            "updated_by": null
         },
         {
             "id": 5,
-            "name": "Codeigniter",
-            "status": "Active",
-            "created_at": "2020-07-08",
-            "created_by": "Viral"
+            "name": "consequatur",
+            "status": false,
+            "display_status": "InActive",
+            "created_at": "2020-10-15 10:35:08",
+            "created_by": "Gaylord Grimes",
+            "updated_at": "2020-10-15 10:35:08",
+            "updated_by": null
+        },
+        {
+            "id": 6,
+            "name": "non",
+            "status": false,
+            "display_status": "InActive",
+            "created_at": "2020-10-15 10:35:08",
+            "created_by": "Gaylord Grimes",
+            "updated_at": "2020-10-15 10:35:08",
+            "updated_by": null
+        },
+        {
+            "id": 7,
+            "name": "saepe",
+            "status": true,
+            "display_status": "Active",
+            "created_at": "2020-10-15 10:35:08",
+            "created_by": "Gaylord Grimes",
+            "updated_at": "2020-10-15 10:35:08",
+            "updated_by": null
+        },
+        {
+            "id": 8,
+            "name": "veritatis",
+            "status": false,
+            "display_status": "InActive",
+            "created_at": "2020-10-15 10:35:08",
+            "created_by": "Gaylord Grimes",
+            "updated_at": "2020-10-15 10:35:08",
+            "updated_by": null
+        },
+        {
+            "id": 9,
+            "name": "in",
+            "status": true,
+            "display_status": "Active",
+            "created_at": "2020-10-15 10:35:08",
+            "created_by": "Gaylord Grimes",
+            "updated_at": "2020-10-15 10:35:08",
+            "updated_by": null
         }
     ],
     "links": {
-        "first": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_tags?page=1",
-        "last": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_tags?page=1",
+        "first": "http:\/\/laravel-starter.local\/\/api\/v1\/blog-tags?page=1",
+        "last": "http:\/\/laravel-starter.local\/\/api\/v1\/blog-tags?page=1",
         "prev": null,
         "next": null
     },
@@ -87,61 +177,65 @@ fetch(url, {
         "current_page": 1,
         "from": 1,
         "last_page": 1,
-        "path": "http:\/\/127.0.0.1:8000\/api\/v1\/blog_tags",
-        "per_page": 25,
-        "to": 2,
-        "total": 2
+        "path": "http:\/\/laravel-starter.local\/\/api\/v1\/blog-tags",
+        "per_page": 20,
+        "to": 10,
+        "total": 10
     }
 }
 ```
 
 ### Request
 <small class="badge badge-green">GET</small>
- **`api/v1/blog_tags`**
+ **`api/v1/blog-tags`**
 
 <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
-<code><b>paginate</b></code>&nbsp;          <i>optional</i>    <br>
-    Which page to show. Example :12
+<code><b>page</b></code>&nbsp;          <i>optional</i>    <br>
+    Which page to show.
 
-<code><b>orderBy</b></code>&nbsp;          <i>optional</i>    <br>
-    Order by accending or descending. Example :ASC or DESC
+<code><b>per_page</b></code>&nbsp;          <i>optional</i>    <br>
+    Number of records per page. (use -1 to retrieve all)
 
-<code><b>sortBy</b></code>&nbsp;          <i>optional</i>    <br>
-    Sort by any database column. Example :created_at
+<code><b>order_by</b></code>&nbsp;          <i>optional</i>    <br>
+    Order by database column.
+
+<code><b>order</b></code>&nbsp;          <i>optional</i>    <br>
+    Order direction ascending (asc) or descending (desc).
 
 
 
-## Create a new Blog Tag
+## Create a new Blog Tag.
 
 <small class="badge badge-darkred">requires authentication</small>
 
-This endpoint lets you careate new Blog Tage
+This endpoint lets you create new Blog Tag
 
 > Example request:
 
 ```bash
 curl -X POST \
-    "http://localhost/api/v1/blog_tags" \
-    -H "Authorization: Bearer DV6Eg5d6kPeaZ138f4cabvh" \
+    "/api/v1/blog-tags" \
+    -H "Authorization: Bearer h6cb5a163E8k4gVavPfDdZe" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"pariatur"}'
+    -d '{"name":"omnis","status":false}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/blog_tags"
+    "/api/v1/blog-tags"
 );
 
 let headers = {
-    "Authorization": "Bearer DV6Eg5d6kPeaZ138f4cabvh",
+    "Authorization": "Bearer h6cb5a163E8k4gVavPfDdZe",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
 
 let body = {
-    "name": "pariatur"
+    "name": "omnis",
+    "status": false
 }
 
 fetch(url, {
@@ -158,7 +252,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (200):
@@ -177,97 +274,18 @@ fetch(url, {
 
 ### Request
 <small class="badge badge-black">POST</small>
- **`api/v1/blog_tags`**
+ **`api/v1/blog-tags`**
 
 <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
 <code><b>name</b></code>&nbsp; <small>string</small>     <br>
     
 
-
-
-## Update Blog Tag
-
-<small class="badge badge-darkred">requires authentication</small>
-
-This endpoint allows you to update existing Blog Tag with new data.
-The Blog Tag to be updated is identified based on the ID provided as url parameter.
-
-> Example request:
-
-```bash
-curl -X PUT \
-    "http://localhost/api/v1/blog_tags/1" \
-    -H "Authorization: Bearer Z5aP1eEa6f4hVbdgc3Dv86k" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"name":"incidunt"}'
-
-```
-
-```javascript
-const url = new URL(
-    "http://localhost/api/v1/blog_tags/1"
-);
-
-let headers = {
-    "Authorization": "Bearer Z5aP1eEa6f4hVbdgc3Dv86k",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "name": "incidunt"
-}
-
-fetch(url, {
-    method: "PUT",
-    headers: headers,
-    body: body
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-> Example response (401, api_key not provided):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-> Example response (200):
-
-```json
-{
-    "data": {
-        "id": 7,
-        "name": "Symphony 6",
-        "status": "InActive",
-        "created_at": "2020-07-08",
-        "created_by": "Viral"
-    }
-}
-```
-
-### Request
-<small class="badge badge-darkblue">PUT</small>
- **`api/v1/blog_tags/{blog_tag}`**
-
-<small class="badge badge-purple">PATCH</small>
- **`api/v1/blog_tags/{blog_tag}`**
-
-<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-<code><b>id</b></code>&nbsp;      <br>
-    The ID of the Blog Tag.
-
-<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-<code><b>name</b></code>&nbsp; <small>string</small>     <br>
+<code><b>status</b></code>&nbsp; <small>boolean</small>         <i>optional</i>    <br>
     
 
 
 
-## Delete Blog Category
+## Delete Blog Category.
 
 <small class="badge badge-darkred">requires authentication</small>
 
@@ -278,19 +296,19 @@ The Blog Category to be deleted is identified based on the ID provided as url pa
 
 ```bash
 curl -X DELETE \
-    "http://localhost/api/v1/blog_tags/1" \
-    -H "Authorization: Bearer VadEZfD46bak856chvPg31e" \
+    "/api/v1/blog-tags/1" \
+    -H "Authorization: Bearer P6458VZac6afh1kDgvd3bEe" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/v1/blog_tags/1"
+    "/api/v1/blog-tags/1"
 );
 
 let headers = {
-    "Authorization": "Bearer VadEZfD46bak856chvPg31e",
+    "Authorization": "Bearer P6458VZac6afh1kDgvd3bEe",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -309,7 +327,10 @@ fetch(url, {
 
 ```json
 {
-    "message": "Unauthenticated."
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
 }
 ```
 > Example response (200):
@@ -322,7 +343,7 @@ fetch(url, {
 
 ### Request
 <small class="badge badge-red">DELETE</small>
- **`api/v1/blog_tags/{blog_tag}`**
+ **`api/v1/blog-tags/{blog_tag}`**
 
 <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
 <code><b>id</b></code>&nbsp;      <br>
