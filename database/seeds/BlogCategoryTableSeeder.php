@@ -2,8 +2,8 @@
 
 use App\Models\Auth\User;
 use App\Models\BlogCategory;
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class BlogCategoryTableSeeder extends Seeder
 {
