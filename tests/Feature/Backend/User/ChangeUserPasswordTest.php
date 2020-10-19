@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Backend\User;
 
-use Tests\TestCase;
-use App\Models\Auth\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Events\Backend\Auth\User\UserPasswordChanged;
+use App\Models\Auth\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class ChangeUserPasswordTest extends TestCase
 {

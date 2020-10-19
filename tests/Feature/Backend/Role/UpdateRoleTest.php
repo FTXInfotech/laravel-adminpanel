@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Backend\Role;
 
-use Tests\TestCase;
-use App\Models\Auth\Role;
-use App\Models\Auth\Permission;
-use Illuminate\Support\Facades\Event;
 use App\Events\Backend\Auth\Role\RoleUpdated;
+use App\Models\Auth\Permission;
+use App\Models\Auth\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Tests\TestCase;
 
 class UpdateRoleTest extends TestCase
 {

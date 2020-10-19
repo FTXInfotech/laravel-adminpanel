@@ -2,8 +2,8 @@
 
 namespace App\Models\Auth\Traits\Relationships;
 
-use App\Models\Auth\User;
 use App\Models\Auth\Permission;
+use App\Models\Auth\User;
 
 trait RoleRelationships
 {

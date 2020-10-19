@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Backend\Faqs;
 
-use App\Models\Faq;
 use App\Http\Controllers\Controller;
-use App\Http\Responses\ViewResponse;
-use Illuminate\Support\Facades\View;
-use App\Http\Responses\RedirectResponse;
-use App\Repositories\Backend\FaqsRepository;
-use App\Http\Requests\Backend\Faqs\StoreFaqsRequest;
 use App\Http\Requests\Backend\Faqs\CreateFaqsRequest;
 use App\Http\Requests\Backend\Faqs\DeleteFaqsRequest;
 use App\Http\Requests\Backend\Faqs\ManageFaqsRequest;
+use App\Http\Requests\Backend\Faqs\StoreFaqsRequest;
 use App\Http\Requests\Backend\Faqs\UpdateFaqsRequest;
+use App\Http\Responses\RedirectResponse;
+use App\Http\Responses\ViewResponse;
+use App\Models\Faq;
+use App\Repositories\Backend\FaqsRepository;
+use Illuminate\Support\Facades\View;
 
 class FaqsController extends Controller
 {

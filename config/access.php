@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Access\Role\Role;
 use App\Models\Access\Permission\Permission;
+use App\Models\Access\Role\Role;
 
 return [
     // Application captcha specific settings
