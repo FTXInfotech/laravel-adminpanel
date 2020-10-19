@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Models\Blog;
+use Illuminate\Http\Response;
+use App\Http\Resources\BlogsResource;
+use App\Repositories\Backend\BlogsRepository;
+use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
 use App\Http\Requests\Backend\Blogs\DeleteBlogsRequest;
 use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
-use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
 use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
-use App\Http\Resources\BlogsResource;
-use App\Models\Blog;
-use App\Repositories\Backend\BlogsRepository;
-use Illuminate\Http\Response;
 
 /**
  * @group Blog Management
  *
  * Class BlogsController
  *
- * API's for Blog Management
+ * APIs for Blog Management
  *
  * @authenticated
  */
@@ -45,9 +45,10 @@ class BlogsController extends APIController
      * This endpoint provides a paginated list of all blogs. You can customize how many records you want in each
      * returned response as well as sort records based on a key in specific order.
      *
-     * @queryParam paginate Which page to show. Example :12
-     * @queryParam orderBy Order by ascending or descending. Example :ASC or DESC
-     * @queryParam sortBy Sort by any database column. Example :created_at
+     * @queryParam page Which page to show. Example: 12
+     * @queryParam per_page Number of records per page. (use -1 to retrieve all) Example: 20
+     * @queryParam order_by Order by database column. Example: created_at
+     * @queryParam order Order direction ascending (asc) or descending (desc). Example: asc
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog/blog-list.json
@@ -66,10 +67,10 @@ class BlogsController extends APIController
     /**
      * Gives a specific Blog.
      *
-     * This endpoint provides you a single Blog.
+     * This endpoint provides you a single Blog
      * The Blog is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Blog.
+     * @urlParam id required The ID of the Blog
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog/blog-show.json
@@ -108,7 +109,7 @@ class BlogsController extends APIController
      * This endpoint allows you to update existing Blog with new data.
      * The Blog to be updated is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Blog.
+     * @urlParam id required The ID of the Blog
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog/blog-update.json
@@ -126,13 +127,13 @@ class BlogsController extends APIController
     /**
      * Delete Blog.
      *
-     * This endpoint allows you to delete a Blog.
+     * This endpoint allows you to delete a Blog
      * The Blog to be deleted is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Blog.
+     * @urlParam id required The ID of the Blog
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
-     * @responseFile responses/blog/blog-destroy.json
+     * @responseFile status=204 scenario="When the record is deleted" responses/blog/blog-destroy.json
      *
      * @param DeleteBlogsRequest $request
      * @param \App\Models\Blog $blog

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend\Blogs;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
-use App\Repositories\Backend\BlogsRepository;
 use Yajra\DataTables\Facades\DataTables;
+use App\Repositories\Backend\BlogsRepository;
+use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
 
 /**
  * Class BlogsTableController.
