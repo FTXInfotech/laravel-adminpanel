@@ -1,7 +1,7 @@
 {
-    "name": "ftx/laravel-starter",
+    "name": "ftx/laravel-adminpanel",
     "type": "project",
-    "description": "The Laravel Starter Project.",
+    "description": "The Laravel AdminPanel with API Boilerplate.",
     "keywords": [
         "framework",
         "laravel",
@@ -9,7 +9,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2",
+        "php": "^7.3",
         "albertcht/invisible-recaptcha": "^1.9",
         "altek/accountant": "^1.2",
         "altek/eventually": "^1.0",
