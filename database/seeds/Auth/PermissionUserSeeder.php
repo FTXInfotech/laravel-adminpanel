@@ -1,9 +1,9 @@
 <?php
 
 use App\Models\Auth\User;
-use Database\DisableForeignKeys;
 use Database\TruncateTable;
 use Illuminate\Database\Seeder;
+use Database\DisableForeignKeys;
 
 /**
  * Class PermissionUserSeeder.

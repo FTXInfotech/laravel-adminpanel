@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use App\Models\Auth\Permission;
 use App\Models\Auth\Role;
 use Illuminate\Http\Request;
+use App\Models\Auth\Permission;
+use App\Http\Controllers\Controller;
 
 /**
  * Class DashboardController.

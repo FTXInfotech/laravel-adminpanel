@@ -2,9 +2,9 @@
 
 Class PagesController
 
-API's for Pages Management
+APIs for Pages Management
 
-## Get all Pages.
+## Get all Pages
 
 <small class="badge badge-darkred">requires authentication</small>
 
@@ -15,8 +15,8 @@ returned response as well as sort records based on a key in specific order.
 
 ```bash
 curl -X GET \
-    -G "/api/v1/pages?paginate=6&orderBy=dignissimos&sortBy=voluptas" \
-    -H "Authorization: Bearer had81g4ca6VPfEv65ZD3kbe" \
+    -G "/api/v1/pages?page=12&per_page=20&order_by=created_at&order=asc" \
+    -H "Authorization: Bearer 6PD18Ekb36V5c4gdeZavhaf" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -27,15 +27,16 @@ const url = new URL(
 );
 
 let params = {
-    "paginate": "6",
-    "orderBy": "dignissimos",
-    "sortBy": "voluptas",
+    "page": "12",
+    "per_page": "20",
+    "order_by": "created_at",
+    "order": "asc",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
 
 let headers = {
-    "Authorization": "Bearer had81g4ca6VPfEv65ZD3kbe",
+    "Authorization": "Bearer 6PD18Ekb36V5c4gdeZavhaf",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -66,36 +67,32 @@ fetch(url, {
 {
     "data": [
         {
-            "id": 23,
-            "title": "Aspernatur hic voluptatem molestiae.",
+            "id": 11,
+            "title": "Faith Yates",
+            "description": "<p>Proident, qui pariat.<\/p>",
             "status_label": "<label class='label label-success'>Active<\/label>",
-            "status": "Active",
-            "created_at": "2020-06-26",
-            "created_by": "Vipul"
-        },
-        {
-            "id": 21,
-            "title": "Commodi consequatur velit odit odit.",
-            "status_label": "<label class='label label-danger'>Inactive<\/label>",
-            "status": "InActive",
-            "created_at": "2020-06-27",
-            "created_by": "Viral"
+            "status": true,
+            "display_status": "Active",
+            "created_at": "2020-10-16 08:31:19",
+            "updated_at": "2020-10-16 08:31:40",
+            "created_by": "Alan Whitmore",
+            "updated_by": "Alan Whitmore"
         }
     ],
     "links": {
-        "first": "http:\/\/127.0.0.1:8000\/api\/v1\/pages?page=1",
-        "last": "http:\/\/127.0.0.1:8000\/api\/v1\/pages?page=25",
+        "first": "http:\/\/laravel-starter.local\/\/api\/v1\/pages?page=1",
+        "last": "http:\/\/laravel-starter.local\/\/api\/v1\/pages?page=11",
         "prev": null,
-        "next": "http:\/\/127.0.0.1:8000\/api\/v1\/pages?page=2"
+        "next": "http:\/\/laravel-starter.local\/\/api\/v1\/pages?page=2"
     },
     "meta": {
         "current_page": 1,
         "from": 1,
-        "last_page": 25,
-        "path": "http:\/\/127.0.0.1:8000\/api\/v1\/pages",
-        "per_page": "2",
-        "to": 2,
-        "total": 50
+        "last_page": 11,
+        "path": "http:\/\/laravel-starter.local\/\/api\/v1\/pages",
+        "per_page": 1,
+        "to": 1,
+        "total": 11
     }
 }
 ```
@@ -105,18 +102,21 @@ fetch(url, {
  **`api/v1/pages`**
 
 <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
-<code><b>paginate</b></code>&nbsp;          <i>optional</i>    <br>
-    Which page to show. Example :12
+<code><b>page</b></code>&nbsp;          <i>optional</i>    <br>
+    Which page to show.
 
-<code><b>orderBy</b></code>&nbsp;          <i>optional</i>    <br>
-    Order by ascending or descending. Example :ASC or DESC
+<code><b>per_page</b></code>&nbsp;          <i>optional</i>    <br>
+    Number of records per page. (use -1 to retrieve all)
 
-<code><b>sortBy</b></code>&nbsp;          <i>optional</i>    <br>
-    Sort by any database column. Example :created_at
+<code><b>order_by</b></code>&nbsp;          <i>optional</i>    <br>
+    Order by database column.
+
+<code><b>order</b></code>&nbsp;          <i>optional</i>    <br>
+    Order direction ascending (asc) or descending (desc).
 
 
 
-## Create a new Page.
+## Create a new Page
 
 <small class="badge badge-darkred">requires authentication</small>
 
@@ -127,10 +127,10 @@ This endpoint lets you create new Page
 ```bash
 curl -X POST \
     "/api/v1/pages" \
-    -H "Authorization: Bearer cdD4kb5V1P8a6ahgf3E6veZ" \
+    -H "Authorization: Bearer Vdaf6hbePDcg65Eka31Zv48" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"title":"sapiente","description":"laudantium","status":false,"cannonical_link":"https:\/\/www.hudson.biz\/aliquam-dicta-ex-ad-quia-harum-dolore-consectetur","seo_title":"nihil","seo_keyword":"iure","seo_description":"et"}'
+    -d '{"title":"rerum","description":"sunt","status":false,"cannonical_link":"http:\/\/www.hilpert.com\/enim-molestias-placeat-ab-reiciendis-veritatis-voluptas","seo_title":"aperiam","seo_keyword":"vel","seo_description":"qui"}'
 
 ```
 
@@ -140,19 +140,19 @@ const url = new URL(
 );
 
 let headers = {
-    "Authorization": "Bearer cdD4kb5V1P8a6ahgf3E6veZ",
+    "Authorization": "Bearer Vdaf6hbePDcg65Eka31Zv48",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
 
 let body = {
-    "title": "sapiente",
-    "description": "laudantium",
+    "title": "rerum",
+    "description": "sunt",
     "status": false,
-    "cannonical_link": "https:\/\/www.hudson.biz\/aliquam-dicta-ex-ad-quia-harum-dolore-consectetur",
-    "seo_title": "nihil",
-    "seo_keyword": "iure",
-    "seo_description": "et"
+    "cannonical_link": "http:\/\/www.hilpert.com\/enim-molestias-placeat-ab-reiciendis-veritatis-voluptas",
+    "seo_title": "aperiam",
+    "seo_keyword": "vel",
+    "seo_description": "qui"
 }
 
 fetch(url, {
@@ -180,12 +180,16 @@ fetch(url, {
 ```json
 {
     "data": {
-        "id": 51,
-        "title": "Page Title",
-        "status_label": "<label class='label label-danger'>Inactive<\/label>",
-        "status": "InActive",
-        "created_at": "2020-07-08",
-        "created_by": "Viral"
+        "id": 11,
+        "title": "Faith Yates",
+        "description": "<p>Proident, qui pariat.<\/p>",
+        "status_label": "<label class='label label-success'>Active<\/label>",
+        "status": true,
+        "display_status": "Active",
+        "created_at": "2020-10-16 08:31:19",
+        "updated_at": "2020-10-16 08:31:40",
+        "created_by": "Alan Whitmore",
+        "updated_by": "Alan Whitmore"
     }
 }
 ```
@@ -218,11 +222,11 @@ fetch(url, {
 
 
 
-## Gives a specific Page.
+## Gives a specific Page
 
 <small class="badge badge-darkred">requires authentication</small>
 
-This endpoint provides you a single Page.
+This endpoint provides you a single Page
 The Page is identified based on the ID provided as url parameter.
 
 > Example request:
@@ -230,7 +234,7 @@ The Page is identified based on the ID provided as url parameter.
 ```bash
 curl -X GET \
     -G "/api/v1/pages/1" \
-    -H "Authorization: Bearer eh8vE6D4Zgk5abdP3ca1V6f" \
+    -H "Authorization: Bearer 6dca6hDZ48P35vb1egfkEaV" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -241,7 +245,7 @@ const url = new URL(
 );
 
 let headers = {
-    "Authorization": "Bearer eh8vE6D4Zgk5abdP3ca1V6f",
+    "Authorization": "Bearer 6dca6hDZ48P35vb1egfkEaV",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -271,12 +275,16 @@ fetch(url, {
 ```json
 {
     "data": {
-        "id": 21,
-        "title": "Commodi consequatur velit odit odit.",
-        "status_label": "<label class='label label-danger'>Inactive<\/label>",
-        "status": "InActive",
-        "created_at": "2020-06-27",
-        "created_by": "Viral"
+        "id": 11,
+        "title": "Faith Yates",
+        "description": "<p>Proident, qui pariat.<\/p>",
+        "status_label": "<label class='label label-success'>Active<\/label>",
+        "status": true,
+        "display_status": "Active",
+        "created_at": "2020-10-16 08:31:19",
+        "updated_at": "2020-10-16 08:31:40",
+        "created_by": "Alan Whitmore",
+        "updated_by": "Alan Whitmore"
     }
 }
 ```
@@ -287,15 +295,129 @@ fetch(url, {
 
 <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
 <code><b>id</b></code>&nbsp;      <br>
-    The ID of the Page.
+    The ID of the Page
 
 
 
-## Delete Page.
+## Update Page
 
 <small class="badge badge-darkred">requires authentication</small>
 
-This endpoint allows you to delete a Page.
+This endpoint allows you to update existing Page with new data.
+The Page to be updated is identified based on the ID provided as url parameter.
+
+> Example request:
+
+```bash
+curl -X PUT \
+    "/api/v1/pages/1" \
+    -H "Authorization: Bearer 3cfakVb8dgP16hEDa546eZv" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"title":"tempora","description":"in","status":false,"cannonical_link":"http:\/\/schuster.com\/","seo_title":"inventore","seo_keyword":"veniam","seo_description":"a"}'
+
+```
+
+```javascript
+const url = new URL(
+    "/api/v1/pages/1"
+);
+
+let headers = {
+    "Authorization": "Bearer 3cfakVb8dgP16hEDa546eZv",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "title": "tempora",
+    "description": "in",
+    "status": false,
+    "cannonical_link": "http:\/\/schuster.com\/",
+    "seo_title": "inventore",
+    "seo_keyword": "veniam",
+    "seo_description": "a"
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (401, api_key not provided):
+
+```json
+{
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
+}
+```
+> Example response (200):
+
+```json
+{
+    "data": {
+        "id": 11,
+        "title": "Faith Yates",
+        "description": "<p>Proident, qui pariat.<\/p>",
+        "status_label": "<label class='label label-success'>Active<\/label>",
+        "status": true,
+        "display_status": "Active",
+        "created_at": "2020-10-16 08:31:19",
+        "updated_at": "2020-10-16 08:31:40",
+        "created_by": "Alan Whitmore",
+        "updated_by": "Alan Whitmore"
+    }
+}
+```
+
+### Request
+<small class="badge badge-darkblue">PUT</small>
+ **`api/v1/pages/{page}`**
+
+<small class="badge badge-purple">PATCH</small>
+ **`api/v1/pages/{page}`**
+
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<code><b>id</b></code>&nbsp;      <br>
+    The ID of the Page
+
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<code><b>title</b></code>&nbsp; <small>string</small>     <br>
+    
+
+<code><b>description</b></code>&nbsp; <small>string</small>     <br>
+    
+
+<code><b>status</b></code>&nbsp; <small>boolean</small>         <i>optional</i>    <br>
+    
+
+<code><b>cannonical_link</b></code>&nbsp; <small>string</small>         <i>optional</i>    <br>
+    The value must be a valid URL.
+
+<code><b>seo_title</b></code>&nbsp; <small>string</small>         <i>optional</i>    <br>
+    
+
+<code><b>seo_keyword</b></code>&nbsp; <small>string</small>         <i>optional</i>    <br>
+    
+
+<code><b>seo_description</b></code>&nbsp; <small>string</small>         <i>optional</i>    <br>
+    
+
+
+
+## Delete Page
+
+<small class="badge badge-darkred">requires authentication</small>
+
+This endpoint allows you to delete a Page
 The Page to be deleted is identified based on the ID provided as url parameter.
 
 > Example request:
@@ -303,7 +425,7 @@ The Page to be deleted is identified based on the ID provided as url parameter.
 ```bash
 curl -X DELETE \
     "/api/v1/pages/1" \
-    -H "Authorization: Bearer 53k8acbEDdv16fZ4ghP6Vea" \
+    -H "Authorization: Bearer 45ac6e3kEVfhDPa81dZvg6b" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -314,7 +436,7 @@ const url = new URL(
 );
 
 let headers = {
-    "Authorization": "Bearer 53k8acbEDdv16fZ4ghP6Vea",
+    "Authorization": "Bearer 45ac6e3kEVfhDPa81dZvg6b",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -339,12 +461,10 @@ fetch(url, {
     }
 }
 ```
-> Example response (200):
+> Example response (204, When the record is deleted):
 
 ```json
-{
-    "message": "The page was successfully deleted."
-}
+<Empty response>
 ```
 
 ### Request
@@ -353,7 +473,7 @@ fetch(url, {
 
 <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
 <code><b>id</b></code>&nbsp;      <br>
-    The ID of the Page.
+    The ID of the Page
 
 
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Validator;
 
 /**
  * @group Authentication

@@ -2,13 +2,13 @@
 
 namespace App\Repositories\Backend\Auth\Permission;
 
+use DB;
+use App\Exceptions\GeneralException;
+use App\Repositories\BaseRepository;
+use App\Models\Auth\Permission\Permission;
 use App\Events\Backend\Auth\Permission\PermissionCreated;
 use App\Events\Backend\Auth\Permission\PermissionDeleted;
 use App\Events\Backend\Auth\Permission\PermissionUpdated;
-use App\Exceptions\GeneralException;
-use App\Models\Auth\Permission\Permission;
-use App\Repositories\BaseRepository;
-use DB;
 
 /**
  * Class PermissionRepository.

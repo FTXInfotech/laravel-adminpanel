@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend\EmailTemplates;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest;
-use App\Repositories\Backend\EmailTemplatesRepository;
 use Yajra\DataTables\Facades\DataTables;
+use App\Repositories\Backend\EmailTemplatesRepository;
+use App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest;
 
 class EmailTemplatesTableController extends Controller
 {
