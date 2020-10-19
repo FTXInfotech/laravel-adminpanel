@@ -2,12 +2,12 @@
 
 namespace App\Repositories\Backend;
 
+use App\Models\BlogCategory;
+use App\Exceptions\GeneralException;
+use App\Repositories\BaseRepository;
 use App\Events\Backend\BlogCategories\BlogCategoryCreated;
 use App\Events\Backend\BlogCategories\BlogCategoryDeleted;
 use App\Events\Backend\BlogCategories\BlogCategoryUpdated;
-use App\Exceptions\GeneralException;
-use App\Models\BlogCategory;
-use App\Repositories\BaseRepository;
 
 class BlogCategoriesRepository extends BaseRepository
 {

@@ -2,9 +2,9 @@
 
 Class BlogCategoriesController
 
-API's for Blog Categories Management
+APIs for Blog Categories Management
 
-## Get all Blog Categories.
+## Get all Blog Categories
 
 <small class="badge badge-darkred">requires authentication</small>
 
@@ -16,7 +16,7 @@ returned response as well as sort records based on a key in specific order.
 ```bash
 curl -X GET \
     -G "/api/v1/blog-categories?page=12&per_page=20&order_by=created_at&order=asc" \
-    -H "Authorization: Bearer chdPZ8fD6e1bag5k6v4Va3E" \
+    -H "Authorization: Bearer d16cZ5hvD8ba43P6eagEVkf" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -36,7 +36,7 @@ Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
 
 let headers = {
-    "Authorization": "Bearer chdPZ8fD6e1bag5k6v4Va3E",
+    "Authorization": "Bearer d16cZ5hvD8ba43P6eagEVkf",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -204,7 +204,7 @@ fetch(url, {
 
 
 
-## Create a new Blog Category.
+## Create a new Blog Category
 
 <small class="badge badge-darkred">requires authentication</small>
 
@@ -215,7 +215,7 @@ This endpoint lets you create new Blog Category
 ```bash
 curl -X POST \
     "/api/v1/blog-categories" \
-    -H "Authorization: Bearer 5he8kV4dfDbcagaE1Z6P3v6" \
+    -H "Authorization: Bearer aD6E8d3g1baek64c5fZVhvP" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -d '{"name":"Software","status":true}'
@@ -228,7 +228,7 @@ const url = new URL(
 );
 
 let headers = {
-    "Authorization": "Bearer 5he8kV4dfDbcagaE1Z6P3v6",
+    "Authorization": "Bearer aD6E8d3g1baek64c5fZVhvP",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -288,11 +288,11 @@ fetch(url, {
 
 
 
-## Gives a specific Blog Category.
+## Gives a specific Blog Category
 
 <small class="badge badge-darkred">requires authentication</small>
 
-This endpoint provides you a single Blog Category.
+This endpoint provides you a single Blog Category
 The Blog Category is identified based on the ID provided as url parameter.
 
 > Example request:
@@ -300,7 +300,7 @@ The Blog Category is identified based on the ID provided as url parameter.
 ```bash
 curl -X GET \
     -G "/api/v1/blog-categories/1" \
-    -H "Authorization: Bearer ecEf45kgdbha66aVPD3v1Z8" \
+    -H "Authorization: Bearer D36keP1cVfbda54haEgZv86" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -311,7 +311,7 @@ const url = new URL(
 );
 
 let headers = {
-    "Authorization": "Bearer ecEf45kgdbha66aVPD3v1Z8",
+    "Authorization": "Bearer D36keP1cVfbda54haEgZv86",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -359,15 +359,107 @@ fetch(url, {
 
 <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
 <code><b>id</b></code>&nbsp;      <br>
-    The ID of the Blog Category.
+    The ID of the Blog Category
 
 
 
-## Delete Blog Category.
+## Update Blog Category
 
 <small class="badge badge-darkred">requires authentication</small>
 
-This endpoint allows you to delete a Blog Category.
+This endpoint allows you to update existing Blog Category with new data.
+The Blog Category to be updated is identified based on the ID provided as url parameter.
+
+> Example request:
+
+```bash
+curl -X PUT \
+    "/api/v1/blog-categories/1" \
+    -H "Authorization: Bearer vEba3D86ce46PZakd5f1gVh" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"Software","status":true}'
+
+```
+
+```javascript
+const url = new URL(
+    "/api/v1/blog-categories/1"
+);
+
+let headers = {
+    "Authorization": "Bearer vEba3D86ce46PZakd5f1gVh",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "Software",
+    "status": true
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (401, API token not provided):
+
+```json
+{
+    "error": {
+        "message": "Unauthenticated.",
+        "status_code": 401
+    }
+}
+```
+> Example response (200):
+
+```json
+{
+    "data": {
+        "id": 1,
+        "name": "ipsum reiciendis ut",
+        "status": true,
+        "display_status": "Active",
+        "created_at": "2020-10-15 10:35:08",
+        "created_by": "Gaylord Grimes",
+        "updated_at": "2020-10-15 10:38:02",
+        "updated_by": null
+    }
+}
+```
+
+### Request
+<small class="badge badge-darkblue">PUT</small>
+ **`api/v1/blog-categories/{blog_category}`**
+
+<small class="badge badge-purple">PATCH</small>
+ **`api/v1/blog-categories/{blog_category}`**
+
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<code><b>id</b></code>&nbsp;      <br>
+    The ID of the Blog Category
+
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<code><b>name</b></code>&nbsp; <small>string</small>     <br>
+    Name of the category.
+
+<code><b>status</b></code>&nbsp; <small>boolean</small>         <i>optional</i>    <br>
+    Status of the category.
+
+
+
+## Delete Blog Category
+
+<small class="badge badge-darkred">requires authentication</small>
+
+This endpoint allows you to delete a Blog Category
 The Blog Category to be deleted is identified based on the ID provided as url parameter.
 
 > Example request:
@@ -375,7 +467,7 @@ The Blog Category to be deleted is identified based on the ID provided as url pa
 ```bash
 curl -X DELETE \
     "/api/v1/blog-categories/1" \
-    -H "Authorization: Bearer PgcEe84Zakva5f3V6dh6bD1" \
+    -H "Authorization: Bearer a64P5E6cdbfkaDV13Zgh8ve" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -386,7 +478,7 @@ const url = new URL(
 );
 
 let headers = {
-    "Authorization": "Bearer PgcEe84Zakva5f3V6dh6bD1",
+    "Authorization": "Bearer a64P5E6cdbfkaDV13Zgh8ve",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -423,7 +515,7 @@ fetch(url, {
 
 <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
 <code><b>id</b></code>&nbsp;      <br>
-    The ID of the Blog Category.
+    The ID of the Blog Category
 
 
 

@@ -27,7 +27,7 @@ class UpdateBlogCategoriesRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'max:191', 'unique:blog_categories,name,'.$this->route('blog_category')->id],
+            'name' => ['required', 'max:191', 'unique:blog_categories,name,'.optional($this->route('blog_category'))->id],
             'status' => ['boolean'],
         ];
     }
