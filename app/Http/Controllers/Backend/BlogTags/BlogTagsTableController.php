@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Backend\BlogTags;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest;
-use App\Repositories\Backend\BlogTagsRepository;
 use Carbon\Carbon;
+use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
+use App\Repositories\Backend\BlogTagsRepository;
+use App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest;
 
 class BlogTagsTableController extends Controller
 {

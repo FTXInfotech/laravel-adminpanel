@@ -44,4 +44,23 @@ class StoreBlogTagsRequest extends FormRequest
             'name.max' => 'Blog tag may not be greater than 191 characters.',
         ];
     }
+
+    /**
+     * Body Parameters : Used by scribe to generate doc.
+     *
+     * @return array
+     */
+    public function bodyParameters()
+    {
+        return [
+            'name' => [
+                'description' => 'Name of the tag.',
+                'example' => 'Software',
+            ],
+            'status' => [
+                'description' => 'Status of the tag.',
+                'example' => 1,
+            ],
+        ];
+    }
 }

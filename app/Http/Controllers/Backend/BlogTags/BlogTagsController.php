@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Backend\BlogTags;
 
+use App\Models\BlogTag;
 use App\Http\Controllers\Controller;
+use App\Http\Responses\ViewResponse;
+use Illuminate\Support\Facades\View;
+use App\Http\Responses\RedirectResponse;
+use App\Repositories\Backend\BlogTagsRepository;
+use App\Http\Responses\Backend\BlogTag\EditResponse;
+use App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\CreateBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\DeleteBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest;
-use App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest;
-use App\Http\Responses\Backend\BlogTag\EditResponse;
-use App\Http\Responses\RedirectResponse;
-use App\Http\Responses\ViewResponse;
-use App\Models\BlogTag;
-use App\Repositories\Backend\BlogTagsRepository;
-use Illuminate\Support\Facades\View;
 
 class BlogTagsController extends Controller
 {

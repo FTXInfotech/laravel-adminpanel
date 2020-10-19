@@ -2,12 +2,12 @@
 
 namespace App\Repositories\Backend;
 
+use App\Models\BlogTag;
+use App\Exceptions\GeneralException;
+use App\Repositories\BaseRepository;
 use App\Events\Backend\BlogTags\BlogTagCreated;
 use App\Events\Backend\BlogTags\BlogTagDeleted;
 use App\Events\Backend\BlogTags\BlogTagUpdated;
-use App\Exceptions\GeneralException;
-use App\Models\BlogTag;
-use App\Repositories\BaseRepository;
 
 class BlogTagsRepository extends BaseRepository
 {
