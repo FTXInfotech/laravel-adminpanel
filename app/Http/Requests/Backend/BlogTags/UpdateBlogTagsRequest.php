@@ -27,7 +27,7 @@ class UpdateBlogTagsRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'max:191', 'unique:blog_tags,name,'.$this->route('blog_tag')->id],
+            'name' => ['required', 'max:191', 'unique:blog_tags,name,'.optional($this->route('blog_tag'))->id],
             'status' => ['boolean'],
         ];
     }
@@ -43,6 +43,25 @@ class UpdateBlogTagsRequest extends FormRequest
             'name.unique' => __('exceptions.backend.blog-tag.already_exists'),
             'name.required' => 'Please insert Blog Tag',
             'name.max' => 'Blog tag may not be greater than 191 characters.',
+        ];
+    }
+
+    /**
+     * Body Parameters : Used by scribe to generate doc.
+     *
+     * @return array
+     */
+    public function bodyParameters()
+    {
+        return [
+            'name' => [
+                'description' => 'Name of the tag.',
+                'example' => 'Software',
+            ],
+            'status' => [
+                'description' => 'Status of the tag.',
+                'example' => 1,
+            ],
         ];
     }
 }

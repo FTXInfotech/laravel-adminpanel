@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Models\BlogTag;
+use Illuminate\Http\Response;
+use App\Http\Resources\BlogTagsResource;
+use App\Repositories\Backend\BlogTagsRepository;
+use App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\DeleteBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest;
-use App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest;
 use App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest;
-use App\Http\Resources\BlogTagsResource;
-use App\Models\BlogTag;
-use App\Repositories\Backend\BlogTagsRepository;
-use Illuminate\Http\Response;
 
 /**
  * @group Blog Tag Management
  *
  * Class BlogTagsController
  *
- * API's for Blog Tag Management
+ * APIs for Blog Tag Management
  *
  * @authenticated
  */
@@ -67,12 +67,12 @@ class BlogTagsController extends APIController
     /**
      * Gives a specific Blog Tag.
      *
-     * This endpoint provides you a single Blog Tag.
+     * This endpoint provides you a single Blog Tag
      * The Blog Tag is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Blog Tag.
+     * @urlParam id required The ID of the Blog Tag
      *
-     * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
+     * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
      * @responseFile responses/blog-tag/blog-tag-show.json
      *
      * @param ManageBlogTagsRequest $request
@@ -110,7 +110,7 @@ class BlogTagsController extends APIController
      * This endpoint allows you to update existing Blog Tag with new data.
      * The Blog Tag to be updated is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Blog Tag.
+     * @urlParam id required The ID of the Blog Tag
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-tag/blog-tag-update.json
@@ -128,15 +128,15 @@ class BlogTagsController extends APIController
     }
 
     /**
-     * Delete Blog Category.
+     * Delete Blog Tag.
      *
-     * This endpoint allows you to delete a Blog Category.
-     * The Blog Category to be deleted is identified based on the ID provided as url parameter.
+     * This endpoint allows you to delete a Blog Tag
+     * The Blog Tag to be deleted is identified based on the ID provided as url parameter.
      *
-     * @urlParam id required The ID of the Blog Category.
+     * @urlParam id required The ID of the Blog Tag
      *
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
-     * @responseFile responses/blog-tag/blog-tag-destroy.json
+     * @responseFile status=204 scenario="When the record is deleted" responses/blog-tag/blog-tag-destroy.json
      *
      * @param DeleteBlogTagsRequest $request
      * @param BlogTag $blogTag
