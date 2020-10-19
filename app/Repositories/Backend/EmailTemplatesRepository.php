@@ -2,13 +2,13 @@
 
 namespace App\Repositories\Backend;
 
-use Str;
-use App\Models\EmailTemplate;
-use App\Exceptions\GeneralException;
-use App\Repositories\BaseRepository;
 use App\Events\Backend\EmailTemplates\EmailTemplateCreated;
 use App\Events\Backend\EmailTemplates\EmailTemplateDeleted;
 use App\Events\Backend\EmailTemplates\EmailTemplateUpdated;
+use App\Exceptions\GeneralException;
+use App\Models\EmailTemplate;
+use App\Repositories\BaseRepository;
+use Str;
 
 class EmailTemplatesRepository extends BaseRepository
 {

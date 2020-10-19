@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Api;
 
-use Tests\TestCase;
-use RoleTableSeeder;
 use App\Models\Auth\User;
-use Laravel\Passport\Passport;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Passport\Passport;
+use RoleTableSeeder;
+use Tests\TestCase;
 
 class BaseApiTestCase extends TestCase
 {

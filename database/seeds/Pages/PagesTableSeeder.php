@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Page;
 use App\Models\Auth\User;
-use Illuminate\Database\Seeder;
+use App\Models\Page;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class PagesTableSeeder extends Seeder
 {

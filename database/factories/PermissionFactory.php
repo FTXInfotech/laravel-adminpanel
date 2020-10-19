@@ -1,7 +1,7 @@
 <?php
 
-use Faker\Generator as Faker;
 use App\Models\Auth\Permission;
+use Faker\Generator as Faker;
 
 $factory->define(Permission::class, function (Faker $faker) {
     $name = $faker->name();

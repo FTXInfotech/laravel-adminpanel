@@ -2,12 +2,12 @@
 
 namespace App\Repositories\Backend;
 
-use App\Models\Faq;
-use App\Exceptions\GeneralException;
-use App\Repositories\BaseRepository;
 use App\Events\Backend\Faqs\FaqCreated;
 use App\Events\Backend\Faqs\FaqDeleted;
 use App\Events\Backend\Faqs\FaqUpdated;
+use App\Exceptions\GeneralException;
+use App\Models\Faq;
+use App\Repositories\BaseRepository;
 
 class FaqsRepository extends BaseRepository
 {

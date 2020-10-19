@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Backend\Auth\Role;
 
-use App\Models\Auth\Role;
 use App\Http\Controllers\Controller;
-use App\Http\Responses\ViewResponse;
-use Illuminate\Support\Facades\View;
-use App\Http\Responses\RedirectResponse;
-use App\Repositories\Backend\Auth\RoleRepository;
-use App\Http\Responses\Backend\Auth\Role\EditResponse;
-use App\Repositories\Backend\Auth\PermissionRepository;
 use App\Http\Requests\Backend\Auth\Role\EditRoleRequest;
-use App\Http\Responses\Backend\Auth\Role\CreateResponse;
-use App\Http\Requests\Backend\Auth\Role\StoreRoleRequest;
 use App\Http\Requests\Backend\Auth\Role\ManageRoleRequest;
+use App\Http\Requests\Backend\Auth\Role\StoreRoleRequest;
 use App\Http\Requests\Backend\Auth\Role\UpdateRoleRequest;
+use App\Http\Responses\Backend\Auth\Role\CreateResponse;
+use App\Http\Responses\Backend\Auth\Role\EditResponse;
+use App\Http\Responses\RedirectResponse;
+use App\Http\Responses\ViewResponse;
+use App\Models\Auth\Role;
+use App\Repositories\Backend\Auth\PermissionRepository;
+use App\Repositories\Backend\Auth\RoleRepository;
+use Illuminate\Support\Facades\View;
 
 class RoleController extends Controller
 {

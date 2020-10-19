@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend\Pages;
 
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\PagesRepository;
 use App\Http\Requests\Backend\Pages\ManagePageRequest;
+use App\Repositories\Backend\PagesRepository;
+use Yajra\DataTables\Facades\DataTables;
 
 class PagesTableController extends Controller
 {

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Backend\Faqs;
 
-use Carbon\Carbon;
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Backend\FaqsRepository;
 use App\Http\Requests\Backend\Faqs\ManageFaqsRequest;
+use App\Repositories\Backend\FaqsRepository;
+use Carbon\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 class FaqsTableController extends Controller
 {
