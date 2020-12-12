@@ -84,7 +84,7 @@ Route::group([
 
     // Permission Management
     Route::group(['namespace' => 'Permission'], function () {
-        Route::resource('permission', 'PermissionController', ['except' => ['show']]);
+        Route::resource('permission', 'PermissionsController', ['except' => ['show']]);
 
         //For DataTables
         Route::post('permission/get', 'PermissionTableController')->name('permission.get');
