@@ -40,11 +40,11 @@ class RoleRepository extends BaseRepository
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
+     * @return \App\Models\Auth\Role
      *
      * @throws GeneralException
      * @throws \Throwable
-     * @return \App\Models\Auth\Role
      */
     public function create(array $input)
     {
@@ -99,12 +99,12 @@ class RoleRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\Auth\Role  $role
-     * @param array $data
+     * @param  \App\Models\Auth\Role  $role
+     * @param  array  $data
+     * @return mixed
      *
      * @throws GeneralException
      * @throws \Throwable
-     * @return mixed
      */
     public function update(Role $role, array $input)
     {
@@ -170,7 +170,6 @@ class RoleRepository extends BaseRepository
 
     /**
      * @param $name
-     *
      * @return bool
      */
     protected function roleExists($name): bool
@@ -181,11 +180,10 @@ class RoleRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\Auth\Role $role
+     * @param  \App\Models\Auth\Role  $role
+     * @return bool
      *
      * @throws GeneralException
-     *
-     * @return bool
      */
     public function delete(Role $role)
     {

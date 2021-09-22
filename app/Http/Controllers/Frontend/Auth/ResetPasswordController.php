@@ -25,7 +25,7 @@ class ResetPasswordController extends Controller
     /**
      * ChangePasswordController constructor.
      *
-     * @param UserRepository $userRepository
+     * @param  UserRepository  $userRepository
      */
     public function __construct(UserRepository $userRepository)
     {
@@ -37,8 +37,7 @@ class ResetPasswordController extends Controller
      *
      * If no token is present, display the link request form.
      *
-     * @param string|null $token
-     *
+     * @param  string|null  $token
      * @return \Illuminate\Http\Response
      */
     public function showResetForm($token = null)
