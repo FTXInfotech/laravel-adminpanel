@@ -19,7 +19,7 @@ class UserStatusController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\Auth\UserRepository $repository
+     * @param  \App\Repositories\Backend\Auth\UserRepository  $repository
      */
     public function __construct(UserRepository $repository)
     {
@@ -28,8 +28,7 @@ class UserStatusController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
      * @return mixed
      */
     public function getDeactivated(ManageUserRequest $request)
@@ -39,8 +38,7 @@ class UserStatusController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
      * @return mixed
      */
     public function getDeleted(ManageUserRequest $request)
@@ -49,12 +47,12 @@ class UserStatusController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     * @param \App\Models\Auth\User $user
-     * @param int $status
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
+     * @param  \App\Models\Auth\User  $user
+     * @param  int  $status
+     * @return mixed
      *
      * @throws \App\Exceptions\GeneralException
-     * @return mixed
      */
     public function mark(ManageUserRequest $request, User $user, $status)
     {
@@ -68,12 +66,12 @@ class UserStatusController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     * @param \App\Models\Auth\User $deletedUser
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
+     * @param  \App\Models\Auth\User  $deletedUser
+     * @return mixed
      *
      * @throws \App\Exceptions\GeneralException
      * @throws \Throwable
-     * @return mixed
      */
     public function delete(ManageUserRequest $request, User $deletedUser)
     {
@@ -83,11 +81,11 @@ class UserStatusController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     * @param \App\Models\Auth\User $deletedUser
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
+     * @param  \App\Models\Auth\User  $deletedUser
+     * @return mixed
      *
      * @throws \App\Exceptions\GeneralException
-     * @return mixed
      */
     public function restore(ManageUserRequest $request, User $deletedUser)
     {
