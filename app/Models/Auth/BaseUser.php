@@ -47,6 +47,7 @@ abstract class BaseUser extends Authenticatable implements Recordable
 
     /**
      * The dynamic attributes from mutators that should be returned with the user object.
+     *
      * @var array
      */
     protected $appends = [
@@ -87,7 +88,7 @@ abstract class BaseUser extends Authenticatable implements Recordable
      * Return true or false if the user can impersonate an other user.
      *
      * @param void
-     * @return  bool
+     * @return bool
      */
     public function canImpersonate()
     {
@@ -98,7 +99,7 @@ abstract class BaseUser extends Authenticatable implements Recordable
      * Return true or false if the user can be impersonate.
      *
      * @param void
-     * @return  bool
+     * @return bool
      */
     public function canBeImpersonated()
     {
