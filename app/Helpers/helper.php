@@ -107,7 +107,6 @@ if (! function_exists('getRtlCss')) {
      * So we take the original and place that in and send back the path.
      *
      * @param $path
-     *
      * @return string
      */
     function getRtlCss($path)
