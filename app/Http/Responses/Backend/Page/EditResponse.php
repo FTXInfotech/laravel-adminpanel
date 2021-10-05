@@ -12,7 +12,7 @@ class EditResponse implements Responsable
     protected $page;
 
     /**
-     * @param \App\Models\Page\Page $page
+     * @param  \App\Models\Page\Page  $page
      */
     public function __construct($page)
     {
@@ -22,8 +22,7 @@ class EditResponse implements Responsable
     /**
      * toReponse.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function toResponse($request)
