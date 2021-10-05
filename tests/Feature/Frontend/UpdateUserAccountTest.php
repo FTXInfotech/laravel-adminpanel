@@ -16,7 +16,8 @@ class UpdateUserAccountTest extends TestCase
 
     /**
      * helper method for valid user data with option to override.
-     * @param array $userData
+     *
+     * @param  array  $userData
      * @return array
      */
     protected function getValidUserData($userData = [])

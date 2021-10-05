@@ -23,7 +23,7 @@ class BlogCategoriesController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\BlogCategoriesRepository $repository
+     * @param  \App\Repositories\Backend\BlogCategoriesRepository  $repository
      */
     public function __construct(BlogCategoriesRepository $repository)
     {
@@ -32,8 +32,7 @@ class BlogCategoriesController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest  $request
      * @return ViewResponse
      */
     public function index(ManageBlogCategoriesRequest $request)
@@ -42,8 +41,7 @@ class BlogCategoriesController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\BlogCategories\CreateBlogCategoriesRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\BlogCategories\CreateBlogCategoriesRequest  $request
      * @return \App\Http\Responses\ViewResponse
      */
     public function create(CreateBlogCategoriesRequest $request)
@@ -65,9 +63,8 @@ class BlogCategoriesController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogCategory $blogCategory
-     * @param \App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest $request
-     *
+     * @param  \App\Models\BlogCategory  $blogCategory
+     * @param  \App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest  $request
      * @return \App\Http\Responses\Backend\BlogCategory\EditResponse
      */
     public function edit(BlogCategory $blogCategory, ManageBlogCategoriesRequest $request)
@@ -76,9 +73,8 @@ class BlogCategoriesController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogCategory $blogCategory
-     * @param \App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest $request
-     *
+     * @param  \App\Models\BlogCategory  $blogCategory
+     * @param  \App\Http\Requests\Backend\BlogCategories\UpdateBlogCategoriesRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function update(BlogCategory $blogCategory, UpdateBlogCategoriesRequest $request)
@@ -89,9 +85,8 @@ class BlogCategoriesController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogCategory $blogCategory
-     * @param \App\Http\Requests\Backend\BlogCategories\DeleteBlogCategoriesRequest $request
-     *
+     * @param  \App\Models\BlogCategory  $blogCategory
+     * @param  \App\Http\Requests\Backend\BlogCategories\DeleteBlogCategoriesRequest  $request
      * @return mixed
      */
     public function destroy(BlogCategory $blogCategory, DeleteBlogCategoriesRequest $request)

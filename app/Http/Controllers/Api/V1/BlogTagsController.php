@@ -53,8 +53,7 @@ class BlogTagsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-tag/blog-tag-list.json
      *
-     * @param ManageBlogTagsRequest $request
-     *
+     * @param  ManageBlogTagsRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(ManageBlogTagsRequest $request)
@@ -75,9 +74,8 @@ class BlogTagsController extends APIController
      * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
      * @responseFile responses/blog-tag/blog-tag-show.json
      *
-     * @param ManageBlogTagsRequest $request
-     * @param BlogTag $blogTag
-     *
+     * @param  ManageBlogTagsRequest  $request
+     * @param  BlogTag  $blogTag
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(ManageBlogTagsRequest $request, BlogTag $blogTag)
@@ -93,8 +91,7 @@ class BlogTagsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-tag/blog-tag-store.json
      *
-     * @param \App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreBlogTagsRequest $request)
@@ -115,9 +112,8 @@ class BlogTagsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog-tag/blog-tag-update.json
      *
-     * @param UpdateBlogTagsRequest $request
-     * @param BlogTag $blogTag
-     *
+     * @param  UpdateBlogTagsRequest  $request
+     * @param  BlogTag  $blogTag
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateBlogTagsRequest $request, BlogTag $blogTag)
@@ -138,9 +134,8 @@ class BlogTagsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile status=204 scenario="When the record is deleted" responses/blog-tag/blog-tag-destroy.json
      *
-     * @param DeleteBlogTagsRequest $request
-     * @param BlogTag $blogTag
-     *
+     * @param  DeleteBlogTagsRequest  $request
+     * @param  BlogTag  $blogTag
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(DeleteBlogTagsRequest $request, BlogTag $blogTag)
