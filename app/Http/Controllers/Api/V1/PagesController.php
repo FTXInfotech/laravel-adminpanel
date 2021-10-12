@@ -53,8 +53,7 @@ class PagesController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/page/page-list.json
      *
-     * @param \Illuminate\Http\ManagePageRequest $request
-     *
+     * @param  \Illuminate\Http\ManagePageRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(ManagePageRequest $request)
@@ -75,9 +74,8 @@ class PagesController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/page/page-show.json
      *
-     * @param ManagePageRequest $request
-     * @param \App\Models\Page $page
-     *
+     * @param  ManagePageRequest  $request
+     * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(ManagePageRequest $request, Page $page)
@@ -93,8 +91,7 @@ class PagesController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile status=201 responses/page/page-store.json
      *
-     * @param \App\Http\Requests\Backend\Pages\StorePageRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Pages\StorePageRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StorePageRequest $request)
@@ -117,9 +114,8 @@ class PagesController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/page/page-update.json
      *
-     * @param \App\Models\Page $page
-     * @param \App\Http\Requests\Backend\Pages\UpdatePageRequest $request
-     *
+     * @param  \App\Models\Page  $page
+     * @param  \App\Http\Requests\Backend\Pages\UpdatePageRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdatePageRequest $request, Page $page)
@@ -140,8 +136,7 @@ class PagesController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile status=204 scenario="When the record is deleted" responses/page/page-destroy.json
      *
-     * @param \App\Models\Page $page
-     *
+     * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(DeletePageRequest $request, Page $page)

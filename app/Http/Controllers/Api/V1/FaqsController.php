@@ -53,8 +53,7 @@ class FaqsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/faq/faq-list.json
      *
-     * @param ManageFaqsRequest $request
-     *
+     * @param  ManageFaqsRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(ManageFaqsRequest $request)
@@ -75,9 +74,8 @@ class FaqsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/faq/faq-show.json
      *
-     * @param ManageFaqsRequest $request
-     * @param \App\Models\Faq $faq
-     *
+     * @param  ManageFaqsRequest  $request
+     * @param  \App\Models\Faq  $faq
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(ManageFaqsRequest $request, Faq $faq)
@@ -93,8 +91,7 @@ class FaqsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile status=201 responses/faq/faq-store.json
      *
-     * @param \App\Http\Requests\Backend\Faqs\StoreFaqsRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Faqs\StoreFaqsRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreFaqsRequest $request)
@@ -115,9 +112,8 @@ class FaqsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/faq/faq-update.json
      *
-     * @param \App\Models\Faq $faq
-     * @param \App\Http\Requests\Backend\Faqs\UpdateFaqsRequest $request
-     *
+     * @param  \App\Models\Faq  $faq
+     * @param  \App\Http\Requests\Backend\Faqs\UpdateFaqsRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateFaqsRequest $request, Faq $faq)
@@ -138,8 +134,7 @@ class FaqsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile status=204 scenario="When the record is deleted" responses/faq/faq-destroy.json
      *
-     * @param \App\Models\Faq $faq
-     *
+     * @param  \App\Models\Faq  $faq
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(DeleteFaqsRequest $request, Faq $faq)

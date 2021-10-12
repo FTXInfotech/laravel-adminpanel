@@ -31,9 +31,8 @@ class UserRepository extends BaseRepository
     const MODEL = User::class;
 
     /**
-     * @param int  $status
-     * @param bool $trashed
-     *
+     * @param  int  $status
+     * @param  bool  $trashed
      * @return mixed
      */
     public function getForDataTable($status = 1, $trashed = false)
@@ -64,11 +63,11 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
+     * @return User
      *
      * @throws \Exception
      * @throws \Throwable
-     * @return User
      */
     public function create(array $data)
     {
@@ -103,13 +102,13 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\Auth\User  $user
-     * @param array $data
+     * @param  \App\Models\Auth\User  $user
+     * @param  array  $data
+     * @return \App\Models\Auth\User
      *
      * @throws GeneralException
      * @throws \Exception
      * @throws \Throwable
-     * @return \App\Models\Auth\User
      */
     public function update(User $user, array $data)
     {
@@ -139,11 +138,10 @@ class UserRepository extends BaseRepository
     /**
      * Delete User.
      *
-     * @param App\Models\Auth\User $user
+     * @param  App\Models\Auth\User  $user
+     * @return bool
      *
      * @throws GeneralException
-     *
-     * @return bool
      */
     public function delete(User $user)
     {
@@ -161,11 +159,11 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\Auth\User $user
-     * @param      $input
+     * @param  \App\Models\Auth\User  $user
+     * @param  $input
+     * @return \App\Models\Auth\User
      *
      * @throws GeneralException
-     * @return \App\Models\Auth\User
      */
     public function updatePassword(User $user, $input): User
     {
@@ -179,11 +177,11 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\Auth\User $user
-     * @param int $status
+     * @param  \App\Models\Auth\User  $user
+     * @param  int  $status
+     * @return \App\Models\Auth\User
      *
      * @throws GeneralException
-     * @return \App\Models\Auth\User
      */
     public function mark(User $user, $status): User
     {
@@ -210,10 +208,10 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\Auth\User $user
+     * @param  \App\Models\Auth\User  $user
+     * @return \App\Models\Auth\User
      *
      * @throws GeneralException
-     * @return \App\Models\Auth\User
      */
     public function confirm(User $user): User
     {
@@ -239,10 +237,10 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\Auth\User $user
+     * @param  \App\Models\Auth\User  $user
+     * @return \App\Models\Auth\User
      *
      * @throws GeneralException
-     * @return \App\Models\Auth\User
      */
     public function unconfirm(User $user): User
     {
@@ -273,12 +271,12 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\Auth\User $user
+     * @param  \App\Models\Auth\User  $user
+     * @return \App\Models\Auth\User
      *
      * @throws GeneralException
      * @throws \Exception
      * @throws \Throwable
-     * @return \App\Models\Auth\User
      */
     public function forceDelete(User $user)
     {
@@ -302,10 +300,10 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\Auth\User $user
+     * @param  \App\Models\Auth\User  $user
+     * @return \App\Models\Auth\User
      *
      * @throws GeneralException
-     * @return \App\Models\Auth\User
      */
     public function restore(User $user): User
     {
@@ -324,7 +322,6 @@ class UserRepository extends BaseRepository
 
     /**
      * @param  $input
-     *
      * @return mixed
      */
     protected function createUserStub($input)
@@ -368,10 +365,9 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param int    $paged
-     * @param string $orderBy
-     * @param string $sort
-     *
+     * @param  int  $paged
+     * @param  string  $orderBy
+     * @param  string  $sort
      * @return mixed
      */
     public function getActivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc'): LengthAwarePaginator
@@ -384,10 +380,9 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param int    $paged
-     * @param string $orderBy
-     * @param string $sort
-     *
+     * @param  int  $paged
+     * @param  string  $orderBy
+     * @param  string  $sort
      * @return LengthAwarePaginator
      */
     public function getInactivePaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc'): LengthAwarePaginator
@@ -400,10 +395,9 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param int    $paged
-     * @param string $orderBy
-     * @param string $sort
-     *
+     * @param  int  $paged
+     * @param  string  $orderBy
+     * @param  string  $sort
      * @return LengthAwarePaginator
      */
     public function getDeletedPaginated($paged = 25, $orderBy = 'created_at', $sort = 'desc'): LengthAwarePaginator
