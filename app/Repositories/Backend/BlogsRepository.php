@@ -60,6 +60,7 @@ class BlogsRepository extends BaseRepository
      * Retrieve List.
      *
      * @var array
+     *
      * @return Collection
      */
     public function retrieveList(array $options = [])
@@ -100,11 +101,10 @@ class BlogsRepository extends BaseRepository
     }
 
     /**
-     * @param array $input
+     * @param  array  $input
+     * @return bool
      *
      * @throws \App\Exceptions\GeneralException
-     *
-     * @return bool
      */
     public function create(array $input)
     {
@@ -141,8 +141,8 @@ class BlogsRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\Blog $blog
-     * @param array $input
+     * @param  \App\Models\Blog  $blog
+     * @param  array  $input
      */
     public function update(Blog $blog, array $input)
     {
@@ -185,8 +185,7 @@ class BlogsRepository extends BaseRepository
     /**
      * Creating Tags.
      *
-     * @param array $tags
-     *
+     * @param  array  $tags
      * @return array
      */
     public function createTags($tags)
@@ -218,8 +217,7 @@ class BlogsRepository extends BaseRepository
     /**
      * Creating Categories.
      *
-     * @param array $categories
-     *
+     * @param  array  $categories
      * @return array
      */
     public function createCategories($categories)
@@ -250,11 +248,10 @@ class BlogsRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\Blogs\Blog $blog
+     * @param  \App\Models\Blogs\Blog  $blog
+     * @return bool
      *
      * @throws GeneralException
-     *
-     * @return bool
      */
     public function delete(Blog $blog)
     {
@@ -275,8 +272,7 @@ class BlogsRepository extends BaseRepository
     /**
      * Upload Image.
      *
-     * @param array $input
-     *
+     * @param  array  $input
      * @return array $input
      */
     public function uploadImage($input)
@@ -296,7 +292,7 @@ class BlogsRepository extends BaseRepository
     /**
      * Destroy Old Image.
      *
-     * @param int $id
+     * @param  int  $id
      */
     public function deleteOldFile($model)
     {
