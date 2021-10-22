@@ -23,7 +23,7 @@ class BlogTagsController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\BlogTagsRepository $repository
+     * @param  \App\Repositories\Backend\BlogTagsRepository  $repository
      */
     public function __construct(BlogTagsRepository $repository)
     {
@@ -32,8 +32,7 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest  $request
      * @return ViewResponse
      */
     public function index(ManageBlogTagsRequest $request)
@@ -43,8 +42,8 @@ class BlogTagsController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @param \App\Http\Requests\Backend\BlogTags\CreateBlogTagsRequest
      *
+     * @param \App\Http\Requests\Backend\BlogTags\CreateBlogTagsRequest
      * @return ViewResponse
      */
     public function create(CreateBlogTagsRequest $request)
@@ -53,8 +52,7 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\BlogTags\StoreBlogTagsRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StoreBlogTagsRequest $request)
@@ -65,9 +63,8 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogTag $blogTag
-     * @param \App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest $request
-     *
+     * @param  \App\Models\BlogTag  $blogTag
+     * @param  \App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest  $request
      * @return \App\Http\Responses\Backend\BlogTag\EditResponse
      */
     public function edit(BlogTag $blogTag, ManageBlogTagsRequest $request)
@@ -76,9 +73,8 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogTag $blogTag
-     * @param \App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest $request
-     *
+     * @param  \App\Models\BlogTag  $blogTag
+     * @param  \App\Http\Requests\Backend\BlogTags\UpdateBlogTagsRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function update(BlogTag $blogTag, UpdateBlogTagsRequest $request)
@@ -89,9 +85,8 @@ class BlogTagsController extends Controller
     }
 
     /**
-     * @param \App\Models\BlogTag $blogTag
-     * @param \App\Http\Requests\Backend\BlogTags\DeleteBlogTagsRequest $request
-     *
+     * @param  \App\Models\BlogTag  $blogTag
+     * @param  \App\Http\Requests\Backend\BlogTags\DeleteBlogTagsRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(BlogTag $blogTag, DeleteBlogTagsRequest $request)

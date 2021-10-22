@@ -23,7 +23,7 @@ class EmailTemplatesController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\EmailTemplatesRepository $emailTemplate
+     * @param  \App\Repositories\Backend\EmailTemplatesRepository  $emailTemplate
      */
     public function __construct(EmailTemplatesRepository $repository)
     {
@@ -32,8 +32,7 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest  $request
      * @return ViewResponse
      */
     public function index(ManageEmailTemplatesRequest $request)
@@ -43,7 +42,6 @@ class EmailTemplatesController extends Controller
 
     /**
      * @param \App\Http\Requests\Backend\EmailTemplates\CreateEmailTemplatesRequest
-     *
      * @return ViewResponse
      */
     public function create(CreateEmailTemplatesRequest $request)
@@ -52,8 +50,7 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\EmailTemplates\StoreEmailTemplatesRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\EmailTemplates\StoreEmailTemplatesRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StoreEmailTemplatesRequest $request)
@@ -64,9 +61,8 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * @param \App\Models\EmailTemplate $emailTemplate
-     * @param \App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest $request
-     *
+     * @param  \App\Models\EmailTemplate  $emailTemplate
+     * @param  \App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest  $request
      * @return \App\Http\Responses\Backend\EmailTemplates\EditResponse
      */
     public function edit(EmailTemplate $emailTemplate, ManageEmailTemplatesRequest $request)
@@ -75,9 +71,8 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * @param \App\Models\EmailTemplate $emailTemplate
-     * @param \App\Http\Requests\Backend\EmailTemplates\UpdateEmailTemplatesRequest $request
-     *
+     * @param  \App\Models\EmailTemplate  $emailTemplate
+     * @param  \App\Http\Requests\Backend\EmailTemplates\UpdateEmailTemplatesRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function update(EmailTemplate $emailTemplate, UpdateEmailTemplatesRequest $request)
@@ -88,9 +83,8 @@ class EmailTemplatesController extends Controller
     }
 
     /**
-     * @param \App\Models\EmailTemplate $emailTemplate
-     * @param \App\Http\Requests\Backend\EmailTemplates\DeleteEmailTemplatesRequest $request
-     *
+     * @param  \App\Models\EmailTemplate  $emailTemplate
+     * @param  \App\Http\Requests\Backend\EmailTemplates\DeleteEmailTemplatesRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(EmailTemplate $emailTemplate, DeleteEmailTemplatesRequest $request)

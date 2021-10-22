@@ -28,8 +28,8 @@ class SocialLoginController extends Controller
     /**
      * SocialLoginController constructor.
      *
-     * @param UserRepository  $userRepository
-     * @param SocialiteHelper $socialiteHelper
+     * @param  UserRepository  $userRepository
+     * @param  SocialiteHelper  $socialiteHelper
      */
     public function __construct(UserRepository $userRepository, SocialiteHelper $socialiteHelper)
     {
@@ -38,12 +38,11 @@ class SocialLoginController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @param $provider
+     * @return \Illuminate\Http\RedirectResponse|mixed
      *
      * @throws GeneralException
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function login(Request $request, $provider)
     {
@@ -99,7 +98,6 @@ class SocialLoginController extends Controller
 
     /**
      * @param  $provider
-     *
      * @return mixed
      */
     protected function getAuthorizationFirst($provider)
@@ -126,7 +124,6 @@ class SocialLoginController extends Controller
 
     /**
      * @param $provider
-     *
      * @return mixed
      */
     protected function getProviderUser($provider)
