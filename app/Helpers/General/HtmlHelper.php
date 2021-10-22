@@ -20,7 +20,7 @@ class HtmlHelper
     /**
      * HtmlHelper constructor.
      *
-     * @param UrlGenerator|null $url
+     * @param  UrlGenerator|null  $url
      */
     public function __construct(UrlGenerator $url = null)
     {
@@ -28,10 +28,9 @@ class HtmlHelper
     }
 
     /**
-     * @param       $url
-     * @param array $attributes
-     * @param null  $secure
-     *
+     * @param  $url
+     * @param  array  $attributes
+     * @param  null  $secure
      * @return mixed
      */
     public function style($url, $attributes = [], $secure = null)
@@ -48,10 +47,9 @@ class HtmlHelper
     /**
      * Generate a link to a JavaScript file.
      *
-     * @param string $url
-     * @param array  $attributes
-     * @param bool   $secure
-     *
+     * @param  string  $url
+     * @param  array  $attributes
+     * @param  bool  $secure
      * @return \Illuminate\Support\HtmlString
      */
     public function script($url, $attributes = [], $secure = null)
@@ -62,10 +60,9 @@ class HtmlHelper
     }
 
     /**
-     * @param        $cancel_to
-     * @param        $title
-     * @param string $classes
-     *
+     * @param  $cancel_to
+     * @param  $title
+     * @param  string  $classes
      * @return HtmlString
      */
     public function formCancel($cancel_to, $title, $classes = 'btn btn-danger btn-sm')
@@ -74,9 +71,8 @@ class HtmlHelper
     }
 
     /**
-     * @param        $title
-     * @param string $classes
-     *
+     * @param  $title
+     * @param  string  $classes
      * @return HtmlString
      */
     public function formSubmit($title, $classes = 'btn btn-success btn-sm pull-right')
@@ -87,8 +83,7 @@ class HtmlHelper
     /**
      * Build an HTML attribute string from an array.
      *
-     * @param array $attributes
-     *
+     * @param  array  $attributes
      * @return string
      */
     public function attributes($attributes)
@@ -109,9 +104,8 @@ class HtmlHelper
     /**
      * Build a single attribute element.
      *
-     * @param string $key
-     * @param string $value
-     *
+     * @param  string  $key
+     * @param  string  $value
      * @return string
      */
     protected function attributeElement($key, $value)
@@ -139,7 +133,6 @@ class HtmlHelper
      * Transform the string to an Html serializable object.
      *
      * @param $html
-     *
      * @return \Illuminate\Support\HtmlString
      */
     protected function toHtmlString($html)

@@ -53,8 +53,7 @@ class BlogsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog/blog-list.json
      *
-     * @param ManageBlogsRequest $request
-     *
+     * @param  ManageBlogsRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(ManageBlogsRequest $request)
@@ -76,7 +75,6 @@ class BlogsController extends APIController
      * @responseFile responses/blog/blog-show.json
      *
      * @param \App\Models\Blog blog
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(ManageBlogsRequest $request, Blog $blog)
@@ -92,8 +90,7 @@ class BlogsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile status=201 responses/blog/blog-store.json
      *
-     * @param StoreBlogsRequest $request
-     *
+     * @param  StoreBlogsRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreBlogsRequest $request)
@@ -114,9 +111,8 @@ class BlogsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile responses/blog/blog-update.json
      *
-     * @param \App\Models\Blog $blog
-     * @param \App\Http\Requests\Backend\Blogs\UpdateBlogsRequest $request
-     *
+     * @param  \App\Models\Blog  $blog
+     * @param  \App\Http\Requests\Backend\Blogs\UpdateBlogsRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateBlogsRequest $request, Blog $blog)
@@ -135,9 +131,8 @@ class BlogsController extends APIController
      * @responseFile status=401 scenario="api_key not provided" responses/unauthenticated.json
      * @responseFile status=204 scenario="When the record is deleted" responses/blog/blog-destroy.json
      *
-     * @param DeleteBlogsRequest $request
-     * @param \App\Models\Blog $blog
-     *
+     * @param  DeleteBlogsRequest  $request
+     * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(DeleteBlogsRequest $request, Blog $blog)
