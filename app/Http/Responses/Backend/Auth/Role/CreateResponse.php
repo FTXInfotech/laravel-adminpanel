@@ -17,8 +17,8 @@ class CreateResponse implements Responsable
     protected $permissionRepository;
 
     /**
-     * @param \App\Repositories\Backend\Auth\Permission\PermissionRepository $permissions
-     * @param \App\Repositories\Backend\Auth\Role\RoleRepository $roles
+     * @param  \App\Repositories\Backend\Auth\Permission\PermissionRepository  $permissions
+     * @param  \App\Repositories\Backend\Auth\Role\RoleRepository  $roles
      */
     public function __construct($permissions, $roles)
     {
@@ -29,8 +29,7 @@ class CreateResponse implements Responsable
     /**
      * In Response.
      *
-     * @param \App\Http\Requests\Request $request
-     *
+     * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function toResponse($request)
