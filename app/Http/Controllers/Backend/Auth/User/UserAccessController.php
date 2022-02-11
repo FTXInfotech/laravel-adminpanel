@@ -14,12 +14,11 @@ use App\Models\Auth\User;
 class UserAccessController extends Controller
 {
     /**
-     * @param User              $user
-     * @param ManageUserRequest $request
+     * @param  User  $user
+     * @param  ManageUserRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
      *
      * @throws GeneralException
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function loginAs(User $user, ManageUserRequest $request)
     {
