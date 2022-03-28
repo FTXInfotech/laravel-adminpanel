@@ -31,7 +31,6 @@ class APIController extends Controller
      * set the status code.
      *
      * @param [type] $statusCode [description]
-     *
      * @return statuscode
      */
     public function setStatusCode($statusCode)
@@ -44,9 +43,8 @@ class APIController extends Controller
     /**
      * Respond.
      *
-     * @param array $data
-     * @param array $headers
-     *
+     * @param  array  $data
+     * @param  array  $headers
      * @return \Illuminate\Http\JsonResponse
      */
     public function respond($data, $headers = [])
@@ -57,9 +55,8 @@ class APIController extends Controller
     /**
      * respond with pagincation.
      *
-     * @param Paginator $items
-     * @param array     $data
-     *
+     * @param  Paginator  $items
+     * @param  array  $data
      * @return \Illuminate\Http\JsonResponse
      */
     public function respondWithPagination($items, $data)
@@ -79,8 +76,7 @@ class APIController extends Controller
     /**
      * Respond Created.
      *
-     * @param string $message
-     *
+     * @param  string  $message
      * @return \Illuminate\Http\JsonResponse
      */
     public function respondCreated($data)
@@ -93,8 +89,7 @@ class APIController extends Controller
     /**
      * Respond Created with data.
      *
-     * @param string $message
-     *
+     * @param  string  $message
      * @return \Illuminate\Http\JsonResponse
      */
     public function respondCreatedWithData($data)
@@ -106,7 +101,6 @@ class APIController extends Controller
      * respond with error.
      *
      * @param $message
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function respondWithError($message)
@@ -122,8 +116,7 @@ class APIController extends Controller
     /**
      * responsd not found.
      *
-     * @param string $message
-     *
+     * @param  string  $message
      * @return \Illuminate\Http\JsonResponse
      */
     public function respondNotFound($message = 'Not Found')
@@ -134,8 +127,7 @@ class APIController extends Controller
     /**
      * Respond with error.
      *
-     * @param string $message
-     *
+     * @param  string  $message
      * @return \Illuminate\Http\JsonResponse
      */
     public function respondInternalError($message = 'Internal Error')
@@ -146,8 +138,7 @@ class APIController extends Controller
     /**
      * Respond with unauthorized.
      *
-     * @param string $message
-     *
+     * @param  string  $message
      * @return \Illuminate\Http\JsonResponse
      */
     protected function respondUnauthorized($message = 'Unauthorized')
@@ -158,8 +149,7 @@ class APIController extends Controller
     /**
      * Respond with forbidden.
      *
-     * @param string $message
-     *
+     * @param  string  $message
      * @return \Illuminate\Http\JsonResponse
      */
     protected function respondForbidden($message = 'Forbidden')
