@@ -14,13 +14,13 @@ use App\Repositories\Backend\Auth\User\SocialRepository;
 class UserSocialController extends Controller
 {
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     * @param \App\Repositories\Backend\Auth\User\SocialRepository  $socialRepository
-     * @param \App\Models\Auth\User $user
-     * @param \App\Models\Auth\SocialAccount $social
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
+     * @param  \App\Repositories\Backend\Auth\User\SocialRepository  $socialRepository
+     * @param  \App\Models\Auth\User  $user
+     * @param  \App\Models\Auth\SocialAccount  $social
+     * @return mixed
      *
      * @throws \App\Exceptions\GeneralException
-     * @return mixed
      */
     public function unlink(ManageUserRequest $request, SocialRepository $socialRepository, User $user, SocialAccount $social)
     {

@@ -12,9 +12,8 @@ use App\Models\Auth\User;
 class UserSessionController extends Controller
 {
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     * @param \App\Models\Auth\User $user
-     *
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
+     * @param  \App\Models\Auth\User  $user
      * @return mixed
      */
     public function clearSession(ManageUserRequest $request, User $user)
