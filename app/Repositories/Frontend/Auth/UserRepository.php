@@ -26,11 +26,11 @@ class UserRepository extends BaseRepository
     const MODEL = User::class;
 
     /**
-     * @param      $input
-     * @param bool $expired
+     * @param  $input
+     * @param  bool  $expired
+     * @return bool
      *
      * @throws GeneralException
-     * @return bool
      */
     public function updatePassword($input, $expired = false)
     {
@@ -49,11 +49,11 @@ class UserRepository extends BaseRepository
 
     /**
      * @param \App\Models\Auth\User;
-     * @param array $input
-     * @param bool|UploadedFile  $image
+     * @param  array  $input
+     * @param  bool|UploadedFile  $image
+     * @return array|bool
      *
      * @throws GeneralException
-     * @return array|bool
      */
     public function update(User $user, array $input, $image = false)
     {
@@ -111,11 +111,11 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
+     * @return \Illuminate\Database\Eloquent\Model|mixed
      *
      * @throws \Exception
      * @throws \Throwable
-     * @return \Illuminate\Database\Eloquent\Model|mixed
      */
     public function create(array $data)
     {
@@ -148,7 +148,6 @@ class UserRepository extends BaseRepository
 
     /**
      * @param  $input
-     *
      * @return mixed
      */
     protected function createUserStub($input)
@@ -167,9 +166,9 @@ class UserRepository extends BaseRepository
 
     /**
      * @param $code
+     * @return bool
      *
      * @throws GeneralException
-     * @return bool
      */
     public function confirm($code)
     {
@@ -192,9 +191,9 @@ class UserRepository extends BaseRepository
 
     /**
      * @param $code
+     * @return mixed
      *
      * @throws GeneralException
-     * @return mixed
      */
     public function findByConfirmationCode($code)
     {
@@ -211,7 +210,6 @@ class UserRepository extends BaseRepository
 
     /**
      * @param $token
-     *
      * @return bool|\Illuminate\Database\Eloquent\Model
      */
     public function findByPasswordResetToken($token)
@@ -227,9 +225,9 @@ class UserRepository extends BaseRepository
 
     /**
      * @param $uuid
+     * @return mixed
      *
      * @throws GeneralException
-     * @return mixed
      */
     public function findByUuid($uuid)
     {
@@ -247,9 +245,9 @@ class UserRepository extends BaseRepository
     /**
      * @param $data
      * @param $provider
+     * @return mixed
      *
      * @throws GeneralException
-     * @return mixed
      */
     public function findOrCreateProvider($data, $provider)
     {
@@ -317,7 +315,6 @@ class UserRepository extends BaseRepository
 
     /**
      * @param $fullName
-     *
      * @return array
      */
     protected function getNameParts($fullName)

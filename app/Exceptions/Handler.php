@@ -41,10 +41,10 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param Exception $exception
+     * @param  Exception  $exception
+     * @return mixed|void
      *
      * @throws Exception
-     * @return mixed|void
      */
     public function report(Exception $exception)
     {
@@ -56,8 +56,9 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $exception
-     * @throws \Exception
      * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Exception
      */
     public function render($request, Exception $exception)
     {
@@ -123,7 +124,6 @@ class Handler extends ExceptionHandler
      * set the status code.
      *
      * @param [type] $statusCode [description]
-     *
      * @return statuscode
      */
     public function setStatusCode($statusCode)
@@ -137,7 +137,6 @@ class Handler extends ExceptionHandler
      * respond with error.
      *
      * @param $message
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     protected function respondWithError($message)
@@ -153,9 +152,8 @@ class Handler extends ExceptionHandler
     /**
      * Respond.
      *
-     * @param array $data
-     * @param array $headers
-     *
+     * @param  array  $data
+     * @param  array  $headers
      * @return \Illuminate\Http\JsonResponse
      */
     public function respond($data, $headers = [])

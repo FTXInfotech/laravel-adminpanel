@@ -12,7 +12,7 @@ class EditResponse implements Responsable
     protected $blogTag;
 
     /**
-     * @param \App\Models\BlogTags\BlogTag $blogTag
+     * @param  \App\Models\BlogTags\BlogTag  $blogTag
      */
     public function __construct($blogTag)
     {
@@ -22,8 +22,7 @@ class EditResponse implements Responsable
     /**
      * toReponse.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function toResponse($request)
