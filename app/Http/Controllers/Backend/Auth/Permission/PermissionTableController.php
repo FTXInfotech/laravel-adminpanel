@@ -18,7 +18,7 @@ class PermissionTableController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\Auth\PermissionRepository $repository
+     * @param  \App\Repositories\Backend\Auth\PermissionRepository  $repository
      */
     public function __construct(PermissionRepository $repository)
     {
@@ -26,8 +26,7 @@ class PermissionTableController extends Controller
     }
 
     /**
-     * @param App\Http\Requests\Backend\Auth\Permission\ManagePermissionRequest $request
-     *
+     * @param  App\Http\Requests\Backend\Auth\Permission\ManagePermissionRequest  $request
      * @return mixed
      */
     public function __invoke(ManagePermissionRequest $request)

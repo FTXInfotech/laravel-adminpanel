@@ -25,7 +25,7 @@ class PermissionsController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\Auth\PermissionRepository $repository
+     * @param  \App\Repositories\Backend\Auth\PermissionRepository  $repository
      */
     public function __construct(PermissionRepository $repository)
     {
@@ -34,8 +34,7 @@ class PermissionsController extends Controller
     }
 
     /**
-     * @param ManagePermissionRequest $request
-     *
+     * @param  ManagePermissionRequest  $request
      * @return \App\Http\Responses\ViewResponse
      */
     public function index(ManagePermissionRequest $request)
@@ -44,8 +43,7 @@ class PermissionsController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\Permission\CreatePermissionRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Auth\Permission\CreatePermissionRequest  $request
      * @return \App\Http\Responses\Backend\Auth\Permission\CreateResponse
      */
     public function create(CreatePermissionRequest $request)
@@ -54,8 +52,7 @@ class PermissionsController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\Permission\StorePermissionRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Auth\Permission\StorePermissionRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StorePermissionRequest $request)
@@ -66,9 +63,8 @@ class PermissionsController extends Controller
     }
 
     /**
-     * @param \App\Models\Auth\Permission $permission
-     * @param \App\Http\Requests\Backend\Auth\Permission\EditPermissionRequest $request
-     *
+     * @param  \App\Models\Auth\Permission  $permission
+     * @param  \App\Http\Requests\Backend\Auth\Permission\EditPermissionRequest  $request
      * @return \App\Http\Responses\Backend\Auth\Permission\EditResponse
      */
     public function edit(Permission $permission, EditPermissionRequest $request)
@@ -77,9 +73,8 @@ class PermissionsController extends Controller
     }
 
     /**
-     * @param App\Models\Auth\Permission $permission
-     * @param \App\Http\Requests\Backend\Auth\Permission\UpdatePermissionRequest $request
-     *
+     * @param  App\Models\Auth\Permission  $permission
+     * @param  \App\Http\Requests\Backend\Auth\Permission\UpdatePermissionRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function update(Permission $permission, UpdatePermissionRequest $request)
@@ -90,9 +85,8 @@ class PermissionsController extends Controller
     }
 
     /**
-     * @param App\Models\Auth\Permission $permission
-     * @param \App\Http\Requests\Backend\Auth\Permission\DeletePermissionRequest $request
-     *
+     * @param  App\Models\Auth\Permission  $permission
+     * @param  \App\Http\Requests\Backend\Auth\Permission\DeletePermissionRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(Permission $permission, DeletePermissionRequest $request)
