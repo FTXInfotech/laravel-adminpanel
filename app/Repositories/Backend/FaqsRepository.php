@@ -34,6 +34,7 @@ class FaqsRepository extends BaseRepository
      * Retrieve List.
      *
      * @var array
+     *
      * @return Collection
      */
     public function retrieveList(array $options = [])
@@ -67,11 +68,10 @@ class FaqsRepository extends BaseRepository
     }
 
     /**
-     * @param array $input
+     * @param  array  $input
+     * @return bool
      *
      * @throws \App\Exceptions\GeneralException
-     *
-     * @return bool
      */
     public function create(array $input)
     {
@@ -88,8 +88,8 @@ class FaqsRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\Faq $faq
-     * @param array $input
+     * @param  \App\Models\Faq  $faq
+     * @param  array  $input
      */
     public function update(Faq $faq, array $input)
     {
@@ -106,11 +106,10 @@ class FaqsRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\Faq $faq
+     * @param  \App\Models\Faq  $faq
+     * @return bool
      *
      * @throws GeneralException
-     *
-     * @return bool
      */
     public function delete(Faq $faq)
     {

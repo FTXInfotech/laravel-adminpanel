@@ -16,7 +16,7 @@ class BlogTagsTableController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\BlogTagsRepository $repository
+     * @param  \App\Repositories\Backend\BlogTagsRepository  $repository
      */
     public function __construct(BlogTagsRepository $repository)
     {
@@ -24,8 +24,7 @@ class BlogTagsTableController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\BlogTags\ManageBlogTagsRequest  $request
      * @return mixed
      */
     public function __invoke(ManageBlogTagsRequest $request)

@@ -15,11 +15,11 @@ class SocialRepository
     const MODEL = SocialAccount::class;
 
     /**
-     * @param \App\Models\Auth\User $user
-     * @param App\Models\Auth\SocialAccount $social
+     * @param  \App\Models\Auth\User  $user
+     * @param  App\Models\Auth\SocialAccount  $social
+     * @return bool
      *
      * @throws GeneralException
-     * @return bool
      */
     public function delete(User $user, SocialAccount $social)
     {
