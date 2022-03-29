@@ -33,7 +33,7 @@ class UserObserver
     }
 
     /**
-     * @param User $user
+     * @param  User  $user
      */
     private function logPasswordHistory(User $user): void
     {
