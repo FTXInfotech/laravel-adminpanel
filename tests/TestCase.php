@@ -46,8 +46,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Create an administrator.
      *
-     * @param array $attributes
-     *
+     * @param  array  $attributes
      * @return mixed
      */
     protected function createAdmin(array $attributes = [])
@@ -62,8 +61,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Login the given administrator or create the first if none supplied.
      *
-     * @param bool $admin
-     *
+     * @param  bool  $admin
      * @return bool|mixed
      */
     protected function loginAsAdmin($admin = false)
