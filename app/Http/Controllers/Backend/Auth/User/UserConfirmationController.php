@@ -16,7 +16,7 @@ class UserConfirmationController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\Auth\UserRepository $repository
+     * @param  \App\Repositories\Backend\Auth\UserRepository  $repository
      */
     public function __construct(UserRepository $repository)
     {
@@ -24,9 +24,8 @@ class UserConfirmationController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     * @param \App\Models\Auth\User $user
-     *
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
+     * @param  \App\Models\Auth\User  $user
      * @return mixed
      */
     public function sendConfirmationEmail(ManageUserRequest $request, User $user)
@@ -46,11 +45,11 @@ class UserConfirmationController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     * @param \App\Models\Auth\User $user
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
+     * @param  \App\Models\Auth\User  $user
+     * @return mixed
      *
      * @throws \App\Exceptions\GeneralException
-     * @return mixed
      */
     public function confirm(ManageUserRequest $request, User $user)
     {
@@ -60,11 +59,11 @@ class UserConfirmationController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     * @param \App\Models\Auth\User $user
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
+     * @param  \App\Models\Auth\User  $user
+     * @return mixed
      *
      * @throws \App\Exceptions\GeneralException
-     * @return mixed
      */
     public function unconfirm(ManageUserRequest $request, User $user)
     {

@@ -21,7 +21,8 @@ class UserRegistrationTest extends TestCase
 
     /**
      * Helper function for registering a user.
-     * @param array $userData
+     *
+     * @param  array  $userData
      * @return \Illuminate\Foundation\Testing\TestResponse
      */
     protected function registerUser($userData = [], $roleData = [])
