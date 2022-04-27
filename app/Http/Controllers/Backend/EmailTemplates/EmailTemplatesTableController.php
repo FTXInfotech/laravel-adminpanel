@@ -15,7 +15,7 @@ class EmailTemplatesTableController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\EmailTemplatesRepository $repository
+     * @param  \App\Repositories\Backend\EmailTemplatesRepository  $repository
      */
     public function __construct(EmailTemplatesRepository $repository)
     {
@@ -23,8 +23,7 @@ class EmailTemplatesTableController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\EmailTemplates\ManageEmailTemplatesRequest  $request
      * @return mixed
      */
     public function __invoke(ManageEmailTemplatesRequest $request)
