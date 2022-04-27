@@ -16,10 +16,9 @@ class BaseRepository
      * Get Paginated.
      *
      * @param $per_page
-     * @param string $active
-     * @param string $order_by
-     * @param string $sort
-     *
+     * @param  string  $active
+     * @param  string  $order_by
+     * @param  string  $sort
      * @return mixed
      */
     public function getPaginated($per_page, $active = '', $order_by = 'id', $sort = 'asc')
@@ -44,7 +43,6 @@ class BaseRepository
 
     /**
      * @param $id
-     *
      * @return mixed
      */
     public function find($id)
@@ -55,9 +53,8 @@ class BaseRepository
     /**
      * Find Record based on specific column.
      *
-     * @param string $value
-     * @param string $column_name
-     *
+     * @param  string  $value
+     * @param  string  $column_name
      * @return mixed
      */
     public function getByColumn($value, $column_name = 'id')
@@ -76,8 +73,7 @@ class BaseRepository
     /**
      * Generate drop-down select data with basic IDs.
      *
-     * @param string $field_name
-     *
+     * @param  string  $field_name
      * @return array
      */
     public function getSelectData($field_name = 'name')

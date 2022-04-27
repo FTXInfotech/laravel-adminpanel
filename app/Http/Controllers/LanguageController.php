@@ -9,7 +9,6 @@ class LanguageController extends Controller
 {
     /**
      * @param $locale
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function swap($locale)
