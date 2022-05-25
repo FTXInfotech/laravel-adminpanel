@@ -18,7 +18,7 @@ class UserRestored
     public $user;
 
     /**
-     * @param \App\Models\Auth\User $user
+     * @param  \App\Models\Auth\User  $user
      */
     public function __construct(User $user)
     {

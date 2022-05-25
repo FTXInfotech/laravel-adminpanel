@@ -21,10 +21,10 @@ trait UserMethods
     }
 
     /**
-     * @param bool $size
+     * @param  bool  $size
+     * @return bool|\Illuminate\Contracts\Routing\UrlGenerator|mixed|string
      *
      * @throws \Illuminate\Container\EntryNotFoundException
-     * @return bool|\Illuminate\Contracts\Routing\UrlGenerator|mixed|string
      */
     public function getPicture($size = false)
     {
@@ -51,7 +51,6 @@ trait UserMethods
 
     /**
      * @param $provider
-     *
      * @return bool
      */
     public function hasProvider($provider)
