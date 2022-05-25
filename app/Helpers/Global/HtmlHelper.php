@@ -4,10 +4,9 @@ use App\Helpers\General\HtmlHelper;
 
 if (! function_exists('style')) {
     /**
-     * @param       $url
-     * @param array $attributes
-     * @param null  $secure
-     *
+     * @param  $url
+     * @param  array  $attributes
+     * @param  null  $secure
      * @return mixed
      */
     function style($url, $attributes = [], $secure = null)
@@ -18,10 +17,9 @@ if (! function_exists('style')) {
 
 if (! function_exists('script')) {
     /**
-     * @param       $url
-     * @param array $attributes
-     * @param null  $secure
-     *
+     * @param  $url
+     * @param  array  $attributes
+     * @param  null  $secure
      * @return mixed
      */
     function script($url, $attributes = [], $secure = null)
@@ -32,10 +30,9 @@ if (! function_exists('script')) {
 
 if (! function_exists('form_cancel')) {
     /**
-     * @param        $cancel_to
-     * @param        $title
-     * @param string $classes
-     *
+     * @param  $cancel_to
+     * @param  $title
+     * @param  string  $classes
      * @return mixed
      */
     function form_cancel($cancel_to, $title, $classes = 'btn btn-danger btn-sm')
@@ -46,9 +43,8 @@ if (! function_exists('form_cancel')) {
 
 if (! function_exists('form_submit')) {
     /**
-     * @param        $title
-     * @param string $classes
-     *
+     * @param  $title
+     * @param  string  $classes
      * @return mixed
      */
     function form_submit($title, $classes = 'btn btn-success btn-sm pull-right')
@@ -61,10 +57,9 @@ if (! function_exists('active_class')) {
     /**
      * Get the active class if the condition is not falsy.
      *
-     * @param        $condition
-     * @param string $activeClass
-     * @param string $inactiveClass
-     *
+     * @param  $condition
+     * @param  string  $activeClass
+     * @param  string  $inactiveClass
      * @return string
      */
     function active_class($condition, $activeClass = 'active', $inactiveClass = '')
