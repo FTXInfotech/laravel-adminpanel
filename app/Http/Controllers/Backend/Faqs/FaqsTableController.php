@@ -16,7 +16,7 @@ class FaqsTableController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\FaqsRepository $faqs
+     * @param  \App\Repositories\Backend\FaqsRepository  $faqs
      */
     public function __construct(FaqsRepository $repository)
     {
@@ -24,8 +24,7 @@ class FaqsTableController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Faqs\ManageFaqsRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Faqs\ManageFaqsRequest  $request
      * @return mixed
      */
     public function __invoke(ManageFaqsRequest $request)

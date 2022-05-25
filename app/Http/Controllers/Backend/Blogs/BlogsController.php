@@ -23,7 +23,7 @@ class BlogsController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\BlogsRepository $blog
+     * @param  \App\Repositories\Backend\BlogsRepository  $blog
      */
     public function __construct(BlogsRepository $repository)
     {
@@ -32,8 +32,7 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Blogs\ManageBlogsRequest  $request
      * @return ViewResponse
      */
     public function index(ManageBlogsRequest $request)
@@ -42,8 +41,7 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Blogs\ManageBlogsRequest  $request
      * @return ViewResponse
      */
     public function create(ManageBlogsRequest $request, Blog $blog)
@@ -55,8 +53,7 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Blogs\StoreBlogsRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Blogs\StoreBlogsRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StoreBlogsRequest $request)
@@ -67,9 +64,8 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param \App\Models\Blog $blog
-     * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
-     *
+     * @param  \App\Models\Blog  $blog
+     * @param  \App\Http\Requests\Backend\Blogs\ManageBlogsRequest  $request
      * @return \App\Http\Responses\Backend\Blog\EditResponse
      */
     public function edit(Blog $blog, ManageBlogsRequest $request)
@@ -81,9 +77,8 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param \App\Models\Blogs\Blog $blog
-     * @param \App\Http\Requests\Backend\Blogs\UpdateBlogsRequest $request
-     *
+     * @param  \App\Models\Blogs\Blog  $blog
+     * @param  \App\Http\Requests\Backend\Blogs\UpdateBlogsRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function update(Blog $blog, UpdateBlogsRequest $request)
@@ -94,9 +89,8 @@ class BlogsController extends Controller
     }
 
     /**
-     * @param \App\Models\Blog $blog
-     * @param \App\Http\Requests\Backend\Blogs\ManageBlogsRequest $request
-     *
+     * @param  \App\Models\Blog  $blog
+     * @param  \App\Http\Requests\Backend\Blogs\ManageBlogsRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(Blog $blog, ManageBlogsRequest $request)

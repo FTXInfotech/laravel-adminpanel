@@ -25,7 +25,7 @@ class UserSocialDeleted
     /**
      * UserSocialDeleted constructor.
      *
-     * @param \App\Models\Auth\User $user
+     * @param  \App\Models\Auth\User  $user
      * @param $social
      */
     public function __construct(User $user, $social)
