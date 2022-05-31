@@ -53,8 +53,7 @@ class BlogCategoriesController extends APIController
      * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
      * @responseFile responses/blog-category/blog-category-list.json
      *
-     * @param ManageBlogCategoriesRequest $request
-     *
+     * @param  ManageBlogCategoriesRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(ManageBlogCategoriesRequest $request)
@@ -75,9 +74,8 @@ class BlogCategoriesController extends APIController
      * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
      * @responseFile responses/blog-category/blog-category-show.json
      *
-     * @param ManageBlogCategoriesRequest $request
-     * @param BlogCategory $blogCategory
-     *
+     * @param  ManageBlogCategoriesRequest  $request
+     * @param  BlogCategory  $blogCategory
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(ManageBlogCategoriesRequest $request, BlogCategory $blogCategory)
@@ -93,8 +91,7 @@ class BlogCategoriesController extends APIController
      * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
      * @responseFile status=201 responses/blog-category/blog-category-store.json
      *
-     * @param StoreBlogCategoriesRequest $request
-     *
+     * @param  StoreBlogCategoriesRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreBlogCategoriesRequest $request)
@@ -117,9 +114,8 @@ class BlogCategoriesController extends APIController
      * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
      * @responseFile status=200 responses/blog-category/blog-category-update.json
      *
-     * @param UpdateBlogCategoriesRequest $request
-     * @param BlogCategory $blogCategory
-     *
+     * @param  UpdateBlogCategoriesRequest  $request
+     * @param  BlogCategory  $blogCategory
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateBlogCategoriesRequest $request, BlogCategory $blogCategory)
@@ -140,9 +136,8 @@ class BlogCategoriesController extends APIController
      * @responseFile status=401 scenario="API token not provided" responses/unauthenticated.json
      * @responseFile status=204 scenario="When the record is deleted" responses/blog-category/blog-category-destroy.json
      *
-     * @param DeleteBlogCategoriesRequest $request
-     * @param BlogCategory $blogCategory
-     *
+     * @param  DeleteBlogCategoriesRequest  $request
+     * @param  BlogCategory  $blogCategory
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(DeleteBlogCategoriesRequest $request, BlogCategory $blogCategory)

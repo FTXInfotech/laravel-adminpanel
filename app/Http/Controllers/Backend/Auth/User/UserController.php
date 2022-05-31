@@ -26,7 +26,7 @@ class UserController extends Controller
     protected $roleRepository;
 
     /**
-     * @param \App\Repositories\Backend\Auth\UserRepository $userRepository
+     * @param  \App\Repositories\Backend\Auth\UserRepository  $userRepository
      */
     public function __construct(UserRepository $userRepository, RoleRepository $roleRepository)
     {
@@ -36,8 +36,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
      * @return \App\Http\Responses\ViewResponse
      */
     public function index(ManageUserRequest $request)
@@ -46,8 +45,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
      * @return mixed
      */
     public function create(ManageUserRequest $request)
@@ -57,10 +55,10 @@ class UserController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\StoreUserRequest $request
+     * @param  \App\Http\Requests\Backend\Auth\User\StoreUserRequest  $request
+     * @return mixed
      *
      * @throws \Throwable
-     * @return mixed
      */
     public function store(StoreUserRequest $request)
     {
@@ -70,9 +68,8 @@ class UserController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     * @param \App\Models\Auth\User $user
-     *
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
+     * @param  \App\Models\Auth\User  $user
      * @return mixed
      */
     public function show(ManageUserRequest $request, User $user)
@@ -82,9 +79,8 @@ class UserController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     * @param \App\Models\Auth\User $user
-     *
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
+     * @param  \App\Models\Auth\User  $user
      * @return mixed
      */
     public function edit(ManageUserRequest $request, User $user, PermissionRepository $permissionRepository)
@@ -98,12 +94,12 @@ class UserController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\UpdateUserRequest $request
-     * @param \App\Models\Auth\User $user
+     * @param  \App\Http\Requests\Backend\Auth\User\UpdateUserRequest  $request
+     * @param  \App\Models\Auth\User  $user
+     * @return mixed
      *
      * @throws \App\Exceptions\GeneralException
      * @throws \Throwable
-     * @return mixed
      */
     public function update(UpdateUserRequest $request, User $user)
     {
@@ -113,11 +109,11 @@ class UserController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     * @param \App\Models\Auth\User $user
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
+     * @param  \App\Models\Auth\User  $user
+     * @return mixed
      *
      * @throws \Exception
-     * @return mixed
      */
     public function destroy(ManageUserRequest $request, User $user)
     {

@@ -22,7 +22,7 @@ class SendContact extends Mailable
     /**
      * SendContact constructor.
      *
-     * @param Request $request
+     * @param  Request  $request
      */
     public function __construct(Request $request)
     {
