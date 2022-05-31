@@ -15,7 +15,7 @@ class PagesTableController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\PagesRepository $repository
+     * @param  \App\Repositories\Backend\PagesRepository  $repository
      */
     public function __construct(PagesRepository $repository)
     {
@@ -23,8 +23,7 @@ class PagesTableController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Pages\ManagePageRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Pages\ManagePageRequest  $request
      * @return mixed
      */
     public function __invoke(ManagePageRequest $request)
