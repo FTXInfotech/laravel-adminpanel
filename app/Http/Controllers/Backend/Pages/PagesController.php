@@ -24,7 +24,7 @@ class PagesController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\PagesRepository $repository
+     * @param  \App\Repositories\Backend\PagesRepository  $repository
      */
     public function __construct(PagesRepository $repository)
     {
@@ -33,8 +33,7 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Pages\ManagePageRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Pages\ManagePageRequest  $request
      * @return \App\Http\Responses\ViewResponse
      */
     public function index(ManagePageRequest $request)
@@ -43,8 +42,7 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Pages\CreatePageRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Pages\CreatePageRequest  $request
      * @return \App\Http\Responses\ViewResponse
      */
     public function create(CreatePageRequest $request)
@@ -53,8 +51,7 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Pages\StorePageRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Pages\StorePageRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StorePageRequest $request)
@@ -65,9 +62,8 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \App\Models\Page $page
-     * @param \App\Http\Requests\Backend\Pages\EditPageRequest $request
-     *
+     * @param  \App\Models\Page  $page
+     * @param  \App\Http\Requests\Backend\Pages\EditPageRequest  $request
      * @return \App\Http\Responses\Backend\Blog\EditResponse
      */
     public function edit(Page $page, EditPageRequest $request)
@@ -76,9 +72,8 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \App\Models\Page $page
-     * @param \App\Http\Requests\Backend\Pages\UpdatePageRequest $request
-     *
+     * @param  \App\Models\Page  $page
+     * @param  \App\Http\Requests\Backend\Pages\UpdatePageRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function update(Page $page, UpdatePageRequest $request)
@@ -89,9 +84,8 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \App\Models\Page $page
-     * @param \App\Http\Requests\Backend\Pages\DeletePageRequest $request
-     *
+     * @param  \App\Models\Page  $page
+     * @param  \App\Http\Requests\Backend\Pages\DeletePageRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(Page $page, DeletePageRequest $request)
