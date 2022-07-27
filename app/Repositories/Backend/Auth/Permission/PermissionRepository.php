@@ -42,11 +42,10 @@ class PermissionRepository extends BaseRepository
     }
 
     /**
-     * @param array $input
+     * @param  array  $input
+     * @return bool
      *
      * @throws GeneralException
-     *
-     * @return bool
      */
     public function create(array $input)
     {
@@ -73,12 +72,11 @@ class PermissionRepository extends BaseRepository
     }
 
     /**
-     * @param Model $permission
+     * @param  Model  $permission
      * @param  $input
+     * @return bool
      *
      * @throws GeneralException
-     *
-     * @return bool
      */
     public function update($permission, array $input)
     {
@@ -104,11 +102,10 @@ class PermissionRepository extends BaseRepository
     }
 
     /**
-     * @param Model $permission
+     * @param  Model  $permission
+     * @return bool
      *
      * @throws GeneralException
-     *
-     * @return bool
      */
     public function delete($permission)
     {
