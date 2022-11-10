@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Auth\User;
-use Carbon\Carbon as Carbon;
+use Carbon\Carbon;
 use Database\DisableForeignKeys;
 use Database\TruncateTable;
 use Illuminate\Database\Seeder;

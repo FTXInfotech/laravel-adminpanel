@@ -18,7 +18,7 @@ class SidebarComposer
     /**
      * SidebarComposer constructor.
      *
-     * @param UserRepository $userRepository
+     * @param  UserRepository  $userRepository
      */
     public function __construct(UserRepository $userRepository)
     {
@@ -26,8 +26,7 @@ class SidebarComposer
     }
 
     /**
-     * @param View $view
-     *
+     * @param  View  $view
      * @return bool|mixed
      */
     public function compose(View $view)
