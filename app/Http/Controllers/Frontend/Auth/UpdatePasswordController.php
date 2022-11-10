@@ -19,7 +19,7 @@ class UpdatePasswordController extends Controller
     /**
      * ChangePasswordController constructor.
      *
-     * @param UserRepository $userRepository
+     * @param  UserRepository  $userRepository
      */
     public function __construct(UserRepository $userRepository)
     {
@@ -27,10 +27,10 @@ class UpdatePasswordController extends Controller
     }
 
     /**
-     * @param UpdatePasswordRequest $request
+     * @param  UpdatePasswordRequest  $request
+     * @return mixed
      *
      * @throws \App\Exceptions\GeneralException
-     * @return mixed
      */
     public function update(UpdatePasswordRequest $request)
     {
