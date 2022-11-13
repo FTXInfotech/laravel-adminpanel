@@ -18,7 +18,7 @@ class RoleTableController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\Auth\RoleRepository $roles
+     * @param  \App\Repositories\Backend\Auth\RoleRepository  $roles
      */
     public function __construct(RoleRepository $repository)
     {
@@ -26,8 +26,7 @@ class RoleTableController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\Role\ManageRoleRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Auth\Role\ManageRoleRequest  $request
      * @return mixed
      */
     public function __invoke(ManageRoleRequest $request)
