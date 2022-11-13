@@ -447,8 +447,8 @@ class UserRepositoryTest extends TestCase
     {
         $aciveUsers = factory(User::class, 6)->state('active')->create();
         $inactiveUsers = factory(User::class, 5)->state('inactive')->create();
-        $activeDeletesUsers = factory(User::class, 4)->states('active', 'softDeleted', )->create();
-        $inactiveDeletedUsers = factory(User::class, 3)->states('inactive', 'softDeleted', )->create();
+        $activeDeletesUsers = factory(User::class, 4)->states('active', 'softDeleted')->create();
+        $inactiveDeletedUsers = factory(User::class, 3)->states('inactive', 'softDeleted')->create();
 
         $this->assertCount($aciveUsers->count(), $this->userRepository->getForDataTable(1, false)->get()->toArray());
     }
@@ -460,8 +460,8 @@ class UserRepositoryTest extends TestCase
     {
         $aciveUsers = factory(User::class, 6)->state('active')->create();
         $inactiveUsers = factory(User::class, 5)->state('inactive')->create();
-        $activeDeletesUsers = factory(User::class, 4)->states('active', 'softDeleted', )->create();
-        $inactiveDeletedUsers = factory(User::class, 3)->states('inactive', 'softDeleted', )->create();
+        $activeDeletesUsers = factory(User::class, 4)->states('active', 'softDeleted')->create();
+        $inactiveDeletedUsers = factory(User::class, 3)->states('inactive', 'softDeleted')->create();
 
         $this->assertCount($inactiveUsers->count(), $this->userRepository->getForDataTable(0, false)->get()->toArray());
     }
@@ -473,8 +473,8 @@ class UserRepositoryTest extends TestCase
     {
         $aciveUsers = factory(User::class, 6)->state('active')->create();
         $inactiveUsers = factory(User::class, 5)->state('inactive')->create();
-        $activeDeletesUsers = factory(User::class, 4)->states('active', 'softDeleted', )->create();
-        $inactiveDeletedUsers = factory(User::class, 3)->states('inactive', 'softDeleted', )->create();
+        $activeDeletesUsers = factory(User::class, 4)->states('active', 'softDeleted')->create();
+        $inactiveDeletedUsers = factory(User::class, 3)->states('inactive', 'softDeleted')->create();
 
         $deletedUserCount = $activeDeletesUsers->count() + $inactiveDeletedUsers->count();
 
