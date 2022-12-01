@@ -9,8 +9,7 @@ class BaseModel extends Model
     /**
      * Generate drop-down select data with basic IDs.
      *
-     * @param string $field_name
-     *
+     * @param  string  $field_name
      * @return array
      */
     public static function getSelectData($field_name = 'name')
@@ -24,8 +23,7 @@ class BaseModel extends Model
      * Generate items for drop-down select data with basic IDs.
      *
      * @param $collection
-     * @param string $field_name
-     *
+     * @param  string  $field_name
      * @return array
      */
     public static function getItems($collection, $field_name)

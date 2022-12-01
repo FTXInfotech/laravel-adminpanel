@@ -19,7 +19,7 @@ class UserTableController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\Auth\UserRepository $repository
+     * @param  \App\Repositories\Backend\Auth\UserRepository  $repository
      */
     public function __construct(UserRepository $repository)
     {
@@ -27,8 +27,7 @@ class UserTableController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Auth\User\ManageUserRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Auth\User\ManageUserRequest  $request
      * @return mixed
      */
     public function __invoke(ManageUserRequest $request)
