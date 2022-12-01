@@ -33,6 +33,7 @@ class BlogCategoriesRepository extends BaseRepository
      * Retrieve List.
      *
      * @var array
+     *
      * @return Collection
      */
     public function retrieveList(array $options = [])
@@ -71,11 +72,10 @@ class BlogCategoriesRepository extends BaseRepository
     }
 
     /**
-     * @param array $input
+     * @param  array  $input
+     * @return bool
      *
      * @throws \App\Exceptions\GeneralException
-     *
-     * @return bool
      */
     public function create(array $input)
     {
@@ -96,7 +96,7 @@ class BlogCategoriesRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\BlogCategory $blogcategory
+     * @param  \App\Models\BlogCategory  $blogcategory
      * @param  $input
      *
      * @throws \App\Exceptions\GeneralException
@@ -122,11 +122,10 @@ class BlogCategoriesRepository extends BaseRepository
     }
 
     /**
-     * @param \App\Models\BlogCategory $blogcategory
+     * @param  \App\Models\BlogCategory  $blogcategory
+     * @return bool
      *
      * @throws \App\Exceptions\GeneralException
-     *
-     * @return bool
      */
     public function delete(BlogCategory $blogcategory)
     {
