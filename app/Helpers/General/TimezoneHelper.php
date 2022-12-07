@@ -10,9 +10,8 @@ use Carbon\Carbon;
 class TimezoneHelper
 {
     /**
-     * @param Carbon $date
-     * @param string $format
-     *
+     * @param  Carbon  $date
+     * @param  string  $format
      * @return Carbon
      */
     public function convertToLocal(Carbon $date, $format = 'D M j G:i:s T Y'): string
@@ -22,7 +21,6 @@ class TimezoneHelper
 
     /**
      * @param $date
-     *
      * @return Carbon
      */
     public function convertFromLocal($date): Carbon
