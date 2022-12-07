@@ -22,7 +22,7 @@ class FaqsController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\FaqsRepository $faq
+     * @param  \App\Repositories\Backend\FaqsRepository  $faq
      */
     public function __construct(FaqsRepository $repository)
     {
@@ -31,8 +31,7 @@ class FaqsController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Faqs\ManageFaqsRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Faqs\ManageFaqsRequest  $request
      * @return ViewResponse
      */
     public function index(ManageFaqsRequest $request)
@@ -41,8 +40,7 @@ class FaqsController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Faqs\CreateFaqsRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Faqs\CreateFaqsRequest  $request
      * @return ViewResponse
      */
     public function create(CreateFaqsRequest $request)
@@ -51,8 +49,7 @@ class FaqsController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\Faqs\StoreFaqsRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\Faqs\StoreFaqsRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function store(StoreFaqsRequest $request)
@@ -63,9 +60,8 @@ class FaqsController extends Controller
     }
 
     /**
-     * @param \App\Models\Faq $faq
-     * @param \App\Http\Requests\Backend\Faqs\ManagePageRequest $request
-     *
+     * @param  \App\Models\Faq  $faq
+     * @param  \App\Http\Requests\Backend\Faqs\ManagePageRequest  $request
      * @return ViewResponse
      */
     public function edit(Faq $faq, ManageFaqsRequest $request)
@@ -74,9 +70,8 @@ class FaqsController extends Controller
     }
 
     /**
-     * @param \App\Models\Faq $faq
-     * @param \App\Http\Requests\Backend\Faqs\UpdateFaqsRequest $request
-     *
+     * @param  \App\Models\Faq  $faq
+     * @param  \App\Http\Requests\Backend\Faqs\UpdateFaqsRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function update(Faq $faq, UpdateFaqsRequest $request)
@@ -87,9 +82,8 @@ class FaqsController extends Controller
     }
 
     /**
-     * @param \App\Models\Faq $faq
-     * @param \App\Http\Requests\Backend\Pages\DeleteFaqRequest $request
-     *
+     * @param  \App\Models\Faq  $faq
+     * @param  \App\Http\Requests\Backend\Pages\DeleteFaqRequest  $request
      * @return \App\Http\Responses\RedirectResponse
      */
     public function destroy(Faq $faq, DeleteFaqsRequest $request)
