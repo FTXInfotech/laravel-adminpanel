@@ -18,7 +18,7 @@ class BlogCategoriesTableController extends Controller
     protected $repository;
 
     /**
-     * @param \App\Repositories\Backend\BlogCategories\BlogCategoriesRepository $repository
+     * @param  \App\Repositories\Backend\BlogCategories\BlogCategoriesRepository  $repository
      */
     public function __construct(BlogCategoriesRepository $repository)
     {
@@ -26,8 +26,7 @@ class BlogCategoriesTableController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest $request
-     *
+     * @param  \App\Http\Requests\Backend\BlogCategories\ManageBlogCategoriesRequest  $request
      * @return mixed
      */
     public function __invoke(ManageBlogCategoriesRequest $request)

@@ -19,7 +19,7 @@ class ConfirmAccountController extends Controller
     /**
      * ConfirmAccountController constructor.
      *
-     * @param UserRepository $user
+     * @param  UserRepository  $user
      */
     public function __construct(UserRepository $user)
     {
@@ -28,9 +28,9 @@ class ConfirmAccountController extends Controller
 
     /**
      * @param $token
+     * @return mixed
      *
      * @throws \App\Exceptions\GeneralException
-     * @return mixed
      */
     public function confirm($token)
     {
@@ -41,9 +41,9 @@ class ConfirmAccountController extends Controller
 
     /**
      * @param $uuid
+     * @return mixed
      *
      * @throws \App\Exceptions\GeneralException
-     * @return mixed
      */
     public function sendConfirmationEmail($uuid)
     {
