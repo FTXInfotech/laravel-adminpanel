@@ -12,7 +12,7 @@ trait SendUserPasswordReset
     /**
      * Send the password reset notification.
      *
-     * @param string $token
+     * @param  string  $token
      */
     public function sendPasswordResetNotification($token)
     {

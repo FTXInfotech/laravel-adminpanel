@@ -17,8 +17,8 @@ class ViewResponse implements Responsable
     protected $with;
 
     /**
-     * @param string $view
-     * @param array  $with
+     * @param  string  $view
+     * @param  array  $with
      */
     public function __construct($view, $with = [])
     {
@@ -29,8 +29,7 @@ class ViewResponse implements Responsable
     /**
      * In Response.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function toResponse($request)
