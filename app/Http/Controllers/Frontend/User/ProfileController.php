@@ -19,7 +19,7 @@ class ProfileController extends Controller
     /**
      * ProfileController constructor.
      *
-     * @param UserRepository $userRepository
+     * @param  UserRepository  $userRepository
      */
     public function __construct(UserRepository $userRepository)
     {
@@ -27,10 +27,10 @@ class ProfileController extends Controller
     }
 
     /**
-     * @param UpdateProfileRequest $request
+     * @param  UpdateProfileRequest  $request
+     * @return mixed
      *
      * @throws \App\Exceptions\GeneralException
-     * @return mixed
      */
     public function update(UpdateProfileRequest $request)
     {
