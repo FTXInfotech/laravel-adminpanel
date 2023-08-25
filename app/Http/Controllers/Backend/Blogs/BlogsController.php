@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Blogs\ManageBlogsRequest;
 use App\Http\Requests\Backend\Blogs\StoreBlogsRequest;
 use App\Http\Requests\Backend\Blogs\UpdateBlogsRequest;
-use App\Http\Responses\Backend\Blog\EditResponse;
+use App\Http\Responses\Backend\Blogs\EditResponse;
 use App\Http\Responses\RedirectResponse;
 use App\Http\Responses\ViewResponse;
 use App\Models\Blog;
